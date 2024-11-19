@@ -1,3 +1,7 @@
- # How does this work
+ # Field Manager python client
 
-See the Makefile.
+ ## What is this?
+ 
+ ## How does this work?
+
+See the Makefile. Just type `make` to get the help.
