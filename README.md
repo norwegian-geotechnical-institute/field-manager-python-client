@@ -16,4 +16,4 @@ This client is automatically generated from the Field Manager API’s OpenAPI sp
 
 ## How does this work?
 
-See the Makefile. Just type `make` to get the help.
+
