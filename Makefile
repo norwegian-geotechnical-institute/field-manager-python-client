@@ -22,19 +22,19 @@ install_jq:  ## Install jq command-line tool
 
 # Clear the log file
 clear_log:  ## Delete the log file if it exists
-	rm -f logs/log
-	rm -f logs/versions
+	@rm -f logs/log logs/versions
 
-# Get the version from openapi.json
-get_version:  ## Get the version from openapi.json
-	@jq -r '.info.version' ./openapi_specification/openapi.json
+# Get the version from openapi.json and save to logs/versions
+get_version:  ## Get the version from openapi.json and save to logs/versions
+	@echo "Fetching version from openapi.json..."
+	@VERSION=$$(jq -r '.info.version' ./openapi_specification/openapi.json) && \
+	echo "Field Manager Data API VERSION: $$VERSION" > logs/versions
 
 # Run the openapi-python-client generate command
-generate: clear_log  ## Generate API client from OpenAPI spec
+generate: clear_log get_version  ## Generate API client from OpenAPI spec
 	@echo "Generating API client..."
-	@VERSION=$(make get_version) && echo Field Manager Data API VERSION:  > ./logs/versions 2>&1
-	openapi-python-client --version >> ./logs/versions 2>&1
-	openapi-python-client generate --path ./openapi_specification/openapi.json --overwrite > ./logs/log 2>&1
+	openapi-python-client generate --path ./openapi_specification/openapi.json --overwrite >> logs/log 2>&1
+	openapi-python-client --version >> logs/versions 2>&1
 
 # A shortcut to install dependencies and then generate the client
-all: install generate  ## Install dependencies and generate client
+all: install install_jq generate  ## Install dependencies and generate client
