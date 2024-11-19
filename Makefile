@@ -7,6 +7,19 @@ install:  ## Install openapi-python-client using pipx
 	pipx install openapi-python-client --include-deps
 	openapi-python-client --install-completion
 
+# Install jq
+install_jq:  ## Install jq command-line tool
+	@which jq > /dev/null && echo "jq is already installed." || { \
+	  echo "Installing jq..."; \
+	  if [ "$$(uname)" = "Linux" ]; then \
+	    sudo apt-get update && sudo apt-get install -y jq; \
+	  elif [ "$$(uname)" = "Darwin" ]; then \
+	    brew install jq; \
+	  else \
+	    echo "Please install jq manually."; \
+	  fi \
+	}
+
 # Clear the log file
 clear_log:  ## Delete the log file if it exists
 	rm -f logs/log
@@ -14,6 +27,10 @@ clear_log:  ## Delete the log file if it exists
 # Run the openapi-python-client generate command
 generate: clear_log  ## Generate API client from OpenAPI spec
 	openapi-python-client generate --path ./openapi_specification/openapi.json --overwrite > ./logs/log 2>&1
+
+# Get the version from openapi.json
+get_version:  ## Get the version from openapi.json
+	@jq -r '.info.version' openapi.json
 
 # A shortcut to install dependencies and then generate the client
 all: install generate  ## Install dependencies and generate client
