@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "examples"
+version = "0.1.0"
+description = "Examples of using field manager data api client"
+authors = ["Jiyang Ye <jiyang.ye@ngi.no>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+field-manager-data-api-client = {path = "../field-manager-data-api-client", develop=true}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
