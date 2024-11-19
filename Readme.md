@@ -14,3 +14,5 @@ See the Makefile. Just type `make` to get the help.
 [] 4. Build the pipeline. Jiyang
 [] 5. Use the production version, Jiyang
 [] 6. Publish. Jiyang
+[] 7. Find a better way to get tokens
+[] 8. Check out how exception handling
