@@ -8,6 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 field-manager-data-api-client = {path = "../field-manager-data-api-client", develop=true}
+python-keycloak = "^4.7.2"
 
 
 [build-system]
