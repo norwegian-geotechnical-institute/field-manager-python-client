@@ -2,6 +2,9 @@
 help:  ## Show this help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+# Variable for the OpenAPI specification path
+OPENAPI_SPEC=./openapi_specification/openapi.json
+
 # Install the required library using pipx
 install:  ## Install openapi-python-client using pipx
 	pipx install openapi-python-client --include-deps
@@ -26,14 +29,14 @@ clear_log:  ## Delete the log file if it exists
 
 # Get the version from openapi.json and save to logs/versions
 get_version:  ## Get the version from openapi.json and save to logs/versions
-	@echo "Fetching version from openapi.json..."
-	@VERSION=$$(jq -r '.info.version' ./openapi_specification/openapi.json) && \
-	echo "Field Manager Data API VERSION: $$VERSION" > logs/versions
+	@echo "Fetching version from $(OPENAPI_SPEC)..."
+	@VERSION=$$(jq -r '.info.version' $(OPENAPI_SPEC)) && \
+	echo "Field Manager Data API version: $$VERSION" > logs/versions
 
 # Run the openapi-python-client generate command
 generate: clear_log get_version  ## Generate API client from OpenAPI spec
 	@echo "Generating API client..."
-	openapi-python-client generate --path ./openapi_specification/openapi.json --overwrite >> logs/log 2>&1
+	openapi-python-client generate --path $(OPENAPI_SPEC) --overwrite >> logs/log 2>&1
 	openapi-python-client --version >> logs/versions 2>&1
 
 # A shortcut to install dependencies and then generate the client
