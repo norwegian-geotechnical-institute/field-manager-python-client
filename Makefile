@@ -4,6 +4,7 @@ help:  ## Show this help message
 
 # Variable for the OpenAPI specification path
 OPENAPI_SPEC=./openapi_specification/openapi.json
+OPENAPI_SPEC_URL=https://app.test.fieldmanager.io/api/location/openapi.json
 
 # Install the required library using pipx
 install:  ## Install openapi-python-client using pipx
@@ -26,6 +27,15 @@ install_jq:  ## Install jq command-line tool
 # Clear the log file
 clear_log:  ## Delete the log file if it exists
 	@rm -f logs/log logs/versions
+
+# Download the OpenAPI specification
+download_openapi:  ## Download the OpenAPI specification
+	@echo "Downloading OpenAPI specification..."
+	@curl -s $(OPENAPI_SPEC_URL) > $(OPENAPI_SPEC)
+
+format_openapi: download_openapi  ## Format the OpenAPI specification
+	@echo "Formatting OpenAPI specification..."
+	@npx prettier --write $(OPENAPI_SPEC)
 
 # Get the version from openapi.json and save to logs/versions
 get_version:  ## Get the version from openapi.json and save to logs/versions
