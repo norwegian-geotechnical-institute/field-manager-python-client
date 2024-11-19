@@ -1,3 +1,23 @@
+"""
+This example demonstrates how to interact with an API using a Python client to retrieve
+and display information about organizations and their associated projects.
+
+1. Setup: Imports necessary models (Organization, Project) and API functions for fetching
+   organizations and their projects.
+2. Client Initialization: Sets up and uses an API client.
+3. Fetch and List Organizations:
+   - Retrieves a list of organizations and iterates through each organization to print its name
+     and number of projects.
+4. Detailed Fetch for First Organization:
+   - For the first organization, fetches and displays its projects by iterating through them
+     and printing each project name.
+
+This approach allows the user to:
+- List all organizations.
+- Display the number of projects for each organization.
+- List project names for the first organization in a detailed format.
+"""
+
 # Import models
 from field_manager_data_api_client.models import Organization, Project
 
@@ -23,7 +43,7 @@ with client as client:
         my_org: Organization = get_organization_organizations_organization_id_get.sync(
             client=client, organization_id=org_id
         )
-        print(org.name, "has ", my_org.number_of_projects, "projects.")
+        print(org.name, "has", my_org.number_of_projects, "projects.")
 
         # Fetch the projects for the first organization
         if index == 0:
@@ -32,6 +52,6 @@ with client as client:
                     client=client, organization_id=org_id
                 )
             )
-            print("    ", org.name, " has the following projects: ")
+            print("    ", org.name, "has the following projects:")
             for project in first_org_projects:
                 print("        ", project.name)
