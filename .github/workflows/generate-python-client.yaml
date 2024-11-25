@@ -48,6 +48,7 @@ jobs:
         run: |
           echo "Formatting OpenAPI specification..."
           npx prettier --write ./openapi_specification/openapi.json
+          cat ./openapi_specification/openapi.json
 
       # Step 7: Get version and save to logs/versions
       - name: Get API version
