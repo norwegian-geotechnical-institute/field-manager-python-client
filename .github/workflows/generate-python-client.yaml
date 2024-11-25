@@ -1,0 +1,65 @@
+name: Generate Python Client
+
+on:
+  workflow_dispatch: # Allow manual triggers
+
+jobs:
+  generate-client:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12"]
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      # Step 1: Define environment variable for OpenAPI spec URL
+      - name: Set OpenAPI Spec URL
+        run: echo "OPENAPI_SPEC_URL=https://app.test.fieldmanager.io/api/location/openapi.json" >> $GITHUB_ENV
+
+      # Step 2: Check out the code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 3: Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # Step 4: Install dependencies (pipx and jq)
+      - name: Install pipx and jq
+        run: |
+          python3 -m pip install --user pipx
+          python3 -m pipx ensurepath
+          pipx install openapi-python-client --include-deps
+          sudo apt-get update && sudo apt-get install -y jq
+          npm install -g prettier
+
+      # Step 5: Download the OpenAPI specification
+      - name: Download OpenAPI Specification
+        run: |
+          echo "Downloading OpenAPI specification..."
+          curl -s ${{ env.OPENAPI_SPEC_URL }} > ./openapi_specification/openapi.json
+
+      # Step 6: Format the OpenAPI specification
+      - name: Format OpenAPI Specification
+        run: |
+          echo "Formatting OpenAPI specification..."
+          npx prettier --write ./openapi_specification/openapi.json
+
+      # Step 7: Get version and save to logs/versions
+      - name: Get API version
+        run: |
+          mkdir -p logs
+          VERSION=$(jq -r '.info.version' ./openapi_specification/openapi.json)
+          echo "Field Manager Data API version: $VERSION" > logs/versions
+
+      # Step 8: Generate the Python client
+      - name: Generate Python Client
+        run: |
+          mkdir -p logs
+          echo "Generating API client..."
+          openapi-python-client generate --path ./openapi_specification/openapi.json --overwrite --custom-template-path=templates --config config.yaml >> logs/log 2>&1
+          openapi-python-client --version >> logs/versions 2>&1
