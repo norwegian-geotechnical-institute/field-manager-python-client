@@ -37,6 +37,7 @@ jobs:
           python3 -m pipx ensurepath
           pipx install openapi-python-client --include-deps
           sudo apt-get update && sudo apt-get install -y jq
+          sudo snap install yq
           npm install -g prettier
 
       # Step 5: Download the OpenAPI specification
@@ -55,7 +56,7 @@ jobs:
       - name: Get API version
         run: |
           mkdir -p logs
-          VERSION=$(jq -r '.package_version_override' config.yaml)
+          VERSION=$(yq -r '.package_version_override' config.yaml)
           echo "Field Manager Data API version: $VERSION" > logs/versions
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
