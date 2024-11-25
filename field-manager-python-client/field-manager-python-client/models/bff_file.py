@@ -20,8 +20,8 @@ from uuid import UUID
 import datetime
 
 if TYPE_CHECKING:
-  from ..models.bff_method import BFFMethod
   from ..models.bff_location import BFFLocation
+  from ..models.bff_method import BFFMethod
 
 
 
@@ -58,8 +58,8 @@ class BFFFile:
 
 
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.bff_method import BFFMethod
         from ..models.bff_location import BFFLocation
+        from ..models.bff_method import BFFMethod
         file_id = str(self.file_id)
 
         name = self.name
@@ -130,8 +130,8 @@ class BFFFile:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.bff_method import BFFMethod
         from ..models.bff_location import BFFLocation
+        from ..models.bff_method import BFFMethod
         d = src_dict.copy()
         file_id = UUID(d.pop("file_id"))
 

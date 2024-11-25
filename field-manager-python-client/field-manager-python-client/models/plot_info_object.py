@@ -19,12 +19,12 @@ from typing import Union
 from uuid import UUID
 
 if TYPE_CHECKING:
-  from ..models.location_coordinates import LocationCoordinates
-  from ..models.fm_plot_options import FMPlotOptions
-  from ..models.method_info import MethodInfo
-  from ..models.plot_info_object_stats_type_0 import PlotInfoObjectStatsType0
   from ..models.pdf_page_info import PDFPageInfo
   from ..models.location_info import LocationInfo
+  from ..models.location_coordinates import LocationCoordinates
+  from ..models.fm_plot_options import FMPlotOptions
+  from ..models.plot_info_object_stats_type_0 import PlotInfoObjectStatsType0
+  from ..models.method_info import MethodInfo
 
 
 
@@ -73,12 +73,12 @@ class PlotInfoObject:
 
 
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.location_coordinates import LocationCoordinates
-        from ..models.fm_plot_options import FMPlotOptions
-        from ..models.method_info import MethodInfo
-        from ..models.plot_info_object_stats_type_0 import PlotInfoObjectStatsType0
         from ..models.pdf_page_info import PDFPageInfo
         from ..models.location_info import LocationInfo
+        from ..models.location_coordinates import LocationCoordinates
+        from ..models.fm_plot_options import FMPlotOptions
+        from ..models.plot_info_object_stats_type_0 import PlotInfoObjectStatsType0
+        from ..models.method_info import MethodInfo
         project_id = str(self.project_id)
 
         location_type = self.location_type.value
@@ -182,12 +182,12 @@ class PlotInfoObject:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.location_coordinates import LocationCoordinates
-        from ..models.fm_plot_options import FMPlotOptions
-        from ..models.method_info import MethodInfo
-        from ..models.plot_info_object_stats_type_0 import PlotInfoObjectStatsType0
         from ..models.pdf_page_info import PDFPageInfo
         from ..models.location_info import LocationInfo
+        from ..models.location_coordinates import LocationCoordinates
+        from ..models.fm_plot_options import FMPlotOptions
+        from ..models.plot_info_object_stats_type_0 import PlotInfoObjectStatsType0
+        from ..models.method_info import MethodInfo
         d = src_dict.copy()
         project_id = UUID(d.pop("project_id"))
 

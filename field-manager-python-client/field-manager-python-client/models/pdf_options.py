@@ -20,8 +20,8 @@ from typing import Dict
 from typing import Union
 
 if TYPE_CHECKING:
-  from ..models.page_number_start_per_method import PageNumberStartPerMethod
   from ..models.page_number_prefix_by_method import PageNumberPrefixByMethod
+  from ..models.page_number_start_per_method import PageNumberStartPerMethod
 
 
 
@@ -90,8 +90,8 @@ class PdfOptions:
 
 
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.page_number_start_per_method import PageNumberStartPerMethod
         from ..models.page_number_prefix_by_method import PageNumberPrefixByMethod
+        from ..models.page_number_start_per_method import PageNumberStartPerMethod
         lang: Union[Unset, str] = UNSET
         if not isinstance(self.lang, Unset):
             lang = self.lang.value
@@ -226,8 +226,8 @@ class PdfOptions:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.page_number_start_per_method import PageNumberStartPerMethod
         from ..models.page_number_prefix_by_method import PageNumberPrefixByMethod
+        from ..models.page_number_start_per_method import PageNumberStartPerMethod
         d = src_dict.copy()
         _lang = d.pop("lang", UNSET)
         lang: Union[Unset, PdfOptionsLang]
