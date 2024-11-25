@@ -1,47 +1,34 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.method_pz_data_create_method_type_id import MethodPZDataCreateMethodTypeId
 from ..models.reading_type import ReadingType
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, Union
-from typing import Union
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="MethodPZDataCreate")
 
 
 @_attrs_define
 class MethodPZDataCreate:
-    """ 
-        Attributes:
-            reading_type (ReadingType):
-            method_data_id (Union[None, UUID, Unset]):
-            method_id (Union[None, UUID, Unset]):
-            method_type_id (Union[Unset, MethodPZDataCreateMethodTypeId]):  Default: MethodPZDataCreateMethodTypeId.VALUE_5.
-            created_at (Union[None, Unset, datetime.datetime]):
-            updated_at (Union[None, Unset, datetime.datetime]):
-            date (Union[None, Unset, datetime.datetime]):
-            pore_pressure (Union[None, Unset, float, str]):
-            barometric_pressure (Union[None, Unset, float, str]):
-            temperature (Union[None, Unset, float, str]):
-            remarks (Union[None, Unset, str]):
-     """
+    """
+    Attributes:
+        reading_type (ReadingType):
+        method_data_id (Union[None, UUID, Unset]):
+        method_id (Union[None, UUID, Unset]):
+        method_type_id (Union[Unset, MethodPZDataCreateMethodTypeId]):  Default: MethodPZDataCreateMethodTypeId.VALUE_5.
+        created_at (Union[None, Unset, datetime.datetime]):
+        updated_at (Union[None, Unset, datetime.datetime]):
+        date (Union[None, Unset, datetime.datetime]):
+        pore_pressure (Union[None, Unset, float, str]):
+        barometric_pressure (Union[None, Unset, float, str]):
+        temperature (Union[None, Unset, float, str]):
+        remarks (Union[None, Unset, str]):
+    """
 
     reading_type: ReadingType
     method_data_id: Union[None, UUID, Unset] = UNSET
@@ -55,7 +42,6 @@ class MethodPZDataCreate:
     temperature: Union[None, Unset, float, str] = UNSET
     remarks: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         reading_type = self.reading_type.value
@@ -79,7 +65,6 @@ class MethodPZDataCreate:
         method_type_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
-
 
         created_at: Union[None, Unset, str]
         if isinstance(self.created_at, Unset):
@@ -129,12 +114,13 @@ class MethodPZDataCreate:
         else:
             remarks = self.remarks
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "reading_type": reading_type,
-        })
+        field_dict.update(
+            {
+                "reading_type": reading_type,
+            }
+        )
         if method_data_id is not UNSET:
             field_dict["method_data_id"] = method_data_id
         if method_id is not UNSET:
@@ -158,15 +144,10 @@ class MethodPZDataCreate:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
         reading_type = ReadingType(d.pop("reading_type"))
-
-
-
 
         def _parse_method_data_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
@@ -178,15 +159,12 @@ class MethodPZDataCreate:
                     raise TypeError()
                 method_data_id_type_0 = UUID(data)
 
-
-
                 return method_data_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         method_data_id = _parse_method_data_id(d.pop("method_data_id", UNSET))
-
 
         def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
@@ -198,25 +176,19 @@ class MethodPZDataCreate:
                     raise TypeError()
                 method_id_type_0 = UUID(data)
 
-
-
                 return method_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
 
-
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodPZDataCreateMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodPZDataCreateMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -228,15 +200,12 @@ class MethodPZDataCreate:
                     raise TypeError()
                 created_at_type_0 = isoparse(data)
 
-
-
                 return created_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         created_at = _parse_created_at(d.pop("created_at", UNSET))
-
 
         def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -248,15 +217,12 @@ class MethodPZDataCreate:
                     raise TypeError()
                 updated_at_type_0 = isoparse(data)
 
-
-
                 return updated_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
-
 
         def _parse_date(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -268,15 +234,12 @@ class MethodPZDataCreate:
                     raise TypeError()
                 date_type_0 = isoparse(data)
 
-
-
                 return date_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         date = _parse_date(d.pop("date", UNSET))
-
 
         def _parse_pore_pressure(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -287,7 +250,6 @@ class MethodPZDataCreate:
 
         pore_pressure = _parse_pore_pressure(d.pop("pore_pressure", UNSET))
 
-
         def _parse_barometric_pressure(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -296,7 +258,6 @@ class MethodPZDataCreate:
             return cast(Union[None, Unset, float, str], data)
 
         barometric_pressure = _parse_barometric_pressure(d.pop("barometric_pressure", UNSET))
-
 
         def _parse_temperature(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -307,7 +268,6 @@ class MethodPZDataCreate:
 
         temperature = _parse_temperature(d.pop("temperature", UNSET))
 
-
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -316,7 +276,6 @@ class MethodPZDataCreate:
             return cast(Union[None, Unset, str], data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
-
 
         method_pz_data_create = cls(
             reading_type=reading_type,
@@ -331,7 +290,6 @@ class MethodPZDataCreate:
             temperature=temperature,
             remarks=remarks,
         )
-
 
         method_pz_data_create.additional_properties = d
         return method_pz_data_create

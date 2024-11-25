@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class MethodTypeEnumStr(str, Enum):
     AD = "ad"
     CD = "cd"

@@ -1,12 +1,11 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
+from uuid import UUID
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
 from ...models.method_ad import MethodAD
 from ...models.method_cd import MethodCD
@@ -33,282 +32,282 @@ from ...models.method_svt import MethodSVT
 from ...models.method_tot import MethodTOT
 from ...models.method_tp import MethodTP
 from ...models.method_wst import MethodWST
-from typing import cast
-from typing import cast, Union
-from typing import Dict
-from uuid import UUID
-
+from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     location_id: UUID,
     method_id: UUID,
-
 ) -> Dict[str, Any]:
-    
-
-    
-
-    
-
     _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/projects/{project_id}/locations/{location_id}/methods/{method_id}".format(project_id=project_id,location_id=location_id,method_id=method_id,),
+        "url": f"/projects/{project_id}/locations/{location_id}/methods/{method_id}",
     }
-
 
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST']]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[
+    Union[
+        HTTPValidationError,
+        Union[
+            "MethodAD",
+            "MethodCD",
+            "MethodCPT",
+            "MethodDP",
+            "MethodDT",
+            "MethodESA",
+            "MethodINC",
+            "MethodIW",
+            "MethodOTHER",
+            "MethodPT",
+            "MethodPZ",
+            "MethodRCD",
+            "MethodRO",
+            "MethodRP",
+            "MethodRS",
+            "MethodRWS",
+            "MethodSA",
+            "MethodSPT",
+            "MethodSR",
+            "MethodSRS",
+            "MethodSS",
+            "MethodSVT",
+            "MethodTOT",
+            "MethodTP",
+            "MethodWST",
+        ],
+    ]
+]:
     if response.status_code == 200:
-        def _parse_response_200(data: object) -> Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST']:
+
+        def _parse_response_200(
+            data: object,
+        ) -> Union[
+            "MethodAD",
+            "MethodCD",
+            "MethodCPT",
+            "MethodDP",
+            "MethodDT",
+            "MethodESA",
+            "MethodINC",
+            "MethodIW",
+            "MethodOTHER",
+            "MethodPT",
+            "MethodPZ",
+            "MethodRCD",
+            "MethodRO",
+            "MethodRP",
+            "MethodRS",
+            "MethodRWS",
+            "MethodSA",
+            "MethodSPT",
+            "MethodSR",
+            "MethodSRS",
+            "MethodSS",
+            "MethodSVT",
+            "MethodTOT",
+            "MethodTP",
+            "MethodWST",
+        ]:
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_0 = MethodCPT.from_dict(data)
 
-
-
                 return response_200_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_1 = MethodTOT.from_dict(data)
 
-
-
                 return response_200_type_1
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_2 = MethodRP.from_dict(data)
 
-
-
                 return response_200_type_2
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_3 = MethodSA.from_dict(data)
 
-
-
                 return response_200_type_3
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_4 = MethodPZ.from_dict(data)
 
-
-
                 return response_200_type_4
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_5 = MethodSS.from_dict(data)
 
-
-
                 return response_200_type_5
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_6 = MethodRWS.from_dict(data)
 
-
-
                 return response_200_type_6
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_7 = MethodRCD.from_dict(data)
 
-
-
                 return response_200_type_7
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_8 = MethodRS.from_dict(data)
 
-
-
                 return response_200_type_8
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_9 = MethodSVT.from_dict(data)
 
-
-
                 return response_200_type_9
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_10 = MethodSPT.from_dict(data)
 
-
-
                 return response_200_type_10
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_11 = MethodCD.from_dict(data)
 
-
-
                 return response_200_type_11
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_12 = MethodTP.from_dict(data)
 
-
-
                 return response_200_type_12
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_13 = MethodPT.from_dict(data)
 
-
-
                 return response_200_type_13
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_14 = MethodESA.from_dict(data)
 
-
-
                 return response_200_type_14
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_15 = MethodAD.from_dict(data)
 
-
-
                 return response_200_type_15
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_16 = MethodRO.from_dict(data)
 
-
-
                 return response_200_type_16
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_17 = MethodINC.from_dict(data)
 
-
-
                 return response_200_type_17
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_18 = MethodSR.from_dict(data)
 
-
-
                 return response_200_type_18
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_19 = MethodIW.from_dict(data)
 
-
-
                 return response_200_type_19
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_20 = MethodDT.from_dict(data)
 
-
-
                 return response_200_type_20
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_21 = MethodOTHER.from_dict(data)
 
-
-
                 return response_200_type_21
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_22 = MethodSRS.from_dict(data)
 
-
-
                 return response_200_type_22
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_23 = MethodDP.from_dict(data)
 
-
-
                 return response_200_type_23
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             if not isinstance(data, dict):
                 raise TypeError()
             response_200_type_24 = MethodWST.from_dict(data)
-
-
 
             return response_200_type_24
 
@@ -318,8 +317,6 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
-
-
         return response_422
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -327,7 +324,40 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST']]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[
+    Union[
+        HTTPValidationError,
+        Union[
+            "MethodAD",
+            "MethodCD",
+            "MethodCPT",
+            "MethodDP",
+            "MethodDT",
+            "MethodESA",
+            "MethodINC",
+            "MethodIW",
+            "MethodOTHER",
+            "MethodPT",
+            "MethodPZ",
+            "MethodRCD",
+            "MethodRO",
+            "MethodRP",
+            "MethodRS",
+            "MethodRWS",
+            "MethodSA",
+            "MethodSPT",
+            "MethodSR",
+            "MethodSRS",
+            "MethodSS",
+            "MethodSVT",
+            "MethodTOT",
+            "MethodTP",
+            "MethodWST",
+        ],
+    ]
+]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -342,9 +372,39 @@ def sync_detailed(
     method_id: UUID,
     *,
     client: AuthenticatedClient,
-
-) -> Response[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST']]]:
-    """ Get Method
+) -> Response[
+    Union[
+        HTTPValidationError,
+        Union[
+            "MethodAD",
+            "MethodCD",
+            "MethodCPT",
+            "MethodDP",
+            "MethodDT",
+            "MethodESA",
+            "MethodINC",
+            "MethodIW",
+            "MethodOTHER",
+            "MethodPT",
+            "MethodPZ",
+            "MethodRCD",
+            "MethodRO",
+            "MethodRP",
+            "MethodRS",
+            "MethodRWS",
+            "MethodSA",
+            "MethodSPT",
+            "MethodSR",
+            "MethodSRS",
+            "MethodSS",
+            "MethodSVT",
+            "MethodTOT",
+            "MethodTP",
+            "MethodWST",
+        ],
+    ]
+]:
+    """Get Method
 
      Get the method by method_id
 
@@ -359,14 +419,12 @@ def sync_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST']]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-location_id=location_id,
-method_id=method_id,
-
+        location_id=location_id,
+        method_id=method_id,
     )
 
     response = client.get_httpx_client().request(
@@ -375,15 +433,46 @@ method_id=method_id,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     project_id: str,
     location_id: UUID,
     method_id: UUID,
     *,
     client: AuthenticatedClient,
-
-) -> Optional[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST']]]:
-    """ Get Method
+) -> Optional[
+    Union[
+        HTTPValidationError,
+        Union[
+            "MethodAD",
+            "MethodCD",
+            "MethodCPT",
+            "MethodDP",
+            "MethodDT",
+            "MethodESA",
+            "MethodINC",
+            "MethodIW",
+            "MethodOTHER",
+            "MethodPT",
+            "MethodPZ",
+            "MethodRCD",
+            "MethodRO",
+            "MethodRP",
+            "MethodRS",
+            "MethodRWS",
+            "MethodSA",
+            "MethodSPT",
+            "MethodSR",
+            "MethodSRS",
+            "MethodSS",
+            "MethodSVT",
+            "MethodTOT",
+            "MethodTP",
+            "MethodWST",
+        ],
+    ]
+]:
+    """Get Method
 
      Get the method by method_id
 
@@ -398,16 +487,15 @@ def sync(
 
     Returns:
         Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST']]
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-location_id=location_id,
-method_id=method_id,
-client=client,
-
+        location_id=location_id,
+        method_id=method_id,
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
@@ -415,9 +503,39 @@ async def asyncio_detailed(
     method_id: UUID,
     *,
     client: AuthenticatedClient,
-
-) -> Response[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST']]]:
-    """ Get Method
+) -> Response[
+    Union[
+        HTTPValidationError,
+        Union[
+            "MethodAD",
+            "MethodCD",
+            "MethodCPT",
+            "MethodDP",
+            "MethodDT",
+            "MethodESA",
+            "MethodINC",
+            "MethodIW",
+            "MethodOTHER",
+            "MethodPT",
+            "MethodPZ",
+            "MethodRCD",
+            "MethodRO",
+            "MethodRP",
+            "MethodRS",
+            "MethodRWS",
+            "MethodSA",
+            "MethodSPT",
+            "MethodSR",
+            "MethodSRS",
+            "MethodSS",
+            "MethodSVT",
+            "MethodTOT",
+            "MethodTP",
+            "MethodWST",
+        ],
+    ]
+]:
+    """Get Method
 
      Get the method by method_id
 
@@ -432,21 +550,18 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST']]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-location_id=location_id,
-method_id=method_id,
-
+        location_id=location_id,
+        method_id=method_id,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
@@ -454,9 +569,39 @@ async def asyncio(
     method_id: UUID,
     *,
     client: AuthenticatedClient,
-
-) -> Optional[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST']]]:
-    """ Get Method
+) -> Optional[
+    Union[
+        HTTPValidationError,
+        Union[
+            "MethodAD",
+            "MethodCD",
+            "MethodCPT",
+            "MethodDP",
+            "MethodDT",
+            "MethodESA",
+            "MethodINC",
+            "MethodIW",
+            "MethodOTHER",
+            "MethodPT",
+            "MethodPZ",
+            "MethodRCD",
+            "MethodRO",
+            "MethodRP",
+            "MethodRS",
+            "MethodRWS",
+            "MethodSA",
+            "MethodSPT",
+            "MethodSR",
+            "MethodSRS",
+            "MethodSS",
+            "MethodSVT",
+            "MethodTOT",
+            "MethodTP",
+            "MethodWST",
+        ],
+    ]
+]:
+    """Get Method
 
      Get the method by method_id
 
@@ -471,13 +616,13 @@ async def asyncio(
 
     Returns:
         Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST']]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-location_id=location_id,
-method_id=method_id,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            location_id=location_id,
+            method_id=method_id,
+            client=client,
+        )
+    ).parsed

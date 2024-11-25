@@ -1,30 +1,17 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.method_rcd_method_type_id import MethodRCDMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, List
-from typing import cast, Union
-from typing import Dict
-from typing import Union
-from uuid import UUID
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.file import File
-
-
-
+    from ..models.file import File
 
 
 T = TypeVar("T", bound="MethodRCD")
@@ -32,36 +19,36 @@ T = TypeVar("T", bound="MethodRCD")
 
 @_attrs_define
 class MethodRCD:
-    """ RCD
+    """RCD
 
-        Attributes:
-            method_id (UUID):
-            name (str):
-            location_id (UUID):
-            method_status_id (MethodStatusEnum): (
-                PLANNED=1,
-                READY=2,
-                CONDUCTED=3,
-                VOIDED=4,
-                APPROVED=5,
-                )
-            created_at (datetime.datetime):
-            updated_at (datetime.datetime):
-            remarks (Union[None, Unset, str]):
-            method_type_id (Union[Unset, MethodRCDMethodTypeId]):  Default: MethodRCDMethodTypeId.VALUE_8.
-            created_by (Union[None, Unset, str]):
-            updated_by (Union[None, Unset, str]):
-            conducted_at (Union[None, Unset, datetime.datetime]):
-            conducted_by (Union[None, Unset, str]):
-            files (Union[Unset, List['File']]):
-            self_ (Union[None, Unset, str]):
-            stopcode (Union[None, Unset, int]):
-            depth_top (Union[None, Unset, float]):
-            depth_base (Union[None, Unset, float]):
-            depth_in_soil (Union[None, Unset, float]):
-            depth_in_rock (Union[None, Unset, float]):
-            bedrock_elevation (Union[None, Unset, float]):
-     """
+    Attributes:
+        method_id (UUID):
+        name (str):
+        location_id (UUID):
+        method_status_id (MethodStatusEnum): (
+            PLANNED=1,
+            READY=2,
+            CONDUCTED=3,
+            VOIDED=4,
+            APPROVED=5,
+            )
+        created_at (datetime.datetime):
+        updated_at (datetime.datetime):
+        remarks (Union[None, Unset, str]):
+        method_type_id (Union[Unset, MethodRCDMethodTypeId]):  Default: MethodRCDMethodTypeId.VALUE_8.
+        created_by (Union[None, Unset, str]):
+        updated_by (Union[None, Unset, str]):
+        conducted_at (Union[None, Unset, datetime.datetime]):
+        conducted_by (Union[None, Unset, str]):
+        files (Union[Unset, List['File']]):
+        self_ (Union[None, Unset, str]):
+        stopcode (Union[None, Unset, int]):
+        depth_top (Union[None, Unset, float]):
+        depth_base (Union[None, Unset, float]):
+        depth_in_soil (Union[None, Unset, float]):
+        depth_in_rock (Union[None, Unset, float]):
+        bedrock_elevation (Union[None, Unset, float]):
+    """
 
     method_id: UUID
     name: str
@@ -75,7 +62,7 @@ class MethodRCD:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
-    files: Union[Unset, List['File']] = UNSET
+    files: Union[Unset, List["File"]] = UNSET
     self_: Union[None, Unset, str] = UNSET
     stopcode: Union[None, Unset, int] = UNSET
     depth_top: Union[None, Unset, float] = UNSET
@@ -85,9 +72,7 @@ class MethodRCD:
     bedrock_elevation: Union[None, Unset, float] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.file import File
         method_id = str(self.method_id)
 
         name = self.name
@@ -109,7 +94,6 @@ class MethodRCD:
         method_type_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
-
 
         created_by: Union[None, Unset, str]
         if isinstance(self.created_by, Unset):
@@ -143,8 +127,6 @@ class MethodRCD:
             for files_item_data in self.files:
                 files_item = files_item_data.to_dict()
                 files.append(files_item)
-
-
 
         self_: Union[None, Unset, str]
         if isinstance(self.self_, Unset):
@@ -188,17 +170,18 @@ class MethodRCD:
         else:
             bedrock_elevation = self.bedrock_elevation
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "method_id": method_id,
-            "name": name,
-            "location_id": location_id,
-            "method_status_id": method_status_id,
-            "created_at": created_at,
-            "updated_at": updated_at,
-        })
+        field_dict.update(
+            {
+                "method_id": method_id,
+                "name": name,
+                "location_id": location_id,
+                "method_status_id": method_status_id,
+                "created_at": created_at,
+                "updated_at": updated_at,
+            }
+        )
         if remarks is not UNSET:
             field_dict["remarks"] = remarks
         if method_type_id is not UNSET:
@@ -230,38 +213,22 @@ class MethodRCD:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.file import File
+
         d = src_dict.copy()
         method_id = UUID(d.pop("method_id"))
-
-
-
 
         name = d.pop("name")
 
         location_id = UUID(d.pop("location_id"))
 
-
-
-
         method_status_id = MethodStatusEnum(d.pop("method_status_id"))
-
-
-
 
         created_at = isoparse(d.pop("created_at"))
 
-
-
-
         updated_at = isoparse(d.pop("updated_at"))
-
-
-
 
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -272,16 +239,12 @@ class MethodRCD:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodRCDMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodRCDMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -292,7 +255,6 @@ class MethodRCD:
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
 
-
         def _parse_updated_by(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -301,7 +263,6 @@ class MethodRCD:
             return cast(Union[None, Unset, str], data)
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
-
 
         def _parse_conducted_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -313,15 +274,12 @@ class MethodRCD:
                     raise TypeError()
                 conducted_at_type_0 = isoparse(data)
 
-
-
                 return conducted_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
-
 
         def _parse_conducted_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -332,16 +290,12 @@ class MethodRCD:
 
         conducted_by = _parse_conducted_by(d.pop("conducted_by", UNSET))
 
-
         files = []
         _files = d.pop("files", UNSET)
-        for files_item_data in (_files or []):
+        for files_item_data in _files or []:
             files_item = File.from_dict(files_item_data)
 
-
-
             files.append(files_item)
-
 
         def _parse_self_(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -352,7 +306,6 @@ class MethodRCD:
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
-
         def _parse_stopcode(data: object) -> Union[None, Unset, int]:
             if data is None:
                 return data
@@ -361,7 +314,6 @@ class MethodRCD:
             return cast(Union[None, Unset, int], data)
 
         stopcode = _parse_stopcode(d.pop("stopcode", UNSET))
-
 
         def _parse_depth_top(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -372,7 +324,6 @@ class MethodRCD:
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
 
-
         def _parse_depth_base(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -381,7 +332,6 @@ class MethodRCD:
             return cast(Union[None, Unset, float], data)
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
-
 
         def _parse_depth_in_soil(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -392,7 +342,6 @@ class MethodRCD:
 
         depth_in_soil = _parse_depth_in_soil(d.pop("depth_in_soil", UNSET))
 
-
         def _parse_depth_in_rock(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -402,7 +351,6 @@ class MethodRCD:
 
         depth_in_rock = _parse_depth_in_rock(d.pop("depth_in_rock", UNSET))
 
-
         def _parse_bedrock_elevation(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -411,7 +359,6 @@ class MethodRCD:
             return cast(Union[None, Unset, float], data)
 
         bedrock_elevation = _parse_bedrock_elevation(d.pop("bedrock_elevation", UNSET))
-
 
         method_rcd = cls(
             method_id=method_id,
@@ -435,7 +382,6 @@ class MethodRCD:
             depth_in_rock=depth_in_rock,
             bedrock_elevation=bedrock_elevation,
         )
-
 
         method_rcd.additional_properties = d
         return method_rcd

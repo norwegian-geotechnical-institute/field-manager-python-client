@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodSVTDataCreateMethodTypeId(IntEnum):
     VALUE_10 = 10
 

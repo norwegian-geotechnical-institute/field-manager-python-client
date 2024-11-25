@@ -1,21 +1,14 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
 from ...models.location import Location
 from ...models.method_type_enum import MethodTypeEnum
-from ...types import UNSET, Unset
-from typing import cast
-from typing import cast, List
-from typing import Dict
-from typing import Union
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -26,12 +19,7 @@ def _get_kwargs(
     deleted: Union[Unset, bool] = False,
     tags: Union[Unset, List[str]] = UNSET,
     method_types: Union[Unset, List[MethodTypeEnum]] = UNSET,
-
 ) -> Dict[str, Any]:
-    
-
-    
-
     params: Dict[str, Any] = {}
 
     params["skip"] = skip
@@ -44,7 +32,6 @@ def _get_kwargs(
     if not isinstance(tags, Unset):
         json_tags = tags
 
-
     params["tags"] = json_tags
 
     json_method_types: Union[Unset, List[int]] = UNSET
@@ -54,39 +41,33 @@ def _get_kwargs(
             method_types_item = method_types_item_data.value
             json_method_types.append(method_types_item)
 
-
     params["method_types"] = json_method_types
-
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-
     _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/projects/{project_id}/locations".format(project_id=project_id,),
+        "url": f"/projects/{project_id}/locations",
         "params": params,
     }
-
 
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[HTTPValidationError, List['Location']]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[HTTPValidationError, List["Location"]]]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
-        for response_200_item_data in (_response_200):
+        for response_200_item_data in _response_200:
             response_200_item = Location.from_dict(response_200_item_data)
-
-
 
             response_200.append(response_200_item)
 
         return response_200
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
-
-
 
         return response_422
     if client.raise_on_unexpected_status:
@@ -95,7 +76,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[HTTPValidationError, List['Location']]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[HTTPValidationError, List["Location"]]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -113,9 +96,8 @@ def sync_detailed(
     deleted: Union[Unset, bool] = False,
     tags: Union[Unset, List[str]] = UNSET,
     method_types: Union[Unset, List[MethodTypeEnum]] = UNSET,
-
-) -> Response[Union[HTTPValidationError, List['Location']]]:
-    """ Get Locations In Project
+) -> Response[Union[HTTPValidationError, List["Location"]]]:
+    """Get Locations In Project
 
      Return all locations in project.
 
@@ -138,17 +120,15 @@ def sync_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, List['Location']]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-skip=skip,
-limit=limit,
-deleted=deleted,
-tags=tags,
-method_types=method_types,
-
+        skip=skip,
+        limit=limit,
+        deleted=deleted,
+        tags=tags,
+        method_types=method_types,
     )
 
     response = client.get_httpx_client().request(
@@ -156,6 +136,7 @@ method_types=method_types,
     )
 
     return _build_response(client=client, response=response)
+
 
 def sync(
     project_id: str,
@@ -166,9 +147,8 @@ def sync(
     deleted: Union[Unset, bool] = False,
     tags: Union[Unset, List[str]] = UNSET,
     method_types: Union[Unset, List[MethodTypeEnum]] = UNSET,
-
-) -> Optional[Union[HTTPValidationError, List['Location']]]:
-    """ Get Locations In Project
+) -> Optional[Union[HTTPValidationError, List["Location"]]]:
+    """Get Locations In Project
 
      Return all locations in project.
 
@@ -191,19 +171,18 @@ def sync(
 
     Returns:
         Union[HTTPValidationError, List['Location']]
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-client=client,
-skip=skip,
-limit=limit,
-deleted=deleted,
-tags=tags,
-method_types=method_types,
-
+        client=client,
+        skip=skip,
+        limit=limit,
+        deleted=deleted,
+        tags=tags,
+        method_types=method_types,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
@@ -214,9 +193,8 @@ async def asyncio_detailed(
     deleted: Union[Unset, bool] = False,
     tags: Union[Unset, List[str]] = UNSET,
     method_types: Union[Unset, List[MethodTypeEnum]] = UNSET,
-
-) -> Response[Union[HTTPValidationError, List['Location']]]:
-    """ Get Locations In Project
+) -> Response[Union[HTTPValidationError, List["Location"]]]:
+    """Get Locations In Project
 
      Return all locations in project.
 
@@ -239,24 +217,21 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, List['Location']]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-skip=skip,
-limit=limit,
-deleted=deleted,
-tags=tags,
-method_types=method_types,
-
+        skip=skip,
+        limit=limit,
+        deleted=deleted,
+        tags=tags,
+        method_types=method_types,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
@@ -267,9 +242,8 @@ async def asyncio(
     deleted: Union[Unset, bool] = False,
     tags: Union[Unset, List[str]] = UNSET,
     method_types: Union[Unset, List[MethodTypeEnum]] = UNSET,
-
-) -> Optional[Union[HTTPValidationError, List['Location']]]:
-    """ Get Locations In Project
+) -> Optional[Union[HTTPValidationError, List["Location"]]]:
+    """Get Locations In Project
 
      Return all locations in project.
 
@@ -292,16 +266,16 @@ async def asyncio(
 
     Returns:
         Union[HTTPValidationError, List['Location']]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-client=client,
-skip=skip,
-limit=limit,
-deleted=deleted,
-tags=tags,
-method_types=method_types,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            client=client,
+            skip=skip,
+            limit=limit,
+            deleted=deleted,
+            tags=tags,
+            method_types=method_types,
+        )
+    ).parsed

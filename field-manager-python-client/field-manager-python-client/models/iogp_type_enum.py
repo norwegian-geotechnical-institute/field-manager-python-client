@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class IOGPTypeEnum(str, Enum):
     BENTHIC_SAMPLE = "BENTHIC_SAMPLE"
     BOX_CORE = "BOX_CORE"

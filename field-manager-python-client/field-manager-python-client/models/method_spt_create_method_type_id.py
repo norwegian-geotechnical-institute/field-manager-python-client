@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodSPTCreateMethodTypeId(IntEnum):
     VALUE_11 = 11
 

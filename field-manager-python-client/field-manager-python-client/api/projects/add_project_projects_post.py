@@ -1,33 +1,22 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
 from ...models.project import Project
 from ...models.project_create import ProjectCreate
-from ...types import UNSET, Unset
-from typing import cast
-from typing import cast, Union
-from typing import Dict
-from typing import Union
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
     body: ProjectCreate,
     set_manager_user: Union[None, Unset, bool] = UNSET,
-
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
-
-
-    
 
     params: Dict[str, Any] = {}
 
@@ -38,9 +27,7 @@ def _get_kwargs(
         json_set_manager_user = set_manager_user
     params["set_manager_user"] = json_set_manager_user
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: Dict[str, Any] = {
         "method": "post",
@@ -50,7 +37,6 @@ def _get_kwargs(
 
     _body = body.to_dict()
 
-
     _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
 
@@ -58,17 +44,15 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[HTTPValidationError, Project]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[HTTPValidationError, Project]]:
     if response.status_code == 201:
         response_201 = Project.from_dict(response.json())
-
-
 
         return response_201
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
-
-
 
         return response_422
     if client.raise_on_unexpected_status:
@@ -77,7 +61,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[HTTPValidationError, Project]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[HTTPValidationError, Project]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -91,9 +77,8 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: ProjectCreate,
     set_manager_user: Union[None, Unset, bool] = UNSET,
-
 ) -> Response[Union[HTTPValidationError, Project]]:
-    """ Add Project
+    """Add Project
 
      Add a project with passed project_in.
 
@@ -113,13 +98,11 @@ def sync_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, Project]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-set_manager_user=set_manager_user,
-
+        set_manager_user=set_manager_user,
     )
 
     response = client.get_httpx_client().request(
@@ -128,14 +111,14 @@ set_manager_user=set_manager_user,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient,
     body: ProjectCreate,
     set_manager_user: Union[None, Unset, bool] = UNSET,
-
 ) -> Optional[Union[HTTPValidationError, Project]]:
-    """ Add Project
+    """Add Project
 
      Add a project with passed project_in.
 
@@ -155,24 +138,22 @@ def sync(
 
     Returns:
         Union[HTTPValidationError, Project]
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-set_manager_user=set_manager_user,
-
+        body=body,
+        set_manager_user=set_manager_user,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: ProjectCreate,
     set_manager_user: Union[None, Unset, bool] = UNSET,
-
 ) -> Response[Union[HTTPValidationError, Project]]:
-    """ Add Project
+    """Add Project
 
      Add a project with passed project_in.
 
@@ -192,29 +173,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, Project]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-set_manager_user=set_manager_user,
-
+        set_manager_user=set_manager_user,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient,
     body: ProjectCreate,
     set_manager_user: Union[None, Unset, bool] = UNSET,
-
 ) -> Optional[Union[HTTPValidationError, Project]]:
-    """ Add Project
+    """Add Project
 
      Add a project with passed project_in.
 
@@ -234,12 +211,12 @@ async def asyncio(
 
     Returns:
         Union[HTTPValidationError, Project]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-set_manager_user=set_manager_user,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+            set_manager_user=set_manager_user,
+        )
+    ).parsed

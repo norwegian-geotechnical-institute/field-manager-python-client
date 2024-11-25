@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodROCreateMethodTypeId(IntEnum):
     VALUE_18 = 18
 

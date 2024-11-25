@@ -1,38 +1,25 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.bedrock_type import BedrockType
 from ..types import UNSET, Unset
-from typing import cast, Union
-from typing import Union
-
-
-
-
-
 
 T = TypeVar("T", bound="BedrockInfo")
 
 
 @_attrs_define
 class BedrockInfo:
-    """ 
-        Attributes:
-            depth (Union[None, Unset, float]):
-            bedrock_type (Union[BedrockType, None, Unset]):
-     """
+    """
+    Attributes:
+        depth (Union[None, Unset, float]):
+        bedrock_type (Union[BedrockType, None, Unset]):
+    """
 
     depth: Union[None, Unset, float] = UNSET
     bedrock_type: Union[BedrockType, None, Unset] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         depth: Union[None, Unset, float]
@@ -49,11 +36,9 @@ class BedrockInfo:
         else:
             bedrock_type = self.bedrock_type
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if depth is not UNSET:
             field_dict["depth"] = depth
         if bedrock_type is not UNSET:
@@ -61,11 +46,10 @@ class BedrockInfo:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+
         def _parse_depth(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -74,7 +58,6 @@ class BedrockInfo:
             return cast(Union[None, Unset, float], data)
 
         depth = _parse_depth(d.pop("depth", UNSET))
-
 
         def _parse_bedrock_type(data: object) -> Union[BedrockType, None, Unset]:
             if data is None:
@@ -86,21 +69,17 @@ class BedrockInfo:
                     raise TypeError()
                 bedrock_type_type_0 = BedrockType(data)
 
-
-
                 return bedrock_type_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[BedrockType, None, Unset], data)
 
         bedrock_type = _parse_bedrock_type(d.pop("bedrock_type", UNSET))
 
-
         bedrock_info = cls(
             depth=depth,
             bedrock_type=bedrock_type,
         )
-
 
         bedrock_info.additional_properties = d
         return bedrock_info

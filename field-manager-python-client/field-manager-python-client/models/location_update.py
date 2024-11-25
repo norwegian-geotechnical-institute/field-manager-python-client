@@ -1,79 +1,66 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.iogp_type_enum import IOGPTypeEnum
 from ..models.location_type_enum import LocationTypeEnum
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, List
-from typing import cast, Union
-from typing import Dict
-from typing import Union
-from uuid import UUID
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.method_sa_update import MethodSAUpdate
-  from ..models.method_rws_create import MethodRWSCreate
-  from ..models.method_pz_create import MethodPZCreate
-  from ..models.method_tot_create import MethodTOTCreate
-  from ..models.method_dt_create import MethodDTCreate
-  from ..models.method_wst_update import MethodWSTUpdate
-  from ..models.method_tot_update import MethodTOTUpdate
-  from ..models.method_esa_update import MethodESAUpdate
-  from ..models.method_sr_create import MethodSRCreate
-  from ..models.method_sa_create import MethodSACreate
-  from ..models.method_iw_update import MethodIWUpdate
-  from ..models.method_cd_create import MethodCDCreate
-  from ..models.method_cpt_update import MethodCPTUpdate
-  from ..models.method_iw_create import MethodIWCreate
-  from ..models.method_tp_update import MethodTPUpdate
-  from ..models.method_dp_update import MethodDPUpdate
-  from ..models.method_cpt_create import MethodCPTCreate
-  from ..models.method_ss_create import MethodSSCreate
-  from ..models.method_rs_update import MethodRSUpdate
-  from ..models.method_dp_create import MethodDPCreate
-  from ..models.method_svt_update import MethodSVTUpdate
-  from ..models.method_rcd_update import MethodRCDUpdate
-  from ..models.method_ad_create import MethodADCreate
-  from ..models.method_inc_create import MethodINCCreate
-  from ..models.method_ro_create import MethodROCreate
-  from ..models.method_dt_update import MethodDTUpdate
-  from ..models.method_srs_update import MethodSRSUpdate
-  from ..models.method_tp_create import MethodTPCreate
-  from ..models.method_srs_create import MethodSRSCreate
-  from ..models.method_rws_update import MethodRWSUpdate
-  from ..models.method_inc_update import MethodINCUpdate
-  from ..models.method_sr_update import MethodSRUpdate
-  from ..models.method_other_update import MethodOTHERUpdate
-  from ..models.method_spt_update import MethodSPTUpdate
-  from ..models.method_rs_create import MethodRSCreate
-  from ..models.method_spt_create import MethodSPTCreate
-  from ..models.method_pz_update import MethodPZUpdate
-  from ..models.method_ss_update import MethodSSUpdate
-  from ..models.method_cd_update import MethodCDUpdate
-  from ..models.method_wst_create import MethodWSTCreate
-  from ..models.method_ad_update import MethodADUpdate
-  from ..models.method_other_create import MethodOTHERCreate
-  from ..models.method_svt_create import MethodSVTCreate
-  from ..models.method_rp_update import MethodRPUpdate
-  from ..models.method_pt_update import MethodPTUpdate
-  from ..models.method_pt_create import MethodPTCreate
-  from ..models.method_esa_create import MethodESACreate
-  from ..models.method_rcd_create import MethodRCDCreate
-  from ..models.method_rp_create import MethodRPCreate
-  from ..models.method_ro_update import MethodROUpdate
-
-
-
+    from ..models.method_ad_create import MethodADCreate
+    from ..models.method_ad_update import MethodADUpdate
+    from ..models.method_cd_create import MethodCDCreate
+    from ..models.method_cd_update import MethodCDUpdate
+    from ..models.method_cpt_create import MethodCPTCreate
+    from ..models.method_cpt_update import MethodCPTUpdate
+    from ..models.method_dp_create import MethodDPCreate
+    from ..models.method_dp_update import MethodDPUpdate
+    from ..models.method_dt_create import MethodDTCreate
+    from ..models.method_dt_update import MethodDTUpdate
+    from ..models.method_esa_create import MethodESACreate
+    from ..models.method_esa_update import MethodESAUpdate
+    from ..models.method_inc_create import MethodINCCreate
+    from ..models.method_inc_update import MethodINCUpdate
+    from ..models.method_iw_create import MethodIWCreate
+    from ..models.method_iw_update import MethodIWUpdate
+    from ..models.method_other_create import MethodOTHERCreate
+    from ..models.method_other_update import MethodOTHERUpdate
+    from ..models.method_pt_create import MethodPTCreate
+    from ..models.method_pt_update import MethodPTUpdate
+    from ..models.method_pz_create import MethodPZCreate
+    from ..models.method_pz_update import MethodPZUpdate
+    from ..models.method_rcd_create import MethodRCDCreate
+    from ..models.method_rcd_update import MethodRCDUpdate
+    from ..models.method_ro_create import MethodROCreate
+    from ..models.method_ro_update import MethodROUpdate
+    from ..models.method_rp_create import MethodRPCreate
+    from ..models.method_rp_update import MethodRPUpdate
+    from ..models.method_rs_create import MethodRSCreate
+    from ..models.method_rs_update import MethodRSUpdate
+    from ..models.method_rws_create import MethodRWSCreate
+    from ..models.method_rws_update import MethodRWSUpdate
+    from ..models.method_sa_create import MethodSACreate
+    from ..models.method_sa_update import MethodSAUpdate
+    from ..models.method_spt_create import MethodSPTCreate
+    from ..models.method_spt_update import MethodSPTUpdate
+    from ..models.method_sr_create import MethodSRCreate
+    from ..models.method_sr_update import MethodSRUpdate
+    from ..models.method_srs_create import MethodSRSCreate
+    from ..models.method_srs_update import MethodSRSUpdate
+    from ..models.method_ss_create import MethodSSCreate
+    from ..models.method_ss_update import MethodSSUpdate
+    from ..models.method_svt_create import MethodSVTCreate
+    from ..models.method_svt_update import MethodSVTUpdate
+    from ..models.method_tot_create import MethodTOTCreate
+    from ..models.method_tot_update import MethodTOTUpdate
+    from ..models.method_tp_create import MethodTPCreate
+    from ..models.method_tp_update import MethodTPUpdate
+    from ..models.method_wst_create import MethodWSTCreate
+    from ..models.method_wst_update import MethodWSTUpdate
 
 
 T = TypeVar("T", bound="LocationUpdate")
@@ -81,30 +68,30 @@ T = TypeVar("T", bound="LocationUpdate")
 
 @_attrs_define
 class LocationUpdate:
-    """ 
-        Attributes:
-            project_id (Union[None, UUID, Unset]):
-            location_id (Union[None, UUID, Unset]):
-            iogp_type_id (Union[IOGPTypeEnum, None, Unset]):
-            name (Union[None, Unset, str]):
-            updated_at (Union[None, Unset, datetime.datetime]):
-            updated_by (Union[None, Unset, str]):
-            point_easting (Union[None, Unset, float]):
-            point_northing (Union[None, Unset, float]):
-            point_z (Union[None, Unset, float]):
-            srid (Union[None, Unset, int]):
-            location_type_id (Union[LocationTypeEnum, None, Unset]): Use Project.standard_id instead
-            tags (Union[List[str], None, Unset]):
-            methods (Union[Unset, List[Union['MethodADCreate', 'MethodADUpdate', 'MethodCDCreate', 'MethodCDUpdate',
-                'MethodCPTCreate', 'MethodCPTUpdate', 'MethodDPCreate', 'MethodDPUpdate', 'MethodDTCreate', 'MethodDTUpdate',
-                'MethodESACreate', 'MethodESAUpdate', 'MethodINCCreate', 'MethodINCUpdate', 'MethodIWCreate', 'MethodIWUpdate',
-                'MethodOTHERCreate', 'MethodOTHERUpdate', 'MethodPTCreate', 'MethodPTUpdate', 'MethodPZCreate',
-                'MethodPZUpdate', 'MethodRCDCreate', 'MethodRCDUpdate', 'MethodROCreate', 'MethodROUpdate', 'MethodRPCreate',
-                'MethodRPUpdate', 'MethodRSCreate', 'MethodRSUpdate', 'MethodRWSCreate', 'MethodRWSUpdate', 'MethodSACreate',
-                'MethodSAUpdate', 'MethodSPTCreate', 'MethodSPTUpdate', 'MethodSRCreate', 'MethodSRSCreate', 'MethodSRSUpdate',
-                'MethodSRUpdate', 'MethodSSCreate', 'MethodSSUpdate', 'MethodSVTCreate', 'MethodSVTUpdate', 'MethodTOTCreate',
-                'MethodTOTUpdate', 'MethodTPCreate', 'MethodTPUpdate', 'MethodWSTCreate', 'MethodWSTUpdate']]]):
-     """
+    """
+    Attributes:
+        project_id (Union[None, UUID, Unset]):
+        location_id (Union[None, UUID, Unset]):
+        iogp_type_id (Union[IOGPTypeEnum, None, Unset]):
+        name (Union[None, Unset, str]):
+        updated_at (Union[None, Unset, datetime.datetime]):
+        updated_by (Union[None, Unset, str]):
+        point_easting (Union[None, Unset, float]):
+        point_northing (Union[None, Unset, float]):
+        point_z (Union[None, Unset, float]):
+        srid (Union[None, Unset, int]):
+        location_type_id (Union[LocationTypeEnum, None, Unset]): Use Project.standard_id instead
+        tags (Union[List[str], None, Unset]):
+        methods (Union[Unset, List[Union['MethodADCreate', 'MethodADUpdate', 'MethodCDCreate', 'MethodCDUpdate',
+            'MethodCPTCreate', 'MethodCPTUpdate', 'MethodDPCreate', 'MethodDPUpdate', 'MethodDTCreate', 'MethodDTUpdate',
+            'MethodESACreate', 'MethodESAUpdate', 'MethodINCCreate', 'MethodINCUpdate', 'MethodIWCreate', 'MethodIWUpdate',
+            'MethodOTHERCreate', 'MethodOTHERUpdate', 'MethodPTCreate', 'MethodPTUpdate', 'MethodPZCreate',
+            'MethodPZUpdate', 'MethodRCDCreate', 'MethodRCDUpdate', 'MethodROCreate', 'MethodROUpdate', 'MethodRPCreate',
+            'MethodRPUpdate', 'MethodRSCreate', 'MethodRSUpdate', 'MethodRWSCreate', 'MethodRWSUpdate', 'MethodSACreate',
+            'MethodSAUpdate', 'MethodSPTCreate', 'MethodSPTUpdate', 'MethodSRCreate', 'MethodSRSCreate', 'MethodSRSUpdate',
+            'MethodSRUpdate', 'MethodSSCreate', 'MethodSSUpdate', 'MethodSVTCreate', 'MethodSVTUpdate', 'MethodTOTCreate',
+            'MethodTOTUpdate', 'MethodTPCreate', 'MethodTPUpdate', 'MethodWSTCreate', 'MethodWSTUpdate']]]):
+    """
 
     project_id: Union[None, UUID, Unset] = UNSET
     location_id: Union[None, UUID, Unset] = UNSET
@@ -118,61 +105,116 @@ class LocationUpdate:
     srid: Union[None, Unset, int] = UNSET
     location_type_id: Union[LocationTypeEnum, None, Unset] = UNSET
     tags: Union[List[str], None, Unset] = UNSET
-    methods: Union[Unset, List[Union['MethodADCreate', 'MethodADUpdate', 'MethodCDCreate', 'MethodCDUpdate', 'MethodCPTCreate', 'MethodCPTUpdate', 'MethodDPCreate', 'MethodDPUpdate', 'MethodDTCreate', 'MethodDTUpdate', 'MethodESACreate', 'MethodESAUpdate', 'MethodINCCreate', 'MethodINCUpdate', 'MethodIWCreate', 'MethodIWUpdate', 'MethodOTHERCreate', 'MethodOTHERUpdate', 'MethodPTCreate', 'MethodPTUpdate', 'MethodPZCreate', 'MethodPZUpdate', 'MethodRCDCreate', 'MethodRCDUpdate', 'MethodROCreate', 'MethodROUpdate', 'MethodRPCreate', 'MethodRPUpdate', 'MethodRSCreate', 'MethodRSUpdate', 'MethodRWSCreate', 'MethodRWSUpdate', 'MethodSACreate', 'MethodSAUpdate', 'MethodSPTCreate', 'MethodSPTUpdate', 'MethodSRCreate', 'MethodSRSCreate', 'MethodSRSUpdate', 'MethodSRUpdate', 'MethodSSCreate', 'MethodSSUpdate', 'MethodSVTCreate', 'MethodSVTUpdate', 'MethodTOTCreate', 'MethodTOTUpdate', 'MethodTPCreate', 'MethodTPUpdate', 'MethodWSTCreate', 'MethodWSTUpdate']]] = UNSET
+    methods: Union[
+        Unset,
+        List[
+            Union[
+                "MethodADCreate",
+                "MethodADUpdate",
+                "MethodCDCreate",
+                "MethodCDUpdate",
+                "MethodCPTCreate",
+                "MethodCPTUpdate",
+                "MethodDPCreate",
+                "MethodDPUpdate",
+                "MethodDTCreate",
+                "MethodDTUpdate",
+                "MethodESACreate",
+                "MethodESAUpdate",
+                "MethodINCCreate",
+                "MethodINCUpdate",
+                "MethodIWCreate",
+                "MethodIWUpdate",
+                "MethodOTHERCreate",
+                "MethodOTHERUpdate",
+                "MethodPTCreate",
+                "MethodPTUpdate",
+                "MethodPZCreate",
+                "MethodPZUpdate",
+                "MethodRCDCreate",
+                "MethodRCDUpdate",
+                "MethodROCreate",
+                "MethodROUpdate",
+                "MethodRPCreate",
+                "MethodRPUpdate",
+                "MethodRSCreate",
+                "MethodRSUpdate",
+                "MethodRWSCreate",
+                "MethodRWSUpdate",
+                "MethodSACreate",
+                "MethodSAUpdate",
+                "MethodSPTCreate",
+                "MethodSPTUpdate",
+                "MethodSRCreate",
+                "MethodSRSCreate",
+                "MethodSRSUpdate",
+                "MethodSRUpdate",
+                "MethodSSCreate",
+                "MethodSSUpdate",
+                "MethodSVTCreate",
+                "MethodSVTUpdate",
+                "MethodTOTCreate",
+                "MethodTOTUpdate",
+                "MethodTPCreate",
+                "MethodTPUpdate",
+                "MethodWSTCreate",
+                "MethodWSTUpdate",
+            ]
+        ],
+    ] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.method_sa_update import MethodSAUpdate
-        from ..models.method_rws_create import MethodRWSCreate
-        from ..models.method_pz_create import MethodPZCreate
-        from ..models.method_tot_create import MethodTOTCreate
-        from ..models.method_dt_create import MethodDTCreate
-        from ..models.method_wst_update import MethodWSTUpdate
-        from ..models.method_tot_update import MethodTOTUpdate
-        from ..models.method_esa_update import MethodESAUpdate
-        from ..models.method_sr_create import MethodSRCreate
-        from ..models.method_sa_create import MethodSACreate
-        from ..models.method_iw_update import MethodIWUpdate
-        from ..models.method_cd_create import MethodCDCreate
-        from ..models.method_cpt_update import MethodCPTUpdate
-        from ..models.method_iw_create import MethodIWCreate
-        from ..models.method_tp_update import MethodTPUpdate
-        from ..models.method_dp_update import MethodDPUpdate
-        from ..models.method_cpt_create import MethodCPTCreate
-        from ..models.method_ss_create import MethodSSCreate
-        from ..models.method_rs_update import MethodRSUpdate
-        from ..models.method_dp_create import MethodDPCreate
-        from ..models.method_svt_update import MethodSVTUpdate
-        from ..models.method_rcd_update import MethodRCDUpdate
         from ..models.method_ad_create import MethodADCreate
-        from ..models.method_inc_create import MethodINCCreate
-        from ..models.method_ro_create import MethodROCreate
-        from ..models.method_dt_update import MethodDTUpdate
-        from ..models.method_srs_update import MethodSRSUpdate
-        from ..models.method_tp_create import MethodTPCreate
-        from ..models.method_srs_create import MethodSRSCreate
-        from ..models.method_rws_update import MethodRWSUpdate
-        from ..models.method_inc_update import MethodINCUpdate
-        from ..models.method_sr_update import MethodSRUpdate
-        from ..models.method_other_update import MethodOTHERUpdate
-        from ..models.method_spt_update import MethodSPTUpdate
-        from ..models.method_rs_create import MethodRSCreate
-        from ..models.method_spt_create import MethodSPTCreate
-        from ..models.method_pz_update import MethodPZUpdate
-        from ..models.method_ss_update import MethodSSUpdate
-        from ..models.method_cd_update import MethodCDUpdate
-        from ..models.method_wst_create import MethodWSTCreate
         from ..models.method_ad_update import MethodADUpdate
-        from ..models.method_other_create import MethodOTHERCreate
-        from ..models.method_svt_create import MethodSVTCreate
-        from ..models.method_rp_update import MethodRPUpdate
-        from ..models.method_pt_update import MethodPTUpdate
-        from ..models.method_pt_create import MethodPTCreate
+        from ..models.method_cd_create import MethodCDCreate
+        from ..models.method_cd_update import MethodCDUpdate
+        from ..models.method_cpt_create import MethodCPTCreate
+        from ..models.method_cpt_update import MethodCPTUpdate
+        from ..models.method_dp_create import MethodDPCreate
+        from ..models.method_dp_update import MethodDPUpdate
+        from ..models.method_dt_create import MethodDTCreate
+        from ..models.method_dt_update import MethodDTUpdate
         from ..models.method_esa_create import MethodESACreate
+        from ..models.method_esa_update import MethodESAUpdate
+        from ..models.method_inc_create import MethodINCCreate
+        from ..models.method_inc_update import MethodINCUpdate
+        from ..models.method_iw_create import MethodIWCreate
+        from ..models.method_iw_update import MethodIWUpdate
+        from ..models.method_other_create import MethodOTHERCreate
+        from ..models.method_other_update import MethodOTHERUpdate
+        from ..models.method_pt_create import MethodPTCreate
+        from ..models.method_pt_update import MethodPTUpdate
+        from ..models.method_pz_create import MethodPZCreate
+        from ..models.method_pz_update import MethodPZUpdate
         from ..models.method_rcd_create import MethodRCDCreate
-        from ..models.method_rp_create import MethodRPCreate
+        from ..models.method_rcd_update import MethodRCDUpdate
+        from ..models.method_ro_create import MethodROCreate
         from ..models.method_ro_update import MethodROUpdate
+        from ..models.method_rp_create import MethodRPCreate
+        from ..models.method_rp_update import MethodRPUpdate
+        from ..models.method_rs_create import MethodRSCreate
+        from ..models.method_rs_update import MethodRSUpdate
+        from ..models.method_rws_create import MethodRWSCreate
+        from ..models.method_rws_update import MethodRWSUpdate
+        from ..models.method_sa_create import MethodSACreate
+        from ..models.method_sa_update import MethodSAUpdate
+        from ..models.method_spt_create import MethodSPTCreate
+        from ..models.method_spt_update import MethodSPTUpdate
+        from ..models.method_sr_create import MethodSRCreate
+        from ..models.method_sr_update import MethodSRUpdate
+        from ..models.method_srs_create import MethodSRSCreate
+        from ..models.method_srs_update import MethodSRSUpdate
+        from ..models.method_ss_create import MethodSSCreate
+        from ..models.method_ss_update import MethodSSUpdate
+        from ..models.method_svt_create import MethodSVTCreate
+        from ..models.method_svt_update import MethodSVTUpdate
+        from ..models.method_tot_create import MethodTOTCreate
+        from ..models.method_tot_update import MethodTOTUpdate
+        from ..models.method_tp_create import MethodTPCreate
+        from ..models.method_tp_update import MethodTPUpdate
+        from ..models.method_wst_create import MethodWSTCreate
+
         project_id: Union[None, Unset, str]
         if isinstance(self.project_id, Unset):
             project_id = UNSET
@@ -254,7 +296,6 @@ class LocationUpdate:
             tags = UNSET
         elif isinstance(self.tags, list):
             tags = self.tags
-
 
         else:
             tags = self.tags
@@ -367,13 +408,9 @@ class LocationUpdate:
 
                 methods.append(methods_item)
 
-
-
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if project_id is not UNSET:
             field_dict["project_id"] = project_id
         if location_id is not UNSET:
@@ -403,61 +440,61 @@ class LocationUpdate:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.method_sa_update import MethodSAUpdate
-        from ..models.method_rws_create import MethodRWSCreate
-        from ..models.method_pz_create import MethodPZCreate
-        from ..models.method_tot_create import MethodTOTCreate
-        from ..models.method_dt_create import MethodDTCreate
-        from ..models.method_wst_update import MethodWSTUpdate
-        from ..models.method_tot_update import MethodTOTUpdate
-        from ..models.method_esa_update import MethodESAUpdate
-        from ..models.method_sr_create import MethodSRCreate
-        from ..models.method_sa_create import MethodSACreate
-        from ..models.method_iw_update import MethodIWUpdate
-        from ..models.method_cd_create import MethodCDCreate
-        from ..models.method_cpt_update import MethodCPTUpdate
-        from ..models.method_iw_create import MethodIWCreate
-        from ..models.method_tp_update import MethodTPUpdate
-        from ..models.method_dp_update import MethodDPUpdate
-        from ..models.method_cpt_create import MethodCPTCreate
-        from ..models.method_ss_create import MethodSSCreate
-        from ..models.method_rs_update import MethodRSUpdate
-        from ..models.method_dp_create import MethodDPCreate
-        from ..models.method_svt_update import MethodSVTUpdate
-        from ..models.method_rcd_update import MethodRCDUpdate
         from ..models.method_ad_create import MethodADCreate
-        from ..models.method_inc_create import MethodINCCreate
-        from ..models.method_ro_create import MethodROCreate
-        from ..models.method_dt_update import MethodDTUpdate
-        from ..models.method_srs_update import MethodSRSUpdate
-        from ..models.method_tp_create import MethodTPCreate
-        from ..models.method_srs_create import MethodSRSCreate
-        from ..models.method_rws_update import MethodRWSUpdate
-        from ..models.method_inc_update import MethodINCUpdate
-        from ..models.method_sr_update import MethodSRUpdate
-        from ..models.method_other_update import MethodOTHERUpdate
-        from ..models.method_spt_update import MethodSPTUpdate
-        from ..models.method_rs_create import MethodRSCreate
-        from ..models.method_spt_create import MethodSPTCreate
-        from ..models.method_pz_update import MethodPZUpdate
-        from ..models.method_ss_update import MethodSSUpdate
-        from ..models.method_cd_update import MethodCDUpdate
-        from ..models.method_wst_create import MethodWSTCreate
         from ..models.method_ad_update import MethodADUpdate
-        from ..models.method_other_create import MethodOTHERCreate
-        from ..models.method_svt_create import MethodSVTCreate
-        from ..models.method_rp_update import MethodRPUpdate
-        from ..models.method_pt_update import MethodPTUpdate
-        from ..models.method_pt_create import MethodPTCreate
+        from ..models.method_cd_create import MethodCDCreate
+        from ..models.method_cd_update import MethodCDUpdate
+        from ..models.method_cpt_create import MethodCPTCreate
+        from ..models.method_cpt_update import MethodCPTUpdate
+        from ..models.method_dp_create import MethodDPCreate
+        from ..models.method_dp_update import MethodDPUpdate
+        from ..models.method_dt_create import MethodDTCreate
+        from ..models.method_dt_update import MethodDTUpdate
         from ..models.method_esa_create import MethodESACreate
+        from ..models.method_esa_update import MethodESAUpdate
+        from ..models.method_inc_create import MethodINCCreate
+        from ..models.method_inc_update import MethodINCUpdate
+        from ..models.method_iw_create import MethodIWCreate
+        from ..models.method_iw_update import MethodIWUpdate
+        from ..models.method_other_create import MethodOTHERCreate
+        from ..models.method_other_update import MethodOTHERUpdate
+        from ..models.method_pt_create import MethodPTCreate
+        from ..models.method_pt_update import MethodPTUpdate
+        from ..models.method_pz_create import MethodPZCreate
+        from ..models.method_pz_update import MethodPZUpdate
         from ..models.method_rcd_create import MethodRCDCreate
-        from ..models.method_rp_create import MethodRPCreate
+        from ..models.method_rcd_update import MethodRCDUpdate
+        from ..models.method_ro_create import MethodROCreate
         from ..models.method_ro_update import MethodROUpdate
+        from ..models.method_rp_create import MethodRPCreate
+        from ..models.method_rp_update import MethodRPUpdate
+        from ..models.method_rs_create import MethodRSCreate
+        from ..models.method_rs_update import MethodRSUpdate
+        from ..models.method_rws_create import MethodRWSCreate
+        from ..models.method_rws_update import MethodRWSUpdate
+        from ..models.method_sa_create import MethodSACreate
+        from ..models.method_sa_update import MethodSAUpdate
+        from ..models.method_spt_create import MethodSPTCreate
+        from ..models.method_spt_update import MethodSPTUpdate
+        from ..models.method_sr_create import MethodSRCreate
+        from ..models.method_sr_update import MethodSRUpdate
+        from ..models.method_srs_create import MethodSRSCreate
+        from ..models.method_srs_update import MethodSRSUpdate
+        from ..models.method_ss_create import MethodSSCreate
+        from ..models.method_ss_update import MethodSSUpdate
+        from ..models.method_svt_create import MethodSVTCreate
+        from ..models.method_svt_update import MethodSVTUpdate
+        from ..models.method_tot_create import MethodTOTCreate
+        from ..models.method_tot_update import MethodTOTUpdate
+        from ..models.method_tp_create import MethodTPCreate
+        from ..models.method_tp_update import MethodTPUpdate
+        from ..models.method_wst_create import MethodWSTCreate
+        from ..models.method_wst_update import MethodWSTUpdate
+
         d = src_dict.copy()
+
         def _parse_project_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
                 return data
@@ -468,15 +505,12 @@ class LocationUpdate:
                     raise TypeError()
                 project_id_type_0 = UUID(data)
 
-
-
                 return project_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         project_id = _parse_project_id(d.pop("project_id", UNSET))
-
 
         def _parse_location_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
@@ -488,15 +522,12 @@ class LocationUpdate:
                     raise TypeError()
                 location_id_type_0 = UUID(data)
 
-
-
                 return location_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         location_id = _parse_location_id(d.pop("location_id", UNSET))
-
 
         def _parse_iogp_type_id(data: object) -> Union[IOGPTypeEnum, None, Unset]:
             if data is None:
@@ -508,15 +539,12 @@ class LocationUpdate:
                     raise TypeError()
                 iogp_type_id_type_0 = IOGPTypeEnum(data)
 
-
-
                 return iogp_type_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[IOGPTypeEnum, None, Unset], data)
 
         iogp_type_id = _parse_iogp_type_id(d.pop("iogp_type_id", UNSET))
-
 
         def _parse_name(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -526,7 +554,6 @@ class LocationUpdate:
             return cast(Union[None, Unset, str], data)
 
         name = _parse_name(d.pop("name", UNSET))
-
 
         def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -538,15 +565,12 @@ class LocationUpdate:
                     raise TypeError()
                 updated_at_type_0 = isoparse(data)
 
-
-
                 return updated_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
-
 
         def _parse_updated_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -557,7 +581,6 @@ class LocationUpdate:
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
 
-
         def _parse_point_easting(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -566,7 +589,6 @@ class LocationUpdate:
             return cast(Union[None, Unset, float], data)
 
         point_easting = _parse_point_easting(d.pop("point_easting", UNSET))
-
 
         def _parse_point_northing(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -577,7 +599,6 @@ class LocationUpdate:
 
         point_northing = _parse_point_northing(d.pop("point_northing", UNSET))
 
-
         def _parse_point_z(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -587,7 +608,6 @@ class LocationUpdate:
 
         point_z = _parse_point_z(d.pop("point_z", UNSET))
 
-
         def _parse_srid(data: object) -> Union[None, Unset, int]:
             if data is None:
                 return data
@@ -596,7 +616,6 @@ class LocationUpdate:
             return cast(Union[None, Unset, int], data)
 
         srid = _parse_srid(d.pop("srid", UNSET))
-
 
         def _parse_location_type_id(data: object) -> Union[LocationTypeEnum, None, Unset]:
             if data is None:
@@ -608,15 +627,12 @@ class LocationUpdate:
                     raise TypeError()
                 location_type_id_type_0 = LocationTypeEnum(data)
 
-
-
                 return location_type_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[LocationTypeEnum, None, Unset], data)
 
         location_type_id = _parse_location_type_id(d.pop("location_type_id", UNSET))
-
 
         def _parse_tags(data: object) -> Union[List[str], None, Unset]:
             if data is None:
@@ -629,519 +645,471 @@ class LocationUpdate:
                 tags_type_0 = cast(List[str], data)
 
                 return tags_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[List[str], None, Unset], data)
 
         tags = _parse_tags(d.pop("tags", UNSET))
 
-
         methods = []
         _methods = d.pop("methods", UNSET)
-        for methods_item_data in (_methods or []):
-            def _parse_methods_item(data: object) -> Union['MethodADCreate', 'MethodADUpdate', 'MethodCDCreate', 'MethodCDUpdate', 'MethodCPTCreate', 'MethodCPTUpdate', 'MethodDPCreate', 'MethodDPUpdate', 'MethodDTCreate', 'MethodDTUpdate', 'MethodESACreate', 'MethodESAUpdate', 'MethodINCCreate', 'MethodINCUpdate', 'MethodIWCreate', 'MethodIWUpdate', 'MethodOTHERCreate', 'MethodOTHERUpdate', 'MethodPTCreate', 'MethodPTUpdate', 'MethodPZCreate', 'MethodPZUpdate', 'MethodRCDCreate', 'MethodRCDUpdate', 'MethodROCreate', 'MethodROUpdate', 'MethodRPCreate', 'MethodRPUpdate', 'MethodRSCreate', 'MethodRSUpdate', 'MethodRWSCreate', 'MethodRWSUpdate', 'MethodSACreate', 'MethodSAUpdate', 'MethodSPTCreate', 'MethodSPTUpdate', 'MethodSRCreate', 'MethodSRSCreate', 'MethodSRSUpdate', 'MethodSRUpdate', 'MethodSSCreate', 'MethodSSUpdate', 'MethodSVTCreate', 'MethodSVTUpdate', 'MethodTOTCreate', 'MethodTOTUpdate', 'MethodTPCreate', 'MethodTPUpdate', 'MethodWSTCreate', 'MethodWSTUpdate']:
+        for methods_item_data in _methods or []:
+
+            def _parse_methods_item(
+                data: object,
+            ) -> Union[
+                "MethodADCreate",
+                "MethodADUpdate",
+                "MethodCDCreate",
+                "MethodCDUpdate",
+                "MethodCPTCreate",
+                "MethodCPTUpdate",
+                "MethodDPCreate",
+                "MethodDPUpdate",
+                "MethodDTCreate",
+                "MethodDTUpdate",
+                "MethodESACreate",
+                "MethodESAUpdate",
+                "MethodINCCreate",
+                "MethodINCUpdate",
+                "MethodIWCreate",
+                "MethodIWUpdate",
+                "MethodOTHERCreate",
+                "MethodOTHERUpdate",
+                "MethodPTCreate",
+                "MethodPTUpdate",
+                "MethodPZCreate",
+                "MethodPZUpdate",
+                "MethodRCDCreate",
+                "MethodRCDUpdate",
+                "MethodROCreate",
+                "MethodROUpdate",
+                "MethodRPCreate",
+                "MethodRPUpdate",
+                "MethodRSCreate",
+                "MethodRSUpdate",
+                "MethodRWSCreate",
+                "MethodRWSUpdate",
+                "MethodSACreate",
+                "MethodSAUpdate",
+                "MethodSPTCreate",
+                "MethodSPTUpdate",
+                "MethodSRCreate",
+                "MethodSRSCreate",
+                "MethodSRSUpdate",
+                "MethodSRUpdate",
+                "MethodSSCreate",
+                "MethodSSUpdate",
+                "MethodSVTCreate",
+                "MethodSVTUpdate",
+                "MethodTOTCreate",
+                "MethodTOTUpdate",
+                "MethodTPCreate",
+                "MethodTPUpdate",
+                "MethodWSTCreate",
+                "MethodWSTUpdate",
+            ]:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_0 = MethodADCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_0
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_1 = MethodCDCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_1
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_2 = MethodCPTCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_2
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_3 = MethodDPCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_3
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_4 = MethodDTCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_4
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_5 = MethodESACreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_5
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_6 = MethodINCCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_6
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_7 = MethodIWCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_7
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_8 = MethodOTHERCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_8
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_9 = MethodPTCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_9
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_10 = MethodPZCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_10
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_11 = MethodRCDCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_11
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_12 = MethodROCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_12
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_13 = MethodRPCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_13
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_14 = MethodRSCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_14
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_15 = MethodRWSCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_15
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_16 = MethodSACreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_16
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_17 = MethodSPTCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_17
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_18 = MethodSRCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_18
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_19 = MethodSRSCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_19
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_20 = MethodSSCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_20
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_21 = MethodSVTCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_21
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_22 = MethodTOTCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_22
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_23 = MethodTPCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_23
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0_type_24 = MethodWSTCreate.from_dict(data)
 
-
-
                     return methods_item_type_0_type_24
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_0 = MethodCPTUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_0
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_1 = MethodTOTUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_1
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_2 = MethodRPUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_2
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_3 = MethodSAUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_3
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_4 = MethodPZUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_4
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_5 = MethodSSUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_5
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_6 = MethodRWSUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_6
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_7 = MethodRCDUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_7
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_8 = MethodRSUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_8
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_9 = MethodSVTUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_9
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_10 = MethodSPTUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_10
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_11 = MethodCDUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_11
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_12 = MethodTPUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_12
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_13 = MethodPTUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_13
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_14 = MethodESAUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_14
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_15 = MethodADUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_15
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_16 = MethodROUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_16
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_17 = MethodINCUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_17
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_18 = MethodSRUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_18
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_19 = MethodIWUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_19
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_20 = MethodDTUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_20
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_21 = MethodOTHERUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_21
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_22 = MethodSRSUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_22
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1_type_23 = MethodDPUpdate.from_dict(data)
 
-
-
                     return methods_item_type_1_type_23
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 if not isinstance(data, dict):
                     raise TypeError()
                 methods_item_type_1_type_24 = MethodWSTUpdate.from_dict(data)
-
-
 
                 return methods_item_type_1_type_24
 
             methods_item = _parse_methods_item(methods_item_data)
 
             methods.append(methods_item)
-
 
         location_update = cls(
             project_id=project_id,
@@ -1158,7 +1126,6 @@ class LocationUpdate:
             tags=tags,
             methods=methods,
         )
-
 
         location_update.additional_properties = d
         return location_update

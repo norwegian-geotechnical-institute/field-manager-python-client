@@ -1,31 +1,18 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.method_srs_method_type_id import MethodSRSMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..models.sounding_class import SoundingClass
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, List
-from typing import cast, Union
-from typing import Dict
-from typing import Union
-from uuid import UUID
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.file import File
-
-
-
+    from ..models.file import File
 
 
 T = TypeVar("T", bound="MethodSRS")
@@ -33,7 +20,7 @@ T = TypeVar("T", bound="MethodSRS")
 
 @_attrs_define
 class MethodSRS:
-    """ SRS method
+    """SRS method
     Soil-Rock Sounding (Swedish Jord-bergsondering)
 
         Attributes:
@@ -66,7 +53,7 @@ class MethodSRS:
             stopcode (Union[None, Unset, int]):
             depth_in_soil (Union[None, Unset, float]):
             depth_in_rock (Union[None, Unset, float]):
-     """
+    """
 
     method_id: UUID
     name: str
@@ -80,7 +67,7 @@ class MethodSRS:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
-    files: Union[Unset, List['File']] = UNSET
+    files: Union[Unset, List["File"]] = UNSET
     self_: Union[None, Unset, str] = UNSET
     sounding_class: Union[None, SoundingClass, Unset] = UNSET
     serial_number: Union[None, Unset, str] = UNSET
@@ -93,9 +80,7 @@ class MethodSRS:
     depth_in_rock: Union[None, Unset, float] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.file import File
         method_id = str(self.method_id)
 
         name = self.name
@@ -117,7 +102,6 @@ class MethodSRS:
         method_type_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
-
 
         created_by: Union[None, Unset, str]
         if isinstance(self.created_by, Unset):
@@ -151,8 +135,6 @@ class MethodSRS:
             for files_item_data in self.files:
                 files_item = files_item_data.to_dict()
                 files.append(files_item)
-
-
 
         self_: Union[None, Unset, str]
         if isinstance(self.self_, Unset):
@@ -218,17 +200,18 @@ class MethodSRS:
         else:
             depth_in_rock = self.depth_in_rock
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "method_id": method_id,
-            "name": name,
-            "location_id": location_id,
-            "method_status_id": method_status_id,
-            "created_at": created_at,
-            "updated_at": updated_at,
-        })
+        field_dict.update(
+            {
+                "method_id": method_id,
+                "name": name,
+                "location_id": location_id,
+                "method_status_id": method_status_id,
+                "created_at": created_at,
+                "updated_at": updated_at,
+            }
+        )
         if remarks is not UNSET:
             field_dict["remarks"] = remarks
         if method_type_id is not UNSET:
@@ -266,38 +249,22 @@ class MethodSRS:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.file import File
+
         d = src_dict.copy()
         method_id = UUID(d.pop("method_id"))
-
-
-
 
         name = d.pop("name")
 
         location_id = UUID(d.pop("location_id"))
 
-
-
-
         method_status_id = MethodStatusEnum(d.pop("method_status_id"))
-
-
-
 
         created_at = isoparse(d.pop("created_at"))
 
-
-
-
         updated_at = isoparse(d.pop("updated_at"))
-
-
-
 
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -308,16 +275,12 @@ class MethodSRS:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodSRSMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodSRSMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -328,7 +291,6 @@ class MethodSRS:
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
 
-
         def _parse_updated_by(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -337,7 +299,6 @@ class MethodSRS:
             return cast(Union[None, Unset, str], data)
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
-
 
         def _parse_conducted_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -349,15 +310,12 @@ class MethodSRS:
                     raise TypeError()
                 conducted_at_type_0 = isoparse(data)
 
-
-
                 return conducted_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
-
 
         def _parse_conducted_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -368,16 +326,12 @@ class MethodSRS:
 
         conducted_by = _parse_conducted_by(d.pop("conducted_by", UNSET))
 
-
         files = []
         _files = d.pop("files", UNSET)
-        for files_item_data in (_files or []):
+        for files_item_data in _files or []:
             files_item = File.from_dict(files_item_data)
 
-
-
             files.append(files_item)
-
 
         def _parse_self_(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -387,7 +341,6 @@ class MethodSRS:
             return cast(Union[None, Unset, str], data)
 
         self_ = _parse_self_(d.pop("self", UNSET))
-
 
         def _parse_sounding_class(data: object) -> Union[None, SoundingClass, Unset]:
             if data is None:
@@ -399,15 +352,12 @@ class MethodSRS:
                     raise TypeError()
                 sounding_class_type_0 = SoundingClass(data)
 
-
-
                 return sounding_class_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, SoundingClass, Unset], data)
 
         sounding_class = _parse_sounding_class(d.pop("sounding_class", UNSET))
-
 
         def _parse_serial_number(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -417,7 +367,6 @@ class MethodSRS:
             return cast(Union[None, Unset, str], data)
 
         serial_number = _parse_serial_number(d.pop("serial_number", UNSET))
-
 
         def _parse_calibration_date(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -429,15 +378,12 @@ class MethodSRS:
                     raise TypeError()
                 calibration_date_type_0 = isoparse(data)
 
-
-
                 return calibration_date_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         calibration_date = _parse_calibration_date(d.pop("calibration_date", UNSET))
-
 
         def _parse_conversion_factor(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -448,7 +394,6 @@ class MethodSRS:
 
         conversion_factor = _parse_conversion_factor(d.pop("conversion_factor", UNSET))
 
-
         def _parse_depth_top(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -457,7 +402,6 @@ class MethodSRS:
             return cast(Union[None, Unset, float], data)
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
-
 
         def _parse_depth_base(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -468,7 +412,6 @@ class MethodSRS:
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
 
-
         def _parse_stopcode(data: object) -> Union[None, Unset, int]:
             if data is None:
                 return data
@@ -477,7 +420,6 @@ class MethodSRS:
             return cast(Union[None, Unset, int], data)
 
         stopcode = _parse_stopcode(d.pop("stopcode", UNSET))
-
 
         def _parse_depth_in_soil(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -488,7 +430,6 @@ class MethodSRS:
 
         depth_in_soil = _parse_depth_in_soil(d.pop("depth_in_soil", UNSET))
 
-
         def _parse_depth_in_rock(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -497,7 +438,6 @@ class MethodSRS:
             return cast(Union[None, Unset, float], data)
 
         depth_in_rock = _parse_depth_in_rock(d.pop("depth_in_rock", UNSET))
-
 
         method_srs = cls(
             method_id=method_id,
@@ -524,7 +464,6 @@ class MethodSRS:
             depth_in_soil=depth_in_soil,
             depth_in_rock=depth_in_rock,
         )
-
 
         method_srs.additional_properties = d
         return method_srs

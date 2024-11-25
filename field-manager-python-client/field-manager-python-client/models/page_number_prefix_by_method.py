@@ -1,53 +1,40 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast, Union
-from typing import Union
-
-
-
-
-
-
 T = TypeVar("T", bound="PageNumberPrefixByMethod")
 
 
 @_attrs_define
 class PageNumberPrefixByMethod:
-    """ 
-        Attributes:
-            cpt (Union[None, Unset, str]):  Default: ''.
-            pz (Union[None, Unset, str]):  Default: ''.
-            ss (Union[None, Unset, str]):  Default: ''.
-            svt (Union[None, Unset, str]):  Default: ''.
-            rp (Union[None, Unset, str]):  Default: ''.
-            tot (Union[None, Unset, str]):  Default: ''.
-            rcd (Union[None, Unset, str]):  Default: ''.
-            dp (Union[None, Unset, str]):  Default: ''.
-            srs (Union[None, Unset, str]):  Default: ''.
-            wst (Union[None, Unset, str]):  Default: ''.
-     """
+    """
+    Attributes:
+        cpt (Union[None, Unset, str]):  Default: ''.
+        pz (Union[None, Unset, str]):  Default: ''.
+        ss (Union[None, Unset, str]):  Default: ''.
+        svt (Union[None, Unset, str]):  Default: ''.
+        rp (Union[None, Unset, str]):  Default: ''.
+        tot (Union[None, Unset, str]):  Default: ''.
+        rcd (Union[None, Unset, str]):  Default: ''.
+        dp (Union[None, Unset, str]):  Default: ''.
+        srs (Union[None, Unset, str]):  Default: ''.
+        wst (Union[None, Unset, str]):  Default: ''.
+    """
 
-    cpt: Union[None, Unset, str] = ''
-    pz: Union[None, Unset, str] = ''
-    ss: Union[None, Unset, str] = ''
-    svt: Union[None, Unset, str] = ''
-    rp: Union[None, Unset, str] = ''
-    tot: Union[None, Unset, str] = ''
-    rcd: Union[None, Unset, str] = ''
-    dp: Union[None, Unset, str] = ''
-    srs: Union[None, Unset, str] = ''
-    wst: Union[None, Unset, str] = ''
+    cpt: Union[None, Unset, str] = ""
+    pz: Union[None, Unset, str] = ""
+    ss: Union[None, Unset, str] = ""
+    svt: Union[None, Unset, str] = ""
+    rp: Union[None, Unset, str] = ""
+    tot: Union[None, Unset, str] = ""
+    rcd: Union[None, Unset, str] = ""
+    dp: Union[None, Unset, str] = ""
+    srs: Union[None, Unset, str] = ""
+    wst: Union[None, Unset, str] = ""
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         cpt: Union[None, Unset, str]
@@ -110,11 +97,9 @@ class PageNumberPrefixByMethod:
         else:
             wst = self.wst
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if cpt is not UNSET:
             field_dict["CPT"] = cpt
         if pz is not UNSET:
@@ -138,11 +123,10 @@ class PageNumberPrefixByMethod:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+
         def _parse_cpt(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -151,7 +135,6 @@ class PageNumberPrefixByMethod:
             return cast(Union[None, Unset, str], data)
 
         cpt = _parse_cpt(d.pop("CPT", UNSET))
-
 
         def _parse_pz(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -162,7 +145,6 @@ class PageNumberPrefixByMethod:
 
         pz = _parse_pz(d.pop("PZ", UNSET))
 
-
         def _parse_ss(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -171,7 +153,6 @@ class PageNumberPrefixByMethod:
             return cast(Union[None, Unset, str], data)
 
         ss = _parse_ss(d.pop("SS", UNSET))
-
 
         def _parse_svt(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -182,7 +163,6 @@ class PageNumberPrefixByMethod:
 
         svt = _parse_svt(d.pop("SVT", UNSET))
 
-
         def _parse_rp(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -191,7 +171,6 @@ class PageNumberPrefixByMethod:
             return cast(Union[None, Unset, str], data)
 
         rp = _parse_rp(d.pop("RP", UNSET))
-
 
         def _parse_tot(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -202,7 +181,6 @@ class PageNumberPrefixByMethod:
 
         tot = _parse_tot(d.pop("TOT", UNSET))
 
-
         def _parse_rcd(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -211,7 +189,6 @@ class PageNumberPrefixByMethod:
             return cast(Union[None, Unset, str], data)
 
         rcd = _parse_rcd(d.pop("RCD", UNSET))
-
 
         def _parse_dp(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -222,7 +199,6 @@ class PageNumberPrefixByMethod:
 
         dp = _parse_dp(d.pop("DP", UNSET))
 
-
         def _parse_srs(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -232,7 +208,6 @@ class PageNumberPrefixByMethod:
 
         srs = _parse_srs(d.pop("SRS", UNSET))
 
-
         def _parse_wst(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -241,7 +216,6 @@ class PageNumberPrefixByMethod:
             return cast(Union[None, Unset, str], data)
 
         wst = _parse_wst(d.pop("WST", UNSET))
-
 
         page_number_prefix_by_method = cls(
             cpt=cpt,
@@ -255,7 +229,6 @@ class PageNumberPrefixByMethod:
             srs=srs,
             wst=wst,
         )
-
 
         page_number_prefix_by_method.additional_properties = d
         return page_number_prefix_by_method

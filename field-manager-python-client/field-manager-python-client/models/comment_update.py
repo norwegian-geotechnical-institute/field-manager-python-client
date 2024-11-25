@@ -1,46 +1,33 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
-
-
-
-
-
 
 T = TypeVar("T", bound="CommentUpdate")
 
 
 @_attrs_define
 class CommentUpdate:
-    """ 
-        Attributes:
-            text (str):
-     """
+    """
+    Attributes:
+        text (str):
+    """
 
     text: str
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
         text = self.text
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "text": text,
-        })
+        field_dict.update(
+            {
+                "text": text,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
@@ -50,7 +37,6 @@ class CommentUpdate:
         comment_update = cls(
             text=text,
         )
-
 
         comment_update.additional_properties = d
         return comment_update

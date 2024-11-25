@@ -1,28 +1,15 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
-from ..types import UNSET, Unset
 from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, List
-from typing import cast, Union
-from typing import Dict
-from typing import Union
-from uuid import UUID
-import datetime
+
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-  from ..models.map_layout_version import MapLayoutVersion
-
-
-
+    from ..models.map_layout_version import MapLayoutVersion
 
 
 T = TypeVar("T", bound="MapLayout")
@@ -30,7 +17,7 @@ T = TypeVar("T", bound="MapLayout")
 
 @_attrs_define
 class MapLayout:
-    """ Map Layout
+    """Map Layout
 
     Any MapLayoutVersions
 
@@ -43,21 +30,19 @@ class MapLayout:
             updated_at (datetime.datetime):
             created_by (Union[None, Unset, str]):
             updated_by (Union[None, Unset, str]):
-     """
+    """
 
     map_layout_id: UUID
     project_id: UUID
     name: str
-    versions: List['MapLayoutVersion']
+    versions: List["MapLayoutVersion"]
     created_at: datetime.datetime
     updated_at: datetime.datetime
     created_by: Union[None, Unset, str] = UNSET
     updated_by: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.map_layout_version import MapLayoutVersion
         map_layout_id = str(self.map_layout_id)
 
         project_id = str(self.project_id)
@@ -68,8 +53,6 @@ class MapLayout:
         for versions_item_data in self.versions:
             versions_item = versions_item_data.to_dict()
             versions.append(versions_item)
-
-
 
         created_at = self.created_at.isoformat()
 
@@ -87,17 +70,18 @@ class MapLayout:
         else:
             updated_by = self.updated_by
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "map_layout_id": map_layout_id,
-            "project_id": project_id,
-            "name": name,
-            "versions": versions,
-            "created_at": created_at,
-            "updated_at": updated_at,
-        })
+        field_dict.update(
+            {
+                "map_layout_id": map_layout_id,
+                "project_id": project_id,
+                "name": name,
+                "versions": versions,
+                "created_at": created_at,
+                "updated_at": updated_at,
+            }
+        )
         if created_by is not UNSET:
             field_dict["created_by"] = created_by
         if updated_by is not UNSET:
@@ -105,43 +89,27 @@ class MapLayout:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.map_layout_version import MapLayoutVersion
+
         d = src_dict.copy()
         map_layout_id = UUID(d.pop("map_layout_id"))
 
-
-
-
         project_id = UUID(d.pop("project_id"))
-
-
-
 
         name = d.pop("name")
 
         versions = []
         _versions = d.pop("versions")
-        for versions_item_data in (_versions):
+        for versions_item_data in _versions:
             versions_item = MapLayoutVersion.from_dict(versions_item_data)
-
-
 
             versions.append(versions_item)
 
-
         created_at = isoparse(d.pop("created_at"))
 
-
-
-
         updated_at = isoparse(d.pop("updated_at"))
-
-
-
 
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -152,7 +120,6 @@ class MapLayout:
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
 
-
         def _parse_updated_by(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -161,7 +128,6 @@ class MapLayout:
             return cast(Union[None, Unset, str], data)
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
-
 
         map_layout = cls(
             map_layout_id=map_layout_id,
@@ -173,7 +139,6 @@ class MapLayout:
             created_by=created_by,
             updated_by=updated_by,
         )
-
 
         map_layout.additional_properties = d
         return map_layout

@@ -1,37 +1,25 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.method_rcd_data_update_method_type_id import MethodRCDDataUpdateMethodTypeId
 from ..types import UNSET, Unset
-from typing import cast, Union
-from typing import Union
-
-
-
-
-
 
 T = TypeVar("T", bound="MethodRCDDataUpdate")
 
 
 @_attrs_define
 class MethodRCDDataUpdate:
-    """ 
-        Attributes:
-            method_type_id (Union[Unset, MethodRCDDataUpdateMethodTypeId]):  Default:
-                MethodRCDDataUpdateMethodTypeId.VALUE_8.
-            depth (Union[None, Unset, float, str]):
-            remarks (Union[None, Unset, str]):
-            comment_code (Union[None, Unset, int]):
-            penetration_rate (Union[None, Unset, float, str]):
-     """
+    """
+    Attributes:
+        method_type_id (Union[Unset, MethodRCDDataUpdateMethodTypeId]):  Default:
+            MethodRCDDataUpdateMethodTypeId.VALUE_8.
+        depth (Union[None, Unset, float, str]):
+        remarks (Union[None, Unset, str]):
+        comment_code (Union[None, Unset, int]):
+        penetration_rate (Union[None, Unset, float, str]):
+    """
 
     method_type_id: Union[Unset, MethodRCDDataUpdateMethodTypeId] = MethodRCDDataUpdateMethodTypeId.VALUE_8
     depth: Union[None, Unset, float, str] = UNSET
@@ -40,12 +28,10 @@ class MethodRCDDataUpdate:
     penetration_rate: Union[None, Unset, float, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
         method_type_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
-
 
         depth: Union[None, Unset, float, str]
         if isinstance(self.depth, Unset):
@@ -71,11 +57,9 @@ class MethodRCDDataUpdate:
         else:
             penetration_rate = self.penetration_rate
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if method_type_id is not UNSET:
             field_dict["method_type_id"] = method_type_id
         if depth is not UNSET:
@@ -89,20 +73,15 @@ class MethodRCDDataUpdate:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodRCDDataUpdateMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodRCDDataUpdateMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_depth(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -113,7 +92,6 @@ class MethodRCDDataUpdate:
 
         depth = _parse_depth(d.pop("depth", UNSET))
 
-
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -122,7 +100,6 @@ class MethodRCDDataUpdate:
             return cast(Union[None, Unset, str], data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
-
 
         def _parse_comment_code(data: object) -> Union[None, Unset, int]:
             if data is None:
@@ -133,7 +110,6 @@ class MethodRCDDataUpdate:
 
         comment_code = _parse_comment_code(d.pop("comment_code", UNSET))
 
-
         def _parse_penetration_rate(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -143,7 +119,6 @@ class MethodRCDDataUpdate:
 
         penetration_rate = _parse_penetration_rate(d.pop("penetration_rate", UNSET))
 
-
         method_rcd_data_update = cls(
             method_type_id=method_type_id,
             depth=depth,
@@ -151,7 +126,6 @@ class MethodRCDDataUpdate:
             comment_code=comment_code,
             penetration_rate=penetration_rate,
         )
-
 
         method_rcd_data_update.additional_properties = d
         return method_rcd_data_update

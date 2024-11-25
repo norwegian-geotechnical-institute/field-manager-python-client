@@ -1,28 +1,15 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
-from ..types import UNSET, Unset
 from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, List
-from typing import cast, Union
-from typing import Dict
-from typing import Union
-from uuid import UUID
-import datetime
+
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-  from ..models.like import Like
-
-
-
+    from ..models.like import Like
 
 
 T = TypeVar("T", bound="Comment")
@@ -30,20 +17,20 @@ T = TypeVar("T", bound="Comment")
 
 @_attrs_define
 class Comment:
-    """ 
-        Attributes:
-            text (str):
-            created_by (UUID):
-            user_name (str):
-            created_at (datetime.datetime):
-            updated_at (datetime.datetime):
-            is_updated (bool):
-            is_deleted (bool):
-            comment_id (UUID):
-            location_id (Union[None, UUID]):
-            method_id (Union[None, UUID]):
-            likes (Union[Unset, List['Like']]):
-     """
+    """
+    Attributes:
+        text (str):
+        created_by (UUID):
+        user_name (str):
+        created_at (datetime.datetime):
+        updated_at (datetime.datetime):
+        is_updated (bool):
+        is_deleted (bool):
+        comment_id (UUID):
+        location_id (Union[None, UUID]):
+        method_id (Union[None, UUID]):
+        likes (Union[Unset, List['Like']]):
+    """
 
     text: str
     created_by: UUID
@@ -55,12 +42,10 @@ class Comment:
     comment_id: UUID
     location_id: Union[None, UUID]
     method_id: Union[None, UUID]
-    likes: Union[Unset, List['Like']] = UNSET
+    likes: Union[Unset, List["Like"]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.like import Like
         text = self.text
 
         created_by = str(self.created_by)
@@ -96,61 +81,47 @@ class Comment:
                 likes_item = likes_item_data.to_dict()
                 likes.append(likes_item)
 
-
-
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "text": text,
-            "created_by": created_by,
-            "user_name": user_name,
-            "created_at": created_at,
-            "updated_at": updated_at,
-            "is_updated": is_updated,
-            "is_deleted": is_deleted,
-            "comment_id": comment_id,
-            "location_id": location_id,
-            "method_id": method_id,
-        })
+        field_dict.update(
+            {
+                "text": text,
+                "created_by": created_by,
+                "user_name": user_name,
+                "created_at": created_at,
+                "updated_at": updated_at,
+                "is_updated": is_updated,
+                "is_deleted": is_deleted,
+                "comment_id": comment_id,
+                "location_id": location_id,
+                "method_id": method_id,
+            }
+        )
         if likes is not UNSET:
             field_dict["likes"] = likes
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.like import Like
+
         d = src_dict.copy()
         text = d.pop("text")
 
         created_by = UUID(d.pop("created_by"))
 
-
-
-
         user_name = d.pop("user_name")
 
         created_at = isoparse(d.pop("created_at"))
 
-
-
-
         updated_at = isoparse(d.pop("updated_at"))
-
-
-
 
         is_updated = d.pop("is_updated")
 
         is_deleted = d.pop("is_deleted")
 
         comment_id = UUID(d.pop("comment_id"))
-
-
-
 
         def _parse_location_id(data: object) -> Union[None, UUID]:
             if data is None:
@@ -160,15 +131,12 @@ class Comment:
                     raise TypeError()
                 location_id_type_0 = UUID(data)
 
-
-
                 return location_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID], data)
 
         location_id = _parse_location_id(d.pop("location_id"))
-
 
         def _parse_method_id(data: object) -> Union[None, UUID]:
             if data is None:
@@ -178,25 +146,19 @@ class Comment:
                     raise TypeError()
                 method_id_type_0 = UUID(data)
 
-
-
                 return method_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID], data)
 
         method_id = _parse_method_id(d.pop("method_id"))
 
-
         likes = []
         _likes = d.pop("likes", UNSET)
-        for likes_item_data in (_likes or []):
+        for likes_item_data in _likes or []:
             likes_item = Like.from_dict(likes_item_data)
 
-
-
             likes.append(likes_item)
-
 
         comment = cls(
             text=text,
@@ -211,7 +173,6 @@ class Comment:
             method_id=method_id,
             likes=likes,
         )
-
 
         comment.additional_properties = d
         return comment

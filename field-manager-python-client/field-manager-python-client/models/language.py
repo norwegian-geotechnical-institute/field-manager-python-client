@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Language(str, Enum):
     ENG = "eng"
     FIN = "fin"

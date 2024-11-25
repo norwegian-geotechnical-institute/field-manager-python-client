@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ExportType(str, Enum):
     LOCATIONCSV = "LocationCSV"
     LOCATIONGEOJSON = "LocationGeoJSON"

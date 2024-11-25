@@ -1,23 +1,17 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...models.body_upload_locations_to_project_projects_project_id_locations_upload_post import BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost
+from ...client import AuthenticatedClient, Client
+from ...models.body_upload_locations_to_project_projects_project_id_locations_upload_post import (
+    BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost,
+)
 from ...models.http_validation_error import HTTPValidationError
 from ...models.location import Location
 from ...models.location_type_enum import LocationTypeEnum
-from ...types import UNSET, Unset
-from typing import cast
-from typing import cast, List
-from typing import cast, Union
-from typing import Dict
-from typing import Union
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -27,12 +21,8 @@ def _get_kwargs(
     srid: Union[None, Unset, int] = UNSET,
     swap_x_y: Union[None, Unset, bool] = False,
     location_type_id: Union[Unset, LocationTypeEnum] = UNSET,
-
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
-
-
-    
 
     params: Dict[str, Any] = {}
 
@@ -56,18 +46,15 @@ def _get_kwargs(
 
     params["location_type_id"] = json_location_type_id
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/projects/{project_id}/locations/upload".format(project_id=project_id,),
+        "url": f"/projects/{project_id}/locations/upload",
         "params": params,
     }
 
     _body = body.to_multipart()
-
 
     _kwargs["files"] = _body
 
@@ -75,22 +62,20 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[HTTPValidationError, List['Location']]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[HTTPValidationError, List["Location"]]]:
     if response.status_code == 201:
         response_201 = []
         _response_201 = response.json()
-        for response_201_item_data in (_response_201):
+        for response_201_item_data in _response_201:
             response_201_item = Location.from_dict(response_201_item_data)
-
-
 
             response_201.append(response_201_item)
 
         return response_201
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
-
-
 
         return response_422
     if client.raise_on_unexpected_status:
@@ -99,7 +84,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[HTTPValidationError, List['Location']]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[HTTPValidationError, List["Location"]]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -116,9 +103,8 @@ def sync_detailed(
     srid: Union[None, Unset, int] = UNSET,
     swap_x_y: Union[None, Unset, bool] = False,
     location_type_id: Union[Unset, LocationTypeEnum] = UNSET,
-
-) -> Response[Union[HTTPValidationError, List['Location']]]:
-    """ Upload Locations To Project
+) -> Response[Union[HTTPValidationError, List["Location"]]]:
+    """Upload Locations To Project
 
      Upload locations from a file.
 
@@ -144,16 +130,14 @@ def sync_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, List['Location']]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-body=body,
-srid=srid,
-swap_x_y=swap_x_y,
-location_type_id=location_type_id,
-
+        body=body,
+        srid=srid,
+        swap_x_y=swap_x_y,
+        location_type_id=location_type_id,
     )
 
     response = client.get_httpx_client().request(
@@ -161,6 +145,7 @@ location_type_id=location_type_id,
     )
 
     return _build_response(client=client, response=response)
+
 
 def sync(
     project_id: str,
@@ -170,9 +155,8 @@ def sync(
     srid: Union[None, Unset, int] = UNSET,
     swap_x_y: Union[None, Unset, bool] = False,
     location_type_id: Union[Unset, LocationTypeEnum] = UNSET,
-
-) -> Optional[Union[HTTPValidationError, List['Location']]]:
-    """ Upload Locations To Project
+) -> Optional[Union[HTTPValidationError, List["Location"]]]:
+    """Upload Locations To Project
 
      Upload locations from a file.
 
@@ -198,18 +182,17 @@ def sync(
 
     Returns:
         Union[HTTPValidationError, List['Location']]
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-client=client,
-body=body,
-srid=srid,
-swap_x_y=swap_x_y,
-location_type_id=location_type_id,
-
+        client=client,
+        body=body,
+        srid=srid,
+        swap_x_y=swap_x_y,
+        location_type_id=location_type_id,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
@@ -219,9 +202,8 @@ async def asyncio_detailed(
     srid: Union[None, Unset, int] = UNSET,
     swap_x_y: Union[None, Unset, bool] = False,
     location_type_id: Union[Unset, LocationTypeEnum] = UNSET,
-
-) -> Response[Union[HTTPValidationError, List['Location']]]:
-    """ Upload Locations To Project
+) -> Response[Union[HTTPValidationError, List["Location"]]]:
+    """Upload Locations To Project
 
      Upload locations from a file.
 
@@ -247,23 +229,20 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, List['Location']]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-body=body,
-srid=srid,
-swap_x_y=swap_x_y,
-location_type_id=location_type_id,
-
+        body=body,
+        srid=srid,
+        swap_x_y=swap_x_y,
+        location_type_id=location_type_id,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
@@ -273,9 +252,8 @@ async def asyncio(
     srid: Union[None, Unset, int] = UNSET,
     swap_x_y: Union[None, Unset, bool] = False,
     location_type_id: Union[Unset, LocationTypeEnum] = UNSET,
-
-) -> Optional[Union[HTTPValidationError, List['Location']]]:
-    """ Upload Locations To Project
+) -> Optional[Union[HTTPValidationError, List["Location"]]]:
+    """Upload Locations To Project
 
      Upload locations from a file.
 
@@ -301,15 +279,15 @@ async def asyncio(
 
     Returns:
         Union[HTTPValidationError, List['Location']]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-client=client,
-body=body,
-srid=srid,
-swap_x_y=swap_x_y,
-location_type_id=location_type_id,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            client=client,
+            body=body,
+            srid=srid,
+            swap_x_y=swap_x_y,
+            location_type_id=location_type_id,
+        )
+    ).parsed

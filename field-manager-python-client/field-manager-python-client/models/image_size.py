@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ImageSize(str, Enum):
     LARGE = "LARGE"
     MEDIUM = "MEDIUM"

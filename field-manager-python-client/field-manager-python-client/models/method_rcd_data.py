@@ -1,44 +1,31 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.method_rcd_data_method_type_id import MethodRCDDataMethodTypeId
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, Union
-from typing import Union
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="MethodRCDData")
 
 
 @_attrs_define
 class MethodRCDData:
-    """ 
-        Attributes:
-            method_data_id (UUID):
-            method_id (UUID):
-            created_at (datetime.datetime):
-            updated_at (datetime.datetime):
-            depth (float): Depth (m). SGF code D.
-            method_type_id (Union[Unset, MethodRCDDataMethodTypeId]):  Default: MethodRCDDataMethodTypeId.VALUE_8.
-            remarks (Union[None, Unset, str]): Remarks. SGF code T
-            comment_code (Union[None, Unset, int]): Comment code. Two digit value.
-            penetration_rate (Union[None, Unset, float]): Penetration rate (mm/s). SGF code B.
-     """
+    """
+    Attributes:
+        method_data_id (UUID):
+        method_id (UUID):
+        created_at (datetime.datetime):
+        updated_at (datetime.datetime):
+        depth (float): Depth (m). SGF code D.
+        method_type_id (Union[Unset, MethodRCDDataMethodTypeId]):  Default: MethodRCDDataMethodTypeId.VALUE_8.
+        remarks (Union[None, Unset, str]): Remarks. SGF code T
+        comment_code (Union[None, Unset, int]): Comment code. Two digit value.
+        penetration_rate (Union[None, Unset, float]): Penetration rate (mm/s). SGF code B.
+    """
 
     method_data_id: UUID
     method_id: UUID
@@ -50,7 +37,6 @@ class MethodRCDData:
     comment_code: Union[None, Unset, int] = UNSET
     penetration_rate: Union[None, Unset, float] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         method_data_id = str(self.method_data_id)
@@ -66,7 +52,6 @@ class MethodRCDData:
         method_type_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
-
 
         remarks: Union[None, Unset, str]
         if isinstance(self.remarks, Unset):
@@ -86,16 +71,17 @@ class MethodRCDData:
         else:
             penetration_rate = self.penetration_rate
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "method_data_id": method_data_id,
-            "method_id": method_id,
-            "created_at": created_at,
-            "updated_at": updated_at,
-            "depth": depth,
-        })
+        field_dict.update(
+            {
+                "method_data_id": method_data_id,
+                "method_id": method_id,
+                "created_at": created_at,
+                "updated_at": updated_at,
+                "depth": depth,
+            }
+        )
         if method_type_id is not UNSET:
             field_dict["method_type_id"] = method_type_id
         if remarks is not UNSET:
@@ -107,42 +93,25 @@ class MethodRCDData:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
         method_data_id = UUID(d.pop("method_data_id"))
 
-
-
-
         method_id = UUID(d.pop("method_id"))
-
-
-
 
         created_at = isoparse(d.pop("created_at"))
 
-
-
-
         updated_at = isoparse(d.pop("updated_at"))
-
-
-
 
         depth = d.pop("depth")
 
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodRCDDataMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodRCDDataMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -153,7 +122,6 @@ class MethodRCDData:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-
         def _parse_comment_code(data: object) -> Union[None, Unset, int]:
             if data is None:
                 return data
@@ -163,7 +131,6 @@ class MethodRCDData:
 
         comment_code = _parse_comment_code(d.pop("comment_code", UNSET))
 
-
         def _parse_penetration_rate(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -172,7 +139,6 @@ class MethodRCDData:
             return cast(Union[None, Unset, float], data)
 
         penetration_rate = _parse_penetration_rate(d.pop("penetration_rate", UNSET))
-
 
         method_rcd_data = cls(
             method_data_id=method_data_id,
@@ -185,7 +151,6 @@ class MethodRCDData:
             comment_code=comment_code,
             penetration_rate=penetration_rate,
         )
-
 
         method_rcd_data.additional_properties = d
         return method_rcd_data

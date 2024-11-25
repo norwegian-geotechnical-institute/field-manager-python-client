@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodPZMethodTypeId(IntEnum):
     VALUE_5 = 5
 

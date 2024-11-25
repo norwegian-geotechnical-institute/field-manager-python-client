@@ -1,40 +1,27 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast, Union
-from typing import Union
-from uuid import UUID
-
-
-
-
-
-
 T = TypeVar("T", bound="LocationMin")
 
 
 @_attrs_define
 class LocationMin:
-    """ 
-        Attributes:
-            location_id (UUID):
-            project_id (UUID):
-            name (Union[None, Unset, str]):
-     """
+    """
+    Attributes:
+        location_id (UUID):
+        project_id (UUID):
+        name (Union[None, Unset, str]):
+    """
 
     location_id: UUID
     project_id: UUID
     name: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         location_id = str(self.location_id)
@@ -47,32 +34,25 @@ class LocationMin:
         else:
             name = self.name
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "location_id": location_id,
-            "project_id": project_id,
-        })
+        field_dict.update(
+            {
+                "location_id": location_id,
+                "project_id": project_id,
+            }
+        )
         if name is not UNSET:
             field_dict["name"] = name
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
         location_id = UUID(d.pop("location_id"))
 
-
-
-
         project_id = UUID(d.pop("project_id"))
-
-
-
 
         def _parse_name(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -83,13 +63,11 @@ class LocationMin:
 
         name = _parse_name(d.pop("name", UNSET))
 
-
         location_min = cls(
             location_id=location_id,
             project_id=project_id,
             name=name,
         )
-
 
         location_min.additional_properties = d
         return location_min

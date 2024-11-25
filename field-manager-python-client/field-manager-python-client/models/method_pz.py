@@ -1,32 +1,19 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.method_pz_method_type_id import MethodPZMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..models.piezometer_type import PiezometerType
 from ..models.transformation_type import TransformationType
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, List
-from typing import cast, Union
-from typing import Dict
-from typing import Union
-from uuid import UUID
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.file import File
-
-
-
+    from ..models.file import File
 
 
 T = TypeVar("T", bound="MethodPZ")
@@ -34,59 +21,59 @@ T = TypeVar("T", bound="MethodPZ")
 
 @_attrs_define
 class MethodPZ:
-    """ PZ
+    """PZ
 
-        Attributes:
-            method_id (UUID):
-            name (str):
-            location_id (UUID):
-            method_status_id (MethodStatusEnum): (
-                PLANNED=1,
-                READY=2,
-                CONDUCTED=3,
-                VOIDED=4,
-                APPROVED=5,
-                )
-            created_at (datetime.datetime):
-            updated_at (datetime.datetime):
-            piezometer_type (PiezometerType): (
-                ELECTRIC = Piezometer Electric,
-                HYDRAULIC = Piezometer Hydraulic,
-                STANDPIPE = Piezometer Standpipe,
-                )
-            transformation_type (TransformationType): Piezometer Transformation Types
-            mandatory_barometric_pressure (bool):
-            mandatory_temperature (bool):
-            remarks (Union[None, Unset, str]):
-            method_type_id (Union[Unset, MethodPZMethodTypeId]):  Default: MethodPZMethodTypeId.VALUE_5.
-            created_by (Union[None, Unset, str]):
-            updated_by (Union[None, Unset, str]):
-            conducted_at (Union[None, Unset, datetime.datetime]):
-            conducted_by (Union[None, Unset, str]):
-            files (Union[Unset, List['File']]):
-            self_ (Union[None, Unset, str]):
-            depth_top (Union[None, Unset, float]):
-            depth_base (Union[None, Unset, float]):
-            distance_over_terrain (Union[None, Unset, float]):
-            model_id (Union[None, UUID, Unset]):
-            pore_pressure_unit (Union[None, Unset, str]):
-            serial_number (Union[None, Unset, str]):
-            default_barometric_pressure (Union[None, Unset, float]):
-            polynomial_factor_a (Union[None, Unset, float]):
-            polynomial_factor_b (Union[None, Unset, float]):
-            polynomial_factor_k (Union[None, Unset, float]):
-            polynomial_factor_a_unit (Union[None, Unset, str]):
-            polynomial_factor_b_unit (Union[None, Unset, str]):
-            polynomial_factor_k_unit (Union[None, Unset, str]):
-            zero_reading_pore_pressure (Union[None, Unset, float]):
-            zero_reading_barometric_pressure (Union[None, Unset, float]):
-            zero_reading_temperature (Union[None, Unset, float]):
-            missing_variables_pore_pressure (Union[List[str], None, Unset]): Missing variables to calculate pore pressure.
-            missing_variables_piezometric_head (Union[List[str], None, Unset]): Missing variables to calculate piezometric
-                head.
-            missing_variables_piezometric_potential (Union[List[str], None, Unset]): Missing variables to calculate
-                piezometric potential.
-     """
+    Attributes:
+        method_id (UUID):
+        name (str):
+        location_id (UUID):
+        method_status_id (MethodStatusEnum): (
+            PLANNED=1,
+            READY=2,
+            CONDUCTED=3,
+            VOIDED=4,
+            APPROVED=5,
+            )
+        created_at (datetime.datetime):
+        updated_at (datetime.datetime):
+        piezometer_type (PiezometerType): (
+            ELECTRIC = Piezometer Electric,
+            HYDRAULIC = Piezometer Hydraulic,
+            STANDPIPE = Piezometer Standpipe,
+            )
+        transformation_type (TransformationType): Piezometer Transformation Types
+        mandatory_barometric_pressure (bool):
+        mandatory_temperature (bool):
+        remarks (Union[None, Unset, str]):
+        method_type_id (Union[Unset, MethodPZMethodTypeId]):  Default: MethodPZMethodTypeId.VALUE_5.
+        created_by (Union[None, Unset, str]):
+        updated_by (Union[None, Unset, str]):
+        conducted_at (Union[None, Unset, datetime.datetime]):
+        conducted_by (Union[None, Unset, str]):
+        files (Union[Unset, List['File']]):
+        self_ (Union[None, Unset, str]):
+        depth_top (Union[None, Unset, float]):
+        depth_base (Union[None, Unset, float]):
+        distance_over_terrain (Union[None, Unset, float]):
+        model_id (Union[None, UUID, Unset]):
+        pore_pressure_unit (Union[None, Unset, str]):
+        serial_number (Union[None, Unset, str]):
+        default_barometric_pressure (Union[None, Unset, float]):
+        polynomial_factor_a (Union[None, Unset, float]):
+        polynomial_factor_b (Union[None, Unset, float]):
+        polynomial_factor_k (Union[None, Unset, float]):
+        polynomial_factor_a_unit (Union[None, Unset, str]):
+        polynomial_factor_b_unit (Union[None, Unset, str]):
+        polynomial_factor_k_unit (Union[None, Unset, str]):
+        zero_reading_pore_pressure (Union[None, Unset, float]):
+        zero_reading_barometric_pressure (Union[None, Unset, float]):
+        zero_reading_temperature (Union[None, Unset, float]):
+        missing_variables_pore_pressure (Union[List[str], None, Unset]): Missing variables to calculate pore pressure.
+        missing_variables_piezometric_head (Union[List[str], None, Unset]): Missing variables to calculate piezometric
+            head.
+        missing_variables_piezometric_potential (Union[List[str], None, Unset]): Missing variables to calculate
+            piezometric potential.
+    """
 
     method_id: UUID
     name: str
@@ -104,7 +91,7 @@ class MethodPZ:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
-    files: Union[Unset, List['File']] = UNSET
+    files: Union[Unset, List["File"]] = UNSET
     self_: Union[None, Unset, str] = UNSET
     depth_top: Union[None, Unset, float] = UNSET
     depth_base: Union[None, Unset, float] = UNSET
@@ -127,9 +114,7 @@ class MethodPZ:
     missing_variables_piezometric_potential: Union[List[str], None, Unset] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.file import File
         method_id = str(self.method_id)
 
         name = self.name
@@ -159,7 +144,6 @@ class MethodPZ:
         method_type_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
-
 
         created_by: Union[None, Unset, str]
         if isinstance(self.created_by, Unset):
@@ -193,8 +177,6 @@ class MethodPZ:
             for files_item_data in self.files:
                 files_item = files_item_data.to_dict()
                 files.append(files_item)
-
-
 
         self_: Union[None, Unset, str]
         if isinstance(self.self_, Unset):
@@ -306,7 +288,6 @@ class MethodPZ:
         elif isinstance(self.missing_variables_pore_pressure, list):
             missing_variables_pore_pressure = self.missing_variables_pore_pressure
 
-
         else:
             missing_variables_pore_pressure = self.missing_variables_pore_pressure
 
@@ -315,7 +296,6 @@ class MethodPZ:
             missing_variables_piezometric_head = UNSET
         elif isinstance(self.missing_variables_piezometric_head, list):
             missing_variables_piezometric_head = self.missing_variables_piezometric_head
-
 
         else:
             missing_variables_piezometric_head = self.missing_variables_piezometric_head
@@ -326,25 +306,25 @@ class MethodPZ:
         elif isinstance(self.missing_variables_piezometric_potential, list):
             missing_variables_piezometric_potential = self.missing_variables_piezometric_potential
 
-
         else:
             missing_variables_piezometric_potential = self.missing_variables_piezometric_potential
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "method_id": method_id,
-            "name": name,
-            "location_id": location_id,
-            "method_status_id": method_status_id,
-            "created_at": created_at,
-            "updated_at": updated_at,
-            "piezometer_type": piezometer_type,
-            "transformation_type": transformation_type,
-            "mandatory_barometric_pressure": mandatory_barometric_pressure,
-            "mandatory_temperature": mandatory_temperature,
-        })
+        field_dict.update(
+            {
+                "method_id": method_id,
+                "name": name,
+                "location_id": location_id,
+                "method_status_id": method_status_id,
+                "created_at": created_at,
+                "updated_at": updated_at,
+                "piezometer_type": piezometer_type,
+                "transformation_type": transformation_type,
+                "mandatory_barometric_pressure": mandatory_barometric_pressure,
+                "mandatory_temperature": mandatory_temperature,
+            }
+        )
         if remarks is not UNSET:
             field_dict["remarks"] = remarks
         if method_type_id is not UNSET:
@@ -402,48 +382,26 @@ class MethodPZ:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.file import File
+
         d = src_dict.copy()
         method_id = UUID(d.pop("method_id"))
-
-
-
 
         name = d.pop("name")
 
         location_id = UUID(d.pop("location_id"))
 
-
-
-
         method_status_id = MethodStatusEnum(d.pop("method_status_id"))
-
-
-
 
         created_at = isoparse(d.pop("created_at"))
 
-
-
-
         updated_at = isoparse(d.pop("updated_at"))
-
-
-
 
         piezometer_type = PiezometerType(d.pop("piezometer_type"))
 
-
-
-
         transformation_type = TransformationType(d.pop("transformation_type"))
-
-
-
 
         mandatory_barometric_pressure = d.pop("mandatory_barometric_pressure")
 
@@ -458,16 +416,12 @@ class MethodPZ:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodPZMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodPZMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -478,7 +432,6 @@ class MethodPZ:
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
 
-
         def _parse_updated_by(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -487,7 +440,6 @@ class MethodPZ:
             return cast(Union[None, Unset, str], data)
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
-
 
         def _parse_conducted_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -499,15 +451,12 @@ class MethodPZ:
                     raise TypeError()
                 conducted_at_type_0 = isoparse(data)
 
-
-
                 return conducted_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
-
 
         def _parse_conducted_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -518,16 +467,12 @@ class MethodPZ:
 
         conducted_by = _parse_conducted_by(d.pop("conducted_by", UNSET))
 
-
         files = []
         _files = d.pop("files", UNSET)
-        for files_item_data in (_files or []):
+        for files_item_data in _files or []:
             files_item = File.from_dict(files_item_data)
 
-
-
             files.append(files_item)
-
 
         def _parse_self_(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -538,7 +483,6 @@ class MethodPZ:
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
-
         def _parse_depth_top(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -547,7 +491,6 @@ class MethodPZ:
             return cast(Union[None, Unset, float], data)
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
-
 
         def _parse_depth_base(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -558,7 +501,6 @@ class MethodPZ:
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
 
-
         def _parse_distance_over_terrain(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -567,7 +509,6 @@ class MethodPZ:
             return cast(Union[None, Unset, float], data)
 
         distance_over_terrain = _parse_distance_over_terrain(d.pop("distance_over_terrain", UNSET))
-
 
         def _parse_model_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
@@ -579,15 +520,12 @@ class MethodPZ:
                     raise TypeError()
                 model_id_type_0 = UUID(data)
 
-
-
                 return model_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         model_id = _parse_model_id(d.pop("model_id", UNSET))
-
 
         def _parse_pore_pressure_unit(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -598,7 +536,6 @@ class MethodPZ:
 
         pore_pressure_unit = _parse_pore_pressure_unit(d.pop("pore_pressure_unit", UNSET))
 
-
         def _parse_serial_number(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -607,7 +544,6 @@ class MethodPZ:
             return cast(Union[None, Unset, str], data)
 
         serial_number = _parse_serial_number(d.pop("serial_number", UNSET))
-
 
         def _parse_default_barometric_pressure(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -618,7 +554,6 @@ class MethodPZ:
 
         default_barometric_pressure = _parse_default_barometric_pressure(d.pop("default_barometric_pressure", UNSET))
 
-
         def _parse_polynomial_factor_a(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -627,7 +562,6 @@ class MethodPZ:
             return cast(Union[None, Unset, float], data)
 
         polynomial_factor_a = _parse_polynomial_factor_a(d.pop("polynomial_factor_a", UNSET))
-
 
         def _parse_polynomial_factor_b(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -638,7 +572,6 @@ class MethodPZ:
 
         polynomial_factor_b = _parse_polynomial_factor_b(d.pop("polynomial_factor_b", UNSET))
 
-
         def _parse_polynomial_factor_k(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -647,7 +580,6 @@ class MethodPZ:
             return cast(Union[None, Unset, float], data)
 
         polynomial_factor_k = _parse_polynomial_factor_k(d.pop("polynomial_factor_k", UNSET))
-
 
         def _parse_polynomial_factor_a_unit(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -658,7 +590,6 @@ class MethodPZ:
 
         polynomial_factor_a_unit = _parse_polynomial_factor_a_unit(d.pop("polynomial_factor_a_unit", UNSET))
 
-
         def _parse_polynomial_factor_b_unit(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -667,7 +598,6 @@ class MethodPZ:
             return cast(Union[None, Unset, str], data)
 
         polynomial_factor_b_unit = _parse_polynomial_factor_b_unit(d.pop("polynomial_factor_b_unit", UNSET))
-
 
         def _parse_polynomial_factor_k_unit(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -678,7 +608,6 @@ class MethodPZ:
 
         polynomial_factor_k_unit = _parse_polynomial_factor_k_unit(d.pop("polynomial_factor_k_unit", UNSET))
 
-
         def _parse_zero_reading_pore_pressure(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -688,7 +617,6 @@ class MethodPZ:
 
         zero_reading_pore_pressure = _parse_zero_reading_pore_pressure(d.pop("zero_reading_pore_pressure", UNSET))
 
-
         def _parse_zero_reading_barometric_pressure(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -696,8 +624,9 @@ class MethodPZ:
                 return data
             return cast(Union[None, Unset, float], data)
 
-        zero_reading_barometric_pressure = _parse_zero_reading_barometric_pressure(d.pop("zero_reading_barometric_pressure", UNSET))
-
+        zero_reading_barometric_pressure = _parse_zero_reading_barometric_pressure(
+            d.pop("zero_reading_barometric_pressure", UNSET)
+        )
 
         def _parse_zero_reading_temperature(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -707,7 +636,6 @@ class MethodPZ:
             return cast(Union[None, Unset, float], data)
 
         zero_reading_temperature = _parse_zero_reading_temperature(d.pop("zero_reading_temperature", UNSET))
-
 
         def _parse_missing_variables_pore_pressure(data: object) -> Union[List[str], None, Unset]:
             if data is None:
@@ -720,12 +648,13 @@ class MethodPZ:
                 missing_variables_pore_pressure_type_0 = cast(List[str], data)
 
                 return missing_variables_pore_pressure_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[List[str], None, Unset], data)
 
-        missing_variables_pore_pressure = _parse_missing_variables_pore_pressure(d.pop("missing_variables_pore_pressure", UNSET))
-
+        missing_variables_pore_pressure = _parse_missing_variables_pore_pressure(
+            d.pop("missing_variables_pore_pressure", UNSET)
+        )
 
         def _parse_missing_variables_piezometric_head(data: object) -> Union[List[str], None, Unset]:
             if data is None:
@@ -738,12 +667,13 @@ class MethodPZ:
                 missing_variables_piezometric_head_type_0 = cast(List[str], data)
 
                 return missing_variables_piezometric_head_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[List[str], None, Unset], data)
 
-        missing_variables_piezometric_head = _parse_missing_variables_piezometric_head(d.pop("missing_variables_piezometric_head", UNSET))
-
+        missing_variables_piezometric_head = _parse_missing_variables_piezometric_head(
+            d.pop("missing_variables_piezometric_head", UNSET)
+        )
 
         def _parse_missing_variables_piezometric_potential(data: object) -> Union[List[str], None, Unset]:
             if data is None:
@@ -756,12 +686,13 @@ class MethodPZ:
                 missing_variables_piezometric_potential_type_0 = cast(List[str], data)
 
                 return missing_variables_piezometric_potential_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[List[str], None, Unset], data)
 
-        missing_variables_piezometric_potential = _parse_missing_variables_piezometric_potential(d.pop("missing_variables_piezometric_potential", UNSET))
-
+        missing_variables_piezometric_potential = _parse_missing_variables_piezometric_potential(
+            d.pop("missing_variables_piezometric_potential", UNSET)
+        )
 
         method_pz = cls(
             method_id=method_id,
@@ -802,7 +733,6 @@ class MethodPZ:
             missing_variables_piezometric_head=missing_variables_piezometric_head,
             missing_variables_piezometric_potential=missing_variables_piezometric_potential,
         )
-
 
         method_pz.additional_properties = d
         return method_pz

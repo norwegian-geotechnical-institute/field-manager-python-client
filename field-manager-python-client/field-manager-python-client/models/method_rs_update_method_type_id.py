@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodRSUpdateMethodTypeId(IntEnum):
     VALUE_9 = 9
 

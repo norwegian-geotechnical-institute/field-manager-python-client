@@ -1,43 +1,31 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
+from uuid import UUID
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
-from typing import cast
-from typing import Dict
-from uuid import UUID
-
+from ...types import Response
 
 
 def _get_kwargs(
     organization_id: UUID,
-
 ) -> Dict[str, Any]:
-    
-
-    
-
-    
-
     _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/organizations/{organization_id}/users".format(organization_id=organization_id,),
+        "url": f"/organizations/{organization_id}/users",
     }
-
 
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[HTTPValidationError]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[HTTPValidationError]:
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
-
-
 
         return response_422
     if client.raise_on_unexpected_status:
@@ -46,7 +34,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[HTTPValidationError]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -59,9 +49,8 @@ def sync_detailed(
     organization_id: UUID,
     *,
     client: AuthenticatedClient,
-
 ) -> Response[HTTPValidationError]:
-    """ Get Organization Users
+    """Get Organization Users
 
      Get an organization's users. That is all users that have a direct role to the organization with
     the passed organization_id.
@@ -75,12 +64,10 @@ def sync_detailed(
 
     Returns:
         Response[HTTPValidationError]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-
     )
 
     response = client.get_httpx_client().request(
@@ -89,13 +76,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     organization_id: UUID,
     *,
     client: AuthenticatedClient,
-
 ) -> Optional[HTTPValidationError]:
-    """ Get Organization Users
+    """Get Organization Users
 
      Get an organization's users. That is all users that have a direct role to the organization with
     the passed organization_id.
@@ -109,22 +96,20 @@ def sync(
 
     Returns:
         HTTPValidationError
-     """
-
+    """
 
     return sync_detailed(
         organization_id=organization_id,
-client=client,
-
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     organization_id: UUID,
     *,
     client: AuthenticatedClient,
-
 ) -> Response[HTTPValidationError]:
-    """ Get Organization Users
+    """Get Organization Users
 
      Get an organization's users. That is all users that have a direct role to the organization with
     the passed organization_id.
@@ -138,27 +123,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[HTTPValidationError]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     organization_id: UUID,
     *,
     client: AuthenticatedClient,
-
 ) -> Optional[HTTPValidationError]:
-    """ Get Organization Users
+    """Get Organization Users
 
      Get an organization's users. That is all users that have a direct role to the organization with
     the passed organization_id.
@@ -172,11 +153,11 @@ async def asyncio(
 
     Returns:
         HTTPValidationError
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        organization_id=organization_id,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            organization_id=organization_id,
+            client=client,
+        )
+    ).parsed
