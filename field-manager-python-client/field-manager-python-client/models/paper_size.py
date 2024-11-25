@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class PaperSize(str, Enum):
     A0 = "A0"
     A1 = "A1"

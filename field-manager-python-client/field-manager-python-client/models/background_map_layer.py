@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class BackgroundMapLayer(str, Enum):
     BACKGROUND_NORWAY = "BACKGROUND_NORWAY"
     GEBCO_WORLD = "GEBCO_WORLD"

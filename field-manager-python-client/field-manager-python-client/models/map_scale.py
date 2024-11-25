@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class MapScale(str, Enum):
     S_1_100 = "S_1_100"
     S_1_1000 = "S_1_1000"

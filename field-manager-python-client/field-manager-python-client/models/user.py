@@ -1,26 +1,13 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-from typing import cast, List
-from typing import cast, Union
-from typing import Dict
-from typing import Union
-from uuid import UUID
-
 if TYPE_CHECKING:
-  from ..models.role import Role
-
-
-
+    from ..models.role import Role
 
 
 T = TypeVar("T", bound="User")
@@ -28,25 +15,23 @@ T = TypeVar("T", bound="User")
 
 @_attrs_define
 class User:
-    """ 
-        Attributes:
-            user_id (Union[None, UUID, Unset]):
-            name (Union[None, Unset, str]):
-            email (Union[None, Unset, str]):
-            roles (Union[Unset, List['Role']]):
-            email_verified (Union[None, Unset, bool]):
-     """
+    """
+    Attributes:
+        user_id (Union[None, UUID, Unset]):
+        name (Union[None, Unset, str]):
+        email (Union[None, Unset, str]):
+        roles (Union[Unset, List['Role']]):
+        email_verified (Union[None, Unset, bool]):
+    """
 
     user_id: Union[None, UUID, Unset] = UNSET
     name: Union[None, Unset, str] = UNSET
     email: Union[None, Unset, str] = UNSET
-    roles: Union[Unset, List['Role']] = UNSET
+    roles: Union[Unset, List["Role"]] = UNSET
     email_verified: Union[None, Unset, bool] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.role import Role
         user_id: Union[None, Unset, str]
         if isinstance(self.user_id, Unset):
             user_id = UNSET
@@ -74,19 +59,15 @@ class User:
                 roles_item = roles_item_data.to_dict()
                 roles.append(roles_item)
 
-
-
         email_verified: Union[None, Unset, bool]
         if isinstance(self.email_verified, Unset):
             email_verified = UNSET
         else:
             email_verified = self.email_verified
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if user_id is not UNSET:
             field_dict["user_id"] = user_id
         if name is not UNSET:
@@ -100,12 +81,12 @@ class User:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.role import Role
+
         d = src_dict.copy()
+
         def _parse_user_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
                 return data
@@ -116,15 +97,12 @@ class User:
                     raise TypeError()
                 user_id_type_0 = UUID(data)
 
-
-
                 return user_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         user_id = _parse_user_id(d.pop("user_id", UNSET))
-
 
         def _parse_name(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -135,7 +113,6 @@ class User:
 
         name = _parse_name(d.pop("name", UNSET))
 
-
         def _parse_email(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -145,16 +122,12 @@ class User:
 
         email = _parse_email(d.pop("email", UNSET))
 
-
         roles = []
         _roles = d.pop("roles", UNSET)
-        for roles_item_data in (_roles or []):
+        for roles_item_data in _roles or []:
             roles_item = Role.from_dict(roles_item_data)
 
-
-
             roles.append(roles_item)
-
 
         def _parse_email_verified(data: object) -> Union[None, Unset, bool]:
             if data is None:
@@ -165,7 +138,6 @@ class User:
 
         email_verified = _parse_email_verified(d.pop("email_verified", UNSET))
 
-
         user = cls(
             user_id=user_id,
             name=name,
@@ -173,7 +145,6 @@ class User:
             roles=roles,
             email_verified=email_verified,
         )
-
 
         user.additional_properties = d
         return user

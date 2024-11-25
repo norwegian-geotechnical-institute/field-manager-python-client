@@ -1,46 +1,33 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.method_wst_data_method_type_id import MethodWSTDataMethodTypeId
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, Union
-from typing import Union
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="MethodWSTData")
 
 
 @_attrs_define
 class MethodWSTData:
-    """ 
-        Attributes:
-            method_data_id (UUID):
-            method_id (UUID):
-            created_at (datetime.datetime):
-            updated_at (datetime.datetime):
-            depth (float): Depth (m). SGF code D.
-            method_type_id (Union[Unset, MethodWSTDataMethodTypeId]):  Default: MethodWSTDataMethodTypeId.VALUE_26.
-            turning (Union[None, Unset, float]): Turning (half revolution/0.2 m)
-            load (Union[None, Unset, float]): Load (kN)
-            penetration_rate (Union[None, Unset, float]): Penetration rate (mm/s)
-            hammering (Union[None, Unset, bool]): Hammering 0=off 1=on SGF code AP.
-            rotation_rate (Union[None, Unset, float]): Rotation rate (rpm)
-     """
+    """
+    Attributes:
+        method_data_id (UUID):
+        method_id (UUID):
+        created_at (datetime.datetime):
+        updated_at (datetime.datetime):
+        depth (float): Depth (m). SGF code D.
+        method_type_id (Union[Unset, MethodWSTDataMethodTypeId]):  Default: MethodWSTDataMethodTypeId.VALUE_26.
+        turning (Union[None, Unset, float]): Turning (half revolution/0.2 m)
+        load (Union[None, Unset, float]): Load (kN)
+        penetration_rate (Union[None, Unset, float]): Penetration rate (mm/s)
+        hammering (Union[None, Unset, bool]): Hammering 0=off 1=on SGF code AP.
+        rotation_rate (Union[None, Unset, float]): Rotation rate (rpm)
+    """
 
     method_data_id: UUID
     method_id: UUID
@@ -54,7 +41,6 @@ class MethodWSTData:
     hammering: Union[None, Unset, bool] = UNSET
     rotation_rate: Union[None, Unset, float] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         method_data_id = str(self.method_data_id)
@@ -70,7 +56,6 @@ class MethodWSTData:
         method_type_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
-
 
         turning: Union[None, Unset, float]
         if isinstance(self.turning, Unset):
@@ -102,16 +87,17 @@ class MethodWSTData:
         else:
             rotation_rate = self.rotation_rate
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "method_data_id": method_data_id,
-            "method_id": method_id,
-            "created_at": created_at,
-            "updated_at": updated_at,
-            "depth": depth,
-        })
+        field_dict.update(
+            {
+                "method_data_id": method_data_id,
+                "method_id": method_id,
+                "created_at": created_at,
+                "updated_at": updated_at,
+                "depth": depth,
+            }
+        )
         if method_type_id is not UNSET:
             field_dict["method_type_id"] = method_type_id
         if turning is not UNSET:
@@ -127,42 +113,25 @@ class MethodWSTData:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
         method_data_id = UUID(d.pop("method_data_id"))
 
-
-
-
         method_id = UUID(d.pop("method_id"))
-
-
-
 
         created_at = isoparse(d.pop("created_at"))
 
-
-
-
         updated_at = isoparse(d.pop("updated_at"))
-
-
-
 
         depth = d.pop("depth")
 
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodWSTDataMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodWSTDataMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_turning(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -173,7 +142,6 @@ class MethodWSTData:
 
         turning = _parse_turning(d.pop("turning", UNSET))
 
-
         def _parse_load(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -182,7 +150,6 @@ class MethodWSTData:
             return cast(Union[None, Unset, float], data)
 
         load = _parse_load(d.pop("load", UNSET))
-
 
         def _parse_penetration_rate(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -193,7 +160,6 @@ class MethodWSTData:
 
         penetration_rate = _parse_penetration_rate(d.pop("penetration_rate", UNSET))
 
-
         def _parse_hammering(data: object) -> Union[None, Unset, bool]:
             if data is None:
                 return data
@@ -203,7 +169,6 @@ class MethodWSTData:
 
         hammering = _parse_hammering(d.pop("hammering", UNSET))
 
-
         def _parse_rotation_rate(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -212,7 +177,6 @@ class MethodWSTData:
             return cast(Union[None, Unset, float], data)
 
         rotation_rate = _parse_rotation_rate(d.pop("rotation_rate", UNSET))
-
 
         method_wst_data = cls(
             method_data_id=method_data_id,
@@ -227,7 +191,6 @@ class MethodWSTData:
             hammering=hammering,
             rotation_rate=rotation_rate,
         )
-
 
         method_wst_data.additional_properties = d
         return method_wst_data

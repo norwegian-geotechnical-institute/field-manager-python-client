@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class PdfOptionsLang(str, Enum):
     ENG = "eng"
     NOR = "nor"

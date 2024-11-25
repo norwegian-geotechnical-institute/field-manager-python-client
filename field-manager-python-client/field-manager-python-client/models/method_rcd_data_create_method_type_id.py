@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodRCDDataCreateMethodTypeId(IntEnum):
     VALUE_8 = 8
 

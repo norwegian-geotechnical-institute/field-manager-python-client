@@ -1,49 +1,35 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.height_reference import HeightReference
 from ..models.standard_type import StandardType
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, List
-from typing import cast, Union
-from typing import Union
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="ProjectCreate")
 
 
 @_attrs_define
 class ProjectCreate:
-    """ 
-        Attributes:
-            external_id (str):
-            organization_id (UUID):
-            name (str):
-            srid (int):
-            height_reference (Union[HeightReference, None]):
-            project_id (Union[None, UUID, Unset]):
-            created_at (Union[None, Unset, datetime.datetime]):
-            updated_at (Union[None, Unset, datetime.datetime]):
-            external_id_source (Union[None, Unset, str]):
-            standard_id (Union[None, StandardType, Unset]):  Default: StandardType.NGF.
-            description (Union[None, Unset, str]):
-            tags (Union[Unset, List[str]]):
-     """
+    """
+    Attributes:
+        external_id (str):
+        organization_id (UUID):
+        name (str):
+        srid (int):
+        height_reference (Union[HeightReference, None]):
+        project_id (Union[None, UUID, Unset]):
+        created_at (Union[None, Unset, datetime.datetime]):
+        updated_at (Union[None, Unset, datetime.datetime]):
+        external_id_source (Union[None, Unset, str]):
+        standard_id (Union[None, StandardType, Unset]):  Default: StandardType.NGF.
+        description (Union[None, Unset, str]):
+        tags (Union[Unset, List[str]]):
+    """
 
     external_id: str
     organization_id: UUID
@@ -58,7 +44,6 @@ class ProjectCreate:
     description: Union[None, Unset, str] = UNSET
     tags: Union[Unset, List[str]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         external_id = self.external_id
@@ -123,18 +108,17 @@ class ProjectCreate:
         if not isinstance(self.tags, Unset):
             tags = self.tags
 
-
-
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "external_id": external_id,
-            "organization_id": organization_id,
-            "name": name,
-            "srid": srid,
-            "height_reference": height_reference,
-        })
+        field_dict.update(
+            {
+                "external_id": external_id,
+                "organization_id": organization_id,
+                "name": name,
+                "srid": srid,
+                "height_reference": height_reference,
+            }
+        )
         if project_id is not UNSET:
             field_dict["project_id"] = project_id
         if created_at is not UNSET:
@@ -152,17 +136,12 @@ class ProjectCreate:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
         external_id = d.pop("external_id")
 
         organization_id = UUID(d.pop("organization_id"))
-
-
-
 
         name = d.pop("name")
 
@@ -176,15 +155,12 @@ class ProjectCreate:
                     raise TypeError()
                 height_reference_type_0 = HeightReference(data)
 
-
-
                 return height_reference_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[HeightReference, None], data)
 
         height_reference = _parse_height_reference(d.pop("height_reference"))
-
 
         def _parse_project_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
@@ -196,15 +172,12 @@ class ProjectCreate:
                     raise TypeError()
                 project_id_type_0 = UUID(data)
 
-
-
                 return project_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         project_id = _parse_project_id(d.pop("project_id", UNSET))
-
 
         def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -216,15 +189,12 @@ class ProjectCreate:
                     raise TypeError()
                 created_at_type_0 = isoparse(data)
 
-
-
                 return created_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         created_at = _parse_created_at(d.pop("created_at", UNSET))
-
 
         def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -236,15 +206,12 @@ class ProjectCreate:
                     raise TypeError()
                 updated_at_type_0 = isoparse(data)
 
-
-
                 return updated_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
-
 
         def _parse_external_id_source(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -254,7 +221,6 @@ class ProjectCreate:
             return cast(Union[None, Unset, str], data)
 
         external_id_source = _parse_external_id_source(d.pop("external_id_source", UNSET))
-
 
         def _parse_standard_id(data: object) -> Union[None, StandardType, Unset]:
             if data is None:
@@ -266,15 +232,12 @@ class ProjectCreate:
                     raise TypeError()
                 standard_id_type_0 = StandardType(data)
 
-
-
                 return standard_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, StandardType, Unset], data)
 
         standard_id = _parse_standard_id(d.pop("standard_id", UNSET))
-
 
         def _parse_description(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -285,9 +248,7 @@ class ProjectCreate:
 
         description = _parse_description(d.pop("description", UNSET))
 
-
         tags = cast(List[str], d.pop("tags", UNSET))
-
 
         project_create = cls(
             external_id=external_id,
@@ -303,7 +264,6 @@ class ProjectCreate:
             description=description,
             tags=tags,
         )
-
 
         project_create.additional_properties = d
         return project_create

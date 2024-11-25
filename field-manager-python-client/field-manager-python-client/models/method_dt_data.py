@@ -1,45 +1,32 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.method_dt_data_method_type_id import MethodDTDataMethodTypeId
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, Union
-from typing import Union
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="MethodDTData")
 
 
 @_attrs_define
 class MethodDTData:
-    """ 
-        Attributes:
-            method_data_id (UUID):
-            method_id (UUID):
-            created_at (datetime.datetime):
-            updated_at (datetime.datetime):
-            method_type_id (Union[Unset, MethodDTDataMethodTypeId]):  Default: MethodDTDataMethodTypeId.VALUE_22.
-            depth (Union[None, Unset, float]): Depth (m). SGF code D.
-            time (Union[None, Unset, float]): Time (s).
-            qc (Union[None, Unset, float]): Cone resistance (MPa). SGF code QC.
-            u2 (Union[None, Unset, float]): Shoulder pressure (kPa). SGF code U.
-            remarks (Union[None, Unset, str]):
-     """
+    """
+    Attributes:
+        method_data_id (UUID):
+        method_id (UUID):
+        created_at (datetime.datetime):
+        updated_at (datetime.datetime):
+        method_type_id (Union[Unset, MethodDTDataMethodTypeId]):  Default: MethodDTDataMethodTypeId.VALUE_22.
+        depth (Union[None, Unset, float]): Depth (m). SGF code D.
+        time (Union[None, Unset, float]): Time (s).
+        qc (Union[None, Unset, float]): Cone resistance (MPa). SGF code QC.
+        u2 (Union[None, Unset, float]): Shoulder pressure (kPa). SGF code U.
+        remarks (Union[None, Unset, str]):
+    """
 
     method_data_id: UUID
     method_id: UUID
@@ -53,7 +40,6 @@ class MethodDTData:
     remarks: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
         method_data_id = str(self.method_data_id)
 
@@ -66,7 +52,6 @@ class MethodDTData:
         method_type_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
-
 
         depth: Union[None, Unset, float]
         if isinstance(self.depth, Unset):
@@ -98,15 +83,16 @@ class MethodDTData:
         else:
             remarks = self.remarks
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "method_data_id": method_data_id,
-            "method_id": method_id,
-            "created_at": created_at,
-            "updated_at": updated_at,
-        })
+        field_dict.update(
+            {
+                "method_data_id": method_data_id,
+                "method_id": method_id,
+                "created_at": created_at,
+                "updated_at": updated_at,
+            }
+        )
         if method_type_id is not UNSET:
             field_dict["method_type_id"] = method_type_id
         if depth is not UNSET:
@@ -122,40 +108,23 @@ class MethodDTData:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
         method_data_id = UUID(d.pop("method_data_id"))
 
-
-
-
         method_id = UUID(d.pop("method_id"))
-
-
-
 
         created_at = isoparse(d.pop("created_at"))
 
-
-
-
         updated_at = isoparse(d.pop("updated_at"))
-
-
-
 
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodDTDataMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodDTDataMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_depth(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -166,7 +135,6 @@ class MethodDTData:
 
         depth = _parse_depth(d.pop("depth", UNSET))
 
-
         def _parse_time(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -175,7 +143,6 @@ class MethodDTData:
             return cast(Union[None, Unset, float], data)
 
         time = _parse_time(d.pop("time", UNSET))
-
 
         def _parse_qc(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -186,7 +153,6 @@ class MethodDTData:
 
         qc = _parse_qc(d.pop("qc", UNSET))
 
-
         def _parse_u2(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -196,7 +162,6 @@ class MethodDTData:
 
         u2 = _parse_u2(d.pop("u2", UNSET))
 
-
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -205,7 +170,6 @@ class MethodDTData:
             return cast(Union[None, Unset, str], data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
-
 
         method_dt_data = cls(
             method_data_id=method_data_id,
@@ -219,7 +183,6 @@ class MethodDTData:
             u2=u2,
             remarks=remarks,
         )
-
 
         method_dt_data.additional_properties = d
         return method_dt_data

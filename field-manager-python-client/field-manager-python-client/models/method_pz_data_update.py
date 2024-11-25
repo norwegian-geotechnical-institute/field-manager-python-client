@@ -1,42 +1,29 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.method_pz_data_update_method_type_id import MethodPZDataUpdateMethodTypeId
 from ..models.reading_type import ReadingType
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, Union
-from typing import Union
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="MethodPZDataUpdate")
 
 
 @_attrs_define
 class MethodPZDataUpdate:
-    """ 
-        Attributes:
-            method_type_id (Union[Unset, MethodPZDataUpdateMethodTypeId]):  Default: MethodPZDataUpdateMethodTypeId.VALUE_5.
-            reading_type (Union[None, ReadingType, Unset]):
-            date (Union[None, Unset, datetime.datetime]):
-            pore_pressure (Union[None, Unset, float, str]):
-            barometric_pressure (Union[None, Unset, float, str]):
-            temperature (Union[None, Unset, float, str]):
-            remarks (Union[None, Unset, str]):
-     """
+    """
+    Attributes:
+        method_type_id (Union[Unset, MethodPZDataUpdateMethodTypeId]):  Default: MethodPZDataUpdateMethodTypeId.VALUE_5.
+        reading_type (Union[None, ReadingType, Unset]):
+        date (Union[None, Unset, datetime.datetime]):
+        pore_pressure (Union[None, Unset, float, str]):
+        barometric_pressure (Union[None, Unset, float, str]):
+        temperature (Union[None, Unset, float, str]):
+        remarks (Union[None, Unset, str]):
+    """
 
     method_type_id: Union[Unset, MethodPZDataUpdateMethodTypeId] = MethodPZDataUpdateMethodTypeId.VALUE_5
     reading_type: Union[None, ReadingType, Unset] = UNSET
@@ -47,12 +34,10 @@ class MethodPZDataUpdate:
     remarks: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
         method_type_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
-
 
         reading_type: Union[None, Unset, str]
         if isinstance(self.reading_type, Unset):
@@ -94,11 +79,9 @@ class MethodPZDataUpdate:
         else:
             remarks = self.remarks
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if method_type_id is not UNSET:
             field_dict["method_type_id"] = method_type_id
         if reading_type is not UNSET:
@@ -116,20 +99,15 @@ class MethodPZDataUpdate:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodPZDataUpdateMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodPZDataUpdateMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_reading_type(data: object) -> Union[None, ReadingType, Unset]:
             if data is None:
@@ -141,15 +119,12 @@ class MethodPZDataUpdate:
                     raise TypeError()
                 reading_type_type_0 = ReadingType(data)
 
-
-
                 return reading_type_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, ReadingType, Unset], data)
 
         reading_type = _parse_reading_type(d.pop("reading_type", UNSET))
-
 
         def _parse_date(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -161,15 +136,12 @@ class MethodPZDataUpdate:
                     raise TypeError()
                 date_type_0 = isoparse(data)
 
-
-
                 return date_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         date = _parse_date(d.pop("date", UNSET))
-
 
         def _parse_pore_pressure(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -180,7 +152,6 @@ class MethodPZDataUpdate:
 
         pore_pressure = _parse_pore_pressure(d.pop("pore_pressure", UNSET))
 
-
         def _parse_barometric_pressure(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -189,7 +160,6 @@ class MethodPZDataUpdate:
             return cast(Union[None, Unset, float, str], data)
 
         barometric_pressure = _parse_barometric_pressure(d.pop("barometric_pressure", UNSET))
-
 
         def _parse_temperature(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -200,7 +170,6 @@ class MethodPZDataUpdate:
 
         temperature = _parse_temperature(d.pop("temperature", UNSET))
 
-
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -209,7 +178,6 @@ class MethodPZDataUpdate:
             return cast(Union[None, Unset, str], data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
-
 
         method_pz_data_update = cls(
             method_type_id=method_type_id,
@@ -220,7 +188,6 @@ class MethodPZDataUpdate:
             temperature=temperature,
             remarks=remarks,
         )
-
 
         method_pz_data_update.additional_properties = d
         return method_pz_data_update

@@ -1,38 +1,26 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
-
-
-
-
-
 
 T = TypeVar("T", bound="SamplerType")
 
 
 @_attrs_define
 class SamplerType:
-    """ 
-        Attributes:
-            sampler_type_id (int):
-            name (str):
-            description (str):
-            sort_order (int):
-     """
+    """
+    Attributes:
+        sampler_type_id (int):
+        name (str):
+        description (str):
+        sort_order (int):
+    """
 
     sampler_type_id: int
     name: str
     description: str
     sort_order: int
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         sampler_type_id = self.sampler_type_id
@@ -43,19 +31,18 @@ class SamplerType:
 
         sort_order = self.sort_order
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "sampler_type_id": sampler_type_id,
-            "name": name,
-            "description": description,
-            "sort_order": sort_order,
-        })
+        field_dict.update(
+            {
+                "sampler_type_id": sampler_type_id,
+                "name": name,
+                "description": description,
+                "sort_order": sort_order,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
@@ -74,7 +61,6 @@ class SamplerType:
             description=description,
             sort_order=sort_order,
         )
-
 
         sampler_type.additional_properties = d
         return sampler_type

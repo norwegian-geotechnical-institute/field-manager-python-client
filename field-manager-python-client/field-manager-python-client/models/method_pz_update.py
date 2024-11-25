@@ -1,64 +1,51 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.method_pz_update_method_type_id import MethodPZUpdateMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..models.piezometer_type import PiezometerType
 from ..models.transformation_type import TransformationType
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, Union
-from typing import Union
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="MethodPZUpdate")
 
 
 @_attrs_define
 class MethodPZUpdate:
-    """ 
-        Attributes:
-            method_id (Union[None, UUID, Unset]):
-            name (Union[None, Unset, str]):
-            remarks (Union[None, Unset, str]):
-            method_status_id (Union[MethodStatusEnum, None, Unset]):
-            updated_at (Union[None, Unset, datetime.datetime]):
-            updated_by (Union[None, Unset, str]):
-            conducted_by (Union[None, Unset, str]):
-            conducted_at (Union[None, Unset, datetime.datetime]):
-            method_type_id (Union[Unset, MethodPZUpdateMethodTypeId]):  Default: MethodPZUpdateMethodTypeId.VALUE_5.
-            piezometer_type (Union[None, PiezometerType, Unset]):
-            depth_top (Union[None, Unset, float, str]):
-            depth_base (Union[None, Unset, float, str]):
-            distance_over_terrain (Union[None, Unset, float, str]):
-            model_id (Union[None, UUID, Unset]):
-            transformation_type (Union[None, TransformationType, Unset]):
-            mandatory_barometric_pressure (Union[None, Unset, bool]):
-            mandatory_temperature (Union[None, Unset, bool]):
-            pore_pressure_unit (Union[None, Unset, str]):
-            serial_number (Union[None, Unset, str]):
-            default_barometric_pressure (Union[None, Unset, float, str]):
-            polynomial_factor_a (Union[None, Unset, float, str]):
-            polynomial_factor_b (Union[None, Unset, float, str]):
-            polynomial_factor_k (Union[None, Unset, float, str]):
-            zero_reading_pore_pressure (Union[None, Unset, float, str]):
-            zero_reading_barometric_pressure (Union[None, Unset, float, str]):
-            zero_reading_temperature (Union[None, Unset, float, str]):
-     """
+    """
+    Attributes:
+        method_id (Union[None, UUID, Unset]):
+        name (Union[None, Unset, str]):
+        remarks (Union[None, Unset, str]):
+        method_status_id (Union[MethodStatusEnum, None, Unset]):
+        updated_at (Union[None, Unset, datetime.datetime]):
+        updated_by (Union[None, Unset, str]):
+        conducted_by (Union[None, Unset, str]):
+        conducted_at (Union[None, Unset, datetime.datetime]):
+        method_type_id (Union[Unset, MethodPZUpdateMethodTypeId]):  Default: MethodPZUpdateMethodTypeId.VALUE_5.
+        piezometer_type (Union[None, PiezometerType, Unset]):
+        depth_top (Union[None, Unset, float, str]):
+        depth_base (Union[None, Unset, float, str]):
+        distance_over_terrain (Union[None, Unset, float, str]):
+        model_id (Union[None, UUID, Unset]):
+        transformation_type (Union[None, TransformationType, Unset]):
+        mandatory_barometric_pressure (Union[None, Unset, bool]):
+        mandatory_temperature (Union[None, Unset, bool]):
+        pore_pressure_unit (Union[None, Unset, str]):
+        serial_number (Union[None, Unset, str]):
+        default_barometric_pressure (Union[None, Unset, float, str]):
+        polynomial_factor_a (Union[None, Unset, float, str]):
+        polynomial_factor_b (Union[None, Unset, float, str]):
+        polynomial_factor_k (Union[None, Unset, float, str]):
+        zero_reading_pore_pressure (Union[None, Unset, float, str]):
+        zero_reading_barometric_pressure (Union[None, Unset, float, str]):
+        zero_reading_temperature (Union[None, Unset, float, str]):
+    """
 
     method_id: Union[None, UUID, Unset] = UNSET
     name: Union[None, Unset, str] = UNSET
@@ -87,7 +74,6 @@ class MethodPZUpdate:
     zero_reading_barometric_pressure: Union[None, Unset, float, str] = UNSET
     zero_reading_temperature: Union[None, Unset, float, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         method_id: Union[None, Unset, str]
@@ -149,7 +135,6 @@ class MethodPZUpdate:
         method_type_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
-
 
         piezometer_type: Union[None, Unset, str]
         if isinstance(self.piezometer_type, Unset):
@@ -259,11 +244,9 @@ class MethodPZUpdate:
         else:
             zero_reading_temperature = self.zero_reading_temperature
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if method_id is not UNSET:
             field_dict["method_id"] = method_id
         if name is not UNSET:
@@ -319,11 +302,10 @@ class MethodPZUpdate:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+
         def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
                 return data
@@ -334,15 +316,12 @@ class MethodPZUpdate:
                     raise TypeError()
                 method_id_type_0 = UUID(data)
 
-
-
                 return method_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
-
 
         def _parse_name(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -353,7 +332,6 @@ class MethodPZUpdate:
 
         name = _parse_name(d.pop("name", UNSET))
 
-
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -362,7 +340,6 @@ class MethodPZUpdate:
             return cast(Union[None, Unset, str], data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
-
 
         def _parse_method_status_id(data: object) -> Union[MethodStatusEnum, None, Unset]:
             if data is None:
@@ -374,15 +351,12 @@ class MethodPZUpdate:
                     raise TypeError()
                 method_status_id_type_0 = MethodStatusEnum(data)
 
-
-
                 return method_status_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[MethodStatusEnum, None, Unset], data)
 
         method_status_id = _parse_method_status_id(d.pop("method_status_id", UNSET))
-
 
         def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -394,15 +368,12 @@ class MethodPZUpdate:
                     raise TypeError()
                 updated_at_type_0 = isoparse(data)
 
-
-
                 return updated_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
-
 
         def _parse_updated_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -413,7 +384,6 @@ class MethodPZUpdate:
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
 
-
         def _parse_conducted_by(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -422,7 +392,6 @@ class MethodPZUpdate:
             return cast(Union[None, Unset, str], data)
 
         conducted_by = _parse_conducted_by(d.pop("conducted_by", UNSET))
-
 
         def _parse_conducted_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -434,25 +403,19 @@ class MethodPZUpdate:
                     raise TypeError()
                 conducted_at_type_0 = isoparse(data)
 
-
-
                 return conducted_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodPZUpdateMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodPZUpdateMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_piezometer_type(data: object) -> Union[None, PiezometerType, Unset]:
             if data is None:
@@ -464,15 +427,12 @@ class MethodPZUpdate:
                     raise TypeError()
                 piezometer_type_type_0 = PiezometerType(data)
 
-
-
                 return piezometer_type_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, PiezometerType, Unset], data)
 
         piezometer_type = _parse_piezometer_type(d.pop("piezometer_type", UNSET))
-
 
         def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -483,7 +443,6 @@ class MethodPZUpdate:
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
 
-
         def _parse_depth_base(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -493,7 +452,6 @@ class MethodPZUpdate:
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
 
-
         def _parse_distance_over_terrain(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -502,7 +460,6 @@ class MethodPZUpdate:
             return cast(Union[None, Unset, float, str], data)
 
         distance_over_terrain = _parse_distance_over_terrain(d.pop("distance_over_terrain", UNSET))
-
 
         def _parse_model_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
@@ -514,15 +471,12 @@ class MethodPZUpdate:
                     raise TypeError()
                 model_id_type_0 = UUID(data)
 
-
-
                 return model_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         model_id = _parse_model_id(d.pop("model_id", UNSET))
-
 
         def _parse_transformation_type(data: object) -> Union[None, TransformationType, Unset]:
             if data is None:
@@ -534,15 +488,12 @@ class MethodPZUpdate:
                     raise TypeError()
                 transformation_type_type_0 = TransformationType(data)
 
-
-
                 return transformation_type_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, TransformationType, Unset], data)
 
         transformation_type = _parse_transformation_type(d.pop("transformation_type", UNSET))
-
 
         def _parse_mandatory_barometric_pressure(data: object) -> Union[None, Unset, bool]:
             if data is None:
@@ -551,8 +502,9 @@ class MethodPZUpdate:
                 return data
             return cast(Union[None, Unset, bool], data)
 
-        mandatory_barometric_pressure = _parse_mandatory_barometric_pressure(d.pop("mandatory_barometric_pressure", UNSET))
-
+        mandatory_barometric_pressure = _parse_mandatory_barometric_pressure(
+            d.pop("mandatory_barometric_pressure", UNSET)
+        )
 
         def _parse_mandatory_temperature(data: object) -> Union[None, Unset, bool]:
             if data is None:
@@ -563,7 +515,6 @@ class MethodPZUpdate:
 
         mandatory_temperature = _parse_mandatory_temperature(d.pop("mandatory_temperature", UNSET))
 
-
         def _parse_pore_pressure_unit(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -572,7 +523,6 @@ class MethodPZUpdate:
             return cast(Union[None, Unset, str], data)
 
         pore_pressure_unit = _parse_pore_pressure_unit(d.pop("pore_pressure_unit", UNSET))
-
 
         def _parse_serial_number(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -583,7 +533,6 @@ class MethodPZUpdate:
 
         serial_number = _parse_serial_number(d.pop("serial_number", UNSET))
 
-
         def _parse_default_barometric_pressure(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -592,7 +541,6 @@ class MethodPZUpdate:
             return cast(Union[None, Unset, float, str], data)
 
         default_barometric_pressure = _parse_default_barometric_pressure(d.pop("default_barometric_pressure", UNSET))
-
 
         def _parse_polynomial_factor_a(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -603,7 +551,6 @@ class MethodPZUpdate:
 
         polynomial_factor_a = _parse_polynomial_factor_a(d.pop("polynomial_factor_a", UNSET))
 
-
         def _parse_polynomial_factor_b(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -612,7 +559,6 @@ class MethodPZUpdate:
             return cast(Union[None, Unset, float, str], data)
 
         polynomial_factor_b = _parse_polynomial_factor_b(d.pop("polynomial_factor_b", UNSET))
-
 
         def _parse_polynomial_factor_k(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -623,7 +569,6 @@ class MethodPZUpdate:
 
         polynomial_factor_k = _parse_polynomial_factor_k(d.pop("polynomial_factor_k", UNSET))
 
-
         def _parse_zero_reading_pore_pressure(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -633,7 +578,6 @@ class MethodPZUpdate:
 
         zero_reading_pore_pressure = _parse_zero_reading_pore_pressure(d.pop("zero_reading_pore_pressure", UNSET))
 
-
         def _parse_zero_reading_barometric_pressure(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -641,8 +585,9 @@ class MethodPZUpdate:
                 return data
             return cast(Union[None, Unset, float, str], data)
 
-        zero_reading_barometric_pressure = _parse_zero_reading_barometric_pressure(d.pop("zero_reading_barometric_pressure", UNSET))
-
+        zero_reading_barometric_pressure = _parse_zero_reading_barometric_pressure(
+            d.pop("zero_reading_barometric_pressure", UNSET)
+        )
 
         def _parse_zero_reading_temperature(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -652,7 +597,6 @@ class MethodPZUpdate:
             return cast(Union[None, Unset, float, str], data)
 
         zero_reading_temperature = _parse_zero_reading_temperature(d.pop("zero_reading_temperature", UNSET))
-
 
         method_pz_update = cls(
             method_id=method_id,
@@ -682,7 +626,6 @@ class MethodPZUpdate:
             zero_reading_barometric_pressure=zero_reading_barometric_pressure,
             zero_reading_temperature=zero_reading_temperature,
         )
-
 
         method_pz_update.additional_properties = d
         return method_pz_update

@@ -1,49 +1,35 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
 from ...models.method_type import MethodType
-from typing import cast
-from typing import Dict
-
+from ...types import Response
 
 
 def _get_kwargs(
     method_type_id: int,
-
 ) -> Dict[str, Any]:
-    
-
-    
-
-    
-
     _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/method_types/{method_type_id}".format(method_type_id=method_type_id,),
+        "url": f"/method_types/{method_type_id}",
     }
-
 
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[HTTPValidationError, MethodType]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[HTTPValidationError, MethodType]]:
     if response.status_code == 200:
         response_200 = MethodType.from_dict(response.json())
-
-
 
         return response_200
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
-
-
 
         return response_422
     if client.raise_on_unexpected_status:
@@ -52,7 +38,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[HTTPValidationError, MethodType]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[HTTPValidationError, MethodType]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -65,9 +53,8 @@ def sync_detailed(
     method_type_id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-
 ) -> Response[Union[HTTPValidationError, MethodType]]:
-    """ Get Method Type
+    """Get Method Type
 
     Args:
         method_type_id (int):
@@ -78,12 +65,10 @@ def sync_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, MethodType]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         method_type_id=method_type_id,
-
     )
 
     response = client.get_httpx_client().request(
@@ -92,13 +77,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     method_type_id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-
 ) -> Optional[Union[HTTPValidationError, MethodType]]:
-    """ Get Method Type
+    """Get Method Type
 
     Args:
         method_type_id (int):
@@ -109,22 +94,20 @@ def sync(
 
     Returns:
         Union[HTTPValidationError, MethodType]
-     """
-
+    """
 
     return sync_detailed(
         method_type_id=method_type_id,
-client=client,
-
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     method_type_id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-
 ) -> Response[Union[HTTPValidationError, MethodType]]:
-    """ Get Method Type
+    """Get Method Type
 
     Args:
         method_type_id (int):
@@ -135,27 +118,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, MethodType]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         method_type_id=method_type_id,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     method_type_id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-
 ) -> Optional[Union[HTTPValidationError, MethodType]]:
-    """ Get Method Type
+    """Get Method Type
 
     Args:
         method_type_id (int):
@@ -166,11 +145,11 @@ async def asyncio(
 
     Returns:
         Union[HTTPValidationError, MethodType]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        method_type_id=method_type_id,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            method_type_id=method_type_id,
+            client=client,
+        )
+    ).parsed

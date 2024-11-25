@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ScalingMode(str, Enum):
     AUTO = "auto"
     MANUAL = "manual"

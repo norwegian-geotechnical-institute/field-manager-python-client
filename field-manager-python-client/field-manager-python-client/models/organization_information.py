@@ -1,35 +1,23 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast, Union
-from typing import Union
-
-
-
-
-
-
 T = TypeVar("T", bound="OrganizationInformation")
 
 
 @_attrs_define
 class OrganizationInformation:
-    """ 
-        Attributes:
-            external_id (Union[None, Unset, str]):
-            name (Union[None, Unset, str]):
-            logo (Union[None, Unset, str]):
-            logo_mime_type (Union[None, Unset, str]):
-            authentication_alias (Union[None, Unset, str]):
-     """
+    """
+    Attributes:
+        external_id (Union[None, Unset, str]):
+        name (Union[None, Unset, str]):
+        logo (Union[None, Unset, str]):
+        logo_mime_type (Union[None, Unset, str]):
+        authentication_alias (Union[None, Unset, str]):
+    """
 
     external_id: Union[None, Unset, str] = UNSET
     name: Union[None, Unset, str] = UNSET
@@ -37,7 +25,6 @@ class OrganizationInformation:
     logo_mime_type: Union[None, Unset, str] = UNSET
     authentication_alias: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         external_id: Union[None, Unset, str]
@@ -70,11 +57,9 @@ class OrganizationInformation:
         else:
             authentication_alias = self.authentication_alias
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if external_id is not UNSET:
             field_dict["external_id"] = external_id
         if name is not UNSET:
@@ -88,11 +73,10 @@ class OrganizationInformation:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+
         def _parse_external_id(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -101,7 +85,6 @@ class OrganizationInformation:
             return cast(Union[None, Unset, str], data)
 
         external_id = _parse_external_id(d.pop("external_id", UNSET))
-
 
         def _parse_name(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -112,7 +95,6 @@ class OrganizationInformation:
 
         name = _parse_name(d.pop("name", UNSET))
 
-
         def _parse_logo(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -121,7 +103,6 @@ class OrganizationInformation:
             return cast(Union[None, Unset, str], data)
 
         logo = _parse_logo(d.pop("logo", UNSET))
-
 
         def _parse_logo_mime_type(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -132,7 +113,6 @@ class OrganizationInformation:
 
         logo_mime_type = _parse_logo_mime_type(d.pop("logo_mime_type", UNSET))
 
-
         def _parse_authentication_alias(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -142,7 +122,6 @@ class OrganizationInformation:
 
         authentication_alias = _parse_authentication_alias(d.pop("authentication_alias", UNSET))
 
-
         organization_information = cls(
             external_id=external_id,
             name=name,
@@ -150,7 +129,6 @@ class OrganizationInformation:
             logo_mime_type=logo_mime_type,
             authentication_alias=authentication_alias,
         )
-
 
         organization_information.additional_properties = d
         return organization_information

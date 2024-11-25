@@ -1,25 +1,13 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.standard_type import StandardType
 from ..types import UNSET, Unset
-from typing import cast
-from typing import cast, List
-from typing import Dict
-from typing import Union
 
 if TYPE_CHECKING:
-  from ..models.method_type import MethodType
-
-
-
+    from ..models.method_type import MethodType
 
 
 T = TypeVar("T", bound="Standard")
@@ -27,25 +15,23 @@ T = TypeVar("T", bound="Standard")
 
 @_attrs_define
 class Standard:
-    """ 
-        Attributes:
-            standard_id (StandardType):
-            name (str):
-            description (str):
-            sort_order (int):
-            method_types (Union[Unset, List['MethodType']]):
-     """
+    """
+    Attributes:
+        standard_id (StandardType):
+        name (str):
+        description (str):
+        sort_order (int):
+        method_types (Union[Unset, List['MethodType']]):
+    """
 
     standard_id: StandardType
     name: str
     description: str
     sort_order: int
-    method_types: Union[Unset, List['MethodType']] = UNSET
+    method_types: Union[Unset, List["MethodType"]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.method_type import MethodType
         standard_id = self.standard_id.value
 
         name = self.name
@@ -61,32 +47,27 @@ class Standard:
                 method_types_item = method_types_item_data.to_dict()
                 method_types.append(method_types_item)
 
-
-
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "standard_id": standard_id,
-            "name": name,
-            "description": description,
-            "sort_order": sort_order,
-        })
+        field_dict.update(
+            {
+                "standard_id": standard_id,
+                "name": name,
+                "description": description,
+                "sort_order": sort_order,
+            }
+        )
         if method_types is not UNSET:
             field_dict["method_types"] = method_types
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.method_type import MethodType
+
         d = src_dict.copy()
         standard_id = StandardType(d.pop("standard_id"))
-
-
-
 
         name = d.pop("name")
 
@@ -96,13 +77,10 @@ class Standard:
 
         method_types = []
         _method_types = d.pop("method_types", UNSET)
-        for method_types_item_data in (_method_types or []):
+        for method_types_item_data in _method_types or []:
             method_types_item = MethodType.from_dict(method_types_item_data)
 
-
-
             method_types.append(method_types_item)
-
 
         standard = cls(
             standard_id=standard_id,
@@ -111,7 +89,6 @@ class Standard:
             sort_order=sort_order,
             method_types=method_types,
         )
-
 
         standard.additional_properties = d
         return standard
