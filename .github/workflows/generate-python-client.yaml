@@ -85,5 +85,4 @@ jobs:
           body: |
             This PR updates the generated Python client to match API version ${{ env.VERSION }}.
           branch-suffix: timestamp
-          reviewers: |
-            yejiyang
+          reviewers: yejiyang
