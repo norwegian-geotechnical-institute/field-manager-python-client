@@ -21,8 +21,8 @@ from uuid import UUID
 import datetime
 
 if TYPE_CHECKING:
-  from ..models.organization_min import OrganizationMin
   from ..models.role import Role
+  from ..models.organization_min import OrganizationMin
 
 
 
@@ -79,8 +79,8 @@ class ProjectInfo:
 
 
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.organization_min import OrganizationMin
         from ..models.role import Role
+        from ..models.organization_min import OrganizationMin
         project_id = str(self.project_id)
 
         external_id = self.external_id
@@ -203,8 +203,8 @@ class ProjectInfo:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.organization_min import OrganizationMin
         from ..models.role import Role
+        from ..models.organization_min import OrganizationMin
         d = src_dict.copy()
         project_id = UUID(d.pop("project_id"))
 

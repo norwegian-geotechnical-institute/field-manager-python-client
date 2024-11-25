@@ -15,8 +15,8 @@ from typing import Dict
 from typing import Union
 
 if TYPE_CHECKING:
-  from ..models.plot_info_object import PlotInfoObject
   from ..models.plot_sequence_options import PlotSequenceOptions
+  from ..models.plot_info_object import PlotInfoObject
 
 
 
@@ -39,8 +39,8 @@ class PlotSequence:
 
 
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.plot_info_object import PlotInfoObject
         from ..models.plot_sequence_options import PlotSequenceOptions
+        from ..models.plot_info_object import PlotInfoObject
         sequence = []
         for sequence_item_data in self.sequence:
             sequence_item = sequence_item_data.to_dict()
@@ -67,8 +67,8 @@ class PlotSequence:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.plot_info_object import PlotInfoObject
         from ..models.plot_sequence_options import PlotSequenceOptions
+        from ..models.plot_info_object import PlotInfoObject
         d = src_dict.copy()
         sequence = []
         _sequence = d.pop("sequence")
