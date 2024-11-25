@@ -46,7 +46,7 @@ get_version:  ## Get the version from openapi.json and save to logs/versions
 # Run the openapi-python-client generate command
 generate: clear_log get_version  ## Generate API client from OpenAPI spec
 	@echo "Generating API client..."
-	openapi-python-client generate --path $(OPENAPI_SPEC) --overwrite >> logs/log 2>&1
+	openapi-python-client generate --path $(OPENAPI_SPEC) --overwrite --custom-template-path=templates --config config.yaml >> logs/log 2>&1
 	openapi-python-client --version >> logs/versions 2>&1
 
 # A shortcut to install dependencies and then generate the client

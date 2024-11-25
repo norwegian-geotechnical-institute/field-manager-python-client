@@ -24,6 +24,6 @@ jobs:
         with:
           poetry-version: ${{ matrix.poetry-version }}
       - name: Publish
-        working-directory: field-manager-data-api-client
+        working-directory: field-manager-python-client
         run: |
           poetry publish --build
