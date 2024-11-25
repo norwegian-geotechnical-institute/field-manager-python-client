@@ -55,13 +55,7 @@ jobs:
       - name: Get API version
         run: |
           mkdir -p logs
-        #   VERSION=$(jq -r '.info.version' ./openapi_specification/openapi.json)
-        #   Extract version from config.yaml if package_version_override exists, otherwise use openapi.json
-          if jq -e '.package_version_override' config.yaml > /dev/null; then
-            VERSION=$(jq -r '.package_version_override' config.yaml)
-          else
-            VERSION=$(jq -r '.info.version' ./openapi_specification/openapi.json)
-          fi
+          VERSION=$(jq -r '.package_version_override' config.yaml)
           echo "Field Manager Data API version: $VERSION" > logs/versions
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
