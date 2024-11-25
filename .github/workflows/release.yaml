@@ -1,5 +1,6 @@
 name: Release
 on:
+  workflow_dispatch: # This is a manual trigger
   release:
     types:
       - created
