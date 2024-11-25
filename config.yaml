@@ -1,5 +1,5 @@
 project_name_override: field-manager-python-client
 package_name_override: field-manager-python-client
-package_version_override: 4.4.90-rc.4
+package_version_override: 4.4.90-rc.5
 post_hooks:
   # - "bash -c 'cd field-manager-python-client && poetry install'"

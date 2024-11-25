@@ -31,7 +31,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       # Step 4: Install dependencies (pipx and jq)
-      - name: Install pipx and jq
+      - name: Install pipx, jq, and yq
         run: |
           python3 -m pip install --user pipx
           python3 -m pipx ensurepath
@@ -74,21 +74,14 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      # Step 10: Create a new branch
-      - name: Create and Push Branch
-        run: |
-          BRANCH_NAME="update-python-client-${{ env.VERSION }}"
-          git checkout -b $BRANCH_NAME
-          git add .
-          git commit -m "chore: Update Python client to API version ${{ env.VERSION }}"
-          git push origin $BRANCH_NAME
-
-      # Step 11: Create a Pull Request
+      # Step 10: Create Pull Request
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.PULL_REQUEST_TOKEN }}
-          branch: $BRANCH_NAME
+          branch: update-python-client-${{ env.VERSION }}
+          base: trunk
           title: "Update Python client to API version ${{ env.VERSION }}"
           body: |
             This PR updates the generated Python client to match API version ${{ env.VERSION }}.
+          branch-suffix: timestamp
