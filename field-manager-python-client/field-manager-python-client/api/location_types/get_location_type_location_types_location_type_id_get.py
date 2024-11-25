@@ -1,42 +1,30 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
-from typing import cast
-from typing import Dict
-
+from ...types import Response
 
 
 def _get_kwargs(
     location_type_id: int,
-
 ) -> Dict[str, Any]:
-    
-
-    
-
-    
-
     _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/location_types/{location_type_id}".format(location_type_id=location_type_id,),
+        "url": f"/location_types/{location_type_id}",
     }
-
 
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[HTTPValidationError]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[HTTPValidationError]:
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
-
-
 
         return response_422
     if client.raise_on_unexpected_status:
@@ -45,7 +33,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[HTTPValidationError]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -58,9 +48,8 @@ def sync_detailed(
     location_type_id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-
 ) -> Response[HTTPValidationError]:
-    """ Get Location Type
+    """Get Location Type
 
      Location type will be deprecated.
 
@@ -75,12 +64,10 @@ def sync_detailed(
 
     Returns:
         Response[HTTPValidationError]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         location_type_id=location_type_id,
-
     )
 
     response = client.get_httpx_client().request(
@@ -89,13 +76,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     location_type_id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-
 ) -> Optional[HTTPValidationError]:
-    """ Get Location Type
+    """Get Location Type
 
      Location type will be deprecated.
 
@@ -110,22 +97,20 @@ def sync(
 
     Returns:
         HTTPValidationError
-     """
-
+    """
 
     return sync_detailed(
         location_type_id=location_type_id,
-client=client,
-
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     location_type_id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-
 ) -> Response[HTTPValidationError]:
-    """ Get Location Type
+    """Get Location Type
 
      Location type will be deprecated.
 
@@ -140,27 +125,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[HTTPValidationError]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         location_type_id=location_type_id,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     location_type_id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-
 ) -> Optional[HTTPValidationError]:
-    """ Get Location Type
+    """Get Location Type
 
      Location type will be deprecated.
 
@@ -175,11 +156,11 @@ async def asyncio(
 
     Returns:
         HTTPValidationError
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        location_type_id=location_type_id,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            location_type_id=location_type_id,
+            client=client,
+        )
+    ).parsed

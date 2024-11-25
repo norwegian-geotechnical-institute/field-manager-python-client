@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodSRSDataMethodTypeId(IntEnum):
     VALUE_24 = 24
 

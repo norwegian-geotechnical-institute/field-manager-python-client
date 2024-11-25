@@ -1,5 +1,5 @@
+"""A client library for accessing Field Manager Data API"""
 
-""" A client library for accessing Field Manager Data API """
 from .client import AuthenticatedClient, Client
 
 __all__ = (

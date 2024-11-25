@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class PdfOptionsSortFiguresBy(str, Enum):
     LOCATION = "location"
     METHOD = "method"

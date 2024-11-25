@@ -1,38 +1,26 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
 from dateutil.parser import isoparse
-from typing import cast
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="Like")
 
 
 @_attrs_define
 class Like:
-    """ 
-        Attributes:
-            like_id (UUID):
-            user_id (UUID):
-            user_name (str):
-            comment_id (UUID):
-            created_at (datetime.datetime):
-            updated_at (datetime.datetime):
-            is_deleted (bool):
-     """
+    """
+    Attributes:
+        like_id (UUID):
+        user_id (UUID):
+        user_name (str):
+        comment_id (UUID):
+        created_at (datetime.datetime):
+        updated_at (datetime.datetime):
+        is_deleted (bool):
+    """
 
     like_id: UUID
     user_id: UUID
@@ -42,7 +30,6 @@ class Like:
     updated_at: datetime.datetime
     is_deleted: bool
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         like_id = str(self.like_id)
@@ -59,52 +46,36 @@ class Like:
 
         is_deleted = self.is_deleted
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "like_id": like_id,
-            "user_id": user_id,
-            "user_name": user_name,
-            "comment_id": comment_id,
-            "created_at": created_at,
-            "updated_at": updated_at,
-            "is_deleted": is_deleted,
-        })
+        field_dict.update(
+            {
+                "like_id": like_id,
+                "user_id": user_id,
+                "user_name": user_name,
+                "comment_id": comment_id,
+                "created_at": created_at,
+                "updated_at": updated_at,
+                "is_deleted": is_deleted,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
         like_id = UUID(d.pop("like_id"))
 
-
-
-
         user_id = UUID(d.pop("user_id"))
-
-
-
 
         user_name = d.pop("user_name")
 
         comment_id = UUID(d.pop("comment_id"))
 
-
-
-
         created_at = isoparse(d.pop("created_at"))
 
-
-
-
         updated_at = isoparse(d.pop("updated_at"))
-
-
-
 
         is_deleted = d.pop("is_deleted")
 
@@ -117,7 +88,6 @@ class Like:
             updated_at=updated_at,
             is_deleted=is_deleted,
         )
-
 
         like.additional_properties = d
         return like

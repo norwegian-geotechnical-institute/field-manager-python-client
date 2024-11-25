@@ -1,31 +1,20 @@
 from http import HTTPStatus
 from typing import Any, Dict, List, Optional, Union, cast
+from uuid import UUID
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
-from typing import cast
-from typing import cast, List
-from typing import Dict
-from uuid import UUID
-
+from ...types import Response
 
 
 def _get_kwargs(
     *,
     body: List[UUID],
-
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
-
-
-    
-
-    
 
     _kwargs: Dict[str, Any] = {
         "method": "delete",
@@ -37,9 +26,6 @@ def _get_kwargs(
         body_item = str(body_item_data)
         _body.append(body_item)
 
-
-
-
     _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
 
@@ -47,14 +33,14 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, HTTPValidationError]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Any, HTTPValidationError]]:
     if response.status_code == 204:
         response_204 = cast(Any, None)
         return response_204
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
-
-
 
         return response_422
     if client.raise_on_unexpected_status:
@@ -63,7 +49,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, HTTPValidationError]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Any, HTTPValidationError]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -76,9 +64,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: List[UUID],
-
 ) -> Response[Union[Any, HTTPValidationError]]:
-    """ Delete Projects
+    """Delete Projects
 
      Delete multiple projects. Pass a list of project_ids to be deleted in the request body.
 
@@ -91,12 +78,10 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, HTTPValidationError]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
     response = client.get_httpx_client().request(
@@ -105,13 +90,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient,
     body: List[UUID],
-
 ) -> Optional[Union[Any, HTTPValidationError]]:
-    """ Delete Projects
+    """Delete Projects
 
      Delete multiple projects. Pass a list of project_ids to be deleted in the request body.
 
@@ -124,22 +109,20 @@ def sync(
 
     Returns:
         Union[Any, HTTPValidationError]
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: List[UUID],
-
 ) -> Response[Union[Any, HTTPValidationError]]:
-    """ Delete Projects
+    """Delete Projects
 
      Delete multiple projects. Pass a list of project_ids to be deleted in the request body.
 
@@ -152,27 +135,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, HTTPValidationError]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient,
     body: List[UUID],
-
 ) -> Optional[Union[Any, HTTPValidationError]]:
-    """ Delete Projects
+    """Delete Projects
 
      Delete multiple projects. Pass a list of project_ids to be deleted in the request body.
 
@@ -185,11 +164,11 @@ async def asyncio(
 
     Returns:
         Union[Any, HTTPValidationError]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+        )
+    ).parsed

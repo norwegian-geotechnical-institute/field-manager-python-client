@@ -1,67 +1,54 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.method_srs_create_method_type_id import MethodSRSCreateMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..models.sounding_class import SoundingClass
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, Union
-from typing import Union
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="MethodSRSCreate")
 
 
 @_attrs_define
 class MethodSRSCreate:
-    """ 
-        Attributes:
-            method_id (Union[None, UUID, Unset]):
-            name (Union[Unset, str]):  Default: 'SRS'.
-            remarks (Union[None, Unset, str]):
-            method_status_id (Union[Unset, MethodStatusEnum]): (
-                PLANNED=1,
-                READY=2,
-                CONDUCTED=3,
-                VOIDED=4,
-                APPROVED=5,
-                )
-            created_at (Union[None, Unset, datetime.datetime]):
-            created_by (Union[None, Unset, str]):
-            updated_at (Union[None, Unset, datetime.datetime]):
-            updated_by (Union[None, Unset, str]):
-            conducted_by (Union[None, Unset, str]):
-            conducted_at (Union[None, Unset, datetime.datetime]):
-            method_type_id (Union[Unset, MethodSRSCreateMethodTypeId]):  Default: MethodSRSCreateMethodTypeId.VALUE_24.
-            sounding_class (Union[Unset, SoundingClass]): Soil-Rock-Sounding (Swedish Jord-bergsondering) classes
-                (
-                JB1 = Jb-1,
-                JB2 = Jb-2,
-                JB3 = Jb-3,
-                JBTOT = Jb-tot,
-                )
-            serial_number (Union[None, Unset, str]):
-            calibration_date (Union[None, Unset, datetime.datetime]):
-            conversion_factor (Union[None, Unset, float, str]):
-     """
+    """
+    Attributes:
+        method_id (Union[None, UUID, Unset]):
+        name (Union[Unset, str]):  Default: 'SRS'.
+        remarks (Union[None, Unset, str]):
+        method_status_id (Union[Unset, MethodStatusEnum]): (
+            PLANNED=1,
+            READY=2,
+            CONDUCTED=3,
+            VOIDED=4,
+            APPROVED=5,
+            )
+        created_at (Union[None, Unset, datetime.datetime]):
+        created_by (Union[None, Unset, str]):
+        updated_at (Union[None, Unset, datetime.datetime]):
+        updated_by (Union[None, Unset, str]):
+        conducted_by (Union[None, Unset, str]):
+        conducted_at (Union[None, Unset, datetime.datetime]):
+        method_type_id (Union[Unset, MethodSRSCreateMethodTypeId]):  Default: MethodSRSCreateMethodTypeId.VALUE_24.
+        sounding_class (Union[Unset, SoundingClass]): Soil-Rock-Sounding (Swedish Jord-bergsondering) classes
+            (
+            JB1 = Jb-1,
+            JB2 = Jb-2,
+            JB3 = Jb-3,
+            JBTOT = Jb-tot,
+            )
+        serial_number (Union[None, Unset, str]):
+        calibration_date (Union[None, Unset, datetime.datetime]):
+        conversion_factor (Union[None, Unset, float, str]):
+    """
 
     method_id: Union[None, UUID, Unset] = UNSET
-    name: Union[Unset, str] = 'SRS'
+    name: Union[Unset, str] = "SRS"
     remarks: Union[None, Unset, str] = UNSET
     method_status_id: Union[Unset, MethodStatusEnum] = UNSET
     created_at: Union[None, Unset, datetime.datetime] = UNSET
@@ -76,7 +63,6 @@ class MethodSRSCreate:
     calibration_date: Union[None, Unset, datetime.datetime] = UNSET
     conversion_factor: Union[None, Unset, float, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         method_id: Union[None, Unset, str]
@@ -98,7 +84,6 @@ class MethodSRSCreate:
         method_status_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_status_id, Unset):
             method_status_id = self.method_status_id.value
-
 
         created_at: Union[None, Unset, str]
         if isinstance(self.created_at, Unset):
@@ -146,11 +131,9 @@ class MethodSRSCreate:
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
 
-
         sounding_class: Union[Unset, str] = UNSET
         if not isinstance(self.sounding_class, Unset):
             sounding_class = self.sounding_class.value
-
 
         serial_number: Union[None, Unset, str]
         if isinstance(self.serial_number, Unset):
@@ -172,11 +155,9 @@ class MethodSRSCreate:
         else:
             conversion_factor = self.conversion_factor
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if method_id is not UNSET:
             field_dict["method_id"] = method_id
         if name is not UNSET:
@@ -210,11 +191,10 @@ class MethodSRSCreate:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+
         def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
                 return data
@@ -225,15 +205,12 @@ class MethodSRSCreate:
                     raise TypeError()
                 method_id_type_0 = UUID(data)
 
-
-
                 return method_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
-
 
         name = d.pop("name", UNSET)
 
@@ -246,16 +223,12 @@ class MethodSRSCreate:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-
         _method_status_id = d.pop("method_status_id", UNSET)
         method_status_id: Union[Unset, MethodStatusEnum]
-        if isinstance(_method_status_id,  Unset):
+        if isinstance(_method_status_id, Unset):
             method_status_id = UNSET
         else:
             method_status_id = MethodStatusEnum(_method_status_id)
-
-
-
 
         def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -267,15 +240,12 @@ class MethodSRSCreate:
                     raise TypeError()
                 created_at_type_0 = isoparse(data)
 
-
-
                 return created_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         created_at = _parse_created_at(d.pop("created_at", UNSET))
-
 
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -285,7 +255,6 @@ class MethodSRSCreate:
             return cast(Union[None, Unset, str], data)
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
-
 
         def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -297,15 +266,12 @@ class MethodSRSCreate:
                     raise TypeError()
                 updated_at_type_0 = isoparse(data)
 
-
-
                 return updated_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
-
 
         def _parse_updated_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -316,7 +282,6 @@ class MethodSRSCreate:
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
 
-
         def _parse_conducted_by(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -325,7 +290,6 @@ class MethodSRSCreate:
             return cast(Union[None, Unset, str], data)
 
         conducted_by = _parse_conducted_by(d.pop("conducted_by", UNSET))
-
 
         def _parse_conducted_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -337,35 +301,26 @@ class MethodSRSCreate:
                     raise TypeError()
                 conducted_at_type_0 = isoparse(data)
 
-
-
                 return conducted_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodSRSCreateMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodSRSCreateMethodTypeId(_method_type_id)
 
-
-
-
         _sounding_class = d.pop("sounding_class", UNSET)
         sounding_class: Union[Unset, SoundingClass]
-        if isinstance(_sounding_class,  Unset):
+        if isinstance(_sounding_class, Unset):
             sounding_class = UNSET
         else:
             sounding_class = SoundingClass(_sounding_class)
-
-
-
 
         def _parse_serial_number(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -375,7 +330,6 @@ class MethodSRSCreate:
             return cast(Union[None, Unset, str], data)
 
         serial_number = _parse_serial_number(d.pop("serial_number", UNSET))
-
 
         def _parse_calibration_date(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -387,15 +341,12 @@ class MethodSRSCreate:
                     raise TypeError()
                 calibration_date_type_0 = isoparse(data)
 
-
-
                 return calibration_date_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         calibration_date = _parse_calibration_date(d.pop("calibration_date", UNSET))
-
 
         def _parse_conversion_factor(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -405,7 +356,6 @@ class MethodSRSCreate:
             return cast(Union[None, Unset, float, str], data)
 
         conversion_factor = _parse_conversion_factor(d.pop("conversion_factor", UNSET))
-
 
         method_srs_create = cls(
             method_id=method_id,
@@ -424,7 +374,6 @@ class MethodSRSCreate:
             calibration_date=calibration_date,
             conversion_factor=conversion_factor,
         )
-
 
         method_srs_create.additional_properties = d
         return method_srs_create

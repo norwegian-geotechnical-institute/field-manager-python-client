@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodTPMethodTypeId(IntEnum):
     VALUE_13 = 13
 

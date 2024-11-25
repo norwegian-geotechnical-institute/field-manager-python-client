@@ -1,48 +1,36 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
+from uuid import UUID
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
-from typing import cast
-from typing import Dict
-from uuid import UUID
-
+from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     map_layout_id: UUID,
     map_layout_version_id: UUID,
-
 ) -> Dict[str, Any]:
-    
-
-    
-
-    
-
     _kwargs: Dict[str, Any] = {
         "method": "delete",
-        "url": "/projects/{project_id}/map_layouts/{map_layout_id}/versions/{map_layout_version_id}".format(project_id=project_id,map_layout_id=map_layout_id,map_layout_version_id=map_layout_version_id,),
+        "url": f"/projects/{project_id}/map_layouts/{map_layout_id}/versions/{map_layout_version_id}",
     }
-
 
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, HTTPValidationError]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Any, HTTPValidationError]]:
     if response.status_code == 200:
         response_200 = response.json()
         return response_200
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
-
-
 
         return response_422
     if client.raise_on_unexpected_status:
@@ -51,7 +39,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, HTTPValidationError]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Any, HTTPValidationError]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -66,9 +56,8 @@ def sync_detailed(
     map_layout_version_id: UUID,
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Union[Any, HTTPValidationError]]:
-    """ Delete Map Layout Version
+    """Delete Map Layout Version
 
      Delete map layout version by project_id, map_layout_id and map_layout_version_id.
 
@@ -83,14 +72,12 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, HTTPValidationError]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-map_layout_id=map_layout_id,
-map_layout_version_id=map_layout_version_id,
-
+        map_layout_id=map_layout_id,
+        map_layout_version_id=map_layout_version_id,
     )
 
     response = client.get_httpx_client().request(
@@ -99,15 +86,15 @@ map_layout_version_id=map_layout_version_id,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     project_id: str,
     map_layout_id: UUID,
     map_layout_version_id: UUID,
     *,
     client: AuthenticatedClient,
-
 ) -> Optional[Union[Any, HTTPValidationError]]:
-    """ Delete Map Layout Version
+    """Delete Map Layout Version
 
      Delete map layout version by project_id, map_layout_id and map_layout_version_id.
 
@@ -122,16 +109,15 @@ def sync(
 
     Returns:
         Union[Any, HTTPValidationError]
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-map_layout_id=map_layout_id,
-map_layout_version_id=map_layout_version_id,
-client=client,
-
+        map_layout_id=map_layout_id,
+        map_layout_version_id=map_layout_version_id,
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
@@ -139,9 +125,8 @@ async def asyncio_detailed(
     map_layout_version_id: UUID,
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Union[Any, HTTPValidationError]]:
-    """ Delete Map Layout Version
+    """Delete Map Layout Version
 
      Delete map layout version by project_id, map_layout_id and map_layout_version_id.
 
@@ -156,21 +141,18 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, HTTPValidationError]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-map_layout_id=map_layout_id,
-map_layout_version_id=map_layout_version_id,
-
+        map_layout_id=map_layout_id,
+        map_layout_version_id=map_layout_version_id,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
@@ -178,9 +160,8 @@ async def asyncio(
     map_layout_version_id: UUID,
     *,
     client: AuthenticatedClient,
-
 ) -> Optional[Union[Any, HTTPValidationError]]:
-    """ Delete Map Layout Version
+    """Delete Map Layout Version
 
      Delete map layout version by project_id, map_layout_id and map_layout_version_id.
 
@@ -195,13 +176,13 @@ async def asyncio(
 
     Returns:
         Union[Any, HTTPValidationError]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-map_layout_id=map_layout_id,
-map_layout_version_id=map_layout_version_id,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            map_layout_id=map_layout_id,
+            map_layout_version_id=map_layout_version_id,
+            client=client,
+        )
+    ).parsed

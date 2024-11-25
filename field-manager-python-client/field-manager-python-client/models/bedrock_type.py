@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class BedrockType(str, Enum):
     BEDROCK = "BEDROCK"
     POSSIBLY_BEDROCK = "POSSIBLY_BEDROCK"

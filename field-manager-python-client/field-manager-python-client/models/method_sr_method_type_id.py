@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodSRMethodTypeId(IntEnum):
     VALUE_20 = 20
 

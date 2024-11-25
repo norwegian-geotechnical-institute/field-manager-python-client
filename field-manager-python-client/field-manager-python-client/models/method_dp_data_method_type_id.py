@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodDPDataMethodTypeId(IntEnum):
     VALUE_25 = 25
 

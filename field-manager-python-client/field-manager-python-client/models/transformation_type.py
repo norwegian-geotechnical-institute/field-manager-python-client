@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class TransformationType(str, Enum):
     ABSOLUTE = "ABSOLUTE"
     NONE = "NONE"

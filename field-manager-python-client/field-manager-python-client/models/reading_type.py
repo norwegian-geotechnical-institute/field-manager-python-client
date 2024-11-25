@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ReadingType(str, Enum):
     POST_INSTALLATION = "POST_INSTALLATION"
     PRE_INSTALLATION = "PRE_INSTALLATION"

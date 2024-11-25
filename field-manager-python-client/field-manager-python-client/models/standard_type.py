@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class StandardType(str, Enum):
     IOGP = "IOGP"
     NGF = "NGF"

@@ -1,64 +1,51 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.method_cd_create_method_type_id import MethodCDCreateMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, Union
-from typing import Union
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="MethodCDCreate")
 
 
 @_attrs_define
 class MethodCDCreate:
-    """ 
-        Attributes:
-            method_id (Union[None, UUID, Unset]):
-            name (Union[None, Unset, str]):  Default: 'CD'.
-            remarks (Union[None, Unset, str]):
-            method_status_id (Union[Unset, MethodStatusEnum]): (
-                PLANNED=1,
-                READY=2,
-                CONDUCTED=3,
-                VOIDED=4,
-                APPROVED=5,
-                )
-            created_at (Union[None, Unset, datetime.datetime]):
-            created_by (Union[None, Unset, str]):
-            updated_at (Union[None, Unset, datetime.datetime]):
-            updated_by (Union[None, Unset, str]):
-            conducted_by (Union[None, Unset, str]):
-            conducted_at (Union[None, Unset, datetime.datetime]):
-            method_type_id (Union[Unset, MethodCDCreateMethodTypeId]):  Default: MethodCDCreateMethodTypeId.VALUE_12.
-            sampler_type_id (Union[None, Unset, int]):
-            inclination (Union[None, Unset, float, str]): Inclination angle (deg).
-            azimuth (Union[None, Unset, float, str]): Azimuth angle relative to N (deg).
-            length_in_soil (Union[None, Unset, float, str]): Length drilled in soil (m).
-            total_length (Union[None, Unset, float, str]): Total length drilled (m).
-            casing_length (Union[None, Unset, float, str]): Length of casing (m).
-            casing_size (Union[None, Unset, float, str]): Size of casing (mm).
-            removed_casing (Union[None, Unset, bool]): Casing removed.
-     """
+    """
+    Attributes:
+        method_id (Union[None, UUID, Unset]):
+        name (Union[None, Unset, str]):  Default: 'CD'.
+        remarks (Union[None, Unset, str]):
+        method_status_id (Union[Unset, MethodStatusEnum]): (
+            PLANNED=1,
+            READY=2,
+            CONDUCTED=3,
+            VOIDED=4,
+            APPROVED=5,
+            )
+        created_at (Union[None, Unset, datetime.datetime]):
+        created_by (Union[None, Unset, str]):
+        updated_at (Union[None, Unset, datetime.datetime]):
+        updated_by (Union[None, Unset, str]):
+        conducted_by (Union[None, Unset, str]):
+        conducted_at (Union[None, Unset, datetime.datetime]):
+        method_type_id (Union[Unset, MethodCDCreateMethodTypeId]):  Default: MethodCDCreateMethodTypeId.VALUE_12.
+        sampler_type_id (Union[None, Unset, int]):
+        inclination (Union[None, Unset, float, str]): Inclination angle (deg).
+        azimuth (Union[None, Unset, float, str]): Azimuth angle relative to N (deg).
+        length_in_soil (Union[None, Unset, float, str]): Length drilled in soil (m).
+        total_length (Union[None, Unset, float, str]): Total length drilled (m).
+        casing_length (Union[None, Unset, float, str]): Length of casing (m).
+        casing_size (Union[None, Unset, float, str]): Size of casing (mm).
+        removed_casing (Union[None, Unset, bool]): Casing removed.
+    """
 
     method_id: Union[None, UUID, Unset] = UNSET
-    name: Union[None, Unset, str] = 'CD'
+    name: Union[None, Unset, str] = "CD"
     remarks: Union[None, Unset, str] = UNSET
     method_status_id: Union[Unset, MethodStatusEnum] = UNSET
     created_at: Union[None, Unset, datetime.datetime] = UNSET
@@ -77,7 +64,6 @@ class MethodCDCreate:
     casing_size: Union[None, Unset, float, str] = UNSET
     removed_casing: Union[None, Unset, bool] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         method_id: Union[None, Unset, str]
@@ -103,7 +89,6 @@ class MethodCDCreate:
         method_status_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_status_id, Unset):
             method_status_id = self.method_status_id.value
-
 
         created_at: Union[None, Unset, str]
         if isinstance(self.created_at, Unset):
@@ -150,7 +135,6 @@ class MethodCDCreate:
         method_type_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
-
 
         sampler_type_id: Union[None, Unset, int]
         if isinstance(self.sampler_type_id, Unset):
@@ -200,11 +184,9 @@ class MethodCDCreate:
         else:
             removed_casing = self.removed_casing
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if method_id is not UNSET:
             field_dict["method_id"] = method_id
         if name is not UNSET:
@@ -246,11 +228,10 @@ class MethodCDCreate:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+
         def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
                 return data
@@ -261,15 +242,12 @@ class MethodCDCreate:
                     raise TypeError()
                 method_id_type_0 = UUID(data)
 
-
-
                 return method_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
-
 
         def _parse_name(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -280,7 +258,6 @@ class MethodCDCreate:
 
         name = _parse_name(d.pop("name", UNSET))
 
-
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -290,16 +267,12 @@ class MethodCDCreate:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-
         _method_status_id = d.pop("method_status_id", UNSET)
         method_status_id: Union[Unset, MethodStatusEnum]
-        if isinstance(_method_status_id,  Unset):
+        if isinstance(_method_status_id, Unset):
             method_status_id = UNSET
         else:
             method_status_id = MethodStatusEnum(_method_status_id)
-
-
-
 
         def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -311,15 +284,12 @@ class MethodCDCreate:
                     raise TypeError()
                 created_at_type_0 = isoparse(data)
 
-
-
                 return created_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         created_at = _parse_created_at(d.pop("created_at", UNSET))
-
 
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -329,7 +299,6 @@ class MethodCDCreate:
             return cast(Union[None, Unset, str], data)
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
-
 
         def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -341,15 +310,12 @@ class MethodCDCreate:
                     raise TypeError()
                 updated_at_type_0 = isoparse(data)
 
-
-
                 return updated_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
-
 
         def _parse_updated_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -360,7 +326,6 @@ class MethodCDCreate:
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
 
-
         def _parse_conducted_by(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -369,7 +334,6 @@ class MethodCDCreate:
             return cast(Union[None, Unset, str], data)
 
         conducted_by = _parse_conducted_by(d.pop("conducted_by", UNSET))
-
 
         def _parse_conducted_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -381,25 +345,19 @@ class MethodCDCreate:
                     raise TypeError()
                 conducted_at_type_0 = isoparse(data)
 
-
-
                 return conducted_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodCDCreateMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodCDCreateMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_sampler_type_id(data: object) -> Union[None, Unset, int]:
             if data is None:
@@ -410,7 +368,6 @@ class MethodCDCreate:
 
         sampler_type_id = _parse_sampler_type_id(d.pop("sampler_type_id", UNSET))
 
-
         def _parse_inclination(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -419,7 +376,6 @@ class MethodCDCreate:
             return cast(Union[None, Unset, float, str], data)
 
         inclination = _parse_inclination(d.pop("inclination", UNSET))
-
 
         def _parse_azimuth(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -430,7 +386,6 @@ class MethodCDCreate:
 
         azimuth = _parse_azimuth(d.pop("azimuth", UNSET))
 
-
         def _parse_length_in_soil(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -439,7 +394,6 @@ class MethodCDCreate:
             return cast(Union[None, Unset, float, str], data)
 
         length_in_soil = _parse_length_in_soil(d.pop("length_in_soil", UNSET))
-
 
         def _parse_total_length(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -450,7 +404,6 @@ class MethodCDCreate:
 
         total_length = _parse_total_length(d.pop("total_length", UNSET))
 
-
         def _parse_casing_length(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -459,7 +412,6 @@ class MethodCDCreate:
             return cast(Union[None, Unset, float, str], data)
 
         casing_length = _parse_casing_length(d.pop("casing_length", UNSET))
-
 
         def _parse_casing_size(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -470,7 +422,6 @@ class MethodCDCreate:
 
         casing_size = _parse_casing_size(d.pop("casing_size", UNSET))
 
-
         def _parse_removed_casing(data: object) -> Union[None, Unset, bool]:
             if data is None:
                 return data
@@ -479,7 +430,6 @@ class MethodCDCreate:
             return cast(Union[None, Unset, bool], data)
 
         removed_casing = _parse_removed_casing(d.pop("removed_casing", UNSET))
-
 
         method_cd_create = cls(
             method_id=method_id,
@@ -502,7 +452,6 @@ class MethodCDCreate:
             casing_size=casing_size,
             removed_casing=removed_casing,
         )
-
 
         method_cd_create.additional_properties = d
         return method_cd_create

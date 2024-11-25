@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodIWUpdateMethodTypeId(IntEnum):
     VALUE_21 = 21
 

@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodSSDataCreateMethodTypeId(IntEnum):
     VALUE_6 = 6
 

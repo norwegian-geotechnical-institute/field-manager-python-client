@@ -1,54 +1,41 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.iogp_type_enum import IOGPTypeEnum
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, List
-from typing import cast, Union
-from typing import Dict
-from typing import Union
-from uuid import UUID
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.method_cd import MethodCD
-  from ..models.method_sr import MethodSR
-  from ..models.method_other import MethodOTHER
-  from ..models.method_tot import MethodTOT
-  from ..models.method_rws import MethodRWS
-  from ..models.method_cpt import MethodCPT
-  from ..models.file import File
-  from ..models.method_ss import MethodSS
-  from ..models.method_dt import MethodDT
-  from ..models.method_pz import MethodPZ
-  from ..models.method_esa import MethodESA
-  from ..models.method_iw import MethodIW
-  from ..models.method_rp import MethodRP
-  from ..models.method_spt import MethodSPT
-  from ..models.method_ad import MethodAD
-  from ..models.method_sa import MethodSA
-  from ..models.method_svt import MethodSVT
-  from ..models.method_srs import MethodSRS
-  from ..models.method_tp import MethodTP
-  from ..models.method_rcd import MethodRCD
-  from ..models.method_rs import MethodRS
-  from ..models.method_pt import MethodPT
-  from ..models.method_wst import MethodWST
-  from ..models.method_dp import MethodDP
-  from ..models.method_inc import MethodINC
-  from ..models.method_ro import MethodRO
-
-
-
+    from ..models.file import File
+    from ..models.method_ad import MethodAD
+    from ..models.method_cd import MethodCD
+    from ..models.method_cpt import MethodCPT
+    from ..models.method_dp import MethodDP
+    from ..models.method_dt import MethodDT
+    from ..models.method_esa import MethodESA
+    from ..models.method_inc import MethodINC
+    from ..models.method_iw import MethodIW
+    from ..models.method_other import MethodOTHER
+    from ..models.method_pt import MethodPT
+    from ..models.method_pz import MethodPZ
+    from ..models.method_rcd import MethodRCD
+    from ..models.method_ro import MethodRO
+    from ..models.method_rp import MethodRP
+    from ..models.method_rs import MethodRS
+    from ..models.method_rws import MethodRWS
+    from ..models.method_sa import MethodSA
+    from ..models.method_spt import MethodSPT
+    from ..models.method_sr import MethodSR
+    from ..models.method_srs import MethodSRS
+    from ..models.method_ss import MethodSS
+    from ..models.method_svt import MethodSVT
+    from ..models.method_tot import MethodTOT
+    from ..models.method_tp import MethodTP
+    from ..models.method_wst import MethodWST
 
 
 T = TypeVar("T", bound="Location")
@@ -56,38 +43,38 @@ T = TypeVar("T", bound="Location")
 
 @_attrs_define
 class Location:
-    """ 
-        Example:
-            {'location_id': 'e545ec5b-fd58-448d-8819-4bb9fa325783', 'name': 'Loc01', 'point_easting': 1194547,
-                'point_northing': 8388298, 'point_z': 0.0, 'project_id': '946e731f-318d-4d30-9c2b-1ff50d0c3944', 'srid': 3857}
+    """
+    Example:
+        {'location_id': '0e6343a6-159c-43fa-8893-767fbdfa7ccf', 'name': 'Loc01', 'point_easting': 1194547,
+            'point_northing': 8388298, 'point_z': 0.0, 'project_id': '09198cee-6bc6-49f8-b499-2cce0cd41716', 'srid': 3857}
 
-        Attributes:
-            name (str):
-            created_at (datetime.datetime):
-            updated_at (datetime.datetime):
-            location_id (UUID):
-            project_id (UUID):
-            is_deleted (bool):
-            last_updated (datetime.datetime):
-            location_type_id (Union[Unset, Any]): Use Project.standard_id instead Default: 1.
-            iogp_type_id (Union[Unset, IOGPTypeEnum]): For offshore locations, an IOGP type is required
-            created_by (Union[None, Unset, str]):
-            updated_by (Union[None, Unset, str]):
-            point_easting (Union[None, Unset, float]):
-            point_northing (Union[None, Unset, float]):
-            point_z (Union[None, Unset, float]):
-            srid (Union[None, Unset, int]):
-            point_x_wgs84_pseudo (Union[None, Unset, float]):
-            point_y_wgs84_pseudo (Union[None, Unset, float]):
-            point_x_wgs84_web (Union[None, Unset, float]):
-            point_y_wgs84_web (Union[None, Unset, float]):
-            tags (Union[List[str], None, Unset]):
-            methods (Union[Unset, List[Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA',
-                'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS',
-                'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP',
-                'MethodWST']]]):
-            files (Union[Unset, List['File']]):
-     """
+    Attributes:
+        name (str):
+        created_at (datetime.datetime):
+        updated_at (datetime.datetime):
+        location_id (UUID):
+        project_id (UUID):
+        is_deleted (bool):
+        last_updated (datetime.datetime):
+        location_type_id (Union[Unset, Any]): Use Project.standard_id instead Default: 1.
+        iogp_type_id (Union[Unset, IOGPTypeEnum]): For offshore locations, an IOGP type is required
+        created_by (Union[None, Unset, str]):
+        updated_by (Union[None, Unset, str]):
+        point_easting (Union[None, Unset, float]):
+        point_northing (Union[None, Unset, float]):
+        point_z (Union[None, Unset, float]):
+        srid (Union[None, Unset, int]):
+        point_x_wgs84_pseudo (Union[None, Unset, float]):
+        point_y_wgs84_pseudo (Union[None, Unset, float]):
+        point_x_wgs84_web (Union[None, Unset, float]):
+        point_y_wgs84_web (Union[None, Unset, float]):
+        tags (Union[List[str], None, Unset]):
+        methods (Union[Unset, List[Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA',
+            'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS',
+            'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP',
+            'MethodWST']]]):
+        files (Union[Unset, List['File']]):
+    """
 
     name: str
     created_at: datetime.datetime
@@ -109,38 +96,67 @@ class Location:
     point_x_wgs84_web: Union[None, Unset, float] = UNSET
     point_y_wgs84_web: Union[None, Unset, float] = UNSET
     tags: Union[List[str], None, Unset] = UNSET
-    methods: Union[Unset, List[Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST']]] = UNSET
-    files: Union[Unset, List['File']] = UNSET
+    methods: Union[
+        Unset,
+        List[
+            Union[
+                "MethodAD",
+                "MethodCD",
+                "MethodCPT",
+                "MethodDP",
+                "MethodDT",
+                "MethodESA",
+                "MethodINC",
+                "MethodIW",
+                "MethodOTHER",
+                "MethodPT",
+                "MethodPZ",
+                "MethodRCD",
+                "MethodRO",
+                "MethodRP",
+                "MethodRS",
+                "MethodRWS",
+                "MethodSA",
+                "MethodSPT",
+                "MethodSR",
+                "MethodSRS",
+                "MethodSS",
+                "MethodSVT",
+                "MethodTOT",
+                "MethodTP",
+                "MethodWST",
+            ]
+        ],
+    ] = UNSET
+    files: Union[Unset, List["File"]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.method_cd import MethodCD
-        from ..models.method_sr import MethodSR
-        from ..models.method_other import MethodOTHER
-        from ..models.method_tot import MethodTOT
-        from ..models.method_rws import MethodRWS
-        from ..models.method_cpt import MethodCPT
-        from ..models.file import File
-        from ..models.method_ss import MethodSS
-        from ..models.method_dt import MethodDT
-        from ..models.method_pz import MethodPZ
-        from ..models.method_esa import MethodESA
-        from ..models.method_iw import MethodIW
-        from ..models.method_rp import MethodRP
-        from ..models.method_spt import MethodSPT
         from ..models.method_ad import MethodAD
-        from ..models.method_sa import MethodSA
-        from ..models.method_svt import MethodSVT
-        from ..models.method_srs import MethodSRS
-        from ..models.method_tp import MethodTP
-        from ..models.method_rcd import MethodRCD
-        from ..models.method_rs import MethodRS
-        from ..models.method_pt import MethodPT
-        from ..models.method_wst import MethodWST
+        from ..models.method_cd import MethodCD
+        from ..models.method_cpt import MethodCPT
         from ..models.method_dp import MethodDP
+        from ..models.method_dt import MethodDT
+        from ..models.method_esa import MethodESA
         from ..models.method_inc import MethodINC
+        from ..models.method_iw import MethodIW
+        from ..models.method_other import MethodOTHER
+        from ..models.method_pt import MethodPT
+        from ..models.method_pz import MethodPZ
+        from ..models.method_rcd import MethodRCD
         from ..models.method_ro import MethodRO
+        from ..models.method_rp import MethodRP
+        from ..models.method_rs import MethodRS
+        from ..models.method_rws import MethodRWS
+        from ..models.method_sa import MethodSA
+        from ..models.method_spt import MethodSPT
+        from ..models.method_sr import MethodSR
+        from ..models.method_srs import MethodSRS
+        from ..models.method_ss import MethodSS
+        from ..models.method_svt import MethodSVT
+        from ..models.method_tot import MethodTOT
+        from ..models.method_tp import MethodTP
+
         name = self.name
 
         created_at = self.created_at.isoformat()
@@ -160,7 +176,6 @@ class Location:
         iogp_type_id: Union[Unset, str] = UNSET
         if not isinstance(self.iogp_type_id, Unset):
             iogp_type_id = self.iogp_type_id.value
-
 
         created_by: Union[None, Unset, str]
         if isinstance(self.created_by, Unset):
@@ -228,7 +243,6 @@ class Location:
         elif isinstance(self.tags, list):
             tags = self.tags
 
-
         else:
             tags = self.tags
 
@@ -290,8 +304,6 @@ class Location:
 
                 methods.append(methods_item)
 
-
-
         files: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.files, Unset):
             files = []
@@ -299,20 +311,19 @@ class Location:
                 files_item = files_item_data.to_dict()
                 files.append(files_item)
 
-
-
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "name": name,
-            "created_at": created_at,
-            "updated_at": updated_at,
-            "location_id": location_id,
-            "project_id": project_id,
-            "is_deleted": is_deleted,
-            "last_updated": last_updated,
-        })
+        field_dict.update(
+            {
+                "name": name,
+                "created_at": created_at,
+                "updated_at": updated_at,
+                "location_id": location_id,
+                "project_id": project_id,
+                "is_deleted": is_deleted,
+                "last_updated": last_updated,
+            }
+        )
         if location_type_id is not UNSET:
             field_dict["location_type_id"] = location_type_id
         if iogp_type_id is not UNSET:
@@ -346,77 +357,58 @@ class Location:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.method_cd import MethodCD
-        from ..models.method_sr import MethodSR
-        from ..models.method_other import MethodOTHER
-        from ..models.method_tot import MethodTOT
-        from ..models.method_rws import MethodRWS
-        from ..models.method_cpt import MethodCPT
         from ..models.file import File
-        from ..models.method_ss import MethodSS
-        from ..models.method_dt import MethodDT
-        from ..models.method_pz import MethodPZ
-        from ..models.method_esa import MethodESA
-        from ..models.method_iw import MethodIW
-        from ..models.method_rp import MethodRP
-        from ..models.method_spt import MethodSPT
         from ..models.method_ad import MethodAD
-        from ..models.method_sa import MethodSA
-        from ..models.method_svt import MethodSVT
-        from ..models.method_srs import MethodSRS
-        from ..models.method_tp import MethodTP
-        from ..models.method_rcd import MethodRCD
-        from ..models.method_rs import MethodRS
-        from ..models.method_pt import MethodPT
-        from ..models.method_wst import MethodWST
+        from ..models.method_cd import MethodCD
+        from ..models.method_cpt import MethodCPT
         from ..models.method_dp import MethodDP
+        from ..models.method_dt import MethodDT
+        from ..models.method_esa import MethodESA
         from ..models.method_inc import MethodINC
+        from ..models.method_iw import MethodIW
+        from ..models.method_other import MethodOTHER
+        from ..models.method_pt import MethodPT
+        from ..models.method_pz import MethodPZ
+        from ..models.method_rcd import MethodRCD
         from ..models.method_ro import MethodRO
+        from ..models.method_rp import MethodRP
+        from ..models.method_rs import MethodRS
+        from ..models.method_rws import MethodRWS
+        from ..models.method_sa import MethodSA
+        from ..models.method_spt import MethodSPT
+        from ..models.method_sr import MethodSR
+        from ..models.method_srs import MethodSRS
+        from ..models.method_ss import MethodSS
+        from ..models.method_svt import MethodSVT
+        from ..models.method_tot import MethodTOT
+        from ..models.method_tp import MethodTP
+        from ..models.method_wst import MethodWST
+
         d = src_dict.copy()
         name = d.pop("name")
 
         created_at = isoparse(d.pop("created_at"))
 
-
-
-
         updated_at = isoparse(d.pop("updated_at"))
-
-
-
 
         location_id = UUID(d.pop("location_id"))
 
-
-
-
         project_id = UUID(d.pop("project_id"))
-
-
-
 
         is_deleted = d.pop("is_deleted")
 
         last_updated = isoparse(d.pop("last_updated"))
 
-
-
-
         location_type_id = d.pop("location_type_id", UNSET)
 
         _iogp_type_id = d.pop("iogp_type_id", UNSET)
         iogp_type_id: Union[Unset, IOGPTypeEnum]
-        if isinstance(_iogp_type_id,  Unset):
+        if isinstance(_iogp_type_id, Unset):
             iogp_type_id = UNSET
         else:
             iogp_type_id = IOGPTypeEnum(_iogp_type_id)
-
-
-
 
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -427,7 +419,6 @@ class Location:
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
 
-
         def _parse_updated_by(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -436,7 +427,6 @@ class Location:
             return cast(Union[None, Unset, str], data)
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
-
 
         def _parse_point_easting(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -447,7 +437,6 @@ class Location:
 
         point_easting = _parse_point_easting(d.pop("point_easting", UNSET))
 
-
         def _parse_point_northing(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -456,7 +445,6 @@ class Location:
             return cast(Union[None, Unset, float], data)
 
         point_northing = _parse_point_northing(d.pop("point_northing", UNSET))
-
 
         def _parse_point_z(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -467,7 +455,6 @@ class Location:
 
         point_z = _parse_point_z(d.pop("point_z", UNSET))
 
-
         def _parse_srid(data: object) -> Union[None, Unset, int]:
             if data is None:
                 return data
@@ -476,7 +463,6 @@ class Location:
             return cast(Union[None, Unset, int], data)
 
         srid = _parse_srid(d.pop("srid", UNSET))
-
 
         def _parse_point_x_wgs84_pseudo(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -487,7 +473,6 @@ class Location:
 
         point_x_wgs84_pseudo = _parse_point_x_wgs84_pseudo(d.pop("point_x_wgs84_pseudo", UNSET))
 
-
         def _parse_point_y_wgs84_pseudo(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -496,7 +481,6 @@ class Location:
             return cast(Union[None, Unset, float], data)
 
         point_y_wgs84_pseudo = _parse_point_y_wgs84_pseudo(d.pop("point_y_wgs84_pseudo", UNSET))
-
 
         def _parse_point_x_wgs84_web(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -507,7 +491,6 @@ class Location:
 
         point_x_wgs84_web = _parse_point_x_wgs84_web(d.pop("point_x_wgs84_web", UNSET))
 
-
         def _parse_point_y_wgs84_web(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -516,7 +499,6 @@ class Location:
             return cast(Union[None, Unset, float], data)
 
         point_y_wgs84_web = _parse_point_y_wgs84_web(d.pop("point_y_wgs84_web", UNSET))
-
 
         def _parse_tags(data: object) -> Union[List[str], None, Unset]:
             if data is None:
@@ -529,262 +511,240 @@ class Location:
                 tags_type_0 = cast(List[str], data)
 
                 return tags_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[List[str], None, Unset], data)
 
         tags = _parse_tags(d.pop("tags", UNSET))
 
-
         methods = []
         _methods = d.pop("methods", UNSET)
-        for methods_item_data in (_methods or []):
-            def _parse_methods_item(data: object) -> Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST']:
+        for methods_item_data in _methods or []:
+
+            def _parse_methods_item(
+                data: object,
+            ) -> Union[
+                "MethodAD",
+                "MethodCD",
+                "MethodCPT",
+                "MethodDP",
+                "MethodDT",
+                "MethodESA",
+                "MethodINC",
+                "MethodIW",
+                "MethodOTHER",
+                "MethodPT",
+                "MethodPZ",
+                "MethodRCD",
+                "MethodRO",
+                "MethodRP",
+                "MethodRS",
+                "MethodRWS",
+                "MethodSA",
+                "MethodSPT",
+                "MethodSR",
+                "MethodSRS",
+                "MethodSS",
+                "MethodSVT",
+                "MethodTOT",
+                "MethodTP",
+                "MethodWST",
+            ]:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_0 = MethodCPT.from_dict(data)
 
-
-
                     return methods_item_type_0
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_1 = MethodTOT.from_dict(data)
 
-
-
                     return methods_item_type_1
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_2 = MethodRP.from_dict(data)
 
-
-
                     return methods_item_type_2
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_3 = MethodSA.from_dict(data)
 
-
-
                     return methods_item_type_3
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_4 = MethodPZ.from_dict(data)
 
-
-
                     return methods_item_type_4
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_5 = MethodSS.from_dict(data)
 
-
-
                     return methods_item_type_5
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_6 = MethodRWS.from_dict(data)
 
-
-
                     return methods_item_type_6
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_7 = MethodRCD.from_dict(data)
 
-
-
                     return methods_item_type_7
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_8 = MethodRS.from_dict(data)
 
-
-
                     return methods_item_type_8
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_9 = MethodSVT.from_dict(data)
 
-
-
                     return methods_item_type_9
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_10 = MethodSPT.from_dict(data)
 
-
-
                     return methods_item_type_10
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_11 = MethodCD.from_dict(data)
 
-
-
                     return methods_item_type_11
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_12 = MethodTP.from_dict(data)
 
-
-
                     return methods_item_type_12
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_13 = MethodPT.from_dict(data)
 
-
-
                     return methods_item_type_13
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_14 = MethodESA.from_dict(data)
 
-
-
                     return methods_item_type_14
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_15 = MethodAD.from_dict(data)
 
-
-
                     return methods_item_type_15
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_16 = MethodRO.from_dict(data)
 
-
-
                     return methods_item_type_16
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_17 = MethodINC.from_dict(data)
 
-
-
                     return methods_item_type_17
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_18 = MethodSR.from_dict(data)
 
-
-
                     return methods_item_type_18
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_19 = MethodIW.from_dict(data)
 
-
-
                     return methods_item_type_19
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_20 = MethodDT.from_dict(data)
 
-
-
                     return methods_item_type_20
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_21 = MethodOTHER.from_dict(data)
 
-
-
                     return methods_item_type_21
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_22 = MethodSRS.from_dict(data)
 
-
-
                     return methods_item_type_22
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
                     methods_item_type_23 = MethodDP.from_dict(data)
 
-
-
                     return methods_item_type_23
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
                 if not isinstance(data, dict):
                     raise TypeError()
                 methods_item_type_24 = MethodWST.from_dict(data)
-
-
 
                 return methods_item_type_24
 
@@ -792,16 +752,12 @@ class Location:
 
             methods.append(methods_item)
 
-
         files = []
         _files = d.pop("files", UNSET)
-        for files_item_data in (_files or []):
+        for files_item_data in _files or []:
             files_item = File.from_dict(files_item_data)
 
-
-
             files.append(files_item)
-
 
         location = cls(
             name=name,
@@ -827,7 +783,6 @@ class Location:
             methods=methods,
             files=files,
         )
-
 
         location.additional_properties = d
         return location

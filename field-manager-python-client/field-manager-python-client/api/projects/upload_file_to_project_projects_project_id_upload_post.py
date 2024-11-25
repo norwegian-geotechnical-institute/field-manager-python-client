@@ -1,21 +1,16 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...models.body_upload_file_to_project_projects_project_id_upload_post import BodyUploadFileToProjectProjectsProjectIdUploadPost
+from ...client import AuthenticatedClient, Client
+from ...models.body_upload_file_to_project_projects_project_id_upload_post import (
+    BodyUploadFileToProjectProjectsProjectIdUploadPost,
+)
 from ...models.http_validation_error import HTTPValidationError
 from ...models.project import Project
-from ...types import UNSET, Unset
-from typing import cast
-from typing import cast, Union
-from typing import Dict
-from typing import Union
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -24,12 +19,8 @@ def _get_kwargs(
     body: BodyUploadFileToProjectProjectsProjectIdUploadPost,
     layer_file: Union[Unset, bool] = False,
     srid: Union[None, Unset, str] = UNSET,
-
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
-
-
-    
 
     params: Dict[str, Any] = {}
 
@@ -42,18 +33,15 @@ def _get_kwargs(
         json_srid = srid
     params["srid"] = json_srid
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/projects/{project_id}/upload".format(project_id=project_id,),
+        "url": f"/projects/{project_id}/upload",
         "params": params,
     }
 
     _body = body.to_multipart()
-
 
     _kwargs["files"] = _body
 
@@ -61,17 +49,15 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[HTTPValidationError, Project]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[HTTPValidationError, Project]]:
     if response.status_code == 201:
         response_201 = Project.from_dict(response.json())
-
-
 
         return response_201
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
-
-
 
         return response_422
     if client.raise_on_unexpected_status:
@@ -80,7 +66,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[HTTPValidationError, Project]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[HTTPValidationError, Project]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -96,9 +84,8 @@ def sync_detailed(
     body: BodyUploadFileToProjectProjectsProjectIdUploadPost,
     layer_file: Union[Unset, bool] = False,
     srid: Union[None, Unset, str] = UNSET,
-
 ) -> Response[Union[HTTPValidationError, Project]]:
-    """ Upload File To Project
+    """Upload File To Project
 
      Upload data file to project. If layer_file is passed as True, then the file is converted to GeoJSON
     and used for
@@ -121,15 +108,13 @@ def sync_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, Project]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-body=body,
-layer_file=layer_file,
-srid=srid,
-
+        body=body,
+        layer_file=layer_file,
+        srid=srid,
     )
 
     response = client.get_httpx_client().request(
@@ -138,6 +123,7 @@ srid=srid,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     project_id: str,
     *,
@@ -145,9 +131,8 @@ def sync(
     body: BodyUploadFileToProjectProjectsProjectIdUploadPost,
     layer_file: Union[Unset, bool] = False,
     srid: Union[None, Unset, str] = UNSET,
-
 ) -> Optional[Union[HTTPValidationError, Project]]:
-    """ Upload File To Project
+    """Upload File To Project
 
      Upload data file to project. If layer_file is passed as True, then the file is converted to GeoJSON
     and used for
@@ -170,17 +155,16 @@ def sync(
 
     Returns:
         Union[HTTPValidationError, Project]
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-client=client,
-body=body,
-layer_file=layer_file,
-srid=srid,
-
+        client=client,
+        body=body,
+        layer_file=layer_file,
+        srid=srid,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
@@ -189,9 +173,8 @@ async def asyncio_detailed(
     body: BodyUploadFileToProjectProjectsProjectIdUploadPost,
     layer_file: Union[Unset, bool] = False,
     srid: Union[None, Unset, str] = UNSET,
-
 ) -> Response[Union[HTTPValidationError, Project]]:
-    """ Upload File To Project
+    """Upload File To Project
 
      Upload data file to project. If layer_file is passed as True, then the file is converted to GeoJSON
     and used for
@@ -214,22 +197,19 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, Project]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-body=body,
-layer_file=layer_file,
-srid=srid,
-
+        body=body,
+        layer_file=layer_file,
+        srid=srid,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
@@ -238,9 +218,8 @@ async def asyncio(
     body: BodyUploadFileToProjectProjectsProjectIdUploadPost,
     layer_file: Union[Unset, bool] = False,
     srid: Union[None, Unset, str] = UNSET,
-
 ) -> Optional[Union[HTTPValidationError, Project]]:
-    """ Upload File To Project
+    """Upload File To Project
 
      Upload data file to project. If layer_file is passed as True, then the file is converted to GeoJSON
     and used for
@@ -263,14 +242,14 @@ async def asyncio(
 
     Returns:
         Union[HTTPValidationError, Project]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-client=client,
-body=body,
-layer_file=layer_file,
-srid=srid,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            client=client,
+            body=body,
+            layer_file=layer_file,
+            srid=srid,
+        )
+    ).parsed

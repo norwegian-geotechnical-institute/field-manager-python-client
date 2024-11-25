@@ -1,32 +1,19 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.height_reference import HeightReference
 from ..models.standard_type import StandardType
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, List
-from typing import cast, Union
-from typing import Dict
-from typing import Union
-from uuid import UUID
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.location_summary import LocationSummary
-  from ..models.role import Role
-  from ..models.organization_min import OrganizationMin
-
-
-
+    from ..models.location_summary import LocationSummary
+    from ..models.organization_min import OrganizationMin
+    from ..models.role import Role
 
 
 T = TypeVar("T", bound="ProjectSummary")
@@ -34,31 +21,31 @@ T = TypeVar("T", bound="ProjectSummary")
 
 @_attrs_define
 class ProjectSummary:
-    """ 
-        Example:
-            {'external_id': '2020193232', 'height_reference': 'NN2000', 'name': 'Project Name', 'organization_id':
-                '71026128-16f3-4fcd-b24a-f8903c113bbb', 'project_id': '6ee7f5e8-5a7a-4120-bce0-d10299078601', 'srid': 3857}
+    """
+    Example:
+        {'external_id': '2020193232', 'height_reference': 'NN2000', 'name': 'Project Name', 'organization_id':
+            'ba16b8ca-e751-45c5-a861-66c61c7e8f0d', 'project_id': '0e6f93a4-258a-45d4-9d91-6a13849ded44', 'srid': 3857}
 
-        Attributes:
-            project_id (UUID):
-            external_id (str):
-            organization_id (UUID):
-            name (str):
-            standard_id (StandardType):
-            srid (int):
-            height_reference (Union[HeightReference, None]):
-            number_of_locations (int):
-            created_at (Union[None, Unset, datetime.datetime]):
-            updated_at (Union[None, Unset, datetime.datetime]):
-            external_id_source (Union[None, Unset, str]):
-            description (Union[None, Unset, str]):
-            tags (Union[List[str], None, Unset]):
-            organization (Union['OrganizationMin', None, Unset]):
-            effective_role (Union['Role', None, Unset]):
-            last_updated (Union[None, Unset, datetime.datetime]):
-            favorite (Union[Unset, bool]):  Default: False.
-            locations (Union[Unset, List['LocationSummary']]):
-     """
+    Attributes:
+        project_id (UUID):
+        external_id (str):
+        organization_id (UUID):
+        name (str):
+        standard_id (StandardType):
+        srid (int):
+        height_reference (Union[HeightReference, None]):
+        number_of_locations (int):
+        created_at (Union[None, Unset, datetime.datetime]):
+        updated_at (Union[None, Unset, datetime.datetime]):
+        external_id_source (Union[None, Unset, str]):
+        description (Union[None, Unset, str]):
+        tags (Union[List[str], None, Unset]):
+        organization (Union['OrganizationMin', None, Unset]):
+        effective_role (Union['Role', None, Unset]):
+        last_updated (Union[None, Unset, datetime.datetime]):
+        favorite (Union[Unset, bool]):  Default: False.
+        locations (Union[Unset, List['LocationSummary']]):
+    """
 
     project_id: UUID
     external_id: str
@@ -73,18 +60,17 @@ class ProjectSummary:
     external_id_source: Union[None, Unset, str] = UNSET
     description: Union[None, Unset, str] = UNSET
     tags: Union[List[str], None, Unset] = UNSET
-    organization: Union['OrganizationMin', None, Unset] = UNSET
-    effective_role: Union['Role', None, Unset] = UNSET
+    organization: Union["OrganizationMin", None, Unset] = UNSET
+    effective_role: Union["Role", None, Unset] = UNSET
     last_updated: Union[None, Unset, datetime.datetime] = UNSET
     favorite: Union[Unset, bool] = False
-    locations: Union[Unset, List['LocationSummary']] = UNSET
+    locations: Union[Unset, List["LocationSummary"]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.location_summary import LocationSummary
-        from ..models.role import Role
         from ..models.organization_min import OrganizationMin
+        from ..models.role import Role
+
         project_id = str(self.project_id)
 
         external_id = self.external_id
@@ -139,7 +125,6 @@ class ProjectSummary:
         elif isinstance(self.tags, list):
             tags = self.tags
 
-
         else:
             tags = self.tags
 
@@ -176,21 +161,20 @@ class ProjectSummary:
                 locations_item = locations_item_data.to_dict()
                 locations.append(locations_item)
 
-
-
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "project_id": project_id,
-            "external_id": external_id,
-            "organization_id": organization_id,
-            "name": name,
-            "standard_id": standard_id,
-            "srid": srid,
-            "height_reference": height_reference,
-            "number_of_locations": number_of_locations,
-        })
+        field_dict.update(
+            {
+                "project_id": project_id,
+                "external_id": external_id,
+                "organization_id": organization_id,
+                "name": name,
+                "standard_id": standard_id,
+                "srid": srid,
+                "height_reference": height_reference,
+                "number_of_locations": number_of_locations,
+            }
+        )
         if created_at is not UNSET:
             field_dict["created_at"] = created_at
         if updated_at is not UNSET:
@@ -214,32 +198,22 @@ class ProjectSummary:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.location_summary import LocationSummary
-        from ..models.role import Role
         from ..models.organization_min import OrganizationMin
+        from ..models.role import Role
+
         d = src_dict.copy()
         project_id = UUID(d.pop("project_id"))
-
-
-
 
         external_id = d.pop("external_id")
 
         organization_id = UUID(d.pop("organization_id"))
 
-
-
-
         name = d.pop("name")
 
         standard_id = StandardType(d.pop("standard_id"))
-
-
-
 
         srid = d.pop("srid")
 
@@ -251,15 +225,12 @@ class ProjectSummary:
                     raise TypeError()
                 height_reference_type_0 = HeightReference(data)
 
-
-
                 return height_reference_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[HeightReference, None], data)
 
         height_reference = _parse_height_reference(d.pop("height_reference"))
-
 
         number_of_locations = d.pop("number_of_locations")
 
@@ -273,15 +244,12 @@ class ProjectSummary:
                     raise TypeError()
                 created_at_type_0 = isoparse(data)
 
-
-
                 return created_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         created_at = _parse_created_at(d.pop("created_at", UNSET))
-
 
         def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -293,15 +261,12 @@ class ProjectSummary:
                     raise TypeError()
                 updated_at_type_0 = isoparse(data)
 
-
-
                 return updated_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
-
 
         def _parse_external_id_source(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -312,7 +277,6 @@ class ProjectSummary:
 
         external_id_source = _parse_external_id_source(d.pop("external_id_source", UNSET))
 
-
         def _parse_description(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -321,7 +285,6 @@ class ProjectSummary:
             return cast(Union[None, Unset, str], data)
 
         description = _parse_description(d.pop("description", UNSET))
-
 
         def _parse_tags(data: object) -> Union[List[str], None, Unset]:
             if data is None:
@@ -334,14 +297,13 @@ class ProjectSummary:
                 tags_type_0 = cast(List[str], data)
 
                 return tags_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[List[str], None, Unset], data)
 
         tags = _parse_tags(d.pop("tags", UNSET))
 
-
-        def _parse_organization(data: object) -> Union['OrganizationMin', None, Unset]:
+        def _parse_organization(data: object) -> Union["OrganizationMin", None, Unset]:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -351,17 +313,14 @@ class ProjectSummary:
                     raise TypeError()
                 organization_type_0 = OrganizationMin.from_dict(data)
 
-
-
                 return organization_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
-            return cast(Union['OrganizationMin', None, Unset], data)
+            return cast(Union["OrganizationMin", None, Unset], data)
 
         organization = _parse_organization(d.pop("organization", UNSET))
 
-
-        def _parse_effective_role(data: object) -> Union['Role', None, Unset]:
+        def _parse_effective_role(data: object) -> Union["Role", None, Unset]:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -371,15 +330,12 @@ class ProjectSummary:
                     raise TypeError()
                 effective_role_type_0 = Role.from_dict(data)
 
-
-
                 return effective_role_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
-            return cast(Union['Role', None, Unset], data)
+            return cast(Union["Role", None, Unset], data)
 
         effective_role = _parse_effective_role(d.pop("effective_role", UNSET))
-
 
         def _parse_last_updated(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -391,27 +347,21 @@ class ProjectSummary:
                     raise TypeError()
                 last_updated_type_0 = isoparse(data)
 
-
-
                 return last_updated_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         last_updated = _parse_last_updated(d.pop("last_updated", UNSET))
 
-
         favorite = d.pop("favorite", UNSET)
 
         locations = []
         _locations = d.pop("locations", UNSET)
-        for locations_item_data in (_locations or []):
+        for locations_item_data in _locations or []:
             locations_item = LocationSummary.from_dict(locations_item_data)
 
-
-
             locations.append(locations_item)
-
 
         project_summary = cls(
             project_id=project_id,
@@ -433,7 +383,6 @@ class ProjectSummary:
             favorite=favorite,
             locations=locations,
         )
-
 
         project_summary.additional_properties = d
         return project_summary

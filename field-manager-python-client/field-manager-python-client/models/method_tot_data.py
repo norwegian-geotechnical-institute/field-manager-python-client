@@ -1,52 +1,39 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.method_tot_data_method_type_id import MethodTOTDataMethodTypeId
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, Union
-from typing import Union
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="MethodTOTData")
 
 
 @_attrs_define
 class MethodTOTData:
-    """ 
-        Attributes:
-            method_data_id (UUID):
-            method_id (UUID):
-            created_at (datetime.datetime):
-            updated_at (datetime.datetime):
-            depth (float): Depth (m). SGF code D.
-            method_type_id (Union[Unset, MethodTOTDataMethodTypeId]):  Default: MethodTOTDataMethodTypeId.VALUE_2.
-            penetration_rate (Union[None, Unset, float]): Penetration rate (mm/s). SGF code B.
-            penetration_force (Union[None, Unset, float]): Penetration force (kN). SGF code A.
-            engine_pressure (Union[None, Unset, float]):
-            comment_code (Union[None, Unset, int]): Comment code. Two digit value.
-            hammering (Union[None, Unset, bool]):
-            flushing (Union[None, Unset, bool]):
-            flushing_pressure (Union[None, Unset, float]): Flushing pressure (MPa). SGF code I.
-            flushing_flow (Union[None, Unset, float]): Flushing flow (liter/minute). SGF code J.
-            rotation_rate (Union[None, Unset, float]): Rotation rate (rpm). SGF code R.
-            remarks (Union[None, Unset, str]): Remarks. SGF code T
-            increased_rotation_rate (Union[None, Unset, bool]):
-     """
+    """
+    Attributes:
+        method_data_id (UUID):
+        method_id (UUID):
+        created_at (datetime.datetime):
+        updated_at (datetime.datetime):
+        depth (float): Depth (m). SGF code D.
+        method_type_id (Union[Unset, MethodTOTDataMethodTypeId]):  Default: MethodTOTDataMethodTypeId.VALUE_2.
+        penetration_rate (Union[None, Unset, float]): Penetration rate (mm/s). SGF code B.
+        penetration_force (Union[None, Unset, float]): Penetration force (kN). SGF code A.
+        engine_pressure (Union[None, Unset, float]):
+        comment_code (Union[None, Unset, int]): Comment code. Two digit value.
+        hammering (Union[None, Unset, bool]):
+        flushing (Union[None, Unset, bool]):
+        flushing_pressure (Union[None, Unset, float]): Flushing pressure (MPa). SGF code I.
+        flushing_flow (Union[None, Unset, float]): Flushing flow (liter/minute). SGF code J.
+        rotation_rate (Union[None, Unset, float]): Rotation rate (rpm). SGF code R.
+        remarks (Union[None, Unset, str]): Remarks. SGF code T
+        increased_rotation_rate (Union[None, Unset, bool]):
+    """
 
     method_data_id: UUID
     method_id: UUID
@@ -67,7 +54,6 @@ class MethodTOTData:
     increased_rotation_rate: Union[None, Unset, bool] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
         method_data_id = str(self.method_data_id)
 
@@ -82,7 +68,6 @@ class MethodTOTData:
         method_type_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
-
 
         penetration_rate: Union[None, Unset, float]
         if isinstance(self.penetration_rate, Unset):
@@ -150,16 +135,17 @@ class MethodTOTData:
         else:
             increased_rotation_rate = self.increased_rotation_rate
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "method_data_id": method_data_id,
-            "method_id": method_id,
-            "created_at": created_at,
-            "updated_at": updated_at,
-            "depth": depth,
-        })
+        field_dict.update(
+            {
+                "method_data_id": method_data_id,
+                "method_id": method_id,
+                "created_at": created_at,
+                "updated_at": updated_at,
+                "depth": depth,
+            }
+        )
         if method_type_id is not UNSET:
             field_dict["method_type_id"] = method_type_id
         if penetration_rate is not UNSET:
@@ -187,42 +173,25 @@ class MethodTOTData:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
         method_data_id = UUID(d.pop("method_data_id"))
 
-
-
-
         method_id = UUID(d.pop("method_id"))
-
-
-
 
         created_at = isoparse(d.pop("created_at"))
 
-
-
-
         updated_at = isoparse(d.pop("updated_at"))
-
-
-
 
         depth = d.pop("depth")
 
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodTOTDataMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodTOTDataMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_penetration_rate(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -233,7 +202,6 @@ class MethodTOTData:
 
         penetration_rate = _parse_penetration_rate(d.pop("penetration_rate", UNSET))
 
-
         def _parse_penetration_force(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -242,7 +210,6 @@ class MethodTOTData:
             return cast(Union[None, Unset, float], data)
 
         penetration_force = _parse_penetration_force(d.pop("penetration_force", UNSET))
-
 
         def _parse_engine_pressure(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -253,7 +220,6 @@ class MethodTOTData:
 
         engine_pressure = _parse_engine_pressure(d.pop("engine_pressure", UNSET))
 
-
         def _parse_comment_code(data: object) -> Union[None, Unset, int]:
             if data is None:
                 return data
@@ -262,7 +228,6 @@ class MethodTOTData:
             return cast(Union[None, Unset, int], data)
 
         comment_code = _parse_comment_code(d.pop("comment_code", UNSET))
-
 
         def _parse_hammering(data: object) -> Union[None, Unset, bool]:
             if data is None:
@@ -273,7 +238,6 @@ class MethodTOTData:
 
         hammering = _parse_hammering(d.pop("hammering", UNSET))
 
-
         def _parse_flushing(data: object) -> Union[None, Unset, bool]:
             if data is None:
                 return data
@@ -282,7 +246,6 @@ class MethodTOTData:
             return cast(Union[None, Unset, bool], data)
 
         flushing = _parse_flushing(d.pop("flushing", UNSET))
-
 
         def _parse_flushing_pressure(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -293,7 +256,6 @@ class MethodTOTData:
 
         flushing_pressure = _parse_flushing_pressure(d.pop("flushing_pressure", UNSET))
 
-
         def _parse_flushing_flow(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -302,7 +264,6 @@ class MethodTOTData:
             return cast(Union[None, Unset, float], data)
 
         flushing_flow = _parse_flushing_flow(d.pop("flushing_flow", UNSET))
-
 
         def _parse_rotation_rate(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -313,7 +274,6 @@ class MethodTOTData:
 
         rotation_rate = _parse_rotation_rate(d.pop("rotation_rate", UNSET))
 
-
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -323,7 +283,6 @@ class MethodTOTData:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-
         def _parse_increased_rotation_rate(data: object) -> Union[None, Unset, bool]:
             if data is None:
                 return data
@@ -332,7 +291,6 @@ class MethodTOTData:
             return cast(Union[None, Unset, bool], data)
 
         increased_rotation_rate = _parse_increased_rotation_rate(d.pop("increased_rotation_rate", UNSET))
-
 
         method_tot_data = cls(
             method_data_id=method_data_id,
@@ -353,7 +311,6 @@ class MethodTOTData:
             remarks=remarks,
             increased_rotation_rate=increased_rotation_rate,
         )
-
 
         method_tot_data.additional_properties = d
         return method_tot_data

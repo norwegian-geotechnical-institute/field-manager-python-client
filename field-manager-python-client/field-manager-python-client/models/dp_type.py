@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class DPType(str, Enum):
     DPH = "DPH"
     DPL = "DPL"

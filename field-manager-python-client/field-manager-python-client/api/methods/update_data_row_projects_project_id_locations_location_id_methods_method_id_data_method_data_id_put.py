@@ -1,12 +1,11 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
+from uuid import UUID
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
 from ...models.method_cpt_data import MethodCPTData
 from ...models.method_cpt_data_update import MethodCPTDataUpdate
@@ -29,11 +28,7 @@ from ...models.method_tot_data import MethodTOTData
 from ...models.method_tot_data_update import MethodTOTDataUpdate
 from ...models.method_wst_data import MethodWSTData
 from ...models.method_wst_data_update import MethodWSTDataUpdate
-from typing import cast
-from typing import cast, Union
-from typing import Dict
-from uuid import UUID
-
+from ...types import Response
 
 
 def _get_kwargs(
@@ -42,19 +37,24 @@ def _get_kwargs(
     method_id: UUID,
     method_data_id: UUID,
     *,
-    body: Union['MethodCPTDataUpdate', 'MethodDTDataUpdate', 'MethodPZDataUpdate', 'MethodRCDDataUpdate', 'MethodRPDataUpdate', 'MethodSRSDataUpdate', 'MethodSSDataUpdate', 'MethodSVTDataUpdate', 'MethodTOTDataUpdate', 'MethodWSTDataUpdate'],
-
+    body: Union[
+        "MethodCPTDataUpdate",
+        "MethodDTDataUpdate",
+        "MethodPZDataUpdate",
+        "MethodRCDDataUpdate",
+        "MethodRPDataUpdate",
+        "MethodSRSDataUpdate",
+        "MethodSSDataUpdate",
+        "MethodSVTDataUpdate",
+        "MethodTOTDataUpdate",
+        "MethodWSTDataUpdate",
+    ],
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
-
-    
-
-    
-
     _kwargs: Dict[str, Any] = {
         "method": "put",
-        "url": "/projects/{project_id}/locations/{location_id}/methods/{method_id}/data/{method_data_id}".format(project_id=project_id,location_id=location_id,method_id=method_id,method_data_id=method_data_id,),
+        "url": f"/projects/{project_id}/locations/{location_id}/methods/{method_id}/data/{method_data_id}",
     }
 
     _body: Dict[str, Any]
@@ -79,8 +79,6 @@ def _get_kwargs(
     else:
         _body = body.to_dict()
 
-
-
     _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
 
@@ -88,114 +86,126 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[
+    Union[
+        HTTPValidationError,
+        Union[
+            "MethodCPTData",
+            "MethodDPData",
+            "MethodDTData",
+            "MethodPZData",
+            "MethodRCDData",
+            "MethodRPData",
+            "MethodSRSData",
+            "MethodSSData",
+            "MethodSVTData",
+            "MethodTOTData",
+            "MethodWSTData",
+        ],
+    ]
+]:
     if response.status_code == 200:
-        def _parse_response_200(data: object) -> Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']:
+
+        def _parse_response_200(
+            data: object,
+        ) -> Union[
+            "MethodCPTData",
+            "MethodDPData",
+            "MethodDTData",
+            "MethodPZData",
+            "MethodRCDData",
+            "MethodRPData",
+            "MethodSRSData",
+            "MethodSSData",
+            "MethodSVTData",
+            "MethodTOTData",
+            "MethodWSTData",
+        ]:
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_0 = MethodCPTData.from_dict(data)
 
-
-
                 return response_200_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_1 = MethodDPData.from_dict(data)
 
-
-
                 return response_200_type_1
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_2 = MethodDTData.from_dict(data)
 
-
-
                 return response_200_type_2
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_3 = MethodPZData.from_dict(data)
 
-
-
                 return response_200_type_3
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_4 = MethodRCDData.from_dict(data)
 
-
-
                 return response_200_type_4
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_5 = MethodRPData.from_dict(data)
 
-
-
                 return response_200_type_5
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_6 = MethodSSData.from_dict(data)
 
-
-
                 return response_200_type_6
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_7 = MethodSRSData.from_dict(data)
 
-
-
                 return response_200_type_7
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_8 = MethodSVTData.from_dict(data)
 
-
-
                 return response_200_type_8
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
                 response_200_type_9 = MethodTOTData.from_dict(data)
 
-
-
                 return response_200_type_9
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             if not isinstance(data, dict):
                 raise TypeError()
             response_200_type_10 = MethodWSTData.from_dict(data)
-
-
 
             return response_200_type_10
 
@@ -205,8 +215,6 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
-
-
         return response_422
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -214,7 +222,26 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[
+    Union[
+        HTTPValidationError,
+        Union[
+            "MethodCPTData",
+            "MethodDPData",
+            "MethodDTData",
+            "MethodPZData",
+            "MethodRCDData",
+            "MethodRPData",
+            "MethodSRSData",
+            "MethodSSData",
+            "MethodSVTData",
+            "MethodTOTData",
+            "MethodWSTData",
+        ],
+    ]
+]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -230,10 +257,37 @@ def sync_detailed(
     method_data_id: UUID,
     *,
     client: AuthenticatedClient,
-    body: Union['MethodCPTDataUpdate', 'MethodDTDataUpdate', 'MethodPZDataUpdate', 'MethodRCDDataUpdate', 'MethodRPDataUpdate', 'MethodSRSDataUpdate', 'MethodSSDataUpdate', 'MethodSVTDataUpdate', 'MethodTOTDataUpdate', 'MethodWSTDataUpdate'],
-
-) -> Response[Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]:
-    """ Update Data Row
+    body: Union[
+        "MethodCPTDataUpdate",
+        "MethodDTDataUpdate",
+        "MethodPZDataUpdate",
+        "MethodRCDDataUpdate",
+        "MethodRPDataUpdate",
+        "MethodSRSDataUpdate",
+        "MethodSSDataUpdate",
+        "MethodSVTDataUpdate",
+        "MethodTOTDataUpdate",
+        "MethodWSTDataUpdate",
+    ],
+) -> Response[
+    Union[
+        HTTPValidationError,
+        Union[
+            "MethodCPTData",
+            "MethodDPData",
+            "MethodDTData",
+            "MethodPZData",
+            "MethodRCDData",
+            "MethodRPData",
+            "MethodSRSData",
+            "MethodSSData",
+            "MethodSVTData",
+            "MethodTOTData",
+            "MethodWSTData",
+        ],
+    ]
+]:
+    """Update Data Row
 
      Update a method's single data line
 
@@ -252,16 +306,14 @@ def sync_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-location_id=location_id,
-method_id=method_id,
-method_data_id=method_data_id,
-body=body,
-
+        location_id=location_id,
+        method_id=method_id,
+        method_data_id=method_data_id,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -270,6 +322,7 @@ body=body,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     project_id: str,
     location_id: UUID,
@@ -277,10 +330,37 @@ def sync(
     method_data_id: UUID,
     *,
     client: AuthenticatedClient,
-    body: Union['MethodCPTDataUpdate', 'MethodDTDataUpdate', 'MethodPZDataUpdate', 'MethodRCDDataUpdate', 'MethodRPDataUpdate', 'MethodSRSDataUpdate', 'MethodSSDataUpdate', 'MethodSVTDataUpdate', 'MethodTOTDataUpdate', 'MethodWSTDataUpdate'],
-
-) -> Optional[Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]:
-    """ Update Data Row
+    body: Union[
+        "MethodCPTDataUpdate",
+        "MethodDTDataUpdate",
+        "MethodPZDataUpdate",
+        "MethodRCDDataUpdate",
+        "MethodRPDataUpdate",
+        "MethodSRSDataUpdate",
+        "MethodSSDataUpdate",
+        "MethodSVTDataUpdate",
+        "MethodTOTDataUpdate",
+        "MethodWSTDataUpdate",
+    ],
+) -> Optional[
+    Union[
+        HTTPValidationError,
+        Union[
+            "MethodCPTData",
+            "MethodDPData",
+            "MethodDTData",
+            "MethodPZData",
+            "MethodRCDData",
+            "MethodRPData",
+            "MethodSRSData",
+            "MethodSSData",
+            "MethodSVTData",
+            "MethodTOTData",
+            "MethodWSTData",
+        ],
+    ]
+]:
+    """Update Data Row
 
      Update a method's single data line
 
@@ -299,18 +379,17 @@ def sync(
 
     Returns:
         Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-location_id=location_id,
-method_id=method_id,
-method_data_id=method_data_id,
-client=client,
-body=body,
-
+        location_id=location_id,
+        method_id=method_id,
+        method_data_id=method_data_id,
+        client=client,
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
@@ -319,10 +398,37 @@ async def asyncio_detailed(
     method_data_id: UUID,
     *,
     client: AuthenticatedClient,
-    body: Union['MethodCPTDataUpdate', 'MethodDTDataUpdate', 'MethodPZDataUpdate', 'MethodRCDDataUpdate', 'MethodRPDataUpdate', 'MethodSRSDataUpdate', 'MethodSSDataUpdate', 'MethodSVTDataUpdate', 'MethodTOTDataUpdate', 'MethodWSTDataUpdate'],
-
-) -> Response[Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]:
-    """ Update Data Row
+    body: Union[
+        "MethodCPTDataUpdate",
+        "MethodDTDataUpdate",
+        "MethodPZDataUpdate",
+        "MethodRCDDataUpdate",
+        "MethodRPDataUpdate",
+        "MethodSRSDataUpdate",
+        "MethodSSDataUpdate",
+        "MethodSVTDataUpdate",
+        "MethodTOTDataUpdate",
+        "MethodWSTDataUpdate",
+    ],
+) -> Response[
+    Union[
+        HTTPValidationError,
+        Union[
+            "MethodCPTData",
+            "MethodDPData",
+            "MethodDTData",
+            "MethodPZData",
+            "MethodRCDData",
+            "MethodRPData",
+            "MethodSRSData",
+            "MethodSSData",
+            "MethodSVTData",
+            "MethodTOTData",
+            "MethodWSTData",
+        ],
+    ]
+]:
+    """Update Data Row
 
      Update a method's single data line
 
@@ -341,23 +447,20 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-location_id=location_id,
-method_id=method_id,
-method_data_id=method_data_id,
-body=body,
-
+        location_id=location_id,
+        method_id=method_id,
+        method_data_id=method_data_id,
+        body=body,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
@@ -366,10 +469,37 @@ async def asyncio(
     method_data_id: UUID,
     *,
     client: AuthenticatedClient,
-    body: Union['MethodCPTDataUpdate', 'MethodDTDataUpdate', 'MethodPZDataUpdate', 'MethodRCDDataUpdate', 'MethodRPDataUpdate', 'MethodSRSDataUpdate', 'MethodSSDataUpdate', 'MethodSVTDataUpdate', 'MethodTOTDataUpdate', 'MethodWSTDataUpdate'],
-
-) -> Optional[Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]:
-    """ Update Data Row
+    body: Union[
+        "MethodCPTDataUpdate",
+        "MethodDTDataUpdate",
+        "MethodPZDataUpdate",
+        "MethodRCDDataUpdate",
+        "MethodRPDataUpdate",
+        "MethodSRSDataUpdate",
+        "MethodSSDataUpdate",
+        "MethodSVTDataUpdate",
+        "MethodTOTDataUpdate",
+        "MethodWSTDataUpdate",
+    ],
+) -> Optional[
+    Union[
+        HTTPValidationError,
+        Union[
+            "MethodCPTData",
+            "MethodDPData",
+            "MethodDTData",
+            "MethodPZData",
+            "MethodRCDData",
+            "MethodRPData",
+            "MethodSRSData",
+            "MethodSSData",
+            "MethodSVTData",
+            "MethodTOTData",
+            "MethodWSTData",
+        ],
+    ]
+]:
+    """Update Data Row
 
      Update a method's single data line
 
@@ -388,15 +518,15 @@ async def asyncio(
 
     Returns:
         Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-location_id=location_id,
-method_id=method_id,
-method_data_id=method_data_id,
-client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            location_id=location_id,
+            method_id=method_id,
+            method_data_id=method_data_id,
+            client=client,
+            body=body,
+        )
+    ).parsed

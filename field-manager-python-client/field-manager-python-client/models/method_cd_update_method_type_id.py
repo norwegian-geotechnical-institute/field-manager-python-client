@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodCDUpdateMethodTypeId(IntEnum):
     VALUE_12 = 12
 

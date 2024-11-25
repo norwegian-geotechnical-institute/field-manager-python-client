@@ -1,23 +1,12 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.method_type_enum import MethodTypeEnum
-from typing import cast
-from typing import cast, List
-from typing import Dict
 
 if TYPE_CHECKING:
-  from ..models.file_extension import FileExtension
-
-
-
+    from ..models.file_extension import FileExtension
 
 
 T = TypeVar("T", bound="MethodType")
@@ -25,53 +14,51 @@ T = TypeVar("T", bound="MethodType")
 
 @_attrs_define
 class MethodType:
-    """ 
-        Attributes:
-            method_type_id (MethodTypeEnum): (
-                CPT=1,
-                TOT=2,
-                RP=3,
-                SA=4,
-                PZ=5,
-                SS=6,
-                RWS=7,
-                RCD=8,
-                RS=9,
-                SVT=10,
-                SPT=11,
-                CD=12,
-                TP=13,
-                PT=14,
-                ESA=15,
-                AD=17,
-                RO=18,
-                INC=19,
-                SR=20,
-                IW=21,
-                DT=22,
-                OTHER=23,
-                SRS=24,
-                DP=25,
-                WST=26,
-                )
-            name (str):
-            description (str):
-            category (str):
-            sort_order (int):
-            raw_file_extensions (List['FileExtension']):
-     """
+    """
+    Attributes:
+        method_type_id (MethodTypeEnum): (
+            CPT=1,
+            TOT=2,
+            RP=3,
+            SA=4,
+            PZ=5,
+            SS=6,
+            RWS=7,
+            RCD=8,
+            RS=9,
+            SVT=10,
+            SPT=11,
+            CD=12,
+            TP=13,
+            PT=14,
+            ESA=15,
+            AD=17,
+            RO=18,
+            INC=19,
+            SR=20,
+            IW=21,
+            DT=22,
+            OTHER=23,
+            SRS=24,
+            DP=25,
+            WST=26,
+            )
+        name (str):
+        description (str):
+        category (str):
+        sort_order (int):
+        raw_file_extensions (List['FileExtension']):
+    """
 
     method_type_id: MethodTypeEnum
     name: str
     description: str
     category: str
     sort_order: int
-    raw_file_extensions: List['FileExtension']
+    raw_file_extensions: List["FileExtension"]
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.file_extension import FileExtension
         method_type_id = self.method_type_id.value
 
         name = self.name
@@ -87,32 +74,27 @@ class MethodType:
             raw_file_extensions_item = raw_file_extensions_item_data.to_dict()
             raw_file_extensions.append(raw_file_extensions_item)
 
-
-
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "method_type_id": method_type_id,
-            "name": name,
-            "description": description,
-            "category": category,
-            "sort_order": sort_order,
-            "raw_file_extensions": raw_file_extensions,
-        })
+        field_dict.update(
+            {
+                "method_type_id": method_type_id,
+                "name": name,
+                "description": description,
+                "category": category,
+                "sort_order": sort_order,
+                "raw_file_extensions": raw_file_extensions,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.file_extension import FileExtension
+
         d = src_dict.copy()
         method_type_id = MethodTypeEnum(d.pop("method_type_id"))
-
-
-
 
         name = d.pop("name")
 
@@ -124,13 +106,10 @@ class MethodType:
 
         raw_file_extensions = []
         _raw_file_extensions = d.pop("raw_file_extensions")
-        for raw_file_extensions_item_data in (_raw_file_extensions):
+        for raw_file_extensions_item_data in _raw_file_extensions:
             raw_file_extensions_item = FileExtension.from_dict(raw_file_extensions_item_data)
 
-
-
             raw_file_extensions.append(raw_file_extensions_item)
-
 
         method_type = cls(
             method_type_id=method_type_id,
@@ -140,7 +119,6 @@ class MethodType:
             sort_order=sort_order,
             raw_file_extensions=raw_file_extensions,
         )
-
 
         method_type.additional_properties = d
         return method_type

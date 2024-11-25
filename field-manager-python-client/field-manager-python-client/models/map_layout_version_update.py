@@ -1,12 +1,10 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.background_map_layer import BackgroundMapLayer
 from ..models.date_format import DateFormat
@@ -15,50 +13,39 @@ from ..models.map_scale import MapScale
 from ..models.orientation import Orientation
 from ..models.paper_size import PaperSize
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, Union
-from typing import Union
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="MapLayoutVersionUpdate")
 
 
 @_attrs_define
 class MapLayoutVersionUpdate:
-    """ Map Layout Version Update. The map_layout_version_id in the url will override the map_layout_version_id in the body.
+    """Map Layout Version Update. The map_layout_version_id in the url will override the map_layout_version_id in the body.
 
-        Attributes:
-            map_layout_version_id (Union[None, UUID, Unset]):
-            name (Union[None, Unset, str]):
-            file_id (Union[None, UUID, Unset]):
-            paper_size (Union[None, PaperSize, Unset]):
-            orientation (Union[None, Orientation, Unset]):
-            dpi (Union[None, Unset, int]):
-            background_map_layer (Union[BackgroundMapLayer, None, Unset]):
-            scale (Union[MapScale, None, Unset]):
-            boundary (Union[None, Unset, str]): Boundary as a Well-Known Text (WKT) 2D POLYGON. Example 'POLYGON((1184848.67
-                8385496.52, 1184848.67 8386496.52,1185848.67 8386496.52, 1185848.67 8385496.52, 1184848.67 8385496.52))'
-            srid (Union[None, Unset, int]): Spatial Reference Identifier (SRID) for the boundary box. Defaults to 3857 WGS
-                84 / Pseudo-Mercator (unit: meter). Default: 3857.
-            rotation (Union[None, Unset, float]):
-            report_number (Union[None, Unset, str]):
-            report_date (Union[None, Unset, datetime.date]):
-            client_name (Union[None, Unset, str]):
-            description (Union[None, Unset, str]):
-            drawn_by (Union[None, Unset, str]):
-            approved_by (Union[None, Unset, str]):
-            controlled_by (Union[None, Unset, str]):
-            language (Union[Unset, Language]): ISO 639-2 language three-letter codes (set 2)
-            date_format (Union[DateFormat, None, Unset]):
-            show_method_status (Union[None, Unset, bool]):
-     """
+    Attributes:
+        map_layout_version_id (Union[None, UUID, Unset]):
+        name (Union[None, Unset, str]):
+        file_id (Union[None, UUID, Unset]):
+        paper_size (Union[None, PaperSize, Unset]):
+        orientation (Union[None, Orientation, Unset]):
+        dpi (Union[None, Unset, int]):
+        background_map_layer (Union[BackgroundMapLayer, None, Unset]):
+        scale (Union[MapScale, None, Unset]):
+        boundary (Union[None, Unset, str]): Boundary as a Well-Known Text (WKT) 2D POLYGON. Example 'POLYGON((1184848.67
+            8385496.52, 1184848.67 8386496.52,1185848.67 8386496.52, 1185848.67 8385496.52, 1184848.67 8385496.52))'
+        srid (Union[None, Unset, int]): Spatial Reference Identifier (SRID) for the boundary box. Defaults to 3857 WGS
+            84 / Pseudo-Mercator (unit: meter). Default: 3857.
+        rotation (Union[None, Unset, float]):
+        report_number (Union[None, Unset, str]):
+        report_date (Union[None, Unset, datetime.date]):
+        client_name (Union[None, Unset, str]):
+        description (Union[None, Unset, str]):
+        drawn_by (Union[None, Unset, str]):
+        approved_by (Union[None, Unset, str]):
+        controlled_by (Union[None, Unset, str]):
+        language (Union[Unset, Language]): ISO 639-2 language three-letter codes (set 2)
+        date_format (Union[DateFormat, None, Unset]):
+        show_method_status (Union[None, Unset, bool]):
+    """
 
     map_layout_version_id: Union[None, UUID, Unset] = UNSET
     name: Union[None, Unset, str] = UNSET
@@ -82,7 +69,6 @@ class MapLayoutVersionUpdate:
     date_format: Union[DateFormat, None, Unset] = UNSET
     show_method_status: Union[None, Unset, bool] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         map_layout_version_id: Union[None, Unset, str]
@@ -211,7 +197,6 @@ class MapLayoutVersionUpdate:
         if not isinstance(self.language, Unset):
             language = self.language.value
 
-
         date_format: Union[None, Unset, str]
         if isinstance(self.date_format, Unset):
             date_format = UNSET
@@ -226,11 +211,9 @@ class MapLayoutVersionUpdate:
         else:
             show_method_status = self.show_method_status
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if map_layout_version_id is not UNSET:
             field_dict["map_layout_version_id"] = map_layout_version_id
         if name is not UNSET:
@@ -276,11 +259,10 @@ class MapLayoutVersionUpdate:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+
         def _parse_map_layout_version_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
                 return data
@@ -291,15 +273,12 @@ class MapLayoutVersionUpdate:
                     raise TypeError()
                 map_layout_version_id_type_0 = UUID(data)
 
-
-
                 return map_layout_version_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         map_layout_version_id = _parse_map_layout_version_id(d.pop("map_layout_version_id", UNSET))
-
 
         def _parse_name(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -309,7 +288,6 @@ class MapLayoutVersionUpdate:
             return cast(Union[None, Unset, str], data)
 
         name = _parse_name(d.pop("name", UNSET))
-
 
         def _parse_file_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
@@ -321,15 +299,12 @@ class MapLayoutVersionUpdate:
                     raise TypeError()
                 file_id_type_0 = UUID(data)
 
-
-
                 return file_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         file_id = _parse_file_id(d.pop("file_id", UNSET))
-
 
         def _parse_paper_size(data: object) -> Union[None, PaperSize, Unset]:
             if data is None:
@@ -341,15 +316,12 @@ class MapLayoutVersionUpdate:
                     raise TypeError()
                 paper_size_type_0 = PaperSize(data)
 
-
-
                 return paper_size_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, PaperSize, Unset], data)
 
         paper_size = _parse_paper_size(d.pop("paper_size", UNSET))
-
 
         def _parse_orientation(data: object) -> Union[None, Orientation, Unset]:
             if data is None:
@@ -361,15 +333,12 @@ class MapLayoutVersionUpdate:
                     raise TypeError()
                 orientation_type_0 = Orientation(data)
 
-
-
                 return orientation_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Orientation, Unset], data)
 
         orientation = _parse_orientation(d.pop("orientation", UNSET))
-
 
         def _parse_dpi(data: object) -> Union[None, Unset, int]:
             if data is None:
@@ -379,7 +348,6 @@ class MapLayoutVersionUpdate:
             return cast(Union[None, Unset, int], data)
 
         dpi = _parse_dpi(d.pop("dpi", UNSET))
-
 
         def _parse_background_map_layer(data: object) -> Union[BackgroundMapLayer, None, Unset]:
             if data is None:
@@ -391,15 +359,12 @@ class MapLayoutVersionUpdate:
                     raise TypeError()
                 background_map_layer_type_0 = BackgroundMapLayer(data)
 
-
-
                 return background_map_layer_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[BackgroundMapLayer, None, Unset], data)
 
         background_map_layer = _parse_background_map_layer(d.pop("background_map_layer", UNSET))
-
 
         def _parse_scale(data: object) -> Union[MapScale, None, Unset]:
             if data is None:
@@ -411,15 +376,12 @@ class MapLayoutVersionUpdate:
                     raise TypeError()
                 scale_type_0 = MapScale(data)
 
-
-
                 return scale_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[MapScale, None, Unset], data)
 
         scale = _parse_scale(d.pop("scale", UNSET))
-
 
         def _parse_boundary(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -430,7 +392,6 @@ class MapLayoutVersionUpdate:
 
         boundary = _parse_boundary(d.pop("boundary", UNSET))
 
-
         def _parse_srid(data: object) -> Union[None, Unset, int]:
             if data is None:
                 return data
@@ -439,7 +400,6 @@ class MapLayoutVersionUpdate:
             return cast(Union[None, Unset, int], data)
 
         srid = _parse_srid(d.pop("srid", UNSET))
-
 
         def _parse_rotation(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -450,7 +410,6 @@ class MapLayoutVersionUpdate:
 
         rotation = _parse_rotation(d.pop("rotation", UNSET))
 
-
         def _parse_report_number(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -459,7 +418,6 @@ class MapLayoutVersionUpdate:
             return cast(Union[None, Unset, str], data)
 
         report_number = _parse_report_number(d.pop("report_number", UNSET))
-
 
         def _parse_report_date(data: object) -> Union[None, Unset, datetime.date]:
             if data is None:
@@ -471,15 +429,12 @@ class MapLayoutVersionUpdate:
                     raise TypeError()
                 report_date_type_0 = isoparse(data).date()
 
-
-
                 return report_date_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.date], data)
 
         report_date = _parse_report_date(d.pop("report_date", UNSET))
-
 
         def _parse_client_name(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -490,7 +445,6 @@ class MapLayoutVersionUpdate:
 
         client_name = _parse_client_name(d.pop("client_name", UNSET))
 
-
         def _parse_description(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -499,7 +453,6 @@ class MapLayoutVersionUpdate:
             return cast(Union[None, Unset, str], data)
 
         description = _parse_description(d.pop("description", UNSET))
-
 
         def _parse_drawn_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -510,7 +463,6 @@ class MapLayoutVersionUpdate:
 
         drawn_by = _parse_drawn_by(d.pop("drawn_by", UNSET))
 
-
         def _parse_approved_by(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -519,7 +471,6 @@ class MapLayoutVersionUpdate:
             return cast(Union[None, Unset, str], data)
 
         approved_by = _parse_approved_by(d.pop("approved_by", UNSET))
-
 
         def _parse_controlled_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -530,16 +481,12 @@ class MapLayoutVersionUpdate:
 
         controlled_by = _parse_controlled_by(d.pop("controlled_by", UNSET))
 
-
         _language = d.pop("language", UNSET)
         language: Union[Unset, Language]
-        if isinstance(_language,  Unset):
+        if isinstance(_language, Unset):
             language = UNSET
         else:
             language = Language(_language)
-
-
-
 
         def _parse_date_format(data: object) -> Union[DateFormat, None, Unset]:
             if data is None:
@@ -551,15 +498,12 @@ class MapLayoutVersionUpdate:
                     raise TypeError()
                 date_format_type_0 = DateFormat(data)
 
-
-
                 return date_format_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[DateFormat, None, Unset], data)
 
         date_format = _parse_date_format(d.pop("date_format", UNSET))
-
 
         def _parse_show_method_status(data: object) -> Union[None, Unset, bool]:
             if data is None:
@@ -569,7 +513,6 @@ class MapLayoutVersionUpdate:
             return cast(Union[None, Unset, bool], data)
 
         show_method_status = _parse_show_method_status(d.pop("show_method_status", UNSET))
-
 
         map_layout_version_update = cls(
             map_layout_version_id=map_layout_version_id,
@@ -594,7 +537,6 @@ class MapLayoutVersionUpdate:
             date_format=date_format,
             show_method_status=show_method_status,
         )
-
 
         map_layout_version_update.additional_properties = d
         return map_layout_version_update

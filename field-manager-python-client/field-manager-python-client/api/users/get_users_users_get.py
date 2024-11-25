@@ -1,29 +1,18 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
+from ...client import AuthenticatedClient, Client
+from ...types import Response
 
 
-
-
-def _get_kwargs(
-    
-) -> Dict[str, Any]:
-    
-
-    
-
-    
-
+def _get_kwargs() -> Dict[str, Any]:
     _kwargs: Dict[str, Any] = {
         "method": "get",
         "url": "/users",
     }
-
 
     return _kwargs
 
@@ -47,9 +36,8 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Any]:
-    """ Get Users
+    """Get Users
 
      Return all users the caller has access to.
 
@@ -73,12 +61,9 @@ def sync_detailed(
 
     Returns:
         Response[Any]
-     """
+    """
 
-
-    kwargs = _get_kwargs(
-        
-    )
+    kwargs = _get_kwargs()
 
     response = client.get_httpx_client().request(
         **kwargs,
@@ -90,9 +75,8 @@ def sync_detailed(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Any]:
-    """ Get Users
+    """Get Users
 
      Return all users the caller has access to.
 
@@ -116,16 +100,10 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any]
-     """
+    """
 
+    kwargs = _get_kwargs()
 
-    kwargs = _get_kwargs(
-        
-    )
-
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
-
