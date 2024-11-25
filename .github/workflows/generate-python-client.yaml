@@ -64,3 +64,6 @@ jobs:
           echo "Generating API client..."
           openapi-python-client generate --path ./openapi_specification/openapi.json --overwrite --custom-template-path=templates --config config.yaml >> logs/log 2>&1
           openapi-python-client --version >> logs/versions 2>&1
+
+      - name: Debug OpenAPI Client Generation
+        run: cat logs/log
