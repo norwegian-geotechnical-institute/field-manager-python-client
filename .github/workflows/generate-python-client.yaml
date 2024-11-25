@@ -48,7 +48,6 @@ jobs:
         run: |
           echo "Formatting OpenAPI specification..."
           npx prettier --write ./openapi_specification/openapi.json
-          cat ./openapi_specification/openapi.json
 
       # Step 7: Get version and save to logs/versions
       - name: Get API version
@@ -65,6 +64,3 @@ jobs:
           openapi-python-client generate --path ./openapi_specification/openapi.json --overwrite --custom-template-path=templates --config config.yaml
         # todo: to run poetry install, we need to add a pyproject.toml file
         #   openapi-python-client --version >> logs/versions 2>&1
-
-      - name: Debug OpenAPI Client Generation
-        run: cat logs/log
