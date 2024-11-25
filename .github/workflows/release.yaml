@@ -25,6 +25,9 @@ jobs:
         with:
           poetry-version: ${{ matrix.poetry-version }}
       - name: Publish
+        env:
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
         working-directory: field-manager-python-client
         run: |
+          poetry config pypi-token.pypi $PYPI_TOKEN
           poetry publish --build
