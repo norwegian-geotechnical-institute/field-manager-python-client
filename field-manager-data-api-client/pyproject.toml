@@ -2,7 +2,8 @@
 name = "field-manager-data-api-client"
 version = "4.4.82"
 description = "A client library for accessing Field Manager Data API"
-authors = []
+authors = ["Jiyang Ye <jiyang.ye@ngi.no>"]
+maintainers = ["Jiyang Ye <jiyang.ye@ngi.no>"]
 readme = "README.md"
 packages = [
     {include = "field_manager_data_api_client"},
