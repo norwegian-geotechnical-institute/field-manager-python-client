@@ -16,11 +16,13 @@ jobs:
     steps:
       # Step 1: Define environment variable for OpenAPI spec URL
       - name: Set OpenAPI Spec URL
-        run: echo "OPENAPI_SPEC_URL=https://app.test.fieldmanager.io/api/location/openapi.json" >> $GITHUB_ENV
+        run: echo "OPENAPI_SPEC_URL=https://app.fieldmanager.io/api/location/openapi.json" >> $GITHUB_ENV
 
       # Step 2: Check out the code
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: trunk # Ensure you check out the `trunk` branch
 
       # Step 3: Set up Python environment
       - name: Set up Python
@@ -53,15 +55,41 @@ jobs:
       - name: Get API version
         run: |
           mkdir -p logs
-          VERSION=$(jq -r '.info.version' ./openapi_specification/openapi.json)
+        #   VERSION=$(jq -r '.info.version' ./openapi_specification/openapi.json)
+        #   Extract version from config.yaml if package_version_override exists, otherwise use openapi.json
+          if jq -e '.package_version_override' config.yaml > /dev/null; then
+            VERSION=$(jq -r '.package_version_override' config.yaml)
+          else
+            VERSION=$(jq -r '.info.version' ./openapi_specification/openapi.json)
+          fi
           echo "Field Manager Data API version: $VERSION" > logs/versions
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       # Step 8: Generate the Python client
       - name: Generate Python Client
         run: |
           mkdir -p logs
           echo "Generating API client..."
-          openapi-python-client generate --path ./openapi_specification/openapi.json --overwrite --custom-template-path=templates --config config.yaml >> logs/log 2>&1
+          openapi-python-client generate --path ./openapi_specification/openapi.json --overwrite --custom-template-path=templates --config config.yaml >> logs/log
           cat logs/log
-        # todo: to run poetry install, we need to add a pyproject.toml file
-        #   openapi-python-client --version >> logs/versions 2>&1
+
+      # Step 9: Configure Git for the runner
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      # Step 10: Commit and Push Changes with API Version
+      - name: Commit and Push Changes
+        run: |
+          git add field-manager-data-api-client
+          git add openapi_specification/openapi.json
+          git add logs/
+          git commit -m "chore: Update generated Python client and OpenAPI spec (API version: ${{ env.VERSION }})"
+          git push origin trunk
+
+      # Step 11: Tag the Commit with API Version
+      - name: Tag the Commit
+        run: |
+          git tag "v${{ env.VERSION }}"
+          git push origin "v${{ env.VERSION }}"
