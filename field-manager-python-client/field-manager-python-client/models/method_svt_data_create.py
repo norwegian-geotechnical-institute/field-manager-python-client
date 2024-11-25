@@ -1,48 +1,35 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.method_svt_data_create_method_type_id import MethodSVTDataCreateMethodTypeId
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, Union
-from typing import Union
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="MethodSVTDataCreate")
 
 
 @_attrs_define
 class MethodSVTDataCreate:
-    """ 
-        Attributes:
-            depth (Union[float, str]): Depth (m).
-            method_data_id (Union[None, UUID, Unset]):
-            method_id (Union[None, UUID, Unset]):
-            method_type_id (Union[Unset, MethodSVTDataCreateMethodTypeId]):  Default:
-                MethodSVTDataCreateMethodTypeId.VALUE_10.
-            created_at (Union[None, Unset, datetime.datetime]):
-            updated_at (Union[None, Unset, datetime.datetime]):
-            maximum_measurement_torque (Union[None, Unset, float, str]): Maximum measurement torque (Nm).
-            maximum_measurement_torque_remoulded (Union[None, Unset, float, str]): Maximum measurement torque (Nm).
-            shear_strength (Union[None, Unset, float, str]): Shear strength (kPa). SGF code AS.
-            shear_strength_remoulded (Union[None, Unset, float, str]): Shear strength (kPa).
-            sensitivity (Union[None, Unset, float, str]): Sensitivity (unitless). SGF code SV.
-            remarks (Union[None, Unset, str]):
-     """
+    """
+    Attributes:
+        depth (Union[float, str]): Depth (m).
+        method_data_id (Union[None, UUID, Unset]):
+        method_id (Union[None, UUID, Unset]):
+        method_type_id (Union[Unset, MethodSVTDataCreateMethodTypeId]):  Default:
+            MethodSVTDataCreateMethodTypeId.VALUE_10.
+        created_at (Union[None, Unset, datetime.datetime]):
+        updated_at (Union[None, Unset, datetime.datetime]):
+        maximum_measurement_torque (Union[None, Unset, float, str]): Maximum measurement torque (Nm).
+        maximum_measurement_torque_remoulded (Union[None, Unset, float, str]): Maximum measurement torque (Nm).
+        shear_strength (Union[None, Unset, float, str]): Shear strength (kPa). SGF code AS.
+        shear_strength_remoulded (Union[None, Unset, float, str]): Shear strength (kPa).
+        sensitivity (Union[None, Unset, float, str]): Sensitivity (unitless). SGF code SV.
+        remarks (Union[None, Unset, str]):
+    """
 
     depth: Union[float, str]
     method_data_id: Union[None, UUID, Unset] = UNSET
@@ -57,7 +44,6 @@ class MethodSVTDataCreate:
     sensitivity: Union[None, Unset, float, str] = UNSET
     remarks: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         depth: Union[float, str]
@@ -82,7 +68,6 @@ class MethodSVTDataCreate:
         method_type_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
-
 
         created_at: Union[None, Unset, str]
         if isinstance(self.created_at, Unset):
@@ -136,12 +121,13 @@ class MethodSVTDataCreate:
         else:
             remarks = self.remarks
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "depth": depth,
-        })
+        field_dict.update(
+            {
+                "depth": depth,
+            }
+        )
         if method_data_id is not UNSET:
             field_dict["method_data_id"] = method_data_id
         if method_id is not UNSET:
@@ -167,16 +153,14 @@ class MethodSVTDataCreate:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+
         def _parse_depth(data: object) -> Union[float, str]:
             return cast(Union[float, str], data)
 
         depth = _parse_depth(d.pop("depth"))
-
 
         def _parse_method_data_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
@@ -188,15 +172,12 @@ class MethodSVTDataCreate:
                     raise TypeError()
                 method_data_id_type_0 = UUID(data)
 
-
-
                 return method_data_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         method_data_id = _parse_method_data_id(d.pop("method_data_id", UNSET))
-
 
         def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
@@ -208,25 +189,19 @@ class MethodSVTDataCreate:
                     raise TypeError()
                 method_id_type_0 = UUID(data)
 
-
-
                 return method_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
 
-
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodSVTDataCreateMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodSVTDataCreateMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -238,15 +213,12 @@ class MethodSVTDataCreate:
                     raise TypeError()
                 created_at_type_0 = isoparse(data)
 
-
-
                 return created_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         created_at = _parse_created_at(d.pop("created_at", UNSET))
-
 
         def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -258,15 +230,12 @@ class MethodSVTDataCreate:
                     raise TypeError()
                 updated_at_type_0 = isoparse(data)
 
-
-
                 return updated_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
-
 
         def _parse_maximum_measurement_torque(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -277,7 +246,6 @@ class MethodSVTDataCreate:
 
         maximum_measurement_torque = _parse_maximum_measurement_torque(d.pop("maximum_measurement_torque", UNSET))
 
-
         def _parse_maximum_measurement_torque_remoulded(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -285,8 +253,9 @@ class MethodSVTDataCreate:
                 return data
             return cast(Union[None, Unset, float, str], data)
 
-        maximum_measurement_torque_remoulded = _parse_maximum_measurement_torque_remoulded(d.pop("maximum_measurement_torque_remoulded", UNSET))
-
+        maximum_measurement_torque_remoulded = _parse_maximum_measurement_torque_remoulded(
+            d.pop("maximum_measurement_torque_remoulded", UNSET)
+        )
 
         def _parse_shear_strength(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -297,7 +266,6 @@ class MethodSVTDataCreate:
 
         shear_strength = _parse_shear_strength(d.pop("shear_strength", UNSET))
 
-
         def _parse_shear_strength_remoulded(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -306,7 +274,6 @@ class MethodSVTDataCreate:
             return cast(Union[None, Unset, float, str], data)
 
         shear_strength_remoulded = _parse_shear_strength_remoulded(d.pop("shear_strength_remoulded", UNSET))
-
 
         def _parse_sensitivity(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -317,7 +284,6 @@ class MethodSVTDataCreate:
 
         sensitivity = _parse_sensitivity(d.pop("sensitivity", UNSET))
 
-
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -326,7 +292,6 @@ class MethodSVTDataCreate:
             return cast(Union[None, Unset, str], data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
-
 
         method_svt_data_create = cls(
             depth=depth,
@@ -342,7 +307,6 @@ class MethodSVTDataCreate:
             sensitivity=sensitivity,
             remarks=remarks,
         )
-
 
         method_svt_data_create.additional_properties = d
         return method_svt_data_create

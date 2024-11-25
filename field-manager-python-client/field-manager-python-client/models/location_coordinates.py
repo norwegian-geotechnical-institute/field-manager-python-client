@@ -1,39 +1,26 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast, Union
-from typing import Union
-
-
-
-
-
-
 T = TypeVar("T", bound="LocationCoordinates")
 
 
 @_attrs_define
 class LocationCoordinates:
-    """ 
-        Attributes:
-            easting (Union[None, Unset, float]):
-            northing (Union[None, Unset, float]):
-            elevation (Union[None, Unset, float]):
-     """
+    """
+    Attributes:
+        easting (Union[None, Unset, float]):
+        northing (Union[None, Unset, float]):
+        elevation (Union[None, Unset, float]):
+    """
 
     easting: Union[None, Unset, float] = UNSET
     northing: Union[None, Unset, float] = UNSET
     elevation: Union[None, Unset, float] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         easting: Union[None, Unset, float]
@@ -54,11 +41,9 @@ class LocationCoordinates:
         else:
             elevation = self.elevation
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if easting is not UNSET:
             field_dict["easting"] = easting
         if northing is not UNSET:
@@ -68,11 +53,10 @@ class LocationCoordinates:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+
         def _parse_easting(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -81,7 +65,6 @@ class LocationCoordinates:
             return cast(Union[None, Unset, float], data)
 
         easting = _parse_easting(d.pop("easting", UNSET))
-
 
         def _parse_northing(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -92,7 +75,6 @@ class LocationCoordinates:
 
         northing = _parse_northing(d.pop("northing", UNSET))
 
-
         def _parse_elevation(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -102,13 +84,11 @@ class LocationCoordinates:
 
         elevation = _parse_elevation(d.pop("elevation", UNSET))
 
-
         location_coordinates = cls(
             easting=easting,
             northing=northing,
             elevation=elevation,
         )
-
 
         location_coordinates.additional_properties = d
         return location_coordinates

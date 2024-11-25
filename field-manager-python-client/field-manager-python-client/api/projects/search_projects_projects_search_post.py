@@ -1,21 +1,14 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
 from ...models.project_info import ProjectInfo
 from ...models.project_search import ProjectSearch
-from ...types import UNSET, Unset
-from typing import cast
-from typing import cast, List
-from typing import Dict
-from typing import Union
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -23,12 +16,8 @@ def _get_kwargs(
     body: ProjectSearch,
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
-
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
-
-
-    
 
     params: Dict[str, Any] = {}
 
@@ -36,9 +25,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: Dict[str, Any] = {
         "method": "post",
@@ -48,7 +35,6 @@ def _get_kwargs(
 
     _body = body.to_dict()
 
-
     _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
 
@@ -56,22 +42,20 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[HTTPValidationError, List['ProjectInfo']]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[HTTPValidationError, List["ProjectInfo"]]]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
-        for response_200_item_data in (_response_200):
+        for response_200_item_data in _response_200:
             response_200_item = ProjectInfo.from_dict(response_200_item_data)
-
-
 
             response_200.append(response_200_item)
 
         return response_200
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
-
-
 
         return response_422
     if client.raise_on_unexpected_status:
@@ -80,7 +64,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[HTTPValidationError, List['ProjectInfo']]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[HTTPValidationError, List["ProjectInfo"]]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -95,9 +81,8 @@ def sync_detailed(
     body: ProjectSearch,
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
-
-) -> Response[Union[HTTPValidationError, List['ProjectInfo']]]:
-    """ Search Projects
+) -> Response[Union[HTTPValidationError, List["ProjectInfo"]]]:
+    """Search Projects
 
     Args:
         skip (Union[Unset, int]):  Default: 0.
@@ -110,14 +95,12 @@ def sync_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, List['ProjectInfo']]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-skip=skip,
-limit=limit,
-
+        skip=skip,
+        limit=limit,
     )
 
     response = client.get_httpx_client().request(
@@ -126,15 +109,15 @@ limit=limit,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient,
     body: ProjectSearch,
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
-
-) -> Optional[Union[HTTPValidationError, List['ProjectInfo']]]:
-    """ Search Projects
+) -> Optional[Union[HTTPValidationError, List["ProjectInfo"]]]:
+    """Search Projects
 
     Args:
         skip (Union[Unset, int]):  Default: 0.
@@ -147,16 +130,15 @@ def sync(
 
     Returns:
         Union[HTTPValidationError, List['ProjectInfo']]
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-skip=skip,
-limit=limit,
-
+        body=body,
+        skip=skip,
+        limit=limit,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
@@ -164,9 +146,8 @@ async def asyncio_detailed(
     body: ProjectSearch,
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
-
-) -> Response[Union[HTTPValidationError, List['ProjectInfo']]]:
-    """ Search Projects
+) -> Response[Union[HTTPValidationError, List["ProjectInfo"]]]:
+    """Search Projects
 
     Args:
         skip (Union[Unset, int]):  Default: 0.
@@ -179,21 +160,18 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, List['ProjectInfo']]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-skip=skip,
-limit=limit,
-
+        skip=skip,
+        limit=limit,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
@@ -201,9 +179,8 @@ async def asyncio(
     body: ProjectSearch,
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
-
-) -> Optional[Union[HTTPValidationError, List['ProjectInfo']]]:
-    """ Search Projects
+) -> Optional[Union[HTTPValidationError, List["ProjectInfo"]]]:
+    """Search Projects
 
     Args:
         skip (Union[Unset, int]):  Default: 0.
@@ -216,13 +193,13 @@ async def asyncio(
 
     Returns:
         Union[HTTPValidationError, List['ProjectInfo']]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-skip=skip,
-limit=limit,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+            skip=skip,
+            limit=limit,
+        )
+    ).parsed

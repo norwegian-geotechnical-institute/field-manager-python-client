@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodCPTDataUpdateMethodTypeId(IntEnum):
     VALUE_1 = 1
 

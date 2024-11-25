@@ -1,42 +1,29 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.role_entity_enum import RoleEntityEnum
 from ..models.role_enum import RoleEnum
 from ..types import UNSET, Unset
-from typing import cast, Union
-from typing import Union
-from uuid import UUID
-
-
-
-
-
 
 T = TypeVar("T", bound="Role")
 
 
 @_attrs_define
 class Role:
-    """ 
-        Attributes:
-            role_type (RoleEnum):
-            role_entity_type (Union[None, RoleEntityEnum, Unset]):
-            role_entity_id (Union[None, UUID, Unset]):
-     """
+    """
+    Attributes:
+        role_type (RoleEnum):
+        role_entity_type (Union[None, RoleEntityEnum, Unset]):
+        role_entity_id (Union[None, UUID, Unset]):
+    """
 
     role_type: RoleEnum
     role_entity_type: Union[None, RoleEntityEnum, Unset] = UNSET
     role_entity_id: Union[None, UUID, Unset] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         role_type = self.role_type.value
@@ -57,12 +44,13 @@ class Role:
         else:
             role_entity_id = self.role_entity_id
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "role_type": role_type,
-        })
+        field_dict.update(
+            {
+                "role_type": role_type,
+            }
+        )
         if role_entity_type is not UNSET:
             field_dict["role_entity_type"] = role_entity_type
         if role_entity_id is not UNSET:
@@ -70,15 +58,10 @@ class Role:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
         role_type = RoleEnum(d.pop("role_type"))
-
-
-
 
         def _parse_role_entity_type(data: object) -> Union[None, RoleEntityEnum, Unset]:
             if data is None:
@@ -90,15 +73,12 @@ class Role:
                     raise TypeError()
                 role_entity_type_type_0 = RoleEntityEnum(data)
 
-
-
                 return role_entity_type_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, RoleEntityEnum, Unset], data)
 
         role_entity_type = _parse_role_entity_type(d.pop("role_entity_type", UNSET))
-
 
         def _parse_role_entity_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
@@ -110,22 +90,18 @@ class Role:
                     raise TypeError()
                 role_entity_id_type_0 = UUID(data)
 
-
-
                 return role_entity_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         role_entity_id = _parse_role_entity_id(d.pop("role_entity_id", UNSET))
-
 
         role = cls(
             role_type=role_type,
             role_entity_type=role_entity_type,
             role_entity_id=role_entity_id,
         )
-
 
         role.additional_properties = d
         return role

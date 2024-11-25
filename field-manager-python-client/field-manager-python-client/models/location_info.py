@@ -1,28 +1,16 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.location_type_enum import LocationTypeEnum
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, Union
-from typing import Dict
-from typing import Union
-from uuid import UUID
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.location_coordinates import LocationCoordinates
-
-
-
+    from ..models.location_coordinates import LocationCoordinates
 
 
 T = TypeVar("T", bound="LocationInfo")
@@ -30,30 +18,28 @@ T = TypeVar("T", bound="LocationInfo")
 
 @_attrs_define
 class LocationInfo:
-    """ 
-        Attributes:
-            location_id (UUID):
-            location_type (LocationTypeEnum): (
-                ONSHORE=1,
-                OFFSHORE=2,
-                )
-            created_at (datetime.datetime):
-            coordinates (LocationCoordinates):
-            location_name (Union[None, Unset, str]):
-            created_by (Union[None, Unset, str]):
-     """
+    """
+    Attributes:
+        location_id (UUID):
+        location_type (LocationTypeEnum): (
+            ONSHORE=1,
+            OFFSHORE=2,
+            )
+        created_at (datetime.datetime):
+        coordinates (LocationCoordinates):
+        location_name (Union[None, Unset, str]):
+        created_by (Union[None, Unset, str]):
+    """
 
     location_id: UUID
     location_type: LocationTypeEnum
     created_at: datetime.datetime
-    coordinates: 'LocationCoordinates'
+    coordinates: "LocationCoordinates"
     location_name: Union[None, Unset, str] = UNSET
     created_by: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.location_coordinates import LocationCoordinates
         location_id = str(self.location_id)
 
         location_type = self.location_type.value
@@ -74,15 +60,16 @@ class LocationInfo:
         else:
             created_by = self.created_by
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "location_id": location_id,
-            "location_type": location_type,
-            "created_at": created_at,
-            "coordinates": coordinates,
-        })
+        field_dict.update(
+            {
+                "location_id": location_id,
+                "location_type": location_type,
+                "created_at": created_at,
+                "coordinates": coordinates,
+            }
+        )
         if location_name is not UNSET:
             field_dict["location_name"] = location_name
         if created_by is not UNSET:
@@ -90,31 +77,18 @@ class LocationInfo:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.location_coordinates import LocationCoordinates
+
         d = src_dict.copy()
         location_id = UUID(d.pop("location_id"))
 
-
-
-
         location_type = LocationTypeEnum(d.pop("location_type"))
-
-
-
 
         created_at = isoparse(d.pop("created_at"))
 
-
-
-
         coordinates = LocationCoordinates.from_dict(d.pop("coordinates"))
-
-
-
 
         def _parse_location_name(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -125,7 +99,6 @@ class LocationInfo:
 
         location_name = _parse_location_name(d.pop("location_name", UNSET))
 
-
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -135,7 +108,6 @@ class LocationInfo:
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
 
-
         location_info = cls(
             location_id=location_id,
             location_type=location_type,
@@ -144,7 +116,6 @@ class LocationInfo:
             location_name=location_name,
             created_by=created_by,
         )
-
 
         location_info.additional_properties = d
         return location_info

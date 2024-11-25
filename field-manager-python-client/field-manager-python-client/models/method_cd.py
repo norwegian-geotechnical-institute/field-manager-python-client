@@ -1,30 +1,17 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.method_cd_method_type_id import MethodCDMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, List
-from typing import cast, Union
-from typing import Dict
-from typing import Union
-from uuid import UUID
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.file import File
-
-
-
+    from ..models.file import File
 
 
 T = TypeVar("T", bound="MethodCD")
@@ -32,47 +19,47 @@ T = TypeVar("T", bound="MethodCD")
 
 @_attrs_define
 class MethodCD:
-    """ Core Drilling (CD) (Kjerneboring)
+    """Core Drilling (CD) (Kjerneboring)
 
-        Attributes:
-            method_id (UUID):
-            name (str):
-            location_id (UUID):
-            method_status_id (MethodStatusEnum): (
-                PLANNED=1,
-                READY=2,
-                CONDUCTED=3,
-                VOIDED=4,
-                APPROVED=5,
-                )
-            created_at (datetime.datetime):
-            updated_at (datetime.datetime):
-            remarks (Union[None, Unset, str]):
-            method_type_id (Union[Unset, MethodCDMethodTypeId]):  Default: MethodCDMethodTypeId.VALUE_12.
-            created_by (Union[None, Unset, str]):
-            updated_by (Union[None, Unset, str]):
-            conducted_at (Union[None, Unset, datetime.datetime]):
-            conducted_by (Union[None, Unset, str]):
-            files (Union[Unset, List['File']]):
-            self_ (Union[None, Unset, str]):
-            sampler_type_id (Union[None, Unset, int]):
-            inclination (Union[None, Unset, float]): Inclination angle (deg).
-            azimuth (Union[None, Unset, float]): Azimuth angle relative to N (deg).
-            length_in_soil (Union[None, Unset, float]): Length drilled in soil (m).
-            total_length (Union[None, Unset, float]): Total length drilled (m).
-            casing_length (Union[None, Unset, float]): Length of casing (m).
-            casing_size (Union[None, Unset, float]): Size of casing (mm).
-            removed_casing (Union[None, Unset, bool]): Casing removed.
-            length_in_rock (Union[None, Unset, float]): Calculated length in rock (m).
-            total_depth (Union[None, Unset, float]): Calculated total depth (m).
-            depth_in_soil (Union[None, Unset, float]): Calculated depth in soil (m).
-            depth_in_rock (Union[None, Unset, float]): Calculated depth in rock (m).
-            bedrock_elevation (Union[None, Unset, float]): Calculated bedrock elevation according to location (m).
-            horizontal_total_length (Union[None, Unset, float]): Calculated horizontal length in rock (m).
-            horizontal_length_in_soil (Union[None, Unset, float]): Calculated horizontal length in soil (m).
-            depth_top (Union[None, Unset, float]): Calculated horizontal length in soil (m).
-            depth_base (Union[None, Unset, float]): Calculated horizontal length in soil (m).
-     """
+    Attributes:
+        method_id (UUID):
+        name (str):
+        location_id (UUID):
+        method_status_id (MethodStatusEnum): (
+            PLANNED=1,
+            READY=2,
+            CONDUCTED=3,
+            VOIDED=4,
+            APPROVED=5,
+            )
+        created_at (datetime.datetime):
+        updated_at (datetime.datetime):
+        remarks (Union[None, Unset, str]):
+        method_type_id (Union[Unset, MethodCDMethodTypeId]):  Default: MethodCDMethodTypeId.VALUE_12.
+        created_by (Union[None, Unset, str]):
+        updated_by (Union[None, Unset, str]):
+        conducted_at (Union[None, Unset, datetime.datetime]):
+        conducted_by (Union[None, Unset, str]):
+        files (Union[Unset, List['File']]):
+        self_ (Union[None, Unset, str]):
+        sampler_type_id (Union[None, Unset, int]):
+        inclination (Union[None, Unset, float]): Inclination angle (deg).
+        azimuth (Union[None, Unset, float]): Azimuth angle relative to N (deg).
+        length_in_soil (Union[None, Unset, float]): Length drilled in soil (m).
+        total_length (Union[None, Unset, float]): Total length drilled (m).
+        casing_length (Union[None, Unset, float]): Length of casing (m).
+        casing_size (Union[None, Unset, float]): Size of casing (mm).
+        removed_casing (Union[None, Unset, bool]): Casing removed.
+        length_in_rock (Union[None, Unset, float]): Calculated length in rock (m).
+        total_depth (Union[None, Unset, float]): Calculated total depth (m).
+        depth_in_soil (Union[None, Unset, float]): Calculated depth in soil (m).
+        depth_in_rock (Union[None, Unset, float]): Calculated depth in rock (m).
+        bedrock_elevation (Union[None, Unset, float]): Calculated bedrock elevation according to location (m).
+        horizontal_total_length (Union[None, Unset, float]): Calculated horizontal length in rock (m).
+        horizontal_length_in_soil (Union[None, Unset, float]): Calculated horizontal length in soil (m).
+        depth_top (Union[None, Unset, float]): Calculated horizontal length in soil (m).
+        depth_base (Union[None, Unset, float]): Calculated horizontal length in soil (m).
+    """
 
     method_id: UUID
     name: str
@@ -86,7 +73,7 @@ class MethodCD:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
-    files: Union[Unset, List['File']] = UNSET
+    files: Union[Unset, List["File"]] = UNSET
     self_: Union[None, Unset, str] = UNSET
     sampler_type_id: Union[None, Unset, int] = UNSET
     inclination: Union[None, Unset, float] = UNSET
@@ -107,9 +94,7 @@ class MethodCD:
     depth_base: Union[None, Unset, float] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.file import File
         method_id = str(self.method_id)
 
         name = self.name
@@ -131,7 +116,6 @@ class MethodCD:
         method_type_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
-
 
         created_by: Union[None, Unset, str]
         if isinstance(self.created_by, Unset):
@@ -165,8 +149,6 @@ class MethodCD:
             for files_item_data in self.files:
                 files_item = files_item_data.to_dict()
                 files.append(files_item)
-
-
 
         self_: Union[None, Unset, str]
         if isinstance(self.self_, Unset):
@@ -276,17 +258,18 @@ class MethodCD:
         else:
             depth_base = self.depth_base
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "method_id": method_id,
-            "name": name,
-            "location_id": location_id,
-            "method_status_id": method_status_id,
-            "created_at": created_at,
-            "updated_at": updated_at,
-        })
+        field_dict.update(
+            {
+                "method_id": method_id,
+                "name": name,
+                "location_id": location_id,
+                "method_status_id": method_status_id,
+                "created_at": created_at,
+                "updated_at": updated_at,
+            }
+        )
         if remarks is not UNSET:
             field_dict["remarks"] = remarks
         if method_type_id is not UNSET:
@@ -340,38 +323,22 @@ class MethodCD:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.file import File
+
         d = src_dict.copy()
         method_id = UUID(d.pop("method_id"))
-
-
-
 
         name = d.pop("name")
 
         location_id = UUID(d.pop("location_id"))
 
-
-
-
         method_status_id = MethodStatusEnum(d.pop("method_status_id"))
-
-
-
 
         created_at = isoparse(d.pop("created_at"))
 
-
-
-
         updated_at = isoparse(d.pop("updated_at"))
-
-
-
 
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -382,16 +349,12 @@ class MethodCD:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodCDMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodCDMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -402,7 +365,6 @@ class MethodCD:
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
 
-
         def _parse_updated_by(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -411,7 +373,6 @@ class MethodCD:
             return cast(Union[None, Unset, str], data)
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
-
 
         def _parse_conducted_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -423,15 +384,12 @@ class MethodCD:
                     raise TypeError()
                 conducted_at_type_0 = isoparse(data)
 
-
-
                 return conducted_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
-
 
         def _parse_conducted_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -442,16 +400,12 @@ class MethodCD:
 
         conducted_by = _parse_conducted_by(d.pop("conducted_by", UNSET))
 
-
         files = []
         _files = d.pop("files", UNSET)
-        for files_item_data in (_files or []):
+        for files_item_data in _files or []:
             files_item = File.from_dict(files_item_data)
 
-
-
             files.append(files_item)
-
 
         def _parse_self_(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -462,7 +416,6 @@ class MethodCD:
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
-
         def _parse_sampler_type_id(data: object) -> Union[None, Unset, int]:
             if data is None:
                 return data
@@ -471,7 +424,6 @@ class MethodCD:
             return cast(Union[None, Unset, int], data)
 
         sampler_type_id = _parse_sampler_type_id(d.pop("sampler_type_id", UNSET))
-
 
         def _parse_inclination(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -482,7 +434,6 @@ class MethodCD:
 
         inclination = _parse_inclination(d.pop("inclination", UNSET))
 
-
         def _parse_azimuth(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -491,7 +442,6 @@ class MethodCD:
             return cast(Union[None, Unset, float], data)
 
         azimuth = _parse_azimuth(d.pop("azimuth", UNSET))
-
 
         def _parse_length_in_soil(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -502,7 +452,6 @@ class MethodCD:
 
         length_in_soil = _parse_length_in_soil(d.pop("length_in_soil", UNSET))
 
-
         def _parse_total_length(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -511,7 +460,6 @@ class MethodCD:
             return cast(Union[None, Unset, float], data)
 
         total_length = _parse_total_length(d.pop("total_length", UNSET))
-
 
         def _parse_casing_length(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -522,7 +470,6 @@ class MethodCD:
 
         casing_length = _parse_casing_length(d.pop("casing_length", UNSET))
 
-
         def _parse_casing_size(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -531,7 +478,6 @@ class MethodCD:
             return cast(Union[None, Unset, float], data)
 
         casing_size = _parse_casing_size(d.pop("casing_size", UNSET))
-
 
         def _parse_removed_casing(data: object) -> Union[None, Unset, bool]:
             if data is None:
@@ -542,7 +488,6 @@ class MethodCD:
 
         removed_casing = _parse_removed_casing(d.pop("removed_casing", UNSET))
 
-
         def _parse_length_in_rock(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -551,7 +496,6 @@ class MethodCD:
             return cast(Union[None, Unset, float], data)
 
         length_in_rock = _parse_length_in_rock(d.pop("length_in_rock", UNSET))
-
 
         def _parse_total_depth(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -562,7 +506,6 @@ class MethodCD:
 
         total_depth = _parse_total_depth(d.pop("total_depth", UNSET))
 
-
         def _parse_depth_in_soil(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -571,7 +514,6 @@ class MethodCD:
             return cast(Union[None, Unset, float], data)
 
         depth_in_soil = _parse_depth_in_soil(d.pop("depth_in_soil", UNSET))
-
 
         def _parse_depth_in_rock(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -582,7 +524,6 @@ class MethodCD:
 
         depth_in_rock = _parse_depth_in_rock(d.pop("depth_in_rock", UNSET))
 
-
         def _parse_bedrock_elevation(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -591,7 +532,6 @@ class MethodCD:
             return cast(Union[None, Unset, float], data)
 
         bedrock_elevation = _parse_bedrock_elevation(d.pop("bedrock_elevation", UNSET))
-
 
         def _parse_horizontal_total_length(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -602,7 +542,6 @@ class MethodCD:
 
         horizontal_total_length = _parse_horizontal_total_length(d.pop("horizontal_total_length", UNSET))
 
-
         def _parse_horizontal_length_in_soil(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -611,7 +550,6 @@ class MethodCD:
             return cast(Union[None, Unset, float], data)
 
         horizontal_length_in_soil = _parse_horizontal_length_in_soil(d.pop("horizontal_length_in_soil", UNSET))
-
 
         def _parse_depth_top(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -622,7 +560,6 @@ class MethodCD:
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
 
-
         def _parse_depth_base(data: object) -> Union[None, Unset, float]:
             if data is None:
                 return data
@@ -631,7 +568,6 @@ class MethodCD:
             return cast(Union[None, Unset, float], data)
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
-
 
         method_cd = cls(
             method_id=method_id,
@@ -666,7 +602,6 @@ class MethodCD:
             depth_top=depth_top,
             depth_base=depth_base,
         )
-
 
         method_cd.additional_properties = d
         return method_cd

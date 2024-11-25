@@ -1,47 +1,33 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.method_rp_data_update_method_type_id import MethodRPDataUpdateMethodTypeId
 from ..types import UNSET, Unset
-from typing import cast, Union
-from typing import Union
-
-
-
-
-
 
 T = TypeVar("T", bound="MethodRPDataUpdate")
 
 
 @_attrs_define
 class MethodRPDataUpdate:
-    """ Method RP data update structure
+    """Method RP data update structure
 
-        Attributes:
-            method_type_id (Union[Unset, MethodRPDataUpdateMethodTypeId]):  Default: MethodRPDataUpdateMethodTypeId.VALUE_3.
-            comment_code (Union[None, Unset, int]):
-            remarks (Union[None, Unset, str]):
-     """
+    Attributes:
+        method_type_id (Union[Unset, MethodRPDataUpdateMethodTypeId]):  Default: MethodRPDataUpdateMethodTypeId.VALUE_3.
+        comment_code (Union[None, Unset, int]):
+        remarks (Union[None, Unset, str]):
+    """
 
     method_type_id: Union[Unset, MethodRPDataUpdateMethodTypeId] = MethodRPDataUpdateMethodTypeId.VALUE_3
     comment_code: Union[None, Unset, int] = UNSET
     remarks: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
         method_type_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
-
 
         comment_code: Union[None, Unset, int]
         if isinstance(self.comment_code, Unset):
@@ -55,11 +41,9 @@ class MethodRPDataUpdate:
         else:
             remarks = self.remarks
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if method_type_id is not UNSET:
             field_dict["method_type_id"] = method_type_id
         if comment_code is not UNSET:
@@ -69,20 +53,15 @@ class MethodRPDataUpdate:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodRPDataUpdateMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodRPDataUpdateMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_comment_code(data: object) -> Union[None, Unset, int]:
             if data is None:
@@ -93,7 +72,6 @@ class MethodRPDataUpdate:
 
         comment_code = _parse_comment_code(d.pop("comment_code", UNSET))
 
-
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -103,13 +81,11 @@ class MethodRPDataUpdate:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-
         method_rp_data_update = cls(
             method_type_id=method_type_id,
             comment_code=comment_code,
             remarks=remarks,
         )
-
 
         method_rp_data_update.additional_properties = d
         return method_rp_data_update

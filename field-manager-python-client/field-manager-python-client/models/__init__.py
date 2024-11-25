@@ -1,26 +1,35 @@
-""" Contains all the data models used in inputs/outputs """
+"""Contains all the data models used in inputs/outputs"""
 
 from .application_class_enum import ApplicationClassEnum
 from .background_map_layer import BackgroundMapLayer
 from .bedrock_info import BedrockInfo
 from .bedrock_type import BedrockType
-from .bff_file import BFFFile
-from .bff_location import BFFLocation
-from .bff_location_summary import BFFLocationSummary
-from .bff_method import BFFMethod
-from .bff_method_summary import BFFMethodSummary
-from .bff_project_summary import BFFProjectSummary
-from .body_queue_locations_to_project_projects_project_id_locations_queue_post import BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost
-from .body_upload_file_projects_project_id_locations_location_id_methods_method_id_upload_post import BodyUploadFileProjectsProjectIdLocationsLocationIdMethodsMethodIdUploadPost
-from .body_upload_file_to_location_projects_project_id_locations_location_id_upload_post import BodyUploadFileToLocationProjectsProjectIdLocationsLocationIdUploadPost
-from .body_upload_file_to_organization_organizations_organization_id_upload_post import BodyUploadFileToOrganizationOrganizationsOrganizationIdUploadPost
-from .body_upload_file_to_project_projects_project_id_upload_post import BodyUploadFileToProjectProjectsProjectIdUploadPost
-from .body_upload_locations_to_project_projects_project_id_locations_upload_post import BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost
+from .body_queue_locations_to_project_projects_project_id_locations_queue_post import (
+    BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost,
+)
+from .body_upload_file_projects_project_id_locations_location_id_methods_method_id_upload_post import (
+    BodyUploadFileProjectsProjectIdLocationsLocationIdMethodsMethodIdUploadPost,
+)
+from .body_upload_file_to_location_projects_project_id_locations_location_id_upload_post import (
+    BodyUploadFileToLocationProjectsProjectIdLocationsLocationIdUploadPost,
+)
+from .body_upload_file_to_organization_organizations_organization_id_upload_post import (
+    BodyUploadFileToOrganizationOrganizationsOrganizationIdUploadPost,
+)
+from .body_upload_file_to_project_projects_project_id_upload_post import (
+    BodyUploadFileToProjectProjectsProjectIdUploadPost,
+)
+from .body_upload_locations_to_project_projects_project_id_locations_upload_post import (
+    BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost,
+)
 from .color_mode import ColorMode
 from .comment import Comment
 from .comment_create import CommentCreate
 from .comment_update import CommentUpdate
 from .cpt_options import CPTOptions
+from .cross_section import CrossSection
+from .cross_section_create import CrossSectionCreate
+from .cross_section_update import CrossSectionUpdate
 from .date_format import DateFormat
 from .dp_type import DPType
 from .export import Export
@@ -31,6 +40,9 @@ from .file_extension import FileExtension
 from .file_type import FileType
 from .file_update import FileUpdate
 from .fm_plot_options import FMPlotOptions
+from .get_cross_section_plot_projects_project_id_cross_sections_cross_section_id_format_get_format import (
+    GetCrossSectionPlotProjectsProjectIdCrossSectionsCrossSectionIdFormatGetFormat,
+)
 from .height_reference import HeightReference
 from .http_validation_error import HTTPValidationError
 from .image_size import ImageSize
@@ -312,7 +324,6 @@ from .plot_type import PlotType
 from .project import Project
 from .project_create import ProjectCreate
 from .project_info import ProjectInfo
-from .project_location_method_types import ProjectLocationMethodTypes
 from .project_search import ProjectSearch
 from .project_summary import ProjectSummary
 from .project_update import ProjectUpdate
@@ -338,12 +349,6 @@ __all__ = (
     "BackgroundMapLayer",
     "BedrockInfo",
     "BedrockType",
-    "BFFFile",
-    "BFFLocation",
-    "BFFLocationSummary",
-    "BFFMethod",
-    "BFFMethodSummary",
-    "BFFProjectSummary",
     "BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost",
     "BodyUploadFileProjectsProjectIdLocationsLocationIdMethodsMethodIdUploadPost",
     "BodyUploadFileToLocationProjectsProjectIdLocationsLocationIdUploadPost",
@@ -355,6 +360,9 @@ __all__ = (
     "CommentCreate",
     "CommentUpdate",
     "CPTOptions",
+    "CrossSection",
+    "CrossSectionCreate",
+    "CrossSectionUpdate",
     "DateFormat",
     "DPType",
     "Export",
@@ -365,6 +373,7 @@ __all__ = (
     "FileType",
     "FileUpdate",
     "FMPlotOptions",
+    "GetCrossSectionPlotProjectsProjectIdCrossSectionsCrossSectionIdFormatGetFormat",
     "HeightReference",
     "HTTPValidationError",
     "ImageSize",
@@ -646,7 +655,6 @@ __all__ = (
     "Project",
     "ProjectCreate",
     "ProjectInfo",
-    "ProjectLocationMethodTypes",
     "ProjectSearch",
     "ProjectSummary",
     "ProjectUpdate",

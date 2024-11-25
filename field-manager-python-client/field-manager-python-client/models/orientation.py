@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Orientation(str, Enum):
     LANDSCAPE = "LANDSCAPE"
     PORTRAIT = "PORTRAIT"

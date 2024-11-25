@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class DateFormat(str, Enum):
     ISO = "ISO"
     NOR = "NOR"

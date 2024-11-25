@@ -1,45 +1,31 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.pizeometer_units import PizeometerUnits
-from typing import cast
-from typing import cast, List
-from typing import Dict
+from ...types import Response
 
 
-
-def _get_kwargs(
-    
-) -> Dict[str, Any]:
-    
-
-    
-
-    
-
+def _get_kwargs() -> Dict[str, Any]:
     _kwargs: Dict[str, Any] = {
         "method": "get",
         "url": "/piezometers/units",
     }
 
-
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[List['PizeometerUnits']]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[List["PizeometerUnits"]]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
-        for response_200_item_data in (_response_200):
+        for response_200_item_data in _response_200:
             response_200_item = PizeometerUnits.from_dict(response_200_item_data)
-
-
 
             response_200.append(response_200_item)
 
@@ -50,7 +36,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[List['PizeometerUnits']]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[List["PizeometerUnits"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -62,9 +50,8 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 def sync_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-
-) -> Response[List['PizeometerUnits']]:
-    """ Get Piezometer Units
+) -> Response[List["PizeometerUnits"]]:
+    """Get Piezometer Units
 
      Return a list of the supported piezometer units.
 
@@ -76,12 +63,9 @@ def sync_detailed(
 
     Returns:
         Response[List['PizeometerUnits']]
-     """
+    """
 
-
-    kwargs = _get_kwargs(
-        
-    )
+    kwargs = _get_kwargs()
 
     response = client.get_httpx_client().request(
         **kwargs,
@@ -89,12 +73,12 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: Union[AuthenticatedClient, Client],
-
-) -> Optional[List['PizeometerUnits']]:
-    """ Get Piezometer Units
+) -> Optional[List["PizeometerUnits"]]:
+    """Get Piezometer Units
 
      Return a list of the supported piezometer units.
 
@@ -106,20 +90,18 @@ def sync(
 
     Returns:
         List['PizeometerUnits']
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-
-) -> Response[List['PizeometerUnits']]:
-    """ Get Piezometer Units
+) -> Response[List["PizeometerUnits"]]:
+    """Get Piezometer Units
 
      Return a list of the supported piezometer units.
 
@@ -131,25 +113,20 @@ async def asyncio_detailed(
 
     Returns:
         Response[List['PizeometerUnits']]
-     """
+    """
 
+    kwargs = _get_kwargs()
 
-    kwargs = _get_kwargs(
-        
-    )
-
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: Union[AuthenticatedClient, Client],
-
-) -> Optional[List['PizeometerUnits']]:
-    """ Get Piezometer Units
+) -> Optional[List["PizeometerUnits"]]:
+    """Get Piezometer Units
 
      Return a list of the supported piezometer units.
 
@@ -161,10 +138,10 @@ async def asyncio(
 
     Returns:
         List['PizeometerUnits']
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+        )
+    ).parsed

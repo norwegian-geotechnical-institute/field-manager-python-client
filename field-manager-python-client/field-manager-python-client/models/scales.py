@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Scales(str, Enum):
     AUTO_SCALING = "Auto scaling"
     FIT_SCALING = "Fit scaling"

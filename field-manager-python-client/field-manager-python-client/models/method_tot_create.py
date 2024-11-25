@@ -1,58 +1,45 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.method_status_enum import MethodStatusEnum
 from ..models.method_tot_create_method_type_id import MethodTOTCreateMethodTypeId
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, Union
-from typing import Union
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="MethodTOTCreate")
 
 
 @_attrs_define
 class MethodTOTCreate:
-    """ Structure for creating a new total sounding method. All parameters are optional, and default values will be set.
+    """Structure for creating a new total sounding method. All parameters are optional, and default values will be set.
 
-        Attributes:
-            method_id (Union[None, UUID, Unset]):
-            name (Union[Unset, str]):  Default: 'TOT'.
-            remarks (Union[None, Unset, str]):
-            method_status_id (Union[Unset, MethodStatusEnum]): (
-                PLANNED=1,
-                READY=2,
-                CONDUCTED=3,
-                VOIDED=4,
-                APPROVED=5,
-                )
-            created_at (Union[None, Unset, datetime.datetime]):
-            created_by (Union[None, Unset, str]):
-            updated_at (Union[None, Unset, datetime.datetime]):
-            updated_by (Union[None, Unset, str]):
-            conducted_by (Union[None, Unset, str]):
-            conducted_at (Union[None, Unset, datetime.datetime]):
-            method_type_id (Union[Unset, MethodTOTCreateMethodTypeId]):  Default: MethodTOTCreateMethodTypeId.VALUE_2.
-            predrilling_depth (Union[None, Unset, float, str]):
-     """
+    Attributes:
+        method_id (Union[None, UUID, Unset]):
+        name (Union[Unset, str]):  Default: 'TOT'.
+        remarks (Union[None, Unset, str]):
+        method_status_id (Union[Unset, MethodStatusEnum]): (
+            PLANNED=1,
+            READY=2,
+            CONDUCTED=3,
+            VOIDED=4,
+            APPROVED=5,
+            )
+        created_at (Union[None, Unset, datetime.datetime]):
+        created_by (Union[None, Unset, str]):
+        updated_at (Union[None, Unset, datetime.datetime]):
+        updated_by (Union[None, Unset, str]):
+        conducted_by (Union[None, Unset, str]):
+        conducted_at (Union[None, Unset, datetime.datetime]):
+        method_type_id (Union[Unset, MethodTOTCreateMethodTypeId]):  Default: MethodTOTCreateMethodTypeId.VALUE_2.
+        predrilling_depth (Union[None, Unset, float, str]):
+    """
 
     method_id: Union[None, UUID, Unset] = UNSET
-    name: Union[Unset, str] = 'TOT'
+    name: Union[Unset, str] = "TOT"
     remarks: Union[None, Unset, str] = UNSET
     method_status_id: Union[Unset, MethodStatusEnum] = UNSET
     created_at: Union[None, Unset, datetime.datetime] = UNSET
@@ -64,7 +51,6 @@ class MethodTOTCreate:
     method_type_id: Union[Unset, MethodTOTCreateMethodTypeId] = MethodTOTCreateMethodTypeId.VALUE_2
     predrilling_depth: Union[None, Unset, float, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         method_id: Union[None, Unset, str]
@@ -86,7 +72,6 @@ class MethodTOTCreate:
         method_status_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_status_id, Unset):
             method_status_id = self.method_status_id.value
-
 
         created_at: Union[None, Unset, str]
         if isinstance(self.created_at, Unset):
@@ -134,18 +119,15 @@ class MethodTOTCreate:
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
 
-
         predrilling_depth: Union[None, Unset, float, str]
         if isinstance(self.predrilling_depth, Unset):
             predrilling_depth = UNSET
         else:
             predrilling_depth = self.predrilling_depth
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if method_id is not UNSET:
             field_dict["method_id"] = method_id
         if name is not UNSET:
@@ -173,11 +155,10 @@ class MethodTOTCreate:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+
         def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
                 return data
@@ -188,15 +169,12 @@ class MethodTOTCreate:
                     raise TypeError()
                 method_id_type_0 = UUID(data)
 
-
-
                 return method_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
-
 
         name = d.pop("name", UNSET)
 
@@ -209,16 +187,12 @@ class MethodTOTCreate:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-
         _method_status_id = d.pop("method_status_id", UNSET)
         method_status_id: Union[Unset, MethodStatusEnum]
-        if isinstance(_method_status_id,  Unset):
+        if isinstance(_method_status_id, Unset):
             method_status_id = UNSET
         else:
             method_status_id = MethodStatusEnum(_method_status_id)
-
-
-
 
         def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -230,15 +204,12 @@ class MethodTOTCreate:
                     raise TypeError()
                 created_at_type_0 = isoparse(data)
 
-
-
                 return created_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         created_at = _parse_created_at(d.pop("created_at", UNSET))
-
 
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -248,7 +219,6 @@ class MethodTOTCreate:
             return cast(Union[None, Unset, str], data)
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
-
 
         def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -260,15 +230,12 @@ class MethodTOTCreate:
                     raise TypeError()
                 updated_at_type_0 = isoparse(data)
 
-
-
                 return updated_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
-
 
         def _parse_updated_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -279,7 +246,6 @@ class MethodTOTCreate:
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
 
-
         def _parse_conducted_by(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -288,7 +254,6 @@ class MethodTOTCreate:
             return cast(Union[None, Unset, str], data)
 
         conducted_by = _parse_conducted_by(d.pop("conducted_by", UNSET))
-
 
         def _parse_conducted_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -300,25 +265,19 @@ class MethodTOTCreate:
                     raise TypeError()
                 conducted_at_type_0 = isoparse(data)
 
-
-
                 return conducted_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodTOTCreateMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodTOTCreateMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_predrilling_depth(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -328,7 +287,6 @@ class MethodTOTCreate:
             return cast(Union[None, Unset, float, str], data)
 
         predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
-
 
         method_tot_create = cls(
             method_id=method_id,
@@ -344,7 +302,6 @@ class MethodTOTCreate:
             method_type_id=method_type_id,
             predrilling_depth=predrilling_depth,
         )
-
 
         method_tot_create.additional_properties = d
         return method_tot_create

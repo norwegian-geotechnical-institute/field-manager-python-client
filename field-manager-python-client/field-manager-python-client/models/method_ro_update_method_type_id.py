@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodROUpdateMethodTypeId(IntEnum):
     VALUE_18 = 18
 

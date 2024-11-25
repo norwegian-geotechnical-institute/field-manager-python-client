@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodWSTDataUpdateMethodTypeId(IntEnum):
     VALUE_26 = 26
 

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class FileType(str, Enum):
     DATA = "DATA"
     GENERAL = "GENERAL"

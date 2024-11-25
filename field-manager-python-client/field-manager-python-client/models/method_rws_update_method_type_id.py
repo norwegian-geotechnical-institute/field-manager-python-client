@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodRWSUpdateMethodTypeId(IntEnum):
     VALUE_7 = 7
 

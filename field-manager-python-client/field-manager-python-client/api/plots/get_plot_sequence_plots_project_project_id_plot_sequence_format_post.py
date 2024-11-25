@@ -1,38 +1,27 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
 from ...models.options import Options
 from ...models.plot_format import PlotFormat
-from typing import cast
-from typing import cast, Union
-from typing import Dict
-
+from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     format_: PlotFormat,
     *,
-    body: Union['Options', None],
-
+    body: Union["Options", None],
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
-
-    
-
-    
-
     _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/plots/project/{project_id}/plot_sequence/{format_}".format(project_id=project_id,format_=format_,),
+        "url": f"/plots/project/{project_id}/plot_sequence/{format_}",
     }
 
     _body: Union[Dict[str, Any], None]
@@ -41,7 +30,6 @@ def _get_kwargs(
     else:
         _body = body
 
-
     _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
 
@@ -49,11 +37,11 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[HTTPValidationError]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[HTTPValidationError]:
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
-
-
 
         return response_422
     if client.raise_on_unexpected_status:
@@ -62,7 +50,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[HTTPValidationError]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -76,10 +66,9 @@ def sync_detailed(
     format_: PlotFormat,
     *,
     client: AuthenticatedClient,
-    body: Union['Options', None],
-
+    body: Union["Options", None],
 ) -> Response[HTTPValidationError]:
-    """ Get Plot Sequence
+    """Get Plot Sequence
 
      Get the plots sequence from any location within a given project.
 
@@ -94,14 +83,12 @@ def sync_detailed(
 
     Returns:
         Response[HTTPValidationError]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-format_=format_,
-body=body,
-
+        format_=format_,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -110,15 +97,15 @@ body=body,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     project_id: str,
     format_: PlotFormat,
     *,
     client: AuthenticatedClient,
-    body: Union['Options', None],
-
+    body: Union["Options", None],
 ) -> Optional[HTTPValidationError]:
-    """ Get Plot Sequence
+    """Get Plot Sequence
 
      Get the plots sequence from any location within a given project.
 
@@ -133,26 +120,24 @@ def sync(
 
     Returns:
         HTTPValidationError
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-format_=format_,
-client=client,
-body=body,
-
+        format_=format_,
+        client=client,
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
     format_: PlotFormat,
     *,
     client: AuthenticatedClient,
-    body: Union['Options', None],
-
+    body: Union["Options", None],
 ) -> Response[HTTPValidationError]:
-    """ Get Plot Sequence
+    """Get Plot Sequence
 
      Get the plots sequence from any location within a given project.
 
@@ -167,31 +152,27 @@ async def asyncio_detailed(
 
     Returns:
         Response[HTTPValidationError]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-format_=format_,
-body=body,
-
+        format_=format_,
+        body=body,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
     format_: PlotFormat,
     *,
     client: AuthenticatedClient,
-    body: Union['Options', None],
-
+    body: Union["Options", None],
 ) -> Optional[HTTPValidationError]:
-    """ Get Plot Sequence
+    """Get Plot Sequence
 
      Get the plots sequence from any location within a given project.
 
@@ -206,13 +187,13 @@ async def asyncio(
 
     Returns:
         HTTPValidationError
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-format_=format_,
-client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            format_=format_,
+            client=client,
+            body=body,
+        )
+    ).parsed

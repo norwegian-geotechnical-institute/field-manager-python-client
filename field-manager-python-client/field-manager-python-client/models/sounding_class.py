@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class SoundingClass(str, Enum):
     JB_1 = "Jb-1"
     JB_2 = "Jb-2"

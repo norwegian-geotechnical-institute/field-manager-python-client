@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodTOTDataUpdateMethodTypeId(IntEnum):
     VALUE_2 = 2
 

@@ -1,31 +1,21 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
 from ...models.organization import Organization
 from ...models.organization_create import OrganizationCreate
-from typing import cast
-from typing import Dict
-
+from ...types import Response
 
 
 def _get_kwargs(
     *,
     body: OrganizationCreate,
-
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
-
-
-    
-
-    
 
     _kwargs: Dict[str, Any] = {
         "method": "post",
@@ -34,7 +24,6 @@ def _get_kwargs(
 
     _body = body.to_dict()
 
-
     _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
 
@@ -42,17 +31,15 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[HTTPValidationError, Organization]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[HTTPValidationError, Organization]]:
     if response.status_code == 201:
         response_201 = Organization.from_dict(response.json())
-
-
 
         return response_201
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
-
-
 
         return response_422
     if client.raise_on_unexpected_status:
@@ -61,7 +48,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[HTTPValidationError, Organization]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[HTTPValidationError, Organization]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -74,9 +63,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: OrganizationCreate,
-
 ) -> Response[Union[HTTPValidationError, Organization]]:
-    """ Add Organization
+    """Add Organization
 
      Add an organization object. You must be an application admin to add organizations.
 
@@ -89,12 +77,10 @@ def sync_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, Organization]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
     response = client.get_httpx_client().request(
@@ -103,13 +89,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient,
     body: OrganizationCreate,
-
 ) -> Optional[Union[HTTPValidationError, Organization]]:
-    """ Add Organization
+    """Add Organization
 
      Add an organization object. You must be an application admin to add organizations.
 
@@ -122,22 +108,20 @@ def sync(
 
     Returns:
         Union[HTTPValidationError, Organization]
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: OrganizationCreate,
-
 ) -> Response[Union[HTTPValidationError, Organization]]:
-    """ Add Organization
+    """Add Organization
 
      Add an organization object. You must be an application admin to add organizations.
 
@@ -150,27 +134,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, Organization]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient,
     body: OrganizationCreate,
-
 ) -> Optional[Union[HTTPValidationError, Organization]]:
-    """ Add Organization
+    """Add Organization
 
      Add an organization object. You must be an application admin to add organizations.
 
@@ -183,11 +163,11 @@ async def asyncio(
 
     Returns:
         Union[HTTPValidationError, Organization]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+        )
+    ).parsed
