@@ -84,12 +84,11 @@ jobs:
           git push origin $BRANCH_NAME
 
       # Step 11: Create a Pull Request
-    #   - name: Create Pull Request
-    #     uses: peter-evans/create-pull-request@v7
-    #     with:
-    #       token: ${{ secrets.PULL_REQUEST_TOKEN }}
-    #       branch: update-python-client-${{ env.VERSION }}
-    #       base: trunk
-    #       title: "Update Python client to API version ${{ env.VERSION }}"
-    #       body: |
-    #         This PR updates the generated Python client to match API version ${{ env.VERSION }}.
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.PULL_REQUEST_TOKEN }}
+          branch: $BRANCH_NAME
+          title: "Update Python client to API version ${{ env.VERSION }}"
+          body: |
+            This PR updates the generated Python client to match API version ${{ env.VERSION }}.
