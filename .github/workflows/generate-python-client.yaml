@@ -63,6 +63,7 @@ jobs:
           mkdir -p logs
           echo "Generating API client..."
           openapi-python-client generate --path ./openapi_specification/openapi.json --overwrite --custom-template-path=templates --config config.yaml
+        # todo: to run poetry install, we need to add a pyproject.toml file
         #   openapi-python-client --version >> logs/versions 2>&1
 
       - name: Debug OpenAPI Client Generation
