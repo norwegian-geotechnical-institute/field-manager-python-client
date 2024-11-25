@@ -20,8 +20,8 @@ from uuid import UUID
 import datetime
 
 if TYPE_CHECKING:
-  from ..models.method_min import MethodMin
   from ..models.location_min import LocationMin
+  from ..models.method_min import MethodMin
 
 
 
@@ -76,8 +76,8 @@ class FileExtended:
 
 
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.method_min import MethodMin
         from ..models.location_min import LocationMin
+        from ..models.method_min import MethodMin
         file_id = str(self.file_id)
 
         name = self.name
@@ -207,8 +207,8 @@ class FileExtended:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.method_min import MethodMin
         from ..models.location_min import LocationMin
+        from ..models.method_min import MethodMin
         d = src_dict.copy()
         file_id = UUID(d.pop("file_id"))
 

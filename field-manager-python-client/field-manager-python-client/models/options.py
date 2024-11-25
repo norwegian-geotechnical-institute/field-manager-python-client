@@ -17,8 +17,8 @@ from typing import Union
 from uuid import UUID
 
 if TYPE_CHECKING:
-  from ..models.fm_plot_options import FMPlotOptions
   from ..models.pdf_options import PdfOptions
+  from ..models.fm_plot_options import FMPlotOptions
 
 
 
@@ -47,8 +47,8 @@ class Options:
 
 
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.fm_plot_options import FMPlotOptions
         from ..models.pdf_options import PdfOptions
+        from ..models.fm_plot_options import FMPlotOptions
         location_ids = []
         for location_ids_item_data in self.location_ids:
             location_ids_item = str(location_ids_item_data)
@@ -96,8 +96,8 @@ class Options:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.fm_plot_options import FMPlotOptions
         from ..models.pdf_options import PdfOptions
+        from ..models.fm_plot_options import FMPlotOptions
         d = src_dict.copy()
         location_ids = []
         _location_ids = d.pop("location_ids")
