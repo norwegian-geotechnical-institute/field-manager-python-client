@@ -1,47 +1,34 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.method_wst_data_create_method_type_id import MethodWSTDataCreateMethodTypeId
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, Union
-from typing import Union
-from uuid import UUID
-import datetime
-
-
-
-
-
 
 T = TypeVar("T", bound="MethodWSTDataCreate")
 
 
 @_attrs_define
 class MethodWSTDataCreate:
-    """ 
-        Attributes:
-            depth (Union[float, str]): Depth (m)
-            method_data_id (Union[None, UUID, Unset]):
-            method_id (Union[None, UUID, Unset]):
-            method_type_id (Union[Unset, MethodWSTDataCreateMethodTypeId]):  Default:
-                MethodWSTDataCreateMethodTypeId.VALUE_26.
-            created_at (Union[None, Unset, datetime.datetime]):
-            updated_at (Union[None, Unset, datetime.datetime]):
-            turning (Union[None, Unset, float, str]): Turning (half revolution/0.2 m)
-            load (Union[None, Unset, float, str]): Load (kN)
-            penetration_rate (Union[None, Unset, float, str]): Penetration rate (mm/s)
-            hammering (Union[None, Unset, bool]):
-            rotation_rate (Union[None, Unset, float, str]): Rotation rate (rpm)
-     """
+    """
+    Attributes:
+        depth (Union[float, str]): Depth (m)
+        method_data_id (Union[None, UUID, Unset]):
+        method_id (Union[None, UUID, Unset]):
+        method_type_id (Union[Unset, MethodWSTDataCreateMethodTypeId]):  Default:
+            MethodWSTDataCreateMethodTypeId.VALUE_26.
+        created_at (Union[None, Unset, datetime.datetime]):
+        updated_at (Union[None, Unset, datetime.datetime]):
+        turning (Union[None, Unset, float, str]): Turning (half revolution/0.2 m)
+        load (Union[None, Unset, float, str]): Load (kN)
+        penetration_rate (Union[None, Unset, float, str]): Penetration rate (mm/s)
+        hammering (Union[None, Unset, bool]):
+        rotation_rate (Union[None, Unset, float, str]): Rotation rate (rpm)
+    """
 
     depth: Union[float, str]
     method_data_id: Union[None, UUID, Unset] = UNSET
@@ -55,7 +42,6 @@ class MethodWSTDataCreate:
     hammering: Union[None, Unset, bool] = UNSET
     rotation_rate: Union[None, Unset, float, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         depth: Union[float, str]
@@ -80,7 +66,6 @@ class MethodWSTDataCreate:
         method_type_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
-
 
         created_at: Union[None, Unset, str]
         if isinstance(self.created_at, Unset):
@@ -128,12 +113,13 @@ class MethodWSTDataCreate:
         else:
             rotation_rate = self.rotation_rate
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "depth": depth,
-        })
+        field_dict.update(
+            {
+                "depth": depth,
+            }
+        )
         if method_data_id is not UNSET:
             field_dict["method_data_id"] = method_data_id
         if method_id is not UNSET:
@@ -157,16 +143,14 @@ class MethodWSTDataCreate:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+
         def _parse_depth(data: object) -> Union[float, str]:
             return cast(Union[float, str], data)
 
         depth = _parse_depth(d.pop("depth"))
-
 
         def _parse_method_data_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
@@ -178,15 +162,12 @@ class MethodWSTDataCreate:
                     raise TypeError()
                 method_data_id_type_0 = UUID(data)
 
-
-
                 return method_data_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         method_data_id = _parse_method_data_id(d.pop("method_data_id", UNSET))
-
 
         def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
@@ -198,25 +179,19 @@ class MethodWSTDataCreate:
                     raise TypeError()
                 method_id_type_0 = UUID(data)
 
-
-
                 return method_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
 
-
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodWSTDataCreateMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodWSTDataCreateMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -228,15 +203,12 @@ class MethodWSTDataCreate:
                     raise TypeError()
                 created_at_type_0 = isoparse(data)
 
-
-
                 return created_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         created_at = _parse_created_at(d.pop("created_at", UNSET))
-
 
         def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -248,15 +220,12 @@ class MethodWSTDataCreate:
                     raise TypeError()
                 updated_at_type_0 = isoparse(data)
 
-
-
                 return updated_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
-
 
         def _parse_turning(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -267,7 +236,6 @@ class MethodWSTDataCreate:
 
         turning = _parse_turning(d.pop("turning", UNSET))
 
-
         def _parse_load(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -276,7 +244,6 @@ class MethodWSTDataCreate:
             return cast(Union[None, Unset, float, str], data)
 
         load = _parse_load(d.pop("load", UNSET))
-
 
         def _parse_penetration_rate(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -287,7 +254,6 @@ class MethodWSTDataCreate:
 
         penetration_rate = _parse_penetration_rate(d.pop("penetration_rate", UNSET))
 
-
         def _parse_hammering(data: object) -> Union[None, Unset, bool]:
             if data is None:
                 return data
@@ -297,7 +263,6 @@ class MethodWSTDataCreate:
 
         hammering = _parse_hammering(d.pop("hammering", UNSET))
 
-
         def _parse_rotation_rate(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -306,7 +271,6 @@ class MethodWSTDataCreate:
             return cast(Union[None, Unset, float, str], data)
 
         rotation_rate = _parse_rotation_rate(d.pop("rotation_rate", UNSET))
-
 
         method_wst_data_create = cls(
             depth=depth,
@@ -321,7 +285,6 @@ class MethodWSTDataCreate:
             hammering=hammering,
             rotation_rate=rotation_rate,
         )
-
 
         method_wst_data_create.additional_properties = d
         return method_wst_data_create

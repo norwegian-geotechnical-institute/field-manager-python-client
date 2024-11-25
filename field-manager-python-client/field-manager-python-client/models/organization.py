@@ -1,30 +1,17 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.role_enum import RoleEnum
 from ..models.standard_type import StandardType
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, List
-from typing import cast, Union
-from typing import Dict
-from typing import Union
-from uuid import UUID
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.role import Role
-
-
-
+    from ..models.role import Role
 
 
 T = TypeVar("T", bound="Organization")
@@ -32,23 +19,23 @@ T = TypeVar("T", bound="Organization")
 
 @_attrs_define
 class Organization:
-    """ 
-        Attributes:
-            organization_id (UUID):
-            name (str):
-            number_of_projects (int):
-            default_role (RoleEnum):
-            external_id (Union[None, Unset, str]):
-            short_name (Union[None, Unset, str]):
-            email_domains (Union[None, Unset, str]):
-            authentication_alias (Union[None, Unset, str]):
-            authentication_issuer (Union[None, Unset, str]):
-            created_at (Union[None, Unset, datetime.datetime]):
-            updated_at (Union[None, Unset, datetime.datetime]):
-            effective_role (Union['Role', None, Unset]):
-            default_standard_id (Union[None, StandardType, Unset]):
-            available_standard_ids (Union[Unset, List[StandardType]]):
-     """
+    """
+    Attributes:
+        organization_id (UUID):
+        name (str):
+        number_of_projects (int):
+        default_role (RoleEnum):
+        external_id (Union[None, Unset, str]):
+        short_name (Union[None, Unset, str]):
+        email_domains (Union[None, Unset, str]):
+        authentication_alias (Union[None, Unset, str]):
+        authentication_issuer (Union[None, Unset, str]):
+        created_at (Union[None, Unset, datetime.datetime]):
+        updated_at (Union[None, Unset, datetime.datetime]):
+        effective_role (Union['Role', None, Unset]):
+        default_standard_id (Union[None, StandardType, Unset]):
+        available_standard_ids (Union[Unset, List[StandardType]]):
+    """
 
     organization_id: UUID
     name: str
@@ -61,14 +48,14 @@ class Organization:
     authentication_issuer: Union[None, Unset, str] = UNSET
     created_at: Union[None, Unset, datetime.datetime] = UNSET
     updated_at: Union[None, Unset, datetime.datetime] = UNSET
-    effective_role: Union['Role', None, Unset] = UNSET
+    effective_role: Union["Role", None, Unset] = UNSET
     default_standard_id: Union[None, StandardType, Unset] = UNSET
     available_standard_ids: Union[Unset, List[StandardType]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
         from ..models.role import Role
+
         organization_id = str(self.organization_id)
 
         name = self.name
@@ -146,17 +133,16 @@ class Organization:
                 available_standard_ids_item = available_standard_ids_item_data.value
                 available_standard_ids.append(available_standard_ids_item)
 
-
-
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "organization_id": organization_id,
-            "name": name,
-            "number_of_projects": number_of_projects,
-            "default_role": default_role,
-        })
+        field_dict.update(
+            {
+                "organization_id": organization_id,
+                "name": name,
+                "number_of_projects": number_of_projects,
+                "default_role": default_role,
+            }
+        )
         if external_id is not UNSET:
             field_dict["external_id"] = external_id
         if short_name is not UNSET:
@@ -180,25 +166,18 @@ class Organization:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.role import Role
+
         d = src_dict.copy()
         organization_id = UUID(d.pop("organization_id"))
-
-
-
 
         name = d.pop("name")
 
         number_of_projects = d.pop("number_of_projects")
 
         default_role = RoleEnum(d.pop("default_role"))
-
-
-
 
         def _parse_external_id(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -209,7 +188,6 @@ class Organization:
 
         external_id = _parse_external_id(d.pop("external_id", UNSET))
 
-
         def _parse_short_name(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -218,7 +196,6 @@ class Organization:
             return cast(Union[None, Unset, str], data)
 
         short_name = _parse_short_name(d.pop("short_name", UNSET))
-
 
         def _parse_email_domains(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -229,7 +206,6 @@ class Organization:
 
         email_domains = _parse_email_domains(d.pop("email_domains", UNSET))
 
-
         def _parse_authentication_alias(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -239,7 +215,6 @@ class Organization:
 
         authentication_alias = _parse_authentication_alias(d.pop("authentication_alias", UNSET))
 
-
         def _parse_authentication_issuer(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -248,7 +223,6 @@ class Organization:
             return cast(Union[None, Unset, str], data)
 
         authentication_issuer = _parse_authentication_issuer(d.pop("authentication_issuer", UNSET))
-
 
         def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -260,15 +234,12 @@ class Organization:
                     raise TypeError()
                 created_at_type_0 = isoparse(data)
 
-
-
                 return created_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         created_at = _parse_created_at(d.pop("created_at", UNSET))
-
 
         def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -280,17 +251,14 @@ class Organization:
                     raise TypeError()
                 updated_at_type_0 = isoparse(data)
 
-
-
                 return updated_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
 
-
-        def _parse_effective_role(data: object) -> Union['Role', None, Unset]:
+        def _parse_effective_role(data: object) -> Union["Role", None, Unset]:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -300,15 +268,12 @@ class Organization:
                     raise TypeError()
                 effective_role_type_0 = Role.from_dict(data)
 
-
-
                 return effective_role_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
-            return cast(Union['Role', None, Unset], data)
+            return cast(Union["Role", None, Unset], data)
 
         effective_role = _parse_effective_role(d.pop("effective_role", UNSET))
-
 
         def _parse_default_standard_id(data: object) -> Union[None, StandardType, Unset]:
             if data is None:
@@ -320,25 +285,19 @@ class Organization:
                     raise TypeError()
                 default_standard_id_type_0 = StandardType(data)
 
-
-
                 return default_standard_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, StandardType, Unset], data)
 
         default_standard_id = _parse_default_standard_id(d.pop("default_standard_id", UNSET))
 
-
         available_standard_ids = []
         _available_standard_ids = d.pop("available_standard_ids", UNSET)
-        for available_standard_ids_item_data in (_available_standard_ids or []):
+        for available_standard_ids_item_data in _available_standard_ids or []:
             available_standard_ids_item = StandardType(available_standard_ids_item_data)
 
-
-
             available_standard_ids.append(available_standard_ids_item)
-
 
         organization = cls(
             organization_id=organization_id,
@@ -356,7 +315,6 @@ class Organization:
             default_standard_id=default_standard_id,
             available_standard_ids=available_standard_ids,
         )
-
 
         organization.additional_properties = d
         return organization

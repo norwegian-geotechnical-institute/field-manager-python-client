@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class PlotFormat(str, Enum):
     DYNAMIC = "dynamic"
     PDF = "pdf"

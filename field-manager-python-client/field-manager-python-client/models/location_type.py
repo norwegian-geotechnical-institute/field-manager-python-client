@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class LocationType(str, Enum):
     OFFSHORE = "offshore"
     ONSHORE = "onshore"

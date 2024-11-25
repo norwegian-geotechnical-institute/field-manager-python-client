@@ -1,39 +1,27 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.transformation_type import TransformationType
 from ..types import UNSET, Unset
-from typing import cast, Union
-from typing import Union
-from uuid import UUID
-
-
-
-
-
 
 T = TypeVar("T", bound="PiezometerModelCreate")
 
 
 @_attrs_define
 class PiezometerModelCreate:
-    """ 
-        Attributes:
-            vendor_id (UUID):
-            name (str):
-            default_pore_pressure_unit (str):
-            model_id (Union[None, UUID, Unset]):
-            piezometer_type (Union[None, Unset, str]):
-            default_transformation_type (Union[None, TransformationType, Unset]):
-            sort_order (Union[None, Unset, int]):
-     """
+    """
+    Attributes:
+        vendor_id (UUID):
+        name (str):
+        default_pore_pressure_unit (str):
+        model_id (Union[None, UUID, Unset]):
+        piezometer_type (Union[None, Unset, str]):
+        default_transformation_type (Union[None, TransformationType, Unset]):
+        sort_order (Union[None, Unset, int]):
+    """
 
     vendor_id: UUID
     name: str
@@ -43,7 +31,6 @@ class PiezometerModelCreate:
     default_transformation_type: Union[None, TransformationType, Unset] = UNSET
     sort_order: Union[None, Unset, int] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         vendor_id = str(self.vendor_id)
@@ -80,14 +67,15 @@ class PiezometerModelCreate:
         else:
             sort_order = self.sort_order
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "vendor_id": vendor_id,
-            "name": name,
-            "default_pore_pressure_unit": default_pore_pressure_unit,
-        })
+        field_dict.update(
+            {
+                "vendor_id": vendor_id,
+                "name": name,
+                "default_pore_pressure_unit": default_pore_pressure_unit,
+            }
+        )
         if model_id is not UNSET:
             field_dict["model_id"] = model_id
         if piezometer_type is not UNSET:
@@ -99,15 +87,10 @@ class PiezometerModelCreate:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
         vendor_id = UUID(d.pop("vendor_id"))
-
-
-
 
         name = d.pop("name")
 
@@ -123,15 +106,12 @@ class PiezometerModelCreate:
                     raise TypeError()
                 model_id_type_0 = UUID(data)
 
-
-
                 return model_id_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, UUID, Unset], data)
 
         model_id = _parse_model_id(d.pop("model_id", UNSET))
-
 
         def _parse_piezometer_type(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -141,7 +121,6 @@ class PiezometerModelCreate:
             return cast(Union[None, Unset, str], data)
 
         piezometer_type = _parse_piezometer_type(d.pop("piezometer_type", UNSET))
-
 
         def _parse_default_transformation_type(data: object) -> Union[None, TransformationType, Unset]:
             if data is None:
@@ -153,15 +132,12 @@ class PiezometerModelCreate:
                     raise TypeError()
                 default_transformation_type_type_0 = TransformationType(data)
 
-
-
                 return default_transformation_type_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, TransformationType, Unset], data)
 
         default_transformation_type = _parse_default_transformation_type(d.pop("default_transformation_type", UNSET))
-
 
         def _parse_sort_order(data: object) -> Union[None, Unset, int]:
             if data is None:
@@ -172,7 +148,6 @@ class PiezometerModelCreate:
 
         sort_order = _parse_sort_order(d.pop("sort_order", UNSET))
 
-
         piezometer_model_create = cls(
             vendor_id=vendor_id,
             name=name,
@@ -182,7 +157,6 @@ class PiezometerModelCreate:
             default_transformation_type=default_transformation_type,
             sort_order=sort_order,
         )
-
 
         piezometer_model_create.additional_properties = d
         return piezometer_model_create

@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodRPDataMethodTypeId(IntEnum):
     VALUE_3 = 3
 

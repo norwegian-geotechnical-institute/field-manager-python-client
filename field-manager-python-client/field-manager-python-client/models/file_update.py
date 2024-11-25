@@ -1,37 +1,24 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast, Union
-from typing import Union
-
-
-
-
-
-
 T = TypeVar("T", bound="FileUpdate")
 
 
 @_attrs_define
 class FileUpdate:
-    """ 
-        Attributes:
-            name (Union[None, Unset, str]):
-            comment (Union[None, Unset, str]):
-     """
+    """
+    Attributes:
+        name (Union[None, Unset, str]):
+        comment (Union[None, Unset, str]):
+    """
 
     name: Union[None, Unset, str] = UNSET
     comment: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         name: Union[None, Unset, str]
@@ -46,11 +33,9 @@ class FileUpdate:
         else:
             comment = self.comment
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if name is not UNSET:
             field_dict["name"] = name
         if comment is not UNSET:
@@ -58,11 +43,10 @@ class FileUpdate:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+
         def _parse_name(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -71,7 +55,6 @@ class FileUpdate:
             return cast(Union[None, Unset, str], data)
 
         name = _parse_name(d.pop("name", UNSET))
-
 
         def _parse_comment(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -82,12 +65,10 @@ class FileUpdate:
 
         comment = _parse_comment(d.pop("comment", UNSET))
 
-
         file_update = cls(
             name=name,
             comment=comment,
         )
-
 
         file_update.additional_properties = d
         return file_update

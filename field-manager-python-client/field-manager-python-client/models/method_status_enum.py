@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodStatusEnum(IntEnum):
     VALUE_1 = 1
     VALUE_2 = 2

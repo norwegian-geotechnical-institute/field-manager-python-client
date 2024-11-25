@@ -1,49 +1,35 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
 from ...models.sample_material import SampleMaterial
-from typing import cast
-from typing import Dict
-
+from ...types import Response
 
 
 def _get_kwargs(
     sample_material_id: int,
-
 ) -> Dict[str, Any]:
-    
-
-    
-
-    
-
     _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/sample_materials/{sample_material_id}".format(sample_material_id=sample_material_id,),
+        "url": f"/sample_materials/{sample_material_id}",
     }
-
 
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[HTTPValidationError, SampleMaterial]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[HTTPValidationError, SampleMaterial]]:
     if response.status_code == 200:
         response_200 = SampleMaterial.from_dict(response.json())
-
-
 
         return response_200
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
-
-
 
         return response_422
     if client.raise_on_unexpected_status:
@@ -52,7 +38,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[HTTPValidationError, SampleMaterial]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[HTTPValidationError, SampleMaterial]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -65,9 +53,8 @@ def sync_detailed(
     sample_material_id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-
 ) -> Response[Union[HTTPValidationError, SampleMaterial]]:
-    """ Get Sample Material
+    """Get Sample Material
 
     Args:
         sample_material_id (int):
@@ -78,12 +65,10 @@ def sync_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, SampleMaterial]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         sample_material_id=sample_material_id,
-
     )
 
     response = client.get_httpx_client().request(
@@ -92,13 +77,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     sample_material_id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-
 ) -> Optional[Union[HTTPValidationError, SampleMaterial]]:
-    """ Get Sample Material
+    """Get Sample Material
 
     Args:
         sample_material_id (int):
@@ -109,22 +94,20 @@ def sync(
 
     Returns:
         Union[HTTPValidationError, SampleMaterial]
-     """
-
+    """
 
     return sync_detailed(
         sample_material_id=sample_material_id,
-client=client,
-
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     sample_material_id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-
 ) -> Response[Union[HTTPValidationError, SampleMaterial]]:
-    """ Get Sample Material
+    """Get Sample Material
 
     Args:
         sample_material_id (int):
@@ -135,27 +118,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, SampleMaterial]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         sample_material_id=sample_material_id,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     sample_material_id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-
 ) -> Optional[Union[HTTPValidationError, SampleMaterial]]:
-    """ Get Sample Material
+    """Get Sample Material
 
     Args:
         sample_material_id (int):
@@ -166,11 +145,11 @@ async def asyncio(
 
     Returns:
         Union[HTTPValidationError, SampleMaterial]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        sample_material_id=sample_material_id,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            sample_material_id=sample_material_id,
+            client=client,
+        )
+    ).parsed

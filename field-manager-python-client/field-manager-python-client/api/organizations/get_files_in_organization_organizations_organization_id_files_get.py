@@ -1,33 +1,21 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.file import File
 from ...models.file_type import FileType
 from ...models.http_validation_error import HTTPValidationError
-from ...types import UNSET, Unset
-from typing import cast
-from typing import cast, List
-from typing import Dict
-from typing import Union
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     organization_id: str,
     *,
     file_types: Union[Unset, List[FileType]] = UNSET,
-
 ) -> Dict[str, Any]:
-    
-
-    
-
     params: Dict[str, Any] = {}
 
     json_file_types: Union[Unset, List[str]] = UNSET
@@ -37,39 +25,33 @@ def _get_kwargs(
             file_types_item = file_types_item_data.value
             json_file_types.append(file_types_item)
 
-
     params["file_types"] = json_file_types
-
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-
     _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/organizations/{organization_id}/files".format(organization_id=organization_id,),
+        "url": f"/organizations/{organization_id}/files",
         "params": params,
     }
-
 
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[HTTPValidationError, List['File']]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[HTTPValidationError, List["File"]]]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
-        for response_200_item_data in (_response_200):
+        for response_200_item_data in _response_200:
             response_200_item = File.from_dict(response_200_item_data)
-
-
 
             response_200.append(response_200_item)
 
         return response_200
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
-
-
 
         return response_422
     if client.raise_on_unexpected_status:
@@ -78,7 +60,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[HTTPValidationError, List['File']]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[HTTPValidationError, List["File"]]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -92,9 +76,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     file_types: Union[Unset, List[FileType]] = UNSET,
-
-) -> Response[Union[HTTPValidationError, List['File']]]:
-    """ Get Files In Organization
+) -> Response[Union[HTTPValidationError, List["File"]]]:
+    """Get Files In Organization
 
      Get all database file objects that are directly attached to the specified organization with
     organization_id and
@@ -114,13 +97,11 @@ def sync_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, List['File']]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-file_types=file_types,
-
+        file_types=file_types,
     )
 
     response = client.get_httpx_client().request(
@@ -129,14 +110,14 @@ file_types=file_types,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     organization_id: str,
     *,
     client: AuthenticatedClient,
     file_types: Union[Unset, List[FileType]] = UNSET,
-
-) -> Optional[Union[HTTPValidationError, List['File']]]:
-    """ Get Files In Organization
+) -> Optional[Union[HTTPValidationError, List["File"]]]:
+    """Get Files In Organization
 
      Get all database file objects that are directly attached to the specified organization with
     organization_id and
@@ -156,24 +137,22 @@ def sync(
 
     Returns:
         Union[HTTPValidationError, List['File']]
-     """
-
+    """
 
     return sync_detailed(
         organization_id=organization_id,
-client=client,
-file_types=file_types,
-
+        client=client,
+        file_types=file_types,
     ).parsed
+
 
 async def asyncio_detailed(
     organization_id: str,
     *,
     client: AuthenticatedClient,
     file_types: Union[Unset, List[FileType]] = UNSET,
-
-) -> Response[Union[HTTPValidationError, List['File']]]:
-    """ Get Files In Organization
+) -> Response[Union[HTTPValidationError, List["File"]]]:
+    """Get Files In Organization
 
      Get all database file objects that are directly attached to the specified organization with
     organization_id and
@@ -193,29 +172,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[HTTPValidationError, List['File']]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-file_types=file_types,
-
+        file_types=file_types,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     organization_id: str,
     *,
     client: AuthenticatedClient,
     file_types: Union[Unset, List[FileType]] = UNSET,
-
-) -> Optional[Union[HTTPValidationError, List['File']]]:
-    """ Get Files In Organization
+) -> Optional[Union[HTTPValidationError, List["File"]]]:
+    """Get Files In Organization
 
      Get all database file objects that are directly attached to the specified organization with
     organization_id and
@@ -235,12 +210,12 @@ async def asyncio(
 
     Returns:
         Union[HTTPValidationError, List['File']]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        organization_id=organization_id,
-client=client,
-file_types=file_types,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            organization_id=organization_id,
+            client=client,
+            file_types=file_types,
+        )
+    ).parsed

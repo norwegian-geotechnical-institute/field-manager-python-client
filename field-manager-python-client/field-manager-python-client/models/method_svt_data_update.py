@@ -1,40 +1,28 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.method_svt_data_update_method_type_id import MethodSVTDataUpdateMethodTypeId
 from ..types import UNSET, Unset
-from typing import cast, Union
-from typing import Union
-
-
-
-
-
 
 T = TypeVar("T", bound="MethodSVTDataUpdate")
 
 
 @_attrs_define
 class MethodSVTDataUpdate:
-    """ 
-        Attributes:
-            method_type_id (Union[Unset, MethodSVTDataUpdateMethodTypeId]):  Default:
-                MethodSVTDataUpdateMethodTypeId.VALUE_10.
-            depth_top (Union[None, Unset, float, str]): Depth (m).
-            maximum_measurement_torque (Union[None, Unset, float, str]): Maximum measurement torque (Nm).
-            maximum_measurement_torque_remoulded (Union[None, Unset, float, str]): Maximum measurement torque (Nm).
-            shear_strength (Union[None, Unset, float, str]): Shear strength (kPa). SGF code AS.
-            shear_strength_remoulded (Union[None, Unset, float, str]): Shear strength (kPa).
-            sensitivity (Union[None, Unset, float, str]): Sensitivity (unitless). SGF code SV.
-            remarks (Union[None, Unset, str]):
-     """
+    """
+    Attributes:
+        method_type_id (Union[Unset, MethodSVTDataUpdateMethodTypeId]):  Default:
+            MethodSVTDataUpdateMethodTypeId.VALUE_10.
+        depth_top (Union[None, Unset, float, str]): Depth (m).
+        maximum_measurement_torque (Union[None, Unset, float, str]): Maximum measurement torque (Nm).
+        maximum_measurement_torque_remoulded (Union[None, Unset, float, str]): Maximum measurement torque (Nm).
+        shear_strength (Union[None, Unset, float, str]): Shear strength (kPa). SGF code AS.
+        shear_strength_remoulded (Union[None, Unset, float, str]): Shear strength (kPa).
+        sensitivity (Union[None, Unset, float, str]): Sensitivity (unitless). SGF code SV.
+        remarks (Union[None, Unset, str]):
+    """
 
     method_type_id: Union[Unset, MethodSVTDataUpdateMethodTypeId] = MethodSVTDataUpdateMethodTypeId.VALUE_10
     depth_top: Union[None, Unset, float, str] = UNSET
@@ -46,12 +34,10 @@ class MethodSVTDataUpdate:
     remarks: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
         method_type_id: Union[Unset, int] = UNSET
         if not isinstance(self.method_type_id, Unset):
             method_type_id = self.method_type_id.value
-
 
         depth_top: Union[None, Unset, float, str]
         if isinstance(self.depth_top, Unset):
@@ -95,11 +81,9 @@ class MethodSVTDataUpdate:
         else:
             remarks = self.remarks
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if method_type_id is not UNSET:
             field_dict["method_type_id"] = method_type_id
         if depth_top is not UNSET:
@@ -119,20 +103,15 @@ class MethodSVTDataUpdate:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
         _method_type_id = d.pop("method_type_id", UNSET)
         method_type_id: Union[Unset, MethodSVTDataUpdateMethodTypeId]
-        if isinstance(_method_type_id,  Unset):
+        if isinstance(_method_type_id, Unset):
             method_type_id = UNSET
         else:
             method_type_id = MethodSVTDataUpdateMethodTypeId(_method_type_id)
-
-
-
 
         def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -143,7 +122,6 @@ class MethodSVTDataUpdate:
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
 
-
         def _parse_maximum_measurement_torque(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -153,7 +131,6 @@ class MethodSVTDataUpdate:
 
         maximum_measurement_torque = _parse_maximum_measurement_torque(d.pop("maximum_measurement_torque", UNSET))
 
-
         def _parse_maximum_measurement_torque_remoulded(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -161,8 +138,9 @@ class MethodSVTDataUpdate:
                 return data
             return cast(Union[None, Unset, float, str], data)
 
-        maximum_measurement_torque_remoulded = _parse_maximum_measurement_torque_remoulded(d.pop("maximum_measurement_torque_remoulded", UNSET))
-
+        maximum_measurement_torque_remoulded = _parse_maximum_measurement_torque_remoulded(
+            d.pop("maximum_measurement_torque_remoulded", UNSET)
+        )
 
         def _parse_shear_strength(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -173,7 +151,6 @@ class MethodSVTDataUpdate:
 
         shear_strength = _parse_shear_strength(d.pop("shear_strength", UNSET))
 
-
         def _parse_shear_strength_remoulded(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
@@ -182,7 +159,6 @@ class MethodSVTDataUpdate:
             return cast(Union[None, Unset, float, str], data)
 
         shear_strength_remoulded = _parse_shear_strength_remoulded(d.pop("shear_strength_remoulded", UNSET))
-
 
         def _parse_sensitivity(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -193,7 +169,6 @@ class MethodSVTDataUpdate:
 
         sensitivity = _parse_sensitivity(d.pop("sensitivity", UNSET))
 
-
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -202,7 +177,6 @@ class MethodSVTDataUpdate:
             return cast(Union[None, Unset, str], data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
-
 
         method_svt_data_update = cls(
             method_type_id=method_type_id,
@@ -214,7 +188,6 @@ class MethodSVTDataUpdate:
             sensitivity=sensitivity,
             remarks=remarks,
         )
-
 
         method_svt_data_update.additional_properties = d
         return method_svt_data_update

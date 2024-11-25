@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodOTHERMethodTypeId(IntEnum):
     VALUE_23 = 23
 

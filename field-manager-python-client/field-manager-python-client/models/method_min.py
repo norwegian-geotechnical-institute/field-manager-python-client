@@ -1,40 +1,27 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast, Union
-from typing import Union
-from uuid import UUID
-
-
-
-
-
-
 T = TypeVar("T", bound="MethodMin")
 
 
 @_attrs_define
 class MethodMin:
-    """ 
-        Attributes:
-            method_id (UUID):
-            location_id (UUID):
-            name (Union[None, Unset, str]):
-     """
+    """
+    Attributes:
+        method_id (UUID):
+        location_id (UUID):
+        name (Union[None, Unset, str]):
+    """
 
     method_id: UUID
     location_id: UUID
     name: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         method_id = str(self.method_id)
@@ -47,32 +34,25 @@ class MethodMin:
         else:
             name = self.name
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "method_id": method_id,
-            "location_id": location_id,
-        })
+        field_dict.update(
+            {
+                "method_id": method_id,
+                "location_id": location_id,
+            }
+        )
         if name is not UNSET:
             field_dict["name"] = name
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
         method_id = UUID(d.pop("method_id"))
 
-
-
-
         location_id = UUID(d.pop("location_id"))
-
-
-
 
         def _parse_name(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -83,13 +63,11 @@ class MethodMin:
 
         name = _parse_name(d.pop("name", UNSET))
 
-
         method_min = cls(
             method_id=method_id,
             location_id=location_id,
             name=name,
         )
-
 
         method_min.additional_properties = d
         return method_min

@@ -1,30 +1,18 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.method_status_enum import MethodStatusEnum
 from ..models.method_type_enum import MethodTypeEnum
 from ..models.sounding_class import SoundingClass
 from ..types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from typing import cast, Union
-from typing import Dict
-from typing import Union
-from uuid import UUID
-import datetime
 
 if TYPE_CHECKING:
-  from ..models.bedrock_info import BedrockInfo
-
-
-
+    from ..models.bedrock_info import BedrockInfo
 
 
 T = TypeVar("T", bound="MethodInfo")
@@ -32,52 +20,52 @@ T = TypeVar("T", bound="MethodInfo")
 
 @_attrs_define
 class MethodInfo:
-    """ 
-        Attributes:
-            method_id (UUID):
-            method_name (str):
-            method_status (MethodStatusEnum): (
-                PLANNED=1,
-                READY=2,
-                CONDUCTED=3,
-                VOIDED=4,
-                APPROVED=5,
-                )
-            method_type (MethodTypeEnum): (
-                CPT=1,
-                TOT=2,
-                RP=3,
-                SA=4,
-                PZ=5,
-                SS=6,
-                RWS=7,
-                RCD=8,
-                RS=9,
-                SVT=10,
-                SPT=11,
-                CD=12,
-                TP=13,
-                PT=14,
-                ESA=15,
-                AD=17,
-                RO=18,
-                INC=19,
-                SR=20,
-                IW=21,
-                DT=22,
-                OTHER=23,
-                SRS=24,
-                DP=25,
-                WST=26,
-                )
-            created_at (datetime.datetime):
-            conducted_at (Union[None, Unset, datetime.datetime]):
-            conducted_by (Union[None, Unset, str]):
-            created_by (Union[None, Unset, str]):
-            cone_reference (Union[None, Unset, str]):
-            srs_type (Union[None, SoundingClass, Unset]):
-            bedrock_info (Union['BedrockInfo', None, Unset]):
-     """
+    """
+    Attributes:
+        method_id (UUID):
+        method_name (str):
+        method_status (MethodStatusEnum): (
+            PLANNED=1,
+            READY=2,
+            CONDUCTED=3,
+            VOIDED=4,
+            APPROVED=5,
+            )
+        method_type (MethodTypeEnum): (
+            CPT=1,
+            TOT=2,
+            RP=3,
+            SA=4,
+            PZ=5,
+            SS=6,
+            RWS=7,
+            RCD=8,
+            RS=9,
+            SVT=10,
+            SPT=11,
+            CD=12,
+            TP=13,
+            PT=14,
+            ESA=15,
+            AD=17,
+            RO=18,
+            INC=19,
+            SR=20,
+            IW=21,
+            DT=22,
+            OTHER=23,
+            SRS=24,
+            DP=25,
+            WST=26,
+            )
+        created_at (datetime.datetime):
+        conducted_at (Union[None, Unset, datetime.datetime]):
+        conducted_by (Union[None, Unset, str]):
+        created_by (Union[None, Unset, str]):
+        cone_reference (Union[None, Unset, str]):
+        srs_type (Union[None, SoundingClass, Unset]):
+        bedrock_info (Union['BedrockInfo', None, Unset]):
+    """
 
     method_id: UUID
     method_name: str
@@ -89,12 +77,12 @@ class MethodInfo:
     created_by: Union[None, Unset, str] = UNSET
     cone_reference: Union[None, Unset, str] = UNSET
     srs_type: Union[None, SoundingClass, Unset] = UNSET
-    bedrock_info: Union['BedrockInfo', None, Unset] = UNSET
+    bedrock_info: Union["BedrockInfo", None, Unset] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         from ..models.bedrock_info import BedrockInfo
+
         method_id = str(self.method_id)
 
         method_name = self.method_name
@@ -147,16 +135,17 @@ class MethodInfo:
         else:
             bedrock_info = self.bedrock_info
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "method_id": method_id,
-            "method_name": method_name,
-            "method_status": method_status,
-            "method_type": method_type,
-            "created_at": created_at,
-        })
+        field_dict.update(
+            {
+                "method_id": method_id,
+                "method_name": method_name,
+                "method_status": method_status,
+                "method_type": method_type,
+                "created_at": created_at,
+            }
+        )
         if conducted_at is not UNSET:
             field_dict["conducted_at"] = conducted_at
         if conducted_by is not UNSET:
@@ -172,33 +161,20 @@ class MethodInfo:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.bedrock_info import BedrockInfo
+
         d = src_dict.copy()
         method_id = UUID(d.pop("method_id"))
-
-
-
 
         method_name = d.pop("method_name")
 
         method_status = MethodStatusEnum(d.pop("method_status"))
 
-
-
-
         method_type = MethodTypeEnum(d.pop("method_type"))
 
-
-
-
         created_at = isoparse(d.pop("created_at"))
-
-
-
 
         def _parse_conducted_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -210,15 +186,12 @@ class MethodInfo:
                     raise TypeError()
                 conducted_at_type_0 = isoparse(data)
 
-
-
                 return conducted_at_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, Unset, datetime.datetime], data)
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
-
 
         def _parse_conducted_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -229,7 +202,6 @@ class MethodInfo:
 
         conducted_by = _parse_conducted_by(d.pop("conducted_by", UNSET))
 
-
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -239,7 +211,6 @@ class MethodInfo:
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
 
-
         def _parse_cone_reference(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -248,7 +219,6 @@ class MethodInfo:
             return cast(Union[None, Unset, str], data)
 
         cone_reference = _parse_cone_reference(d.pop("cone_reference", UNSET))
-
 
         def _parse_srs_type(data: object) -> Union[None, SoundingClass, Unset]:
             if data is None:
@@ -260,17 +230,14 @@ class MethodInfo:
                     raise TypeError()
                 srs_type_type_0 = SoundingClass(data)
 
-
-
                 return srs_type_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
             return cast(Union[None, SoundingClass, Unset], data)
 
         srs_type = _parse_srs_type(d.pop("srs_type", UNSET))
 
-
-        def _parse_bedrock_info(data: object) -> Union['BedrockInfo', None, Unset]:
+        def _parse_bedrock_info(data: object) -> Union["BedrockInfo", None, Unset]:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -280,15 +247,12 @@ class MethodInfo:
                     raise TypeError()
                 bedrock_info_type_0 = BedrockInfo.from_dict(data)
 
-
-
                 return bedrock_info_type_0
-            except: # noqa: E722
+            except:  # noqa: E722
                 pass
-            return cast(Union['BedrockInfo', None, Unset], data)
+            return cast(Union["BedrockInfo", None, Unset], data)
 
         bedrock_info = _parse_bedrock_info(d.pop("bedrock_info", UNSET))
-
 
         method_info = cls(
             method_id=method_id,
@@ -303,7 +267,6 @@ class MethodInfo:
             srs_type=srs_type,
             bedrock_info=bedrock_info,
         )
-
 
         method_info.additional_properties = d
         return method_info

@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class MethodESAUpdateMethodTypeId(IntEnum):
     VALUE_15 = 15
 
