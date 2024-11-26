@@ -39,6 +39,9 @@ jobs:
           sudo apt-get update && sudo apt-get install -y jq
           sudo snap install yq
           npm install -g prettier
+          mkdir -p logs
+          echo "Recording openapi-python-client version..." > logs/log
+          openapi-python-client --version >> logs/log 2>&1
 
       # Step 5: Download the OpenAPI specification
       - name: Download OpenAPI Specification
@@ -52,12 +55,12 @@ jobs:
           echo "Formatting OpenAPI specification..."
           npx prettier --write ./openapi_specification/openapi.json
 
-      # Step 7: Get version and save to logs/versions
+      # Step 7: Get version and save to openapi_specification/version
       - name: Get API version
         run: |
-          mkdir -p logs
+          mkdir -p openapi_specification
           VERSION=$(yq -r '.package_version_override' config.yaml)
-          echo "Field Manager Data API version: $VERSION" > logs/versions
+          echo "Field Manager Data API version: $VERSION" > openapi_specification/version
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       # Step 8: Generate the Python client
