@@ -13,48 +13,53 @@ jobs:
       OPENAPI_SPEC_URL: https://app.fieldmanager.io/api/location/openapi.json
 
     steps:
-      # Step 1: Checkout the code
+      # Step 1: Initialize Log File
+      - name: Initialize Log File
+        run: |
+          mkdir -p logs
+          echo "" > logs/log
+
+      # Step 2: Checkout the code
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           ref: trunk
 
-      # Step 2: Set up Python environment
+      # Step 3: Set up Python environment
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      # Step 3: Set up Node.js
+      # Step 4: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "22"
 
-      # Step 4: Install dependencies
+      # Step 5: Install dependencies
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install openapi-python-client yq
           sudo apt-get update && sudo apt-get install -y jq
-          mkdir -p logs
-          echo "Recording openapi-python-client version..." > logs/log
+          echo "Recording openapi-python-client version..." >> logs/log
           openapi-python-client --version >> logs/log 2>&1
 
-      # Step 5: Download OpenAPI Specification
+      # Step 6: Download OpenAPI Specification
       - name: Download OpenAPI Specification
         run: |
           echo "Downloading OpenAPI specification..."
           mkdir -p openapi_specification
           curl -s ${{ env.OPENAPI_SPEC_URL }} > ./openapi_specification/openapi.json
 
-      # Step 6: Format OpenAPI Specification
+      # Step 7: Format OpenAPI Specification
       - name: Format OpenAPI Specification
         run: |
           echo "Formatting OpenAPI specification..."
           npx prettier --write ./openapi_specification/openapi.json
 
-      # Step 7: Get API Version
+      # Step 8: Get API Version
       - name: Get API Version
         run: |
           if yq -e '.package_version_override' config.yaml > /dev/null; then
@@ -65,36 +70,35 @@ jobs:
           echo "$VERSION" > openapi_specification/version
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-      # Step 8: Generate Python Client
+      # Step 9: Generate Python Client
       - name: Generate Python Client
         run: |
-          echo "Generating API client..."
+          echo "Generating API client..." >> logs/log
           openapi-python-client generate \
             --path ./openapi_specification/openapi.json \
             --overwrite \
             --custom-template-path=templates \
-            --config config.yaml >> logs/log
+            --config config.yaml >> logs/log 2>&1
           cat logs/log
 
-      # Step 9: Check for Changes
+      # Step 10: Check for Changes
       - name: Check for Changes
         id: git_diff
         run: |
           git add .
           if git diff --cached --quiet; then
-            echo "::set-output name=changes_detected::false"
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=changes_detected::true"
-          fi
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
 
-      # Step 10: Configure Git
+      # Step 11: Configure Git
       - name: Configure Git
         if: steps.git_diff.outputs.changes_detected == 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      # Step 11: Create Pull Request
+      # Step 12: Create Pull Request
       - name: Create Pull Request
         if: steps.git_diff.outputs.changes_detected == 'true'
         uses: peter-evans/create-pull-request@v7
