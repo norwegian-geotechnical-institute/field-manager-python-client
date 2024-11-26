@@ -1,5 +1,84 @@
+Recording openapi-python-client version...
+openapi-python-client version: 0.21.7
+Generating /home/runner/work/field-manager-python-client/field-manager-python-client/field-manager-python-client
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Recording openapi-python-client version...
+openapi-python-client version: 0.21.7
+Generating API client...
 Warning(s) encountered while generating. Client was generated, but some pieces may be missing
-Generating /home/jiyang/azure/ngidigital/field-manager-python-client/field-manager-data-api-client
+Generating /home/runner/work/field-manager-python-client/field-manager-python-client/field-manager-python-client
 
 WARNING parsing GET /organizations/{organization_id}/users within organizations.
 

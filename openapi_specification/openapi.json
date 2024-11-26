@@ -1,9 +1,9 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.4.82" },
+  "info": { "title": "Field Manager Data API", "version": "4.4.90" },
   "servers": [
     {
-      "url": "https://api.test.fieldmanager.io/fieldmanager",
+      "url": "https://api.fieldmanager.io/fieldmanager",
       "description": "API gateway"
     }
   ],
@@ -6262,6 +6262,308 @@
         }
       }
     },
+    "/projects/{project_id}/cross_sections/{cross_section_id}/{format}": {
+      "get": {
+        "tags": ["cross_sections"],
+        "summary": "Get Cross Section Plot",
+        "description": "Create a new cross section for a project.",
+        "operationId": "get_cross_section_plot_projects__project_id__cross_sections__cross_section_id___format__get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "cross_section_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Cross Section Id"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": ["dxf"],
+              "const": "dxf",
+              "type": "string",
+              "title": "Format"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/cross_sections": {
+      "post": {
+        "tags": ["cross_sections"],
+        "summary": "Create Cross Section",
+        "description": "Create a new cross section for a project.",
+        "operationId": "create_cross_section_projects__project_id__cross_sections_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CrossSectionCreate" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CrossSection" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["cross_sections"],
+        "summary": "Get Cross Sections For Project",
+        "description": "Get non-deleted cross sections for a project.",
+        "operationId": "get_cross_sections_for_project_projects__project_id__cross_sections_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/CrossSection" },
+                  "title": "Response Get Cross Sections For Project Projects  Project Id  Cross Sections Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["cross_sections"],
+        "summary": "Delete Cross Sections",
+        "description": "Delete a cross section.",
+        "operationId": "delete_cross_sections_projects__project_id__cross_sections_delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": { "type": "string", "format": "uuid" },
+                "title": "Cross Section Ids"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": { "description": "Successful Response" },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/cross_sections/{cross_section_id}": {
+      "get": {
+        "tags": ["cross_sections"],
+        "summary": "Get Cross Section",
+        "description": "Get a cross section.",
+        "operationId": "get_cross_section_projects__project_id__cross_sections__cross_section_id__get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "cross_section_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Cross Section Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CrossSection" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["cross_sections"],
+        "summary": "Delete Cross Section",
+        "description": "Delete a cross section.",
+        "operationId": "delete_cross_section_projects__project_id__cross_sections__cross_section_id__delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "cross_section_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Cross Section Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Successful Response" },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["cross_sections"],
+        "summary": "Update Cross Section",
+        "description": "Update a cross section.",
+        "operationId": "update_cross_section_projects__project_id__cross_sections__cross_section_id__put",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "cross_section_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Cross Section Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CrossSectionUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CrossSection" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/projects/{project_id}/export/files": {
       "get": {
         "tags": ["export", "projects"],
@@ -6608,195 +6910,6 @@
         }
       }
     },
-    "/projects/{project_id}/bff/files": {
-      "get": {
-        "tags": ["BFF"],
-        "summary": "Get Files In Project",
-        "description": "Get all database file objects in a project by project_id and possible filtered by file type.",
-        "operationId": "get_files_in_project_projects__project_id__bff_files_get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "file_types",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": { "$ref": "#/components/schemas/FileType" },
-              "default": [],
-              "title": "File Types"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/BFFFile" },
-                  "title": "Response Get Files In Project Projects  Project Id  Bff Files Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/location_summaries": {
-      "get": {
-        "tags": ["BFF"],
-        "summary": "Get Location Summaries",
-        "description": "This is a very heavy and specialized endpoint, only returning exactly what is needed for displaying information\nin the map (Locations, Methods and some numbers shown for the location in the map).",
-        "operationId": "get_location_summaries_projects__project_id__location_summaries_get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/BFFLocationSummary"
-                  },
-                  "title": "Response Get Location Summaries Projects  Project Id  Location Summaries Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/project_summaries": {
-      "get": {
-        "tags": ["BFF"],
-        "summary": "Get Project Summaries",
-        "description": "This is a very heavy and specialized endpoint, only returning exactly what is needed for displaying information\nin the landing page (Projects with geometry boundary and some special).",
-        "operationId": "get_project_summaries_project_summaries_get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "skip",
-            "in": "query",
-            "required": false,
-            "schema": { "type": "integer", "default": 0, "title": "Skip" }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": { "type": "integer", "default": 100, "title": "Limit" }
-          },
-          {
-            "name": "tags",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "uniqueItems": true,
-              "items": { "type": "string" },
-              "default": [],
-              "title": "Tags"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/BFFProjectSummary" },
-                  "title": "Response Get Project Summaries Project Summaries Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/organizations/{organization_id}/projectlocationmethodtypes": {
-      "get": {
-        "tags": ["BFF"],
-        "summary": "Get Project Location Methodtypes Summary",
-        "description": "Gets a summary of all methodtypes for every location in every project for the given organization\nUsed primarily for building elastic index for search in Geodata Explorer",
-        "operationId": "get_project_location_methodtypes_summary_organizations__organization_id__projectlocationmethodtypes_get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "organization_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Organization Id" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ProjectLocationMethodTypes"
-                  },
-                  "title": "Response Get Project Location Methodtypes Summary Organizations  Organization Id  Projectlocationmethodtypes Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
     "/public/organizations/{email_address}": {
       "get": {
         "tags": ["public", "organizations"],
@@ -6885,302 +6998,6 @@
         "enum": [1, 2, 3, 4, 10, 100],
         "title": "ApplicationClassEnum",
         "description": "(\nONE=1,\nTWO=2,\nTHREE=3,\nFOUR=4,\nOUT_OF_BOUNDS=10,\nUNKNOWN=100,\n)"
-      },
-      "BFFFile": {
-        "properties": {
-          "file_id": { "type": "string", "format": "uuid", "title": "File Id" },
-          "name": { "type": "string", "title": "Name" },
-          "comment": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Comment"
-          },
-          "size": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Size"
-          },
-          "file_type": { "$ref": "#/components/schemas/FileType" },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "created_by": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Created By"
-          },
-          "locations": {
-            "items": { "$ref": "#/components/schemas/BFFLocation" },
-            "type": "array",
-            "title": "Locations",
-            "default": []
-          },
-          "methods": {
-            "items": { "$ref": "#/components/schemas/BFFMethod" },
-            "type": "array",
-            "title": "Methods",
-            "default": []
-          }
-        },
-        "type": "object",
-        "required": ["file_id", "name", "file_type", "created_at"],
-        "title": "BFFFile"
-      },
-      "BFFLocation": {
-        "properties": {
-          "location_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Location Id"
-          },
-          "name": { "type": "string", "title": "Name" }
-        },
-        "type": "object",
-        "required": ["location_id", "name"],
-        "title": "BFFLocation"
-      },
-      "BFFLocationSummary": {
-        "properties": {
-          "iogp_type_id": {
-            "$ref": "#/components/schemas/IOGPTypeEnum",
-            "default": "COMPOSITE"
-          },
-          "last_updated": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Last Updated",
-            "description": "Last updated timestamp of Location or any of its Methods."
-          },
-          "location_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Location Id"
-          },
-          "name": { "type": "string", "title": "Name" },
-          "point_easting": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Point Easting"
-          },
-          "point_northing": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Point Northing"
-          },
-          "point_x_wgs84_web": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Point X Wgs84 Web"
-          },
-          "point_y_wgs84_web": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Point Y Wgs84 Web"
-          },
-          "point_x_wgs84_pseudo": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Point X Wgs84 Pseudo"
-          },
-          "point_y_wgs84_pseudo": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Point Y Wgs84 Pseudo"
-          },
-          "point_z": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Point Z"
-          },
-          "tags": {
-            "items": { "type": "string" },
-            "type": "array",
-            "uniqueItems": true,
-            "title": "Tags",
-            "default": []
-          },
-          "depth_in_soil": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Depth In Soil"
-          },
-          "depth_in_rock": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Depth In Rock"
-          },
-          "bedrock_elevation": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Bedrock Elevation"
-          },
-          "methods": {
-            "items": { "$ref": "#/components/schemas/BFFMethodSummary" },
-            "type": "array",
-            "title": "Methods",
-            "default": []
-          }
-        },
-        "type": "object",
-        "required": ["last_updated", "location_id", "name"],
-        "title": "BFFLocationSummary"
-      },
-      "BFFMethod": {
-        "properties": {
-          "location_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Location Id"
-          },
-          "method_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Method Id"
-          },
-          "location_name": { "type": "string", "title": "Location Name" },
-          "name": { "type": "string", "title": "Name" }
-        },
-        "type": "object",
-        "required": ["location_id", "method_id", "location_name", "name"],
-        "title": "BFFMethod"
-      },
-      "BFFMethodSummary": {
-        "properties": {
-          "method_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Method Id"
-          },
-          "method_type_id": { "$ref": "#/components/schemas/MethodTypeEnum" },
-          "method_status_id": {
-            "$ref": "#/components/schemas/MethodStatusEnum"
-          },
-          "name": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Name"
-          },
-          "remarks": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Remarks"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          },
-          "conducted_at": {
-            "anyOf": [
-              { "type": "string", "format": "date-time" },
-              { "type": "null" }
-            ],
-            "title": "Conducted At"
-          },
-          "depth_top": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Depth Top",
-            "description": "Top depth of the sample (m)."
-          },
-          "depth_base": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Depth Base",
-            "description": "Base depth of the sample (m)."
-          },
-          "sample_container_id": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Sample Container Id"
-          },
-          "sample_container_type_id": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Sample Container Type Id"
-          },
-          "sampling_technique_id": {
-            "anyOf": [{ "type": "integer" }, { "type": "null" }],
-            "title": "Sampling Technique Id"
-          },
-          "diameter": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Diameter"
-          },
-          "inclination": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Inclination",
-            "description": "Inclination angle (deg)."
-          },
-          "azimuth": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Azimuth",
-            "description": "Azimuth angle relative to N (deg)."
-          },
-          "total_length": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Total Length",
-            "description": "Total length drilled (m)."
-          },
-          "length_in_rock": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Length In Rock",
-            "description": "Calculated length in rock (m)."
-          }
-        },
-        "type": "object",
-        "required": [
-          "method_id",
-          "method_type_id",
-          "method_status_id",
-          "updated_at"
-        ],
-        "title": "BFFMethodSummary"
-      },
-      "BFFProjectSummary": {
-        "properties": {
-          "project_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Project Id"
-          },
-          "external_id": { "type": "string", "title": "External Id" },
-          "name": { "type": "string", "title": "Name" },
-          "organization_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Organization Id"
-          },
-          "tags": {
-            "items": { "type": "string" },
-            "type": "array",
-            "uniqueItems": true,
-            "title": "Tags",
-            "default": []
-          },
-          "number_of_locations": {
-            "type": "integer",
-            "title": "Number Of Locations"
-          },
-          "last_updated": {
-            "anyOf": [
-              { "type": "string", "format": "date-time" },
-              { "type": "null" }
-            ],
-            "title": "Last Updated"
-          },
-          "effective_role": {
-            "anyOf": [
-              { "$ref": "#/components/schemas/Role" },
-              { "type": "null" }
-            ]
-          },
-          "favorite": {
-            "type": "boolean",
-            "title": "Favorite",
-            "default": false
-          },
-          "geometry": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Geometry"
-          },
-          "centroid": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Centroid"
-          }
-        },
-        "type": "object",
-        "required": [
-          "project_id",
-          "external_id",
-          "name",
-          "organization_id",
-          "number_of_locations"
-        ],
-        "title": "BFFProjectSummary"
       },
       "BackgroundMapLayer": {
         "type": "string",
@@ -7387,6 +7204,167 @@
         "type": "object",
         "required": ["text"],
         "title": "CommentUpdate"
+      },
+      "CrossSection": {
+        "properties": {
+          "cross_section_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Cross Section Id"
+          },
+          "horizontal_scale": { "type": "string", "title": "Horizontal Scale" },
+          "vertical_scale": { "type": "string", "title": "Vertical Scale" },
+          "method_ids": {
+            "items": { "type": "string", "format": "uuid" },
+            "type": "array",
+            "title": "Method Ids"
+          },
+          "name": { "type": "string", "title": "Name" },
+          "width": { "type": "number", "title": "Width" },
+          "polyline_linestring": {
+            "type": "string",
+            "title": "Polyline Linestring"
+          },
+          "project_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Project Id"
+          },
+          "srid": { "type": "integer", "title": "Srid" },
+          "updated_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Updated At"
+          },
+          "updated_by": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Updated By"
+          },
+          "created_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Created At"
+          },
+          "created_by": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Created By"
+          },
+          "polyline_coordinates": {
+            "items": {
+              "prefixItems": [{ "type": "number" }, { "type": "number" }],
+              "type": "array",
+              "maxItems": 2,
+              "minItems": 2
+            },
+            "type": "array",
+            "title": "Polyline Coordinates",
+            "description": "Compute the polyline_coordinates from the polyline_linestring",
+            "readOnly": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "cross_section_id",
+          "horizontal_scale",
+          "vertical_scale",
+          "method_ids",
+          "name",
+          "width",
+          "polyline_linestring",
+          "project_id",
+          "srid",
+          "created_by",
+          "polyline_coordinates"
+        ],
+        "title": "CrossSection"
+      },
+      "CrossSectionCreate": {
+        "properties": {
+          "polyline_coordinates": {
+            "items": {
+              "prefixItems": [{ "type": "number" }, { "type": "number" }],
+              "type": "array",
+              "maxItems": 2,
+              "minItems": 2
+            },
+            "type": "array",
+            "title": "Polyline Coordinates"
+          },
+          "width": { "type": "number", "title": "Width" },
+          "vertical_scale": { "type": "string", "title": "Vertical Scale" },
+          "horizontal_scale": { "type": "string", "title": "Horizontal Scale" },
+          "method_ids": {
+            "items": { "type": "string", "format": "uuid" },
+            "type": "array",
+            "title": "Method Ids"
+          },
+          "name": { "type": "string", "title": "Name" }
+        },
+        "type": "object",
+        "required": [
+          "polyline_coordinates",
+          "width",
+          "vertical_scale",
+          "horizontal_scale",
+          "method_ids",
+          "name"
+        ],
+        "title": "CrossSectionCreate"
+      },
+      "CrossSectionUpdate": {
+        "properties": {
+          "polyline_coordinates": {
+            "anyOf": [
+              {
+                "items": {
+                  "prefixItems": [{ "type": "number" }, { "type": "number" }],
+                  "type": "array",
+                  "maxItems": 2,
+                  "minItems": 2
+                },
+                "type": "array"
+              },
+              { "type": "null" }
+            ],
+            "title": "Polyline Coordinates"
+          },
+          "width": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Width"
+          },
+          "vertical_scale": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Vertical Scale"
+          },
+          "horizontal_scale": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Horizontal Scale"
+          },
+          "method_ids": {
+            "anyOf": [
+              {
+                "items": { "type": "string", "format": "uuid" },
+                "type": "array"
+              },
+              { "type": "null" }
+            ],
+            "title": "Method Ids"
+          },
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "title": "CrossSectionUpdate"
       },
       "DPType": {
         "type": "string",
@@ -7936,8 +7914,8 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "71026128-16f3-4fcd-b24a-f8903c113bbb",
-          "project_id": "6ee7f5e8-5a7a-4120-bce0-d10299078601",
+          "organization_id": "49e81344-bf90-43f6-ac04-26cce89383b9",
+          "project_id": "71703969-87a1-49c4-8493-7da7e6fe69b6",
           "srid": 3857
         }
       },
@@ -8118,12 +8096,12 @@
         ],
         "title": "Location",
         "example": {
-          "location_id": "e545ec5b-fd58-448d-8819-4bb9fa325783",
+          "location_id": "4985b522-94d7-439b-b5bc-13c53d2a7865",
           "name": "Loc01",
           "point_easting": 1194547,
           "point_northing": 8388298,
           "point_z": 0.0,
-          "project_id": "946e731f-318d-4d30-9c2b-1ff50d0c3944",
+          "project_id": "455e79ad-2a2e-4551-9de2-00c07b6ef7a6",
           "srid": 3857
         }
       },
@@ -19744,8 +19722,8 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "71026128-16f3-4fcd-b24a-f8903c113bbb",
-          "project_id": "6ee7f5e8-5a7a-4120-bce0-d10299078601",
+          "organization_id": "49e81344-bf90-43f6-ac04-26cce89383b9",
+          "project_id": "71703969-87a1-49c4-8493-7da7e6fe69b6",
           "srid": 3857
         }
       },
@@ -19920,73 +19898,10 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "71026128-16f3-4fcd-b24a-f8903c113bbb",
-          "project_id": "6ee7f5e8-5a7a-4120-bce0-d10299078601",
+          "organization_id": "49e81344-bf90-43f6-ac04-26cce89383b9",
+          "project_id": "71703969-87a1-49c4-8493-7da7e6fe69b6",
           "srid": 3857
         }
-      },
-      "ProjectLocationMethodTypes": {
-        "properties": {
-          "project_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Project Id"
-          },
-          "project_number": { "type": "string", "title": "Project Number" },
-          "project_name": { "type": "string", "title": "Project Name" },
-          "external_id_source": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "External Id Source"
-          },
-          "location_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Location Id"
-          },
-          "name": { "type": "string", "title": "Name" },
-          "geometry": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Geometry"
-          },
-          "point_z": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Point Z"
-          },
-          "is_deleted": { "type": "boolean", "title": "Is Deleted" },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          },
-          "location_type_id": {
-            "anyOf": [
-              { "$ref": "#/components/schemas/LocationTypeEnum" },
-              { "type": "null" }
-            ],
-            "description": "Use Project.standard_id instead.",
-            "deprecated": true
-          },
-          "method_types": {
-            "anyOf": [
-              { "items": { "type": "string" }, "type": "array" },
-              { "type": "null" }
-            ],
-            "title": "Method Types"
-          }
-        },
-        "type": "object",
-        "required": [
-          "project_id",
-          "project_number",
-          "project_name",
-          "location_id",
-          "name",
-          "geometry",
-          "point_z",
-          "is_deleted",
-          "updated_at"
-        ],
-        "title": "ProjectLocationMethodTypes"
       },
       "ProjectSearch": {
         "properties": {
@@ -20112,8 +20027,8 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "71026128-16f3-4fcd-b24a-f8903c113bbb",
-          "project_id": "6ee7f5e8-5a7a-4120-bce0-d10299078601",
+          "organization_id": "49e81344-bf90-43f6-ac04-26cce89383b9",
+          "project_id": "71703969-87a1-49c4-8493-7da7e6fe69b6",
           "srid": 3857
         }
       },

@@ -6,9 +6,10 @@
 
 ## DevOps
 
-- [ ] Build the pipeline, Jiyang
-- [ ] Use the production version, Jiyang
-- [ ] Publish to pypi, Jiyang
+- [x] Build the pipeline, Jiyang
+- [x] Use the production version, Jiyang
+- [x] Publish to pypi, Jiyang
+- [ ] Clean debug setup package_version_override at config.yaml, Jiyang
 
 ## Improvements
 

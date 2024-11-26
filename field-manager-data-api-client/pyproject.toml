@@ -2,7 +2,8 @@
 name = "field-manager-data-api-client"
 version = "4.4.82"
 description = "A client library for accessing Field Manager Data API"
-authors = []
+authors = ["Jiyang Ye <jiyang.ye@ngi.no>"]
+maintainers = ["Jiyang Ye <jiyang.ye@ngi.no>"]
 readme = "README.md"
 packages = [
     {include = "field_manager_data_api_client"},
@@ -11,7 +12,7 @@ include = ["CHANGELOG.md", "field_manager_data_api_client/py.typed"]
 
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 httpx = ">=0.20.0,<0.28.0"
 attrs = ">=21.3.0"
 python-dateutil = "^2.8.0"
