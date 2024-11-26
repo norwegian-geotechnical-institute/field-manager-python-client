@@ -15,15 +15,15 @@ if TYPE_CHECKING:
     from ..models.role import Role
 
 
-T = TypeVar("T", bound="LinkedProjectInfo")
+T = TypeVar("T", bound="ProjectInfo")
 
 
 @_attrs_define
-class LinkedProjectInfo:
+class ProjectInfo:
     """
     Example:
         {'external_id': '2020193232', 'height_reference': 'NN2000', 'name': 'Project Name', 'organization_id':
-            '49e81344-bf90-43f6-ac04-26cce89383b9', 'project_id': '71703969-87a1-49c4-8493-7da7e6fe69b6', 'srid': 3857}
+            'ba16b8ca-e751-45c5-a861-66c61c7e8f0d', 'project_id': '0e6f93a4-258a-45d4-9d91-6a13849ded44', 'srid': 3857}
 
     Attributes:
         project_id (UUID):
@@ -32,12 +32,11 @@ class LinkedProjectInfo:
         name (str):
         standard_id (StandardType):
         srid (int):
+        height_reference (Union[HeightReference, None]):
         number_of_locations (int):
-        number_of_active_locations (int):
         created_at (Union[None, Unset, datetime.datetime]):
         updated_at (Union[None, Unset, datetime.datetime]):
         external_id_source (Union[None, Unset, str]):
-        height_reference (Union[HeightReference, None, Unset]):
         description (Union[None, Unset, str]):
         tags (Union[List[str], None, Unset]):
         organization (Union['OrganizationMin', None, Unset]):
@@ -52,12 +51,11 @@ class LinkedProjectInfo:
     name: str
     standard_id: StandardType
     srid: int
+    height_reference: Union[HeightReference, None]
     number_of_locations: int
-    number_of_active_locations: int
     created_at: Union[None, Unset, datetime.datetime] = UNSET
     updated_at: Union[None, Unset, datetime.datetime] = UNSET
     external_id_source: Union[None, Unset, str] = UNSET
-    height_reference: Union[HeightReference, None, Unset] = UNSET
     description: Union[None, Unset, str] = UNSET
     tags: Union[List[str], None, Unset] = UNSET
     organization: Union["OrganizationMin", None, Unset] = UNSET
@@ -82,9 +80,13 @@ class LinkedProjectInfo:
 
         srid = self.srid
 
-        number_of_locations = self.number_of_locations
+        height_reference: Union[None, str]
+        if isinstance(self.height_reference, HeightReference):
+            height_reference = self.height_reference.value
+        else:
+            height_reference = self.height_reference
 
-        number_of_active_locations = self.number_of_active_locations
+        number_of_locations = self.number_of_locations
 
         created_at: Union[None, Unset, str]
         if isinstance(self.created_at, Unset):
@@ -107,14 +109,6 @@ class LinkedProjectInfo:
             external_id_source = UNSET
         else:
             external_id_source = self.external_id_source
-
-        height_reference: Union[None, Unset, str]
-        if isinstance(self.height_reference, Unset):
-            height_reference = UNSET
-        elif isinstance(self.height_reference, HeightReference):
-            height_reference = self.height_reference.value
-        else:
-            height_reference = self.height_reference
 
         description: Union[None, Unset, str]
         if isinstance(self.description, Unset):
@@ -167,8 +161,8 @@ class LinkedProjectInfo:
                 "name": name,
                 "standard_id": standard_id,
                 "srid": srid,
+                "height_reference": height_reference,
                 "number_of_locations": number_of_locations,
-                "number_of_active_locations": number_of_active_locations,
             }
         )
         if created_at is not UNSET:
@@ -177,8 +171,6 @@ class LinkedProjectInfo:
             field_dict["updated_at"] = updated_at
         if external_id_source is not UNSET:
             field_dict["external_id_source"] = external_id_source
-        if height_reference is not UNSET:
-            field_dict["height_reference"] = height_reference
         if description is not UNSET:
             field_dict["description"] = description
         if tags is not UNSET:
@@ -212,9 +204,22 @@ class LinkedProjectInfo:
 
         srid = d.pop("srid")
 
-        number_of_locations = d.pop("number_of_locations")
+        def _parse_height_reference(data: object) -> Union[HeightReference, None]:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                height_reference_type_0 = HeightReference(data)
 
-        number_of_active_locations = d.pop("number_of_active_locations")
+                return height_reference_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[HeightReference, None], data)
+
+        height_reference = _parse_height_reference(d.pop("height_reference"))
+
+        number_of_locations = d.pop("number_of_locations")
 
         def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -258,23 +263,6 @@ class LinkedProjectInfo:
             return cast(Union[None, Unset, str], data)
 
         external_id_source = _parse_external_id_source(d.pop("external_id_source", UNSET))
-
-        def _parse_height_reference(data: object) -> Union[HeightReference, None, Unset]:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, str):
-                    raise TypeError()
-                height_reference_type_0 = HeightReference(data)
-
-                return height_reference_type_0
-            except:  # noqa: E722
-                pass
-            return cast(Union[HeightReference, None, Unset], data)
-
-        height_reference = _parse_height_reference(d.pop("height_reference", UNSET))
 
         def _parse_description(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -355,19 +343,18 @@ class LinkedProjectInfo:
 
         favorite = d.pop("favorite", UNSET)
 
-        linked_project_info = cls(
+        project_info = cls(
             project_id=project_id,
             external_id=external_id,
             organization_id=organization_id,
             name=name,
             standard_id=standard_id,
             srid=srid,
+            height_reference=height_reference,
             number_of_locations=number_of_locations,
-            number_of_active_locations=number_of_active_locations,
             created_at=created_at,
             updated_at=updated_at,
             external_id_source=external_id_source,
-            height_reference=height_reference,
             description=description,
             tags=tags,
             organization=organization,
@@ -376,8 +363,8 @@ class LinkedProjectInfo:
             favorite=favorite,
         )
 
-        linked_project_info.additional_properties = d
-        return linked_project_info
+        project_info.additional_properties = d
+        return project_info
 
     @property
     def additional_keys(self) -> List[str]:

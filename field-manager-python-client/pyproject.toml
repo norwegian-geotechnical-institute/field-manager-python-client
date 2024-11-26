@@ -1,14 +1,14 @@
 [tool.poetry]
 name = "field-manager-python-client"
-version = "4.4.90-rc.10"
+version = "4.4.90-rc.11"
 description = "A client library for accessing Field Manager Data API"
 authors = ["Jiyang Ye <jiyang.ye@ngi.no>"]
 maintainers = ["Jiyang Ye <jiyang.ye@ngi.no>"]
 readme = "README.md"
 packages = [
-    {include = "field-manager-python-client"},
+    {include = "field_manager_python_client"},
 ]
-include = ["CHANGELOG.md", "field-manager-python-client/py.typed"]
+include = ["CHANGELOG.md", "field_manager_python_client/py.typed"]
 
 
 [tool.poetry.dependencies]

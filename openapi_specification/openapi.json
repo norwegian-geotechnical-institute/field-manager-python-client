@@ -7914,8 +7914,8 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "49e81344-bf90-43f6-ac04-26cce89383b9",
-          "project_id": "71703969-87a1-49c4-8493-7da7e6fe69b6",
+          "organization_id": "ba16b8ca-e751-45c5-a861-66c61c7e8f0d",
+          "project_id": "0e6f93a4-258a-45d4-9d91-6a13849ded44",
           "srid": 3857
         }
       },
@@ -8096,12 +8096,12 @@
         ],
         "title": "Location",
         "example": {
-          "location_id": "4985b522-94d7-439b-b5bc-13c53d2a7865",
+          "location_id": "0e6343a6-159c-43fa-8893-767fbdfa7ccf",
           "name": "Loc01",
           "point_easting": 1194547,
           "point_northing": 8388298,
           "point_z": 0.0,
-          "project_id": "455e79ad-2a2e-4551-9de2-00c07b6ef7a6",
+          "project_id": "09198cee-6bc6-49f8-b499-2cce0cd41716",
           "srid": 3857
         }
       },
@@ -19722,8 +19722,8 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "49e81344-bf90-43f6-ac04-26cce89383b9",
-          "project_id": "71703969-87a1-49c4-8493-7da7e6fe69b6",
+          "organization_id": "ba16b8ca-e751-45c5-a861-66c61c7e8f0d",
+          "project_id": "0e6f93a4-258a-45d4-9d91-6a13849ded44",
           "srid": 3857
         }
       },
@@ -19898,8 +19898,8 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "49e81344-bf90-43f6-ac04-26cce89383b9",
-          "project_id": "71703969-87a1-49c4-8493-7da7e6fe69b6",
+          "organization_id": "ba16b8ca-e751-45c5-a861-66c61c7e8f0d",
+          "project_id": "0e6f93a4-258a-45d4-9d91-6a13849ded44",
           "srid": 3857
         }
       },
@@ -20027,8 +20027,8 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "49e81344-bf90-43f6-ac04-26cce89383b9",
-          "project_id": "71703969-87a1-49c4-8493-7da7e6fe69b6",
+          "organization_id": "ba16b8ca-e751-45c5-a861-66c61c7e8f0d",
+          "project_id": "0e6f93a4-258a-45d4-9d91-6a13849ded44",
           "srid": 3857
         }
       },
