@@ -19,10 +19,10 @@ This approach allows the user to:
 """
 
 # Import models
-from field_manager_data_api_client.models import Organization, Project
+from field_manager_python_client.models import Organization, Project
 
 # Import API functions for organizations
-from field_manager_data_api_client.api.organizations import (
+from field_manager_python_client.api.organizations import (
     get_organizations_organizations_get,
     get_organization_organizations_organization_id_get,
     get_organization_projects_organizations_organization_id_projects_get,

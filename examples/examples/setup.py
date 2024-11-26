@@ -1,5 +1,5 @@
 from getpass import getpass
-from field_manager_data_api_client import AuthenticatedClient
+from field_manager_python_client import AuthenticatedClient
 from keycloak import KeycloakOpenID
 import webbrowser
 import requests
@@ -15,6 +15,7 @@ KEYCLOAK_CLIENT_ID = "fieldmanager-client"
 base_url = "https://app.test.fieldmanager.io/api/location"
 ORG_API_BASE = f"{base_url}/public/organizations"
 
+
 # Function to check if the organization uses SSO based on authentication_alias presence
 def get_auth_method(email):
     """Determine if the organization associated with the email uses SSO based on authentication_alias."""
@@ -29,10 +30,8 @@ def get_auth_method(email):
 
     authentication_alias = organization_info.get("authentication_alias")
     auth_method = "sso" if authentication_alias else "password"
-    return {
-        "auth_method": auth_method,
-        "authentication_alias": authentication_alias
-    }
+    return {"auth_method": auth_method, "authentication_alias": authentication_alias}
+
 
 # HTTP request handler to capture the authorization code
 class AuthCodeHandler(BaseHTTPRequestHandler):
@@ -44,12 +43,14 @@ class AuthCodeHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(b"Authorization code received. You may close this window.")
 
+
 # Function to start a local server and capture the auth code
 def start_local_server():
     server = HTTPServer(("localhost", 8000), AuthCodeHandler)
     print("Waiting for authorization code...")
     server.handle_request()
     return server.auth_code
+
 
 # Prompt the user for email to determine their organization’s authentication method
 email = input("Enter your email address: ")
@@ -67,10 +68,7 @@ keycloak_openid = KeycloakOpenID(
 if auth_method == "sso":
     # SSO Authentication with local redirect URI
     redirect_uri = "http://localhost:8000"
-    auth_url = keycloak_openid.auth_url(
-        redirect_uri=redirect_uri,
-        scope="openid"
-    )
+    auth_url = keycloak_openid.auth_url(redirect_uri=redirect_uri, scope="openid")
     if authentication_alias:
         auth_url += f"&kc_idp_hint={authentication_alias}"
 
