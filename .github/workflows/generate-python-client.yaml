@@ -1,84 +1,98 @@
 name: Generate Python Client
 
 on:
-  workflow_dispatch: # Allow manual triggers
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *" # Runs daily at midnight UTC
 
 jobs:
   generate-client:
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ["3.12"]
-        os: [ubuntu-latest]
+    runs-on: ubuntu-latest
 
-    runs-on: ${{ matrix.os }}
+    env:
+      OPENAPI_SPEC_URL: https://app.fieldmanager.io/api/location/openapi.json
 
     steps:
-      # Step 1: Define environment variable for OpenAPI spec URL
-      - name: Set OpenAPI Spec URL
-        run: echo "OPENAPI_SPEC_URL=https://app.fieldmanager.io/api/location/openapi.json" >> $GITHUB_ENV
-
-      # Step 2: Check out the code
+      # Step 1: Checkout the code
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: trunk # Ensure you check out the `trunk` branch
+          ref: trunk
 
-      # Step 3: Set up Python environment
+      # Step 2: Set up Python environment
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.12"
 
-      # Step 4: Install dependencies (pipx and jq)
-      - name: Install pipx, jq, and yq
+      # Step 3: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # Step 4: Install dependencies
+      - name: Install Dependencies
         run: |
-          python3 -m pip install --user pipx
-          python3 -m pipx ensurepath
-          pipx install openapi-python-client --include-deps
+          python -m pip install --upgrade pip
+          pip install openapi-python-client yq
           sudo apt-get update && sudo apt-get install -y jq
-          sudo snap install yq
-          npm install -g prettier
           mkdir -p logs
           echo "Recording openapi-python-client version..." > logs/log
           openapi-python-client --version >> logs/log 2>&1
 
-      # Step 5: Download the OpenAPI specification
+      # Step 5: Download OpenAPI Specification
       - name: Download OpenAPI Specification
         run: |
           echo "Downloading OpenAPI specification..."
+          mkdir -p openapi_specification
           curl -s ${{ env.OPENAPI_SPEC_URL }} > ./openapi_specification/openapi.json
 
-      # Step 6: Format the OpenAPI specification
+      # Step 6: Format OpenAPI Specification
       - name: Format OpenAPI Specification
         run: |
           echo "Formatting OpenAPI specification..."
           npx prettier --write ./openapi_specification/openapi.json
 
-      # Step 7: Get version and save to openapi_specification/version
-      - name: Get API version
+      # Step 7: Get API version
+      - name: Get API Version
         run: |
-          mkdir -p openapi_specification
           VERSION=$(yq -r '.package_version_override' config.yaml)
           echo "Field Manager Data API version: $VERSION" > openapi_specification/version
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-      # Step 8: Generate the Python client
+      # Step 8: Generate Python Client
       - name: Generate Python Client
         run: |
-          mkdir -p logs
           echo "Generating API client..."
-          openapi-python-client generate --path ./openapi_specification/openapi.json --overwrite --custom-template-path=templates --config config.yaml >> logs/log
+          openapi-python-client generate \
+            --path ./openapi_specification/openapi.json \
+            --overwrite \
+            --custom-template-path=templates \
+            --config config.yaml >> logs/log
           cat logs/log
 
-      # Step 9: Configure Git for the runner
+      # Step 9: Check for Changes
+      - name: Check for Changes
+        id: git_diff
+        run: |
+          git add .
+          if git diff --cached --quiet; then
+            echo "::set-output name=changes_detected::false"
+          else
+            echo "::set-output name=changes_detected::true"
+          fi
+
+      # Step 10: Configure Git
       - name: Configure Git
+        if: steps.git_diff.outputs.changes_detected == 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      # Step 10: Create Pull Request
+      # Step 11: Create Pull Request
       - name: Create Pull Request
+        if: steps.git_diff.outputs.changes_detected == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.PULL_REQUEST_TOKEN }}
@@ -88,4 +102,3 @@ jobs:
           body: |
             This PR updates the generated Python client to match API version ${{ env.VERSION }}.
           branch-suffix: timestamp
-        #   reviewers: yejiyang # fix this
