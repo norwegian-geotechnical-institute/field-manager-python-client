@@ -54,11 +54,15 @@ jobs:
           echo "Formatting OpenAPI specification..."
           npx prettier --write ./openapi_specification/openapi.json
 
-      # Step 7: Get API version
+      # Step 7: Get API Version
       - name: Get API Version
         run: |
-          VERSION=$(yq -r '.package_version_override' config.yaml)
-          echo "Field Manager Data API version: $VERSION" > openapi_specification/version
+          if yq -e '.package_version_override' config.yaml > /dev/null; then
+            VERSION=$(yq -r '.package_version_override' config.yaml)
+          else
+            VERSION=$(jq -r '.info.version' ./openapi_specification/openapi.json)
+          fi
+          echo "$VERSION" > openapi_specification/version
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       # Step 8: Generate Python Client
