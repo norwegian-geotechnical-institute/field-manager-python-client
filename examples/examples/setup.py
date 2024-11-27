@@ -7,10 +7,10 @@ Usage:
 - The `client` instance can then be used in other scripts to make authenticated requests.
 
 Requirements:
-- Ensure that the `field_manager_data_api_client` library is installed in your environment.
+- Ensure that the `field_manager_python_client` library is installed in your environment.
 """
 
-from field_manager_data_api_client import AuthenticatedClient
+from field_manager_python_client import AuthenticatedClient
 
 # Set up the client with the base URL and access token
 base_url = "https://app.test.fieldmanager.io/api/location"  # Base URL for the Field Manager API
