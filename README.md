@@ -20,4 +20,4 @@ This client is automatically generated from the Field Manager API’s OpenAPI sp
 
 ## How does this work?
 
-Follow [this README](./field-manager-data-api-client/README.md) file and [this get organizations example](./examples/examples/ex_get_organizations.py) to play with this client.
+Follow [this README](./field-manager-python-client/README.md) file and [this get organizations example](./examples/examples/ex_get_organizations.py) to play with this client.
