@@ -18,24 +18,29 @@ base_url = "https://app.test.fieldmanager.io/api/location"
 public_client = Client(base_url=base_url)
 
 # # Replace with your actual default email
-default_email = "jiyang.ye@ngi.no" 
+default_email = "test.user@example.com" 
 
 
 # Function to check if the organization uses SSO based on authentication_alias presence
 def get_auth_method(email):
     """Determine if the organization associated with the email uses SSO based on authentication_alias."""
-    organization = get_organization_by_email_address_public_organizations_email_address_get.sync(
-        client=public_client, email_address=email
-    )
-    print(organization)
-    organization_id = organization.organization_id
+    try:
+        organization = get_organization_by_email_address_public_organizations_email_address_get.sync(
+            client=public_client, email_address=email
+        )
+        print(organization)
+        organization_id = organization.organization_id
 
-    organization_info = get_organization_information_public_organizations_organization_id_information_get.sync(
-        client=public_client, organization_id=organization_id
-    )
-    authentication_alias = organization_info.authentication_alias
-    auth_method = "sso" if authentication_alias else "password"
-    return {"auth_method": auth_method, "authentication_alias": authentication_alias}
+        organization_info = get_organization_information_public_organizations_organization_id_information_get.sync(
+            client=public_client, organization_id=organization_id
+        )
+        authentication_alias = organization_info.authentication_alias
+        auth_method = "sso" if authentication_alias else "password"
+        return {"auth_method": auth_method, "authentication_alias": authentication_alias}
+    
+    except Exception as e:
+        print(f"Unable to fetch organization information for the provided email. Defaulting to email and password login. Error details: {e}")
+        return {"auth_method": "password", "authentication_alias": None}
 
 
 # HTTP request handler to capture the authorization code
@@ -105,7 +110,7 @@ if auth_method == "sso":
 
 elif auth_method == "password":
     # Username/Password Authentication (Resource Owner Password Credentials Flow)
-    username = input("Enter Username: ")
+    username = email
     password = getpass("Enter Password: ")
 
     # Get access token using username and password
