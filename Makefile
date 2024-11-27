@@ -26,7 +26,7 @@ install_jq:  ## Install jq command-line tool
 
 # Clear the log file
 clear_log:  ## Delete the log file if it exists
-	@rm -f logs/log logs/versions
+	@rm -f logs/log openapi_specification/version
 
 # Download the OpenAPI specification
 download_openapi:  ## Download the OpenAPI specification
@@ -37,17 +37,17 @@ format_openapi: download_openapi  ## Format the OpenAPI specification
 	@echo "Formatting OpenAPI specification..."
 	@npx prettier --write $(OPENAPI_SPEC)
 
-# Get the version from openapi.json and save to logs/versions
-get_version:  ## Get the version from openapi.json and save to logs/versions
+# Get the version from openapi.json and save to openapi_specification/version
+get_version:  ## Get the version from openapi.json and save to openapi_specification/version
 	@echo "Fetching version from $(OPENAPI_SPEC)..."
 	@VERSION=$$(jq -r '.info.version' $(OPENAPI_SPEC)) && \
-	echo "Field Manager Data API version: $$VERSION" > logs/versions
+	echo "$$VERSION" > openapi_specification/version
 
 # Run the openapi-python-client generate command
 generate: clear_log get_version  ## Generate API client from OpenAPI spec
 	@echo "Generating API client..."
+	openapi-python-client --version > logs/log 2>&1
 	openapi-python-client generate --path $(OPENAPI_SPEC) --overwrite --custom-template-path=templates --config config.yaml >> logs/log 2>&1
-	openapi-python-client --version >> logs/versions 2>&1
 
 # A shortcut to install dependencies and then generate the client
 all: install install_jq generate  ## Install dependencies and generate client
