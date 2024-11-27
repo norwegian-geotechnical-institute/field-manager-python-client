@@ -1,8 +1,8 @@
 from getpass import getpass
-from field_manager_python_client import AuthenticatedClient
+from field_manager_python_client import AuthenticatedClient, Client
+from field_manager_python_client.api.public import get_organization_by_email_address_public_organizations_email_address_get, get_organization_information_public_organizations_organization_id_information_get
 from keycloak import KeycloakOpenID
 import webbrowser
-import requests
 from urllib.parse import urlparse, parse_qs
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
@@ -13,22 +13,27 @@ KEYCLOAK_CLIENT_ID = "fieldmanager-client"
 
 # Base URL for the Field Manager API
 base_url = "https://app.test.fieldmanager.io/api/location"
-ORG_API_BASE = f"{base_url}/public/organizations"
+
+#
+public_client = Client(base_url=base_url)
+
+# # Replace with your actual default email
+default_email = "jiyang.ye@ngi.no" 
 
 
 # Function to check if the organization uses SSO based on authentication_alias presence
 def get_auth_method(email):
     """Determine if the organization associated with the email uses SSO based on authentication_alias."""
-    org_response = requests.get(f"{ORG_API_BASE}/{email}")
-    org_response.raise_for_status()
-    organization = org_response.json()
-    organization_id = organization.get("organization_id")
+    organization = get_organization_by_email_address_public_organizations_email_address_get.sync(
+        client=public_client, email_address=email
+    )
+    print(organization)
+    organization_id = organization.organization_id
 
-    info_response = requests.get(f"{ORG_API_BASE}/{organization_id}/information")
-    info_response.raise_for_status()
-    organization_info = info_response.json()
-
-    authentication_alias = organization_info.get("authentication_alias")
+    organization_info = get_organization_information_public_organizations_organization_id_information_get.sync(
+        client=public_client, organization_id=organization_id
+    )
+    authentication_alias = organization_info.authentication_alias
     auth_method = "sso" if authentication_alias else "password"
     return {"auth_method": auth_method, "authentication_alias": authentication_alias}
 
@@ -53,7 +58,15 @@ def start_local_server():
 
 
 # Prompt the user for email to determine their organization’s authentication method
-email = input("Enter your email address: ")
+print(f"The default email is: {default_email}")
+use_default = input("Do you want to use the default email? (y/n): ").strip().lower()
+
+if use_default == "y":
+    email = default_email
+else:
+    email = input("Enter your email address: ").strip()
+print(f"Using email: {email}")
+
 auth_info = get_auth_method(email)
 auth_method = auth_info["auth_method"]
 authentication_alias = auth_info.get("authentication_alias")
