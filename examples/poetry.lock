@@ -335,21 +335,19 @@ test = ["pytest (>=6)"]
 
 [[package]]
 name = "field-manager-python-client"
-version = "4.4.90-rc.11"
+version = "4.4.90rc11"
 description = "A client library for accessing Field Manager Data API"
 optional = false
-python-versions = "^3.9"
-files = []
-develop = true
+python-versions = "<4.0,>=3.9"
+files = [
+    {file = "field_manager_python_client-4.4.90rc11-py3-none-any.whl", hash = "sha256:7cd52594ac5f86644a2133d281a4ef8df492346791c160bd20bb16eea383db1d"},
+    {file = "field_manager_python_client-4.4.90rc11.tar.gz", hash = "sha256:389c44f921c806c540e45af09ec7dad5f6e515e53bbf618b4930a76b03ad8f1a"},
+]
 
 [package.dependencies]
 attrs = ">=21.3.0"
 httpx = ">=0.20.0,<0.28.0"
-python-dateutil = "^2.8.0"
-
-[package.source]
-type = "directory"
-url = "../field-manager-python-client"
+python-dateutil = ">=2.8.0,<3.0.0"
 
 [[package]]
 name = "h11"
@@ -580,4 +578,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "c89ffcdef3bd5654f8e996af8fd07f21981179466e76eb169743424ba39f9a5e"
+content-hash = "9ffcd5a5cd00b606926906b382eca0ada5d4c30add99716b0a1e4041b97aa8ef"
