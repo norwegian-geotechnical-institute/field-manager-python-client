@@ -24,7 +24,7 @@ class ProjectSummary:
     """
     Example:
         {'external_id': '2020193232', 'height_reference': 'NN2000', 'name': 'Project Name', 'organization_id':
-            'ba16b8ca-e751-45c5-a861-66c61c7e8f0d', 'project_id': '0e6f93a4-258a-45d4-9d91-6a13849ded44', 'srid': 3857}
+            '69eb135b-05ce-4d52-8fee-238b23a10e57', 'project_id': 'a49866f5-d445-45a3-8f5e-08b7648d0875', 'srid': 3857}
 
     Attributes:
         project_id (UUID):
