@@ -45,8 +45,8 @@ T = TypeVar("T", bound="Location")
 class Location:
     """
     Example:
-        {'location_id': '0e6343a6-159c-43fa-8893-767fbdfa7ccf', 'name': 'Loc01', 'point_easting': 1194547,
-            'point_northing': 8388298, 'point_z': 0.0, 'project_id': '09198cee-6bc6-49f8-b499-2cce0cd41716', 'srid': 3857}
+        {'location_id': '0e110a58-47b9-415c-8a5a-639b82d5f15c', 'name': 'Loc01', 'point_easting': 1194547,
+            'point_northing': 8388298, 'point_z': 0.0, 'project_id': 'a6417c4c-838e-47bf-b700-5e02a9e3f28f', 'srid': 3857}
 
     Attributes:
         name (str):
