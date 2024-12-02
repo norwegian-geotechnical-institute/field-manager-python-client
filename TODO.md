@@ -11,6 +11,10 @@
 - [x] Publish to pypi, Jiyang
 - [ ] Clean debug setup package_version_override at config.yaml, Jiyang
 
+## Documentation
+
+- [ ] Update the pypi documentation
+
 ## Improvements
 
 - [ ] Check the API naming, Jiyang
