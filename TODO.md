@@ -14,7 +14,7 @@
 ## Improvements
 
 - [ ] Check the API naming, Jiyang
-- [ ] Find a better way to get tokens
+- [x] Find a better way to get tokens
 - [ ] Check out exception handling
 - [ ] Fix the uuid been regenerated every time in the following files
       modified: field-manager-data-api-client/field_manager_data_api_client/models/linked_project_info.py
