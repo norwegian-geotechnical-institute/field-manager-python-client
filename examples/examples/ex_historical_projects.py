@@ -1,40 +1,21 @@
-# Import models
 from field_manager_python_client.models import Organization, Project
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-# Import API functions for organizations
 from field_manager_python_client.api.organizations import (
     get_organizations_organizations_get,
     get_organization_projects_organizations_organization_id_projects_get,
 )
 
-# Import client setup
 from examples.setup_auto_fetch_token import client
 
 
-with client as client:
-    my_orgs: list[Organization] = get_organizations_organizations_get.sync(
-        client=client
-    )
-
-    foobar_org: Organization = next(
-        org for org in my_orgs if org.short_name == "foobar"
-    )
-    print(foobar_org.name, "has", foobar_org.number_of_projects, "projects.")
-
-    foobar_projects: list[Project] = (
-        get_organization_projects_organizations_organization_id_projects_get.sync(
-            client=client, organization_id=foobar_org.organization_id, limit=100000
-        )
-    )
-    print("Projects in", len(foobar_projects), "projects:")
-    
+def calculate_and_save_statistics(foobar_projects: list[Project]):
     # Collect project information for printing and saving to Excel
     project_info = []
 
-    # sort projects by number of locations, and then print it like: nr. of locations: 10         Project 1
+    # Sort projects by number of locations
     foobar_projects.sort(key=lambda x: x.number_of_locations, reverse=True)
 
     for project in foobar_projects:
@@ -46,23 +27,17 @@ with client as client:
             "project name": project.name
         })
 
-    # draw a histogram of the number of locations in the projects
-    #
-
     # Draw a histogram of the number of locations in the projects
     number_of_locations = [project.number_of_locations for project in foobar_projects]
 
-    # Use a logarithmic scale for the x-axis
     plt.hist(number_of_locations, bins=np.logspace(np.log10(1), np.log10(max(number_of_locations)), 50), edgecolor="black")
     plt.xscale('log')
     plt.title("Histogram of Number of Locations in Projects")
     plt.xlabel("Number of Locations (log scale)")
     plt.ylabel("Frequency")
-
-    # Save the plot as an image file
     plt.savefig('histogram.png')
     print("Histogram saved as 'histogram.png'")
-    
+
     # Calculate statistics
     total_projects = len(foobar_projects)
     average_locations = sum(number_of_locations) / total_projects
@@ -83,11 +58,31 @@ with client as client:
         "Minimum Number of Locations": [min_locations]
     }
 
-    df = pd.DataFrame(stats)
-    df.to_excel('project_statistics.xlsx', index=False)
+    df_stats = pd.DataFrame(stats)
+    df_stats.to_excel('project_statistics.xlsx', index=False)
     print("Statistics saved as 'project_statistics.xlsx'")
-    
+
     # Save project information to an Excel file
     df_projects = pd.DataFrame(project_info)
     df_projects.to_excel('foobar_projects.xlsx', index=False)
     print("Project information saved as 'foobar_projects.xlsx'")
+
+
+with client as client:
+    my_orgs: list[Organization] = get_organizations_organizations_get.sync(
+        client=client
+    )
+
+    foobar_org: Organization = next(
+        org for org in my_orgs if org.short_name == "foobar"
+    )
+    print(foobar_org.name, "has", foobar_org.number_of_projects, "projects.")
+
+    foobar_projects: list[Project] = (
+        get_organization_projects_organizations_organization_id_projects_get.sync(
+            client=client, organization_id=foobar_org.organization_id, limit=100000
+        )
+    )
+    print("Projects in", len(foobar_projects), "projects:")
+
+    calculate_and_save_statistics(foobar_projects)
