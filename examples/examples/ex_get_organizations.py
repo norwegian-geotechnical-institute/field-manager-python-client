@@ -29,7 +29,7 @@ from field_manager_python_client.api.organizations import (
 )
 
 # Import client setup
-from examples.examples.setup_auto_fetch_token import client
+from examples.setup_auto_fetch_token import client
 
 
 with client as client:
