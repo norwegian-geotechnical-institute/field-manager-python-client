@@ -10,6 +10,9 @@ python = "^3.10"
 python-keycloak = "^4.7.2"
 # field-manager-python-client = {path = "../field-manager-python-client", develop=true}
 field-manager-python-client = "^4.4.90rc11"
+matplotlib = "^3.9.3"
+pandas = "^2.2.3"
+openpyxl = "^3.1.5"
 
 
 [build-system]
