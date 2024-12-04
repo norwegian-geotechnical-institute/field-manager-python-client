@@ -11,7 +11,7 @@ from field_manager_python_client.api.organizations import (
 from examples.setup_auto_fetch_token import client
 
 
-def calculate_and_save_statistics(foobar_projects: list[Project]):
+def project_statistics_calculate_and_save(foobar_projects: list[Project]):
     # Collect project information for printing and saving to Excel
     project_info = []
 
@@ -85,4 +85,4 @@ with client as client:
     )
     print("Projects in", len(foobar_projects), "projects:")
 
-    calculate_and_save_statistics(foobar_projects)
+    project_statistics_calculate_and_save(foobar_projects)
