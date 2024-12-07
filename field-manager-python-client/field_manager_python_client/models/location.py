@@ -45,8 +45,8 @@ T = TypeVar("T", bound="Location")
 class Location:
     """
     Example:
-        {'location_id': '0e6343a6-159c-43fa-8893-767fbdfa7ccf', 'name': 'Loc01', 'point_easting': 1194547,
-            'point_northing': 8388298, 'point_z': 0.0, 'project_id': '09198cee-6bc6-49f8-b499-2cce0cd41716', 'srid': 3857}
+        {'location_id': '0bda031c-9264-4096-9365-94576230949a', 'name': 'Loc01', 'point_easting': 1194547,
+            'point_northing': 8388298, 'point_z': 0.0, 'project_id': 'a3fa66c3-3605-45a8-97a8-158c3077d5c1', 'srid': 3857}
 
     Attributes:
         name (str):
@@ -56,7 +56,6 @@ class Location:
         project_id (UUID):
         is_deleted (bool):
         last_updated (datetime.datetime):
-        location_type_id (Union[Unset, Any]): Use Project.standard_id instead Default: 1.
         iogp_type_id (Union[Unset, IOGPTypeEnum]): For offshore locations, an IOGP type is required
         created_by (Union[None, Unset, str]):
         updated_by (Union[None, Unset, str]):
@@ -83,7 +82,6 @@ class Location:
     project_id: UUID
     is_deleted: bool
     last_updated: datetime.datetime
-    location_type_id: Union[Unset, Any] = 1
     iogp_type_id: Union[Unset, IOGPTypeEnum] = UNSET
     created_by: Union[None, Unset, str] = UNSET
     updated_by: Union[None, Unset, str] = UNSET
@@ -170,8 +168,6 @@ class Location:
         is_deleted = self.is_deleted
 
         last_updated = self.last_updated.isoformat()
-
-        location_type_id = self.location_type_id
 
         iogp_type_id: Union[Unset, str] = UNSET
         if not isinstance(self.iogp_type_id, Unset):
@@ -324,8 +320,6 @@ class Location:
                 "last_updated": last_updated,
             }
         )
-        if location_type_id is not UNSET:
-            field_dict["location_type_id"] = location_type_id
         if iogp_type_id is not UNSET:
             field_dict["iogp_type_id"] = iogp_type_id
         if created_by is not UNSET:
@@ -400,8 +394,6 @@ class Location:
         is_deleted = d.pop("is_deleted")
 
         last_updated = isoparse(d.pop("last_updated"))
-
-        location_type_id = d.pop("location_type_id", UNSET)
 
         _iogp_type_id = d.pop("iogp_type_id", UNSET)
         iogp_type_id: Union[Unset, IOGPTypeEnum]
@@ -767,7 +759,6 @@ class Location:
             project_id=project_id,
             is_deleted=is_deleted,
             last_updated=last_updated,
-            location_type_id=location_type_id,
             iogp_type_id=iogp_type_id,
             created_by=created_by,
             updated_by=updated_by,

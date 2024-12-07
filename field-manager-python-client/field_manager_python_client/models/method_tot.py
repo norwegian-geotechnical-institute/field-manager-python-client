@@ -1,5 +1,5 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -7,7 +7,6 @@ from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
 from ..models.method_status_enum import MethodStatusEnum
-from ..models.method_tot_method_type_id import MethodTOTMethodTypeId
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -35,7 +34,7 @@ class MethodTOT:
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
         remarks (Union[None, Unset, str]):
-        method_type_id (Union[Unset, MethodTOTMethodTypeId]):  Default: MethodTOTMethodTypeId.VALUE_2.
+        method_type_id (Union[Literal[2], Unset]):  Default: 2.
         created_by (Union[None, Unset, str]):
         updated_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
@@ -58,7 +57,7 @@ class MethodTOT:
     created_at: datetime.datetime
     updated_at: datetime.datetime
     remarks: Union[None, Unset, str] = UNSET
-    method_type_id: Union[Unset, MethodTOTMethodTypeId] = MethodTOTMethodTypeId.VALUE_2
+    method_type_id: Union[Literal[2], Unset] = 2
     created_by: Union[None, Unset, str] = UNSET
     updated_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
@@ -93,9 +92,7 @@ class MethodTOT:
         else:
             remarks = self.remarks
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         created_by: Union[None, Unset, str]
         if isinstance(self.created_by, Unset):
@@ -249,12 +246,9 @@ class MethodTOT:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodTOTMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodTOTMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[2], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 2 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 2, got '{method_type_id}'")
 
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:

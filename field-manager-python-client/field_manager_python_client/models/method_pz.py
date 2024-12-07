@@ -1,12 +1,11 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_pz_method_type_id import MethodPZMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..models.piezometer_type import PiezometerType
 from ..models.transformation_type import TransformationType
@@ -45,7 +44,7 @@ class MethodPZ:
         mandatory_barometric_pressure (bool):
         mandatory_temperature (bool):
         remarks (Union[None, Unset, str]):
-        method_type_id (Union[Unset, MethodPZMethodTypeId]):  Default: MethodPZMethodTypeId.VALUE_5.
+        method_type_id (Union[Literal[5], Unset]):  Default: 5.
         created_by (Union[None, Unset, str]):
         updated_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
@@ -86,7 +85,7 @@ class MethodPZ:
     mandatory_barometric_pressure: bool
     mandatory_temperature: bool
     remarks: Union[None, Unset, str] = UNSET
-    method_type_id: Union[Unset, MethodPZMethodTypeId] = MethodPZMethodTypeId.VALUE_5
+    method_type_id: Union[Literal[5], Unset] = 5
     created_by: Union[None, Unset, str] = UNSET
     updated_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
@@ -141,9 +140,7 @@ class MethodPZ:
         else:
             remarks = self.remarks
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         created_by: Union[None, Unset, str]
         if isinstance(self.created_by, Unset):
@@ -416,12 +413,9 @@ class MethodPZ:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodPZMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodPZMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[5], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 5 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 5, got '{method_type_id}'")
 
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:

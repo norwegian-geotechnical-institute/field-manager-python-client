@@ -1,9 +1,8 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.method_srs_data_update_method_type_id import MethodSRSDataUpdateMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodSRSDataUpdate")
@@ -13,8 +12,7 @@ T = TypeVar("T", bound="MethodSRSDataUpdate")
 class MethodSRSDataUpdate:
     """
     Attributes:
-        method_type_id (Union[Unset, MethodSRSDataUpdateMethodTypeId]):  Default:
-            MethodSRSDataUpdateMethodTypeId.VALUE_24.
+        method_type_id (Union[Literal[24], Unset]):  Default: 24.
         depth (Union[None, Unset, float, str]): Depth (m). SGF code D.
         remarks (Union[None, Unset, str]): Remarks. SGF code T
         comment_code (Union[None, Unset, int]): Comment code. Two digit value.
@@ -30,7 +28,7 @@ class MethodSRSDataUpdate:
         flushing_flow (Union[None, Unset, float, str]): Flushing flow (liter/minute). SGF code J.
     """
 
-    method_type_id: Union[Unset, MethodSRSDataUpdateMethodTypeId] = MethodSRSDataUpdateMethodTypeId.VALUE_24
+    method_type_id: Union[Literal[24], Unset] = 24
     depth: Union[None, Unset, float, str] = UNSET
     remarks: Union[None, Unset, str] = UNSET
     comment_code: Union[None, Unset, int] = UNSET
@@ -47,9 +45,7 @@ class MethodSRSDataUpdate:
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         depth: Union[None, Unset, float, str]
         if isinstance(self.depth, Unset):
@@ -166,12 +162,9 @@ class MethodSRSDataUpdate:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodSRSDataUpdateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodSRSDataUpdateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[24], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 24 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 24, got '{method_type_id}'")
 
         def _parse_depth(data: object) -> Union[None, Unset, float, str]:
             if data is None:

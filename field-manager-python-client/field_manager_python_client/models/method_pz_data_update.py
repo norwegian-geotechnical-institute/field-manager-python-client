@@ -1,11 +1,10 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_pz_data_update_method_type_id import MethodPZDataUpdateMethodTypeId
 from ..models.reading_type import ReadingType
 from ..types import UNSET, Unset
 
@@ -16,7 +15,7 @@ T = TypeVar("T", bound="MethodPZDataUpdate")
 class MethodPZDataUpdate:
     """
     Attributes:
-        method_type_id (Union[Unset, MethodPZDataUpdateMethodTypeId]):  Default: MethodPZDataUpdateMethodTypeId.VALUE_5.
+        method_type_id (Union[Literal[5], Unset]):  Default: 5.
         reading_type (Union[None, ReadingType, Unset]):
         date (Union[None, Unset, datetime.datetime]):
         pore_pressure (Union[None, Unset, float, str]):
@@ -25,7 +24,7 @@ class MethodPZDataUpdate:
         remarks (Union[None, Unset, str]):
     """
 
-    method_type_id: Union[Unset, MethodPZDataUpdateMethodTypeId] = MethodPZDataUpdateMethodTypeId.VALUE_5
+    method_type_id: Union[Literal[5], Unset] = 5
     reading_type: Union[None, ReadingType, Unset] = UNSET
     date: Union[None, Unset, datetime.datetime] = UNSET
     pore_pressure: Union[None, Unset, float, str] = UNSET
@@ -35,9 +34,7 @@ class MethodPZDataUpdate:
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         reading_type: Union[None, Unset, str]
         if isinstance(self.reading_type, Unset):
@@ -102,12 +99,9 @@ class MethodPZDataUpdate:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodPZDataUpdateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodPZDataUpdateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[5], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 5 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 5, got '{method_type_id}'")
 
         def _parse_reading_type(data: object) -> Union[None, ReadingType, Unset]:
             if data is None:

@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -7,7 +7,6 @@ from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
 from ..models.dp_type import DPType
-from ..models.method_dp_create_method_type_id import MethodDPCreateMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
 
@@ -34,7 +33,7 @@ class MethodDPCreate:
         updated_by (Union[None, Unset, str]):
         conducted_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Unset, MethodDPCreateMethodTypeId]):  Default: MethodDPCreateMethodTypeId.VALUE_25.
+        method_type_id (Union[Literal[25], Unset]):  Default: 25.
         type (Union[Unset, DPType]): (Dynamic Probing) DP Type
         predrilling_depth (Union[None, Unset, float, str]):
         cone_type (Union[None, Unset, str]):
@@ -55,7 +54,7 @@ class MethodDPCreate:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Unset, MethodDPCreateMethodTypeId] = MethodDPCreateMethodTypeId.VALUE_25
+    method_type_id: Union[Literal[25], Unset] = 25
     type: Union[Unset, DPType] = UNSET
     predrilling_depth: Union[None, Unset, float, str] = UNSET
     cone_type: Union[None, Unset, str] = UNSET
@@ -129,9 +128,7 @@ class MethodDPCreate:
         else:
             conducted_at = self.conducted_at
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         type: Union[Unset, str] = UNSET
         if not isinstance(self.type, Unset):
@@ -340,12 +337,9 @@ class MethodDPCreate:
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodDPCreateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodDPCreateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[25], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 25 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 25, got '{method_type_id}'")
 
         _type = d.pop("type", UNSET)
         type: Union[Unset, DPType]

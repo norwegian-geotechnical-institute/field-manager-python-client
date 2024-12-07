@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_ss_create_method_type_id import MethodSSCreateMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
 
@@ -33,7 +32,7 @@ class MethodSSCreate:
         updated_by (Union[None, Unset, str]):
         conducted_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Unset, MethodSSCreateMethodTypeId]):  Default: MethodSSCreateMethodTypeId.VALUE_6.
+        method_type_id (Union[Literal[6], Unset]):  Default: 6.
         stopcode (Union[None, Unset, int]):
     """
 
@@ -47,7 +46,7 @@ class MethodSSCreate:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Unset, MethodSSCreateMethodTypeId] = MethodSSCreateMethodTypeId.VALUE_6
+    method_type_id: Union[Literal[6], Unset] = 6
     stopcode: Union[None, Unset, int] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -114,9 +113,7 @@ class MethodSSCreate:
         else:
             conducted_at = self.conducted_at
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         stopcode: Union[None, Unset, int]
         if isinstance(self.stopcode, Unset):
@@ -271,12 +268,9 @@ class MethodSSCreate:
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodSSCreateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodSSCreateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[6], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 6 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 6, got '{method_type_id}'")
 
         def _parse_stopcode(data: object) -> Union[None, Unset, int]:
             if data is None:

@@ -1,12 +1,11 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_iw_method_type_id import MethodIWMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
 
@@ -34,7 +33,7 @@ class MethodIW:
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
         remarks (Union[None, Unset, str]):
-        method_type_id (Union[Unset, MethodIWMethodTypeId]):  Default: MethodIWMethodTypeId.VALUE_21.
+        method_type_id (Union[Literal[21], Unset]):  Default: 21.
         created_by (Union[None, Unset, str]):
         updated_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
@@ -50,7 +49,7 @@ class MethodIW:
     created_at: datetime.datetime
     updated_at: datetime.datetime
     remarks: Union[None, Unset, str] = UNSET
-    method_type_id: Union[Unset, MethodIWMethodTypeId] = MethodIWMethodTypeId.VALUE_21
+    method_type_id: Union[Literal[21], Unset] = 21
     created_by: Union[None, Unset, str] = UNSET
     updated_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
@@ -78,9 +77,7 @@ class MethodIW:
         else:
             remarks = self.remarks
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         created_by: Union[None, Unset, str]
         if isinstance(self.created_by, Unset):
@@ -178,12 +175,9 @@ class MethodIW:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodIWMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodIWMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[21], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 21 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 21, got '{method_type_id}'")
 
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:
