@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_pz_update_method_type_id import MethodPZUpdateMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..models.piezometer_type import PiezometerType
 from ..models.transformation_type import TransformationType
@@ -27,7 +26,7 @@ class MethodPZUpdate:
         updated_by (Union[None, Unset, str]):
         conducted_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Unset, MethodPZUpdateMethodTypeId]):  Default: MethodPZUpdateMethodTypeId.VALUE_5.
+        method_type_id (Union[Literal[5], Unset]):  Default: 5.
         piezometer_type (Union[None, PiezometerType, Unset]):
         depth_top (Union[None, Unset, float, str]):
         depth_base (Union[None, Unset, float, str]):
@@ -55,7 +54,7 @@ class MethodPZUpdate:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Unset, MethodPZUpdateMethodTypeId] = MethodPZUpdateMethodTypeId.VALUE_5
+    method_type_id: Union[Literal[5], Unset] = 5
     piezometer_type: Union[None, PiezometerType, Unset] = UNSET
     depth_top: Union[None, Unset, float, str] = UNSET
     depth_base: Union[None, Unset, float, str] = UNSET
@@ -132,9 +131,7 @@ class MethodPZUpdate:
         else:
             conducted_at = self.conducted_at
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         piezometer_type: Union[None, Unset, str]
         if isinstance(self.piezometer_type, Unset):
@@ -410,12 +407,9 @@ class MethodPZUpdate:
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodPZUpdateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodPZUpdateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[5], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 5 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 5, got '{method_type_id}'")
 
         def _parse_piezometer_type(data: object) -> Union[None, PiezometerType, Unset]:
             if data is None:

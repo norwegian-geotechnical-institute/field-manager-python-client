@@ -7,7 +7,6 @@ from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
 from ..models.iogp_type_enum import IOGPTypeEnum
-from ..models.location_type_enum import LocationTypeEnum
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -24,7 +23,6 @@ class LocationSummary:
         location_id (UUID):
         name (str):
         last_updated (datetime.datetime):
-        location_type_id (Union[LocationTypeEnum, None, Unset]): Use Project.standard_id instead
         iogp_type_id (Union[IOGPTypeEnum, None, Unset]):
         point_easting (Union[None, Unset, float]):
         point_northing (Union[None, Unset, float]):
@@ -41,7 +39,6 @@ class LocationSummary:
     location_id: UUID
     name: str
     last_updated: datetime.datetime
-    location_type_id: Union[LocationTypeEnum, None, Unset] = UNSET
     iogp_type_id: Union[IOGPTypeEnum, None, Unset] = UNSET
     point_easting: Union[None, Unset, float] = UNSET
     point_northing: Union[None, Unset, float] = UNSET
@@ -61,14 +58,6 @@ class LocationSummary:
         name = self.name
 
         last_updated = self.last_updated.isoformat()
-
-        location_type_id: Union[None, Unset, int]
-        if isinstance(self.location_type_id, Unset):
-            location_type_id = UNSET
-        elif isinstance(self.location_type_id, LocationTypeEnum):
-            location_type_id = self.location_type_id.value
-        else:
-            location_type_id = self.location_type_id
 
         iogp_type_id: Union[None, Unset, str]
         if isinstance(self.iogp_type_id, Unset):
@@ -146,8 +135,6 @@ class LocationSummary:
                 "last_updated": last_updated,
             }
         )
-        if location_type_id is not UNSET:
-            field_dict["location_type_id"] = location_type_id
         if iogp_type_id is not UNSET:
             field_dict["iogp_type_id"] = iogp_type_id
         if point_easting is not UNSET:
@@ -183,23 +170,6 @@ class LocationSummary:
         name = d.pop("name")
 
         last_updated = isoparse(d.pop("last_updated"))
-
-        def _parse_location_type_id(data: object) -> Union[LocationTypeEnum, None, Unset]:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, int):
-                    raise TypeError()
-                location_type_id_type_0 = LocationTypeEnum(data)
-
-                return location_type_id_type_0
-            except:  # noqa: E722
-                pass
-            return cast(Union[LocationTypeEnum, None, Unset], data)
-
-        location_type_id = _parse_location_type_id(d.pop("location_type_id", UNSET))
 
         def _parse_iogp_type_id(data: object) -> Union[IOGPTypeEnum, None, Unset]:
             if data is None:
@@ -303,7 +273,6 @@ class LocationSummary:
             location_id=location_id,
             name=name,
             last_updated=last_updated,
-            location_type_id=location_type_id,
             iogp_type_id=iogp_type_id,
             point_easting=point_easting,
             point_northing=point_northing,

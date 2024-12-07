@@ -7,7 +7,6 @@ from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
 from ..models.iogp_type_enum import IOGPTypeEnum
-from ..models.location_type_enum import LocationTypeEnum
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -80,7 +79,6 @@ class LocationUpdate:
         point_northing (Union[None, Unset, float]):
         point_z (Union[None, Unset, float]):
         srid (Union[None, Unset, int]):
-        location_type_id (Union[LocationTypeEnum, None, Unset]): Use Project.standard_id instead
         tags (Union[List[str], None, Unset]):
         methods (Union[Unset, List[Union['MethodADCreate', 'MethodADUpdate', 'MethodCDCreate', 'MethodCDUpdate',
             'MethodCPTCreate', 'MethodCPTUpdate', 'MethodDPCreate', 'MethodDPUpdate', 'MethodDTCreate', 'MethodDTUpdate',
@@ -103,7 +101,6 @@ class LocationUpdate:
     point_northing: Union[None, Unset, float] = UNSET
     point_z: Union[None, Unset, float] = UNSET
     srid: Union[None, Unset, int] = UNSET
-    location_type_id: Union[LocationTypeEnum, None, Unset] = UNSET
     tags: Union[List[str], None, Unset] = UNSET
     methods: Union[
         Unset,
@@ -283,14 +280,6 @@ class LocationUpdate:
         else:
             srid = self.srid
 
-        location_type_id: Union[None, Unset, int]
-        if isinstance(self.location_type_id, Unset):
-            location_type_id = UNSET
-        elif isinstance(self.location_type_id, LocationTypeEnum):
-            location_type_id = self.location_type_id.value
-        else:
-            location_type_id = self.location_type_id
-
         tags: Union[List[str], None, Unset]
         if isinstance(self.tags, Unset):
             tags = UNSET
@@ -431,8 +420,6 @@ class LocationUpdate:
             field_dict["point_z"] = point_z
         if srid is not UNSET:
             field_dict["srid"] = srid
-        if location_type_id is not UNSET:
-            field_dict["location_type_id"] = location_type_id
         if tags is not UNSET:
             field_dict["tags"] = tags
         if methods is not UNSET:
@@ -616,23 +603,6 @@ class LocationUpdate:
             return cast(Union[None, Unset, int], data)
 
         srid = _parse_srid(d.pop("srid", UNSET))
-
-        def _parse_location_type_id(data: object) -> Union[LocationTypeEnum, None, Unset]:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, int):
-                    raise TypeError()
-                location_type_id_type_0 = LocationTypeEnum(data)
-
-                return location_type_id_type_0
-            except:  # noqa: E722
-                pass
-            return cast(Union[LocationTypeEnum, None, Unset], data)
-
-        location_type_id = _parse_location_type_id(d.pop("location_type_id", UNSET))
 
         def _parse_tags(data: object) -> Union[List[str], None, Unset]:
             if data is None:
@@ -1122,7 +1092,6 @@ class LocationUpdate:
             point_northing=point_northing,
             point_z=point_z,
             srid=srid,
-            location_type_id=location_type_id,
             tags=tags,
             methods=methods,
         )
