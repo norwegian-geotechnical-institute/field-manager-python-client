@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_rcd_update_method_type_id import MethodRCDUpdateMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
 
@@ -25,7 +24,7 @@ class MethodRCDUpdate:
         updated_by (Union[None, Unset, str]):
         conducted_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Unset, MethodRCDUpdateMethodTypeId]):  Default: MethodRCDUpdateMethodTypeId.VALUE_8.
+        method_type_id (Union[Literal[8], Unset]):  Default: 8.
         stopcode (Union[None, Unset, int]):
     """
 
@@ -37,7 +36,7 @@ class MethodRCDUpdate:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Unset, MethodRCDUpdateMethodTypeId] = MethodRCDUpdateMethodTypeId.VALUE_8
+    method_type_id: Union[Literal[8], Unset] = 8
     stopcode: Union[None, Unset, int] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -98,9 +97,7 @@ class MethodRCDUpdate:
         else:
             conducted_at = self.conducted_at
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         stopcode: Union[None, Unset, int]
         if isinstance(self.stopcode, Unset):
@@ -242,12 +239,9 @@ class MethodRCDUpdate:
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodRCDUpdateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodRCDUpdateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[8], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 8 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 8, got '{method_type_id}'")
 
         def _parse_stopcode(data: object) -> Union[None, Unset, int]:
             if data is None:

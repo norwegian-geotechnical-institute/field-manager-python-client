@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_wst_data_create_method_type_id import MethodWSTDataCreateMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodWSTDataCreate")
@@ -19,8 +18,7 @@ class MethodWSTDataCreate:
         depth (Union[float, str]): Depth (m)
         method_data_id (Union[None, UUID, Unset]):
         method_id (Union[None, UUID, Unset]):
-        method_type_id (Union[Unset, MethodWSTDataCreateMethodTypeId]):  Default:
-            MethodWSTDataCreateMethodTypeId.VALUE_26.
+        method_type_id (Union[Literal[26], Unset]):  Default: 26.
         created_at (Union[None, Unset, datetime.datetime]):
         updated_at (Union[None, Unset, datetime.datetime]):
         turning (Union[None, Unset, float, str]): Turning (half revolution/0.2 m)
@@ -33,7 +31,7 @@ class MethodWSTDataCreate:
     depth: Union[float, str]
     method_data_id: Union[None, UUID, Unset] = UNSET
     method_id: Union[None, UUID, Unset] = UNSET
-    method_type_id: Union[Unset, MethodWSTDataCreateMethodTypeId] = MethodWSTDataCreateMethodTypeId.VALUE_26
+    method_type_id: Union[Literal[26], Unset] = 26
     created_at: Union[None, Unset, datetime.datetime] = UNSET
     updated_at: Union[None, Unset, datetime.datetime] = UNSET
     turning: Union[None, Unset, float, str] = UNSET
@@ -63,9 +61,7 @@ class MethodWSTDataCreate:
         else:
             method_id = self.method_id
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         created_at: Union[None, Unset, str]
         if isinstance(self.created_at, Unset):
@@ -186,12 +182,9 @@ class MethodWSTDataCreate:
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodWSTDataCreateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodWSTDataCreateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[26], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 26 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 26, got '{method_type_id}'")
 
         def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:

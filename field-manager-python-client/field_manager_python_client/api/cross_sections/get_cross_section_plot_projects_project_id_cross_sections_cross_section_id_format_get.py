@@ -62,8 +62,6 @@ def sync_detailed(
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Get Cross Section Plot
 
-     Create a new cross section for a project.
-
     Args:
         project_id (str):
         cross_section_id (UUID):
@@ -99,8 +97,6 @@ def sync(
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Get Cross Section Plot
 
-     Create a new cross section for a project.
-
     Args:
         project_id (str):
         cross_section_id (UUID):
@@ -130,8 +126,6 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Get Cross Section Plot
-
-     Create a new cross section for a project.
 
     Args:
         project_id (str):
@@ -165,8 +159,6 @@ async def asyncio(
     client: AuthenticatedClient,
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Get Cross Section Plot
-
-     Create a new cross section for a project.
 
     Args:
         project_id (str):

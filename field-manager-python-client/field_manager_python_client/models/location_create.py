@@ -49,7 +49,6 @@ class LocationCreate:
 
     Attributes:
         name (str):
-        location_type_id (Union[Unset, Any]): Use Project.standard_id instead Default: 1.
         iogp_type_id (Union[Unset, IOGPTypeEnum]): For offshore locations, an IOGP type is required
         created_at (Union[None, Unset, datetime.datetime]):
         created_by (Union[None, Unset, str]):
@@ -73,7 +72,6 @@ class LocationCreate:
     """
 
     name: str
-    location_type_id: Union[Unset, Any] = 1
     iogp_type_id: Union[Unset, IOGPTypeEnum] = UNSET
     created_at: Union[None, Unset, datetime.datetime] = UNSET
     created_by: Union[None, Unset, str] = UNSET
@@ -150,8 +148,6 @@ class LocationCreate:
         from ..models.method_tp_create import MethodTPCreate
 
         name = self.name
-
-        location_type_id = self.location_type_id
 
         iogp_type_id: Union[Unset, str] = UNSET
         if not isinstance(self.iogp_type_id, Unset):
@@ -310,8 +306,6 @@ class LocationCreate:
                 "name": name,
             }
         )
-        if location_type_id is not UNSET:
-            field_dict["location_type_id"] = location_type_id
         if iogp_type_id is not UNSET:
             field_dict["iogp_type_id"] = iogp_type_id
         if created_at is not UNSET:
@@ -377,8 +371,6 @@ class LocationCreate:
 
         d = src_dict.copy()
         name = d.pop("name")
-
-        location_type_id = d.pop("location_type_id", UNSET)
 
         _iogp_type_id = d.pop("iogp_type_id", UNSET)
         iogp_type_id: Union[Unset, IOGPTypeEnum]
@@ -767,7 +759,6 @@ class LocationCreate:
 
         location_create = cls(
             name=name,
-            location_type_id=location_type_id,
             iogp_type_id=iogp_type_id,
             created_at=created_at,
             created_by=created_by,
