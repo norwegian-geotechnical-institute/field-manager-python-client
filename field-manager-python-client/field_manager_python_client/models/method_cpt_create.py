@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -7,7 +7,6 @@ from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
 from ..models.application_class_enum import ApplicationClassEnum
-from ..models.method_cpt_create_method_type_id import MethodCPTCreateMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
 
@@ -35,7 +34,7 @@ class MethodCPTCreate:
         updated_by (Union[None, Unset, str]):
         conducted_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Unset, MethodCPTCreateMethodTypeId]):  Default: MethodCPTCreateMethodTypeId.VALUE_1.
+        method_type_id (Union[Literal[1], Unset]):  Default: 1.
         predrilling_depth (Union[None, Unset, float, str]):
         cone_reference (Union[None, Unset, str]):
         water_depth (Union[None, Unset, float, str]):
@@ -85,7 +84,7 @@ class MethodCPTCreate:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Unset, MethodCPTCreateMethodTypeId] = MethodCPTCreateMethodTypeId.VALUE_1
+    method_type_id: Union[Literal[1], Unset] = 1
     predrilling_depth: Union[None, Unset, float, str] = UNSET
     cone_reference: Union[None, Unset, str] = UNSET
     water_depth: Union[None, Unset, float, str] = UNSET
@@ -160,9 +159,7 @@ class MethodCPTCreate:
         else:
             conducted_at = self.conducted_at
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         predrilling_depth: Union[None, Unset, float, str]
         if isinstance(self.predrilling_depth, Unset):
@@ -373,12 +370,9 @@ class MethodCPTCreate:
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodCPTCreateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodCPTCreateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[1], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 1 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 1, got '{method_type_id}'")
 
         def _parse_predrilling_depth(data: object) -> Union[None, Unset, float, str]:
             if data is None:

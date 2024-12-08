@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_dt_data_method_type_id import MethodDTDataMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodDTData")
@@ -20,7 +19,7 @@ class MethodDTData:
         method_id (UUID):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        method_type_id (Union[Unset, MethodDTDataMethodTypeId]):  Default: MethodDTDataMethodTypeId.VALUE_22.
+        method_type_id (Union[Literal[22], Unset]):  Default: 22.
         depth (Union[None, Unset, float]): Depth (m). SGF code D.
         time (Union[None, Unset, float]): Time (s).
         qc (Union[None, Unset, float]): Cone resistance (MPa). SGF code QC.
@@ -32,7 +31,7 @@ class MethodDTData:
     method_id: UUID
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    method_type_id: Union[Unset, MethodDTDataMethodTypeId] = MethodDTDataMethodTypeId.VALUE_22
+    method_type_id: Union[Literal[22], Unset] = 22
     depth: Union[None, Unset, float] = UNSET
     time: Union[None, Unset, float] = UNSET
     qc: Union[None, Unset, float] = UNSET
@@ -49,9 +48,7 @@ class MethodDTData:
 
         updated_at = self.updated_at.isoformat()
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         depth: Union[None, Unset, float]
         if isinstance(self.depth, Unset):
@@ -119,12 +116,9 @@ class MethodDTData:
 
         updated_at = isoparse(d.pop("updated_at"))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodDTDataMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodDTDataMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[22], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 22 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 22, got '{method_type_id}'")
 
         def _parse_depth(data: object) -> Union[None, Unset, float]:
             if data is None:

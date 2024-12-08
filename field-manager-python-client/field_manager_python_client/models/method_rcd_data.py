@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_rcd_data_method_type_id import MethodRCDDataMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodRCDData")
@@ -21,7 +20,7 @@ class MethodRCDData:
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
         depth (float): Depth (m). SGF code D.
-        method_type_id (Union[Unset, MethodRCDDataMethodTypeId]):  Default: MethodRCDDataMethodTypeId.VALUE_8.
+        method_type_id (Union[Literal[8], Unset]):  Default: 8.
         remarks (Union[None, Unset, str]): Remarks. SGF code T
         comment_code (Union[None, Unset, int]): Comment code. Two digit value.
         penetration_rate (Union[None, Unset, float]): Penetration rate (mm/s). SGF code B.
@@ -32,7 +31,7 @@ class MethodRCDData:
     created_at: datetime.datetime
     updated_at: datetime.datetime
     depth: float
-    method_type_id: Union[Unset, MethodRCDDataMethodTypeId] = MethodRCDDataMethodTypeId.VALUE_8
+    method_type_id: Union[Literal[8], Unset] = 8
     remarks: Union[None, Unset, str] = UNSET
     comment_code: Union[None, Unset, int] = UNSET
     penetration_rate: Union[None, Unset, float] = UNSET
@@ -49,9 +48,7 @@ class MethodRCDData:
 
         depth = self.depth
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         remarks: Union[None, Unset, str]
         if isinstance(self.remarks, Unset):
@@ -106,12 +103,9 @@ class MethodRCDData:
 
         depth = d.pop("depth")
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodRCDDataMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodRCDDataMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[8], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 8 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 8, got '{method_type_id}'")
 
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:

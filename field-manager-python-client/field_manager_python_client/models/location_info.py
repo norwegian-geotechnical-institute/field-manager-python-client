@@ -6,7 +6,6 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.location_type_enum import LocationTypeEnum
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -21,10 +20,6 @@ class LocationInfo:
     """
     Attributes:
         location_id (UUID):
-        location_type (LocationTypeEnum): (
-            ONSHORE=1,
-            OFFSHORE=2,
-            )
         created_at (datetime.datetime):
         coordinates (LocationCoordinates):
         location_name (Union[None, Unset, str]):
@@ -32,7 +27,6 @@ class LocationInfo:
     """
 
     location_id: UUID
-    location_type: LocationTypeEnum
     created_at: datetime.datetime
     coordinates: "LocationCoordinates"
     location_name: Union[None, Unset, str] = UNSET
@@ -41,8 +35,6 @@ class LocationInfo:
 
     def to_dict(self) -> Dict[str, Any]:
         location_id = str(self.location_id)
-
-        location_type = self.location_type.value
 
         created_at = self.created_at.isoformat()
 
@@ -65,7 +57,6 @@ class LocationInfo:
         field_dict.update(
             {
                 "location_id": location_id,
-                "location_type": location_type,
                 "created_at": created_at,
                 "coordinates": coordinates,
             }
@@ -83,8 +74,6 @@ class LocationInfo:
 
         d = src_dict.copy()
         location_id = UUID(d.pop("location_id"))
-
-        location_type = LocationTypeEnum(d.pop("location_type"))
 
         created_at = isoparse(d.pop("created_at"))
 
@@ -110,7 +99,6 @@ class LocationInfo:
 
         location_info = cls(
             location_id=location_id,
-            location_type=location_type,
             created_at=created_at,
             coordinates=coordinates,
             location_name=location_name,

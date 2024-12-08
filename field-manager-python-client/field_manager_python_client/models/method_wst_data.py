@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_wst_data_method_type_id import MethodWSTDataMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodWSTData")
@@ -21,7 +20,7 @@ class MethodWSTData:
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
         depth (float): Depth (m). SGF code D.
-        method_type_id (Union[Unset, MethodWSTDataMethodTypeId]):  Default: MethodWSTDataMethodTypeId.VALUE_26.
+        method_type_id (Union[Literal[26], Unset]):  Default: 26.
         turning (Union[None, Unset, float]): Turning (half revolution/0.2 m)
         load (Union[None, Unset, float]): Load (kN)
         penetration_rate (Union[None, Unset, float]): Penetration rate (mm/s)
@@ -34,7 +33,7 @@ class MethodWSTData:
     created_at: datetime.datetime
     updated_at: datetime.datetime
     depth: float
-    method_type_id: Union[Unset, MethodWSTDataMethodTypeId] = MethodWSTDataMethodTypeId.VALUE_26
+    method_type_id: Union[Literal[26], Unset] = 26
     turning: Union[None, Unset, float] = UNSET
     load: Union[None, Unset, float] = UNSET
     penetration_rate: Union[None, Unset, float] = UNSET
@@ -53,9 +52,7 @@ class MethodWSTData:
 
         depth = self.depth
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         turning: Union[None, Unset, float]
         if isinstance(self.turning, Unset):
@@ -126,12 +123,9 @@ class MethodWSTData:
 
         depth = d.pop("depth")
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodWSTDataMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodWSTDataMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[26], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 26 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 26, got '{method_type_id}'")
 
         def _parse_turning(data: object) -> Union[None, Unset, float]:
             if data is None:
