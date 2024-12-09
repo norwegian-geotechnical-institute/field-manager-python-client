@@ -10,7 +10,6 @@ from ...models.body_upload_locations_to_project_projects_project_id_locations_up
 )
 from ...models.http_validation_error import HTTPValidationError
 from ...models.location import Location
-from ...models.location_type_enum import LocationTypeEnum
 from ...types import UNSET, Response, Unset
 
 
@@ -20,7 +19,6 @@ def _get_kwargs(
     body: BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost,
     srid: Union[None, Unset, int] = UNSET,
     swap_x_y: Union[None, Unset, bool] = False,
-    location_type_id: Union[Unset, LocationTypeEnum] = UNSET,
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
@@ -39,12 +37,6 @@ def _get_kwargs(
     else:
         json_swap_x_y = swap_x_y
     params["swap_x_y"] = json_swap_x_y
-
-    json_location_type_id: Union[Unset, int] = UNSET
-    if not isinstance(location_type_id, Unset):
-        json_location_type_id = location_type_id.value
-
-    params["location_type_id"] = json_location_type_id
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -102,7 +94,6 @@ def sync_detailed(
     body: BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost,
     srid: Union[None, Unset, int] = UNSET,
     swap_x_y: Union[None, Unset, bool] = False,
-    location_type_id: Union[Unset, LocationTypeEnum] = UNSET,
 ) -> Response[Union[HTTPValidationError, List["Location"]]]:
     """Upload Locations To Project
 
@@ -118,10 +109,6 @@ def sync_detailed(
         project_id (str):
         srid (Union[None, Unset, int]):
         swap_x_y (Union[None, Unset, bool]):  Default: False.
-        location_type_id (Union[Unset, LocationTypeEnum]): (
-            ONSHORE=1,
-            OFFSHORE=2,
-            )
         body (BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost):
 
     Raises:
@@ -137,7 +124,6 @@ def sync_detailed(
         body=body,
         srid=srid,
         swap_x_y=swap_x_y,
-        location_type_id=location_type_id,
     )
 
     response = client.get_httpx_client().request(
@@ -154,7 +140,6 @@ def sync(
     body: BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost,
     srid: Union[None, Unset, int] = UNSET,
     swap_x_y: Union[None, Unset, bool] = False,
-    location_type_id: Union[Unset, LocationTypeEnum] = UNSET,
 ) -> Optional[Union[HTTPValidationError, List["Location"]]]:
     """Upload Locations To Project
 
@@ -170,10 +155,6 @@ def sync(
         project_id (str):
         srid (Union[None, Unset, int]):
         swap_x_y (Union[None, Unset, bool]):  Default: False.
-        location_type_id (Union[Unset, LocationTypeEnum]): (
-            ONSHORE=1,
-            OFFSHORE=2,
-            )
         body (BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost):
 
     Raises:
@@ -190,7 +171,6 @@ def sync(
         body=body,
         srid=srid,
         swap_x_y=swap_x_y,
-        location_type_id=location_type_id,
     ).parsed
 
 
@@ -201,7 +181,6 @@ async def asyncio_detailed(
     body: BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost,
     srid: Union[None, Unset, int] = UNSET,
     swap_x_y: Union[None, Unset, bool] = False,
-    location_type_id: Union[Unset, LocationTypeEnum] = UNSET,
 ) -> Response[Union[HTTPValidationError, List["Location"]]]:
     """Upload Locations To Project
 
@@ -217,10 +196,6 @@ async def asyncio_detailed(
         project_id (str):
         srid (Union[None, Unset, int]):
         swap_x_y (Union[None, Unset, bool]):  Default: False.
-        location_type_id (Union[Unset, LocationTypeEnum]): (
-            ONSHORE=1,
-            OFFSHORE=2,
-            )
         body (BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost):
 
     Raises:
@@ -236,7 +211,6 @@ async def asyncio_detailed(
         body=body,
         srid=srid,
         swap_x_y=swap_x_y,
-        location_type_id=location_type_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -251,7 +225,6 @@ async def asyncio(
     body: BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost,
     srid: Union[None, Unset, int] = UNSET,
     swap_x_y: Union[None, Unset, bool] = False,
-    location_type_id: Union[Unset, LocationTypeEnum] = UNSET,
 ) -> Optional[Union[HTTPValidationError, List["Location"]]]:
     """Upload Locations To Project
 
@@ -267,10 +240,6 @@ async def asyncio(
         project_id (str):
         srid (Union[None, Unset, int]):
         swap_x_y (Union[None, Unset, bool]):  Default: False.
-        location_type_id (Union[Unset, LocationTypeEnum]): (
-            ONSHORE=1,
-            OFFSHORE=2,
-            )
         body (BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost):
 
     Raises:
@@ -288,6 +257,5 @@ async def asyncio(
             body=body,
             srid=srid,
             swap_x_y=swap_x_y,
-            location_type_id=location_type_id,
         )
     ).parsed

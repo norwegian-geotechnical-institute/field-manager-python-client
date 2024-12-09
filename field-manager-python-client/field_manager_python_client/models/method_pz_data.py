@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_pz_data_method_type_id import MethodPZDataMethodTypeId
 from ..models.reading_type import ReadingType
 from ..types import UNSET, Unset
 
@@ -23,7 +22,7 @@ class MethodPZData:
         updated_at (datetime.datetime):
         reading_type (ReadingType):
         date (datetime.datetime):
-        method_type_id (Union[Unset, MethodPZDataMethodTypeId]):  Default: MethodPZDataMethodTypeId.VALUE_5.
+        method_type_id (Union[Literal[5], Unset]):  Default: 5.
         pore_pressure (Union[None, Unset, float]):
         barometric_pressure (Union[None, Unset, float]):
         temperature (Union[None, Unset, float]):
@@ -39,7 +38,7 @@ class MethodPZData:
     updated_at: datetime.datetime
     reading_type: ReadingType
     date: datetime.datetime
-    method_type_id: Union[Unset, MethodPZDataMethodTypeId] = MethodPZDataMethodTypeId.VALUE_5
+    method_type_id: Union[Literal[5], Unset] = 5
     pore_pressure: Union[None, Unset, float] = UNSET
     barometric_pressure: Union[None, Unset, float] = UNSET
     temperature: Union[None, Unset, float] = UNSET
@@ -62,9 +61,7 @@ class MethodPZData:
 
         date = self.date.isoformat()
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         pore_pressure: Union[None, Unset, float]
         if isinstance(self.pore_pressure, Unset):
@@ -154,12 +151,9 @@ class MethodPZData:
 
         date = isoparse(d.pop("date"))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodPZDataMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodPZDataMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[5], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 5 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 5, got '{method_type_id}'")
 
         def _parse_pore_pressure(data: object) -> Union[None, Unset, float]:
             if data is None:
