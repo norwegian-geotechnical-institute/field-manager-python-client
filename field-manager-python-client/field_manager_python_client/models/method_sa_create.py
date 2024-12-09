@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_sa_create_method_type_id import MethodSACreateMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
 
@@ -33,7 +32,7 @@ class MethodSACreate:
         updated_by (Union[None, Unset, str]):
         conducted_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Unset, MethodSACreateMethodTypeId]):  Default: MethodSACreateMethodTypeId.VALUE_4.
+        method_type_id (Union[Literal[4], Unset]):  Default: 4.
         depth_top (Union[None, Unset, float, str]):
         depth_base (Union[None, Unset, float, str]):
         diameter (Union[None, Unset, float, str]):
@@ -54,7 +53,7 @@ class MethodSACreate:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Unset, MethodSACreateMethodTypeId] = MethodSACreateMethodTypeId.VALUE_4
+    method_type_id: Union[Literal[4], Unset] = 4
     depth_top: Union[None, Unset, float, str] = UNSET
     depth_base: Union[None, Unset, float, str] = UNSET
     diameter: Union[None, Unset, float, str] = UNSET
@@ -128,9 +127,7 @@ class MethodSACreate:
         else:
             conducted_at = self.conducted_at
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         depth_top: Union[None, Unset, float, str]
         if isinstance(self.depth_top, Unset):
@@ -339,12 +336,9 @@ class MethodSACreate:
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodSACreateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodSACreateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[4], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 4 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 4, got '{method_type_id}'")
 
         def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
             if data is None:

@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_srs_update_method_type_id import MethodSRSUpdateMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..models.sounding_class import SoundingClass
 from ..types import UNSET, Unset
@@ -26,7 +25,7 @@ class MethodSRSUpdate:
         updated_by (Union[None, Unset, str]):
         conducted_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Unset, MethodSRSUpdateMethodTypeId]):  Default: MethodSRSUpdateMethodTypeId.VALUE_24.
+        method_type_id (Union[Literal[24], Unset]):  Default: 24.
         sounding_class (Union[None, SoundingClass, Unset]):
         serial_number (Union[None, Unset, str]):
         calibration_date (Union[None, Unset, datetime.datetime]):
@@ -41,7 +40,7 @@ class MethodSRSUpdate:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Unset, MethodSRSUpdateMethodTypeId] = MethodSRSUpdateMethodTypeId.VALUE_24
+    method_type_id: Union[Literal[24], Unset] = 24
     sounding_class: Union[None, SoundingClass, Unset] = UNSET
     serial_number: Union[None, Unset, str] = UNSET
     calibration_date: Union[None, Unset, datetime.datetime] = UNSET
@@ -105,9 +104,7 @@ class MethodSRSUpdate:
         else:
             conducted_at = self.conducted_at
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         sounding_class: Union[None, Unset, str]
         if isinstance(self.sounding_class, Unset):
@@ -277,12 +274,9 @@ class MethodSRSUpdate:
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodSRSUpdateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodSRSUpdateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[24], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 24 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 24, got '{method_type_id}'")
 
         def _parse_sounding_class(data: object) -> Union[None, SoundingClass, Unset]:
             if data is None:

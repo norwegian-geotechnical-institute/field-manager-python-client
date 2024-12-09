@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_srs_data_method_type_id import MethodSRSDataMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodSRSData")
@@ -21,7 +20,7 @@ class MethodSRSData:
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
         depth (float): Depth (m). SGF code D.
-        method_type_id (Union[Unset, MethodSRSDataMethodTypeId]):  Default: MethodSRSDataMethodTypeId.VALUE_24.
+        method_type_id (Union[Literal[24], Unset]):  Default: 24.
         remarks (Union[None, Unset, str]): Remarks. SGF code T
         comment_code (Union[None, Unset, int]): Comment code. Two digit value.
         penetration_rate (Union[None, Unset, float]): Penetration rate (mm/s). SGF code B.
@@ -41,7 +40,7 @@ class MethodSRSData:
     created_at: datetime.datetime
     updated_at: datetime.datetime
     depth: float
-    method_type_id: Union[Unset, MethodSRSDataMethodTypeId] = MethodSRSDataMethodTypeId.VALUE_24
+    method_type_id: Union[Literal[24], Unset] = 24
     remarks: Union[None, Unset, str] = UNSET
     comment_code: Union[None, Unset, int] = UNSET
     penetration_rate: Union[None, Unset, float] = UNSET
@@ -67,9 +66,7 @@ class MethodSRSData:
 
         depth = self.depth
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         remarks: Union[None, Unset, str]
         if isinstance(self.remarks, Unset):
@@ -196,12 +193,9 @@ class MethodSRSData:
 
         depth = d.pop("depth")
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodSRSDataMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodSRSDataMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[24], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 24 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 24, got '{method_type_id}'")
 
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:

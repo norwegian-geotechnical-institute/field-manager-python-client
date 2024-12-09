@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_esa_update_method_type_id import MethodESAUpdateMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
 
@@ -25,7 +24,7 @@ class MethodESAUpdate:
         updated_by (Union[None, Unset, str]):
         conducted_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Unset, MethodESAUpdateMethodTypeId]):  Default: MethodESAUpdateMethodTypeId.VALUE_15.
+        method_type_id (Union[Literal[15], Unset]):  Default: 15.
     """
 
     method_id: Union[None, UUID, Unset] = UNSET
@@ -36,7 +35,7 @@ class MethodESAUpdate:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Unset, MethodESAUpdateMethodTypeId] = MethodESAUpdateMethodTypeId.VALUE_15
+    method_type_id: Union[Literal[15], Unset] = 15
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -96,9 +95,7 @@ class MethodESAUpdate:
         else:
             conducted_at = self.conducted_at
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -232,12 +229,9 @@ class MethodESAUpdate:
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodESAUpdateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodESAUpdateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[15], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 15 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 15, got '{method_type_id}'")
 
         method_esa_update = cls(
             method_id=method_id,

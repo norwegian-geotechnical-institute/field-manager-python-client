@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -7,7 +7,6 @@ from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
 from ..models.method_status_enum import MethodStatusEnum
-from ..models.method_svt_update_method_type_id import MethodSVTUpdateMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodSVTUpdate")
@@ -25,7 +24,7 @@ class MethodSVTUpdate:
         updated_by (Union[None, Unset, str]):
         conducted_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Unset, MethodSVTUpdateMethodTypeId]):  Default: MethodSVTUpdateMethodTypeId.VALUE_10.
+        method_type_id (Union[Literal[10], Unset]):  Default: 10.
         vane_height (Union[None, Unset, float, str]): Height of the vane used (mm).
         vane_diameter (Union[None, Unset, float, str]): Diameter of the vane used (mm).
         serial_number (Union[None, Unset, str]): Serial number of the vane used.
@@ -42,7 +41,7 @@ class MethodSVTUpdate:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Unset, MethodSVTUpdateMethodTypeId] = MethodSVTUpdateMethodTypeId.VALUE_10
+    method_type_id: Union[Literal[10], Unset] = 10
     vane_height: Union[None, Unset, float, str] = UNSET
     vane_diameter: Union[None, Unset, float, str] = UNSET
     serial_number: Union[None, Unset, str] = UNSET
@@ -108,9 +107,7 @@ class MethodSVTUpdate:
         else:
             conducted_at = self.conducted_at
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         vane_height: Union[None, Unset, float, str]
         if isinstance(self.vane_height, Unset):
@@ -294,12 +291,9 @@ class MethodSVTUpdate:
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodSVTUpdateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodSVTUpdateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[10], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 10 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 10, got '{method_type_id}'")
 
         def _parse_vane_height(data: object) -> Union[None, Unset, float, str]:
             if data is None:

@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Literal, Type, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_cd_create_method_type_id import MethodCDCreateMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
 
@@ -33,7 +32,7 @@ class MethodCDCreate:
         updated_by (Union[None, Unset, str]):
         conducted_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Unset, MethodCDCreateMethodTypeId]):  Default: MethodCDCreateMethodTypeId.VALUE_12.
+        method_type_id (Union[Literal[12], Unset]):  Default: 12.
         sampler_type_id (Union[None, Unset, int]):
         inclination (Union[None, Unset, float, str]): Inclination angle (deg).
         azimuth (Union[None, Unset, float, str]): Azimuth angle relative to N (deg).
@@ -54,7 +53,7 @@ class MethodCDCreate:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Unset, MethodCDCreateMethodTypeId] = MethodCDCreateMethodTypeId.VALUE_12
+    method_type_id: Union[Literal[12], Unset] = 12
     sampler_type_id: Union[None, Unset, int] = UNSET
     inclination: Union[None, Unset, float, str] = UNSET
     azimuth: Union[None, Unset, float, str] = UNSET
@@ -132,9 +131,7 @@ class MethodCDCreate:
         else:
             conducted_at = self.conducted_at
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         sampler_type_id: Union[None, Unset, int]
         if isinstance(self.sampler_type_id, Unset):
@@ -352,12 +349,9 @@ class MethodCDCreate:
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodCDCreateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodCDCreateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[12], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 12 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 12, got '{method_type_id}'")
 
         def _parse_sampler_type_id(data: object) -> Union[None, Unset, int]:
             if data is None:
