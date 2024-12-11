@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -13,14 +13,14 @@ T = TypeVar("T", bound="ProjectSearch")
 class ProjectSearch:
     """
     Attributes:
-        project_ids (Union[List[UUID], None, Unset]):
+        project_ids (Union[None, Unset, list[UUID]]):
     """
 
-    project_ids: Union[List[UUID], None, Unset] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    project_ids: Union[None, Unset, list[UUID]] = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-        project_ids: Union[List[str], None, Unset]
+    def to_dict(self) -> dict[str, Any]:
+        project_ids: Union[None, Unset, list[str]]
         if isinstance(self.project_ids, Unset):
             project_ids = UNSET
         elif isinstance(self.project_ids, list):
@@ -32,7 +32,7 @@ class ProjectSearch:
         else:
             project_ids = self.project_ids
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if project_ids is not UNSET:
@@ -41,10 +41,10 @@ class ProjectSearch:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
 
-        def _parse_project_ids(data: object) -> Union[List[UUID], None, Unset]:
+        def _parse_project_ids(data: object) -> Union[None, Unset, list[UUID]]:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -62,7 +62,7 @@ class ProjectSearch:
                 return project_ids_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[List[UUID], None, Unset], data)
+            return cast(Union[None, Unset, list[UUID]], data)
 
         project_ids = _parse_project_ids(d.pop("project_ids", UNSET))
 
@@ -74,7 +74,7 @@ class ProjectSearch:
         return project_search
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

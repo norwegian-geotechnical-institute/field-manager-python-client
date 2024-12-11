@@ -1,5 +1,5 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -37,8 +37,8 @@ class FileExtended:
         image_point_latitude (Union[None, Unset, float]):
         image_point_longitude (Union[None, Unset, float]):
         image_point_z (Union[None, Unset, float]):
-        locations (Union[Unset, List['LocationMin']]):
-        methods (Union[Unset, List['MethodMin']]):
+        locations (Union[Unset, list['LocationMin']]):
+        methods (Union[Unset, list['MethodMin']]):
     """
 
     file_id: UUID
@@ -57,11 +57,11 @@ class FileExtended:
     image_point_latitude: Union[None, Unset, float] = UNSET
     image_point_longitude: Union[None, Unset, float] = UNSET
     image_point_z: Union[None, Unset, float] = UNSET
-    locations: Union[Unset, List["LocationMin"]] = UNSET
-    methods: Union[Unset, List["MethodMin"]] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    locations: Union[Unset, list["LocationMin"]] = UNSET
+    methods: Union[Unset, list["MethodMin"]] = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         file_id = str(self.file_id)
 
         name = self.name
@@ -132,21 +132,21 @@ class FileExtended:
         else:
             image_point_z = self.image_point_z
 
-        locations: Union[Unset, List[Dict[str, Any]]] = UNSET
+        locations: Union[Unset, list[dict[str, Any]]] = UNSET
         if not isinstance(self.locations, Unset):
             locations = []
             for locations_item_data in self.locations:
                 locations_item = locations_item_data.to_dict()
                 locations.append(locations_item)
 
-        methods: Union[Unset, List[Dict[str, Any]]] = UNSET
+        methods: Union[Unset, list[dict[str, Any]]] = UNSET
         if not isinstance(self.methods, Unset):
             methods = []
             for methods_item_data in self.methods:
                 methods_item = methods_item_data.to_dict()
                 methods.append(methods_item)
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -185,7 +185,7 @@ class FileExtended:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.location_min import LocationMin
         from ..models.method_min import MethodMin
 
@@ -332,7 +332,7 @@ class FileExtended:
         return file_extended
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
