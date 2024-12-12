@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_tot_data_create_method_type_id import MethodTOTDataCreateMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodTOTDataCreate")
@@ -19,8 +18,7 @@ class MethodTOTDataCreate:
         depth (Union[float, str]): Depth (m). SGF code D.
         method_data_id (Union[None, UUID, Unset]):
         method_id (Union[None, UUID, Unset]):
-        method_type_id (Union[Unset, MethodTOTDataCreateMethodTypeId]):  Default:
-            MethodTOTDataCreateMethodTypeId.VALUE_2.
+        method_type_id (Union[Literal[2], Unset]):  Default: 2.
         created_at (Union[None, Unset, datetime.datetime]):
         updated_at (Union[None, Unset, datetime.datetime]):
         penetration_rate (Union[None, Unset, float, str]):
@@ -39,7 +37,7 @@ class MethodTOTDataCreate:
     depth: Union[float, str]
     method_data_id: Union[None, UUID, Unset] = UNSET
     method_id: Union[None, UUID, Unset] = UNSET
-    method_type_id: Union[Unset, MethodTOTDataCreateMethodTypeId] = MethodTOTDataCreateMethodTypeId.VALUE_2
+    method_type_id: Union[Literal[2], Unset] = 2
     created_at: Union[None, Unset, datetime.datetime] = UNSET
     updated_at: Union[None, Unset, datetime.datetime] = UNSET
     penetration_rate: Union[None, Unset, float, str] = UNSET
@@ -53,9 +51,9 @@ class MethodTOTDataCreate:
     rotation_rate: Union[None, Unset, float, str] = UNSET
     remarks: Union[None, Unset, str] = UNSET
     increased_rotation_rate: Union[None, Unset, bool] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         depth: Union[float, str]
         depth = self.depth
 
@@ -75,9 +73,7 @@ class MethodTOTDataCreate:
         else:
             method_id = self.method_id
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         created_at: Union[None, Unset, str]
         if isinstance(self.created_at, Unset):
@@ -161,7 +157,7 @@ class MethodTOTDataCreate:
         else:
             increased_rotation_rate = self.increased_rotation_rate
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -204,7 +200,7 @@ class MethodTOTDataCreate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
 
         def _parse_depth(data: object) -> Union[float, str]:
@@ -246,12 +242,9 @@ class MethodTOTDataCreate:
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodTOTDataCreateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodTOTDataCreateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[2], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 2 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 2, got '{method_type_id}'")
 
         def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -410,7 +403,7 @@ class MethodTOTDataCreate:
         return method_tot_data_create
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
