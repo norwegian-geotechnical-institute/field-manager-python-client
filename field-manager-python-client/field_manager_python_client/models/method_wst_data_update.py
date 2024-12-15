@@ -1,9 +1,8 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.method_wst_data_update_method_type_id import MethodWSTDataUpdateMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodWSTDataUpdate")
@@ -13,8 +12,7 @@ T = TypeVar("T", bound="MethodWSTDataUpdate")
 class MethodWSTDataUpdate:
     """
     Attributes:
-        method_type_id (Union[Unset, MethodWSTDataUpdateMethodTypeId]):  Default:
-            MethodWSTDataUpdateMethodTypeId.VALUE_26.
+        method_type_id (Union[Literal[26], Unset]):  Default: 26.
         depth (Union[None, Unset, float, str]): Depth (m). SGF code D.
         turning (Union[None, Unset, float, str]): Turning (half revolution/0.2 m)
         load (Union[None, Unset, float, str]): Load (kN)
@@ -23,19 +21,17 @@ class MethodWSTDataUpdate:
         rotation_rate (Union[None, Unset, float, str]): Rotation rate (rpm)
     """
 
-    method_type_id: Union[Unset, MethodWSTDataUpdateMethodTypeId] = MethodWSTDataUpdateMethodTypeId.VALUE_26
+    method_type_id: Union[Literal[26], Unset] = 26
     depth: Union[None, Unset, float, str] = UNSET
     turning: Union[None, Unset, float, str] = UNSET
     load: Union[None, Unset, float, str] = UNSET
     penetration_rate: Union[None, Unset, float, str] = UNSET
     hammering: Union[None, Unset, bool] = UNSET
     rotation_rate: Union[None, Unset, float, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+    def to_dict(self) -> dict[str, Any]:
+        method_type_id = self.method_type_id
 
         depth: Union[None, Unset, float, str]
         if isinstance(self.depth, Unset):
@@ -73,7 +69,7 @@ class MethodWSTDataUpdate:
         else:
             rotation_rate = self.rotation_rate
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if method_type_id is not UNSET:
@@ -94,14 +90,11 @@ class MethodWSTDataUpdate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodWSTDataUpdateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodWSTDataUpdateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[26], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 26 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 26, got '{method_type_id}'")
 
         def _parse_depth(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -171,7 +164,7 @@ class MethodWSTDataUpdate:
         return method_wst_data_update
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
