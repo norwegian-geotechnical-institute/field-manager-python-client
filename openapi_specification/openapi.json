@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.4.90" },
+  "info": { "title": "Field Manager Data API", "version": "4.5.19" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -1923,16 +1923,6 @@
               "default": false,
               "title": "Swap X Y"
             }
-          },
-          {
-            "name": "location_type_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/LocationTypeEnum",
-              "default": 1
-            },
-            "deprecated": true
           }
         ],
         "requestBody": {
@@ -2002,16 +1992,6 @@
               "default": false,
               "title": "Swap X Y"
             }
-          },
-          {
-            "name": "location_type_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/LocationTypeEnum",
-              "default": 1
-            },
-            "deprecated": true
           }
         ],
         "requestBody": {
@@ -2082,22 +2062,6 @@
               "default": false,
               "title": "Swap X Y"
             }
-          },
-          {
-            "name": "location_type_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                { "$ref": "#/components/schemas/LocationTypeEnum" },
-                { "type": "null" }
-              ],
-              "description": "Use Project.standard_id instead",
-              "default": 1,
-              "title": "Location Type Id"
-            },
-            "description": "Use Project.standard_id instead",
-            "deprecated": true
           }
         ],
         "responses": {
@@ -3751,68 +3715,6 @@
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/LocationGis" },
                   "title": "Response Get Locations In Project Projects  Project Id  Gis Onshore Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/location_types": {
-      "get": {
-        "tags": ["location types"],
-        "summary": "Get Location Types",
-        "description": "Location type will be deprecated.\n\nUse Project.standard_id instead.",
-        "operationId": "get_location_types_location_types_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/fm_data_api__schemas__schemas__LocationType"
-                  },
-                  "type": "array",
-                  "title": "Response Get Location Types Location Types Get"
-                }
-              }
-            }
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/location_types/{location_type_id}": {
-      "get": {
-        "tags": ["location types"],
-        "summary": "Get Location Type",
-        "description": "Location type will be deprecated.\n\nUse Project.standard_id instead.",
-        "operationId": "get_location_type_location_types__location_type_id__get",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "location_type_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer", "title": "Location Type Id" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/fm_data_api__schemas__schemas__LocationType"
                 }
               }
             }
@@ -6262,58 +6164,6 @@
         }
       }
     },
-    "/projects/{project_id}/cross_sections/{cross_section_id}/{format}": {
-      "get": {
-        "tags": ["cross_sections"],
-        "summary": "Get Cross Section Plot",
-        "description": "Create a new cross section for a project.",
-        "operationId": "get_cross_section_plot_projects__project_id__cross_sections__cross_section_id___format__get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "cross_section_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Cross Section Id"
-            }
-          },
-          {
-            "name": "format",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "enum": ["dxf"],
-              "const": "dxf",
-              "type": "string",
-              "title": "Format"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": { "application/json": { "schema": {} } }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
     "/projects/{project_id}/cross_sections": {
       "post": {
         "tags": ["cross_sections"],
@@ -6405,20 +6255,18 @@
             "in": "path",
             "required": true,
             "schema": { "type": "string", "title": "Project Id" }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": { "type": "string", "format": "uuid" },
-                "title": "Cross Section Ids"
-              }
+          },
+          {
+            "name": "cross_section_ids",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": { "type": "string", "format": "uuid" },
+              "title": "Cross Section Ids"
             }
           }
-        },
+        ],
         "responses": {
           "204": { "description": "Successful Response" },
           "422": {
@@ -6552,6 +6400,56 @@
                 "schema": { "$ref": "#/components/schemas/CrossSection" }
               }
             }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/cross_sections/{cross_section_id}/{format}": {
+      "get": {
+        "tags": ["cross_sections"],
+        "summary": "Get Cross Section Plot",
+        "operationId": "get_cross_section_plot_projects__project_id__cross_sections__cross_section_id___format__get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "cross_section_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Cross Section Id"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": ["dxf", "svg"],
+              "type": "string",
+              "title": "Format"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get the dxf plot",
+            "content": { "application/json": { "schema": {} } }
           },
           "422": {
             "description": "Validation Error",
@@ -7914,20 +7812,14 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "ba16b8ca-e751-45c5-a861-66c61c7e8f0d",
-          "project_id": "0e6f93a4-258a-45d4-9d91-6a13849ded44",
+          "organization_id": "7812950b-2ece-496b-bcb2-20a8846cac5f",
+          "project_id": "d43e1d13-51d3-4460-b38a-c50a7d4f00f2",
           "srid": 3857
         }
       },
       "Location": {
         "properties": {
           "name": { "type": "string", "title": "Name" },
-          "location_type_id": {
-            "$ref": "#/components/schemas/LocationTypeEnum",
-            "description": "Use Project.standard_id instead",
-            "default": 1,
-            "deprecated": true
-          },
           "iogp_type_id": {
             "$ref": "#/components/schemas/IOGPTypeEnum",
             "default": "COMPOSITE"
@@ -8096,12 +7988,12 @@
         ],
         "title": "Location",
         "example": {
-          "location_id": "0e6343a6-159c-43fa-8893-767fbdfa7ccf",
+          "location_id": "e0e29c17-9ea8-42f2-88a7-6014e34715aa",
           "name": "Loc01",
           "point_easting": 1194547,
           "point_northing": 8388298,
           "point_z": 0.0,
-          "project_id": "09198cee-6bc6-49f8-b499-2cce0cd41716",
+          "project_id": "04aff05d-a3ec-487d-8cbd-f91ecd9e4c98",
           "srid": 3857
         }
       },
@@ -8126,12 +8018,6 @@
       "LocationCreate": {
         "properties": {
           "name": { "type": "string", "title": "Name" },
-          "location_type_id": {
-            "$ref": "#/components/schemas/LocationTypeEnum",
-            "description": "Use Project.standard_id instead",
-            "default": 1,
-            "deprecated": true
-          },
           "iogp_type_id": {
             "$ref": "#/components/schemas/IOGPTypeEnum",
             "default": "COMPOSITE"
@@ -8304,12 +8190,6 @@
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Name"
           },
-          "location_type_id": {
-            "$ref": "#/components/schemas/LocationTypeEnum",
-            "description": "Use Project.standard_id instead.",
-            "default": 1,
-            "deprecated": true
-          },
           "point_x_wgs84_web": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
             "title": "Point X Wgs84 Web"
@@ -8387,7 +8267,6 @@
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Location Name"
           },
-          "location_type": { "$ref": "#/components/schemas/LocationTypeEnum" },
           "created_at": {
             "type": "string",
             "format": "date-time",
@@ -8400,12 +8279,7 @@
           "coordinates": { "$ref": "#/components/schemas/LocationCoordinates" }
         },
         "type": "object",
-        "required": [
-          "location_id",
-          "location_type",
-          "created_at",
-          "coordinates"
-        ],
+        "required": ["location_id", "created_at", "coordinates"],
         "title": "LocationInfo"
       },
       "LocationMin": {
@@ -8435,14 +8309,6 @@
             "type": "string",
             "format": "uuid",
             "title": "Location Id"
-          },
-          "location_type_id": {
-            "anyOf": [
-              { "$ref": "#/components/schemas/LocationTypeEnum" },
-              { "type": "null" }
-            ],
-            "description": "Use Project.standard_id instead",
-            "deprecated": true
           },
           "iogp_type_id": {
             "anyOf": [
@@ -8509,16 +8375,10 @@
         "required": ["location_id", "name", "last_updated"],
         "title": "LocationSummary"
       },
-      "LocationType-Input": {
+      "LocationType": {
         "type": "string",
         "enum": ["onshore", "offshore"],
         "title": "LocationType"
-      },
-      "LocationTypeEnum": {
-        "type": "integer",
-        "enum": [1, 2],
-        "title": "LocationTypeEnum",
-        "description": "(\nONSHORE=1,\nOFFSHORE=2,\n)"
       },
       "LocationUpdate": {
         "properties": {
@@ -8575,14 +8435,6 @@
           "srid": {
             "anyOf": [{ "type": "integer" }, { "type": "null" }],
             "title": "Srid"
-          },
-          "location_type_id": {
-            "anyOf": [
-              { "$ref": "#/components/schemas/LocationTypeEnum" },
-              { "type": "null" }
-            ],
-            "description": "Use Project.standard_id instead",
-            "deprecated": true
           },
           "tags": {
             "anyOf": [
@@ -9168,7 +9020,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [17],
             "const": 17,
             "title": "Method Type Id",
             "default": 17
@@ -9285,7 +9136,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [17],
             "const": 17,
             "title": "Method Type Id",
             "default": 17
@@ -9341,7 +9191,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [17],
             "const": 17,
             "title": "Method Type Id",
             "default": 17
@@ -9364,7 +9213,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [12],
             "const": 12,
             "title": "Method Type Id",
             "default": 12
@@ -9570,7 +9418,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [12],
             "const": 12,
             "title": "Method Type Id",
             "default": 12
@@ -9689,7 +9536,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [12],
             "const": 12,
             "title": "Method Type Id",
             "default": 12
@@ -9775,7 +9621,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [1],
             "const": 1,
             "title": "Method Type Id",
             "default": 1
@@ -9946,7 +9791,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [1],
             "const": 1,
             "title": "Method Type Id",
             "default": 1
@@ -10022,7 +9866,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [1],
             "const": 1,
             "title": "Method Type Id",
             "default": 1
@@ -10136,7 +9979,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [1],
             "const": 1,
             "title": "Method Type Id",
             "default": 1
@@ -10265,7 +10107,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [1],
             "const": 1,
             "title": "Method Type Id",
             "default": 1
@@ -10330,7 +10171,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [1],
             "const": 1,
             "title": "Method Type Id",
             "default": 1
@@ -10406,7 +10246,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [25],
             "const": 25,
             "title": "Method Type Id",
             "default": 25
@@ -10561,7 +10400,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [25],
             "const": 25,
             "title": "Method Type Id",
             "default": 25
@@ -10628,7 +10466,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [25],
             "const": 25,
             "title": "Method Type Id",
             "default": 25
@@ -10716,7 +10553,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [25],
             "const": 25,
             "title": "Method Type Id",
             "default": 25
@@ -10851,7 +10687,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [25],
             "const": 25,
             "title": "Method Type Id",
             "default": 25
@@ -10874,7 +10709,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [22],
             "const": 22,
             "title": "Method Type Id",
             "default": 22
@@ -11027,7 +10861,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [22],
             "const": 22,
             "title": "Method Type Id",
             "default": 22
@@ -11108,7 +10941,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [22],
             "const": 22,
             "title": "Method Type Id",
             "default": 22
@@ -11170,7 +11002,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [22],
             "const": 22,
             "title": "Method Type Id",
             "default": 22
@@ -11233,7 +11064,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [22],
             "const": 22,
             "title": "Method Type Id",
             "default": 22
@@ -11326,7 +11156,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [22],
             "const": 22,
             "title": "Method Type Id",
             "default": 22
@@ -11405,7 +11234,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [15],
             "const": 15,
             "title": "Method Type Id",
             "default": 15
@@ -11522,7 +11350,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [15],
             "const": 15,
             "title": "Method Type Id",
             "default": 15
@@ -11578,7 +11405,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [15],
             "const": 15,
             "title": "Method Type Id",
             "default": 15
@@ -11590,7 +11416,6 @@
       "MethodExportType": {
         "type": "string",
         "enum": ["SND"],
-        "const": "SND",
         "title": "MethodExportType"
       },
       "MethodINC": {
@@ -11607,7 +11432,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [19],
             "const": 19,
             "title": "Method Type Id",
             "default": 19
@@ -11725,7 +11549,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [19],
             "const": 19,
             "title": "Method Type Id",
             "default": 19
@@ -11781,7 +11604,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [19],
             "const": 19,
             "title": "Method Type Id",
             "default": 19
@@ -11804,7 +11626,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [21],
             "const": 21,
             "title": "Method Type Id",
             "default": 21
@@ -11921,7 +11742,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [21],
             "const": 21,
             "title": "Method Type Id",
             "default": 21
@@ -11977,7 +11797,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [21],
             "const": 21,
             "title": "Method Type Id",
             "default": 21
@@ -12135,7 +11954,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [23],
             "const": 23,
             "title": "Method Type Id",
             "default": 23
@@ -12253,7 +12071,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [23],
             "const": 23,
             "title": "Method Type Id",
             "default": 23
@@ -12309,7 +12126,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [23],
             "const": 23,
             "title": "Method Type Id",
             "default": 23
@@ -12332,7 +12148,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [14],
             "const": 14,
             "title": "Method Type Id",
             "default": 14
@@ -12450,7 +12265,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [14],
             "const": 14,
             "title": "Method Type Id",
             "default": 14
@@ -12506,7 +12320,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [14],
             "const": 14,
             "title": "Method Type Id",
             "default": 14
@@ -12529,7 +12342,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [5],
             "const": 5,
             "title": "Method Type Id",
             "default": 5
@@ -12758,7 +12570,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [5],
             "const": 5,
             "title": "Method Type Id",
             "default": 5
@@ -12897,7 +12708,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [5],
             "const": 5,
             "title": "Method Type Id",
             "default": 5
@@ -12972,7 +12782,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [5],
             "const": 5,
             "title": "Method Type Id",
             "default": 5
@@ -13036,7 +12845,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [5],
             "const": 5,
             "title": "Method Type Id",
             "default": 5
@@ -13133,7 +12941,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [5],
             "const": 5,
             "title": "Method Type Id",
             "default": 5
@@ -13271,7 +13078,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [8],
             "const": 8,
             "title": "Method Type Id",
             "default": 8
@@ -13413,7 +13219,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [8],
             "const": 8,
             "title": "Method Type Id",
             "default": 8
@@ -13440,7 +13245,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [8],
             "const": 8,
             "title": "Method Type Id",
             "default": 8
@@ -13504,7 +13308,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [8],
             "const": 8,
             "title": "Method Type Id",
             "default": 8
@@ -13553,7 +13356,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [8],
             "const": 8,
             "title": "Method Type Id",
             "default": 8
@@ -13633,7 +13435,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [8],
             "const": 8,
             "title": "Method Type Id",
             "default": 8
@@ -13660,7 +13461,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [18],
             "const": 18,
             "title": "Method Type Id",
             "default": 18
@@ -13778,7 +13578,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [18],
             "const": 18,
             "title": "Method Type Id",
             "default": 18
@@ -13834,7 +13633,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [18],
             "const": 18,
             "title": "Method Type Id",
             "default": 18
@@ -13857,7 +13655,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [3],
             "const": 3,
             "title": "Method Type Id",
             "default": 3
@@ -13991,7 +13788,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [3],
             "const": 3,
             "title": "Method Type Id",
             "default": 3
@@ -14023,7 +13819,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [3],
             "const": 3,
             "title": "Method Type Id",
             "default": 3
@@ -14114,7 +13909,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [3],
             "const": 3,
             "title": "Method Type Id",
             "default": 3
@@ -14205,7 +13999,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [3],
             "const": 3,
             "title": "Method Type Id",
             "default": 3
@@ -14270,7 +14063,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [3],
             "const": 3,
             "title": "Method Type Id",
             "default": 3
@@ -14302,7 +14094,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [9],
             "const": 9,
             "title": "Method Type Id",
             "default": 9
@@ -14420,7 +14211,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [9],
             "const": 9,
             "title": "Method Type Id",
             "default": 9
@@ -14476,7 +14266,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [9],
             "const": 9,
             "title": "Method Type Id",
             "default": 9
@@ -14499,7 +14288,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [7],
             "const": 7,
             "title": "Method Type Id",
             "default": 7
@@ -14617,7 +14405,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [7],
             "const": 7,
             "title": "Method Type Id",
             "default": 7
@@ -14673,7 +14460,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [7],
             "const": 7,
             "title": "Method Type Id",
             "default": 7
@@ -14696,7 +14482,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [4],
             "const": 4,
             "title": "Method Type Id",
             "default": 4
@@ -14856,7 +14641,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [4],
             "const": 4,
             "title": "Method Type Id",
             "default": 4
@@ -14959,7 +14743,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [4],
             "const": 4,
             "title": "Method Type Id",
             "default": 4
@@ -15029,7 +14812,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [11],
             "const": 11,
             "title": "Method Type Id",
             "default": 11
@@ -15147,7 +14929,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [11],
             "const": 11,
             "title": "Method Type Id",
             "default": 11
@@ -15203,7 +14984,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [11],
             "const": 11,
             "title": "Method Type Id",
             "default": 11
@@ -15226,7 +15006,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [20],
             "const": 20,
             "title": "Method Type Id",
             "default": 20
@@ -15344,7 +15123,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [20],
             "const": 20,
             "title": "Method Type Id",
             "default": 20
@@ -15367,7 +15145,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [24],
             "const": 24,
             "title": "Method Type Id",
             "default": 24
@@ -15526,7 +15303,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [24],
             "const": 24,
             "title": "Method Type Id",
             "default": 24
@@ -15572,7 +15348,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [24],
             "const": 24,
             "title": "Method Type Id",
             "default": 24
@@ -15681,7 +15456,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [24],
             "const": 24,
             "title": "Method Type Id",
             "default": 24
@@ -15804,7 +15578,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [24],
             "const": 24,
             "title": "Method Type Id",
             "default": 24
@@ -15961,7 +15734,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [24],
             "const": 24,
             "title": "Method Type Id",
             "default": 24
@@ -16042,7 +15814,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [20],
             "const": 20,
             "title": "Method Type Id",
             "default": 20
@@ -16065,7 +15836,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [6],
             "const": 6,
             "title": "Method Type Id",
             "default": 6
@@ -16195,7 +15965,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [6],
             "const": 6,
             "title": "Method Type Id",
             "default": 6
@@ -16222,7 +15991,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [6],
             "const": 6,
             "title": "Method Type Id",
             "default": 6
@@ -16288,7 +16056,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [6],
             "const": 6,
             "title": "Method Type Id",
             "default": 6
@@ -16349,7 +16116,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [6],
             "const": 6,
             "title": "Method Type Id",
             "default": 6
@@ -16440,7 +16206,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [6],
             "const": 6,
             "title": "Method Type Id",
             "default": 6
@@ -16467,7 +16232,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [10],
             "const": 10,
             "title": "Method Type Id",
             "default": 10
@@ -16618,7 +16382,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [10],
             "const": 10,
             "title": "Method Type Id",
             "default": 10
@@ -16688,7 +16451,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [10],
             "const": 10,
             "title": "Method Type Id",
             "default": 10
@@ -16781,7 +16543,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [10],
             "const": 10,
             "title": "Method Type Id",
             "default": 10
@@ -16863,7 +16624,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [10],
             "const": 10,
             "title": "Method Type Id",
             "default": 10
@@ -16977,7 +16737,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [10],
             "const": 10,
             "title": "Method Type Id",
             "default": 10
@@ -17133,7 +16892,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [2],
             "const": 2,
             "title": "Method Type Id",
             "default": 2
@@ -17279,7 +17037,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [2],
             "const": 2,
             "title": "Method Type Id",
             "default": 2
@@ -17311,7 +17068,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [2],
             "const": 2,
             "title": "Method Type Id",
             "default": 2
@@ -17411,7 +17167,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [2],
             "const": 2,
             "title": "Method Type Id",
             "default": 2
@@ -17514,7 +17269,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [2],
             "const": 2,
             "title": "Method Type Id",
             "default": 2
@@ -17579,7 +17333,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [2],
             "const": 2,
             "title": "Method Type Id",
             "default": 2
@@ -17611,7 +17364,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [13],
             "const": 13,
             "title": "Method Type Id",
             "default": 13
@@ -17729,7 +17481,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [13],
             "const": 13,
             "title": "Method Type Id",
             "default": 13
@@ -17785,7 +17536,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [13],
             "const": 13,
             "title": "Method Type Id",
             "default": 13
@@ -17872,7 +17622,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [26],
             "const": 26,
             "title": "Method Type Id",
             "default": 26
@@ -18000,7 +17749,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [26],
             "const": 26,
             "title": "Method Type Id",
             "default": 26
@@ -18027,7 +17775,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [26],
             "const": 26,
             "title": "Method Type Id",
             "default": 26
@@ -18101,7 +17848,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [26],
             "const": 26,
             "title": "Method Type Id",
             "default": 26
@@ -18174,7 +17920,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [26],
             "const": 26,
             "title": "Method Type Id",
             "default": 26
@@ -18279,7 +18024,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [26],
             "const": 26,
             "title": "Method Type Id",
             "default": 26
@@ -19161,9 +18905,7 @@
             "format": "uuid",
             "title": "Project Id"
           },
-          "location_type": {
-            "$ref": "#/components/schemas/LocationType-Input"
-          },
+          "location_type": { "$ref": "#/components/schemas/LocationType" },
           "location_ids": {
             "items": { "type": "string", "format": "uuid" },
             "type": "array",
@@ -19262,9 +19004,7 @@
             "format": "uuid",
             "title": "Project Id"
           },
-          "location_type": {
-            "$ref": "#/components/schemas/ngi_plot_matplotlib__models__plot_options__LocationType"
-          },
+          "location_type": { "$ref": "#/components/schemas/LocationType" },
           "location_ids": {
             "items": { "type": "string", "format": "uuid" },
             "type": "array",
@@ -19722,8 +19462,8 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "ba16b8ca-e751-45c5-a861-66c61c7e8f0d",
-          "project_id": "0e6f93a4-258a-45d4-9d91-6a13849ded44",
+          "organization_id": "7812950b-2ece-496b-bcb2-20a8846cac5f",
+          "project_id": "d43e1d13-51d3-4460-b38a-c50a7d4f00f2",
           "srid": 3857
         }
       },
@@ -19898,8 +19638,8 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "ba16b8ca-e751-45c5-a861-66c61c7e8f0d",
-          "project_id": "0e6f93a4-258a-45d4-9d91-6a13849ded44",
+          "organization_id": "7812950b-2ece-496b-bcb2-20a8846cac5f",
+          "project_id": "d43e1d13-51d3-4460-b38a-c50a7d4f00f2",
           "srid": 3857
         }
       },
@@ -20027,8 +19767,8 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "ba16b8ca-e751-45c5-a861-66c61c7e8f0d",
-          "project_id": "0e6f93a4-258a-45d4-9d91-6a13849ded44",
+          "organization_id": "7812950b-2ece-496b-bcb2-20a8846cac5f",
+          "project_id": "d43e1d13-51d3-4460-b38a-c50a7d4f00f2",
           "srid": 3857
         }
       },
@@ -20327,33 +20067,6 @@
         "type": "object",
         "required": ["loc", "msg", "type"],
         "title": "ValidationError"
-      },
-      "fm_data_api__schemas__schemas__LocationType": {
-        "properties": {
-          "location_type_id": {
-            "$ref": "#/components/schemas/LocationTypeEnum",
-            "description": "Will move to Project.standard_id",
-            "deprecated": true
-          },
-          "name": { "type": "string", "title": "Name" },
-          "description": { "type": "string", "title": "Description" },
-          "sort_order": { "type": "integer", "title": "Sort Order" },
-          "method_types": {
-            "items": { "$ref": "#/components/schemas/MethodType" },
-            "type": "array",
-            "title": "Method Types",
-            "default": []
-          }
-        },
-        "type": "object",
-        "required": ["location_type_id", "name", "description", "sort_order"],
-        "title": "LocationType",
-        "description": "Deprecated. Will be moved to Project.standard."
-      },
-      "ngi_plot_matplotlib__models__plot_options__LocationType": {
-        "type": "string",
-        "enum": ["onshore", "offshore"],
-        "title": "LocationType"
       }
     },
     "securitySchemes": { "HTTPBearer": { "type": "http", "scheme": "bearer" } }
