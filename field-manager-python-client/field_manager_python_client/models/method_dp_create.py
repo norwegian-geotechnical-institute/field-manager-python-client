@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -7,7 +7,6 @@ from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
 from ..models.dp_type import DPType
-from ..models.method_dp_create_method_type_id import MethodDPCreateMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
 
@@ -34,8 +33,8 @@ class MethodDPCreate:
         updated_by (Union[None, Unset, str]):
         conducted_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Unset, MethodDPCreateMethodTypeId]):  Default: MethodDPCreateMethodTypeId.VALUE_25.
-        type (Union[Unset, DPType]): (Dynamic Probing) DP Type
+        method_type_id (Union[Literal[25], Unset]):  Default: 25.
+        type_ (Union[Unset, DPType]): (Dynamic Probing) DP Type
         predrilling_depth (Union[None, Unset, float, str]):
         cone_type (Union[None, Unset, str]):
         cushion_type (Union[None, Unset, str]):
@@ -55,8 +54,8 @@ class MethodDPCreate:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Unset, MethodDPCreateMethodTypeId] = MethodDPCreateMethodTypeId.VALUE_25
-    type: Union[Unset, DPType] = UNSET
+    method_type_id: Union[Literal[25], Unset] = 25
+    type_: Union[Unset, DPType] = UNSET
     predrilling_depth: Union[None, Unset, float, str] = UNSET
     cone_type: Union[None, Unset, str] = UNSET
     cushion_type: Union[None, Unset, str] = UNSET
@@ -64,9 +63,9 @@ class MethodDPCreate:
     depth_top: Union[None, Unset, float, str] = UNSET
     depth_base: Union[None, Unset, float, str] = UNSET
     stopcode: Union[None, Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         method_id: Union[None, Unset, str]
         if isinstance(self.method_id, Unset):
             method_id = UNSET
@@ -129,13 +128,11 @@ class MethodDPCreate:
         else:
             conducted_at = self.conducted_at
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
-        type: Union[Unset, str] = UNSET
-        if not isinstance(self.type, Unset):
-            type = self.type.value
+        type_: Union[Unset, str] = UNSET
+        if not isinstance(self.type_, Unset):
+            type_ = self.type_.value
 
         predrilling_depth: Union[None, Unset, float, str]
         if isinstance(self.predrilling_depth, Unset):
@@ -179,7 +176,7 @@ class MethodDPCreate:
         else:
             stopcode = self.stopcode
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if method_id is not UNSET:
@@ -204,8 +201,8 @@ class MethodDPCreate:
             field_dict["conducted_at"] = conducted_at
         if method_type_id is not UNSET:
             field_dict["method_type_id"] = method_type_id
-        if type is not UNSET:
-            field_dict["type"] = type
+        if type_ is not UNSET:
+            field_dict["type"] = type_
         if predrilling_depth is not UNSET:
             field_dict["predrilling_depth"] = predrilling_depth
         if cone_type is not UNSET:
@@ -224,7 +221,7 @@ class MethodDPCreate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
 
         def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
@@ -340,19 +337,16 @@ class MethodDPCreate:
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodDPCreateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodDPCreateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[25], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 25 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 25, got '{method_type_id}'")
 
-        _type = d.pop("type", UNSET)
-        type: Union[Unset, DPType]
-        if isinstance(_type, Unset):
-            type = UNSET
+        _type_ = d.pop("type", UNSET)
+        type_: Union[Unset, DPType]
+        if isinstance(_type_, Unset):
+            type_ = UNSET
         else:
-            type = DPType(_type)
+            type_ = DPType(_type_)
 
         def _parse_predrilling_depth(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -429,7 +423,7 @@ class MethodDPCreate:
             conducted_by=conducted_by,
             conducted_at=conducted_at,
             method_type_id=method_type_id,
-            type=type,
+            type_=type_,
             predrilling_depth=predrilling_depth,
             cone_type=cone_type,
             cushion_type=cushion_type,
@@ -443,7 +437,7 @@ class MethodDPCreate:
         return method_dp_create
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
