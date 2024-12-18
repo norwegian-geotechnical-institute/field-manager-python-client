@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_rp_data_method_type_id import MethodRPDataMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodRPData")
@@ -21,7 +20,7 @@ class MethodRPData:
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
         depth (float): Depth (m). SGF code D.
-        method_type_id (Union[Unset, MethodRPDataMethodTypeId]):  Default: MethodRPDataMethodTypeId.VALUE_3.
+        method_type_id (Union[Literal[3], Unset]):  Default: 3.
         penetration_rate (Union[None, Unset, float]): Penetration rate (mm/s). SGF code B.
         penetration_force (Union[None, Unset, float]): Penetration force (kN). SGF code A.
         comment_code (Union[None, Unset, int]): Comment code. Two digit value.
@@ -38,7 +37,7 @@ class MethodRPData:
     created_at: datetime.datetime
     updated_at: datetime.datetime
     depth: float
-    method_type_id: Union[Unset, MethodRPDataMethodTypeId] = MethodRPDataMethodTypeId.VALUE_3
+    method_type_id: Union[Literal[3], Unset] = 3
     penetration_rate: Union[None, Unset, float] = UNSET
     penetration_force: Union[None, Unset, float] = UNSET
     comment_code: Union[None, Unset, int] = UNSET
@@ -48,9 +47,9 @@ class MethodRPData:
     rotation_rate: Union[None, Unset, float] = UNSET
     remarks: Union[None, Unset, str] = UNSET
     increased_rotation_rate: Union[None, Unset, bool] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         method_data_id = str(self.method_data_id)
 
         method_id = str(self.method_id)
@@ -61,9 +60,7 @@ class MethodRPData:
 
         depth = self.depth
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         penetration_rate: Union[None, Unset, float]
         if isinstance(self.penetration_rate, Unset):
@@ -119,7 +116,7 @@ class MethodRPData:
         else:
             increased_rotation_rate = self.increased_rotation_rate
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -154,7 +151,7 @@ class MethodRPData:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         method_data_id = UUID(d.pop("method_data_id"))
 
@@ -166,12 +163,9 @@ class MethodRPData:
 
         depth = d.pop("depth")
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodRPDataMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodRPDataMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[3], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 3 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 3, got '{method_type_id}'")
 
         def _parse_penetration_rate(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -276,7 +270,7 @@ class MethodRPData:
         return method_rp_data
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
