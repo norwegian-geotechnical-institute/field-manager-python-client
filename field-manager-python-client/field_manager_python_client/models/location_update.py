@@ -1,5 +1,5 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -7,7 +7,6 @@ from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
 from ..models.iogp_type_enum import IOGPTypeEnum
-from ..models.location_type_enum import LocationTypeEnum
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -80,9 +79,8 @@ class LocationUpdate:
         point_northing (Union[None, Unset, float]):
         point_z (Union[None, Unset, float]):
         srid (Union[None, Unset, int]):
-        location_type_id (Union[LocationTypeEnum, None, Unset]): Use Project.standard_id instead
-        tags (Union[List[str], None, Unset]):
-        methods (Union[Unset, List[Union['MethodADCreate', 'MethodADUpdate', 'MethodCDCreate', 'MethodCDUpdate',
+        tags (Union[None, Unset, list[str]]):
+        methods (Union[Unset, list[Union['MethodADCreate', 'MethodADUpdate', 'MethodCDCreate', 'MethodCDUpdate',
             'MethodCPTCreate', 'MethodCPTUpdate', 'MethodDPCreate', 'MethodDPUpdate', 'MethodDTCreate', 'MethodDTUpdate',
             'MethodESACreate', 'MethodESAUpdate', 'MethodINCCreate', 'MethodINCUpdate', 'MethodIWCreate', 'MethodIWUpdate',
             'MethodOTHERCreate', 'MethodOTHERUpdate', 'MethodPTCreate', 'MethodPTUpdate', 'MethodPZCreate',
@@ -103,11 +101,10 @@ class LocationUpdate:
     point_northing: Union[None, Unset, float] = UNSET
     point_z: Union[None, Unset, float] = UNSET
     srid: Union[None, Unset, int] = UNSET
-    location_type_id: Union[LocationTypeEnum, None, Unset] = UNSET
-    tags: Union[List[str], None, Unset] = UNSET
+    tags: Union[None, Unset, list[str]] = UNSET
     methods: Union[
         Unset,
-        List[
+        list[
             Union[
                 "MethodADCreate",
                 "MethodADUpdate",
@@ -162,9 +159,9 @@ class LocationUpdate:
             ]
         ],
     ] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         from ..models.method_ad_create import MethodADCreate
         from ..models.method_ad_update import MethodADUpdate
         from ..models.method_cd_create import MethodCDCreate
@@ -283,15 +280,7 @@ class LocationUpdate:
         else:
             srid = self.srid
 
-        location_type_id: Union[None, Unset, int]
-        if isinstance(self.location_type_id, Unset):
-            location_type_id = UNSET
-        elif isinstance(self.location_type_id, LocationTypeEnum):
-            location_type_id = self.location_type_id.value
-        else:
-            location_type_id = self.location_type_id
-
-        tags: Union[List[str], None, Unset]
+        tags: Union[None, Unset, list[str]]
         if isinstance(self.tags, Unset):
             tags = UNSET
         elif isinstance(self.tags, list):
@@ -300,11 +289,11 @@ class LocationUpdate:
         else:
             tags = self.tags
 
-        methods: Union[Unset, List[Dict[str, Any]]] = UNSET
+        methods: Union[Unset, list[dict[str, Any]]] = UNSET
         if not isinstance(self.methods, Unset):
             methods = []
             for methods_item_data in self.methods:
-                methods_item: Dict[str, Any]
+                methods_item: dict[str, Any]
                 if isinstance(methods_item_data, MethodADCreate):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodCDCreate):
@@ -408,7 +397,7 @@ class LocationUpdate:
 
                 methods.append(methods_item)
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if project_id is not UNSET:
@@ -431,8 +420,6 @@ class LocationUpdate:
             field_dict["point_z"] = point_z
         if srid is not UNSET:
             field_dict["srid"] = srid
-        if location_type_id is not UNSET:
-            field_dict["location_type_id"] = location_type_id
         if tags is not UNSET:
             field_dict["tags"] = tags
         if methods is not UNSET:
@@ -441,7 +428,7 @@ class LocationUpdate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.method_ad_create import MethodADCreate
         from ..models.method_ad_update import MethodADUpdate
         from ..models.method_cd_create import MethodCDCreate
@@ -617,24 +604,7 @@ class LocationUpdate:
 
         srid = _parse_srid(d.pop("srid", UNSET))
 
-        def _parse_location_type_id(data: object) -> Union[LocationTypeEnum, None, Unset]:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, int):
-                    raise TypeError()
-                location_type_id_type_0 = LocationTypeEnum(data)
-
-                return location_type_id_type_0
-            except:  # noqa: E722
-                pass
-            return cast(Union[LocationTypeEnum, None, Unset], data)
-
-        location_type_id = _parse_location_type_id(d.pop("location_type_id", UNSET))
-
-        def _parse_tags(data: object) -> Union[List[str], None, Unset]:
+        def _parse_tags(data: object) -> Union[None, Unset, list[str]]:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -642,12 +612,12 @@ class LocationUpdate:
             try:
                 if not isinstance(data, list):
                     raise TypeError()
-                tags_type_0 = cast(List[str], data)
+                tags_type_0 = cast(list[str], data)
 
                 return tags_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[List[str], None, Unset], data)
+            return cast(Union[None, Unset, list[str]], data)
 
         tags = _parse_tags(d.pop("tags", UNSET))
 
@@ -1122,7 +1092,6 @@ class LocationUpdate:
             point_northing=point_northing,
             point_z=point_z,
             srid=srid,
-            location_type_id=location_type_id,
             tags=tags,
             methods=methods,
         )
@@ -1131,7 +1100,7 @@ class LocationUpdate:
         return location_update
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
