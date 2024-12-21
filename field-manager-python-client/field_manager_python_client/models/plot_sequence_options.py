@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -24,18 +24,18 @@ class PlotSequenceOptions:
     auto_set_depth: Union[Unset, bool] = False
     pdf_filename: Union[Unset, str] = "factual_report.pdf"
     pdf: Union[Unset, "PdfOptions"] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         auto_set_depth = self.auto_set_depth
 
         pdf_filename = self.pdf_filename
 
-        pdf: Union[Unset, Dict[str, Any]] = UNSET
+        pdf: Union[Unset, dict[str, Any]] = UNSET
         if not isinstance(self.pdf, Unset):
             pdf = self.pdf.to_dict()
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if auto_set_depth is not UNSET:
@@ -48,7 +48,7 @@ class PlotSequenceOptions:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.pdf_options import PdfOptions
 
         d = src_dict.copy()
@@ -73,7 +73,7 @@ class PlotSequenceOptions:
         return plot_sequence_options
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
