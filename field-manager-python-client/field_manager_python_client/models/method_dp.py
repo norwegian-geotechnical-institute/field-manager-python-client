@@ -1,5 +1,5 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -7,7 +7,6 @@ from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
 from ..models.dp_type import DPType
-from ..models.method_dp_method_type_id import MethodDPMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
 
@@ -38,14 +37,14 @@ class MethodDP:
             created_at (datetime.datetime):
             updated_at (datetime.datetime):
             remarks (Union[None, Unset, str]):
-            method_type_id (Union[Unset, MethodDPMethodTypeId]):  Default: MethodDPMethodTypeId.VALUE_25.
+            method_type_id (Union[Literal[25], Unset]):  Default: 25.
             created_by (Union[None, Unset, str]):
             updated_by (Union[None, Unset, str]):
             conducted_at (Union[None, Unset, datetime.datetime]):
             conducted_by (Union[None, Unset, str]):
-            files (Union[Unset, List['File']]):
+            files (Union[Unset, list['File']]):
             self_ (Union[None, Unset, str]):
-            type (Union[Unset, DPType]): (Dynamic Probing) DP Type
+            type_ (Union[Unset, DPType]): (Dynamic Probing) DP Type
             predrilling_depth (Union[Unset, float]):  Default: 0.0.
             cone_type (Union[None, Unset, str]):
             cushion_type (Union[None, Unset, str]):
@@ -63,14 +62,14 @@ class MethodDP:
     created_at: datetime.datetime
     updated_at: datetime.datetime
     remarks: Union[None, Unset, str] = UNSET
-    method_type_id: Union[Unset, MethodDPMethodTypeId] = MethodDPMethodTypeId.VALUE_25
+    method_type_id: Union[Literal[25], Unset] = 25
     created_by: Union[None, Unset, str] = UNSET
     updated_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
-    files: Union[Unset, List["File"]] = UNSET
+    files: Union[Unset, list["File"]] = UNSET
     self_: Union[None, Unset, str] = UNSET
-    type: Union[Unset, DPType] = UNSET
+    type_: Union[Unset, DPType] = UNSET
     predrilling_depth: Union[Unset, float] = 0.0
     cone_type: Union[None, Unset, str] = UNSET
     cushion_type: Union[None, Unset, str] = UNSET
@@ -79,9 +78,9 @@ class MethodDP:
     depth_base: Union[None, Unset, float] = UNSET
     stopcode: Union[None, Unset, int] = UNSET
     depth_in_soil: Union[None, Unset, float] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         method_id = str(self.method_id)
 
         name = self.name
@@ -100,9 +99,7 @@ class MethodDP:
         else:
             remarks = self.remarks
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         created_by: Union[None, Unset, str]
         if isinstance(self.created_by, Unset):
@@ -130,7 +127,7 @@ class MethodDP:
         else:
             conducted_by = self.conducted_by
 
-        files: Union[Unset, List[Dict[str, Any]]] = UNSET
+        files: Union[Unset, list[dict[str, Any]]] = UNSET
         if not isinstance(self.files, Unset):
             files = []
             for files_item_data in self.files:
@@ -143,9 +140,9 @@ class MethodDP:
         else:
             self_ = self.self_
 
-        type: Union[Unset, str] = UNSET
-        if not isinstance(self.type, Unset):
-            type = self.type.value
+        type_: Union[Unset, str] = UNSET
+        if not isinstance(self.type_, Unset):
+            type_ = self.type_.value
 
         predrilling_depth = self.predrilling_depth
 
@@ -191,7 +188,7 @@ class MethodDP:
         else:
             depth_in_soil = self.depth_in_soil
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -219,8 +216,8 @@ class MethodDP:
             field_dict["files"] = files
         if self_ is not UNSET:
             field_dict["self"] = self_
-        if type is not UNSET:
-            field_dict["type"] = type
+        if type_ is not UNSET:
+            field_dict["type"] = type_
         if predrilling_depth is not UNSET:
             field_dict["predrilling_depth"] = predrilling_depth
         if cone_type is not UNSET:
@@ -241,7 +238,7 @@ class MethodDP:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.file import File
 
         d = src_dict.copy()
@@ -266,12 +263,9 @@ class MethodDP:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodDPMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodDPMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[25], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 25 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 25, got '{method_type_id}'")
 
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -333,12 +327,12 @@ class MethodDP:
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
-        _type = d.pop("type", UNSET)
-        type: Union[Unset, DPType]
-        if isinstance(_type, Unset):
-            type = UNSET
+        _type_ = d.pop("type", UNSET)
+        type_: Union[Unset, DPType]
+        if isinstance(_type_, Unset):
+            type_ = UNSET
         else:
-            type = DPType(_type)
+            type_ = DPType(_type_)
 
         predrilling_depth = d.pop("predrilling_depth", UNSET)
 
@@ -420,7 +414,7 @@ class MethodDP:
             conducted_by=conducted_by,
             files=files,
             self_=self_,
-            type=type,
+            type_=type_,
             predrilling_depth=predrilling_depth,
             cone_type=cone_type,
             cushion_type=cushion_type,
@@ -435,7 +429,7 @@ class MethodDP:
         return method_dp
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
