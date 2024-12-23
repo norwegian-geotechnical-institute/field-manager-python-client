@@ -1,5 +1,5 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -23,7 +23,7 @@ class ProjectInfo:
     """
     Example:
         {'external_id': '2020193232', 'height_reference': 'NN2000', 'name': 'Project Name', 'organization_id':
-            'ba16b8ca-e751-45c5-a861-66c61c7e8f0d', 'project_id': '0e6f93a4-258a-45d4-9d91-6a13849ded44', 'srid': 3857}
+            'a5b6b95b-95ac-4f35-9a58-edc5424505b4', 'project_id': '0c317b71-975a-47db-a7ee-cbadfb4a3647', 'srid': 3857}
 
     Attributes:
         project_id (UUID):
@@ -38,7 +38,7 @@ class ProjectInfo:
         updated_at (Union[None, Unset, datetime.datetime]):
         external_id_source (Union[None, Unset, str]):
         description (Union[None, Unset, str]):
-        tags (Union[List[str], None, Unset]):
+        tags (Union[None, Unset, list[str]]):
         organization (Union['OrganizationMin', None, Unset]):
         effective_role (Union['Role', None, Unset]):
         last_updated (Union[None, Unset, datetime.datetime]):
@@ -57,14 +57,14 @@ class ProjectInfo:
     updated_at: Union[None, Unset, datetime.datetime] = UNSET
     external_id_source: Union[None, Unset, str] = UNSET
     description: Union[None, Unset, str] = UNSET
-    tags: Union[List[str], None, Unset] = UNSET
+    tags: Union[None, Unset, list[str]] = UNSET
     organization: Union["OrganizationMin", None, Unset] = UNSET
     effective_role: Union["Role", None, Unset] = UNSET
     last_updated: Union[None, Unset, datetime.datetime] = UNSET
     favorite: Union[Unset, bool] = False
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         from ..models.organization_min import OrganizationMin
         from ..models.role import Role
 
@@ -116,7 +116,7 @@ class ProjectInfo:
         else:
             description = self.description
 
-        tags: Union[List[str], None, Unset]
+        tags: Union[None, Unset, list[str]]
         if isinstance(self.tags, Unset):
             tags = UNSET
         elif isinstance(self.tags, list):
@@ -125,7 +125,7 @@ class ProjectInfo:
         else:
             tags = self.tags
 
-        organization: Union[Dict[str, Any], None, Unset]
+        organization: Union[None, Unset, dict[str, Any]]
         if isinstance(self.organization, Unset):
             organization = UNSET
         elif isinstance(self.organization, OrganizationMin):
@@ -133,7 +133,7 @@ class ProjectInfo:
         else:
             organization = self.organization
 
-        effective_role: Union[Dict[str, Any], None, Unset]
+        effective_role: Union[None, Unset, dict[str, Any]]
         if isinstance(self.effective_role, Unset):
             effective_role = UNSET
         elif isinstance(self.effective_role, Role):
@@ -151,7 +151,7 @@ class ProjectInfo:
 
         favorite = self.favorite
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -187,7 +187,7 @@ class ProjectInfo:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.organization_min import OrganizationMin
         from ..models.role import Role
 
@@ -273,7 +273,7 @@ class ProjectInfo:
 
         description = _parse_description(d.pop("description", UNSET))
 
-        def _parse_tags(data: object) -> Union[List[str], None, Unset]:
+        def _parse_tags(data: object) -> Union[None, Unset, list[str]]:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -281,12 +281,12 @@ class ProjectInfo:
             try:
                 if not isinstance(data, list):
                     raise TypeError()
-                tags_type_0 = cast(List[str], data)
+                tags_type_0 = cast(list[str], data)
 
                 return tags_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[List[str], None, Unset], data)
+            return cast(Union[None, Unset, list[str]], data)
 
         tags = _parse_tags(d.pop("tags", UNSET))
 
@@ -367,7 +367,7 @@ class ProjectInfo:
         return project_info
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

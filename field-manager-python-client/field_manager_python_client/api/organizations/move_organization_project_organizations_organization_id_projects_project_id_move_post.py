@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Optional, Union
 from uuid import UUID
 
 import httpx
@@ -15,15 +15,15 @@ def _get_kwargs(
     project_id: UUID,
     *,
     target_organization_id: UUID,
-) -> Dict[str, Any]:
-    params: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    params: dict[str, Any] = {}
 
     json_target_organization_id = str(target_organization_id)
     params["target_organization_id"] = json_target_organization_id
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "post",
         "url": f"/organizations/{organization_id}/projects/{project_id}/move",
         "params": params,
