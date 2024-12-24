@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_wst_data_create_method_type_id import MethodWSTDataCreateMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodWSTDataCreate")
@@ -19,8 +18,7 @@ class MethodWSTDataCreate:
         depth (Union[float, str]): Depth (m)
         method_data_id (Union[None, UUID, Unset]):
         method_id (Union[None, UUID, Unset]):
-        method_type_id (Union[Unset, MethodWSTDataCreateMethodTypeId]):  Default:
-            MethodWSTDataCreateMethodTypeId.VALUE_26.
+        method_type_id (Union[Literal[26], Unset]):  Default: 26.
         created_at (Union[None, Unset, datetime.datetime]):
         updated_at (Union[None, Unset, datetime.datetime]):
         turning (Union[None, Unset, float, str]): Turning (half revolution/0.2 m)
@@ -33,7 +31,7 @@ class MethodWSTDataCreate:
     depth: Union[float, str]
     method_data_id: Union[None, UUID, Unset] = UNSET
     method_id: Union[None, UUID, Unset] = UNSET
-    method_type_id: Union[Unset, MethodWSTDataCreateMethodTypeId] = MethodWSTDataCreateMethodTypeId.VALUE_26
+    method_type_id: Union[Literal[26], Unset] = 26
     created_at: Union[None, Unset, datetime.datetime] = UNSET
     updated_at: Union[None, Unset, datetime.datetime] = UNSET
     turning: Union[None, Unset, float, str] = UNSET
@@ -41,9 +39,9 @@ class MethodWSTDataCreate:
     penetration_rate: Union[None, Unset, float, str] = UNSET
     hammering: Union[None, Unset, bool] = UNSET
     rotation_rate: Union[None, Unset, float, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         depth: Union[float, str]
         depth = self.depth
 
@@ -63,9 +61,7 @@ class MethodWSTDataCreate:
         else:
             method_id = self.method_id
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         created_at: Union[None, Unset, str]
         if isinstance(self.created_at, Unset):
@@ -113,7 +109,7 @@ class MethodWSTDataCreate:
         else:
             rotation_rate = self.rotation_rate
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -144,7 +140,7 @@ class MethodWSTDataCreate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
 
         def _parse_depth(data: object) -> Union[float, str]:
@@ -186,12 +182,9 @@ class MethodWSTDataCreate:
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodWSTDataCreateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodWSTDataCreateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[26], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 26 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 26, got '{method_type_id}'")
 
         def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -290,7 +283,7 @@ class MethodWSTDataCreate:
         return method_wst_data_create
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
