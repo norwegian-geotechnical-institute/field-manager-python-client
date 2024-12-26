@@ -1,5 +1,5 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -78,9 +78,9 @@ class MethodInfo:
     cone_reference: Union[None, Unset, str] = UNSET
     srs_type: Union[None, SoundingClass, Unset] = UNSET
     bedrock_info: Union["BedrockInfo", None, Unset] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         from ..models.bedrock_info import BedrockInfo
 
         method_id = str(self.method_id)
@@ -127,7 +127,7 @@ class MethodInfo:
         else:
             srs_type = self.srs_type
 
-        bedrock_info: Union[Dict[str, Any], None, Unset]
+        bedrock_info: Union[None, Unset, dict[str, Any]]
         if isinstance(self.bedrock_info, Unset):
             bedrock_info = UNSET
         elif isinstance(self.bedrock_info, BedrockInfo):
@@ -135,7 +135,7 @@ class MethodInfo:
         else:
             bedrock_info = self.bedrock_info
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -162,7 +162,7 @@ class MethodInfo:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.bedrock_info import BedrockInfo
 
         d = src_dict.copy()
@@ -272,7 +272,7 @@ class MethodInfo:
         return method_info
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
