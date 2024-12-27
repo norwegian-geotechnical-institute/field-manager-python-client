@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -13,24 +13,24 @@ T = TypeVar("T", bound="CrossSectionUpdate")
 class CrossSectionUpdate:
     """
     Attributes:
-        polyline_coordinates (Union[List[List[float]], None, Unset]):
+        polyline_coordinates (Union[None, Unset, list[list[float]]]):
         width (Union[None, Unset, float]):
         vertical_scale (Union[None, Unset, str]):
         horizontal_scale (Union[None, Unset, str]):
-        method_ids (Union[List[UUID], None, Unset]):
+        method_ids (Union[None, Unset, list[UUID]]):
         name (Union[None, Unset, str]):
     """
 
-    polyline_coordinates: Union[List[List[float]], None, Unset] = UNSET
+    polyline_coordinates: Union[None, Unset, list[list[float]]] = UNSET
     width: Union[None, Unset, float] = UNSET
     vertical_scale: Union[None, Unset, str] = UNSET
     horizontal_scale: Union[None, Unset, str] = UNSET
-    method_ids: Union[List[UUID], None, Unset] = UNSET
+    method_ids: Union[None, Unset, list[UUID]] = UNSET
     name: Union[None, Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-        polyline_coordinates: Union[List[List[float]], None, Unset]
+    def to_dict(self) -> dict[str, Any]:
+        polyline_coordinates: Union[None, Unset, list[list[float]]]
         if isinstance(self.polyline_coordinates, Unset):
             polyline_coordinates = UNSET
         elif isinstance(self.polyline_coordinates, list):
@@ -65,7 +65,7 @@ class CrossSectionUpdate:
         else:
             horizontal_scale = self.horizontal_scale
 
-        method_ids: Union[List[str], None, Unset]
+        method_ids: Union[None, Unset, list[str]]
         if isinstance(self.method_ids, Unset):
             method_ids = UNSET
         elif isinstance(self.method_ids, list):
@@ -83,7 +83,7 @@ class CrossSectionUpdate:
         else:
             name = self.name
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if polyline_coordinates is not UNSET:
@@ -102,10 +102,10 @@ class CrossSectionUpdate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
 
-        def _parse_polyline_coordinates(data: object) -> Union[List[List[float]], None, Unset]:
+        def _parse_polyline_coordinates(data: object) -> Union[None, Unset, list[list[float]]]:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -134,7 +134,7 @@ class CrossSectionUpdate:
                 return polyline_coordinates_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[List[List[float]], None, Unset], data)
+            return cast(Union[None, Unset, list[list[float]]], data)
 
         polyline_coordinates = _parse_polyline_coordinates(d.pop("polyline_coordinates", UNSET))
 
@@ -165,7 +165,7 @@ class CrossSectionUpdate:
 
         horizontal_scale = _parse_horizontal_scale(d.pop("horizontal_scale", UNSET))
 
-        def _parse_method_ids(data: object) -> Union[List[UUID], None, Unset]:
+        def _parse_method_ids(data: object) -> Union[None, Unset, list[UUID]]:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -183,7 +183,7 @@ class CrossSectionUpdate:
                 return method_ids_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[List[UUID], None, Unset], data)
+            return cast(Union[None, Unset, list[UUID]], data)
 
         method_ids = _parse_method_ids(d.pop("method_ids", UNSET))
 
@@ -209,7 +209,7 @@ class CrossSectionUpdate:
         return cross_section_update
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
