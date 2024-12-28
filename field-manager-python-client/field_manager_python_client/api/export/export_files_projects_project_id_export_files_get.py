@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 from uuid import UUID
 
 import httpx
@@ -13,11 +13,11 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     project_id: str,
     *,
-    file_ids: Union[Unset, List[UUID]] = UNSET,
-) -> Dict[str, Any]:
-    params: Dict[str, Any] = {}
+    file_ids: Union[Unset, list[UUID]] = UNSET,
+) -> dict[str, Any]:
+    params: dict[str, Any] = {}
 
-    json_file_ids: Union[Unset, List[str]] = UNSET
+    json_file_ids: Union[Unset, list[str]] = UNSET
     if not isinstance(file_ids, Unset):
         json_file_ids = []
         for file_ids_item_data in file_ids:
@@ -28,7 +28,7 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": f"/projects/{project_id}/export/files",
         "params": params,
@@ -68,7 +68,7 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    file_ids: Union[Unset, List[UUID]] = UNSET,
+    file_ids: Union[Unset, list[UUID]] = UNSET,
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Export Files
 
@@ -79,7 +79,7 @@ def sync_detailed(
 
     Args:
         project_id (str):
-        file_ids (Union[Unset, List[UUID]]):
+        file_ids (Union[Unset, list[UUID]]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -105,7 +105,7 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    file_ids: Union[Unset, List[UUID]] = UNSET,
+    file_ids: Union[Unset, list[UUID]] = UNSET,
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Export Files
 
@@ -116,7 +116,7 @@ def sync(
 
     Args:
         project_id (str):
-        file_ids (Union[Unset, List[UUID]]):
+        file_ids (Union[Unset, list[UUID]]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -137,7 +137,7 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    file_ids: Union[Unset, List[UUID]] = UNSET,
+    file_ids: Union[Unset, list[UUID]] = UNSET,
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Export Files
 
@@ -148,7 +148,7 @@ async def asyncio_detailed(
 
     Args:
         project_id (str):
-        file_ids (Union[Unset, List[UUID]]):
+        file_ids (Union[Unset, list[UUID]]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -172,7 +172,7 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    file_ids: Union[Unset, List[UUID]] = UNSET,
+    file_ids: Union[Unset, list[UUID]] = UNSET,
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Export Files
 
@@ -183,7 +183,7 @@ async def asyncio(
 
     Args:
         project_id (str):
-        file_ids (Union[Unset, List[UUID]]):
+        file_ids (Union[Unset, list[UUID]]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
