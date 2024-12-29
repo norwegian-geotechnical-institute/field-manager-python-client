@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_ss_data_method_type_id import MethodSSDataMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodSSData")
@@ -21,7 +20,7 @@ class MethodSSData:
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
         depth_base (float): Depth (m). SGF code D.
-        method_type_id (Union[Unset, MethodSSDataMethodTypeId]):  Default: MethodSSDataMethodTypeId.VALUE_6.
+        method_type_id (Union[Literal[6], Unset]):  Default: 6.
         depth_top (Union[None, Unset, float]): Depth top (m).
         time (Union[None, Unset, float]):
         remarks (Union[None, Unset, str]):
@@ -33,14 +32,14 @@ class MethodSSData:
     created_at: datetime.datetime
     updated_at: datetime.datetime
     depth_base: float
-    method_type_id: Union[Unset, MethodSSDataMethodTypeId] = MethodSSDataMethodTypeId.VALUE_6
+    method_type_id: Union[Literal[6], Unset] = 6
     depth_top: Union[None, Unset, float] = UNSET
     time: Union[None, Unset, float] = UNSET
     remarks: Union[None, Unset, str] = UNSET
     comment_code: Union[None, Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         method_data_id = str(self.method_data_id)
 
         method_id = str(self.method_id)
@@ -51,9 +50,7 @@ class MethodSSData:
 
         depth_base = self.depth_base
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         depth_top: Union[None, Unset, float]
         if isinstance(self.depth_top, Unset):
@@ -79,7 +76,7 @@ class MethodSSData:
         else:
             comment_code = self.comment_code
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -104,7 +101,7 @@ class MethodSSData:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         method_data_id = UUID(d.pop("method_data_id"))
 
@@ -116,12 +113,9 @@ class MethodSSData:
 
         depth_base = d.pop("depth_base")
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodSSDataMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodSSDataMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[6], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 6 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 6, got '{method_type_id}'")
 
         def _parse_depth_top(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -176,7 +170,7 @@ class MethodSSData:
         return method_ss_data
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

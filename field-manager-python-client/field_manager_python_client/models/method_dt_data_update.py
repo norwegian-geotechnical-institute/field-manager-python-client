@@ -1,9 +1,8 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.method_dt_data_update_method_type_id import MethodDTDataUpdateMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodDTDataUpdate")
@@ -14,8 +13,7 @@ class MethodDTDataUpdate:
     """Method DT data update structure
 
     Attributes:
-        method_type_id (Union[Unset, MethodDTDataUpdateMethodTypeId]):  Default:
-            MethodDTDataUpdateMethodTypeId.VALUE_22.
+        method_type_id (Union[Literal[22], Unset]):  Default: 22.
         depth (Union[None, Unset, float, str]):
         time (Union[None, Unset, float, str]):
         qc (Union[None, Unset, float, str]):
@@ -23,18 +21,16 @@ class MethodDTDataUpdate:
         remarks (Union[None, Unset, str]):
     """
 
-    method_type_id: Union[Unset, MethodDTDataUpdateMethodTypeId] = MethodDTDataUpdateMethodTypeId.VALUE_22
+    method_type_id: Union[Literal[22], Unset] = 22
     depth: Union[None, Unset, float, str] = UNSET
     time: Union[None, Unset, float, str] = UNSET
     qc: Union[None, Unset, float, str] = UNSET
     u2: Union[None, Unset, float, str] = UNSET
     remarks: Union[None, Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+    def to_dict(self) -> dict[str, Any]:
+        method_type_id = self.method_type_id
 
         depth: Union[None, Unset, float, str]
         if isinstance(self.depth, Unset):
@@ -66,7 +62,7 @@ class MethodDTDataUpdate:
         else:
             remarks = self.remarks
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if method_type_id is not UNSET:
@@ -85,14 +81,11 @@ class MethodDTDataUpdate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodDTDataUpdateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodDTDataUpdateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[22], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 22 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 22, got '{method_type_id}'")
 
         def _parse_depth(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -152,7 +145,7 @@ class MethodDTDataUpdate:
         return method_dt_data_update
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
