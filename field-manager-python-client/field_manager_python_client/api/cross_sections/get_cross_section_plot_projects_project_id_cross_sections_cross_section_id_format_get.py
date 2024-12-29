@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Optional, Union
 from uuid import UUID
 
 import httpx
@@ -17,8 +17,8 @@ def _get_kwargs(
     project_id: str,
     cross_section_id: UUID,
     format_: GetCrossSectionPlotProjectsProjectIdCrossSectionsCrossSectionIdFormatGetFormat,
-) -> Dict[str, Any]:
-    _kwargs: Dict[str, Any] = {
+) -> dict[str, Any]:
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": f"/projects/{project_id}/cross_sections/{cross_section_id}/{format_}",
     }
@@ -62,8 +62,6 @@ def sync_detailed(
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Get Cross Section Plot
 
-     Create a new cross section for a project.
-
     Args:
         project_id (str):
         cross_section_id (UUID):
@@ -99,8 +97,6 @@ def sync(
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Get Cross Section Plot
 
-     Create a new cross section for a project.
-
     Args:
         project_id (str):
         cross_section_id (UUID):
@@ -130,8 +126,6 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Get Cross Section Plot
-
-     Create a new cross section for a project.
 
     Args:
         project_id (str):
@@ -165,8 +159,6 @@ async def asyncio(
     client: AuthenticatedClient,
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Get Cross Section Plot
-
-     Create a new cross section for a project.
 
     Args:
         project_id (str):
