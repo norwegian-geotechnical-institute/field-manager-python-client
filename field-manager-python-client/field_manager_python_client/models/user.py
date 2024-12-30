@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -20,18 +20,18 @@ class User:
         user_id (Union[None, UUID, Unset]):
         name (Union[None, Unset, str]):
         email (Union[None, Unset, str]):
-        roles (Union[Unset, List['Role']]):
+        roles (Union[Unset, list['Role']]):
         email_verified (Union[None, Unset, bool]):
     """
 
     user_id: Union[None, UUID, Unset] = UNSET
     name: Union[None, Unset, str] = UNSET
     email: Union[None, Unset, str] = UNSET
-    roles: Union[Unset, List["Role"]] = UNSET
+    roles: Union[Unset, list["Role"]] = UNSET
     email_verified: Union[None, Unset, bool] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         user_id: Union[None, Unset, str]
         if isinstance(self.user_id, Unset):
             user_id = UNSET
@@ -52,7 +52,7 @@ class User:
         else:
             email = self.email
 
-        roles: Union[Unset, List[Dict[str, Any]]] = UNSET
+        roles: Union[Unset, list[dict[str, Any]]] = UNSET
         if not isinstance(self.roles, Unset):
             roles = []
             for roles_item_data in self.roles:
@@ -65,7 +65,7 @@ class User:
         else:
             email_verified = self.email_verified
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if user_id is not UNSET:
@@ -82,7 +82,7 @@ class User:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.role import Role
 
         d = src_dict.copy()
@@ -150,7 +150,7 @@ class User:
         return user
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
