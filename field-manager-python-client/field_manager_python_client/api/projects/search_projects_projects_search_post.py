@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 
 import httpx
 
@@ -16,10 +16,10 @@ def _get_kwargs(
     body: ProjectSearch,
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
-) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
 
-    params: Dict[str, Any] = {}
+    params: dict[str, Any] = {}
 
     params["skip"] = skip
 
@@ -27,7 +27,7 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "post",
         "url": "/projects/search",
         "params": params,
@@ -44,7 +44,7 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, List["ProjectInfo"]]]:
+) -> Optional[Union[HTTPValidationError, list["ProjectInfo"]]]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -66,7 +66,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, List["ProjectInfo"]]]:
+) -> Response[Union[HTTPValidationError, list["ProjectInfo"]]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -81,7 +81,7 @@ def sync_detailed(
     body: ProjectSearch,
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
-) -> Response[Union[HTTPValidationError, List["ProjectInfo"]]]:
+) -> Response[Union[HTTPValidationError, list["ProjectInfo"]]]:
     """Search Projects
 
     Args:
@@ -94,7 +94,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, List['ProjectInfo']]]
+        Response[Union[HTTPValidationError, list['ProjectInfo']]]
     """
 
     kwargs = _get_kwargs(
@@ -116,7 +116,7 @@ def sync(
     body: ProjectSearch,
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
-) -> Optional[Union[HTTPValidationError, List["ProjectInfo"]]]:
+) -> Optional[Union[HTTPValidationError, list["ProjectInfo"]]]:
     """Search Projects
 
     Args:
@@ -129,7 +129,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, List['ProjectInfo']]
+        Union[HTTPValidationError, list['ProjectInfo']]
     """
 
     return sync_detailed(
@@ -146,7 +146,7 @@ async def asyncio_detailed(
     body: ProjectSearch,
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
-) -> Response[Union[HTTPValidationError, List["ProjectInfo"]]]:
+) -> Response[Union[HTTPValidationError, list["ProjectInfo"]]]:
     """Search Projects
 
     Args:
@@ -159,7 +159,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, List['ProjectInfo']]]
+        Response[Union[HTTPValidationError, list['ProjectInfo']]]
     """
 
     kwargs = _get_kwargs(
@@ -179,7 +179,7 @@ async def asyncio(
     body: ProjectSearch,
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
-) -> Optional[Union[HTTPValidationError, List["ProjectInfo"]]]:
+) -> Optional[Union[HTTPValidationError, list["ProjectInfo"]]]:
     """Search Projects
 
     Args:
@@ -192,7 +192,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, List['ProjectInfo']]
+        Union[HTTPValidationError, list['ProjectInfo']]
     """
 
     return (
