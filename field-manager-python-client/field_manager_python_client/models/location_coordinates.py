@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,9 +20,9 @@ class LocationCoordinates:
     easting: Union[None, Unset, float] = UNSET
     northing: Union[None, Unset, float] = UNSET
     elevation: Union[None, Unset, float] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         easting: Union[None, Unset, float]
         if isinstance(self.easting, Unset):
             easting = UNSET
@@ -41,7 +41,7 @@ class LocationCoordinates:
         else:
             elevation = self.elevation
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if easting is not UNSET:
@@ -54,7 +54,7 @@ class LocationCoordinates:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
 
         def _parse_easting(data: object) -> Union[None, Unset, float]:
@@ -94,7 +94,7 @@ class LocationCoordinates:
         return location_coordinates
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
