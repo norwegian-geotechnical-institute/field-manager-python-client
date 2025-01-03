@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Optional, Union
 from uuid import UUID
 
 import httpx
@@ -14,8 +14,8 @@ from ...types import Response
 def _get_kwargs(
     project_id: str,
     linked_project_id: UUID,
-) -> Dict[str, Any]:
-    _kwargs: Dict[str, Any] = {
+) -> dict[str, Any]:
+    _kwargs: dict[str, Any] = {
         "method": "delete",
         "url": f"/projects/{project_id}/linked_projects/{linked_project_id}",
     }
