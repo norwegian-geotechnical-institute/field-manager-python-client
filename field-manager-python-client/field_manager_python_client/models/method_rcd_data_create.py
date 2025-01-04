@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_rcd_data_create_method_type_id import MethodRCDDataCreateMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodRCDDataCreate")
@@ -19,8 +18,7 @@ class MethodRCDDataCreate:
         depth (Union[float, str]): Depth (m). SGF code D.
         method_data_id (Union[None, UUID, Unset]):
         method_id (Union[None, UUID, Unset]):
-        method_type_id (Union[Unset, MethodRCDDataCreateMethodTypeId]):  Default:
-            MethodRCDDataCreateMethodTypeId.VALUE_8.
+        method_type_id (Union[Literal[8], Unset]):  Default: 8.
         created_at (Union[None, Unset, datetime.datetime]):
         updated_at (Union[None, Unset, datetime.datetime]):
         penetration_rate (Union[None, Unset, float, str]):
@@ -31,15 +29,15 @@ class MethodRCDDataCreate:
     depth: Union[float, str]
     method_data_id: Union[None, UUID, Unset] = UNSET
     method_id: Union[None, UUID, Unset] = UNSET
-    method_type_id: Union[Unset, MethodRCDDataCreateMethodTypeId] = MethodRCDDataCreateMethodTypeId.VALUE_8
+    method_type_id: Union[Literal[8], Unset] = 8
     created_at: Union[None, Unset, datetime.datetime] = UNSET
     updated_at: Union[None, Unset, datetime.datetime] = UNSET
     penetration_rate: Union[None, Unset, float, str] = UNSET
     comment_code: Union[None, Unset, int] = UNSET
     remarks: Union[None, Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         depth: Union[float, str]
         depth = self.depth
 
@@ -59,9 +57,7 @@ class MethodRCDDataCreate:
         else:
             method_id = self.method_id
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         created_at: Union[None, Unset, str]
         if isinstance(self.created_at, Unset):
@@ -97,7 +93,7 @@ class MethodRCDDataCreate:
         else:
             remarks = self.remarks
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -124,7 +120,7 @@ class MethodRCDDataCreate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
 
         def _parse_depth(data: object) -> Union[float, str]:
@@ -166,12 +162,9 @@ class MethodRCDDataCreate:
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodRCDDataCreateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodRCDDataCreateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[8], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 8 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 8, got '{method_type_id}'")
 
         def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -250,7 +243,7 @@ class MethodRCDDataCreate:
         return method_rcd_data_create
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

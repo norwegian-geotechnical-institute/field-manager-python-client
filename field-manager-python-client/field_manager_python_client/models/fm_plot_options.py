@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,24 +19,24 @@ class FMPlotOptions:
     Attributes:
         fill_curve (Union[Unset, bool]):  Default: True.
         depth_scale (Union[Unset, Scales]):
-        depth_range (Union[List[float], None, Unset]):
+        depth_range (Union[None, Unset, list[float]]):
         cpt (Union[Unset, CPTOptions]):
     """
 
     fill_curve: Union[Unset, bool] = True
     depth_scale: Union[Unset, Scales] = UNSET
-    depth_range: Union[List[float], None, Unset] = UNSET
+    depth_range: Union[None, Unset, list[float]] = UNSET
     cpt: Union[Unset, "CPTOptions"] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         fill_curve = self.fill_curve
 
         depth_scale: Union[Unset, str] = UNSET
         if not isinstance(self.depth_scale, Unset):
             depth_scale = self.depth_scale.value
 
-        depth_range: Union[List[float], None, Unset]
+        depth_range: Union[None, Unset, list[float]]
         if isinstance(self.depth_range, Unset):
             depth_range = UNSET
         elif isinstance(self.depth_range, list):
@@ -49,11 +49,11 @@ class FMPlotOptions:
         else:
             depth_range = self.depth_range
 
-        cpt: Union[Unset, Dict[str, Any]] = UNSET
+        cpt: Union[Unset, dict[str, Any]] = UNSET
         if not isinstance(self.cpt, Unset):
             cpt = self.cpt.to_dict()
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if fill_curve is not UNSET:
@@ -68,7 +68,7 @@ class FMPlotOptions:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.cpt_options import CPTOptions
 
         d = src_dict.copy()
@@ -81,7 +81,7 @@ class FMPlotOptions:
         else:
             depth_scale = Scales(_depth_scale)
 
-        def _parse_depth_range(data: object) -> Union[List[float], None, Unset]:
+        def _parse_depth_range(data: object) -> Union[None, Unset, list[float]]:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -103,7 +103,7 @@ class FMPlotOptions:
                 return depth_range_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[List[float], None, Unset], data)
+            return cast(Union[None, Unset, list[float]], data)
 
         depth_range = _parse_depth_range(d.pop("depth_range", UNSET))
 
@@ -125,7 +125,7 @@ class FMPlotOptions:
         return fm_plot_options
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

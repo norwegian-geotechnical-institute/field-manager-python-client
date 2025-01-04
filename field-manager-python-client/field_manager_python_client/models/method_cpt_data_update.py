@@ -1,9 +1,8 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.method_cpt_data_update_method_type_id import MethodCPTDataUpdateMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodCPTDataUpdate")
@@ -14,21 +13,18 @@ class MethodCPTDataUpdate:
     """Method CPT data update structure
 
     Attributes:
-        method_type_id (Union[Unset, MethodCPTDataUpdateMethodTypeId]):  Default:
-            MethodCPTDataUpdateMethodTypeId.VALUE_1.
+        method_type_id (Union[Literal[1], Unset]):  Default: 1.
         comment_code (Union[None, Unset, int]):
         remarks (Union[None, Unset, str]):
     """
 
-    method_type_id: Union[Unset, MethodCPTDataUpdateMethodTypeId] = MethodCPTDataUpdateMethodTypeId.VALUE_1
+    method_type_id: Union[Literal[1], Unset] = 1
     comment_code: Union[None, Unset, int] = UNSET
     remarks: Union[None, Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+    def to_dict(self) -> dict[str, Any]:
+        method_type_id = self.method_type_id
 
         comment_code: Union[None, Unset, int]
         if isinstance(self.comment_code, Unset):
@@ -42,7 +38,7 @@ class MethodCPTDataUpdate:
         else:
             remarks = self.remarks
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if method_type_id is not UNSET:
@@ -55,14 +51,11 @@ class MethodCPTDataUpdate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodCPTDataUpdateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodCPTDataUpdateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[1], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 1 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 1, got '{method_type_id}'")
 
         def _parse_comment_code(data: object) -> Union[None, Unset, int]:
             if data is None:
@@ -92,7 +85,7 @@ class MethodCPTDataUpdate:
         return method_cpt_data_update
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

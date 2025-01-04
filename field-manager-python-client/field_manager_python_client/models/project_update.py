@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -24,7 +24,7 @@ class ProjectUpdate:
         srid (Union[None, Unset, int]):
         height_reference (Union[HeightReference, None, Unset]):
         description (Union[None, Unset, str]):
-        tags (Union[List[str], None, Unset]):
+        tags (Union[None, Unset, list[str]]):
     """
 
     external_id: Union[None, Unset, str] = UNSET
@@ -34,10 +34,10 @@ class ProjectUpdate:
     srid: Union[None, Unset, int] = UNSET
     height_reference: Union[HeightReference, None, Unset] = UNSET
     description: Union[None, Unset, str] = UNSET
-    tags: Union[List[str], None, Unset] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    tags: Union[None, Unset, list[str]] = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         external_id: Union[None, Unset, str]
         if isinstance(self.external_id, Unset):
             external_id = UNSET
@@ -84,7 +84,7 @@ class ProjectUpdate:
         else:
             description = self.description
 
-        tags: Union[List[str], None, Unset]
+        tags: Union[None, Unset, list[str]]
         if isinstance(self.tags, Unset):
             tags = UNSET
         elif isinstance(self.tags, list):
@@ -93,7 +93,7 @@ class ProjectUpdate:
         else:
             tags = self.tags
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if external_id is not UNSET:
@@ -116,7 +116,7 @@ class ProjectUpdate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
 
         def _parse_external_id(data: object) -> Union[None, Unset, str]:
@@ -198,7 +198,7 @@ class ProjectUpdate:
 
         description = _parse_description(d.pop("description", UNSET))
 
-        def _parse_tags(data: object) -> Union[List[str], None, Unset]:
+        def _parse_tags(data: object) -> Union[None, Unset, list[str]]:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -206,12 +206,12 @@ class ProjectUpdate:
             try:
                 if not isinstance(data, list):
                     raise TypeError()
-                tags_type_0 = cast(List[str], data)
+                tags_type_0 = cast(list[str], data)
 
                 return tags_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[List[str], None, Unset], data)
+            return cast(Union[None, Unset, list[str]], data)
 
         tags = _parse_tags(d.pop("tags", UNSET))
 
@@ -230,7 +230,7 @@ class ProjectUpdate:
         return project_update
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
