@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 
 import httpx
 
@@ -9,8 +9,8 @@ from ...models.pizeometer_units import PizeometerUnits
 from ...types import Response
 
 
-def _get_kwargs() -> Dict[str, Any]:
-    _kwargs: Dict[str, Any] = {
+def _get_kwargs() -> dict[str, Any]:
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/piezometers/units",
     }
@@ -20,7 +20,7 @@ def _get_kwargs() -> Dict[str, Any]:
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["PizeometerUnits"]]:
+) -> Optional[list["PizeometerUnits"]]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -38,7 +38,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["PizeometerUnits"]]:
+) -> Response[list["PizeometerUnits"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -50,7 +50,7 @@ def _build_response(
 def sync_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Response[List["PizeometerUnits"]]:
+) -> Response[list["PizeometerUnits"]]:
     """Get Piezometer Units
 
      Return a list of the supported piezometer units.
@@ -62,7 +62,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['PizeometerUnits']]
+        Response[list['PizeometerUnits']]
     """
 
     kwargs = _get_kwargs()
@@ -77,7 +77,7 @@ def sync_detailed(
 def sync(
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Optional[List["PizeometerUnits"]]:
+) -> Optional[list["PizeometerUnits"]]:
     """Get Piezometer Units
 
      Return a list of the supported piezometer units.
@@ -89,7 +89,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['PizeometerUnits']
+        list['PizeometerUnits']
     """
 
     return sync_detailed(
@@ -100,7 +100,7 @@ def sync(
 async def asyncio_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Response[List["PizeometerUnits"]]:
+) -> Response[list["PizeometerUnits"]]:
     """Get Piezometer Units
 
      Return a list of the supported piezometer units.
@@ -112,7 +112,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['PizeometerUnits']]
+        Response[list['PizeometerUnits']]
     """
 
     kwargs = _get_kwargs()
@@ -125,7 +125,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Optional[List["PizeometerUnits"]]:
+) -> Optional[list["PizeometerUnits"]]:
     """Get Piezometer Units
 
      Return a list of the supported piezometer units.
@@ -137,7 +137,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['PizeometerUnits']
+        list['PizeometerUnits']
     """
 
     return (

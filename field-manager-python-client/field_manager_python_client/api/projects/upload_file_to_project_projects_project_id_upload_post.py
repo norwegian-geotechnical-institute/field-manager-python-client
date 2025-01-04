@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Optional, Union
 
 import httpx
 
@@ -19,10 +19,10 @@ def _get_kwargs(
     body: BodyUploadFileToProjectProjectsProjectIdUploadPost,
     layer_file: Union[Unset, bool] = False,
     srid: Union[None, Unset, str] = UNSET,
-) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
 
-    params: Dict[str, Any] = {}
+    params: dict[str, Any] = {}
 
     params["layer_file"] = layer_file
 
@@ -35,7 +35,7 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "post",
         "url": f"/projects/{project_id}/upload",
         "params": params,
