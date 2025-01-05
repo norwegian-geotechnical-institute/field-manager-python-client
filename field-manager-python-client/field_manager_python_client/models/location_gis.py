@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -21,7 +21,6 @@ class LocationGis:
         project_name (Union[None, Unset, str]):
         project_external_id (Union[None, Unset, str]):
         name (Union[None, Unset, str]):
-        location_type_id (Union[Unset, Any]): Use Project.standard_id instead. Default: 1.
         point_x_wgs84_web (Union[None, Unset, float]):
         point_y_wgs84_web (Union[None, Unset, float]):
         point_z (Union[None, Unset, float]):
@@ -43,7 +42,6 @@ class LocationGis:
     project_name: Union[None, Unset, str] = UNSET
     project_external_id: Union[None, Unset, str] = UNSET
     name: Union[None, Unset, str] = UNSET
-    location_type_id: Union[Unset, Any] = 1
     point_x_wgs84_web: Union[None, Unset, float] = UNSET
     point_y_wgs84_web: Union[None, Unset, float] = UNSET
     point_z: Union[None, Unset, float] = UNSET
@@ -58,9 +56,9 @@ class LocationGis:
     depth_in_rock: Union[None, Unset, float] = UNSET
     location_url: Union[None, Unset, str] = UNSET
     updated_at: Union[None, Unset, datetime.datetime] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         location_id = str(self.location_id)
 
         arcgisid = self.arcgisid
@@ -82,8 +80,6 @@ class LocationGis:
             name = UNSET
         else:
             name = self.name
-
-        location_type_id = self.location_type_id
 
         point_x_wgs84_web: Union[None, Unset, float]
         if isinstance(self.point_x_wgs84_web, Unset):
@@ -173,7 +169,7 @@ class LocationGis:
         else:
             updated_at = self.updated_at
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -187,8 +183,6 @@ class LocationGis:
             field_dict["project_external_id"] = project_external_id
         if name is not UNSET:
             field_dict["name"] = name
-        if location_type_id is not UNSET:
-            field_dict["location_type_id"] = location_type_id
         if point_x_wgs84_web is not UNSET:
             field_dict["point_x_wgs84_web"] = point_x_wgs84_web
         if point_y_wgs84_web is not UNSET:
@@ -221,7 +215,7 @@ class LocationGis:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         location_id = UUID(d.pop("location_id"))
 
@@ -253,8 +247,6 @@ class LocationGis:
             return cast(Union[None, Unset, str], data)
 
         name = _parse_name(d.pop("name", UNSET))
-
-        location_type_id = d.pop("location_type_id", UNSET)
 
         def _parse_point_x_wgs84_web(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -404,7 +396,6 @@ class LocationGis:
             project_name=project_name,
             project_external_id=project_external_id,
             name=name,
-            location_type_id=location_type_id,
             point_x_wgs84_web=point_x_wgs84_web,
             point_y_wgs84_web=point_y_wgs84_web,
             point_z=point_z,
@@ -425,7 +416,7 @@ class LocationGis:
         return location_gis
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
