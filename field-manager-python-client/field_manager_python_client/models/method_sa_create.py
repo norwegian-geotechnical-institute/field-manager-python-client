@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_sa_create_method_type_id import MethodSACreateMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
 
@@ -33,13 +32,13 @@ class MethodSACreate:
         updated_by (Union[None, Unset, str]):
         conducted_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Unset, MethodSACreateMethodTypeId]):  Default: MethodSACreateMethodTypeId.VALUE_4.
+        method_type_id (Union[Literal[4], Unset]):  Default: 4.
         depth_top (Union[None, Unset, float, str]):
         depth_base (Union[None, Unset, float, str]):
         diameter (Union[None, Unset, float, str]):
         sample_container_id (Union[None, Unset, str]):
         sample_container_type_id (Union[None, Unset, int]):
-        sample_material_ids (Union[Unset, List[int]]):
+        sample_material_ids (Union[Unset, list[int]]):
         ags_sample_type (Union[None, Unset, str]):
         sampling_technique_id (Union[None, Unset, int]):
     """
@@ -54,18 +53,18 @@ class MethodSACreate:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Unset, MethodSACreateMethodTypeId] = MethodSACreateMethodTypeId.VALUE_4
+    method_type_id: Union[Literal[4], Unset] = 4
     depth_top: Union[None, Unset, float, str] = UNSET
     depth_base: Union[None, Unset, float, str] = UNSET
     diameter: Union[None, Unset, float, str] = UNSET
     sample_container_id: Union[None, Unset, str] = UNSET
     sample_container_type_id: Union[None, Unset, int] = UNSET
-    sample_material_ids: Union[Unset, List[int]] = UNSET
+    sample_material_ids: Union[Unset, list[int]] = UNSET
     ags_sample_type: Union[None, Unset, str] = UNSET
     sampling_technique_id: Union[None, Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         method_id: Union[None, Unset, str]
         if isinstance(self.method_id, Unset):
             method_id = UNSET
@@ -128,9 +127,7 @@ class MethodSACreate:
         else:
             conducted_at = self.conducted_at
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         depth_top: Union[None, Unset, float, str]
         if isinstance(self.depth_top, Unset):
@@ -162,7 +159,7 @@ class MethodSACreate:
         else:
             sample_container_type_id = self.sample_container_type_id
 
-        sample_material_ids: Union[Unset, List[int]] = UNSET
+        sample_material_ids: Union[Unset, list[int]] = UNSET
         if not isinstance(self.sample_material_ids, Unset):
             sample_material_ids = self.sample_material_ids
 
@@ -178,7 +175,7 @@ class MethodSACreate:
         else:
             sampling_technique_id = self.sampling_technique_id
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if method_id is not UNSET:
@@ -223,7 +220,7 @@ class MethodSACreate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
 
         def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
@@ -339,12 +336,9 @@ class MethodSACreate:
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodSACreateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodSACreateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[4], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 4 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 4, got '{method_type_id}'")
 
         def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -391,7 +385,7 @@ class MethodSACreate:
 
         sample_container_type_id = _parse_sample_container_type_id(d.pop("sample_container_type_id", UNSET))
 
-        sample_material_ids = cast(List[int], d.pop("sample_material_ids", UNSET))
+        sample_material_ids = cast(list[int], d.pop("sample_material_ids", UNSET))
 
         def _parse_ags_sample_type(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -437,7 +431,7 @@ class MethodSACreate:
         return method_sa_create
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
