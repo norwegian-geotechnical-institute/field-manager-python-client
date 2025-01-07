@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,10 +17,10 @@ class Export:
     """
     Attributes:
         export_type (ExportType):
-        location_ids (Union[Unset, List[UUID]]): Used when export_type is one of `LocationKOF`, `LocationXLS`
-        file_ids (Union[Unset, List[UUID]]): Used when export_type is `ProjectFiles`
-        method_status_ids (Union[Unset, List[int]]): Filter methods by status. Empty list means all statuses.
-        method_type_ids (Union[Unset, List[int]]): Filter methods by type. Empty list means all types.
+        location_ids (Union[Unset, list[UUID]]): Used when export_type is one of `LocationKOF`, `LocationXLS`
+        file_ids (Union[Unset, list[UUID]]): Used when export_type is `ProjectFiles`
+        method_status_ids (Union[Unset, list[int]]): Filter methods by status. Empty list means all statuses.
+        method_type_ids (Union[Unset, list[int]]): Filter methods by type. Empty list means all types.
         srid (Union[None, Unset, int]): Specify the output file coordinate system for KOF and SND export. If not
             specified, the project coordinate system will be used.
         method_conducted_from (Union[None, Unset, datetime.datetime]): Filter methods by conducted date from this time
@@ -30,38 +30,38 @@ class Export:
     """
 
     export_type: ExportType
-    location_ids: Union[Unset, List[UUID]] = UNSET
-    file_ids: Union[Unset, List[UUID]] = UNSET
-    method_status_ids: Union[Unset, List[int]] = UNSET
-    method_type_ids: Union[Unset, List[int]] = UNSET
+    location_ids: Union[Unset, list[UUID]] = UNSET
+    file_ids: Union[Unset, list[UUID]] = UNSET
+    method_status_ids: Union[Unset, list[int]] = UNSET
+    method_type_ids: Union[Unset, list[int]] = UNSET
     srid: Union[None, Unset, int] = UNSET
     method_conducted_from: Union[None, Unset, datetime.datetime] = UNSET
     method_conducted_to: Union[None, Unset, datetime.datetime] = UNSET
     swap_x_y: Union[None, Unset, bool] = False
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         export_type = self.export_type.value
 
-        location_ids: Union[Unset, List[str]] = UNSET
+        location_ids: Union[Unset, list[str]] = UNSET
         if not isinstance(self.location_ids, Unset):
             location_ids = []
             for location_ids_item_data in self.location_ids:
                 location_ids_item = str(location_ids_item_data)
                 location_ids.append(location_ids_item)
 
-        file_ids: Union[Unset, List[str]] = UNSET
+        file_ids: Union[Unset, list[str]] = UNSET
         if not isinstance(self.file_ids, Unset):
             file_ids = []
             for file_ids_item_data in self.file_ids:
                 file_ids_item = str(file_ids_item_data)
                 file_ids.append(file_ids_item)
 
-        method_status_ids: Union[Unset, List[int]] = UNSET
+        method_status_ids: Union[Unset, list[int]] = UNSET
         if not isinstance(self.method_status_ids, Unset):
             method_status_ids = self.method_status_ids
 
-        method_type_ids: Union[Unset, List[int]] = UNSET
+        method_type_ids: Union[Unset, list[int]] = UNSET
         if not isinstance(self.method_type_ids, Unset):
             method_type_ids = self.method_type_ids
 
@@ -93,7 +93,7 @@ class Export:
         else:
             swap_x_y = self.swap_x_y
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -120,7 +120,7 @@ class Export:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         export_type = ExportType(d.pop("export_type"))
 
@@ -138,9 +138,9 @@ class Export:
 
             file_ids.append(file_ids_item)
 
-        method_status_ids = cast(List[int], d.pop("method_status_ids", UNSET))
+        method_status_ids = cast(list[int], d.pop("method_status_ids", UNSET))
 
-        method_type_ids = cast(List[int], d.pop("method_type_ids", UNSET))
+        method_type_ids = cast(list[int], d.pop("method_type_ids", UNSET))
 
         def _parse_srid(data: object) -> Union[None, Unset, int]:
             if data is None:
@@ -210,7 +210,7 @@ class Export:
         return export
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
