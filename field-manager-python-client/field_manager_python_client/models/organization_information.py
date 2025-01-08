@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -24,9 +24,9 @@ class OrganizationInformation:
     logo: Union[None, Unset, str] = UNSET
     logo_mime_type: Union[None, Unset, str] = UNSET
     authentication_alias: Union[None, Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         external_id: Union[None, Unset, str]
         if isinstance(self.external_id, Unset):
             external_id = UNSET
@@ -57,7 +57,7 @@ class OrganizationInformation:
         else:
             authentication_alias = self.authentication_alias
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if external_id is not UNSET:
@@ -74,7 +74,7 @@ class OrganizationInformation:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
 
         def _parse_external_id(data: object) -> Union[None, Unset, str]:
@@ -134,7 +134,7 @@ class OrganizationInformation:
         return organization_information
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

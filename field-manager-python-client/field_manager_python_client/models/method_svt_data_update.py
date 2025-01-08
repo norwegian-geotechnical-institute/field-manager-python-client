@@ -1,9 +1,8 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.method_svt_data_update_method_type_id import MethodSVTDataUpdateMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodSVTDataUpdate")
@@ -13,8 +12,7 @@ T = TypeVar("T", bound="MethodSVTDataUpdate")
 class MethodSVTDataUpdate:
     """
     Attributes:
-        method_type_id (Union[Unset, MethodSVTDataUpdateMethodTypeId]):  Default:
-            MethodSVTDataUpdateMethodTypeId.VALUE_10.
+        method_type_id (Union[Literal[10], Unset]):  Default: 10.
         depth_top (Union[None, Unset, float, str]): Depth (m).
         maximum_measurement_torque (Union[None, Unset, float, str]): Maximum measurement torque (Nm).
         maximum_measurement_torque_remoulded (Union[None, Unset, float, str]): Maximum measurement torque (Nm).
@@ -24,7 +22,7 @@ class MethodSVTDataUpdate:
         remarks (Union[None, Unset, str]):
     """
 
-    method_type_id: Union[Unset, MethodSVTDataUpdateMethodTypeId] = MethodSVTDataUpdateMethodTypeId.VALUE_10
+    method_type_id: Union[Literal[10], Unset] = 10
     depth_top: Union[None, Unset, float, str] = UNSET
     maximum_measurement_torque: Union[None, Unset, float, str] = UNSET
     maximum_measurement_torque_remoulded: Union[None, Unset, float, str] = UNSET
@@ -32,12 +30,10 @@ class MethodSVTDataUpdate:
     shear_strength_remoulded: Union[None, Unset, float, str] = UNSET
     sensitivity: Union[None, Unset, float, str] = UNSET
     remarks: Union[None, Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+    def to_dict(self) -> dict[str, Any]:
+        method_type_id = self.method_type_id
 
         depth_top: Union[None, Unset, float, str]
         if isinstance(self.depth_top, Unset):
@@ -81,7 +77,7 @@ class MethodSVTDataUpdate:
         else:
             remarks = self.remarks
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if method_type_id is not UNSET:
@@ -104,14 +100,11 @@ class MethodSVTDataUpdate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodSVTDataUpdateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodSVTDataUpdateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[10], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 10 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 10, got '{method_type_id}'")
 
         def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -193,7 +186,7 @@ class MethodSVTDataUpdate:
         return method_svt_data_update
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
