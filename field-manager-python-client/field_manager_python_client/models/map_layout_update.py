@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -20,15 +20,15 @@ class MapLayoutUpdate:
     Attributes:
         map_layout_id (Union[None, UUID, Unset]):
         name (Union[None, Unset, str]):
-        versions (Union[Unset, List['MapLayoutVersionUpdate']]):
+        versions (Union[Unset, list['MapLayoutVersionUpdate']]):
     """
 
     map_layout_id: Union[None, UUID, Unset] = UNSET
     name: Union[None, Unset, str] = UNSET
-    versions: Union[Unset, List["MapLayoutVersionUpdate"]] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    versions: Union[Unset, list["MapLayoutVersionUpdate"]] = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         map_layout_id: Union[None, Unset, str]
         if isinstance(self.map_layout_id, Unset):
             map_layout_id = UNSET
@@ -43,14 +43,14 @@ class MapLayoutUpdate:
         else:
             name = self.name
 
-        versions: Union[Unset, List[Dict[str, Any]]] = UNSET
+        versions: Union[Unset, list[dict[str, Any]]] = UNSET
         if not isinstance(self.versions, Unset):
             versions = []
             for versions_item_data in self.versions:
                 versions_item = versions_item_data.to_dict()
                 versions.append(versions_item)
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if map_layout_id is not UNSET:
@@ -63,7 +63,7 @@ class MapLayoutUpdate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.map_layout_version_update import MapLayoutVersionUpdate
 
         d = src_dict.copy()
@@ -111,7 +111,7 @@ class MapLayoutUpdate:
         return map_layout_update
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
