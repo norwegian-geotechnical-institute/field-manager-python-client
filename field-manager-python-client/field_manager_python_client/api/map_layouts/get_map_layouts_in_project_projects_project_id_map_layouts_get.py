@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 
 import httpx
 
@@ -12,8 +12,8 @@ from ...types import Response
 
 def _get_kwargs(
     project_id: str,
-) -> Dict[str, Any]:
-    _kwargs: Dict[str, Any] = {
+) -> dict[str, Any]:
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": f"/projects/{project_id}/map_layouts",
     }
@@ -23,7 +23,7 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, List["MapLayout"]]]:
+) -> Optional[Union[HTTPValidationError, list["MapLayout"]]]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -45,7 +45,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, List["MapLayout"]]]:
+) -> Response[Union[HTTPValidationError, list["MapLayout"]]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -58,7 +58,7 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[HTTPValidationError, List["MapLayout"]]]:
+) -> Response[Union[HTTPValidationError, list["MapLayout"]]]:
     """Get Map Layouts In Project
 
      Get all map layouts for project.
@@ -71,7 +71,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, List['MapLayout']]]
+        Response[Union[HTTPValidationError, list['MapLayout']]]
     """
 
     kwargs = _get_kwargs(
@@ -89,7 +89,7 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[HTTPValidationError, List["MapLayout"]]]:
+) -> Optional[Union[HTTPValidationError, list["MapLayout"]]]:
     """Get Map Layouts In Project
 
      Get all map layouts for project.
@@ -102,7 +102,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, List['MapLayout']]
+        Union[HTTPValidationError, list['MapLayout']]
     """
 
     return sync_detailed(
@@ -115,7 +115,7 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[HTTPValidationError, List["MapLayout"]]]:
+) -> Response[Union[HTTPValidationError, list["MapLayout"]]]:
     """Get Map Layouts In Project
 
      Get all map layouts for project.
@@ -128,7 +128,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, List['MapLayout']]]
+        Response[Union[HTTPValidationError, list['MapLayout']]]
     """
 
     kwargs = _get_kwargs(
@@ -144,7 +144,7 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[HTTPValidationError, List["MapLayout"]]]:
+) -> Optional[Union[HTTPValidationError, list["MapLayout"]]]:
     """Get Map Layouts In Project
 
      Get all map layouts for project.
@@ -157,7 +157,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, List['MapLayout']]
+        Union[HTTPValidationError, list['MapLayout']]
     """
 
     return (
