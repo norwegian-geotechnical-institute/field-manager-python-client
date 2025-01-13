@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -18,14 +18,14 @@ class CrossSection:
         cross_section_id (UUID):
         horizontal_scale (str):
         vertical_scale (str):
-        method_ids (List[UUID]):
+        method_ids (list[UUID]):
         name (str):
         width (float):
         polyline_linestring (str):
         project_id (UUID):
         srid (int):
         created_by (UUID):
-        polyline_coordinates (List[List[float]]): Compute the polyline_coordinates from the polyline_linestring
+        polyline_coordinates (list[list[float]]): Compute the polyline_coordinates from the polyline_linestring
         updated_at (Union[None, Unset, datetime.datetime]):
         updated_by (Union[None, UUID, Unset]):
         created_at (Union[None, Unset, datetime.datetime]):
@@ -34,20 +34,20 @@ class CrossSection:
     cross_section_id: UUID
     horizontal_scale: str
     vertical_scale: str
-    method_ids: List[UUID]
+    method_ids: list[UUID]
     name: str
     width: float
     polyline_linestring: str
     project_id: UUID
     srid: int
     created_by: UUID
-    polyline_coordinates: List[List[float]]
+    polyline_coordinates: list[list[float]]
     updated_at: Union[None, Unset, datetime.datetime] = UNSET
     updated_by: Union[None, UUID, Unset] = UNSET
     created_at: Union[None, Unset, datetime.datetime] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         cross_section_id = str(self.cross_section_id)
 
         horizontal_scale = self.horizontal_scale
@@ -105,7 +105,7 @@ class CrossSection:
         else:
             created_at = self.created_at
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -132,7 +132,7 @@ class CrossSection:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         cross_section_id = UUID(d.pop("cross_section_id"))
 
@@ -249,7 +249,7 @@ class CrossSection:
         return cross_section
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
