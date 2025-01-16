@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -34,9 +34,9 @@ class PageNumberStartPerMethod:
     dp: Union[None, Unset, str] = ""
     srs: Union[None, Unset, str] = ""
     wst: Union[None, Unset, str] = ""
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         cpt: Union[None, Unset, str]
         if isinstance(self.cpt, Unset):
             cpt = UNSET
@@ -97,7 +97,7 @@ class PageNumberStartPerMethod:
         else:
             wst = self.wst
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if cpt is not UNSET:
@@ -124,7 +124,7 @@ class PageNumberStartPerMethod:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
 
         def _parse_cpt(data: object) -> Union[None, Unset, str]:
@@ -234,7 +234,7 @@ class PageNumberStartPerMethod:
         return page_number_start_per_method
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
