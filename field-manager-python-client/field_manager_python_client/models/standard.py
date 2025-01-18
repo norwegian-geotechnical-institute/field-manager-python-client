@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,17 +21,17 @@ class Standard:
         name (str):
         description (str):
         sort_order (int):
-        method_types (Union[Unset, List['MethodType']]):
+        method_types (Union[Unset, list['MethodType']]):
     """
 
     standard_id: StandardType
     name: str
     description: str
     sort_order: int
-    method_types: Union[Unset, List["MethodType"]] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    method_types: Union[Unset, list["MethodType"]] = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         standard_id = self.standard_id.value
 
         name = self.name
@@ -40,14 +40,14 @@ class Standard:
 
         sort_order = self.sort_order
 
-        method_types: Union[Unset, List[Dict[str, Any]]] = UNSET
+        method_types: Union[Unset, list[dict[str, Any]]] = UNSET
         if not isinstance(self.method_types, Unset):
             method_types = []
             for method_types_item_data in self.method_types:
                 method_types_item = method_types_item_data.to_dict()
                 method_types.append(method_types_item)
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -63,7 +63,7 @@ class Standard:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.method_type import MethodType
 
         d = src_dict.copy()
@@ -94,7 +94,7 @@ class Standard:
         return standard
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
