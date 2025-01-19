@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_srs_data_method_type_id import MethodSRSDataMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodSRSData")
@@ -21,7 +20,7 @@ class MethodSRSData:
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
         depth (float): Depth (m). SGF code D.
-        method_type_id (Union[Unset, MethodSRSDataMethodTypeId]):  Default: MethodSRSDataMethodTypeId.VALUE_24.
+        method_type_id (Union[Literal[24], Unset]):  Default: 24.
         remarks (Union[None, Unset, str]): Remarks. SGF code T
         comment_code (Union[None, Unset, int]): Comment code. Two digit value.
         penetration_rate (Union[None, Unset, float]): Penetration rate (mm/s). SGF code B.
@@ -41,7 +40,7 @@ class MethodSRSData:
     created_at: datetime.datetime
     updated_at: datetime.datetime
     depth: float
-    method_type_id: Union[Unset, MethodSRSDataMethodTypeId] = MethodSRSDataMethodTypeId.VALUE_24
+    method_type_id: Union[Literal[24], Unset] = 24
     remarks: Union[None, Unset, str] = UNSET
     comment_code: Union[None, Unset, int] = UNSET
     penetration_rate: Union[None, Unset, float] = UNSET
@@ -54,9 +53,9 @@ class MethodSRSData:
     flushing: Union[None, Unset, bool] = UNSET
     flushing_pressure: Union[None, Unset, float] = UNSET
     flushing_flow: Union[None, Unset, float] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         method_data_id = str(self.method_data_id)
 
         method_id = str(self.method_id)
@@ -67,9 +66,7 @@ class MethodSRSData:
 
         depth = self.depth
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         remarks: Union[None, Unset, str]
         if isinstance(self.remarks, Unset):
@@ -143,7 +140,7 @@ class MethodSRSData:
         else:
             flushing_flow = self.flushing_flow
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -184,7 +181,7 @@ class MethodSRSData:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         method_data_id = UUID(d.pop("method_data_id"))
 
@@ -196,12 +193,9 @@ class MethodSRSData:
 
         depth = d.pop("depth")
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodSRSDataMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodSRSDataMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[24], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 24 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 24, got '{method_type_id}'")
 
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -336,7 +330,7 @@ class MethodSRSData:
         return method_srs_data
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

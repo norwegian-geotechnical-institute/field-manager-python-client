@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar, Union
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -19,44 +19,44 @@ T = TypeVar("T", bound="Options")
 class Options:
     """
     Attributes:
-        location_ids (List[UUID]):
+        location_ids (list[UUID]):
         pdf (Union[Unset, PdfOptions]):
         plot (Union[Unset, FMPlotOptions]):
         auto_set_depth (Union[Unset, bool]):  Default: False.
-        methods (Union[Unset, List[PlotType]]):
+        methods (Union[Unset, list[PlotType]]):
     """
 
-    location_ids: List[UUID]
+    location_ids: list[UUID]
     pdf: Union[Unset, "PdfOptions"] = UNSET
     plot: Union[Unset, "FMPlotOptions"] = UNSET
     auto_set_depth: Union[Unset, bool] = False
-    methods: Union[Unset, List[PlotType]] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    methods: Union[Unset, list[PlotType]] = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         location_ids = []
         for location_ids_item_data in self.location_ids:
             location_ids_item = str(location_ids_item_data)
             location_ids.append(location_ids_item)
 
-        pdf: Union[Unset, Dict[str, Any]] = UNSET
+        pdf: Union[Unset, dict[str, Any]] = UNSET
         if not isinstance(self.pdf, Unset):
             pdf = self.pdf.to_dict()
 
-        plot: Union[Unset, Dict[str, Any]] = UNSET
+        plot: Union[Unset, dict[str, Any]] = UNSET
         if not isinstance(self.plot, Unset):
             plot = self.plot.to_dict()
 
         auto_set_depth = self.auto_set_depth
 
-        methods: Union[Unset, List[str]] = UNSET
+        methods: Union[Unset, list[str]] = UNSET
         if not isinstance(self.methods, Unset):
             methods = []
             for methods_item_data in self.methods:
                 methods_item = methods_item_data.value
                 methods.append(methods_item)
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -75,7 +75,7 @@ class Options:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.fm_plot_options import FMPlotOptions
         from ..models.pdf_options import PdfOptions
 
@@ -122,7 +122,7 @@ class Options:
         return options
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
