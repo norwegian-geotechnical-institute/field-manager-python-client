@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 
 import httpx
 
@@ -14,11 +14,11 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     organization_id: str,
     *,
-    file_types: Union[Unset, List[FileType]] = UNSET,
-) -> Dict[str, Any]:
-    params: Dict[str, Any] = {}
+    file_types: Union[Unset, list[FileType]] = UNSET,
+) -> dict[str, Any]:
+    params: dict[str, Any] = {}
 
-    json_file_types: Union[Unset, List[str]] = UNSET
+    json_file_types: Union[Unset, list[str]] = UNSET
     if not isinstance(file_types, Unset):
         json_file_types = []
         for file_types_item_data in file_types:
@@ -29,7 +29,7 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": f"/organizations/{organization_id}/files",
         "params": params,
@@ -40,7 +40,7 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, List["File"]]]:
+) -> Optional[Union[HTTPValidationError, list["File"]]]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -62,7 +62,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, List["File"]]]:
+) -> Response[Union[HTTPValidationError, list["File"]]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -75,8 +75,8 @@ def sync_detailed(
     organization_id: str,
     *,
     client: AuthenticatedClient,
-    file_types: Union[Unset, List[FileType]] = UNSET,
-) -> Response[Union[HTTPValidationError, List["File"]]]:
+    file_types: Union[Unset, list[FileType]] = UNSET,
+) -> Response[Union[HTTPValidationError, list["File"]]]:
     """Get Files In Organization
 
      Get all database file objects that are directly attached to the specified organization with
@@ -89,14 +89,14 @@ def sync_detailed(
 
     Args:
         organization_id (str):
-        file_types (Union[Unset, List[FileType]]):
+        file_types (Union[Unset, list[FileType]]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, List['File']]]
+        Response[Union[HTTPValidationError, list['File']]]
     """
 
     kwargs = _get_kwargs(
@@ -115,8 +115,8 @@ def sync(
     organization_id: str,
     *,
     client: AuthenticatedClient,
-    file_types: Union[Unset, List[FileType]] = UNSET,
-) -> Optional[Union[HTTPValidationError, List["File"]]]:
+    file_types: Union[Unset, list[FileType]] = UNSET,
+) -> Optional[Union[HTTPValidationError, list["File"]]]:
     """Get Files In Organization
 
      Get all database file objects that are directly attached to the specified organization with
@@ -129,14 +129,14 @@ def sync(
 
     Args:
         organization_id (str):
-        file_types (Union[Unset, List[FileType]]):
+        file_types (Union[Unset, list[FileType]]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, List['File']]
+        Union[HTTPValidationError, list['File']]
     """
 
     return sync_detailed(
@@ -150,8 +150,8 @@ async def asyncio_detailed(
     organization_id: str,
     *,
     client: AuthenticatedClient,
-    file_types: Union[Unset, List[FileType]] = UNSET,
-) -> Response[Union[HTTPValidationError, List["File"]]]:
+    file_types: Union[Unset, list[FileType]] = UNSET,
+) -> Response[Union[HTTPValidationError, list["File"]]]:
     """Get Files In Organization
 
      Get all database file objects that are directly attached to the specified organization with
@@ -164,14 +164,14 @@ async def asyncio_detailed(
 
     Args:
         organization_id (str):
-        file_types (Union[Unset, List[FileType]]):
+        file_types (Union[Unset, list[FileType]]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, List['File']]]
+        Response[Union[HTTPValidationError, list['File']]]
     """
 
     kwargs = _get_kwargs(
@@ -188,8 +188,8 @@ async def asyncio(
     organization_id: str,
     *,
     client: AuthenticatedClient,
-    file_types: Union[Unset, List[FileType]] = UNSET,
-) -> Optional[Union[HTTPValidationError, List["File"]]]:
+    file_types: Union[Unset, list[FileType]] = UNSET,
+) -> Optional[Union[HTTPValidationError, list["File"]]]:
     """Get Files In Organization
 
      Get all database file objects that are directly attached to the specified organization with
@@ -202,14 +202,14 @@ async def asyncio(
 
     Args:
         organization_id (str):
-        file_types (Union[Unset, List[FileType]]):
+        file_types (Union[Unset, list[FileType]]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, List['File']]
+        Union[HTTPValidationError, list['File']]
     """
 
     return (

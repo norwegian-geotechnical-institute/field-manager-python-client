@@ -1,12 +1,11 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_cd_method_type_id import MethodCDMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
 
@@ -35,12 +34,12 @@ class MethodCD:
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
         remarks (Union[None, Unset, str]):
-        method_type_id (Union[Unset, MethodCDMethodTypeId]):  Default: MethodCDMethodTypeId.VALUE_12.
+        method_type_id (Union[Literal[12], Unset]):  Default: 12.
         created_by (Union[None, Unset, str]):
         updated_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
         conducted_by (Union[None, Unset, str]):
-        files (Union[Unset, List['File']]):
+        files (Union[Unset, list['File']]):
         self_ (Union[None, Unset, str]):
         sampler_type_id (Union[None, Unset, int]):
         inclination (Union[None, Unset, float]): Inclination angle (deg).
@@ -68,12 +67,12 @@ class MethodCD:
     created_at: datetime.datetime
     updated_at: datetime.datetime
     remarks: Union[None, Unset, str] = UNSET
-    method_type_id: Union[Unset, MethodCDMethodTypeId] = MethodCDMethodTypeId.VALUE_12
+    method_type_id: Union[Literal[12], Unset] = 12
     created_by: Union[None, Unset, str] = UNSET
     updated_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
-    files: Union[Unset, List["File"]] = UNSET
+    files: Union[Unset, list["File"]] = UNSET
     self_: Union[None, Unset, str] = UNSET
     sampler_type_id: Union[None, Unset, int] = UNSET
     inclination: Union[None, Unset, float] = UNSET
@@ -92,9 +91,9 @@ class MethodCD:
     horizontal_length_in_soil: Union[None, Unset, float] = UNSET
     depth_top: Union[None, Unset, float] = UNSET
     depth_base: Union[None, Unset, float] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         method_id = str(self.method_id)
 
         name = self.name
@@ -113,9 +112,7 @@ class MethodCD:
         else:
             remarks = self.remarks
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         created_by: Union[None, Unset, str]
         if isinstance(self.created_by, Unset):
@@ -143,7 +140,7 @@ class MethodCD:
         else:
             conducted_by = self.conducted_by
 
-        files: Union[Unset, List[Dict[str, Any]]] = UNSET
+        files: Union[Unset, list[dict[str, Any]]] = UNSET
         if not isinstance(self.files, Unset):
             files = []
             for files_item_data in self.files:
@@ -258,7 +255,7 @@ class MethodCD:
         else:
             depth_base = self.depth_base
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -324,7 +321,7 @@ class MethodCD:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.file import File
 
         d = src_dict.copy()
@@ -349,12 +346,9 @@ class MethodCD:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodCDMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodCDMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[12], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 12 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 12, got '{method_type_id}'")
 
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -607,7 +601,7 @@ class MethodCD:
         return method_cd
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

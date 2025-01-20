@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.4.90" },
+  "info": { "title": "Field Manager Data API", "version": "4.5.39" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -1923,16 +1923,6 @@
               "default": false,
               "title": "Swap X Y"
             }
-          },
-          {
-            "name": "location_type_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/LocationTypeEnum",
-              "default": 1
-            },
-            "deprecated": true
           }
         ],
         "requestBody": {
@@ -2002,16 +1992,6 @@
               "default": false,
               "title": "Swap X Y"
             }
-          },
-          {
-            "name": "location_type_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/LocationTypeEnum",
-              "default": 1
-            },
-            "deprecated": true
           }
         ],
         "requestBody": {
@@ -2082,22 +2062,6 @@
               "default": false,
               "title": "Swap X Y"
             }
-          },
-          {
-            "name": "location_type_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                { "$ref": "#/components/schemas/LocationTypeEnum" },
-                { "type": "null" }
-              ],
-              "description": "Use Project.standard_id instead",
-              "default": 1,
-              "title": "Location Type Id"
-            },
-            "description": "Use Project.standard_id instead",
-            "deprecated": true
           }
         ],
         "responses": {
@@ -3715,1607 +3679,6 @@
         }
       }
     },
-    "/projects/{project_id}/gis/onshore": {
-      "get": {
-        "tags": ["gis"],
-        "summary": "Get Locations In Project",
-        "description": "Special endpoint for getting a project's locations flattened with limited aggregated method data. One row per\nlocation.",
-        "operationId": "get_locations_in_project_projects__project_id__gis_onshore_get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "skip",
-            "in": "query",
-            "required": false,
-            "schema": { "type": "integer", "default": 0, "title": "Skip" }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": { "type": "integer", "default": 100, "title": "Limit" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/LocationGis" },
-                  "title": "Response Get Locations In Project Projects  Project Id  Gis Onshore Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/location_types": {
-      "get": {
-        "tags": ["location types"],
-        "summary": "Get Location Types",
-        "description": "Location type will be deprecated.\n\nUse Project.standard_id instead.",
-        "operationId": "get_location_types_location_types_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/fm_data_api__schemas__schemas__LocationType"
-                  },
-                  "type": "array",
-                  "title": "Response Get Location Types Location Types Get"
-                }
-              }
-            }
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/location_types/{location_type_id}": {
-      "get": {
-        "tags": ["location types"],
-        "summary": "Get Location Type",
-        "description": "Location type will be deprecated.\n\nUse Project.standard_id instead.",
-        "operationId": "get_location_type_location_types__location_type_id__get",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "location_type_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer", "title": "Location Type Id" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/fm_data_api__schemas__schemas__LocationType"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/location_iogp_types": {
-      "get": {
-        "tags": ["location types"],
-        "summary": "Get Location Iogp Types",
-        "operationId": "get_location_iogp_types_location_iogp_types_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": { "$ref": "#/components/schemas/IOGPType" },
-                  "type": "array",
-                  "title": "Response Get Location Iogp Types Location Iogp Types Get"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/location_iogp_types/{iogp_type_id}": {
-      "get": {
-        "tags": ["location types"],
-        "summary": "Get Location Iogp Type",
-        "operationId": "get_location_iogp_type_location_iogp_types__iogp_type_id__get",
-        "parameters": [
-          {
-            "name": "iogp_type_id",
-            "in": "path",
-            "required": true,
-            "schema": { "$ref": "#/components/schemas/IOGPTypeEnum" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/IOGPType" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/map_layouts": {
-      "get": {
-        "tags": ["map layouts"],
-        "summary": "Get Map Layouts In Project",
-        "description": "Get all map layouts for project.",
-        "operationId": "get_map_layouts_in_project_projects__project_id__map_layouts_get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/MapLayout" },
-                  "title": "Response Get Map Layouts In Project Projects  Project Id  Map Layouts Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": ["map layouts"],
-        "summary": "Delete Map Layouts In Project",
-        "description": "Delete all specified map layouts (map_layout_ids) and their map layout versions for the project with project_id.",
-        "operationId": "delete_map_layouts_in_project_projects__project_id__map_layouts_delete",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": { "type": "string", "format": "uuid" },
-                "title": "Map Layout Ids"
-              }
-            }
-          }
-        },
-        "responses": {
-          "204": { "description": "Successful Response" },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": ["map layouts"],
-        "summary": "Add Map Layout To Project",
-        "description": "Add map layout to project.",
-        "operationId": "add_map_layout_to_project_projects__project_id__map_layouts_post",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/MapLayoutCreate" }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/MapLayout" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/map_layouts/{map_layout_id}": {
-      "get": {
-        "tags": ["map layouts"],
-        "summary": "Get Map Layout In Project",
-        "description": "Get map layout by project_id and map_layout_id.",
-        "operationId": "get_map_layout_in_project_projects__project_id__map_layouts__map_layout_id__get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "map_layout_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Map Layout Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/MapLayout" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": ["map layouts"],
-        "summary": "Delete Map Layout In Project",
-        "description": "Delete map layout by project_id and map_layout_id.",
-        "operationId": "delete_map_layout_in_project_projects__project_id__map_layouts__map_layout_id__delete",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "map_layout_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Map Layout Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": { "application/json": { "schema": {} } }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": ["map layouts"],
-        "summary": "Update Map Layout In Project",
-        "description": "Update map layout by project_id and map_layout_id.",
-        "operationId": "update_map_layout_in_project_projects__project_id__map_layouts__map_layout_id__put",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "map_layout_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Map Layout Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/MapLayoutUpdate" }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/MapLayout" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/map_layouts/{map_layout_id}/versions": {
-      "post": {
-        "tags": ["map layouts"],
-        "summary": "Add Map Layout Version",
-        "description": "Add map layout version to map layout.",
-        "operationId": "add_map_layout_version_projects__project_id__map_layouts__map_layout_id__versions_post",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "map_layout_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Map Layout Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MapLayoutVersionCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/MapLayoutVersion" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/map_layouts/{map_layout_id}/versions/{map_layout_version_id}": {
-      "put": {
-        "tags": ["map layouts"],
-        "summary": "Update Map Layout Version",
-        "description": "Update map layout version by project_id, map_layout_id and map_layout_version_id.",
-        "operationId": "update_map_layout_version_projects__project_id__map_layouts__map_layout_id__versions__map_layout_version_id__put",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "map_layout_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Map Layout Id"
-            }
-          },
-          {
-            "name": "map_layout_version_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Map Layout Version Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MapLayoutVersionUpdate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/MapLayoutVersion" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": ["map layouts"],
-        "summary": "Delete Map Layout Version",
-        "description": "Delete map layout version by project_id, map_layout_id and map_layout_version_id.",
-        "operationId": "delete_map_layout_version_projects__project_id__map_layouts__map_layout_id__versions__map_layout_version_id__delete",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "map_layout_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Map Layout Id"
-            }
-          },
-          {
-            "name": "map_layout_version_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Map Layout Version Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": { "application/json": { "schema": {} } }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/method_types": {
-      "get": {
-        "tags": ["method types"],
-        "summary": "Get Method Types",
-        "operationId": "get_method_types_method_types_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": { "$ref": "#/components/schemas/MethodType" },
-                  "type": "array",
-                  "title": "Response Get Method Types Method Types Get"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/method_types/{method_type_id}": {
-      "get": {
-        "tags": ["method types"],
-        "summary": "Get Method Type",
-        "operationId": "get_method_type_method_types__method_type_id__get",
-        "parameters": [
-          {
-            "name": "method_type_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer", "title": "Method Type Id" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/MethodType" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sampling_techniques": {
-      "get": {
-        "tags": ["sampling techniques"],
-        "summary": "Get Sampling Techniques",
-        "operationId": "get_sampling_techniques_sampling_techniques_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": { "$ref": "#/components/schemas/SamplingTechnique" },
-                  "type": "array",
-                  "title": "Response Get Sampling Techniques Sampling Techniques Get"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sampling_techniques/{sampling_technique_id}": {
-      "get": {
-        "tags": ["sampling techniques"],
-        "summary": "Get Sampling Technique",
-        "operationId": "get_sampling_technique_sampling_techniques__sampling_technique_id__get",
-        "parameters": [
-          {
-            "name": "sampling_technique_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer", "title": "Sampling Technique Id" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/SamplingTechnique" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sample_materials": {
-      "get": {
-        "tags": ["sample materials"],
-        "summary": "Get Sample Materials",
-        "operationId": "get_sample_materials_sample_materials_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": { "$ref": "#/components/schemas/SampleMaterial" },
-                  "type": "array",
-                  "title": "Response Get Sample Materials Sample Materials Get"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sample_materials/{sample_material_id}": {
-      "get": {
-        "tags": ["sample materials"],
-        "summary": "Get Sample Material",
-        "operationId": "get_sample_material_sample_materials__sample_material_id__get",
-        "parameters": [
-          {
-            "name": "sample_material_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer", "title": "Sample Material Id" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/SampleMaterial" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sample_containers": {
-      "get": {
-        "tags": ["sample containers"],
-        "summary": "Get Sample Containers",
-        "operationId": "get_sample_containers_sample_containers_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/SampleContainerType"
-                  },
-                  "type": "array",
-                  "title": "Response Get Sample Containers Sample Containers Get"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sample_containers/{sample_container_type_id}": {
-      "get": {
-        "tags": ["sample containers"],
-        "summary": "Get Sample Container",
-        "operationId": "get_sample_container_sample_containers__sample_container_type_id__get",
-        "parameters": [
-          {
-            "name": "sample_container_type_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer", "title": "Sample Container Type Id" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/SampleContainerType" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sampler_types": {
-      "get": {
-        "tags": ["sampler types"],
-        "summary": "Get Sampler Types",
-        "operationId": "get_sampler_types_sampler_types_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": { "$ref": "#/components/schemas/SamplerType" },
-                  "type": "array",
-                  "title": "Response Get Sampler Types Sampler Types Get"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sampler_types/{sampler_type_id}": {
-      "get": {
-        "tags": ["sampler types"],
-        "summary": "Get Sampler Type",
-        "operationId": "get_sampler_type_sampler_types__sampler_type_id__get",
-        "parameters": [
-          {
-            "name": "sampler_type_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer", "title": "Sampler Type Id" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/SamplerType" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/standards": {
-      "get": {
-        "tags": ["standards"],
-        "summary": "Get Project Standards",
-        "operationId": "get_project_standards_standards_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": { "$ref": "#/components/schemas/Standard" },
-                  "type": "array",
-                  "title": "Response Get Project Standards Standards Get"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/standards/{standard_id}": {
-      "get": {
-        "tags": ["standards"],
-        "summary": "Get Standard",
-        "operationId": "get_standard_standards__standard_id__get",
-        "parameters": [
-          {
-            "name": "standard_id",
-            "in": "path",
-            "required": true,
-            "schema": { "$ref": "#/components/schemas/StandardType" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/StandardType" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/piezometers/models": {
-      "get": {
-        "tags": ["piezometers"],
-        "summary": "Get Piezometer Models",
-        "operationId": "get_piezometer_models_projects__project_id__piezometers_models_get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/PiezometerModel" },
-                  "title": "Response Get Piezometer Models Projects  Project Id  Piezometers Models Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": ["piezometers"],
-        "summary": "Create Piezometer Model",
-        "description": "Create a new piezometer model",
-        "operationId": "create_piezometer_model_projects__project_id__piezometers_models_post",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/PiezometerModelCreate" }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/PiezometerModel" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/piezometers/models/{model_id}": {
-      "get": {
-        "tags": ["piezometers"],
-        "summary": "Get Piezometer Model",
-        "operationId": "get_piezometer_model_projects__project_id__piezometers_models__model_id__get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "model_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Model Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/PiezometerModel" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": ["piezometers"],
-        "summary": "Update Piezometer Model",
-        "description": "Update piezometer model",
-        "operationId": "update_piezometer_model_projects__project_id__piezometers_models__model_id__put",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "model_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Model Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/PiezometerModelUpdate" }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/PiezometerModel" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/piezometers/vendors": {
-      "get": {
-        "tags": ["piezometers"],
-        "summary": "Get Piezometer Vendors",
-        "operationId": "get_piezometer_vendors_projects__project_id__piezometers_vendors_get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/PiezometerVendor" },
-                  "title": "Response Get Piezometer Vendors Projects  Project Id  Piezometers Vendors Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/piezometers/vendors/{vendor_id}": {
-      "get": {
-        "tags": ["piezometers"],
-        "summary": "Get Piezometer Vendor",
-        "operationId": "get_piezometer_vendor_projects__project_id__piezometers_vendors__vendor_id__get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "vendor_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Vendor Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/PiezometerVendor" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/piezometers/units": {
-      "get": {
-        "tags": ["piezometers"],
-        "summary": "Get Piezometer Units",
-        "description": "Return a list of the supported piezometer units.\n\nPlease note that None is also a possible unit (meaning no unit selected)",
-        "operationId": "get_piezometer_units_piezometers_units_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": { "$ref": "#/components/schemas/PizeometerUnits" },
-                  "type": "array",
-                  "title": "Response Get Piezometer Units Piezometers Units Get"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/plots/project/{project_id}/plot_sequence/{format}": {
-      "post": {
-        "tags": ["plots"],
-        "summary": "Get Plot Sequence",
-        "description": "Get the plots sequence from any location within a given project.",
-        "operationId": "get_plot_sequence_plots_project__project_id__plot_sequence__format__post",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "format",
-            "in": "path",
-            "required": true,
-            "schema": { "$ref": "#/components/schemas/PlotFormat" }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "anyOf": [
-                  { "$ref": "#/components/schemas/Options" },
-                  { "type": "null" }
-                ],
-                "title": "Options"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Get the plot sequence for the selected locations",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/PlotSequence-Output" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/plots/project/{project_id}/{format}": {
-      "post": {
-        "tags": ["plots"],
-        "summary": "Get Plot From Sequence",
-        "description": "Get the plots sequence from any location within a given project.",
-        "operationId": "get_plot_from_sequence_plots_project__project_id___format__post",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "format",
-            "in": "path",
-            "required": true,
-            "schema": { "$ref": "#/components/schemas/PlotFormat" }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/PlotSequence-Input" }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Get the pdf sequence for the given plot sequence",
-            "content": { "application/json": { "schema": {} } }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/files/{file_id}/token": {
-      "get": {
-        "tags": ["files", "projects"],
-        "summary": "File Token",
-        "description": "Get a token for the file blob content by project_id and file_id that later can be used to download that file",
-        "operationId": "file_token_projects__project_id__files__file_id__token_get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "file_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid", "title": "File Id" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": { "application/json": { "schema": {} } }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/token": {
-      "get": {
-        "tags": ["files", "projects"],
-        "summary": "Project Token",
-        "description": "Get a token for the project_id to use for file downloads within the project",
-        "operationId": "project_token_projects__project_id__token_get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": { "application/json": { "schema": {} } }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/files/{file_id}/download": {
-      "get": {
-        "tags": ["files", "projects"],
-        "summary": "Download File",
-        "description": "Download the file blob content by project_id and file_id",
-        "operationId": "download_file_projects__project_id__files__file_id__download_get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "file_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid", "title": "File Id" }
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                { "$ref": "#/components/schemas/ImageSize" },
-                { "type": "null" }
-              ],
-              "default": "ORIGINAL",
-              "title": "Size"
-            }
-          },
-          {
-            "name": "geojson",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [{ "type": "boolean" }, { "type": "null" }],
-              "default": false,
-              "title": "Geojson"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": { "application/json": { "schema": {} } }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/download/projects/{project_id}/file": {
-      "get": {
-        "tags": ["files", "projects"],
-        "summary": "Download File Via Token",
-        "description": "Download the file specified in the token",
-        "operationId": "download_file_via_token_download_projects__project_id__file_get",
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Project Id"
-            }
-          },
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": { "type": "string", "title": "Token" }
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                { "$ref": "#/components/schemas/ImageSize" },
-                { "type": "null" }
-              ],
-              "default": "ORIGINAL",
-              "title": "Size"
-            }
-          },
-          {
-            "name": "geojson",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [{ "type": "boolean" }, { "type": "null" }],
-              "default": false,
-              "title": "Geojson"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": { "application/json": { "schema": {} } }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/download/projects/{project_id}/file/{file_id}": {
-      "get": {
-        "tags": ["files", "projects"],
-        "summary": "Download File With Temporary Project Token",
-        "description": "Download the file specified in the token",
-        "operationId": "download_file_with_temporary_project_token_download_projects__project_id__file__file_id__get",
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Project Id"
-            }
-          },
-          {
-            "name": "file_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid", "title": "File Id" }
-          },
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": { "type": "string", "title": "Token" }
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                { "$ref": "#/components/schemas/ImageSize" },
-                { "type": "null" }
-              ],
-              "default": "ORIGINAL",
-              "title": "Size"
-            }
-          },
-          {
-            "name": "geojson",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [{ "type": "boolean" }, { "type": "null" }],
-              "title": "Geojson"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": { "application/json": { "schema": {} } }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/download/projects/{project_id}/export/files": {
-      "get": {
-        "tags": ["files", "projects"],
-        "summary": "Export Files Via Token",
-        "description": "Export specified project files in one zip file.\n\nNot limited to files only attached to the project, but also files attached to\nlocations and methods in the specified project.",
-        "operationId": "export_files_via_token_download_projects__project_id__export_files_get",
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Project Id"
-            }
-          },
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": { "type": "string", "title": "Token" }
-          },
-          {
-            "name": "file_ids",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": { "type": "string", "format": "uuid" },
-              "title": "File Ids"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": { "application/json": { "schema": {} } }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
     "/projects/{project_id}/locations/{location_id}/methods/{method_id}/comments": {
       "post": {
         "tags": ["comments"],
@@ -6262,58 +4625,6 @@
         }
       }
     },
-    "/projects/{project_id}/cross_sections/{cross_section_id}/{format}": {
-      "get": {
-        "tags": ["cross_sections"],
-        "summary": "Get Cross Section Plot",
-        "description": "Create a new cross section for a project.",
-        "operationId": "get_cross_section_plot_projects__project_id__cross_sections__cross_section_id___format__get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "cross_section_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Cross Section Id"
-            }
-          },
-          {
-            "name": "format",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "enum": ["dxf"],
-              "const": "dxf",
-              "type": "string",
-              "title": "Format"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": { "application/json": { "schema": {} } }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
     "/projects/{project_id}/cross_sections": {
       "post": {
         "tags": ["cross_sections"],
@@ -6405,20 +4716,18 @@
             "in": "path",
             "required": true,
             "schema": { "type": "string", "title": "Project Id" }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": { "type": "string", "format": "uuid" },
-                "title": "Cross Section Ids"
-              }
+          },
+          {
+            "name": "cross_section_ids",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": { "type": "string", "format": "uuid" },
+              "title": "Cross Section Ids"
             }
           }
-        },
+        ],
         "responses": {
           "204": { "description": "Successful Response" },
           "422": {
@@ -6564,6 +4873,108 @@
         }
       }
     },
+    "/projects/{project_id}/cross_sections/{cross_section_id}/{format}": {
+      "get": {
+        "tags": ["cross_sections"],
+        "summary": "Get Cross Section Plot",
+        "description": "Get the dxf-plots for a given cross section within a given project.",
+        "operationId": "get_cross_section_plot_projects__project_id__cross_sections__cross_section_id___format__get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "cross_section_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Cross Section Id"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": ["dxf", "svg"],
+              "type": "string",
+              "title": "Format"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get the dxf plot",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/cross_sections/{cross_section_id}/line/{format}": {
+      "get": {
+        "tags": ["cross_sections"],
+        "summary": "Get Cross Section Line",
+        "description": "Get a dxf file or shapefile bundle containing the cross section line",
+        "operationId": "get_cross_section_line_projects__project_id__cross_sections__cross_section_id__line__format__get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "cross_section_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Cross Section Id"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": ["dxf", "shp"],
+              "type": "string",
+              "title": "Format"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get the cross section line",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/projects/{project_id}/export/files": {
       "get": {
         "tags": ["export", "projects"],
@@ -6644,16 +5055,1541 @@
         }
       }
     },
-    "/version": {
+    "/projects/{project_id}/files/{file_id}/token": {
       "get": {
-        "tags": ["version"],
-        "summary": "Get Version",
-        "description": "Return the version of the Field Manager data API (backend).",
-        "operationId": "get_version_version_get",
+        "tags": ["files", "projects"],
+        "summary": "File Token",
+        "description": "Get a token for the file blob content by project_id and file_id that later can be used to download that file",
+        "operationId": "file_token_projects__project_id__files__file_id__token_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "file_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid", "title": "File Id" }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/token": {
+      "get": {
+        "tags": ["files", "projects"],
+        "summary": "Project Token",
+        "description": "Get a token for the project_id to use for file downloads within the project",
+        "operationId": "project_token_projects__project_id__token_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/files/{file_id}/download": {
+      "get": {
+        "tags": ["files", "projects"],
+        "summary": "Download File",
+        "description": "Download the file blob content by project_id and file_id",
+        "operationId": "download_file_projects__project_id__files__file_id__download_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "file_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid", "title": "File Id" }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                { "$ref": "#/components/schemas/ImageSize" },
+                { "type": "null" }
+              ],
+              "default": "ORIGINAL",
+              "title": "Size"
+            }
+          },
+          {
+            "name": "geojson",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+              "default": false,
+              "title": "Geojson"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/download/projects/{project_id}/file": {
+      "get": {
+        "tags": ["files", "projects"],
+        "summary": "Download File Via Token",
+        "description": "Download the file specified in the token",
+        "operationId": "download_file_via_token_download_projects__project_id__file_get",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string", "title": "Token" }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                { "$ref": "#/components/schemas/ImageSize" },
+                { "type": "null" }
+              ],
+              "default": "ORIGINAL",
+              "title": "Size"
+            }
+          },
+          {
+            "name": "geojson",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+              "default": false,
+              "title": "Geojson"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/download/projects/{project_id}/file/{file_id}": {
+      "get": {
+        "tags": ["files", "projects"],
+        "summary": "Download File With Temporary Project Token",
+        "description": "Download the file specified in the token",
+        "operationId": "download_file_with_temporary_project_token_download_projects__project_id__file__file_id__get",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "file_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid", "title": "File Id" }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string", "title": "Token" }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                { "$ref": "#/components/schemas/ImageSize" },
+                { "type": "null" }
+              ],
+              "default": "ORIGINAL",
+              "title": "Size"
+            }
+          },
+          {
+            "name": "geojson",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+              "title": "Geojson"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/download/projects/{project_id}/export/files": {
+      "get": {
+        "tags": ["files", "projects"],
+        "summary": "Export Files Via Token",
+        "description": "Export specified project files in one zip file.\n\nNot limited to files only attached to the project, but also files attached to\nlocations and methods in the specified project.",
+        "operationId": "export_files_via_token_download_projects__project_id__export_files_get",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string", "title": "Token" }
+          },
+          {
+            "name": "file_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": { "type": "string", "format": "uuid" },
+              "title": "File Ids"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/gis/onshore": {
+      "get": {
+        "tags": ["gis"],
+        "summary": "Get Locations In Project",
+        "description": "Special endpoint for getting a project's locations flattened with limited aggregated method data. One row per\nlocation.",
+        "operationId": "get_locations_in_project_projects__project_id__gis_onshore_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "default": 0, "title": "Skip" }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "default": 100, "title": "Limit" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/LocationGis" },
+                  "title": "Response Get Locations In Project Projects  Project Id  Gis Onshore Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/location_iogp_types": {
+      "get": {
+        "tags": ["location types"],
+        "summary": "Get Location Iogp Types",
+        "operationId": "get_location_iogp_types_location_iogp_types_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/IOGPType" },
+                  "type": "array",
+                  "title": "Response Get Location Iogp Types Location Iogp Types Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/location_iogp_types/{iogp_type_id}": {
+      "get": {
+        "tags": ["location types"],
+        "summary": "Get Location Iogp Type",
+        "operationId": "get_location_iogp_type_location_iogp_types__iogp_type_id__get",
+        "parameters": [
+          {
+            "name": "iogp_type_id",
+            "in": "path",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/IOGPTypeEnum" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/IOGPType" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/map_layouts": {
+      "get": {
+        "tags": ["map layouts"],
+        "summary": "Get Map Layouts In Project",
+        "description": "Get all map layouts for project.",
+        "operationId": "get_map_layouts_in_project_projects__project_id__map_layouts_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/MapLayout" },
+                  "title": "Response Get Map Layouts In Project Projects  Project Id  Map Layouts Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["map layouts"],
+        "summary": "Delete Map Layouts In Project",
+        "description": "Delete all specified map layouts (map_layout_ids) and their map layout versions for the project with project_id.",
+        "operationId": "delete_map_layouts_in_project_projects__project_id__map_layouts_delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": { "type": "string", "format": "uuid" },
+                "title": "Map Layout Ids"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": { "description": "Successful Response" },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["map layouts"],
+        "summary": "Add Map Layout To Project",
+        "description": "Add map layout to project.",
+        "operationId": "add_map_layout_to_project_projects__project_id__map_layouts_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MapLayoutCreate" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MapLayout" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/map_layouts/{map_layout_id}": {
+      "get": {
+        "tags": ["map layouts"],
+        "summary": "Get Map Layout In Project",
+        "description": "Get map layout by project_id and map_layout_id.",
+        "operationId": "get_map_layout_in_project_projects__project_id__map_layouts__map_layout_id__get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "map_layout_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Map Layout Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MapLayout" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["map layouts"],
+        "summary": "Delete Map Layout In Project",
+        "description": "Delete map layout by project_id and map_layout_id.",
+        "operationId": "delete_map_layout_in_project_projects__project_id__map_layouts__map_layout_id__delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "map_layout_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Map Layout Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["map layouts"],
+        "summary": "Update Map Layout In Project",
+        "description": "Update map layout by project_id and map_layout_id.",
+        "operationId": "update_map_layout_in_project_projects__project_id__map_layouts__map_layout_id__put",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "map_layout_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Map Layout Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MapLayoutUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MapLayout" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/map_layouts/{map_layout_id}/versions": {
+      "post": {
+        "tags": ["map layouts"],
+        "summary": "Add Map Layout Version",
+        "description": "Add map layout version to map layout.",
+        "operationId": "add_map_layout_version_projects__project_id__map_layouts__map_layout_id__versions_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "map_layout_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Map Layout Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MapLayoutVersionCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MapLayoutVersion" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/map_layouts/{map_layout_id}/versions/{map_layout_version_id}": {
+      "put": {
+        "tags": ["map layouts"],
+        "summary": "Update Map Layout Version",
+        "description": "Update map layout version by project_id, map_layout_id and map_layout_version_id.",
+        "operationId": "update_map_layout_version_projects__project_id__map_layouts__map_layout_id__versions__map_layout_version_id__put",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "map_layout_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Map Layout Id"
+            }
+          },
+          {
+            "name": "map_layout_version_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Map Layout Version Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MapLayoutVersionUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MapLayoutVersion" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["map layouts"],
+        "summary": "Delete Map Layout Version",
+        "description": "Delete map layout version by project_id, map_layout_id and map_layout_version_id.",
+        "operationId": "delete_map_layout_version_projects__project_id__map_layouts__map_layout_id__versions__map_layout_version_id__delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "map_layout_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Map Layout Id"
+            }
+          },
+          {
+            "name": "map_layout_version_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Map Layout Version Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/method_types": {
+      "get": {
+        "tags": ["method types"],
+        "summary": "Get Method Types",
+        "operationId": "get_method_types_method_types_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/MethodType" },
+                  "type": "array",
+                  "title": "Response Get Method Types Method Types Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/method_types/{method_type_id}": {
+      "get": {
+        "tags": ["method types"],
+        "summary": "Get Method Type",
+        "operationId": "get_method_type_method_types__method_type_id__get",
+        "parameters": [
+          {
+            "name": "method_type_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Method Type Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MethodType" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/piezometers/models": {
+      "get": {
+        "tags": ["piezometers"],
+        "summary": "Get Piezometer Models",
+        "operationId": "get_piezometer_models_projects__project_id__piezometers_models_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/PiezometerModel" },
+                  "title": "Response Get Piezometer Models Projects  Project Id  Piezometers Models Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["piezometers"],
+        "summary": "Create Piezometer Model",
+        "description": "Create a new piezometer model",
+        "operationId": "create_piezometer_model_projects__project_id__piezometers_models_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PiezometerModelCreate" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PiezometerModel" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/piezometers/models/{model_id}": {
+      "get": {
+        "tags": ["piezometers"],
+        "summary": "Get Piezometer Model",
+        "operationId": "get_piezometer_model_projects__project_id__piezometers_models__model_id__get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "model_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Model Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PiezometerModel" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["piezometers"],
+        "summary": "Update Piezometer Model",
+        "description": "Update piezometer model",
+        "operationId": "update_piezometer_model_projects__project_id__piezometers_models__model_id__put",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "model_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Model Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PiezometerModelUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PiezometerModel" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/piezometers/vendors": {
+      "get": {
+        "tags": ["piezometers"],
+        "summary": "Get Piezometer Vendors",
+        "operationId": "get_piezometer_vendors_projects__project_id__piezometers_vendors_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/PiezometerVendor" },
+                  "title": "Response Get Piezometer Vendors Projects  Project Id  Piezometers Vendors Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/piezometers/vendors/{vendor_id}": {
+      "get": {
+        "tags": ["piezometers"],
+        "summary": "Get Piezometer Vendor",
+        "operationId": "get_piezometer_vendor_projects__project_id__piezometers_vendors__vendor_id__get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "vendor_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Vendor Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PiezometerVendor" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/piezometers/units": {
+      "get": {
+        "tags": ["piezometers"],
+        "summary": "Get Piezometer Units",
+        "description": "Return a list of the supported piezometer units.\n\nPlease note that None is also a possible unit (meaning no unit selected)",
+        "operationId": "get_piezometer_units_piezometers_units_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/PizeometerUnits" },
+                  "type": "array",
+                  "title": "Response Get Piezometer Units Piezometers Units Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/plots/project/{project_id}/plot_sequence/{format}": {
+      "post": {
+        "tags": ["plots"],
+        "summary": "Get Plot Sequence",
+        "description": "Get the plots sequence from any location within a given project.",
+        "operationId": "get_plot_sequence_plots_project__project_id__plot_sequence__format__post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/PlotFormat" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  { "$ref": "#/components/schemas/Options" },
+                  { "type": "null" }
+                ],
+                "title": "Options"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Get the plot sequence for the selected locations",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PlotSequence-Output" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/plots/project/{project_id}/{format}": {
+      "post": {
+        "tags": ["plots"],
+        "summary": "Get Plot From Sequence",
+        "description": "Get the plots sequence from any location within a given project.",
+        "operationId": "get_plot_from_sequence_plots_project__project_id___format__post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/PlotFormat" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PlotSequence-Input" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Get the pdf sequence for the given plot sequence",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sampling_techniques": {
+      "get": {
+        "tags": ["sampling techniques"],
+        "summary": "Get Sampling Techniques",
+        "operationId": "get_sampling_techniques_sampling_techniques_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/SamplingTechnique" },
+                  "type": "array",
+                  "title": "Response Get Sampling Techniques Sampling Techniques Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sampling_techniques/{sampling_technique_id}": {
+      "get": {
+        "tags": ["sampling techniques"],
+        "summary": "Get Sampling Technique",
+        "operationId": "get_sampling_technique_sampling_techniques__sampling_technique_id__get",
+        "parameters": [
+          {
+            "name": "sampling_technique_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Sampling Technique Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SamplingTechnique" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sample_materials": {
+      "get": {
+        "tags": ["sample materials"],
+        "summary": "Get Sample Materials",
+        "operationId": "get_sample_materials_sample_materials_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/SampleMaterial" },
+                  "type": "array",
+                  "title": "Response Get Sample Materials Sample Materials Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sample_materials/{sample_material_id}": {
+      "get": {
+        "tags": ["sample materials"],
+        "summary": "Get Sample Material",
+        "operationId": "get_sample_material_sample_materials__sample_material_id__get",
+        "parameters": [
+          {
+            "name": "sample_material_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Sample Material Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SampleMaterial" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sample_containers": {
+      "get": {
+        "tags": ["sample containers"],
+        "summary": "Get Sample Containers",
+        "operationId": "get_sample_containers_sample_containers_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SampleContainerType"
+                  },
+                  "type": "array",
+                  "title": "Response Get Sample Containers Sample Containers Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sample_containers/{sample_container_type_id}": {
+      "get": {
+        "tags": ["sample containers"],
+        "summary": "Get Sample Container",
+        "operationId": "get_sample_container_sample_containers__sample_container_type_id__get",
+        "parameters": [
+          {
+            "name": "sample_container_type_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Sample Container Type Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SampleContainerType" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sampler_types": {
+      "get": {
+        "tags": ["sampler types"],
+        "summary": "Get Sampler Types",
+        "operationId": "get_sampler_types_sampler_types_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/SamplerType" },
+                  "type": "array",
+                  "title": "Response Get Sampler Types Sampler Types Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sampler_types/{sampler_type_id}": {
+      "get": {
+        "tags": ["sampler types"],
+        "summary": "Get Sampler Type",
+        "operationId": "get_sampler_type_sampler_types__sampler_type_id__get",
+        "parameters": [
+          {
+            "name": "sampler_type_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Sampler Type Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SamplerType" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/standards": {
+      "get": {
+        "tags": ["standards"],
+        "summary": "Get Project Standards",
+        "operationId": "get_project_standards_standards_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/Standard" },
+                  "type": "array",
+                  "title": "Response Get Project Standards Standards Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/standards/{standard_id}": {
+      "get": {
+        "tags": ["standards"],
+        "summary": "Get Standard",
+        "operationId": "get_standard_standards__standard_id__get",
+        "parameters": [
+          {
+            "name": "standard_id",
+            "in": "path",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/StandardType" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StandardType" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
           }
         }
       }
@@ -6899,6 +6835,363 @@
               }
             }
           },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/version": {
+      "get": {
+        "tags": ["version"],
+        "summary": "Get Version",
+        "description": "Return the version of the Field Manager data API (backend).",
+        "operationId": "get_version_version_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/web_map_services/{web_map_service_id}": {
+      "get": {
+        "tags": ["organizations", "web map services"],
+        "summary": "Get a Web Map Service by ID",
+        "description": "Get a Web Map Service by organization_id and web_map_service_id.",
+        "operationId": "read_web_map_service_organizations__organization_id__web_map_services__web_map_service_id__get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Organization Id" }
+          },
+          {
+            "name": "web_map_service_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Web Map Service Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WebMapService" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["organizations", "web map services"],
+        "summary": "Update a Web Map Service",
+        "description": "Update a Web Map Service by organization_id and web_map_service_id.",
+        "operationId": "update_web_map_service_organizations__organization_id__web_map_services__web_map_service_id__put",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Organization Id" }
+          },
+          {
+            "name": "web_map_service_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Web Map Service Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/WebMapServiceUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WebMapService" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["organizations", "web map services"],
+        "summary": "Delete a Web Map Service",
+        "description": "Delete a Web Map Service by organization_id and web_map_service_id.",
+        "operationId": "delete_web_map_service_organizations__organization_id__web_map_services__web_map_service_id__delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Organization Id" }
+          },
+          {
+            "name": "web_map_service_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Web Map Service Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Successful Response" },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/web_map_services": {
+      "post": {
+        "tags": ["organizations", "web map services"],
+        "summary": "Create a Web Map Service",
+        "description": "Create a Web Map Service.",
+        "operationId": "create_web_map_service_organizations__organization_id__web_map_services_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Organization Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/WebMapServiceCreate" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WebMapService" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["organizations", "web map services"],
+        "summary": "Get Web Map Services by Organization ID",
+        "description": "Get Web Map Services by organization_id.",
+        "operationId": "read_web_map_services_organizations__organization_id__web_map_services_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Organization Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/WebMapService" },
+                  "title": "Response Read Web Map Services Organizations  Organization Id  Web Map Services Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/web_map_services": {
+      "get": {
+        "tags": ["web map services"],
+        "summary": "Get Application Layer Web Map Services",
+        "operationId": "list_application_layer_web_map_services_web_map_services_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/WebMapService" },
+                  "type": "array",
+                  "title": "Response List Application Layer Web Map Services Web Map Services Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["web map services"],
+        "summary": "Create an Application Layer Web Map Service",
+        "description": "Create an application layer Web Map Service. Only allowed for application admins.",
+        "operationId": "create_application_layer_web_map_service_web_map_services_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/WebMapServiceCreate" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WebMapService" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "HTTPBearer": [] }]
+      }
+    },
+    "/web_map_services/{web_map_service_id}": {
+      "put": {
+        "tags": ["web map services"],
+        "summary": "Update an Application Layer Web Map Service",
+        "description": "Update an application layer Web Map Service. Only allowed for application admins.",
+        "operationId": "update_application_layer_web_map_service_web_map_services__web_map_service_id__put",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "web_map_service_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Web Map Service Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/WebMapServiceUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WebMapService" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["web map services"],
+        "summary": "Delete an Application Layer Web Map Service",
+        "description": "Delete the application layer Web Map Service with web_map_service_id. Only allowed for application admins.",
+        "operationId": "delete_application_layer_web_map_service_web_map_services__web_map_service_id__delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "web_map_service_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Web Map Service Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Successful Response" },
           "422": {
             "description": "Validation Error",
             "content": {
@@ -7914,20 +8207,14 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "ba16b8ca-e751-45c5-a861-66c61c7e8f0d",
-          "project_id": "0e6f93a4-258a-45d4-9d91-6a13849ded44",
+          "organization_id": "cd0a0740-8b18-471b-bf87-7764aa1ca3c1",
+          "project_id": "38383d93-f5e8-456b-8c6e-cf99caa2688d",
           "srid": 3857
         }
       },
       "Location": {
         "properties": {
           "name": { "type": "string", "title": "Name" },
-          "location_type_id": {
-            "$ref": "#/components/schemas/LocationTypeEnum",
-            "description": "Use Project.standard_id instead",
-            "default": 1,
-            "deprecated": true
-          },
           "iogp_type_id": {
             "$ref": "#/components/schemas/IOGPTypeEnum",
             "default": "COMPOSITE"
@@ -8096,12 +8383,12 @@
         ],
         "title": "Location",
         "example": {
-          "location_id": "0e6343a6-159c-43fa-8893-767fbdfa7ccf",
+          "location_id": "cd67a9f9-af20-4b6a-ac07-a714ed361e14",
           "name": "Loc01",
           "point_easting": 1194547,
           "point_northing": 8388298,
           "point_z": 0.0,
-          "project_id": "09198cee-6bc6-49f8-b499-2cce0cd41716",
+          "project_id": "b4dadfce-79cf-405c-a0a2-6e0f8d6a55ca",
           "srid": 3857
         }
       },
@@ -8126,12 +8413,6 @@
       "LocationCreate": {
         "properties": {
           "name": { "type": "string", "title": "Name" },
-          "location_type_id": {
-            "$ref": "#/components/schemas/LocationTypeEnum",
-            "description": "Use Project.standard_id instead",
-            "default": 1,
-            "deprecated": true
-          },
           "iogp_type_id": {
             "$ref": "#/components/schemas/IOGPTypeEnum",
             "default": "COMPOSITE"
@@ -8304,12 +8585,6 @@
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Name"
           },
-          "location_type_id": {
-            "$ref": "#/components/schemas/LocationTypeEnum",
-            "description": "Use Project.standard_id instead.",
-            "default": 1,
-            "deprecated": true
-          },
           "point_x_wgs84_web": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
             "title": "Point X Wgs84 Web"
@@ -8387,7 +8662,6 @@
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Location Name"
           },
-          "location_type": { "$ref": "#/components/schemas/LocationTypeEnum" },
           "created_at": {
             "type": "string",
             "format": "date-time",
@@ -8400,12 +8674,7 @@
           "coordinates": { "$ref": "#/components/schemas/LocationCoordinates" }
         },
         "type": "object",
-        "required": [
-          "location_id",
-          "location_type",
-          "created_at",
-          "coordinates"
-        ],
+        "required": ["location_id", "created_at", "coordinates"],
         "title": "LocationInfo"
       },
       "LocationMin": {
@@ -8435,14 +8704,6 @@
             "type": "string",
             "format": "uuid",
             "title": "Location Id"
-          },
-          "location_type_id": {
-            "anyOf": [
-              { "$ref": "#/components/schemas/LocationTypeEnum" },
-              { "type": "null" }
-            ],
-            "description": "Use Project.standard_id instead",
-            "deprecated": true
           },
           "iogp_type_id": {
             "anyOf": [
@@ -8509,16 +8770,10 @@
         "required": ["location_id", "name", "last_updated"],
         "title": "LocationSummary"
       },
-      "LocationType-Input": {
+      "LocationType": {
         "type": "string",
         "enum": ["onshore", "offshore"],
         "title": "LocationType"
-      },
-      "LocationTypeEnum": {
-        "type": "integer",
-        "enum": [1, 2],
-        "title": "LocationTypeEnum",
-        "description": "(\nONSHORE=1,\nOFFSHORE=2,\n)"
       },
       "LocationUpdate": {
         "properties": {
@@ -8575,14 +8830,6 @@
           "srid": {
             "anyOf": [{ "type": "integer" }, { "type": "null" }],
             "title": "Srid"
-          },
-          "location_type_id": {
-            "anyOf": [
-              { "$ref": "#/components/schemas/LocationTypeEnum" },
-              { "type": "null" }
-            ],
-            "description": "Use Project.standard_id instead",
-            "deprecated": true
           },
           "tags": {
             "anyOf": [
@@ -9168,7 +9415,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [17],
             "const": 17,
             "title": "Method Type Id",
             "default": 17
@@ -9285,7 +9531,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [17],
             "const": 17,
             "title": "Method Type Id",
             "default": 17
@@ -9341,7 +9586,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [17],
             "const": 17,
             "title": "Method Type Id",
             "default": 17
@@ -9364,7 +9608,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [12],
             "const": 12,
             "title": "Method Type Id",
             "default": 12
@@ -9570,7 +9813,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [12],
             "const": 12,
             "title": "Method Type Id",
             "default": 12
@@ -9689,7 +9931,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [12],
             "const": 12,
             "title": "Method Type Id",
             "default": 12
@@ -9775,7 +10016,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [1],
             "const": 1,
             "title": "Method Type Id",
             "default": 1
@@ -9946,7 +10186,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [1],
             "const": 1,
             "title": "Method Type Id",
             "default": 1
@@ -10022,7 +10261,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [1],
             "const": 1,
             "title": "Method Type Id",
             "default": 1
@@ -10136,7 +10374,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [1],
             "const": 1,
             "title": "Method Type Id",
             "default": 1
@@ -10265,7 +10502,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [1],
             "const": 1,
             "title": "Method Type Id",
             "default": 1
@@ -10330,7 +10566,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [1],
             "const": 1,
             "title": "Method Type Id",
             "default": 1
@@ -10406,7 +10641,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [25],
             "const": 25,
             "title": "Method Type Id",
             "default": 25
@@ -10561,7 +10795,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [25],
             "const": 25,
             "title": "Method Type Id",
             "default": 25
@@ -10628,7 +10861,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [25],
             "const": 25,
             "title": "Method Type Id",
             "default": 25
@@ -10716,7 +10948,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [25],
             "const": 25,
             "title": "Method Type Id",
             "default": 25
@@ -10851,7 +11082,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [25],
             "const": 25,
             "title": "Method Type Id",
             "default": 25
@@ -10874,7 +11104,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [22],
             "const": 22,
             "title": "Method Type Id",
             "default": 22
@@ -11027,7 +11256,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [22],
             "const": 22,
             "title": "Method Type Id",
             "default": 22
@@ -11108,7 +11336,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [22],
             "const": 22,
             "title": "Method Type Id",
             "default": 22
@@ -11170,7 +11397,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [22],
             "const": 22,
             "title": "Method Type Id",
             "default": 22
@@ -11233,7 +11459,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [22],
             "const": 22,
             "title": "Method Type Id",
             "default": 22
@@ -11326,7 +11551,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [22],
             "const": 22,
             "title": "Method Type Id",
             "default": 22
@@ -11405,7 +11629,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [15],
             "const": 15,
             "title": "Method Type Id",
             "default": 15
@@ -11522,7 +11745,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [15],
             "const": 15,
             "title": "Method Type Id",
             "default": 15
@@ -11578,7 +11800,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [15],
             "const": 15,
             "title": "Method Type Id",
             "default": 15
@@ -11590,7 +11811,6 @@
       "MethodExportType": {
         "type": "string",
         "enum": ["SND"],
-        "const": "SND",
         "title": "MethodExportType"
       },
       "MethodINC": {
@@ -11607,7 +11827,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [19],
             "const": 19,
             "title": "Method Type Id",
             "default": 19
@@ -11725,7 +11944,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [19],
             "const": 19,
             "title": "Method Type Id",
             "default": 19
@@ -11781,7 +11999,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [19],
             "const": 19,
             "title": "Method Type Id",
             "default": 19
@@ -11804,7 +12021,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [21],
             "const": 21,
             "title": "Method Type Id",
             "default": 21
@@ -11921,7 +12137,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [21],
             "const": 21,
             "title": "Method Type Id",
             "default": 21
@@ -11977,7 +12192,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [21],
             "const": 21,
             "title": "Method Type Id",
             "default": 21
@@ -12135,7 +12349,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [23],
             "const": 23,
             "title": "Method Type Id",
             "default": 23
@@ -12253,7 +12466,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [23],
             "const": 23,
             "title": "Method Type Id",
             "default": 23
@@ -12309,7 +12521,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [23],
             "const": 23,
             "title": "Method Type Id",
             "default": 23
@@ -12332,7 +12543,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [14],
             "const": 14,
             "title": "Method Type Id",
             "default": 14
@@ -12450,7 +12660,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [14],
             "const": 14,
             "title": "Method Type Id",
             "default": 14
@@ -12506,7 +12715,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [14],
             "const": 14,
             "title": "Method Type Id",
             "default": 14
@@ -12529,7 +12737,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [5],
             "const": 5,
             "title": "Method Type Id",
             "default": 5
@@ -12758,7 +12965,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [5],
             "const": 5,
             "title": "Method Type Id",
             "default": 5
@@ -12897,7 +13103,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [5],
             "const": 5,
             "title": "Method Type Id",
             "default": 5
@@ -12972,7 +13177,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [5],
             "const": 5,
             "title": "Method Type Id",
             "default": 5
@@ -13036,7 +13240,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [5],
             "const": 5,
             "title": "Method Type Id",
             "default": 5
@@ -13133,7 +13336,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [5],
             "const": 5,
             "title": "Method Type Id",
             "default": 5
@@ -13271,7 +13473,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [8],
             "const": 8,
             "title": "Method Type Id",
             "default": 8
@@ -13413,7 +13614,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [8],
             "const": 8,
             "title": "Method Type Id",
             "default": 8
@@ -13440,7 +13640,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [8],
             "const": 8,
             "title": "Method Type Id",
             "default": 8
@@ -13504,7 +13703,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [8],
             "const": 8,
             "title": "Method Type Id",
             "default": 8
@@ -13553,7 +13751,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [8],
             "const": 8,
             "title": "Method Type Id",
             "default": 8
@@ -13633,7 +13830,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [8],
             "const": 8,
             "title": "Method Type Id",
             "default": 8
@@ -13660,7 +13856,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [18],
             "const": 18,
             "title": "Method Type Id",
             "default": 18
@@ -13778,7 +13973,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [18],
             "const": 18,
             "title": "Method Type Id",
             "default": 18
@@ -13834,7 +14028,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [18],
             "const": 18,
             "title": "Method Type Id",
             "default": 18
@@ -13857,7 +14050,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [3],
             "const": 3,
             "title": "Method Type Id",
             "default": 3
@@ -13991,7 +14183,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [3],
             "const": 3,
             "title": "Method Type Id",
             "default": 3
@@ -14023,7 +14214,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [3],
             "const": 3,
             "title": "Method Type Id",
             "default": 3
@@ -14114,7 +14304,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [3],
             "const": 3,
             "title": "Method Type Id",
             "default": 3
@@ -14205,7 +14394,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [3],
             "const": 3,
             "title": "Method Type Id",
             "default": 3
@@ -14270,7 +14458,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [3],
             "const": 3,
             "title": "Method Type Id",
             "default": 3
@@ -14302,7 +14489,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [9],
             "const": 9,
             "title": "Method Type Id",
             "default": 9
@@ -14420,7 +14606,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [9],
             "const": 9,
             "title": "Method Type Id",
             "default": 9
@@ -14476,7 +14661,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [9],
             "const": 9,
             "title": "Method Type Id",
             "default": 9
@@ -14499,7 +14683,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [7],
             "const": 7,
             "title": "Method Type Id",
             "default": 7
@@ -14617,7 +14800,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [7],
             "const": 7,
             "title": "Method Type Id",
             "default": 7
@@ -14673,7 +14855,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [7],
             "const": 7,
             "title": "Method Type Id",
             "default": 7
@@ -14696,7 +14877,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [4],
             "const": 4,
             "title": "Method Type Id",
             "default": 4
@@ -14856,7 +15036,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [4],
             "const": 4,
             "title": "Method Type Id",
             "default": 4
@@ -14959,7 +15138,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [4],
             "const": 4,
             "title": "Method Type Id",
             "default": 4
@@ -15029,7 +15207,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [11],
             "const": 11,
             "title": "Method Type Id",
             "default": 11
@@ -15147,7 +15324,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [11],
             "const": 11,
             "title": "Method Type Id",
             "default": 11
@@ -15203,7 +15379,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [11],
             "const": 11,
             "title": "Method Type Id",
             "default": 11
@@ -15226,7 +15401,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [20],
             "const": 20,
             "title": "Method Type Id",
             "default": 20
@@ -15344,7 +15518,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [20],
             "const": 20,
             "title": "Method Type Id",
             "default": 20
@@ -15367,7 +15540,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [24],
             "const": 24,
             "title": "Method Type Id",
             "default": 24
@@ -15526,7 +15698,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [24],
             "const": 24,
             "title": "Method Type Id",
             "default": 24
@@ -15572,7 +15743,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [24],
             "const": 24,
             "title": "Method Type Id",
             "default": 24
@@ -15681,7 +15851,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [24],
             "const": 24,
             "title": "Method Type Id",
             "default": 24
@@ -15804,7 +15973,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [24],
             "const": 24,
             "title": "Method Type Id",
             "default": 24
@@ -15961,7 +16129,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [24],
             "const": 24,
             "title": "Method Type Id",
             "default": 24
@@ -16042,7 +16209,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [20],
             "const": 20,
             "title": "Method Type Id",
             "default": 20
@@ -16065,7 +16231,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [6],
             "const": 6,
             "title": "Method Type Id",
             "default": 6
@@ -16195,7 +16360,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [6],
             "const": 6,
             "title": "Method Type Id",
             "default": 6
@@ -16222,7 +16386,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [6],
             "const": 6,
             "title": "Method Type Id",
             "default": 6
@@ -16288,7 +16451,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [6],
             "const": 6,
             "title": "Method Type Id",
             "default": 6
@@ -16349,7 +16511,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [6],
             "const": 6,
             "title": "Method Type Id",
             "default": 6
@@ -16440,7 +16601,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [6],
             "const": 6,
             "title": "Method Type Id",
             "default": 6
@@ -16467,7 +16627,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [10],
             "const": 10,
             "title": "Method Type Id",
             "default": 10
@@ -16618,7 +16777,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [10],
             "const": 10,
             "title": "Method Type Id",
             "default": 10
@@ -16688,7 +16846,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [10],
             "const": 10,
             "title": "Method Type Id",
             "default": 10
@@ -16781,7 +16938,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [10],
             "const": 10,
             "title": "Method Type Id",
             "default": 10
@@ -16863,7 +17019,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [10],
             "const": 10,
             "title": "Method Type Id",
             "default": 10
@@ -16977,7 +17132,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [10],
             "const": 10,
             "title": "Method Type Id",
             "default": 10
@@ -17133,7 +17287,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [2],
             "const": 2,
             "title": "Method Type Id",
             "default": 2
@@ -17279,7 +17432,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [2],
             "const": 2,
             "title": "Method Type Id",
             "default": 2
@@ -17311,7 +17463,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [2],
             "const": 2,
             "title": "Method Type Id",
             "default": 2
@@ -17411,7 +17562,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [2],
             "const": 2,
             "title": "Method Type Id",
             "default": 2
@@ -17514,7 +17664,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [2],
             "const": 2,
             "title": "Method Type Id",
             "default": 2
@@ -17579,7 +17728,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [2],
             "const": 2,
             "title": "Method Type Id",
             "default": 2
@@ -17611,7 +17759,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [13],
             "const": 13,
             "title": "Method Type Id",
             "default": 13
@@ -17729,7 +17876,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [13],
             "const": 13,
             "title": "Method Type Id",
             "default": 13
@@ -17785,7 +17931,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [13],
             "const": 13,
             "title": "Method Type Id",
             "default": 13
@@ -17872,7 +18017,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [26],
             "const": 26,
             "title": "Method Type Id",
             "default": 26
@@ -18000,7 +18144,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [26],
             "const": 26,
             "title": "Method Type Id",
             "default": 26
@@ -18027,7 +18170,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [26],
             "const": 26,
             "title": "Method Type Id",
             "default": 26
@@ -18101,7 +18243,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [26],
             "const": 26,
             "title": "Method Type Id",
             "default": 26
@@ -18174,7 +18315,6 @@
         "properties": {
           "method_type_id": {
             "type": "integer",
-            "enum": [26],
             "const": 26,
             "title": "Method Type Id",
             "default": 26
@@ -18279,7 +18419,6 @@
           },
           "method_type_id": {
             "type": "integer",
-            "enum": [26],
             "const": 26,
             "title": "Method Type Id",
             "default": 26
@@ -19151,7 +19290,7 @@
       },
       "PlotFormat": {
         "type": "string",
-        "enum": ["pdf", "svg", "static", "dynamic", "preview"],
+        "enum": ["pdf", "static"],
         "title": "PlotFormat"
       },
       "PlotInfoObject-Input": {
@@ -19161,9 +19300,7 @@
             "format": "uuid",
             "title": "Project Id"
           },
-          "location_type": {
-            "$ref": "#/components/schemas/LocationType-Input"
-          },
+          "location_type": { "$ref": "#/components/schemas/LocationType" },
           "location_ids": {
             "items": { "type": "string", "format": "uuid" },
             "type": "array",
@@ -19262,9 +19399,7 @@
             "format": "uuid",
             "title": "Project Id"
           },
-          "location_type": {
-            "$ref": "#/components/schemas/ngi_plot_matplotlib__models__plot_options__LocationType"
-          },
+          "location_type": { "$ref": "#/components/schemas/LocationType" },
           "location_ids": {
             "items": { "type": "string", "format": "uuid" },
             "type": "array",
@@ -19722,8 +19857,8 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "ba16b8ca-e751-45c5-a861-66c61c7e8f0d",
-          "project_id": "0e6f93a4-258a-45d4-9d91-6a13849ded44",
+          "organization_id": "cd0a0740-8b18-471b-bf87-7764aa1ca3c1",
+          "project_id": "38383d93-f5e8-456b-8c6e-cf99caa2688d",
           "srid": 3857
         }
       },
@@ -19898,8 +20033,8 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "ba16b8ca-e751-45c5-a861-66c61c7e8f0d",
-          "project_id": "0e6f93a4-258a-45d4-9d91-6a13849ded44",
+          "organization_id": "cd0a0740-8b18-471b-bf87-7764aa1ca3c1",
+          "project_id": "38383d93-f5e8-456b-8c6e-cf99caa2688d",
           "srid": 3857
         }
       },
@@ -20027,8 +20162,8 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "ba16b8ca-e751-45c5-a861-66c61c7e8f0d",
-          "project_id": "0e6f93a4-258a-45d4-9d91-6a13849ded44",
+          "organization_id": "cd0a0740-8b18-471b-bf87-7764aa1ca3c1",
+          "project_id": "38383d93-f5e8-456b-8c6e-cf99caa2688d",
           "srid": 3857
         }
       },
@@ -20328,32 +20463,129 @@
         "required": ["loc", "msg", "type"],
         "title": "ValidationError"
       },
-      "fm_data_api__schemas__schemas__LocationType": {
+      "WebMapService": {
         "properties": {
-          "location_type_id": {
-            "$ref": "#/components/schemas/LocationTypeEnum",
-            "description": "Will move to Project.standard_id",
-            "deprecated": true
+          "web_map_service_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Web Map Service Id"
           },
           "name": { "type": "string", "title": "Name" },
-          "description": { "type": "string", "title": "Description" },
-          "sort_order": { "type": "integer", "title": "Sort Order" },
-          "method_types": {
-            "items": { "$ref": "#/components/schemas/MethodType" },
+          "url": {
+            "type": "string",
+            "maxLength": 2083,
+            "minLength": 1,
+            "format": "uri",
+            "title": "Url"
+          },
+          "service_type": { "$ref": "#/components/schemas/WebMapServiceType" },
+          "available_standard_ids": {
+            "items": { "$ref": "#/components/schemas/StandardType" },
             "type": "array",
-            "title": "Method Types",
+            "title": "Available Standard Ids",
             "default": []
+          },
+          "organization_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Organization Id",
+            "description": "The ID for the organization that owns this web map service. If null, it is global."
+          },
+          "description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Description"
+          },
+          "is_application_layer": {
+            "type": "boolean",
+            "title": "Is Application Layer",
+            "description": "True if this web map service is global for the application. Output only."
           }
         },
         "type": "object",
-        "required": ["location_type_id", "name", "description", "sort_order"],
-        "title": "LocationType",
-        "description": "Deprecated. Will be moved to Project.standard."
+        "required": [
+          "web_map_service_id",
+          "name",
+          "url",
+          "service_type",
+          "organization_id",
+          "is_application_layer"
+        ],
+        "title": "WebMapService"
       },
-      "ngi_plot_matplotlib__models__plot_options__LocationType": {
+      "WebMapServiceCreate": {
+        "properties": {
+          "name": { "type": "string", "title": "Name" },
+          "url": {
+            "type": "string",
+            "maxLength": 2083,
+            "minLength": 1,
+            "format": "uri",
+            "title": "Url"
+          },
+          "service_type": { "$ref": "#/components/schemas/WebMapServiceType" },
+          "available_standard_ids": {
+            "items": { "$ref": "#/components/schemas/StandardType" },
+            "type": "array",
+            "title": "Available Standard Ids",
+            "default": []
+          },
+          "description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Description"
+          }
+        },
+        "type": "object",
+        "required": ["name", "url", "service_type"],
+        "title": "WebMapServiceCreate"
+      },
+      "WebMapServiceType": {
         "type": "string",
-        "enum": ["onshore", "offshore"],
-        "title": "LocationType"
+        "enum": ["WMS", "WFS", "WMTS"],
+        "title": "WebMapServiceType"
+      },
+      "WebMapServiceUpdate": {
+        "properties": {
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2083,
+                "minLength": 1,
+                "format": "uri"
+              },
+              { "type": "null" }
+            ],
+            "title": "Url"
+          },
+          "service_type": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/WebMapServiceType" },
+              { "type": "null" }
+            ]
+          },
+          "available_standard_ids": {
+            "anyOf": [
+              {
+                "items": { "$ref": "#/components/schemas/StandardType" },
+                "type": "array"
+              },
+              { "type": "null" }
+            ],
+            "title": "Available Standard Ids"
+          },
+          "description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Description"
+          }
+        },
+        "type": "object",
+        "title": "WebMapServiceUpdate"
       }
     },
     "securitySchemes": { "HTTPBearer": { "type": "http", "scheme": "bearer" } }
