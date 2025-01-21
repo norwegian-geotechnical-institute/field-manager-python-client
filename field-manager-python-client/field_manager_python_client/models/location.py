@@ -1,5 +1,5 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -45,8 +45,8 @@ T = TypeVar("T", bound="Location")
 class Location:
     """
     Example:
-        {'location_id': '0e6343a6-159c-43fa-8893-767fbdfa7ccf', 'name': 'Loc01', 'point_easting': 1194547,
-            'point_northing': 8388298, 'point_z': 0.0, 'project_id': '09198cee-6bc6-49f8-b499-2cce0cd41716', 'srid': 3857}
+        {'location_id': '31bddac3-f451-489c-965a-3bc1be7a763c', 'name': 'Loc01', 'point_easting': 1194547,
+            'point_northing': 8388298, 'point_z': 0.0, 'project_id': '9b78ac14-416b-40cb-a968-2077de089e24', 'srid': 3857}
 
     Attributes:
         name (str):
@@ -56,7 +56,6 @@ class Location:
         project_id (UUID):
         is_deleted (bool):
         last_updated (datetime.datetime):
-        location_type_id (Union[Unset, Any]): Use Project.standard_id instead Default: 1.
         iogp_type_id (Union[Unset, IOGPTypeEnum]): For offshore locations, an IOGP type is required
         created_by (Union[None, Unset, str]):
         updated_by (Union[None, Unset, str]):
@@ -68,12 +67,12 @@ class Location:
         point_y_wgs84_pseudo (Union[None, Unset, float]):
         point_x_wgs84_web (Union[None, Unset, float]):
         point_y_wgs84_web (Union[None, Unset, float]):
-        tags (Union[List[str], None, Unset]):
-        methods (Union[Unset, List[Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA',
+        tags (Union[None, Unset, list[str]]):
+        methods (Union[Unset, list[Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA',
             'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS',
             'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP',
             'MethodWST']]]):
-        files (Union[Unset, List['File']]):
+        files (Union[Unset, list['File']]):
     """
 
     name: str
@@ -83,7 +82,6 @@ class Location:
     project_id: UUID
     is_deleted: bool
     last_updated: datetime.datetime
-    location_type_id: Union[Unset, Any] = 1
     iogp_type_id: Union[Unset, IOGPTypeEnum] = UNSET
     created_by: Union[None, Unset, str] = UNSET
     updated_by: Union[None, Unset, str] = UNSET
@@ -95,10 +93,10 @@ class Location:
     point_y_wgs84_pseudo: Union[None, Unset, float] = UNSET
     point_x_wgs84_web: Union[None, Unset, float] = UNSET
     point_y_wgs84_web: Union[None, Unset, float] = UNSET
-    tags: Union[List[str], None, Unset] = UNSET
+    tags: Union[None, Unset, list[str]] = UNSET
     methods: Union[
         Unset,
-        List[
+        list[
             Union[
                 "MethodAD",
                 "MethodCD",
@@ -128,10 +126,10 @@ class Location:
             ]
         ],
     ] = UNSET
-    files: Union[Unset, List["File"]] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    files: Union[Unset, list["File"]] = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         from ..models.method_ad import MethodAD
         from ..models.method_cd import MethodCD
         from ..models.method_cpt import MethodCPT
@@ -170,8 +168,6 @@ class Location:
         is_deleted = self.is_deleted
 
         last_updated = self.last_updated.isoformat()
-
-        location_type_id = self.location_type_id
 
         iogp_type_id: Union[Unset, str] = UNSET
         if not isinstance(self.iogp_type_id, Unset):
@@ -237,7 +233,7 @@ class Location:
         else:
             point_y_wgs84_web = self.point_y_wgs84_web
 
-        tags: Union[List[str], None, Unset]
+        tags: Union[None, Unset, list[str]]
         if isinstance(self.tags, Unset):
             tags = UNSET
         elif isinstance(self.tags, list):
@@ -246,11 +242,11 @@ class Location:
         else:
             tags = self.tags
 
-        methods: Union[Unset, List[Dict[str, Any]]] = UNSET
+        methods: Union[Unset, list[dict[str, Any]]] = UNSET
         if not isinstance(self.methods, Unset):
             methods = []
             for methods_item_data in self.methods:
-                methods_item: Dict[str, Any]
+                methods_item: dict[str, Any]
                 if isinstance(methods_item_data, MethodCPT):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodTOT):
@@ -304,14 +300,14 @@ class Location:
 
                 methods.append(methods_item)
 
-        files: Union[Unset, List[Dict[str, Any]]] = UNSET
+        files: Union[Unset, list[dict[str, Any]]] = UNSET
         if not isinstance(self.files, Unset):
             files = []
             for files_item_data in self.files:
                 files_item = files_item_data.to_dict()
                 files.append(files_item)
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -324,8 +320,6 @@ class Location:
                 "last_updated": last_updated,
             }
         )
-        if location_type_id is not UNSET:
-            field_dict["location_type_id"] = location_type_id
         if iogp_type_id is not UNSET:
             field_dict["iogp_type_id"] = iogp_type_id
         if created_by is not UNSET:
@@ -358,7 +352,7 @@ class Location:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.file import File
         from ..models.method_ad import MethodAD
         from ..models.method_cd import MethodCD
@@ -400,8 +394,6 @@ class Location:
         is_deleted = d.pop("is_deleted")
 
         last_updated = isoparse(d.pop("last_updated"))
-
-        location_type_id = d.pop("location_type_id", UNSET)
 
         _iogp_type_id = d.pop("iogp_type_id", UNSET)
         iogp_type_id: Union[Unset, IOGPTypeEnum]
@@ -500,7 +492,7 @@ class Location:
 
         point_y_wgs84_web = _parse_point_y_wgs84_web(d.pop("point_y_wgs84_web", UNSET))
 
-        def _parse_tags(data: object) -> Union[List[str], None, Unset]:
+        def _parse_tags(data: object) -> Union[None, Unset, list[str]]:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -508,12 +500,12 @@ class Location:
             try:
                 if not isinstance(data, list):
                     raise TypeError()
-                tags_type_0 = cast(List[str], data)
+                tags_type_0 = cast(list[str], data)
 
                 return tags_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[List[str], None, Unset], data)
+            return cast(Union[None, Unset, list[str]], data)
 
         tags = _parse_tags(d.pop("tags", UNSET))
 
@@ -767,7 +759,6 @@ class Location:
             project_id=project_id,
             is_deleted=is_deleted,
             last_updated=last_updated,
-            location_type_id=location_type_id,
             iogp_type_id=iogp_type_id,
             created_by=created_by,
             updated_by=updated_by,
@@ -788,7 +779,7 @@ class Location:
         return location
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
