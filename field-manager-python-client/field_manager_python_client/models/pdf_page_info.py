@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,8 +17,8 @@ class PDFPageInfo:
         report_number (Union[None, Unset, str]):  Default: ''.
         revision (Union[None, Unset, str]):  Default: ''.
         date (Union[None, Unset, str]):  Default: ''.
-        page_number (Union[List[str], None, Unset, str]):  Default: ''.
-        info_table (Union[List[Any], None, Unset, str]):
+        page_number (Union[None, Unset, list[str], str]):  Default: ''.
+        info_table (Union[None, Unset, list[Any], str]):
         drawn_by (Union[None, Unset, str]):  Default: ''.
         controlled_by (Union[None, Unset, str]):  Default: ''.
         approved_by (Union[None, Unset, str]):  Default: ''.
@@ -30,15 +30,15 @@ class PDFPageInfo:
     report_number: Union[None, Unset, str] = ""
     revision: Union[None, Unset, str] = ""
     date: Union[None, Unset, str] = ""
-    page_number: Union[List[str], None, Unset, str] = ""
-    info_table: Union[List[Any], None, Unset, str] = UNSET
+    page_number: Union[None, Unset, list[str], str] = ""
+    info_table: Union[None, Unset, list[Any], str] = UNSET
     drawn_by: Union[None, Unset, str] = ""
     controlled_by: Union[None, Unset, str] = ""
     approved_by: Union[None, Unset, str] = ""
     split_page_info: Union[None, Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         project_name: Union[None, Unset, str]
         if isinstance(self.project_name, Unset):
             project_name = UNSET
@@ -69,7 +69,7 @@ class PDFPageInfo:
         else:
             date = self.date
 
-        page_number: Union[List[str], None, Unset, str]
+        page_number: Union[None, Unset, list[str], str]
         if isinstance(self.page_number, Unset):
             page_number = UNSET
         elif isinstance(self.page_number, list):
@@ -78,7 +78,7 @@ class PDFPageInfo:
         else:
             page_number = self.page_number
 
-        info_table: Union[List[Any], None, Unset, str]
+        info_table: Union[None, Unset, list[Any], str]
         if isinstance(self.info_table, Unset):
             info_table = UNSET
         elif isinstance(self.info_table, list):
@@ -111,7 +111,7 @@ class PDFPageInfo:
         else:
             split_page_info = self.split_page_info
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if project_name is not UNSET:
@@ -140,7 +140,7 @@ class PDFPageInfo:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
 
         def _parse_project_name(data: object) -> Union[None, Unset, str]:
@@ -188,7 +188,7 @@ class PDFPageInfo:
 
         date = _parse_date(d.pop("date", UNSET))
 
-        def _parse_page_number(data: object) -> Union[List[str], None, Unset, str]:
+        def _parse_page_number(data: object) -> Union[None, Unset, list[str], str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -196,16 +196,16 @@ class PDFPageInfo:
             try:
                 if not isinstance(data, list):
                     raise TypeError()
-                page_number_type_1 = cast(List[str], data)
+                page_number_type_1 = cast(list[str], data)
 
                 return page_number_type_1
             except:  # noqa: E722
                 pass
-            return cast(Union[List[str], None, Unset, str], data)
+            return cast(Union[None, Unset, list[str], str], data)
 
         page_number = _parse_page_number(d.pop("page_number", UNSET))
 
-        def _parse_info_table(data: object) -> Union[List[Any], None, Unset, str]:
+        def _parse_info_table(data: object) -> Union[None, Unset, list[Any], str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -213,12 +213,12 @@ class PDFPageInfo:
             try:
                 if not isinstance(data, list):
                     raise TypeError()
-                info_table_type_0 = cast(List[Any], data)
+                info_table_type_0 = cast(list[Any], data)
 
                 return info_table_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[List[Any], None, Unset, str], data)
+            return cast(Union[None, Unset, list[Any], str], data)
 
         info_table = _parse_info_table(d.pop("info_table", UNSET))
 
@@ -276,7 +276,7 @@ class PDFPageInfo:
         return pdf_page_info
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
