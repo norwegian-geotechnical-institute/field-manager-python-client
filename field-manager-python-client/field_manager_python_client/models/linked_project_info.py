@@ -1,5 +1,5 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -23,7 +23,7 @@ class LinkedProjectInfo:
     """
     Example:
         {'external_id': '2020193232', 'height_reference': 'NN2000', 'name': 'Project Name', 'organization_id':
-            'ba16b8ca-e751-45c5-a861-66c61c7e8f0d', 'project_id': '0e6f93a4-258a-45d4-9d91-6a13849ded44', 'srid': 3857}
+            'e05d856c-b8cf-4e78-9c61-0322eeeb7de3', 'project_id': 'dcd2620a-cc84-4b32-8b19-5df423308d28', 'srid': 3857}
 
     Attributes:
         project_id (UUID):
@@ -39,7 +39,7 @@ class LinkedProjectInfo:
         external_id_source (Union[None, Unset, str]):
         height_reference (Union[HeightReference, None, Unset]):
         description (Union[None, Unset, str]):
-        tags (Union[List[str], None, Unset]):
+        tags (Union[None, Unset, list[str]]):
         organization (Union['OrganizationMin', None, Unset]):
         effective_role (Union['Role', None, Unset]):
         last_updated (Union[None, Unset, datetime.datetime]):
@@ -59,14 +59,14 @@ class LinkedProjectInfo:
     external_id_source: Union[None, Unset, str] = UNSET
     height_reference: Union[HeightReference, None, Unset] = UNSET
     description: Union[None, Unset, str] = UNSET
-    tags: Union[List[str], None, Unset] = UNSET
+    tags: Union[None, Unset, list[str]] = UNSET
     organization: Union["OrganizationMin", None, Unset] = UNSET
     effective_role: Union["Role", None, Unset] = UNSET
     last_updated: Union[None, Unset, datetime.datetime] = UNSET
     favorite: Union[Unset, bool] = False
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         from ..models.organization_min import OrganizationMin
         from ..models.role import Role
 
@@ -122,7 +122,7 @@ class LinkedProjectInfo:
         else:
             description = self.description
 
-        tags: Union[List[str], None, Unset]
+        tags: Union[None, Unset, list[str]]
         if isinstance(self.tags, Unset):
             tags = UNSET
         elif isinstance(self.tags, list):
@@ -131,7 +131,7 @@ class LinkedProjectInfo:
         else:
             tags = self.tags
 
-        organization: Union[Dict[str, Any], None, Unset]
+        organization: Union[None, Unset, dict[str, Any]]
         if isinstance(self.organization, Unset):
             organization = UNSET
         elif isinstance(self.organization, OrganizationMin):
@@ -139,7 +139,7 @@ class LinkedProjectInfo:
         else:
             organization = self.organization
 
-        effective_role: Union[Dict[str, Any], None, Unset]
+        effective_role: Union[None, Unset, dict[str, Any]]
         if isinstance(self.effective_role, Unset):
             effective_role = UNSET
         elif isinstance(self.effective_role, Role):
@@ -157,7 +157,7 @@ class LinkedProjectInfo:
 
         favorite = self.favorite
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -195,7 +195,7 @@ class LinkedProjectInfo:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.organization_min import OrganizationMin
         from ..models.role import Role
 
@@ -285,7 +285,7 @@ class LinkedProjectInfo:
 
         description = _parse_description(d.pop("description", UNSET))
 
-        def _parse_tags(data: object) -> Union[List[str], None, Unset]:
+        def _parse_tags(data: object) -> Union[None, Unset, list[str]]:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -293,12 +293,12 @@ class LinkedProjectInfo:
             try:
                 if not isinstance(data, list):
                     raise TypeError()
-                tags_type_0 = cast(List[str], data)
+                tags_type_0 = cast(list[str], data)
 
                 return tags_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[List[str], None, Unset], data)
+            return cast(Union[None, Unset, list[str]], data)
 
         tags = _parse_tags(d.pop("tags", UNSET))
 
@@ -380,7 +380,7 @@ class LinkedProjectInfo:
         return linked_project_info
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
