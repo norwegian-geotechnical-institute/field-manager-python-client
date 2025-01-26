@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Optional, Union, cast
 from uuid import UUID
 
 import httpx
@@ -7,30 +7,31 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
-from ...types import Response
+from ...types import UNSET, Response
 
 
 def _get_kwargs(
     project_id: str,
     *,
-    body: List[UUID],
-) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
+    cross_section_ids: list[UUID],
+) -> dict[str, Any]:
+    params: dict[str, Any] = {}
 
-    _kwargs: Dict[str, Any] = {
+    json_cross_section_ids = []
+    for cross_section_ids_item_data in cross_section_ids:
+        cross_section_ids_item = str(cross_section_ids_item_data)
+        json_cross_section_ids.append(cross_section_ids_item)
+
+    params["cross_section_ids"] = json_cross_section_ids
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
+    _kwargs: dict[str, Any] = {
         "method": "delete",
         "url": f"/projects/{project_id}/cross_sections",
+        "params": params,
     }
 
-    _body = []
-    for body_item_data in body:
-        body_item = str(body_item_data)
-        _body.append(body_item)
-
-    _kwargs["json"] = _body
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
     return _kwargs
 
 
@@ -65,7 +66,7 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: List[UUID],
+    cross_section_ids: list[UUID],
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Delete Cross Sections
 
@@ -73,7 +74,7 @@ def sync_detailed(
 
     Args:
         project_id (str):
-        body (List[UUID]):
+        cross_section_ids (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -85,7 +86,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        body=body,
+        cross_section_ids=cross_section_ids,
     )
 
     response = client.get_httpx_client().request(
@@ -99,7 +100,7 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: List[UUID],
+    cross_section_ids: list[UUID],
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Delete Cross Sections
 
@@ -107,7 +108,7 @@ def sync(
 
     Args:
         project_id (str):
-        body (List[UUID]):
+        cross_section_ids (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -120,7 +121,7 @@ def sync(
     return sync_detailed(
         project_id=project_id,
         client=client,
-        body=body,
+        cross_section_ids=cross_section_ids,
     ).parsed
 
 
@@ -128,7 +129,7 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: List[UUID],
+    cross_section_ids: list[UUID],
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Delete Cross Sections
 
@@ -136,7 +137,7 @@ async def asyncio_detailed(
 
     Args:
         project_id (str):
-        body (List[UUID]):
+        cross_section_ids (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -148,7 +149,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        body=body,
+        cross_section_ids=cross_section_ids,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -160,7 +161,7 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: List[UUID],
+    cross_section_ids: list[UUID],
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Delete Cross Sections
 
@@ -168,7 +169,7 @@ async def asyncio(
 
     Args:
         project_id (str):
-        body (List[UUID]):
+        cross_section_ids (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -182,6 +183,6 @@ async def asyncio(
         await asyncio_detailed(
             project_id=project_id,
             client=client,
-            body=body,
+            cross_section_ids=cross_section_ids,
         )
     ).parsed
