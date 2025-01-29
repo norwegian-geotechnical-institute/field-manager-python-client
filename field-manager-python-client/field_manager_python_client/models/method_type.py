@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -47,7 +47,7 @@ class MethodType:
         description (str):
         category (str):
         sort_order (int):
-        raw_file_extensions (List['FileExtension']):
+        raw_file_extensions (list['FileExtension']):
     """
 
     method_type_id: MethodTypeEnum
@@ -55,10 +55,10 @@ class MethodType:
     description: str
     category: str
     sort_order: int
-    raw_file_extensions: List["FileExtension"]
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    raw_file_extensions: list["FileExtension"]
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         method_type_id = self.method_type_id.value
 
         name = self.name
@@ -74,7 +74,7 @@ class MethodType:
             raw_file_extensions_item = raw_file_extensions_item_data.to_dict()
             raw_file_extensions.append(raw_file_extensions_item)
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -90,7 +90,7 @@ class MethodType:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.file_extension import FileExtension
 
         d = src_dict.copy()
@@ -124,7 +124,7 @@ class MethodType:
         return method_type
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
