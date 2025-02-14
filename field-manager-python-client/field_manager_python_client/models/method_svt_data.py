@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_svt_data_method_type_id import MethodSVTDataMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodSVTData")
@@ -21,7 +20,7 @@ class MethodSVTData:
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
         depth (float): Depth (m). SGF code D.
-        method_type_id (Union[Unset, MethodSVTDataMethodTypeId]):  Default: MethodSVTDataMethodTypeId.VALUE_10.
+        method_type_id (Union[Literal[10], Unset]):  Default: 10.
         maximum_measurement_torque (Union[None, Unset, float]): Maximum measurement torque (Nm). SGF code AB.
         maximum_measurement_torque_remoulded (Union[None, Unset, float]): Maximum measurement torque (Nm). SGF code AB2.
         shear_strength (Union[None, Unset, float]): Shear strength (kPa). SGF code AS.
@@ -38,7 +37,7 @@ class MethodSVTData:
     created_at: datetime.datetime
     updated_at: datetime.datetime
     depth: float
-    method_type_id: Union[Unset, MethodSVTDataMethodTypeId] = MethodSVTDataMethodTypeId.VALUE_10
+    method_type_id: Union[Literal[10], Unset] = 10
     maximum_measurement_torque: Union[None, Unset, float] = UNSET
     maximum_measurement_torque_remoulded: Union[None, Unset, float] = UNSET
     shear_strength: Union[None, Unset, float] = UNSET
@@ -48,9 +47,9 @@ class MethodSVTData:
     calculated_shear_strength_remoulded: Union[None, Unset, float] = UNSET
     calculated_sensitivity: Union[None, Unset, float] = UNSET
     remarks: Union[None, Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         method_data_id = str(self.method_data_id)
 
         method_id = str(self.method_id)
@@ -61,9 +60,7 @@ class MethodSVTData:
 
         depth = self.depth
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         maximum_measurement_torque: Union[None, Unset, float]
         if isinstance(self.maximum_measurement_torque, Unset):
@@ -119,7 +116,7 @@ class MethodSVTData:
         else:
             remarks = self.remarks
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -154,7 +151,7 @@ class MethodSVTData:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         method_data_id = UUID(d.pop("method_data_id"))
 
@@ -166,12 +163,9 @@ class MethodSVTData:
 
         depth = d.pop("depth")
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodSVTDataMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodSVTDataMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[10], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 10 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 10, got '{method_type_id}'")
 
         def _parse_maximum_measurement_torque(data: object) -> Union[None, Unset, float]:
             if data is None:
@@ -280,7 +274,7 @@ class MethodSVTData:
         return method_svt_data
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

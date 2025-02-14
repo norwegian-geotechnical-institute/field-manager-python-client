@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 
 import httpx
 
@@ -14,11 +14,11 @@ from ...types import Response
 def _get_kwargs(
     project_id: str,
     *,
-    body: List["LocationUpdate"],
-) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
+    body: list["LocationUpdate"],
+) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "put",
         "url": f"/projects/{project_id}/locations",
     }
@@ -37,7 +37,7 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, List["Location"]]]:
+) -> Optional[Union[HTTPValidationError, list["Location"]]]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -59,7 +59,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, List["Location"]]]:
+) -> Response[Union[HTTPValidationError, list["Location"]]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -72,22 +72,22 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: List["LocationUpdate"],
-) -> Response[Union[HTTPValidationError, List["Location"]]]:
+    body: list["LocationUpdate"],
+) -> Response[Union[HTTPValidationError, list["Location"]]]:
     """Update Locations In Project
 
      Batch updates locations
 
     Args:
         project_id (str):
-        body (List['LocationUpdate']):
+        body (list['LocationUpdate']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, List['Location']]]
+        Response[Union[HTTPValidationError, list['Location']]]
     """
 
     kwargs = _get_kwargs(
@@ -106,22 +106,22 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: List["LocationUpdate"],
-) -> Optional[Union[HTTPValidationError, List["Location"]]]:
+    body: list["LocationUpdate"],
+) -> Optional[Union[HTTPValidationError, list["Location"]]]:
     """Update Locations In Project
 
      Batch updates locations
 
     Args:
         project_id (str):
-        body (List['LocationUpdate']):
+        body (list['LocationUpdate']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, List['Location']]
+        Union[HTTPValidationError, list['Location']]
     """
 
     return sync_detailed(
@@ -135,22 +135,22 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: List["LocationUpdate"],
-) -> Response[Union[HTTPValidationError, List["Location"]]]:
+    body: list["LocationUpdate"],
+) -> Response[Union[HTTPValidationError, list["Location"]]]:
     """Update Locations In Project
 
      Batch updates locations
 
     Args:
         project_id (str):
-        body (List['LocationUpdate']):
+        body (list['LocationUpdate']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, List['Location']]]
+        Response[Union[HTTPValidationError, list['Location']]]
     """
 
     kwargs = _get_kwargs(
@@ -167,22 +167,22 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: List["LocationUpdate"],
-) -> Optional[Union[HTTPValidationError, List["Location"]]]:
+    body: list["LocationUpdate"],
+) -> Optional[Union[HTTPValidationError, list["Location"]]]:
     """Update Locations In Project
 
      Batch updates locations
 
     Args:
         project_id (str):
-        body (List['LocationUpdate']):
+        body (list['LocationUpdate']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, List['Location']]
+        Union[HTTPValidationError, list['Location']]
     """
 
     return (

@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -26,7 +26,7 @@ class OrganizationUpdate:
         created_at (Union[None, Unset, datetime.datetime]):
         updated_at (Union[None, Unset, datetime.datetime]):
         default_standard_id (Union[None, StandardType, Unset]):
-        available_standard_ids (Union[Unset, List[StandardType]]):
+        available_standard_ids (Union[Unset, list[StandardType]]):
     """
 
     external_id: Union[None, Unset, str] = UNSET
@@ -39,10 +39,10 @@ class OrganizationUpdate:
     created_at: Union[None, Unset, datetime.datetime] = UNSET
     updated_at: Union[None, Unset, datetime.datetime] = UNSET
     default_standard_id: Union[None, StandardType, Unset] = UNSET
-    available_standard_ids: Union[Unset, List[StandardType]] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    available_standard_ids: Union[Unset, list[StandardType]] = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         external_id: Union[None, Unset, str]
         if isinstance(self.external_id, Unset):
             external_id = UNSET
@@ -111,14 +111,14 @@ class OrganizationUpdate:
         else:
             default_standard_id = self.default_standard_id
 
-        available_standard_ids: Union[Unset, List[str]] = UNSET
+        available_standard_ids: Union[Unset, list[str]] = UNSET
         if not isinstance(self.available_standard_ids, Unset):
             available_standard_ids = []
             for available_standard_ids_item_data in self.available_standard_ids:
                 available_standard_ids_item = available_standard_ids_item_data.value
                 available_standard_ids.append(available_standard_ids_item)
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if external_id is not UNSET:
@@ -147,7 +147,7 @@ class OrganizationUpdate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
 
         def _parse_external_id(data: object) -> Union[None, Unset, str]:
@@ -297,7 +297,7 @@ class OrganizationUpdate:
         return organization_update
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

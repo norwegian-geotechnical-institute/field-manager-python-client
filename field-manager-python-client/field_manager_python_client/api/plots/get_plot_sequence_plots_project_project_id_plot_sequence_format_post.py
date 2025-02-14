@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Optional, Union
 
 import httpx
 
@@ -16,15 +16,15 @@ def _get_kwargs(
     format_: PlotFormat,
     *,
     body: Union["Options", None],
-) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "post",
         "url": f"/plots/project/{project_id}/plot_sequence/{format_}",
     }
 
-    _body: Union[Dict[str, Any], None]
+    _body: Union[None, dict[str, Any]]
     if isinstance(body, Options):
         _body = body.to_dict()
     else:

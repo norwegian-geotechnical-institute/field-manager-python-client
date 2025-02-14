@@ -1,11 +1,12 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
+from ..models.language import Language
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="CrossSection")
@@ -18,14 +19,15 @@ class CrossSection:
         cross_section_id (UUID):
         horizontal_scale (str):
         vertical_scale (str):
-        method_ids (List[UUID]):
+        method_ids (list[UUID]):
         name (str):
         width (float):
         polyline_linestring (str):
         project_id (UUID):
         srid (int):
         created_by (UUID):
-        polyline_coordinates (List[List[float]]): Compute the polyline_coordinates from the polyline_linestring
+        polyline_coordinates (list[list[float]]): Compute the polyline_coordinates from the polyline_linestring
+        language (Union[Unset, Language]): ISO 639-2 language three-letter codes (set 2)
         updated_at (Union[None, Unset, datetime.datetime]):
         updated_by (Union[None, UUID, Unset]):
         created_at (Union[None, Unset, datetime.datetime]):
@@ -34,20 +36,21 @@ class CrossSection:
     cross_section_id: UUID
     horizontal_scale: str
     vertical_scale: str
-    method_ids: List[UUID]
+    method_ids: list[UUID]
     name: str
     width: float
     polyline_linestring: str
     project_id: UUID
     srid: int
     created_by: UUID
-    polyline_coordinates: List[List[float]]
+    polyline_coordinates: list[list[float]]
+    language: Union[Unset, Language] = UNSET
     updated_at: Union[None, Unset, datetime.datetime] = UNSET
     updated_by: Union[None, UUID, Unset] = UNSET
     created_at: Union[None, Unset, datetime.datetime] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         cross_section_id = str(self.cross_section_id)
 
         horizontal_scale = self.horizontal_scale
@@ -81,6 +84,10 @@ class CrossSection:
 
             polyline_coordinates.append(polyline_coordinates_item)
 
+        language: Union[Unset, str] = UNSET
+        if not isinstance(self.language, Unset):
+            language = self.language.value
+
         updated_at: Union[None, Unset, str]
         if isinstance(self.updated_at, Unset):
             updated_at = UNSET
@@ -105,7 +112,7 @@ class CrossSection:
         else:
             created_at = self.created_at
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -122,6 +129,8 @@ class CrossSection:
                 "polyline_coordinates": polyline_coordinates,
             }
         )
+        if language is not UNSET:
+            field_dict["language"] = language
         if updated_at is not UNSET:
             field_dict["updated_at"] = updated_at
         if updated_by is not UNSET:
@@ -132,7 +141,7 @@ class CrossSection:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         cross_section_id = UUID(d.pop("cross_section_id"))
 
@@ -176,6 +185,13 @@ class CrossSection:
                 polyline_coordinates_item.append(polyline_coordinates_item_item)
 
             polyline_coordinates.append(polyline_coordinates_item)
+
+        _language = d.pop("language", UNSET)
+        language: Union[Unset, Language]
+        if isinstance(_language, Unset):
+            language = UNSET
+        else:
+            language = Language(_language)
 
         def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -240,6 +256,7 @@ class CrossSection:
             srid=srid,
             created_by=created_by,
             polyline_coordinates=polyline_coordinates,
+            language=language,
             updated_at=updated_at,
             updated_by=updated_by,
             created_at=created_at,
@@ -249,7 +266,7 @@ class CrossSection:
         return cross_section
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

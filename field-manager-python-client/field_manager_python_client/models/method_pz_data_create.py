@@ -1,12 +1,11 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_pz_data_create_method_type_id import MethodPZDataCreateMethodTypeId
 from ..models.reading_type import ReadingType
 from ..types import UNSET, Unset
 
@@ -20,7 +19,7 @@ class MethodPZDataCreate:
         reading_type (ReadingType):
         method_data_id (Union[None, UUID, Unset]):
         method_id (Union[None, UUID, Unset]):
-        method_type_id (Union[Unset, MethodPZDataCreateMethodTypeId]):  Default: MethodPZDataCreateMethodTypeId.VALUE_5.
+        method_type_id (Union[Literal[5], Unset]):  Default: 5.
         created_at (Union[None, Unset, datetime.datetime]):
         updated_at (Union[None, Unset, datetime.datetime]):
         date (Union[None, Unset, datetime.datetime]):
@@ -33,7 +32,7 @@ class MethodPZDataCreate:
     reading_type: ReadingType
     method_data_id: Union[None, UUID, Unset] = UNSET
     method_id: Union[None, UUID, Unset] = UNSET
-    method_type_id: Union[Unset, MethodPZDataCreateMethodTypeId] = MethodPZDataCreateMethodTypeId.VALUE_5
+    method_type_id: Union[Literal[5], Unset] = 5
     created_at: Union[None, Unset, datetime.datetime] = UNSET
     updated_at: Union[None, Unset, datetime.datetime] = UNSET
     date: Union[None, Unset, datetime.datetime] = UNSET
@@ -41,9 +40,9 @@ class MethodPZDataCreate:
     barometric_pressure: Union[None, Unset, float, str] = UNSET
     temperature: Union[None, Unset, float, str] = UNSET
     remarks: Union[None, Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         reading_type = self.reading_type.value
 
         method_data_id: Union[None, Unset, str]
@@ -62,9 +61,7 @@ class MethodPZDataCreate:
         else:
             method_id = self.method_id
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         created_at: Union[None, Unset, str]
         if isinstance(self.created_at, Unset):
@@ -114,7 +111,7 @@ class MethodPZDataCreate:
         else:
             remarks = self.remarks
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -145,7 +142,7 @@ class MethodPZDataCreate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         reading_type = ReadingType(d.pop("reading_type"))
 
@@ -183,12 +180,9 @@ class MethodPZDataCreate:
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodPZDataCreateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodPZDataCreateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[5], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 5 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 5, got '{method_type_id}'")
 
         def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
             if data is None:
@@ -295,7 +289,7 @@ class MethodPZDataCreate:
         return method_pz_data_create
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

@@ -1,5 +1,5 @@
 from io import BytesIO
-from typing import Any, Dict, List, Tuple, Type, TypeVar, Union, cast
+from typing import Any, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,9 +19,9 @@ class BodyUploadFileToProjectProjectsProjectIdUploadPost:
 
     file: File
     comment: Union[None, Unset, str] = ""
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         file = self.file.to_tuple()
 
         comment: Union[None, Unset, str]
@@ -30,7 +30,7 @@ class BodyUploadFileToProjectProjectsProjectIdUploadPost:
         else:
             comment = self.comment
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -42,10 +42,10 @@ class BodyUploadFileToProjectProjectsProjectIdUploadPost:
 
         return field_dict
 
-    def to_multipart(self) -> Dict[str, Any]:
+    def to_multipart(self) -> dict[str, Any]:
         file = self.file.to_tuple()
 
-        comment: Union[Tuple[None, bytes, str], Unset]
+        comment: Union[Unset, tuple[None, bytes, str]]
 
         if isinstance(self.comment, Unset):
             comment = UNSET
@@ -54,7 +54,7 @@ class BodyUploadFileToProjectProjectsProjectIdUploadPost:
         else:
             comment = (None, str(self.comment).encode(), "text/plain")
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         for prop_name, prop in self.additional_properties.items():
             field_dict[prop_name] = (None, str(prop).encode(), "text/plain")
 
@@ -69,7 +69,7 @@ class BodyUploadFileToProjectProjectsProjectIdUploadPost:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         file = File(payload=BytesIO(d.pop("file")))
 
@@ -91,7 +91,7 @@ class BodyUploadFileToProjectProjectsProjectIdUploadPost:
         return body_upload_file_to_project_projects_project_id_upload_post
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

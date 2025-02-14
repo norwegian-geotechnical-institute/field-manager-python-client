@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,32 +14,32 @@ T = TypeVar("T", bound="PizeometerUnits")
 class PizeometerUnits:
     """
     Attributes:
-        type (Union[Unset, PiezometerType]): (
+        type_ (Union[Unset, PiezometerType]): (
             ELECTRIC = Piezometer Electric,
             HYDRAULIC = Piezometer Hydraulic,
             STANDPIPE = Piezometer Standpipe,
             )
         transformation (Union[Unset, TransformationType]): Piezometer Transformation Types
-        units (Union[Unset, List[Union[None, str]]]):
+        units (Union[Unset, list[Union[None, str]]]):
         default_unit (Union[None, Unset, str]):
     """
 
-    type: Union[Unset, PiezometerType] = UNSET
+    type_: Union[Unset, PiezometerType] = UNSET
     transformation: Union[Unset, TransformationType] = UNSET
-    units: Union[Unset, List[Union[None, str]]] = UNSET
+    units: Union[Unset, list[Union[None, str]]] = UNSET
     default_unit: Union[None, Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-        type: Union[Unset, str] = UNSET
-        if not isinstance(self.type, Unset):
-            type = self.type.value
+    def to_dict(self) -> dict[str, Any]:
+        type_: Union[Unset, str] = UNSET
+        if not isinstance(self.type_, Unset):
+            type_ = self.type_.value
 
         transformation: Union[Unset, str] = UNSET
         if not isinstance(self.transformation, Unset):
             transformation = self.transformation.value
 
-        units: Union[Unset, List[Union[None, str]]] = UNSET
+        units: Union[Unset, list[Union[None, str]]] = UNSET
         if not isinstance(self.units, Unset):
             units = []
             for units_item_data in self.units:
@@ -53,11 +53,11 @@ class PizeometerUnits:
         else:
             default_unit = self.default_unit
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if type is not UNSET:
-            field_dict["type"] = type
+        if type_ is not UNSET:
+            field_dict["type"] = type_
         if transformation is not UNSET:
             field_dict["transformation"] = transformation
         if units is not UNSET:
@@ -68,14 +68,14 @@ class PizeometerUnits:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
-        _type = d.pop("type", UNSET)
-        type: Union[Unset, PiezometerType]
-        if isinstance(_type, Unset):
-            type = UNSET
+        _type_ = d.pop("type", UNSET)
+        type_: Union[Unset, PiezometerType]
+        if isinstance(_type_, Unset):
+            type_ = UNSET
         else:
-            type = PiezometerType(_type)
+            type_ = PiezometerType(_type_)
 
         _transformation = d.pop("transformation", UNSET)
         transformation: Union[Unset, TransformationType]
@@ -107,7 +107,7 @@ class PizeometerUnits:
         default_unit = _parse_default_unit(d.pop("default_unit", UNSET))
 
         pizeometer_units = cls(
-            type=type,
+            type_=type_,
             transformation=transformation,
             units=units,
             default_unit=default_unit,
@@ -117,7 +117,7 @@ class PizeometerUnits:
         return pizeometer_units
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

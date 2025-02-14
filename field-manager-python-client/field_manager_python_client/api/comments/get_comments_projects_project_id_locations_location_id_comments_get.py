@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 from uuid import UUID
 
 import httpx
@@ -16,8 +16,8 @@ def _get_kwargs(
     location_id: UUID,
     *,
     method_id: Union[None, UUID, Unset] = UNSET,
-) -> Dict[str, Any]:
-    params: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    params: dict[str, Any] = {}
 
     json_method_id: Union[None, Unset, str]
     if isinstance(method_id, Unset):
@@ -30,7 +30,7 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": f"/projects/{project_id}/locations/{location_id}/comments",
         "params": params,
@@ -41,7 +41,7 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, List["Comment"]]]:
+) -> Optional[Union[HTTPValidationError, list["Comment"]]]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -63,7 +63,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, List["Comment"]]]:
+) -> Response[Union[HTTPValidationError, list["Comment"]]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -78,7 +78,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     method_id: Union[None, UUID, Unset] = UNSET,
-) -> Response[Union[HTTPValidationError, List["Comment"]]]:
+) -> Response[Union[HTTPValidationError, list["Comment"]]]:
     """Get Comments
 
      Get all non-deleted comments, along with associated likes, on a given method or location
@@ -93,7 +93,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, List['Comment']]]
+        Response[Union[HTTPValidationError, list['Comment']]]
     """
 
     kwargs = _get_kwargs(
@@ -115,7 +115,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     method_id: Union[None, UUID, Unset] = UNSET,
-) -> Optional[Union[HTTPValidationError, List["Comment"]]]:
+) -> Optional[Union[HTTPValidationError, list["Comment"]]]:
     """Get Comments
 
      Get all non-deleted comments, along with associated likes, on a given method or location
@@ -130,7 +130,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, List['Comment']]
+        Union[HTTPValidationError, list['Comment']]
     """
 
     return sync_detailed(
@@ -147,7 +147,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     method_id: Union[None, UUID, Unset] = UNSET,
-) -> Response[Union[HTTPValidationError, List["Comment"]]]:
+) -> Response[Union[HTTPValidationError, list["Comment"]]]:
     """Get Comments
 
      Get all non-deleted comments, along with associated likes, on a given method or location
@@ -162,7 +162,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, List['Comment']]]
+        Response[Union[HTTPValidationError, list['Comment']]]
     """
 
     kwargs = _get_kwargs(
@@ -182,7 +182,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     method_id: Union[None, UUID, Unset] = UNSET,
-) -> Optional[Union[HTTPValidationError, List["Comment"]]]:
+) -> Optional[Union[HTTPValidationError, list["Comment"]]]:
     """Get Comments
 
      Get all non-deleted comments, along with associated likes, on a given method or location
@@ -197,7 +197,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, List['Comment']]
+        Union[HTTPValidationError, list['Comment']]
     """
 
     return (
