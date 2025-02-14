@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,25 +17,25 @@ T = TypeVar("T", bound="PlotSequence")
 class PlotSequence:
     """
     Attributes:
-        sequence (List['PlotInfoObject']):
+        sequence (list['PlotInfoObject']):
         options (Union[Unset, PlotSequenceOptions]):
     """
 
-    sequence: List["PlotInfoObject"]
+    sequence: list["PlotInfoObject"]
     options: Union[Unset, "PlotSequenceOptions"] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         sequence = []
         for sequence_item_data in self.sequence:
             sequence_item = sequence_item_data.to_dict()
             sequence.append(sequence_item)
 
-        options: Union[Unset, Dict[str, Any]] = UNSET
+        options: Union[Unset, dict[str, Any]] = UNSET
         if not isinstance(self.options, Unset):
             options = self.options.to_dict()
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -48,7 +48,7 @@ class PlotSequence:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.plot_info_object import PlotInfoObject
         from ..models.plot_sequence_options import PlotSequenceOptions
 
@@ -76,7 +76,7 @@ class PlotSequence:
         return plot_sequence
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

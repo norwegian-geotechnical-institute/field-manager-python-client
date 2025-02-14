@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Optional, Union
 from uuid import UUID
 
 import httpx
@@ -17,8 +17,8 @@ def _get_kwargs(
     *,
     export_type: MethodExportType,
     swap_x_y: Union[Unset, bool] = False,
-) -> Dict[str, Any]:
-    params: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    params: dict[str, Any] = {}
 
     json_export_type = export_type.value
     params["export_type"] = json_export_type
@@ -27,7 +27,7 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": f"/projects/{project_id}/locations/{location_id}/export",
         "params": params,

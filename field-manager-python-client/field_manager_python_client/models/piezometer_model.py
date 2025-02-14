@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -36,9 +36,9 @@ class PiezometerModel:
     piezometer_type: Union[None, Unset, str] = UNSET
     default_transformation_type: Union[None, TransformationType, Unset] = UNSET
     sort_order: Union[None, Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         model_id = str(self.model_id)
 
         vendor_id = str(self.vendor_id)
@@ -69,7 +69,7 @@ class PiezometerModel:
         else:
             sort_order = self.sort_order
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -90,7 +90,7 @@ class PiezometerModel:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.piezometer_vendor import PiezometerVendor
 
         d = src_dict.copy()
@@ -154,7 +154,7 @@ class PiezometerModel:
         return piezometer_model
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

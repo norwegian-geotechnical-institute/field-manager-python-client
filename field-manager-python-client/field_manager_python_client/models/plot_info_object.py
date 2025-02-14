@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -26,39 +26,39 @@ class PlotInfoObject:
     Attributes:
         project_id (UUID):
         location_type (LocationType):
-        location_ids (List[UUID]):
-        location_names (List[str]):
-        location_coordinates (List['LocationCoordinates']):
-        location_info (List['LocationInfo']):
-        method_info (List['MethodInfo']):
-        method_ids (List[UUID]):
+        location_ids (list[UUID]):
+        location_names (list[str]):
+        location_coordinates (list['LocationCoordinates']):
+        location_info (list['LocationInfo']):
+        method_info (list['MethodInfo']):
+        method_ids (list[UUID]):
         method_type (str):
         is_combined_plot (bool):
         plot_type (PlotType):
         plot_options (FMPlotOptions):
-        messages (Union[List[str], None, Unset]):
+        messages (Union[None, Unset, list[str]]):
         pdf_info (Union[Unset, PDFPageInfo]):
         stats (Union['PlotInfoObjectStatsType0', None, Unset]):
     """
 
     project_id: UUID
     location_type: LocationType
-    location_ids: List[UUID]
-    location_names: List[str]
-    location_coordinates: List["LocationCoordinates"]
-    location_info: List["LocationInfo"]
-    method_info: List["MethodInfo"]
-    method_ids: List[UUID]
+    location_ids: list[UUID]
+    location_names: list[str]
+    location_coordinates: list["LocationCoordinates"]
+    location_info: list["LocationInfo"]
+    method_info: list["MethodInfo"]
+    method_ids: list[UUID]
     method_type: str
     is_combined_plot: bool
     plot_type: PlotType
     plot_options: "FMPlotOptions"
-    messages: Union[List[str], None, Unset] = UNSET
+    messages: Union[None, Unset, list[str]] = UNSET
     pdf_info: Union[Unset, "PDFPageInfo"] = UNSET
     stats: Union["PlotInfoObjectStatsType0", None, Unset] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         from ..models.plot_info_object_stats_type_0 import PlotInfoObjectStatsType0
 
         project_id = str(self.project_id)
@@ -100,7 +100,7 @@ class PlotInfoObject:
 
         plot_options = self.plot_options.to_dict()
 
-        messages: Union[List[str], None, Unset]
+        messages: Union[None, Unset, list[str]]
         if isinstance(self.messages, Unset):
             messages = UNSET
         elif isinstance(self.messages, list):
@@ -109,11 +109,11 @@ class PlotInfoObject:
         else:
             messages = self.messages
 
-        pdf_info: Union[Unset, Dict[str, Any]] = UNSET
+        pdf_info: Union[Unset, dict[str, Any]] = UNSET
         if not isinstance(self.pdf_info, Unset):
             pdf_info = self.pdf_info.to_dict()
 
-        stats: Union[Dict[str, Any], None, Unset]
+        stats: Union[None, Unset, dict[str, Any]]
         if isinstance(self.stats, Unset):
             stats = UNSET
         elif isinstance(self.stats, PlotInfoObjectStatsType0):
@@ -121,7 +121,7 @@ class PlotInfoObject:
         else:
             stats = self.stats
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -149,7 +149,7 @@ class PlotInfoObject:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.fm_plot_options import FMPlotOptions
         from ..models.location_coordinates import LocationCoordinates
         from ..models.location_info import LocationInfo
@@ -169,7 +169,7 @@ class PlotInfoObject:
 
             location_ids.append(location_ids_item)
 
-        location_names = cast(List[str], d.pop("location_names"))
+        location_names = cast(list[str], d.pop("location_names"))
 
         location_coordinates = []
         _location_coordinates = d.pop("location_coordinates")
@@ -207,7 +207,7 @@ class PlotInfoObject:
 
         plot_options = FMPlotOptions.from_dict(d.pop("plot_options"))
 
-        def _parse_messages(data: object) -> Union[List[str], None, Unset]:
+        def _parse_messages(data: object) -> Union[None, Unset, list[str]]:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -215,12 +215,12 @@ class PlotInfoObject:
             try:
                 if not isinstance(data, list):
                     raise TypeError()
-                messages_type_0 = cast(List[str], data)
+                messages_type_0 = cast(list[str], data)
 
                 return messages_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[List[str], None, Unset], data)
+            return cast(Union[None, Unset, list[str]], data)
 
         messages = _parse_messages(d.pop("messages", UNSET))
 
@@ -270,7 +270,7 @@ class PlotInfoObject:
         return plot_info_object
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

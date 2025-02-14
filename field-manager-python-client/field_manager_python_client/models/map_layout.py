@@ -1,5 +1,5 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -25,7 +25,7 @@ class MapLayout:
             map_layout_id (UUID):
             project_id (UUID):
             name (str):
-            versions (List['MapLayoutVersion']):
+            versions (list['MapLayoutVersion']):
             created_at (datetime.datetime):
             updated_at (datetime.datetime):
             created_by (Union[None, Unset, str]):
@@ -35,14 +35,14 @@ class MapLayout:
     map_layout_id: UUID
     project_id: UUID
     name: str
-    versions: List["MapLayoutVersion"]
+    versions: list["MapLayoutVersion"]
     created_at: datetime.datetime
     updated_at: datetime.datetime
     created_by: Union[None, Unset, str] = UNSET
     updated_by: Union[None, Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         map_layout_id = str(self.map_layout_id)
 
         project_id = str(self.project_id)
@@ -70,7 +70,7 @@ class MapLayout:
         else:
             updated_by = self.updated_by
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -90,7 +90,7 @@ class MapLayout:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.map_layout_version import MapLayoutVersion
 
         d = src_dict.copy()
@@ -144,7 +144,7 @@ class MapLayout:
         return map_layout
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

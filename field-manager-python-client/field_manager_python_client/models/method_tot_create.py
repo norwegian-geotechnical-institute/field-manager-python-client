@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -7,7 +7,6 @@ from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
 from ..models.method_status_enum import MethodStatusEnum
-from ..models.method_tot_create_method_type_id import MethodTOTCreateMethodTypeId
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MethodTOTCreate")
@@ -34,7 +33,7 @@ class MethodTOTCreate:
         updated_by (Union[None, Unset, str]):
         conducted_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Unset, MethodTOTCreateMethodTypeId]):  Default: MethodTOTCreateMethodTypeId.VALUE_2.
+        method_type_id (Union[Literal[2], Unset]):  Default: 2.
         predrilling_depth (Union[None, Unset, float, str]):
     """
 
@@ -48,11 +47,11 @@ class MethodTOTCreate:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Unset, MethodTOTCreateMethodTypeId] = MethodTOTCreateMethodTypeId.VALUE_2
+    method_type_id: Union[Literal[2], Unset] = 2
     predrilling_depth: Union[None, Unset, float, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         method_id: Union[None, Unset, str]
         if isinstance(self.method_id, Unset):
             method_id = UNSET
@@ -115,9 +114,7 @@ class MethodTOTCreate:
         else:
             conducted_at = self.conducted_at
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         predrilling_depth: Union[None, Unset, float, str]
         if isinstance(self.predrilling_depth, Unset):
@@ -125,7 +122,7 @@ class MethodTOTCreate:
         else:
             predrilling_depth = self.predrilling_depth
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if method_id is not UNSET:
@@ -156,7 +153,7 @@ class MethodTOTCreate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
 
         def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
@@ -272,12 +269,9 @@ class MethodTOTCreate:
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodTOTCreateMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodTOTCreateMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[2], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 2 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 2, got '{method_type_id}'")
 
         def _parse_predrilling_depth(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -307,7 +301,7 @@ class MethodTOTCreate:
         return method_tot_create
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

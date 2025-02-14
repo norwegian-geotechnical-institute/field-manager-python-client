@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 from uuid import UUID
 
 import httpx
@@ -25,8 +25,8 @@ def _get_kwargs(
     project_id: str,
     location_id: UUID,
     method_id: UUID,
-) -> Dict[str, Any]:
-    _kwargs: Dict[str, Any] = {
+) -> dict[str, Any]:
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": f"/projects/{project_id}/locations/{location_id}/methods/{method_id}/data",
     }
@@ -39,7 +39,7 @@ def _parse_response(
 ) -> Optional[
     Union[
         HTTPValidationError,
-        List[
+        list[
             Union[
                 "MethodCPTData",
                 "MethodDPData",
@@ -182,7 +182,7 @@ def _build_response(
 ) -> Response[
     Union[
         HTTPValidationError,
-        List[
+        list[
             Union[
                 "MethodCPTData",
                 "MethodDPData",
@@ -216,7 +216,7 @@ def sync_detailed(
 ) -> Response[
     Union[
         HTTPValidationError,
-        List[
+        list[
             Union[
                 "MethodCPTData",
                 "MethodDPData",
@@ -247,7 +247,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, List[Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]]
+        Response[Union[HTTPValidationError, list[Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]]
     """
 
     kwargs = _get_kwargs(
@@ -272,7 +272,7 @@ def sync(
 ) -> Optional[
     Union[
         HTTPValidationError,
-        List[
+        list[
             Union[
                 "MethodCPTData",
                 "MethodDPData",
@@ -303,7 +303,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, List[Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]
+        Union[HTTPValidationError, list[Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]
     """
 
     return sync_detailed(
@@ -323,7 +323,7 @@ async def asyncio_detailed(
 ) -> Response[
     Union[
         HTTPValidationError,
-        List[
+        list[
             Union[
                 "MethodCPTData",
                 "MethodDPData",
@@ -354,7 +354,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, List[Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]]
+        Response[Union[HTTPValidationError, list[Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]]
     """
 
     kwargs = _get_kwargs(
@@ -377,7 +377,7 @@ async def asyncio(
 ) -> Optional[
     Union[
         HTTPValidationError,
-        List[
+        list[
             Union[
                 "MethodCPTData",
                 "MethodDPData",
@@ -408,7 +408,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, List[Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]
+        Union[HTTPValidationError, list[Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]
     """
 
     return (

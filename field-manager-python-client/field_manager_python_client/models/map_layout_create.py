@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -19,16 +19,16 @@ class MapLayoutCreate:
 
     Attributes:
         name (str):
-        versions (List['MapLayoutVersionCreate']):
+        versions (list['MapLayoutVersionCreate']):
         map_layout_id (Union[None, UUID, Unset]):
     """
 
     name: str
-    versions: List["MapLayoutVersionCreate"]
+    versions: list["MapLayoutVersionCreate"]
     map_layout_id: Union[None, UUID, Unset] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         name = self.name
 
         versions = []
@@ -44,7 +44,7 @@ class MapLayoutCreate:
         else:
             map_layout_id = self.map_layout_id
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -58,7 +58,7 @@ class MapLayoutCreate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.map_layout_version_create import MapLayoutVersionCreate
 
         d = src_dict.copy()
@@ -98,7 +98,7 @@ class MapLayoutCreate:
         return map_layout_create
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

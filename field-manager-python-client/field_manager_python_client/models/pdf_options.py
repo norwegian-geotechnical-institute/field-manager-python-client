@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -75,9 +75,9 @@ class PdfOptions:
     max_pages: Union[Unset, int] = -1
     color_mode: Union[Unset, ColorMode] = UNSET
     fill_curve: Union[Unset, bool] = True
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         lang: Union[Unset, str] = UNSET
         if not isinstance(self.lang, Unset):
             lang = self.lang.value
@@ -116,11 +116,11 @@ class PdfOptions:
 
         page_number_start = self.page_number_start
 
-        page_number_prefix_per_method: Union[Unset, Dict[str, Any]] = UNSET
+        page_number_prefix_per_method: Union[Unset, dict[str, Any]] = UNSET
         if not isinstance(self.page_number_prefix_per_method, Unset):
             page_number_prefix_per_method = self.page_number_prefix_per_method.to_dict()
 
-        page_number_start_per_method: Union[Unset, Dict[str, Any]] = UNSET
+        page_number_start_per_method: Union[Unset, dict[str, Any]] = UNSET
         if not isinstance(self.page_number_start_per_method, Unset):
             page_number_start_per_method = self.page_number_start_per_method.to_dict()
 
@@ -144,7 +144,7 @@ class PdfOptions:
 
         fill_curve = self.fill_curve
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if lang is not UNSET:
@@ -201,7 +201,7 @@ class PdfOptions:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.page_number_prefix_by_method import PageNumberPrefixByMethod
         from ..models.page_number_start_per_method import PageNumberStartPerMethod
 
@@ -328,7 +328,7 @@ class PdfOptions:
         return pdf_options
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

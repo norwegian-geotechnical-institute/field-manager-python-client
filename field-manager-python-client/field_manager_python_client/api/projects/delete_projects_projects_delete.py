@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Optional, Union, cast
 from uuid import UUID
 
 import httpx
@@ -12,11 +12,11 @@ from ...types import Response
 
 def _get_kwargs(
     *,
-    body: List[UUID],
-) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
+    body: list[UUID],
+) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "delete",
         "url": "/projects",
     }
@@ -63,14 +63,14 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    body: List[UUID],
+    body: list[UUID],
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Delete Projects
 
      Delete multiple projects. Pass a list of project_ids to be deleted in the request body.
 
     Args:
-        body (List[UUID]):
+        body (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -94,14 +94,14 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    body: List[UUID],
+    body: list[UUID],
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Delete Projects
 
      Delete multiple projects. Pass a list of project_ids to be deleted in the request body.
 
     Args:
-        body (List[UUID]):
+        body (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -120,14 +120,14 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    body: List[UUID],
+    body: list[UUID],
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Delete Projects
 
      Delete multiple projects. Pass a list of project_ids to be deleted in the request body.
 
     Args:
-        body (List[UUID]):
+        body (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -149,14 +149,14 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    body: List[UUID],
+    body: list[UUID],
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Delete Projects
 
      Delete multiple projects. Pass a list of project_ids to be deleted in the request body.
 
     Args:
-        body (List[UUID]):
+        body (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union, cast
+from typing import Any, Optional, Union, cast
 from uuid import UUID
 
 import httpx
@@ -13,8 +13,8 @@ from ...types import Response
 def _get_kwargs(
     organization_id: str,
     file_id: UUID,
-) -> Dict[str, Any]:
-    _kwargs: Dict[str, Any] = {
+) -> dict[str, Any]:
+    _kwargs: dict[str, Any] = {
         "method": "delete",
         "url": f"/organizations/{organization_id}/files/{file_id}",
     }
