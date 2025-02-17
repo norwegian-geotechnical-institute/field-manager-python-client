@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 
 import httpx
 
@@ -15,8 +15,8 @@ def _get_kwargs(
     *,
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
-) -> Dict[str, Any]:
-    params: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    params: dict[str, Any] = {}
 
     params["skip"] = skip
 
@@ -24,7 +24,7 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": f"/organizations/{organization_id}/projects",
         "params": params,
@@ -35,7 +35,7 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, List["Project"]]]:
+) -> Optional[Union[HTTPValidationError, list["Project"]]]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -57,7 +57,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, List["Project"]]]:
+) -> Response[Union[HTTPValidationError, list["Project"]]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -72,7 +72,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
-) -> Response[Union[HTTPValidationError, List["Project"]]]:
+) -> Response[Union[HTTPValidationError, list["Project"]]]:
     """Get Organization Projects
 
      Retrieve all projects in organization with organization_id
@@ -87,7 +87,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, List['Project']]]
+        Response[Union[HTTPValidationError, list['Project']]]
     """
 
     kwargs = _get_kwargs(
@@ -109,7 +109,7 @@ def sync(
     client: AuthenticatedClient,
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
-) -> Optional[Union[HTTPValidationError, List["Project"]]]:
+) -> Optional[Union[HTTPValidationError, list["Project"]]]:
     """Get Organization Projects
 
      Retrieve all projects in organization with organization_id
@@ -124,7 +124,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, List['Project']]
+        Union[HTTPValidationError, list['Project']]
     """
 
     return sync_detailed(
@@ -141,7 +141,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
-) -> Response[Union[HTTPValidationError, List["Project"]]]:
+) -> Response[Union[HTTPValidationError, list["Project"]]]:
     """Get Organization Projects
 
      Retrieve all projects in organization with organization_id
@@ -156,7 +156,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, List['Project']]]
+        Response[Union[HTTPValidationError, list['Project']]]
     """
 
     kwargs = _get_kwargs(
@@ -176,7 +176,7 @@ async def asyncio(
     client: AuthenticatedClient,
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
-) -> Optional[Union[HTTPValidationError, List["Project"]]]:
+) -> Optional[Union[HTTPValidationError, list["Project"]]]:
     """Get Organization Projects
 
      Retrieve all projects in organization with organization_id
@@ -191,7 +191,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, List['Project']]
+        Union[HTTPValidationError, list['Project']]
     """
 
     return (

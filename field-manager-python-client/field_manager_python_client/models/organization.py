@@ -1,5 +1,5 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -34,7 +34,7 @@ class Organization:
         updated_at (Union[None, Unset, datetime.datetime]):
         effective_role (Union['Role', None, Unset]):
         default_standard_id (Union[None, StandardType, Unset]):
-        available_standard_ids (Union[Unset, List[StandardType]]):
+        available_standard_ids (Union[Unset, list[StandardType]]):
     """
 
     organization_id: UUID
@@ -50,10 +50,10 @@ class Organization:
     updated_at: Union[None, Unset, datetime.datetime] = UNSET
     effective_role: Union["Role", None, Unset] = UNSET
     default_standard_id: Union[None, StandardType, Unset] = UNSET
-    available_standard_ids: Union[Unset, List[StandardType]] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    available_standard_ids: Union[Unset, list[StandardType]] = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         from ..models.role import Role
 
         organization_id = str(self.organization_id)
@@ -110,7 +110,7 @@ class Organization:
         else:
             updated_at = self.updated_at
 
-        effective_role: Union[Dict[str, Any], None, Unset]
+        effective_role: Union[None, Unset, dict[str, Any]]
         if isinstance(self.effective_role, Unset):
             effective_role = UNSET
         elif isinstance(self.effective_role, Role):
@@ -126,14 +126,14 @@ class Organization:
         else:
             default_standard_id = self.default_standard_id
 
-        available_standard_ids: Union[Unset, List[str]] = UNSET
+        available_standard_ids: Union[Unset, list[str]] = UNSET
         if not isinstance(self.available_standard_ids, Unset):
             available_standard_ids = []
             for available_standard_ids_item_data in self.available_standard_ids:
                 available_standard_ids_item = available_standard_ids_item_data.value
                 available_standard_ids.append(available_standard_ids_item)
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -167,7 +167,7 @@ class Organization:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.role import Role
 
         d = src_dict.copy()
@@ -320,7 +320,7 @@ class Organization:
         return organization
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

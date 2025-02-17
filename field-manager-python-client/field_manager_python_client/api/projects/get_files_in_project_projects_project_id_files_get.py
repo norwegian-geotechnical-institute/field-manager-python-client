@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 
 import httpx
 
@@ -15,12 +15,12 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     project_id: str,
     *,
-    file_types: Union[Unset, List[FileType]] = UNSET,
+    file_types: Union[Unset, list[FileType]] = UNSET,
     extended_result: Union[Unset, bool] = False,
-) -> Dict[str, Any]:
-    params: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    params: dict[str, Any] = {}
 
-    json_file_types: Union[Unset, List[str]] = UNSET
+    json_file_types: Union[Unset, list[str]] = UNSET
     if not isinstance(file_types, Unset):
         json_file_types = []
         for file_types_item_data in file_types:
@@ -33,7 +33,7 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": f"/projects/{project_id}/files",
         "params": params,
@@ -44,7 +44,7 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, List[Union["File", "FileExtended"]]]]:
+) -> Optional[Union[HTTPValidationError, list[Union["File", "FileExtended"]]]]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -82,7 +82,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, List[Union["File", "FileExtended"]]]]:
+) -> Response[Union[HTTPValidationError, list[Union["File", "FileExtended"]]]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -95,16 +95,16 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    file_types: Union[Unset, List[FileType]] = UNSET,
+    file_types: Union[Unset, list[FileType]] = UNSET,
     extended_result: Union[Unset, bool] = False,
-) -> Response[Union[HTTPValidationError, List[Union["File", "FileExtended"]]]]:
+) -> Response[Union[HTTPValidationError, list[Union["File", "FileExtended"]]]]:
     """Get Files In Project
 
      Get all database file objects in a project by project_id and possible filtered by file type.
 
     Args:
         project_id (str):
-        file_types (Union[Unset, List[FileType]]):
+        file_types (Union[Unset, list[FileType]]):
         extended_result (Union[Unset, bool]):  Default: False.
 
     Raises:
@@ -112,7 +112,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, List[Union['File', 'FileExtended']]]]
+        Response[Union[HTTPValidationError, list[Union['File', 'FileExtended']]]]
     """
 
     kwargs = _get_kwargs(
@@ -132,16 +132,16 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    file_types: Union[Unset, List[FileType]] = UNSET,
+    file_types: Union[Unset, list[FileType]] = UNSET,
     extended_result: Union[Unset, bool] = False,
-) -> Optional[Union[HTTPValidationError, List[Union["File", "FileExtended"]]]]:
+) -> Optional[Union[HTTPValidationError, list[Union["File", "FileExtended"]]]]:
     """Get Files In Project
 
      Get all database file objects in a project by project_id and possible filtered by file type.
 
     Args:
         project_id (str):
-        file_types (Union[Unset, List[FileType]]):
+        file_types (Union[Unset, list[FileType]]):
         extended_result (Union[Unset, bool]):  Default: False.
 
     Raises:
@@ -149,7 +149,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, List[Union['File', 'FileExtended']]]
+        Union[HTTPValidationError, list[Union['File', 'FileExtended']]]
     """
 
     return sync_detailed(
@@ -164,16 +164,16 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    file_types: Union[Unset, List[FileType]] = UNSET,
+    file_types: Union[Unset, list[FileType]] = UNSET,
     extended_result: Union[Unset, bool] = False,
-) -> Response[Union[HTTPValidationError, List[Union["File", "FileExtended"]]]]:
+) -> Response[Union[HTTPValidationError, list[Union["File", "FileExtended"]]]]:
     """Get Files In Project
 
      Get all database file objects in a project by project_id and possible filtered by file type.
 
     Args:
         project_id (str):
-        file_types (Union[Unset, List[FileType]]):
+        file_types (Union[Unset, list[FileType]]):
         extended_result (Union[Unset, bool]):  Default: False.
 
     Raises:
@@ -181,7 +181,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, List[Union['File', 'FileExtended']]]]
+        Response[Union[HTTPValidationError, list[Union['File', 'FileExtended']]]]
     """
 
     kwargs = _get_kwargs(
@@ -199,16 +199,16 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    file_types: Union[Unset, List[FileType]] = UNSET,
+    file_types: Union[Unset, list[FileType]] = UNSET,
     extended_result: Union[Unset, bool] = False,
-) -> Optional[Union[HTTPValidationError, List[Union["File", "FileExtended"]]]]:
+) -> Optional[Union[HTTPValidationError, list[Union["File", "FileExtended"]]]]:
     """Get Files In Project
 
      Get all database file objects in a project by project_id and possible filtered by file type.
 
     Args:
         project_id (str):
-        file_types (Union[Unset, List[FileType]]):
+        file_types (Union[Unset, list[FileType]]):
         extended_result (Union[Unset, bool]):  Default: False.
 
     Raises:
@@ -216,7 +216,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, List[Union['File', 'FileExtended']]]
+        Union[HTTPValidationError, list[Union['File', 'FileExtended']]]
     """
 
     return (

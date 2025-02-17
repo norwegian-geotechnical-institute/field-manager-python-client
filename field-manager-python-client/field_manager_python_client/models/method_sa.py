@@ -1,12 +1,11 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.method_sa_method_type_id import MethodSAMethodTypeId
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
 
@@ -34,12 +33,12 @@ class MethodSA:
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
         remarks (Union[None, Unset, str]):
-        method_type_id (Union[Unset, MethodSAMethodTypeId]):  Default: MethodSAMethodTypeId.VALUE_4.
+        method_type_id (Union[Literal[4], Unset]):  Default: 4.
         created_by (Union[None, Unset, str]):
         updated_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
         conducted_by (Union[None, Unset, str]):
-        files (Union[Unset, List['File']]):
+        files (Union[Unset, list['File']]):
         self_ (Union[None, Unset, str]):
         depth_top (Union[None, Unset, float]): Depth top (m).
         depth_base (Union[None, Unset, float]): Depth base (m).
@@ -47,7 +46,7 @@ class MethodSA:
         diameter (Union[None, Unset, float]): Diameter (mm).
         sample_container_id (Union[None, Unset, str]):
         sample_container_type_id (Union[None, Unset, int]):
-        sample_material_ids (Union[Unset, List[int]]):
+        sample_material_ids (Union[Unset, list[int]]):
         ags_sample_type (Union[None, Unset, str]): Original AGS SAMP_TYPE value used to populate sampling_technique_id
             during AGS file import.
         sampling_technique_id (Union[None, Unset, int]):
@@ -60,12 +59,12 @@ class MethodSA:
     created_at: datetime.datetime
     updated_at: datetime.datetime
     remarks: Union[None, Unset, str] = UNSET
-    method_type_id: Union[Unset, MethodSAMethodTypeId] = MethodSAMethodTypeId.VALUE_4
+    method_type_id: Union[Literal[4], Unset] = 4
     created_by: Union[None, Unset, str] = UNSET
     updated_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
-    files: Union[Unset, List["File"]] = UNSET
+    files: Union[Unset, list["File"]] = UNSET
     self_: Union[None, Unset, str] = UNSET
     depth_top: Union[None, Unset, float] = UNSET
     depth_base: Union[None, Unset, float] = UNSET
@@ -73,12 +72,12 @@ class MethodSA:
     diameter: Union[None, Unset, float] = UNSET
     sample_container_id: Union[None, Unset, str] = UNSET
     sample_container_type_id: Union[None, Unset, int] = UNSET
-    sample_material_ids: Union[Unset, List[int]] = UNSET
+    sample_material_ids: Union[Unset, list[int]] = UNSET
     ags_sample_type: Union[None, Unset, str] = UNSET
     sampling_technique_id: Union[None, Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         method_id = str(self.method_id)
 
         name = self.name
@@ -97,9 +96,7 @@ class MethodSA:
         else:
             remarks = self.remarks
 
-        method_type_id: Union[Unset, int] = UNSET
-        if not isinstance(self.method_type_id, Unset):
-            method_type_id = self.method_type_id.value
+        method_type_id = self.method_type_id
 
         created_by: Union[None, Unset, str]
         if isinstance(self.created_by, Unset):
@@ -127,7 +124,7 @@ class MethodSA:
         else:
             conducted_by = self.conducted_by
 
-        files: Union[Unset, List[Dict[str, Any]]] = UNSET
+        files: Union[Unset, list[dict[str, Any]]] = UNSET
         if not isinstance(self.files, Unset):
             files = []
             for files_item_data in self.files:
@@ -176,7 +173,7 @@ class MethodSA:
         else:
             sample_container_type_id = self.sample_container_type_id
 
-        sample_material_ids: Union[Unset, List[int]] = UNSET
+        sample_material_ids: Union[Unset, list[int]] = UNSET
         if not isinstance(self.sample_material_ids, Unset):
             sample_material_ids = self.sample_material_ids
 
@@ -192,7 +189,7 @@ class MethodSA:
         else:
             sampling_technique_id = self.sampling_technique_id
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -242,7 +239,7 @@ class MethodSA:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.file import File
 
         d = src_dict.copy()
@@ -267,12 +264,9 @@ class MethodSA:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-        _method_type_id = d.pop("method_type_id", UNSET)
-        method_type_id: Union[Unset, MethodSAMethodTypeId]
-        if isinstance(_method_type_id, Unset):
-            method_type_id = UNSET
-        else:
-            method_type_id = MethodSAMethodTypeId(_method_type_id)
+        method_type_id = cast(Union[Literal[4], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 4 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 4, got '{method_type_id}'")
 
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -388,7 +382,7 @@ class MethodSA:
 
         sample_container_type_id = _parse_sample_container_type_id(d.pop("sample_container_type_id", UNSET))
 
-        sample_material_ids = cast(List[int], d.pop("sample_material_ids", UNSET))
+        sample_material_ids = cast(list[int], d.pop("sample_material_ids", UNSET))
 
         def _parse_ags_sample_type(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -438,7 +432,7 @@ class MethodSA:
         return method_sa
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

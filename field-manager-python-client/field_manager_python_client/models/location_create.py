@@ -1,5 +1,5 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -49,7 +49,6 @@ class LocationCreate:
 
     Attributes:
         name (str):
-        location_type_id (Union[Unset, Any]): Use Project.standard_id instead Default: 1.
         iogp_type_id (Union[Unset, IOGPTypeEnum]): For offshore locations, an IOGP type is required
         created_at (Union[None, Unset, datetime.datetime]):
         created_by (Union[None, Unset, str]):
@@ -63,9 +62,9 @@ class LocationCreate:
         point_y_wgs84_pseudo (Union[None, Unset, float]):
         point_x_wgs84_web (Union[None, Unset, float]):
         point_y_wgs84_web (Union[None, Unset, float]):
-        tags (Union[Unset, List[str]]):
+        tags (Union[Unset, list[str]]):
         project_id (Union[None, UUID, Unset]):
-        methods (Union[Unset, List[Union['MethodADCreate', 'MethodCDCreate', 'MethodCPTCreate', 'MethodDPCreate',
+        methods (Union[Unset, list[Union['MethodADCreate', 'MethodCDCreate', 'MethodCPTCreate', 'MethodDPCreate',
             'MethodDTCreate', 'MethodESACreate', 'MethodINCCreate', 'MethodIWCreate', 'MethodOTHERCreate', 'MethodPTCreate',
             'MethodPZCreate', 'MethodRCDCreate', 'MethodROCreate', 'MethodRPCreate', 'MethodRSCreate', 'MethodRWSCreate',
             'MethodSACreate', 'MethodSPTCreate', 'MethodSRCreate', 'MethodSRSCreate', 'MethodSSCreate', 'MethodSVTCreate',
@@ -73,7 +72,6 @@ class LocationCreate:
     """
 
     name: str
-    location_type_id: Union[Unset, Any] = 1
     iogp_type_id: Union[Unset, IOGPTypeEnum] = UNSET
     created_at: Union[None, Unset, datetime.datetime] = UNSET
     created_by: Union[None, Unset, str] = UNSET
@@ -87,11 +85,11 @@ class LocationCreate:
     point_y_wgs84_pseudo: Union[None, Unset, float] = UNSET
     point_x_wgs84_web: Union[None, Unset, float] = UNSET
     point_y_wgs84_web: Union[None, Unset, float] = UNSET
-    tags: Union[Unset, List[str]] = UNSET
+    tags: Union[Unset, list[str]] = UNSET
     project_id: Union[None, UUID, Unset] = UNSET
     methods: Union[
         Unset,
-        List[
+        list[
             Union[
                 "MethodADCreate",
                 "MethodCDCreate",
@@ -121,9 +119,9 @@ class LocationCreate:
             ]
         ],
     ] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         from ..models.method_ad_create import MethodADCreate
         from ..models.method_cd_create import MethodCDCreate
         from ..models.method_cpt_create import MethodCPTCreate
@@ -150,8 +148,6 @@ class LocationCreate:
         from ..models.method_tp_create import MethodTPCreate
 
         name = self.name
-
-        location_type_id = self.location_type_id
 
         iogp_type_id: Union[Unset, str] = UNSET
         if not isinstance(self.iogp_type_id, Unset):
@@ -233,7 +229,7 @@ class LocationCreate:
         else:
             point_y_wgs84_web = self.point_y_wgs84_web
 
-        tags: Union[Unset, List[str]] = UNSET
+        tags: Union[Unset, list[str]] = UNSET
         if not isinstance(self.tags, Unset):
             tags = self.tags
 
@@ -245,11 +241,11 @@ class LocationCreate:
         else:
             project_id = self.project_id
 
-        methods: Union[Unset, List[Dict[str, Any]]] = UNSET
+        methods: Union[Unset, list[dict[str, Any]]] = UNSET
         if not isinstance(self.methods, Unset):
             methods = []
             for methods_item_data in self.methods:
-                methods_item: Dict[str, Any]
+                methods_item: dict[str, Any]
                 if isinstance(methods_item_data, MethodADCreate):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodCDCreate):
@@ -303,15 +299,13 @@ class LocationCreate:
 
                 methods.append(methods_item)
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "name": name,
             }
         )
-        if location_type_id is not UNSET:
-            field_dict["location_type_id"] = location_type_id
         if iogp_type_id is not UNSET:
             field_dict["iogp_type_id"] = iogp_type_id
         if created_at is not UNSET:
@@ -348,7 +342,7 @@ class LocationCreate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.method_ad_create import MethodADCreate
         from ..models.method_cd_create import MethodCDCreate
         from ..models.method_cpt_create import MethodCPTCreate
@@ -377,8 +371,6 @@ class LocationCreate:
 
         d = src_dict.copy()
         name = d.pop("name")
-
-        location_type_id = d.pop("location_type_id", UNSET)
 
         _iogp_type_id = d.pop("iogp_type_id", UNSET)
         iogp_type_id: Union[Unset, IOGPTypeEnum]
@@ -511,7 +503,7 @@ class LocationCreate:
 
         point_y_wgs84_web = _parse_point_y_wgs84_web(d.pop("point_y_wgs84_web", UNSET))
 
-        tags = cast(List[str], d.pop("tags", UNSET))
+        tags = cast(list[str], d.pop("tags", UNSET))
 
         def _parse_project_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
@@ -767,7 +759,6 @@ class LocationCreate:
 
         location_create = cls(
             name=name,
-            location_type_id=location_type_id,
             iogp_type_id=iogp_type_id,
             created_at=created_at,
             created_by=created_by,
@@ -790,7 +781,7 @@ class LocationCreate:
         return location_create
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
