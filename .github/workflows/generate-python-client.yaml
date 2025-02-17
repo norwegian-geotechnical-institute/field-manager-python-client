@@ -71,7 +71,11 @@ jobs:
             OLD_VERSION=$(cat openapi_specification/version)
             if [ "$VERSION" = "$OLD_VERSION" ]; then
               echo "API version has not changed. Skipping update."
+              echo "version_changed=false" >> $GITHUB_ENV
               exit 0
+            else
+              echo "API version has changed from $OLD_VERSION to $VERSION."
+              echo "version_changed=true" >> $GITHUB_ENV
             fi
           fi
           echo "$VERSION" > openapi_specification/version
@@ -79,6 +83,7 @@ jobs:
 
       # Step 9: Generate Python Client
       - name: Generate Python Client
+        if: env.version_changed == 'true'
         run: |
           echo "Generating API client..." >> logs/log
           openapi-python-client generate \
@@ -90,6 +95,7 @@ jobs:
 
       # Step 10: Check for Changes
       - name: Check for Changes
+        if: env.version_changed == 'true'
         id: git_diff
         run: |
           git add .
