@@ -67,6 +67,13 @@ jobs:
           else
             VERSION=$(jq -r '.info.version' ./openapi_specification/openapi.json)
           fi
+          if [ -f openapi_specification/version ]; then
+            OLD_VERSION=$(cat openapi_specification/version)
+            if [ "$VERSION" = "$OLD_VERSION" ]; then
+              echo "API version has not changed. Skipping update."
+              exit 0
+            fi
+          fi
           echo "$VERSION" > openapi_specification/version
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
