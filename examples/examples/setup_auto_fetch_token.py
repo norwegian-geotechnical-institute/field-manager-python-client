@@ -1,25 +1,32 @@
 from getpass import getpass
 from field_manager_python_client import AuthenticatedClient, Client
-from field_manager_python_client.api.public import get_organization_by_email_address_public_organizations_email_address_get, get_organization_information_public_organizations_organization_id_information_get
+from field_manager_python_client.api.public import (
+    get_organization_by_email_address_public_organizations_email_address_get,
+    get_organization_information_public_organizations_organization_id_information_get,
+)
 from keycloak import KeycloakOpenID
 import webbrowser
 from urllib.parse import urlparse, parse_qs
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from dotenv import load_dotenv
+import os
 
-# Keycloak and Field Manager API configuration
-KEYCLOAK_SERVER_URL = "https://keycloak.test.ngiapi.no/auth/"
-KEYCLOAK_REALM = "tenant-geohub-public"
-KEYCLOAK_CLIENT_ID = "fieldmanager-client"
+# Load environment variables from .env
+load_dotenv()
 
-# Base URL for the Field Manager API
-base_url = "https://app.test.fieldmanager.io/api/location"
+# Retrieve values from environment or use sensible defaults
+KEYCLOAK_SERVER_URL = os.getenv(
+    "KEYCLOAK_SERVER_URL", "https://keycloak.test.ngiapi.no/auth/"
+)
+KEYCLOAK_REALM = os.getenv("KEYCLOAK_REALM", "tenant-geohub-public")
+KEYCLOAK_CLIENT_ID = os.getenv("KEYCLOAK_CLIENT_ID", "fieldmanager-client")
+base_url = os.getenv("BASE_URL", "https://app.test.fieldmanager.io/api/location")
+
+# Default email loaded from .env (fallback is "test.user@example.com")
+default_email = os.getenv("DEFAULT_EMAIL", "test.user@example.com")
 
 #
 public_client = Client(base_url=base_url)
-
-# # Replace with your actual default email
-default_email = "test.user@example.com" 
-
 
 # Function to check if the organization uses SSO based on authentication_alias presence
 def get_auth_method(email):
@@ -36,10 +43,15 @@ def get_auth_method(email):
         )
         authentication_alias = organization_info.authentication_alias
         auth_method = "sso" if authentication_alias else "password"
-        return {"auth_method": auth_method, "authentication_alias": authentication_alias}
-    
+        return {
+            "auth_method": auth_method,
+            "authentication_alias": authentication_alias,
+        }
+
     except Exception as e:
-        print(f"Unable to fetch organization information for the provided email. Defaulting to email and password login. Error details: {e}")
+        print(
+            f"Unable to fetch organization information for the provided email. Defaulting to email and password login. Error details: {e}"
+        )
         return {"auth_method": "password", "authentication_alias": None}
 
 
