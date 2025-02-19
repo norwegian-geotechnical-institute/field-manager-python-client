@@ -29,8 +29,9 @@ from field_manager_python_client.api.organizations import (
 )
 
 # Import client setup
-from examples.setup_auto_fetch_token import client
+from examples.setup_auto_fetch_token import authenticate
 
+client = authenticate()
 
 with client as client:
     my_orgs: list[Organization] = get_organizations_organizations_get.sync(
