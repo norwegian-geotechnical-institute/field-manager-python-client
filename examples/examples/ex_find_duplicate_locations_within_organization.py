@@ -9,7 +9,7 @@ from field_manager_python_client.api.organizations import (
 from field_manager_python_client.api.projects import (
     get_project_summary_projects_project_id_summary_get,
 )
-from field_manager_python_client.models import Organization, Project, Location, ProjectSummary
+from field_manager_python_client.models import Organization, Project, Location, ProjectSummary, LocationSummary
 from examples.setup_auto_fetch_token import authenticate
 
 def get_organization_by_name(client, org_name: str) -> Optional[Organization]:
@@ -22,32 +22,31 @@ def get_all_projects(client, organization: Organization) -> list[Project]:
     return get_organization_projects_organizations_organization_id_projects_get.sync(
         client=client,
         organization_id=organization.organization_id,
-        limit=100000  # Adjust based on your pagination needs
+        limit=2  # Adjust based on your pagination needs
     )
 
-def get_all_locations(client, project: Project) -> list[Location]:
+def get_all_locations(client, project: Project) -> list[LocationSummary]:
     """Get all locations for a project."""
     return get_project_summary_projects_project_id_summary_get.sync(
         client=client,
         project_id=project.project_id,
-        limit=100000  # Adjust based on your pagination needs
-    )
+    ).locations
 
-def create_location_map(locations: list[Location], output_file: Path) -> folium.Map:
+def create_location_map(locations: list[LocationSummary], output_file: Path) -> folium.Map:
     """Create a Folium map with all locations plotted."""
     if not locations:
         raise ValueError("No locations to plot")
     
     # Use first location as map center
-    first_loc = next(loc for loc in locations if loc.latitude and loc.longitude)
-    m = folium.Map(location=[first_loc.latitude, first_loc.longitude], zoom_start=10)
+    first_loc = next(loc for loc in locations if loc.point_y_wgs84_web and loc.point_x_wgs84_web)
+    m = folium.Map(location=[first_loc.point_y_wgs84_web, first_loc.point_x_wgs84_web], zoom_start=10)
 
     # Add all valid locations
     for loc in locations:
-        if loc.latitude and loc.longitude:
+        if loc.point_y_wgs84_web and loc.point_x_wgs84_web:
             folium.Marker(
-                location=[loc.latitude, loc.longitude],
-                popup=f"{loc.name}<br>{loc.description or ''}",
+                location=[loc.point_y_wgs84_web, loc.point_x_wgs84_web],
+                popup=f"{loc.name}",
                 icon=folium.Icon(color="blue")
             ).add_to(m)
 
