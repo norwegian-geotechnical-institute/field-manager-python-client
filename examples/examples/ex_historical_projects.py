@@ -2,6 +2,7 @@ from field_manager_python_client.models import Organization, Project
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import os
 
 from field_manager_python_client.api.organizations import (
     get_organizations_organizations_get,
@@ -13,6 +14,8 @@ from examples.setup_auto_fetch_token import authenticate
 
 client = authenticate()
 
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), '_to_delete')
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def project_statistics_calculate_and_save(foobar_projects: list[Project]):
     # Collect project information for printing and saving to Excel
@@ -38,8 +41,9 @@ def project_statistics_calculate_and_save(foobar_projects: list[Project]):
     plt.title("Histogram of Number of Locations in Projects")
     plt.xlabel("Number of Locations (log scale)")
     plt.ylabel("Frequency")
-    plt.savefig('histogram.png')
-    print("Histogram saved as 'histogram.png'")
+    histogram_path = os.path.join(OUTPUT_DIR, 'histogram.png')
+    plt.savefig(histogram_path)
+    print(f"Histogram saved as '{histogram_path}'")
 
     # Calculate statistics
     total_projects = len(foobar_projects)
@@ -62,13 +66,15 @@ def project_statistics_calculate_and_save(foobar_projects: list[Project]):
     }
 
     df_stats = pd.DataFrame(stats)
-    df_stats.to_excel('project_statistics.xlsx', index=False)
-    print("Statistics saved as 'project_statistics.xlsx'")
+    stats_path = os.path.join(OUTPUT_DIR, 'project_statistics.xlsx')
+    df_stats.to_excel(stats_path, index=False)
+    print(f"Statistics saved as '{stats_path}'")
 
     # Save project information to an Excel file
     df_projects = pd.DataFrame(project_info)
-    df_projects.to_excel('foobar_projects.xlsx', index=False)
-    print("Project information saved as 'foobar_projects.xlsx'")
+    projects_path = os.path.join(OUTPUT_DIR, 'foobar_projects.xlsx')
+    df_projects.to_excel(projects_path, index=False)
+    print(f"Project information saved as '{projects_path}'")
 
 
 with client as client:
