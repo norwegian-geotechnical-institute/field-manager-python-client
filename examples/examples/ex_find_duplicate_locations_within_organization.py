@@ -1,6 +1,7 @@
 from typing import Optional
 from pathlib import Path
 import folium
+from folium.plugins import MarkerCluster
 
 from field_manager_python_client.api.organizations import (
     get_organizations_organizations_get,
@@ -9,7 +10,7 @@ from field_manager_python_client.api.organizations import (
 from field_manager_python_client.api.projects import (
     get_project_summary_projects_project_id_summary_get,
 )
-from field_manager_python_client.models import Organization, Project, Location, ProjectSummary, LocationSummary
+from field_manager_python_client.models import Organization, Project, LocationSummary
 from examples.setup_auto_fetch_token import authenticate
 
 def get_organization_by_name(client, org_name: str) -> Optional[Organization]:
@@ -22,7 +23,7 @@ def get_all_projects(client, organization: Organization) -> list[Project]:
     return get_organization_projects_organizations_organization_id_projects_get.sync(
         client=client,
         organization_id=organization.organization_id,
-        limit=2  # Adjust based on your pagination needs
+        limit=500  # Adjust based on your pagination needs
     )
 
 def get_all_locations(client, project: Project) -> list[LocationSummary]:
@@ -33,22 +34,25 @@ def get_all_locations(client, project: Project) -> list[LocationSummary]:
     ).locations
 
 def create_location_map(locations: list[LocationSummary], output_file: Path) -> folium.Map:
-    """Create a Folium map with all locations plotted."""
+    """Create a Folium map with all locations plotted using MarkerCluster."""
     if not locations:
         raise ValueError("No locations to plot")
     
-    # Use first location as map center
+    # Use first valid location as map center
     first_loc = next(loc for loc in locations if loc.point_y_wgs84_web and loc.point_x_wgs84_web)
     m = folium.Map(location=[first_loc.point_y_wgs84_web, first_loc.point_x_wgs84_web], zoom_start=10)
 
-    # Add all valid locations
+    # Add MarkerCluster for grouping markers
+    marker_cluster = MarkerCluster().add_to(m)
+
+    # Add all valid locations to the MarkerCluster
     for loc in locations:
         if loc.point_y_wgs84_web and loc.point_x_wgs84_web:
             folium.Marker(
                 location=[loc.point_y_wgs84_web, loc.point_x_wgs84_web],
-                popup=f"{loc.name}",
+                popup=f"{loc.name}",  # Keep popup lightweight
                 icon=folium.Icon(color="blue")
-            ).add_to(m)
+            ).add_to(marker_cluster)
 
     # Save and return map
     m.save(output_file)
