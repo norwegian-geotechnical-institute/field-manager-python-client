@@ -13,34 +13,51 @@ from field_manager_python_client.api.projects import (
 from field_manager_python_client.models import Organization, Project, LocationSummary
 from examples.setup_auto_fetch_token import authenticate
 
+
 def get_organization_by_name(client, org_name: str) -> Optional[Organization]:
     """Get organization by its short name."""
     orgs = get_organizations_organizations_get.sync(client=client)
     return next((org for org in orgs if org.short_name == org_name), None)
+
 
 def get_all_projects(client, organization: Organization) -> list[Project]:
     """Get all projects for an organization."""
     return get_organization_projects_organizations_organization_id_projects_get.sync(
         client=client,
         organization_id=organization.organization_id,
-        limit=500  # Adjust based on your pagination needs
+        limit=1500,  # Adjust based on your pagination needs
     )
+
 
 def get_all_locations(client, project: Project) -> list[LocationSummary]:
     """Get all locations for a project."""
-    return get_project_summary_projects_project_id_summary_get.sync(
-        client=client,
-        project_id=project.project_id,
-    ).locations
+    try:
+        return get_project_summary_projects_project_id_summary_get.sync(
+            client=client,
+            project_id=project.project_id,
+        ).locations
+    except Exception as e:
+        print(
+            f"Error getting locations for project {project.project_id} {project.name}: {e}"
+        )
+        return []
 
-def create_location_map(locations: list[LocationSummary], output_file: Path) -> folium.Map:
+
+def create_location_map(
+    locations: list[LocationSummary], output_file: Path
+) -> folium.Map:
     """Create a Folium map with all locations plotted using MarkerCluster."""
     if not locations:
         raise ValueError("No locations to plot")
-    
+
     # Use first valid location as map center
-    first_loc = next(loc for loc in locations if loc.point_y_wgs84_web and loc.point_x_wgs84_web)
-    m = folium.Map(location=[first_loc.point_y_wgs84_web, first_loc.point_x_wgs84_web], zoom_start=10)
+    first_loc = next(
+        loc for loc in locations if loc.point_y_wgs84_web and loc.point_x_wgs84_web
+    )
+    m = folium.Map(
+        location=[first_loc.point_y_wgs84_web, first_loc.point_x_wgs84_web],
+        zoom_start=10,
+    )
 
     # Add MarkerCluster for grouping markers
     marker_cluster = MarkerCluster().add_to(m)
@@ -51,12 +68,13 @@ def create_location_map(locations: list[LocationSummary], output_file: Path) -> 
             folium.Marker(
                 location=[loc.point_y_wgs84_web, loc.point_x_wgs84_web],
                 popup=f"{loc.name}",  # Keep popup lightweight
-                icon=folium.Icon(color="blue")
+                icon=folium.Icon(color="blue"),
             ).add_to(marker_cluster)
 
     # Save and return map
     m.save(output_file)
     return m
+
 
 def main(org_name: str = "foobar"):
     """Main workflow: Auth -> Get Org -> Get Projects -> Get Locations -> Plot Map"""
@@ -73,11 +91,13 @@ def main(org_name: str = "foobar"):
             # Step 2: Get all projects and their locations
             projects = get_all_projects(client, org)
             all_locations = []
-            
-            for project in projects:
+
+            for count, project in enumerate(projects, start=1):
                 if locations := get_all_locations(client, project):
                     all_locations.extend(locations)
-                    print(f"Found {len(locations)} locations in {project.name}")
+                    print(
+                        f"{count}. Found {len(locations)} locations in {project.name}"
+                    )
 
             # Step 3: Create and save map
             if not all_locations:
@@ -90,6 +110,7 @@ def main(org_name: str = "foobar"):
 
         except Exception as e:
             print(f"Error: {e}")
+
 
 if __name__ == "__main__":
     main()
