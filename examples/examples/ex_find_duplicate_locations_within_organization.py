@@ -47,45 +47,55 @@ def get_all_locations(client, project: Project) -> tuple[list[LocationSummary], 
 def create_location_map(
     location_data: list[tuple[LocationSummary, str, str]], output_file: Path
 ) -> folium.Map:
-    """Create a Folium map with all locations plotted using MarkerCluster."""
-    if not location_data:
-        raise ValueError("No locations to plot")
 
-    # Use first valid location as map center
-    first_loc_data = next(
-        loc_data for loc_data in location_data if loc_data[0].point_y_wgs84_web and loc_data[0].point_x_wgs84_web
-    )
-    first_loc = first_loc_data[0]
-    m = folium.Map(
-        location=[first_loc.point_y_wgs84_web, first_loc.point_x_wgs84_web],
-        zoom_start=10,
-    )
+    # Center the map on the North Sea off Norway (approx 60°N, 4°E). 
+    # You can tweak the latitude, longitude, or zoom_start as desired.
+    m = folium.Map(location=[60, 4], zoom_start=6)
 
-    # Add MarkerCluster for grouping markers
-    marker_cluster = MarkerCluster().add_to(m)
+    # MarkerCluster layer
+    cluster_layer = MarkerCluster(name="Clustered Markers", show=True)
+    
+    # Optional: Non-clustered layer
+    non_cluster_layer = folium.FeatureGroup(name="Individual Markers", show=False)
 
-    # Add all valid locations to the MarkerCluster
+    # Add markers to both layers
     for loc, project_id, project_name in location_data:
         if loc.point_y_wgs84_web and loc.point_x_wgs84_web:
-            # Create popup content with project name, project link, and location link
+            coords = [loc.point_y_wgs84_web, loc.point_x_wgs84_web]
+            
+            # Common popup
             popup_content = f"""
                 <b>Project:</b> {project_name}<br>
                 <b>Location:</b> {loc.name}<br>
                 <a href="https://app.fieldmanager.io/project/{project_id}" target="_blank">View Project</a><br>
                 <a href="https://app.fieldmanager.io/project/{project_id}/locations/{loc.location_id}" target="_blank">View Location</a>
             """
+            
             folium.Marker(
-                location=[loc.point_y_wgs84_web, loc.point_x_wgs84_web],
+                location=coords,
                 popup=folium.Popup(popup_content, max_width=300),
                 icon=folium.Icon(color="blue"),
-            ).add_to(marker_cluster)
+            ).add_to(cluster_layer)
+            
+            folium.Marker(
+                location=coords,
+                popup=folium.Popup(popup_content, max_width=300),
+                icon=folium.Icon(color="green"),
+            ).add_to(non_cluster_layer)
 
-    # Save and return map
+    # Add the layers to the map
+    cluster_layer.add_to(m)
+    non_cluster_layer.add_to(m)
+    
+    # Add layer control to toggle them
+    folium.LayerControl().add_to(m)
+
+    # Save
     m.save(output_file)
     return m
 
 
-def main(org_name: str = "foobar"):
+def main(org_name: str = "AkerBP"):
     """Main workflow: Auth -> Get Org -> Get Projects -> Get Locations -> Plot Map"""
     client = authenticate()
     output_file = Path("locations_map.html")
