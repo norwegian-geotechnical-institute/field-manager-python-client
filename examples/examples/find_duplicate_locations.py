@@ -66,8 +66,10 @@ def detect_duplicates(location_data: List[Tuple[LocationSummary, str, str]]) -> 
                     if distance <= 50:
                         # Determine duplicate type
                         same_name = loc.name == nloc.name
-                        # same_methods = sorted(loc.methods or []) == sorted(nloc.methods or [])
-                        same_methods = False
+                        # methods is a list, comparing methods added name
+                        loc_method_names = sorted([method.name for method in loc.methods or []])
+                        nloc_method_names = sorted([method.name for method in nloc.methods or []])
+                        same_methods = loc_method_names == nloc_method_names
                         
                         if same_name and same_methods:
                             dtype = "III"
@@ -117,6 +119,7 @@ def create_duplicate_layers(
         popup_content = f"""
             <b>Project:</b> {pname}<br>
             <b>Location:</b> {loc.name}<br>
+            <b>Methods:</b> {', '.join(method.name for method in loc.methods or [])}<br>
             <a href="https://app.fieldmanager.io/project/{pid}" target="_blank">View Project</a><br>
             <a href="https://app.fieldmanager.io/project/{pid}/locations/{loc.location_id}" target="_blank">View Location</a>
         """
