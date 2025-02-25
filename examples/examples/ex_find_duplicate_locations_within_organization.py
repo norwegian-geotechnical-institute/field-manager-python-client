@@ -11,6 +11,7 @@ from field_manager_python_client.api.projects import (
     get_project_summary_projects_project_id_summary_get,
 )
 from field_manager_python_client.models import Organization, Project, LocationSummary
+from examples.find_duplicate_locations import create_duplicate_layers, detect_duplicates
 from examples.setup_auto_fetch_token import authenticate
 
 
@@ -57,6 +58,12 @@ def create_location_map(
     
     # Optional: Non-clustered layer
     non_cluster_layer = folium.FeatureGroup(name="Individual Markers", show=False)
+    
+    #  # Detect duplicates
+    duplicates = detect_duplicates(location_data)
+
+    # # Create duplicate layers
+    duplicate_layers = create_duplicate_layers(location_data, duplicates)
 
     # Add markers to both layers
     for loc, project_id, project_name in location_data:
@@ -80,12 +87,14 @@ def create_location_map(
             folium.Marker(
                 location=coords,
                 popup=folium.Popup(popup_content, max_width=300),
-                icon=folium.Icon(color="green"),
+                icon=folium.Icon(color="green", icon_size=(15, 25)),
             ).add_to(non_cluster_layer)
 
     # Add the layers to the map
     cluster_layer.add_to(m)
     non_cluster_layer.add_to(m)
+    for layer in duplicate_layers.values():
+        layer.add_to(m)
     
     # Add layer control to toggle them
     folium.LayerControl().add_to(m)
@@ -124,6 +133,8 @@ def main(org_name: str = "AkerBP"):
                 return
 
             print(f"Creating map with {len(all_location_data)} locations...")
+            duplicate_locations_data = detect_duplicates(all_location_data)
+            print(f"Detected {sum(len(v) for v in duplicate_locations_data.values())} duplicates")
             create_location_map(all_location_data, output_file)
             print(f"Map saved to {output_file.absolute()}")
 
