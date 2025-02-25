@@ -29,31 +29,33 @@ def get_all_projects(client, organization: Organization) -> list[Project]:
     )
 
 
-def get_all_locations(client, project: Project) -> list[LocationSummary]:
-    """Get all locations for a project."""
+def get_all_locations(client, project: Project) -> tuple[list[LocationSummary], str, str]:
+    """Get all locations for a project. If an error occurs, log the project name and ID, and return an empty list."""
     try:
-        return get_project_summary_projects_project_id_summary_get.sync(
+        project_summary = get_project_summary_projects_project_id_summary_get.sync(
             client=client,
             project_id=project.project_id,
-        ).locations
+        )
+        return project_summary.locations, project.project_id, project.name
     except Exception as e:
         print(
             f"Error getting locations for project {project.project_id} {project.name}: {e}"
         )
-        return []
+        return [], project.project_id, project.name
 
 
 def create_location_map(
-    locations: list[LocationSummary], output_file: Path
+    location_data: list[tuple[LocationSummary, str, str]], output_file: Path
 ) -> folium.Map:
     """Create a Folium map with all locations plotted using MarkerCluster."""
-    if not locations:
+    if not location_data:
         raise ValueError("No locations to plot")
 
     # Use first valid location as map center
-    first_loc = next(
-        loc for loc in locations if loc.point_y_wgs84_web and loc.point_x_wgs84_web
+    first_loc_data = next(
+        loc_data for loc_data in location_data if loc_data[0].point_y_wgs84_web and loc_data[0].point_x_wgs84_web
     )
+    first_loc = first_loc_data[0]
     m = folium.Map(
         location=[first_loc.point_y_wgs84_web, first_loc.point_x_wgs84_web],
         zoom_start=10,
@@ -63,11 +65,18 @@ def create_location_map(
     marker_cluster = MarkerCluster().add_to(m)
 
     # Add all valid locations to the MarkerCluster
-    for loc in locations:
+    for loc, project_id, project_name in location_data:
         if loc.point_y_wgs84_web and loc.point_x_wgs84_web:
+            # Create popup content with project name, project link, and location link
+            popup_content = f"""
+                <b>Project:</b> {project_name}<br>
+                <b>Location:</b> {loc.name}<br>
+                <a href="https://app.fieldmanager.io/project/{project_id}" target="_blank">View Project</a><br>
+                <a href="https://app.fieldmanager.io/project/{project_id}/locations/{loc.location_id}" target="_blank">View Location</a>
+            """
             folium.Marker(
                 location=[loc.point_y_wgs84_web, loc.point_x_wgs84_web],
-                popup=f"{loc.name}",  # Keep popup lightweight
+                popup=folium.Popup(popup_content, max_width=300),
                 icon=folium.Icon(color="blue"),
             ).add_to(marker_cluster)
 
@@ -90,22 +99,22 @@ def main(org_name: str = "foobar"):
 
             # Step 2: Get all projects and their locations
             projects = get_all_projects(client, org)
-            all_locations = []
+            # List to store tuples of (location, project_id, project_name)
+            all_location_data = []
 
             for count, project in enumerate(projects, start=1):
-                if locations := get_all_locations(client, project):
-                    all_locations.extend(locations)
-                    print(
-                        f"{count}. Found {len(locations)} locations in {project.name}"
-                    )
+                locations, project_id, project_name = get_all_locations(client, project)
+                if locations:
+                    for loc in locations:
+                        all_location_data.append((loc, project_id, project_name))
 
             # Step 3: Create and save map
-            if not all_locations:
+            if not all_location_data:
                 print("No locations found to plot")
                 return
 
-            print(f"Creating map with {len(all_locations)} locations...")
-            create_location_map(all_locations, output_file)
+            print(f"Creating map with {len(all_location_data)} locations...")
+            create_location_map(all_location_data, output_file)
             print(f"Map saved to {output_file.absolute()}")
 
         except Exception as e:
