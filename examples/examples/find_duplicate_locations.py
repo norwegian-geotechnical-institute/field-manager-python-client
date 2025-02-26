@@ -1,8 +1,5 @@
-import math
 from collections import defaultdict
 from math import atan2, cos, radians, sin, sqrt
-from pathlib import Path
-from typing import Dict, List, Optional, Tuple
 
 import folium
 from field_manager_python_client.models import LocationSummary
@@ -21,7 +18,7 @@ def haversine(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     c = 2 * atan2(sqrt(a), sqrt(1-a))
     return R * c
 
-def detect_duplicates(location_data: List[Tuple[LocationSummary, str, str]]) -> Dict[str, List[Tuple[LocationSummary, str, str]]]:
+def detect_duplicates(location_data: list[tuple[LocationSummary, str, str]]) -> dict[str, list[tuple[LocationSummary, str, str]]]:
     """Detect duplicates based on proximity and attributes"""
     # Spatial indexing grid (50m threshold)
     GRID_SIZE = 0.00045  # Approx 50 meters in degrees
@@ -85,9 +82,9 @@ def detect_duplicates(location_data: List[Tuple[LocationSummary, str, str]]) -> 
     return duplicates
 
 def create_duplicate_layers(
-    location_data: List[Tuple[LocationSummary, str, str]],
-    duplicates: Dict[str, List[Tuple[int, int]]]
-) -> Dict[str, MarkerCluster]:
+    location_data: list[tuple[LocationSummary, str, str]],
+    duplicates: dict[str, list[tuple[int, int]]]
+) -> dict[str, MarkerCluster]:
     """
     Create Folium layers for duplicate locations.
     
