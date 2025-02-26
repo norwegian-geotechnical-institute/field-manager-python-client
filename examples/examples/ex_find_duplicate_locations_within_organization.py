@@ -30,7 +30,9 @@ def get_all_projects(client, organization: Organization) -> list[Project]:
     )
 
 
-def get_all_locations(client, project: Project) -> tuple[list[LocationSummary], str, str]:
+def get_all_locations(
+    client, project: Project
+) -> tuple[list[LocationSummary], str, str]:
     """Get all locations for a project. If an error occurs, log the project name and ID, and return an empty list."""
     try:
         project_summary = get_project_summary_projects_project_id_summary_get.sync(
@@ -48,17 +50,16 @@ def get_all_locations(client, project: Project) -> tuple[list[LocationSummary], 
 def create_location_map(
     location_data: list[tuple[LocationSummary, str, str]], output_file: Path
 ) -> folium.Map:
-
-    # Center the map on the North Sea off Norway (approx 60°N, 4°E). 
+    # Center the map on the North Sea off Norway (approx 60°N, 4°E).
     # You can tweak the latitude, longitude, or zoom_start as desired.
     m = folium.Map(location=[60, 4], zoom_start=6)
 
     # MarkerCluster layer
     cluster_layer = MarkerCluster(name="Clustered Markers", show=True)
-    
+
     # Optional: Non-clustered layer
     non_cluster_layer = folium.FeatureGroup(name="Individual Markers", show=False)
-    
+
     #  # Detect duplicates
     duplicates = detect_duplicates(location_data)
 
@@ -69,7 +70,7 @@ def create_location_map(
     for loc, project_id, project_name in location_data:
         if loc.point_y_wgs84_web and loc.point_x_wgs84_web:
             coords = [loc.point_y_wgs84_web, loc.point_x_wgs84_web]
-            
+
             # Common popup
             popup_content = f"""
                 <b>Project:</b> {project_name}<br>
@@ -77,13 +78,13 @@ def create_location_map(
                 <a href="https://app.fieldmanager.io/project/{project_id}" target="_blank">View Project</a><br>
                 <a href="https://app.fieldmanager.io/project/{project_id}/locations/{loc.location_id}" target="_blank">View Location</a>
             """
-            
+
             folium.Marker(
                 location=coords,
                 popup=folium.Popup(popup_content, max_width=300),
                 icon=folium.Icon(color="blue"),
             ).add_to(cluster_layer)
-            
+
             folium.Marker(
                 location=coords,
                 popup=folium.Popup(popup_content, max_width=300),
@@ -95,7 +96,7 @@ def create_location_map(
     non_cluster_layer.add_to(m)
     for layer in duplicate_layers.values():
         layer.add_to(m)
-    
+
     # Add layer control to toggle them
     folium.LayerControl().add_to(m)
 
@@ -104,7 +105,7 @@ def create_location_map(
     return m
 
 
-def main(org_name: str = "AkerBP"):
+def main(org_name: str = "Foobar"):
     """Main workflow: Auth -> Get Org -> Get Projects -> Get Locations -> Plot Map"""
     client = authenticate()
     output_file = Path("locations_map.html")
@@ -134,7 +135,9 @@ def main(org_name: str = "AkerBP"):
 
             print(f"Creating map with {len(all_location_data)} locations...")
             duplicate_locations_data = detect_duplicates(all_location_data)
-            print(f"Detected {sum(len(v) for v in duplicate_locations_data.values())} duplicates")
+            print(
+                f"Detected {sum(len(v) for v in duplicate_locations_data.values())} duplicates"
+            )
             create_location_map(all_location_data, output_file)
             print(f"Map saved to {output_file.absolute()}")
 
