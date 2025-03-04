@@ -13,12 +13,12 @@ if TYPE_CHECKING:
     from ..models.file import File
 
 
-T = TypeVar("T", bound="MethodESA")
+T = TypeVar("T", bound="MethodSTI")
 
 
 @_attrs_define
-class MethodESA:
-    """ESA
+class MethodSTI:
+    """STI
 
     Attributes:
         method_id (UUID):
@@ -34,7 +34,7 @@ class MethodESA:
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
         remarks (Union[None, Unset, str]):
-        method_type_id (Union[Literal[15], Unset]):  Default: 15.
+        method_type_id (Union[Literal[28], Unset]):  Default: 28.
         created_by (Union[None, Unset, str]):
         updated_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
@@ -50,7 +50,7 @@ class MethodESA:
     created_at: datetime.datetime
     updated_at: datetime.datetime
     remarks: Union[None, Unset, str] = UNSET
-    method_type_id: Union[Literal[15], Unset] = 15
+    method_type_id: Union[Literal[28], Unset] = 28
     created_by: Union[None, Unset, str] = UNSET
     updated_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
@@ -176,9 +176,9 @@ class MethodESA:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-        method_type_id = cast(Union[Literal[15], Unset], d.pop("method_type_id", UNSET))
-        if method_type_id != 15 and not isinstance(method_type_id, Unset):
-            raise ValueError(f"method_type_id must match const 15, got '{method_type_id}'")
+        method_type_id = cast(Union[Literal[28], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 28 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 28, got '{method_type_id}'")
 
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -240,7 +240,7 @@ class MethodESA:
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
-        method_esa = cls(
+        method_sti = cls(
             method_id=method_id,
             name=name,
             location_id=location_id,
@@ -257,8 +257,8 @@ class MethodESA:
             self_=self_,
         )
 
-        method_esa.additional_properties = d
-        return method_esa
+        method_sti.additional_properties = d
+        return method_sti
 
     @property
     def additional_keys(self) -> list[str]:

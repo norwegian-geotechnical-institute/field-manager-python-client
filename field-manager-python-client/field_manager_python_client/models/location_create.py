@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     from ..models.method_ad_create import MethodADCreate
     from ..models.method_cd_create import MethodCDCreate
     from ..models.method_cpt_create import MethodCPTCreate
+    from ..models.method_def_create import MethodDEFCreate
     from ..models.method_dp_create import MethodDPCreate
     from ..models.method_dt_create import MethodDTCreate
     from ..models.method_esa_create import MethodESACreate
@@ -27,13 +28,15 @@ if TYPE_CHECKING:
     from ..models.method_rs_create import MethodRSCreate
     from ..models.method_rws_create import MethodRWSCreate
     from ..models.method_sa_create import MethodSACreate
+    from ..models.method_slb_create import MethodSLBCreate
     from ..models.method_spt_create import MethodSPTCreate
-    from ..models.method_sr_create import MethodSRCreate
     from ..models.method_srs_create import MethodSRSCreate
     from ..models.method_ss_create import MethodSSCreate
+    from ..models.method_sti_create import MethodSTICreate
     from ..models.method_svt_create import MethodSVTCreate
     from ..models.method_tot_create import MethodTOTCreate
     from ..models.method_tp_create import MethodTPCreate
+    from ..models.method_tr_create import MethodTRCreate
     from ..models.method_wst_create import MethodWSTCreate
 
 
@@ -64,11 +67,12 @@ class LocationCreate:
         point_y_wgs84_web (Union[None, Unset, float]):
         tags (Union[Unset, list[str]]):
         project_id (Union[None, UUID, Unset]):
-        methods (Union[Unset, list[Union['MethodADCreate', 'MethodCDCreate', 'MethodCPTCreate', 'MethodDPCreate',
-            'MethodDTCreate', 'MethodESACreate', 'MethodINCCreate', 'MethodIWCreate', 'MethodOTHERCreate', 'MethodPTCreate',
-            'MethodPZCreate', 'MethodRCDCreate', 'MethodROCreate', 'MethodRPCreate', 'MethodRSCreate', 'MethodRWSCreate',
-            'MethodSACreate', 'MethodSPTCreate', 'MethodSRCreate', 'MethodSRSCreate', 'MethodSSCreate', 'MethodSVTCreate',
-            'MethodTOTCreate', 'MethodTPCreate', 'MethodWSTCreate']]]):
+        methods (Union[Unset, list[Union['MethodADCreate', 'MethodCDCreate', 'MethodCPTCreate', 'MethodDEFCreate',
+            'MethodDPCreate', 'MethodDTCreate', 'MethodESACreate', 'MethodINCCreate', 'MethodIWCreate', 'MethodOTHERCreate',
+            'MethodPTCreate', 'MethodPZCreate', 'MethodRCDCreate', 'MethodROCreate', 'MethodRPCreate', 'MethodRSCreate',
+            'MethodRWSCreate', 'MethodSACreate', 'MethodSLBCreate', 'MethodSPTCreate', 'MethodSRSCreate', 'MethodSSCreate',
+            'MethodSTICreate', 'MethodSVTCreate', 'MethodTOTCreate', 'MethodTPCreate', 'MethodTRCreate',
+            'MethodWSTCreate']]]):
     """
 
     name: str
@@ -94,6 +98,7 @@ class LocationCreate:
                 "MethodADCreate",
                 "MethodCDCreate",
                 "MethodCPTCreate",
+                "MethodDEFCreate",
                 "MethodDPCreate",
                 "MethodDTCreate",
                 "MethodESACreate",
@@ -108,13 +113,15 @@ class LocationCreate:
                 "MethodRSCreate",
                 "MethodRWSCreate",
                 "MethodSACreate",
+                "MethodSLBCreate",
                 "MethodSPTCreate",
-                "MethodSRCreate",
                 "MethodSRSCreate",
                 "MethodSSCreate",
+                "MethodSTICreate",
                 "MethodSVTCreate",
                 "MethodTOTCreate",
                 "MethodTPCreate",
+                "MethodTRCreate",
                 "MethodWSTCreate",
             ]
         ],
@@ -125,6 +132,7 @@ class LocationCreate:
         from ..models.method_ad_create import MethodADCreate
         from ..models.method_cd_create import MethodCDCreate
         from ..models.method_cpt_create import MethodCPTCreate
+        from ..models.method_def_create import MethodDEFCreate
         from ..models.method_dp_create import MethodDPCreate
         from ..models.method_dt_create import MethodDTCreate
         from ..models.method_esa_create import MethodESACreate
@@ -139,13 +147,15 @@ class LocationCreate:
         from ..models.method_rs_create import MethodRSCreate
         from ..models.method_rws_create import MethodRWSCreate
         from ..models.method_sa_create import MethodSACreate
+        from ..models.method_slb_create import MethodSLBCreate
         from ..models.method_spt_create import MethodSPTCreate
-        from ..models.method_sr_create import MethodSRCreate
         from ..models.method_srs_create import MethodSRSCreate
         from ..models.method_ss_create import MethodSSCreate
+        from ..models.method_sti_create import MethodSTICreate
         from ..models.method_svt_create import MethodSVTCreate
         from ..models.method_tot_create import MethodTOTCreate
         from ..models.method_tp_create import MethodTPCreate
+        from ..models.method_tr_create import MethodTRCreate
 
         name = self.name
 
@@ -280,19 +290,25 @@ class LocationCreate:
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodSACreate):
                     methods_item = methods_item_data.to_dict()
+                elif isinstance(methods_item_data, MethodSLBCreate):
+                    methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodSPTCreate):
                     methods_item = methods_item_data.to_dict()
-                elif isinstance(methods_item_data, MethodSRCreate):
+                elif isinstance(methods_item_data, MethodDEFCreate):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodSRSCreate):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodSSCreate):
+                    methods_item = methods_item_data.to_dict()
+                elif isinstance(methods_item_data, MethodSTICreate):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodSVTCreate):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodTOTCreate):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodTPCreate):
+                    methods_item = methods_item_data.to_dict()
+                elif isinstance(methods_item_data, MethodTRCreate):
                     methods_item = methods_item_data.to_dict()
                 else:
                     methods_item = methods_item_data.to_dict()
@@ -346,6 +362,7 @@ class LocationCreate:
         from ..models.method_ad_create import MethodADCreate
         from ..models.method_cd_create import MethodCDCreate
         from ..models.method_cpt_create import MethodCPTCreate
+        from ..models.method_def_create import MethodDEFCreate
         from ..models.method_dp_create import MethodDPCreate
         from ..models.method_dt_create import MethodDTCreate
         from ..models.method_esa_create import MethodESACreate
@@ -360,13 +377,15 @@ class LocationCreate:
         from ..models.method_rs_create import MethodRSCreate
         from ..models.method_rws_create import MethodRWSCreate
         from ..models.method_sa_create import MethodSACreate
+        from ..models.method_slb_create import MethodSLBCreate
         from ..models.method_spt_create import MethodSPTCreate
-        from ..models.method_sr_create import MethodSRCreate
         from ..models.method_srs_create import MethodSRSCreate
         from ..models.method_ss_create import MethodSSCreate
+        from ..models.method_sti_create import MethodSTICreate
         from ..models.method_svt_create import MethodSVTCreate
         from ..models.method_tot_create import MethodTOTCreate
         from ..models.method_tp_create import MethodTPCreate
+        from ..models.method_tr_create import MethodTRCreate
         from ..models.method_wst_create import MethodWSTCreate
 
         d = src_dict.copy()
@@ -532,6 +551,7 @@ class LocationCreate:
                 "MethodADCreate",
                 "MethodCDCreate",
                 "MethodCPTCreate",
+                "MethodDEFCreate",
                 "MethodDPCreate",
                 "MethodDTCreate",
                 "MethodESACreate",
@@ -546,13 +566,15 @@ class LocationCreate:
                 "MethodRSCreate",
                 "MethodRWSCreate",
                 "MethodSACreate",
+                "MethodSLBCreate",
                 "MethodSPTCreate",
-                "MethodSRCreate",
                 "MethodSRSCreate",
                 "MethodSSCreate",
+                "MethodSTICreate",
                 "MethodSVTCreate",
                 "MethodTOTCreate",
                 "MethodTPCreate",
+                "MethodTRCreate",
                 "MethodWSTCreate",
             ]:
                 try:
@@ -694,7 +716,7 @@ class LocationCreate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_17 = MethodSPTCreate.from_dict(data)
+                    methods_item_type_17 = MethodSLBCreate.from_dict(data)
 
                     return methods_item_type_17
                 except:  # noqa: E722
@@ -702,7 +724,7 @@ class LocationCreate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_18 = MethodSRCreate.from_dict(data)
+                    methods_item_type_18 = MethodSPTCreate.from_dict(data)
 
                     return methods_item_type_18
                 except:  # noqa: E722
@@ -710,7 +732,7 @@ class LocationCreate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_19 = MethodSRSCreate.from_dict(data)
+                    methods_item_type_19 = MethodDEFCreate.from_dict(data)
 
                     return methods_item_type_19
                 except:  # noqa: E722
@@ -718,7 +740,7 @@ class LocationCreate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_20 = MethodSSCreate.from_dict(data)
+                    methods_item_type_20 = MethodSRSCreate.from_dict(data)
 
                     return methods_item_type_20
                 except:  # noqa: E722
@@ -726,7 +748,7 @@ class LocationCreate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_21 = MethodSVTCreate.from_dict(data)
+                    methods_item_type_21 = MethodSSCreate.from_dict(data)
 
                     return methods_item_type_21
                 except:  # noqa: E722
@@ -734,7 +756,7 @@ class LocationCreate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_22 = MethodTOTCreate.from_dict(data)
+                    methods_item_type_22 = MethodSTICreate.from_dict(data)
 
                     return methods_item_type_22
                 except:  # noqa: E722
@@ -742,16 +764,40 @@ class LocationCreate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_23 = MethodTPCreate.from_dict(data)
+                    methods_item_type_23 = MethodSVTCreate.from_dict(data)
 
                     return methods_item_type_23
                 except:  # noqa: E722
                     pass
+                try:
+                    if not isinstance(data, dict):
+                        raise TypeError()
+                    methods_item_type_24 = MethodTOTCreate.from_dict(data)
+
+                    return methods_item_type_24
+                except:  # noqa: E722
+                    pass
+                try:
+                    if not isinstance(data, dict):
+                        raise TypeError()
+                    methods_item_type_25 = MethodTPCreate.from_dict(data)
+
+                    return methods_item_type_25
+                except:  # noqa: E722
+                    pass
+                try:
+                    if not isinstance(data, dict):
+                        raise TypeError()
+                    methods_item_type_26 = MethodTRCreate.from_dict(data)
+
+                    return methods_item_type_26
+                except:  # noqa: E722
+                    pass
                 if not isinstance(data, dict):
                     raise TypeError()
-                methods_item_type_24 = MethodWSTCreate.from_dict(data)
+                methods_item_type_27 = MethodWSTCreate.from_dict(data)
 
-                return methods_item_type_24
+                return methods_item_type_27
 
             methods_item = _parse_methods_item(methods_item_data)
 

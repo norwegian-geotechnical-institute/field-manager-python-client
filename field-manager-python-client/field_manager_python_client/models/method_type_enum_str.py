@@ -19,13 +19,16 @@ class MethodTypeEnumStr(str, Enum):
     RS = "rs"
     RWS = "rws"
     SA = "sa"
+    SLB = "slb"
     SPT = "spt"
     SR = "sr"
     SRS = "srs"
     SS = "ss"
+    STI = "sti"
     SVT = "svt"
     TOT = "tot"
     TP = "tp"
+    TR = "tr"
     WST = "wst"
 
     def __str__(self) -> str:

@@ -13,12 +13,12 @@ if TYPE_CHECKING:
     from ..models.file import File
 
 
-T = TypeVar("T", bound="MethodSR")
+T = TypeVar("T", bound="MethodDEF")
 
 
 @_attrs_define
-class MethodSR:
-    """SR
+class MethodDEF:
+    """DEF
 
     Attributes:
         method_id (UUID):
@@ -240,7 +240,7 @@ class MethodSR:
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
-        method_sr = cls(
+        method_def = cls(
             method_id=method_id,
             name=name,
             location_id=location_id,
@@ -257,8 +257,8 @@ class MethodSR:
             self_=self_,
         )
 
-        method_sr.additional_properties = d
-        return method_sr
+        method_def.additional_properties = d
+        return method_def
 
     @property
     def additional_keys(self) -> list[str]:

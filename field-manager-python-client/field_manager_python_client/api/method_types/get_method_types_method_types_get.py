@@ -53,6 +53,11 @@ def sync_detailed(
 ) -> Response[list["MethodType"]]:
     """Get Method Types
 
+     Get all method types.
+
+    Please note that this endpoint will look at the Accept-Language header in the request
+    to determine the language for the response data.
+
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
@@ -76,6 +81,11 @@ def sync(
 ) -> Optional[list["MethodType"]]:
     """Get Method Types
 
+     Get all method types.
+
+    Please note that this endpoint will look at the Accept-Language header in the request
+    to determine the language for the response data.
+
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
@@ -94,6 +104,11 @@ async def asyncio_detailed(
     client: Union[AuthenticatedClient, Client],
 ) -> Response[list["MethodType"]]:
     """Get Method Types
+
+     Get all method types.
+
+    Please note that this endpoint will look at the Accept-Language header in the request
+    to determine the language for the response data.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -115,6 +130,11 @@ async def asyncio(
     client: Union[AuthenticatedClient, Client],
 ) -> Optional[list["MethodType"]]:
     """Get Method Types
+
+     Get all method types.
+
+    Please note that this endpoint will look at the Accept-Language header in the request
+    to determine the language for the response data.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

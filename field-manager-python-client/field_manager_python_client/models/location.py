@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     from ..models.method_ad import MethodAD
     from ..models.method_cd import MethodCD
     from ..models.method_cpt import MethodCPT
+    from ..models.method_def import MethodDEF
     from ..models.method_dp import MethodDP
     from ..models.method_dt import MethodDT
     from ..models.method_esa import MethodESA
@@ -28,13 +29,15 @@ if TYPE_CHECKING:
     from ..models.method_rs import MethodRS
     from ..models.method_rws import MethodRWS
     from ..models.method_sa import MethodSA
+    from ..models.method_slb import MethodSLB
     from ..models.method_spt import MethodSPT
-    from ..models.method_sr import MethodSR
     from ..models.method_srs import MethodSRS
     from ..models.method_ss import MethodSS
+    from ..models.method_sti import MethodSTI
     from ..models.method_svt import MethodSVT
     from ..models.method_tot import MethodTOT
     from ..models.method_tp import MethodTP
+    from ..models.method_tr import MethodTR
     from ..models.method_wst import MethodWST
 
 
@@ -45,8 +48,8 @@ T = TypeVar("T", bound="Location")
 class Location:
     """
     Example:
-        {'location_id': 'b19e38a9-b037-434c-bedf-a3ce098d6618', 'name': 'Loc01', 'point_easting': 1194547,
-            'point_northing': 8388298, 'point_z': 0.0, 'project_id': 'e5e92676-8564-448c-aafb-805b66a2dee0', 'srid': 3857}
+        {'location_id': '22be3639-4271-4c5b-9d51-86268159e976', 'name': 'Loc01', 'point_easting': 1194547,
+            'point_northing': 8388298, 'point_z': 0.0, 'project_id': '85244111-4374-413e-aad1-d20be1d32f53', 'srid': 3857}
 
     Attributes:
         name (str):
@@ -68,10 +71,10 @@ class Location:
         point_x_wgs84_web (Union[None, Unset, float]):
         point_y_wgs84_web (Union[None, Unset, float]):
         tags (Union[None, Unset, list[str]]):
-        methods (Union[Unset, list[Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA',
-            'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS',
-            'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP',
-            'MethodWST']]]):
+        methods (Union[Unset, list[Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDEF', 'MethodDP', 'MethodDT',
+            'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO',
+            'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSLB', 'MethodSPT', 'MethodSRS', 'MethodSS', 'MethodSTI',
+            'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodTR', 'MethodWST']]]):
         files (Union[Unset, list['File']]):
     """
 
@@ -101,6 +104,7 @@ class Location:
                 "MethodAD",
                 "MethodCD",
                 "MethodCPT",
+                "MethodDEF",
                 "MethodDP",
                 "MethodDT",
                 "MethodESA",
@@ -115,13 +119,15 @@ class Location:
                 "MethodRS",
                 "MethodRWS",
                 "MethodSA",
+                "MethodSLB",
                 "MethodSPT",
-                "MethodSR",
                 "MethodSRS",
                 "MethodSS",
+                "MethodSTI",
                 "MethodSVT",
                 "MethodTOT",
                 "MethodTP",
+                "MethodTR",
                 "MethodWST",
             ]
         ],
@@ -133,6 +139,7 @@ class Location:
         from ..models.method_ad import MethodAD
         from ..models.method_cd import MethodCD
         from ..models.method_cpt import MethodCPT
+        from ..models.method_def import MethodDEF
         from ..models.method_dp import MethodDP
         from ..models.method_dt import MethodDT
         from ..models.method_esa import MethodESA
@@ -147,13 +154,15 @@ class Location:
         from ..models.method_rs import MethodRS
         from ..models.method_rws import MethodRWS
         from ..models.method_sa import MethodSA
+        from ..models.method_slb import MethodSLB
         from ..models.method_spt import MethodSPT
-        from ..models.method_sr import MethodSR
         from ..models.method_srs import MethodSRS
         from ..models.method_ss import MethodSS
         from ..models.method_svt import MethodSVT
         from ..models.method_tot import MethodTOT
         from ..models.method_tp import MethodTP
+        from ..models.method_tr import MethodTR
+        from ..models.method_wst import MethodWST
 
         name = self.name
 
@@ -277,13 +286,15 @@ class Location:
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodESA):
                     methods_item = methods_item_data.to_dict()
+                elif isinstance(methods_item_data, MethodTR):
+                    methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodAD):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodRO):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodINC):
                     methods_item = methods_item_data.to_dict()
-                elif isinstance(methods_item_data, MethodSR):
+                elif isinstance(methods_item_data, MethodDEF):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodIW):
                     methods_item = methods_item_data.to_dict()
@@ -294,6 +305,10 @@ class Location:
                 elif isinstance(methods_item_data, MethodSRS):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodDP):
+                    methods_item = methods_item_data.to_dict()
+                elif isinstance(methods_item_data, MethodWST):
+                    methods_item = methods_item_data.to_dict()
+                elif isinstance(methods_item_data, MethodSLB):
                     methods_item = methods_item_data.to_dict()
                 else:
                     methods_item = methods_item_data.to_dict()
@@ -357,6 +372,7 @@ class Location:
         from ..models.method_ad import MethodAD
         from ..models.method_cd import MethodCD
         from ..models.method_cpt import MethodCPT
+        from ..models.method_def import MethodDEF
         from ..models.method_dp import MethodDP
         from ..models.method_dt import MethodDT
         from ..models.method_esa import MethodESA
@@ -371,13 +387,15 @@ class Location:
         from ..models.method_rs import MethodRS
         from ..models.method_rws import MethodRWS
         from ..models.method_sa import MethodSA
+        from ..models.method_slb import MethodSLB
         from ..models.method_spt import MethodSPT
-        from ..models.method_sr import MethodSR
         from ..models.method_srs import MethodSRS
         from ..models.method_ss import MethodSS
+        from ..models.method_sti import MethodSTI
         from ..models.method_svt import MethodSVT
         from ..models.method_tot import MethodTOT
         from ..models.method_tp import MethodTP
+        from ..models.method_tr import MethodTR
         from ..models.method_wst import MethodWST
 
         d = src_dict.copy()
@@ -519,6 +537,7 @@ class Location:
                 "MethodAD",
                 "MethodCD",
                 "MethodCPT",
+                "MethodDEF",
                 "MethodDP",
                 "MethodDT",
                 "MethodESA",
@@ -533,13 +552,15 @@ class Location:
                 "MethodRS",
                 "MethodRWS",
                 "MethodSA",
+                "MethodSLB",
                 "MethodSPT",
-                "MethodSR",
                 "MethodSRS",
                 "MethodSS",
+                "MethodSTI",
                 "MethodSVT",
                 "MethodTOT",
                 "MethodTP",
+                "MethodTR",
                 "MethodWST",
             ]:
                 try:
@@ -665,7 +686,7 @@ class Location:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_15 = MethodAD.from_dict(data)
+                    methods_item_type_15 = MethodTR.from_dict(data)
 
                     return methods_item_type_15
                 except:  # noqa: E722
@@ -673,7 +694,7 @@ class Location:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_16 = MethodRO.from_dict(data)
+                    methods_item_type_16 = MethodAD.from_dict(data)
 
                     return methods_item_type_16
                 except:  # noqa: E722
@@ -681,7 +702,7 @@ class Location:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_17 = MethodINC.from_dict(data)
+                    methods_item_type_17 = MethodRO.from_dict(data)
 
                     return methods_item_type_17
                 except:  # noqa: E722
@@ -689,7 +710,7 @@ class Location:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_18 = MethodSR.from_dict(data)
+                    methods_item_type_18 = MethodINC.from_dict(data)
 
                     return methods_item_type_18
                 except:  # noqa: E722
@@ -697,7 +718,7 @@ class Location:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_19 = MethodIW.from_dict(data)
+                    methods_item_type_19 = MethodDEF.from_dict(data)
 
                     return methods_item_type_19
                 except:  # noqa: E722
@@ -705,7 +726,7 @@ class Location:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_20 = MethodDT.from_dict(data)
+                    methods_item_type_20 = MethodIW.from_dict(data)
 
                     return methods_item_type_20
                 except:  # noqa: E722
@@ -713,7 +734,7 @@ class Location:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_21 = MethodOTHER.from_dict(data)
+                    methods_item_type_21 = MethodDT.from_dict(data)
 
                     return methods_item_type_21
                 except:  # noqa: E722
@@ -721,7 +742,7 @@ class Location:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_22 = MethodSRS.from_dict(data)
+                    methods_item_type_22 = MethodOTHER.from_dict(data)
 
                     return methods_item_type_22
                 except:  # noqa: E722
@@ -729,16 +750,40 @@ class Location:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_23 = MethodDP.from_dict(data)
+                    methods_item_type_23 = MethodSRS.from_dict(data)
 
                     return methods_item_type_23
                 except:  # noqa: E722
                     pass
+                try:
+                    if not isinstance(data, dict):
+                        raise TypeError()
+                    methods_item_type_24 = MethodDP.from_dict(data)
+
+                    return methods_item_type_24
+                except:  # noqa: E722
+                    pass
+                try:
+                    if not isinstance(data, dict):
+                        raise TypeError()
+                    methods_item_type_25 = MethodWST.from_dict(data)
+
+                    return methods_item_type_25
+                except:  # noqa: E722
+                    pass
+                try:
+                    if not isinstance(data, dict):
+                        raise TypeError()
+                    methods_item_type_26 = MethodSLB.from_dict(data)
+
+                    return methods_item_type_26
+                except:  # noqa: E722
+                    pass
                 if not isinstance(data, dict):
                     raise TypeError()
-                methods_item_type_24 = MethodWST.from_dict(data)
+                methods_item_type_27 = MethodSTI.from_dict(data)
 
-                return methods_item_type_24
+                return methods_item_type_27
 
             methods_item = _parse_methods_item(methods_item_data)
 

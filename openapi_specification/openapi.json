@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.5.60" },
+  "info": { "title": "Field Manager Data API", "version": "4.5.82" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -2147,16 +2147,19 @@
                       { "$ref": "#/components/schemas/MethodTP" },
                       { "$ref": "#/components/schemas/MethodPT" },
                       { "$ref": "#/components/schemas/MethodESA" },
+                      { "$ref": "#/components/schemas/MethodTR" },
                       { "$ref": "#/components/schemas/MethodAD" },
                       { "$ref": "#/components/schemas/MethodRO" },
                       { "$ref": "#/components/schemas/MethodINC" },
-                      { "$ref": "#/components/schemas/MethodSR" },
+                      { "$ref": "#/components/schemas/MethodDEF" },
                       { "$ref": "#/components/schemas/MethodIW" },
                       { "$ref": "#/components/schemas/MethodDT" },
                       { "$ref": "#/components/schemas/MethodOTHER" },
                       { "$ref": "#/components/schemas/MethodSRS" },
                       { "$ref": "#/components/schemas/MethodDP" },
-                      { "$ref": "#/components/schemas/MethodWST" }
+                      { "$ref": "#/components/schemas/MethodWST" },
+                      { "$ref": "#/components/schemas/MethodSLB" },
+                      { "$ref": "#/components/schemas/MethodSTI" }
                     ],
                     "discriminator": {
                       "propertyName": "method_type_id",
@@ -2176,16 +2179,19 @@
                         "13": "#/components/schemas/MethodTP",
                         "14": "#/components/schemas/MethodPT",
                         "15": "#/components/schemas/MethodESA",
+                        "16": "#/components/schemas/MethodTR",
                         "17": "#/components/schemas/MethodAD",
                         "18": "#/components/schemas/MethodRO",
                         "19": "#/components/schemas/MethodINC",
-                        "20": "#/components/schemas/MethodSR",
+                        "20": "#/components/schemas/MethodDEF",
                         "21": "#/components/schemas/MethodIW",
                         "22": "#/components/schemas/MethodDT",
                         "23": "#/components/schemas/MethodOTHER",
                         "24": "#/components/schemas/MethodSRS",
                         "25": "#/components/schemas/MethodDP",
-                        "26": "#/components/schemas/MethodWST"
+                        "26": "#/components/schemas/MethodWST",
+                        "27": "#/components/schemas/MethodSLB",
+                        "28": "#/components/schemas/MethodSTI"
                       }
                     }
                   },
@@ -2266,16 +2272,19 @@
                       { "$ref": "#/components/schemas/MethodTP" },
                       { "$ref": "#/components/schemas/MethodPT" },
                       { "$ref": "#/components/schemas/MethodESA" },
+                      { "$ref": "#/components/schemas/MethodTR" },
                       { "$ref": "#/components/schemas/MethodAD" },
                       { "$ref": "#/components/schemas/MethodRO" },
                       { "$ref": "#/components/schemas/MethodINC" },
-                      { "$ref": "#/components/schemas/MethodSR" },
+                      { "$ref": "#/components/schemas/MethodDEF" },
                       { "$ref": "#/components/schemas/MethodIW" },
                       { "$ref": "#/components/schemas/MethodDT" },
                       { "$ref": "#/components/schemas/MethodOTHER" },
                       { "$ref": "#/components/schemas/MethodSRS" },
                       { "$ref": "#/components/schemas/MethodDP" },
-                      { "$ref": "#/components/schemas/MethodWST" }
+                      { "$ref": "#/components/schemas/MethodWST" },
+                      { "$ref": "#/components/schemas/MethodSLB" },
+                      { "$ref": "#/components/schemas/MethodSTI" }
                     ],
                     "discriminator": {
                       "propertyName": "method_type_id",
@@ -2295,16 +2304,19 @@
                         "13": "#/components/schemas/MethodTP",
                         "14": "#/components/schemas/MethodPT",
                         "15": "#/components/schemas/MethodESA",
+                        "16": "#/components/schemas/MethodTR",
                         "17": "#/components/schemas/MethodAD",
                         "18": "#/components/schemas/MethodRO",
                         "19": "#/components/schemas/MethodINC",
-                        "20": "#/components/schemas/MethodSR",
+                        "20": "#/components/schemas/MethodDEF",
                         "21": "#/components/schemas/MethodIW",
                         "22": "#/components/schemas/MethodDT",
                         "23": "#/components/schemas/MethodOTHER",
                         "24": "#/components/schemas/MethodSRS",
                         "25": "#/components/schemas/MethodDP",
-                        "26": "#/components/schemas/MethodWST"
+                        "26": "#/components/schemas/MethodWST",
+                        "27": "#/components/schemas/MethodSLB",
+                        "28": "#/components/schemas/MethodSTI"
                       }
                     }
                   },
@@ -2370,13 +2382,16 @@
                   { "$ref": "#/components/schemas/MethodRSCreate" },
                   { "$ref": "#/components/schemas/MethodRWSCreate" },
                   { "$ref": "#/components/schemas/MethodSACreate" },
+                  { "$ref": "#/components/schemas/MethodSLBCreate" },
                   { "$ref": "#/components/schemas/MethodSPTCreate" },
-                  { "$ref": "#/components/schemas/MethodSRCreate" },
+                  { "$ref": "#/components/schemas/MethodDEFCreate" },
                   { "$ref": "#/components/schemas/MethodSRSCreate" },
                   { "$ref": "#/components/schemas/MethodSSCreate" },
+                  { "$ref": "#/components/schemas/MethodSTICreate" },
                   { "$ref": "#/components/schemas/MethodSVTCreate" },
                   { "$ref": "#/components/schemas/MethodTOTCreate" },
                   { "$ref": "#/components/schemas/MethodTPCreate" },
+                  { "$ref": "#/components/schemas/MethodTRCreate" },
                   { "$ref": "#/components/schemas/MethodWSTCreate" }
                 ],
                 "discriminator": {
@@ -2399,13 +2414,16 @@
                     "9": "#/components/schemas/MethodRSCreate",
                     "7": "#/components/schemas/MethodRWSCreate",
                     "4": "#/components/schemas/MethodSACreate",
+                    "27": "#/components/schemas/MethodSLBCreate",
                     "11": "#/components/schemas/MethodSPTCreate",
-                    "20": "#/components/schemas/MethodSRCreate",
+                    "20": "#/components/schemas/MethodDEFCreate",
                     "24": "#/components/schemas/MethodSRSCreate",
                     "6": "#/components/schemas/MethodSSCreate",
+                    "28": "#/components/schemas/MethodSTICreate",
                     "10": "#/components/schemas/MethodSVTCreate",
                     "2": "#/components/schemas/MethodTOTCreate",
                     "13": "#/components/schemas/MethodTPCreate",
+                    "16": "#/components/schemas/MethodTRCreate",
                     "26": "#/components/schemas/MethodWSTCreate"
                   }
                 },
@@ -2436,16 +2454,19 @@
                     { "$ref": "#/components/schemas/MethodTP" },
                     { "$ref": "#/components/schemas/MethodPT" },
                     { "$ref": "#/components/schemas/MethodESA" },
+                    { "$ref": "#/components/schemas/MethodTR" },
                     { "$ref": "#/components/schemas/MethodAD" },
                     { "$ref": "#/components/schemas/MethodRO" },
                     { "$ref": "#/components/schemas/MethodINC" },
-                    { "$ref": "#/components/schemas/MethodSR" },
+                    { "$ref": "#/components/schemas/MethodDEF" },
                     { "$ref": "#/components/schemas/MethodIW" },
                     { "$ref": "#/components/schemas/MethodDT" },
                     { "$ref": "#/components/schemas/MethodOTHER" },
                     { "$ref": "#/components/schemas/MethodSRS" },
                     { "$ref": "#/components/schemas/MethodDP" },
-                    { "$ref": "#/components/schemas/MethodWST" }
+                    { "$ref": "#/components/schemas/MethodWST" },
+                    { "$ref": "#/components/schemas/MethodSLB" },
+                    { "$ref": "#/components/schemas/MethodSTI" }
                   ],
                   "discriminator": {
                     "propertyName": "method_type_id",
@@ -2465,16 +2486,19 @@
                       "13": "#/components/schemas/MethodTP",
                       "14": "#/components/schemas/MethodPT",
                       "15": "#/components/schemas/MethodESA",
+                      "16": "#/components/schemas/MethodTR",
                       "17": "#/components/schemas/MethodAD",
                       "18": "#/components/schemas/MethodRO",
                       "19": "#/components/schemas/MethodINC",
-                      "20": "#/components/schemas/MethodSR",
+                      "20": "#/components/schemas/MethodDEF",
                       "21": "#/components/schemas/MethodIW",
                       "22": "#/components/schemas/MethodDT",
                       "23": "#/components/schemas/MethodOTHER",
                       "24": "#/components/schemas/MethodSRS",
                       "25": "#/components/schemas/MethodDP",
-                      "26": "#/components/schemas/MethodWST"
+                      "26": "#/components/schemas/MethodWST",
+                      "27": "#/components/schemas/MethodSLB",
+                      "28": "#/components/schemas/MethodSTI"
                     }
                   },
                   "title": "Response Add Method To Location Projects  Project Id  Locations  Location Id  Methods Post"
@@ -2550,16 +2574,19 @@
                     { "$ref": "#/components/schemas/MethodTP" },
                     { "$ref": "#/components/schemas/MethodPT" },
                     { "$ref": "#/components/schemas/MethodESA" },
+                    { "$ref": "#/components/schemas/MethodTR" },
                     { "$ref": "#/components/schemas/MethodAD" },
                     { "$ref": "#/components/schemas/MethodRO" },
                     { "$ref": "#/components/schemas/MethodINC" },
-                    { "$ref": "#/components/schemas/MethodSR" },
+                    { "$ref": "#/components/schemas/MethodDEF" },
                     { "$ref": "#/components/schemas/MethodIW" },
                     { "$ref": "#/components/schemas/MethodDT" },
                     { "$ref": "#/components/schemas/MethodOTHER" },
                     { "$ref": "#/components/schemas/MethodSRS" },
                     { "$ref": "#/components/schemas/MethodDP" },
-                    { "$ref": "#/components/schemas/MethodWST" }
+                    { "$ref": "#/components/schemas/MethodWST" },
+                    { "$ref": "#/components/schemas/MethodSLB" },
+                    { "$ref": "#/components/schemas/MethodSTI" }
                   ],
                   "discriminator": {
                     "propertyName": "method_type_id",
@@ -2579,16 +2606,19 @@
                       "13": "#/components/schemas/MethodTP",
                       "14": "#/components/schemas/MethodPT",
                       "15": "#/components/schemas/MethodESA",
+                      "16": "#/components/schemas/MethodTR",
                       "17": "#/components/schemas/MethodAD",
                       "18": "#/components/schemas/MethodRO",
                       "19": "#/components/schemas/MethodINC",
-                      "20": "#/components/schemas/MethodSR",
+                      "20": "#/components/schemas/MethodDEF",
                       "21": "#/components/schemas/MethodIW",
                       "22": "#/components/schemas/MethodDT",
                       "23": "#/components/schemas/MethodOTHER",
                       "24": "#/components/schemas/MethodSRS",
                       "25": "#/components/schemas/MethodDP",
-                      "26": "#/components/schemas/MethodWST"
+                      "26": "#/components/schemas/MethodWST",
+                      "27": "#/components/schemas/MethodSLB",
+                      "28": "#/components/schemas/MethodSTI"
                     }
                   },
                   "title": "Response Get Method Projects  Project Id  Locations  Location Id  Methods  Method Id  Get"
@@ -2661,16 +2691,19 @@
                   { "$ref": "#/components/schemas/MethodTPUpdate" },
                   { "$ref": "#/components/schemas/MethodPTUpdate" },
                   { "$ref": "#/components/schemas/MethodESAUpdate" },
+                  { "$ref": "#/components/schemas/MethodTRUpdate" },
                   { "$ref": "#/components/schemas/MethodADUpdate" },
                   { "$ref": "#/components/schemas/MethodROUpdate" },
                   { "$ref": "#/components/schemas/MethodINCUpdate" },
-                  { "$ref": "#/components/schemas/MethodSRUpdate" },
+                  { "$ref": "#/components/schemas/MethodDEFUpdate" },
                   { "$ref": "#/components/schemas/MethodIWUpdate" },
                   { "$ref": "#/components/schemas/MethodDTUpdate" },
                   { "$ref": "#/components/schemas/MethodOTHERUpdate" },
                   { "$ref": "#/components/schemas/MethodSRSUpdate" },
                   { "$ref": "#/components/schemas/MethodDPUpdate" },
-                  { "$ref": "#/components/schemas/MethodWSTUpdate" }
+                  { "$ref": "#/components/schemas/MethodWSTUpdate" },
+                  { "$ref": "#/components/schemas/MethodSLBUpdate" },
+                  { "$ref": "#/components/schemas/MethodSTIUpdate" }
                 ],
                 "discriminator": {
                   "propertyName": "method_type_id",
@@ -2690,16 +2723,19 @@
                     "13": "#/components/schemas/MethodTPUpdate",
                     "14": "#/components/schemas/MethodPTUpdate",
                     "15": "#/components/schemas/MethodESAUpdate",
+                    "16": "#/components/schemas/MethodTRUpdate",
                     "17": "#/components/schemas/MethodADUpdate",
                     "18": "#/components/schemas/MethodROUpdate",
                     "19": "#/components/schemas/MethodINCUpdate",
-                    "20": "#/components/schemas/MethodSRUpdate",
+                    "20": "#/components/schemas/MethodDEFUpdate",
                     "21": "#/components/schemas/MethodIWUpdate",
                     "22": "#/components/schemas/MethodDTUpdate",
                     "23": "#/components/schemas/MethodOTHERUpdate",
                     "24": "#/components/schemas/MethodSRSUpdate",
                     "25": "#/components/schemas/MethodDPUpdate",
-                    "26": "#/components/schemas/MethodWSTUpdate"
+                    "26": "#/components/schemas/MethodWSTUpdate",
+                    "27": "#/components/schemas/MethodSLBUpdate",
+                    "28": "#/components/schemas/MethodSTIUpdate"
                   }
                 },
                 "title": "Method In"
@@ -2729,16 +2765,19 @@
                     { "$ref": "#/components/schemas/MethodTP" },
                     { "$ref": "#/components/schemas/MethodPT" },
                     { "$ref": "#/components/schemas/MethodESA" },
+                    { "$ref": "#/components/schemas/MethodTR" },
                     { "$ref": "#/components/schemas/MethodAD" },
                     { "$ref": "#/components/schemas/MethodRO" },
                     { "$ref": "#/components/schemas/MethodINC" },
-                    { "$ref": "#/components/schemas/MethodSR" },
+                    { "$ref": "#/components/schemas/MethodDEF" },
                     { "$ref": "#/components/schemas/MethodIW" },
                     { "$ref": "#/components/schemas/MethodDT" },
                     { "$ref": "#/components/schemas/MethodOTHER" },
                     { "$ref": "#/components/schemas/MethodSRS" },
                     { "$ref": "#/components/schemas/MethodDP" },
-                    { "$ref": "#/components/schemas/MethodWST" }
+                    { "$ref": "#/components/schemas/MethodWST" },
+                    { "$ref": "#/components/schemas/MethodSLB" },
+                    { "$ref": "#/components/schemas/MethodSTI" }
                   ],
                   "discriminator": {
                     "propertyName": "method_type_id",
@@ -2758,16 +2797,19 @@
                       "13": "#/components/schemas/MethodTP",
                       "14": "#/components/schemas/MethodPT",
                       "15": "#/components/schemas/MethodESA",
+                      "16": "#/components/schemas/MethodTR",
                       "17": "#/components/schemas/MethodAD",
                       "18": "#/components/schemas/MethodRO",
                       "19": "#/components/schemas/MethodINC",
-                      "20": "#/components/schemas/MethodSR",
+                      "20": "#/components/schemas/MethodDEF",
                       "21": "#/components/schemas/MethodIW",
                       "22": "#/components/schemas/MethodDT",
                       "23": "#/components/schemas/MethodOTHER",
                       "24": "#/components/schemas/MethodSRS",
                       "25": "#/components/schemas/MethodDP",
-                      "26": "#/components/schemas/MethodWST"
+                      "26": "#/components/schemas/MethodWST",
+                      "27": "#/components/schemas/MethodSLB",
+                      "28": "#/components/schemas/MethodSTI"
                     }
                   },
                   "title": "Response Update Method For Location Projects  Project Id  Locations  Location Id  Methods  Method Id  Put"
@@ -2899,16 +2941,19 @@
                       { "$ref": "#/components/schemas/MethodTP" },
                       { "$ref": "#/components/schemas/MethodPT" },
                       { "$ref": "#/components/schemas/MethodESA" },
+                      { "$ref": "#/components/schemas/MethodTR" },
                       { "$ref": "#/components/schemas/MethodAD" },
                       { "$ref": "#/components/schemas/MethodRO" },
                       { "$ref": "#/components/schemas/MethodINC" },
-                      { "$ref": "#/components/schemas/MethodSR" },
+                      { "$ref": "#/components/schemas/MethodDEF" },
                       { "$ref": "#/components/schemas/MethodIW" },
                       { "$ref": "#/components/schemas/MethodDT" },
                       { "$ref": "#/components/schemas/MethodOTHER" },
                       { "$ref": "#/components/schemas/MethodSRS" },
                       { "$ref": "#/components/schemas/MethodDP" },
-                      { "$ref": "#/components/schemas/MethodWST" }
+                      { "$ref": "#/components/schemas/MethodWST" },
+                      { "$ref": "#/components/schemas/MethodSLB" },
+                      { "$ref": "#/components/schemas/MethodSTI" }
                     ],
                     "discriminator": {
                       "propertyName": "method_type_id",
@@ -2928,16 +2973,19 @@
                         "13": "#/components/schemas/MethodTP",
                         "14": "#/components/schemas/MethodPT",
                         "15": "#/components/schemas/MethodESA",
+                        "16": "#/components/schemas/MethodTR",
                         "17": "#/components/schemas/MethodAD",
                         "18": "#/components/schemas/MethodRO",
                         "19": "#/components/schemas/MethodINC",
-                        "20": "#/components/schemas/MethodSR",
+                        "20": "#/components/schemas/MethodDEF",
                         "21": "#/components/schemas/MethodIW",
                         "22": "#/components/schemas/MethodDT",
                         "23": "#/components/schemas/MethodOTHER",
                         "24": "#/components/schemas/MethodSRS",
                         "25": "#/components/schemas/MethodDP",
-                        "26": "#/components/schemas/MethodWST"
+                        "26": "#/components/schemas/MethodWST",
+                        "27": "#/components/schemas/MethodSLB",
+                        "28": "#/components/schemas/MethodSTI"
                       }
                     }
                   },
@@ -3149,6 +3197,7 @@
                       { "$ref": "#/components/schemas/MethodSRSData" },
                       { "$ref": "#/components/schemas/MethodSVTData" },
                       { "$ref": "#/components/schemas/MethodTOTData" },
+                      { "$ref": "#/components/schemas/MethodTRData" },
                       { "$ref": "#/components/schemas/MethodWSTData" }
                     ],
                     "discriminator": {
@@ -3164,6 +3213,7 @@
                         "24": "#/components/schemas/MethodSRSData",
                         "10": "#/components/schemas/MethodSVTData",
                         "2": "#/components/schemas/MethodTOTData",
+                        "16": "#/components/schemas/MethodTRData",
                         "26": "#/components/schemas/MethodWSTData"
                       }
                     }
@@ -3233,6 +3283,7 @@
                   { "$ref": "#/components/schemas/MethodSSDataCreate" },
                   { "$ref": "#/components/schemas/MethodSVTDataCreate" },
                   { "$ref": "#/components/schemas/MethodTOTDataCreate" },
+                  { "$ref": "#/components/schemas/MethodTRDataCreate" },
                   { "$ref": "#/components/schemas/MethodWSTDataCreate" }
                 ],
                 "discriminator": {
@@ -3248,6 +3299,7 @@
                     "6": "#/components/schemas/MethodSSDataCreate",
                     "10": "#/components/schemas/MethodSVTDataCreate",
                     "2": "#/components/schemas/MethodTOTDataCreate",
+                    "16": "#/components/schemas/MethodTRDataCreate",
                     "26": "#/components/schemas/MethodWSTDataCreate"
                   }
                 },
@@ -3273,6 +3325,7 @@
                     { "$ref": "#/components/schemas/MethodSRSData" },
                     { "$ref": "#/components/schemas/MethodSVTData" },
                     { "$ref": "#/components/schemas/MethodTOTData" },
+                    { "$ref": "#/components/schemas/MethodTRData" },
                     { "$ref": "#/components/schemas/MethodWSTData" }
                   ],
                   "discriminator": {
@@ -3288,6 +3341,7 @@
                       "24": "#/components/schemas/MethodSRSData",
                       "10": "#/components/schemas/MethodSVTData",
                       "2": "#/components/schemas/MethodTOTData",
+                      "16": "#/components/schemas/MethodTRData",
                       "26": "#/components/schemas/MethodWSTData"
                     }
                   },
@@ -3367,6 +3421,7 @@
                   { "$ref": "#/components/schemas/MethodSSDataUpdate" },
                   { "$ref": "#/components/schemas/MethodSVTDataUpdate" },
                   { "$ref": "#/components/schemas/MethodTOTDataUpdate" },
+                  { "$ref": "#/components/schemas/MethodTRDataUpdate" },
                   { "$ref": "#/components/schemas/MethodWSTDataUpdate" }
                 ],
                 "discriminator": {
@@ -3381,6 +3436,7 @@
                     "6": "#/components/schemas/MethodSSDataUpdate",
                     "10": "#/components/schemas/MethodSVTDataUpdate",
                     "2": "#/components/schemas/MethodTOTDataUpdate",
+                    "16": "#/components/schemas/MethodTRDataUpdate",
                     "26": "#/components/schemas/MethodWSTDataUpdate"
                   }
                 },
@@ -3406,6 +3462,7 @@
                     { "$ref": "#/components/schemas/MethodSRSData" },
                     { "$ref": "#/components/schemas/MethodSVTData" },
                     { "$ref": "#/components/schemas/MethodTOTData" },
+                    { "$ref": "#/components/schemas/MethodTRData" },
                     { "$ref": "#/components/schemas/MethodWSTData" }
                   ],
                   "discriminator": {
@@ -3421,6 +3478,7 @@
                       "24": "#/components/schemas/MethodSRSData",
                       "10": "#/components/schemas/MethodSVTData",
                       "2": "#/components/schemas/MethodTOTData",
+                      "16": "#/components/schemas/MethodTRData",
                       "26": "#/components/schemas/MethodWSTData"
                     }
                   },
@@ -3565,16 +3623,19 @@
                         { "$ref": "#/components/schemas/MethodTP" },
                         { "$ref": "#/components/schemas/MethodPT" },
                         { "$ref": "#/components/schemas/MethodESA" },
+                        { "$ref": "#/components/schemas/MethodTR" },
                         { "$ref": "#/components/schemas/MethodAD" },
                         { "$ref": "#/components/schemas/MethodRO" },
                         { "$ref": "#/components/schemas/MethodINC" },
-                        { "$ref": "#/components/schemas/MethodSR" },
+                        { "$ref": "#/components/schemas/MethodDEF" },
                         { "$ref": "#/components/schemas/MethodIW" },
                         { "$ref": "#/components/schemas/MethodDT" },
                         { "$ref": "#/components/schemas/MethodOTHER" },
                         { "$ref": "#/components/schemas/MethodSRS" },
                         { "$ref": "#/components/schemas/MethodDP" },
-                        { "$ref": "#/components/schemas/MethodWST" }
+                        { "$ref": "#/components/schemas/MethodWST" },
+                        { "$ref": "#/components/schemas/MethodSLB" },
+                        { "$ref": "#/components/schemas/MethodSTI" }
                       ],
                       "discriminator": {
                         "propertyName": "method_type_id",
@@ -3594,16 +3655,19 @@
                           "13": "#/components/schemas/MethodTP",
                           "14": "#/components/schemas/MethodPT",
                           "15": "#/components/schemas/MethodESA",
+                          "16": "#/components/schemas/MethodTR",
                           "17": "#/components/schemas/MethodAD",
                           "18": "#/components/schemas/MethodRO",
                           "19": "#/components/schemas/MethodINC",
-                          "20": "#/components/schemas/MethodSR",
+                          "20": "#/components/schemas/MethodDEF",
                           "21": "#/components/schemas/MethodIW",
                           "22": "#/components/schemas/MethodDT",
                           "23": "#/components/schemas/MethodOTHER",
                           "24": "#/components/schemas/MethodSRS",
                           "25": "#/components/schemas/MethodDP",
-                          "26": "#/components/schemas/MethodWST"
+                          "26": "#/components/schemas/MethodWST",
+                          "27": "#/components/schemas/MethodSLB",
+                          "28": "#/components/schemas/MethodSTI"
                         }
                       }
                     },
@@ -4625,6 +4689,86 @@
         }
       }
     },
+    "/projects/{project_id}/export/files": {
+      "get": {
+        "tags": ["export", "projects"],
+        "summary": "Export Files",
+        "description": "Export specified project files in one zip file.\n\nNot limited to files only attached to the project, but also files attached to\nlocations and methods in the specified project.",
+        "operationId": "export_files_projects__project_id__export_files_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "file_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": { "type": "string", "format": "uuid" },
+              "title": "File Ids"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/export": {
+      "post": {
+        "tags": ["export", "projects"],
+        "summary": "Export",
+        "description": "Endpoint for exporting project data.\n\nSupported **export_type**:\n\n- **ProjectFiles**: Download files, with ID listed in the file_ids, in a Zip file.\n- **LocationGeoJSON**: Download GeoJSON files.\n- **LocationKOF**: Download KOF files.\n- **LocationCSV**: Download CSV file with key location information (onshore format).\n- **LocationXLS**: Download Excel file with key location information (onshore format).\n- **MethodFiles**: Download all original uploaded source data files.\n- **MethodSND**: Download SND files for all methods in a Zip file.\n- **MethodXLS**: Download Excel file with method data (offshore format).\n\n**method_status_ids**: Filter methods by status. Only return specified statuses. Empty list means all statuses.\n\n**method_type_ids**: Filter methods by type. Only return specified method types. Empty list means all types.\n\n**method_conducted_from**: Optional filter. Only return methods conducted after this time.\n\n**method_conducted_to**: Optional filter. Only return methods conducted before (this time + one day).",
+        "operationId": "export_projects__project_id__export_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Export" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/projects/{project_id}/cross_sections": {
       "post": {
         "tags": ["cross_sections"],
@@ -4924,12 +5068,12 @@
         }
       }
     },
-    "/projects/{project_id}/cross_sections/{cross_section_id}/line/{format}": {
-      "get": {
+    "/projects/{project_id}/cross_sections/lines/{format}": {
+      "post": {
         "tags": ["cross_sections"],
-        "summary": "Get Cross Section Line",
-        "description": "Get a dxf file or shapefile bundle containing the cross section line",
-        "operationId": "get_cross_section_line_projects__project_id__cross_sections__cross_section_id__line__format__get",
+        "summary": "Create Cross Section Lines",
+        "description": "Get a dxf file or shapefile bundle containing the cross section lines",
+        "operationId": "create_cross_section_lines_projects__project_id__cross_sections_lines__format__post",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -4937,16 +5081,6 @@
             "in": "path",
             "required": true,
             "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "cross_section_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Cross Section Id"
-            }
           },
           {
             "name": "format",
@@ -4957,90 +5091,20 @@
               "type": "string",
               "title": "Format"
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Get the cross section line",
-            "content": { "application/json": { "schema": {} } }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/export/files": {
-      "get": {
-        "tags": ["export", "projects"],
-        "summary": "Export Files",
-        "description": "Export specified project files in one zip file.\n\nNot limited to files only attached to the project, but also files attached to\nlocations and methods in the specified project.",
-        "operationId": "export_files_projects__project_id__export_files_get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
           },
           {
-            "name": "file_ids",
+            "name": "cross_section_ids",
             "in": "query",
             "required": false,
             "schema": {
               "type": "array",
               "items": { "type": "string", "format": "uuid" },
-              "title": "File Ids"
+              "title": "Cross Section Ids"
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": { "application/json": { "schema": {} } }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/export": {
-      "post": {
-        "tags": ["export", "projects"],
-        "summary": "Export",
-        "description": "Endpoint for exporting project data.\n\nSupported **export_type**:\n\n- **ProjectFiles**: Download files, with ID listed in the file_ids, in a Zip file.\n- **LocationGeoJSON**: Download GeoJSON files.\n- **LocationKOF**: Download KOF files.\n- **LocationCSV**: Download CSV file with key location information (onshore format).\n- **LocationXLS**: Download Excel file with key location information (onshore format).\n- **MethodFiles**: Download all original uploaded source data files.\n- **MethodSND**: Download SND files for all methods in a Zip file.\n- **MethodXLS**: Download Excel file with method data (offshore format).\n\n**method_status_ids**: Filter methods by status. Only return specified statuses. Empty list means all statuses.\n\n**method_type_ids**: Filter methods by type. Only return specified method types. Empty list means all types.\n\n**method_conducted_from**: Optional filter. Only return methods conducted after this time.\n\n**method_conducted_to**: Optional filter. Only return methods conducted before (this time + one day).",
-        "operationId": "export_projects__project_id__export_post",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/Export" }
-            }
-          }
-        },
-        "responses": {
-          "200": {
+          "201": {
             "description": "Successful Response",
             "content": { "application/json": { "schema": {} } }
           },
@@ -5895,6 +5959,7 @@
       "get": {
         "tags": ["method types"],
         "summary": "Get Method Types",
+        "description": "Get all method types.\n\nPlease note that this endpoint will look at the Accept-Language header in the request\nto determine the language for the response data.",
         "operationId": "get_method_types_method_types_get",
         "responses": {
           "200": {
@@ -5916,6 +5981,7 @@
       "get": {
         "tags": ["method types"],
         "summary": "Get Method Type",
+        "description": "Get a method type by ID.\n\nPlease note that this endpoint will look at the Accept-Language header in the request\nto determine the language for the response data.",
         "operationId": "get_method_type_method_types__method_type_id__get",
         "parameters": [
           {
@@ -6579,7 +6645,7 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/StandardType" }
+                "schema": { "$ref": "#/components/schemas/Standard" }
               }
             }
           },
@@ -6590,6 +6656,19 @@
                 "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
               }
             }
+          }
+        }
+      }
+    },
+    "/trackers/upload": {
+      "post": {
+        "tags": ["trackers"],
+        "summary": "Tracker Upload",
+        "operationId": "tracker_upload_trackers_upload_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
           }
         }
       }
@@ -7673,7 +7752,7 @@
       },
       "DPType": {
         "type": "string",
-        "enum": ["DPSH-A", "DPL", "DPM", "DPH", "DPSH-B"],
+        "enum": ["DPSHA", "DPL", "DPM", "DPH", "DPSHB"],
         "title": "DPType",
         "description": "(Dynamic Probing) DP Type"
       },
@@ -7974,10 +8053,17 @@
       "FileExtension": {
         "properties": {
           "extension": { "type": "string", "title": "Extension" },
-          "description": { "type": "string", "title": "Description" }
+          "description": { "type": "string", "title": "Description" },
+          "is_for_projects": { "type": "boolean", "title": "Is For Projects" },
+          "is_for_locations": { "type": "boolean", "title": "Is For Locations" }
         },
         "type": "object",
-        "required": ["extension", "description"],
+        "required": [
+          "extension",
+          "description",
+          "is_for_projects",
+          "is_for_locations"
+        ],
         "title": "FileExtension",
         "description": "File extension with description. The extension attribute starts with a period and is always lowercase like '.csv'."
       },
@@ -8219,8 +8305,8 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "ee5d5c98-b08e-401b-a4f2-7d5b8e65467a",
-          "project_id": "64de2f57-7ebf-4ed3-aa37-ab65fef6e157",
+          "organization_id": "fff31299-1f3d-48e3-ad70-8c9c37370900",
+          "project_id": "e66a377d-3816-4cf8-ad79-d954a3ba632d",
           "srid": 3857
         }
       },
@@ -8325,16 +8411,19 @@
                 { "$ref": "#/components/schemas/MethodTP" },
                 { "$ref": "#/components/schemas/MethodPT" },
                 { "$ref": "#/components/schemas/MethodESA" },
+                { "$ref": "#/components/schemas/MethodTR" },
                 { "$ref": "#/components/schemas/MethodAD" },
                 { "$ref": "#/components/schemas/MethodRO" },
                 { "$ref": "#/components/schemas/MethodINC" },
-                { "$ref": "#/components/schemas/MethodSR" },
+                { "$ref": "#/components/schemas/MethodDEF" },
                 { "$ref": "#/components/schemas/MethodIW" },
                 { "$ref": "#/components/schemas/MethodDT" },
                 { "$ref": "#/components/schemas/MethodOTHER" },
                 { "$ref": "#/components/schemas/MethodSRS" },
                 { "$ref": "#/components/schemas/MethodDP" },
-                { "$ref": "#/components/schemas/MethodWST" }
+                { "$ref": "#/components/schemas/MethodWST" },
+                { "$ref": "#/components/schemas/MethodSLB" },
+                { "$ref": "#/components/schemas/MethodSTI" }
               ],
               "discriminator": {
                 "propertyName": "method_type_id",
@@ -8346,17 +8435,20 @@
                   "13": "#/components/schemas/MethodTP",
                   "14": "#/components/schemas/MethodPT",
                   "15": "#/components/schemas/MethodESA",
+                  "16": "#/components/schemas/MethodTR",
                   "17": "#/components/schemas/MethodAD",
                   "18": "#/components/schemas/MethodRO",
                   "19": "#/components/schemas/MethodINC",
                   "2": "#/components/schemas/MethodTOT",
-                  "20": "#/components/schemas/MethodSR",
+                  "20": "#/components/schemas/MethodDEF",
                   "21": "#/components/schemas/MethodIW",
                   "22": "#/components/schemas/MethodDT",
                   "23": "#/components/schemas/MethodOTHER",
                   "24": "#/components/schemas/MethodSRS",
                   "25": "#/components/schemas/MethodDP",
                   "26": "#/components/schemas/MethodWST",
+                  "27": "#/components/schemas/MethodSLB",
+                  "28": "#/components/schemas/MethodSTI",
                   "3": "#/components/schemas/MethodRP",
                   "4": "#/components/schemas/MethodSA",
                   "5": "#/components/schemas/MethodPZ",
@@ -8395,12 +8487,12 @@
         ],
         "title": "Location",
         "example": {
-          "location_id": "b19e38a9-b037-434c-bedf-a3ce098d6618",
+          "location_id": "22be3639-4271-4c5b-9d51-86268159e976",
           "name": "Loc01",
           "point_easting": 1194547,
           "point_northing": 8388298,
           "point_z": 0.0,
-          "project_id": "e5e92676-8564-448c-aafb-805b66a2dee0",
+          "project_id": "85244111-4374-413e-aad1-d20be1d32f53",
           "srid": 3857
         }
       },
@@ -8520,13 +8612,16 @@
                 { "$ref": "#/components/schemas/MethodRSCreate" },
                 { "$ref": "#/components/schemas/MethodRWSCreate" },
                 { "$ref": "#/components/schemas/MethodSACreate" },
+                { "$ref": "#/components/schemas/MethodSLBCreate" },
                 { "$ref": "#/components/schemas/MethodSPTCreate" },
-                { "$ref": "#/components/schemas/MethodSRCreate" },
+                { "$ref": "#/components/schemas/MethodDEFCreate" },
                 { "$ref": "#/components/schemas/MethodSRSCreate" },
                 { "$ref": "#/components/schemas/MethodSSCreate" },
+                { "$ref": "#/components/schemas/MethodSTICreate" },
                 { "$ref": "#/components/schemas/MethodSVTCreate" },
                 { "$ref": "#/components/schemas/MethodTOTCreate" },
                 { "$ref": "#/components/schemas/MethodTPCreate" },
+                { "$ref": "#/components/schemas/MethodTRCreate" },
                 { "$ref": "#/components/schemas/MethodWSTCreate" }
               ],
               "discriminator": {
@@ -8539,17 +8634,20 @@
                   "13": "#/components/schemas/MethodTPCreate",
                   "14": "#/components/schemas/MethodPTCreate",
                   "15": "#/components/schemas/MethodESACreate",
+                  "16": "#/components/schemas/MethodTRCreate",
                   "17": "#/components/schemas/MethodADCreate",
                   "18": "#/components/schemas/MethodROCreate",
                   "19": "#/components/schemas/MethodINCCreate",
                   "2": "#/components/schemas/MethodTOTCreate",
-                  "20": "#/components/schemas/MethodSRCreate",
+                  "20": "#/components/schemas/MethodDEFCreate",
                   "21": "#/components/schemas/MethodIWCreate",
                   "22": "#/components/schemas/MethodDTCreate",
                   "23": "#/components/schemas/MethodOTHERCreate",
                   "24": "#/components/schemas/MethodSRSCreate",
                   "25": "#/components/schemas/MethodDPCreate",
                   "26": "#/components/schemas/MethodWSTCreate",
+                  "27": "#/components/schemas/MethodSLBCreate",
+                  "28": "#/components/schemas/MethodSTICreate",
                   "3": "#/components/schemas/MethodRPCreate",
                   "4": "#/components/schemas/MethodSACreate",
                   "5": "#/components/schemas/MethodPZCreate",
@@ -8877,13 +8975,16 @@
                     { "$ref": "#/components/schemas/MethodRSCreate" },
                     { "$ref": "#/components/schemas/MethodRWSCreate" },
                     { "$ref": "#/components/schemas/MethodSACreate" },
+                    { "$ref": "#/components/schemas/MethodSLBCreate" },
                     { "$ref": "#/components/schemas/MethodSPTCreate" },
-                    { "$ref": "#/components/schemas/MethodSRCreate" },
+                    { "$ref": "#/components/schemas/MethodDEFCreate" },
                     { "$ref": "#/components/schemas/MethodSRSCreate" },
                     { "$ref": "#/components/schemas/MethodSSCreate" },
+                    { "$ref": "#/components/schemas/MethodSTICreate" },
                     { "$ref": "#/components/schemas/MethodSVTCreate" },
                     { "$ref": "#/components/schemas/MethodTOTCreate" },
                     { "$ref": "#/components/schemas/MethodTPCreate" },
+                    { "$ref": "#/components/schemas/MethodTRCreate" },
                     { "$ref": "#/components/schemas/MethodWSTCreate" }
                   ],
                   "discriminator": {
@@ -8896,17 +8997,20 @@
                       "13": "#/components/schemas/MethodTPCreate",
                       "14": "#/components/schemas/MethodPTCreate",
                       "15": "#/components/schemas/MethodESACreate",
+                      "16": "#/components/schemas/MethodTRCreate",
                       "17": "#/components/schemas/MethodADCreate",
                       "18": "#/components/schemas/MethodROCreate",
                       "19": "#/components/schemas/MethodINCCreate",
                       "2": "#/components/schemas/MethodTOTCreate",
-                      "20": "#/components/schemas/MethodSRCreate",
+                      "20": "#/components/schemas/MethodDEFCreate",
                       "21": "#/components/schemas/MethodIWCreate",
                       "22": "#/components/schemas/MethodDTCreate",
                       "23": "#/components/schemas/MethodOTHERCreate",
                       "24": "#/components/schemas/MethodSRSCreate",
                       "25": "#/components/schemas/MethodDPCreate",
                       "26": "#/components/schemas/MethodWSTCreate",
+                      "27": "#/components/schemas/MethodSLBCreate",
+                      "28": "#/components/schemas/MethodSTICreate",
                       "3": "#/components/schemas/MethodRPCreate",
                       "4": "#/components/schemas/MethodSACreate",
                       "5": "#/components/schemas/MethodPZCreate",
@@ -8934,16 +9038,19 @@
                     { "$ref": "#/components/schemas/MethodTPUpdate" },
                     { "$ref": "#/components/schemas/MethodPTUpdate" },
                     { "$ref": "#/components/schemas/MethodESAUpdate" },
+                    { "$ref": "#/components/schemas/MethodTRUpdate" },
                     { "$ref": "#/components/schemas/MethodADUpdate" },
                     { "$ref": "#/components/schemas/MethodROUpdate" },
                     { "$ref": "#/components/schemas/MethodINCUpdate" },
-                    { "$ref": "#/components/schemas/MethodSRUpdate" },
+                    { "$ref": "#/components/schemas/MethodDEFUpdate" },
                     { "$ref": "#/components/schemas/MethodIWUpdate" },
                     { "$ref": "#/components/schemas/MethodDTUpdate" },
                     { "$ref": "#/components/schemas/MethodOTHERUpdate" },
                     { "$ref": "#/components/schemas/MethodSRSUpdate" },
                     { "$ref": "#/components/schemas/MethodDPUpdate" },
-                    { "$ref": "#/components/schemas/MethodWSTUpdate" }
+                    { "$ref": "#/components/schemas/MethodWSTUpdate" },
+                    { "$ref": "#/components/schemas/MethodSLBUpdate" },
+                    { "$ref": "#/components/schemas/MethodSTIUpdate" }
                   ],
                   "discriminator": {
                     "propertyName": "method_type_id",
@@ -8955,17 +9062,20 @@
                       "13": "#/components/schemas/MethodTPUpdate",
                       "14": "#/components/schemas/MethodPTUpdate",
                       "15": "#/components/schemas/MethodESAUpdate",
+                      "16": "#/components/schemas/MethodTRUpdate",
                       "17": "#/components/schemas/MethodADUpdate",
                       "18": "#/components/schemas/MethodROUpdate",
                       "19": "#/components/schemas/MethodINCUpdate",
                       "2": "#/components/schemas/MethodTOTUpdate",
-                      "20": "#/components/schemas/MethodSRUpdate",
+                      "20": "#/components/schemas/MethodDEFUpdate",
                       "21": "#/components/schemas/MethodIWUpdate",
                       "22": "#/components/schemas/MethodDTUpdate",
                       "23": "#/components/schemas/MethodOTHERUpdate",
                       "24": "#/components/schemas/MethodSRSUpdate",
                       "25": "#/components/schemas/MethodDPUpdate",
                       "26": "#/components/schemas/MethodWSTUpdate",
+                      "27": "#/components/schemas/MethodSLBUpdate",
+                      "28": "#/components/schemas/MethodSTIUpdate",
                       "3": "#/components/schemas/MethodRPUpdate",
                       "4": "#/components/schemas/MethodSAUpdate",
                       "5": "#/components/schemas/MethodPZUpdate",
@@ -9488,7 +9598,8 @@
           "created_at",
           "updated_at"
         ],
-        "title": "MethodAD"
+        "title": "MethodAD",
+        "description": "AD"
       },
       "MethodADCreate": {
         "properties": {
@@ -10639,6 +10750,200 @@
         "title": "MethodCPTUpdate",
         "description": "Structure for updating a cone penetration test method instance"
       },
+      "MethodDEF": {
+        "properties": {
+          "method_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Method Id"
+          },
+          "name": { "type": "string", "title": "Name" },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 20,
+            "title": "Method Type Id",
+            "default": 20
+          },
+          "location_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Location Id"
+          },
+          "method_status_id": {
+            "$ref": "#/components/schemas/MethodStatusEnum"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "created_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Created By"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          },
+          "conducted_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Conducted At"
+          },
+          "conducted_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Conducted By"
+          },
+          "files": {
+            "items": { "$ref": "#/components/schemas/File" },
+            "type": "array",
+            "title": "Files",
+            "default": []
+          },
+          "self": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Self"
+          }
+        },
+        "type": "object",
+        "required": [
+          "method_id",
+          "name",
+          "location_id",
+          "method_status_id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "MethodDEF",
+        "description": "DEF"
+      },
+      "MethodDEFCreate": {
+        "properties": {
+          "method_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Method Id"
+          },
+          "name": { "type": "string", "title": "Name", "default": "DEF" },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks"
+          },
+          "method_status_id": {
+            "$ref": "#/components/schemas/MethodStatusEnum",
+            "default": 1
+          },
+          "created_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Created At"
+          },
+          "created_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Created By"
+          },
+          "updated_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Updated At"
+          },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          },
+          "conducted_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Conducted By"
+          },
+          "conducted_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Conducted At"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 20,
+            "title": "Method Type Id",
+            "default": 20
+          }
+        },
+        "type": "object",
+        "title": "MethodDEFCreate"
+      },
+      "MethodDEFUpdate": {
+        "properties": {
+          "method_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Method Id"
+          },
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks"
+          },
+          "method_status_id": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/MethodStatusEnum" },
+              { "type": "null" }
+            ]
+          },
+          "updated_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Updated At"
+          },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          },
+          "conducted_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Conducted By"
+          },
+          "conducted_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Conducted At"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 20,
+            "title": "Method Type Id",
+            "default": 20
+          }
+        },
+        "type": "object",
+        "title": "MethodDEFUpdate"
+      },
       "MethodDP": {
         "properties": {
           "method_id": {
@@ -10704,10 +11009,7 @@
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Self"
           },
-          "type": {
-            "$ref": "#/components/schemas/DPType",
-            "default": "DPSH-A"
-          },
+          "type": { "$ref": "#/components/schemas/DPType", "default": "DPSHA" },
           "predrilling_depth": {
             "type": "number",
             "title": "Predrilling Depth",
@@ -10811,10 +11113,7 @@
             "title": "Method Type Id",
             "default": 25
           },
-          "type": {
-            "$ref": "#/components/schemas/DPType",
-            "default": "DPSH-A"
-          },
+          "type": { "$ref": "#/components/schemas/DPType", "default": "DPSHA" },
           "predrilling_depth": {
             "anyOf": [
               { "type": "number" },
@@ -11702,7 +12001,8 @@
           "created_at",
           "updated_at"
         ],
-        "title": "MethodESA"
+        "title": "MethodESA",
+        "description": "ESA"
       },
       "MethodESACreate": {
         "properties": {
@@ -15205,6 +15505,200 @@
         "type": "object",
         "title": "MethodSAUpdate"
       },
+      "MethodSLB": {
+        "properties": {
+          "method_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Method Id"
+          },
+          "name": { "type": "string", "title": "Name" },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 27,
+            "title": "Method Type Id",
+            "default": 27
+          },
+          "location_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Location Id"
+          },
+          "method_status_id": {
+            "$ref": "#/components/schemas/MethodStatusEnum"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "created_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Created By"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          },
+          "conducted_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Conducted At"
+          },
+          "conducted_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Conducted By"
+          },
+          "files": {
+            "items": { "$ref": "#/components/schemas/File" },
+            "type": "array",
+            "title": "Files",
+            "default": []
+          },
+          "self": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Self"
+          }
+        },
+        "type": "object",
+        "required": [
+          "method_id",
+          "name",
+          "location_id",
+          "method_status_id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "MethodSLB",
+        "description": "SLB"
+      },
+      "MethodSLBCreate": {
+        "properties": {
+          "method_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Method Id"
+          },
+          "name": { "type": "string", "title": "Name", "default": "Slb" },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks"
+          },
+          "method_status_id": {
+            "$ref": "#/components/schemas/MethodStatusEnum",
+            "default": 1
+          },
+          "created_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Created At"
+          },
+          "created_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Created By"
+          },
+          "updated_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Updated At"
+          },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          },
+          "conducted_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Conducted By"
+          },
+          "conducted_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Conducted At"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 27,
+            "title": "Method Type Id",
+            "default": 27
+          }
+        },
+        "type": "object",
+        "title": "MethodSLBCreate"
+      },
+      "MethodSLBUpdate": {
+        "properties": {
+          "method_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Method Id"
+          },
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks"
+          },
+          "method_status_id": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/MethodStatusEnum" },
+              { "type": "null" }
+            ]
+          },
+          "updated_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Updated At"
+          },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          },
+          "conducted_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Conducted By"
+          },
+          "conducted_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Conducted At"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 27,
+            "title": "Method Type Id",
+            "default": 27
+          }
+        },
+        "type": "object",
+        "title": "MethodSLBUpdate"
+      },
       "MethodSPT": {
         "properties": {
           "method_id": {
@@ -15399,145 +15893,6 @@
         "type": "object",
         "title": "MethodSPTUpdate"
       },
-      "MethodSR": {
-        "properties": {
-          "method_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Method Id"
-          },
-          "name": { "type": "string", "title": "Name" },
-          "remarks": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Remarks"
-          },
-          "method_type_id": {
-            "type": "integer",
-            "const": 20,
-            "title": "Method Type Id",
-            "default": 20
-          },
-          "location_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Location Id"
-          },
-          "method_status_id": {
-            "$ref": "#/components/schemas/MethodStatusEnum"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "created_by": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Created By"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          },
-          "updated_by": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Updated By"
-          },
-          "conducted_at": {
-            "anyOf": [
-              { "type": "string", "format": "date-time" },
-              { "type": "null" }
-            ],
-            "title": "Conducted At"
-          },
-          "conducted_by": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Conducted By"
-          },
-          "files": {
-            "items": { "$ref": "#/components/schemas/File" },
-            "type": "array",
-            "title": "Files",
-            "default": []
-          },
-          "self": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
-          }
-        },
-        "type": "object",
-        "required": [
-          "method_id",
-          "name",
-          "location_id",
-          "method_status_id",
-          "created_at",
-          "updated_at"
-        ],
-        "title": "MethodSR",
-        "description": "SR"
-      },
-      "MethodSRCreate": {
-        "properties": {
-          "method_id": {
-            "anyOf": [
-              { "type": "string", "format": "uuid" },
-              { "type": "null" }
-            ],
-            "title": "Method Id"
-          },
-          "name": { "type": "string", "title": "Name", "default": "SR" },
-          "remarks": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Remarks"
-          },
-          "method_status_id": {
-            "$ref": "#/components/schemas/MethodStatusEnum",
-            "default": 1
-          },
-          "created_at": {
-            "anyOf": [
-              { "type": "string", "format": "date-time" },
-              { "type": "null" }
-            ],
-            "title": "Created At"
-          },
-          "created_by": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Created By"
-          },
-          "updated_at": {
-            "anyOf": [
-              { "type": "string", "format": "date-time" },
-              { "type": "null" }
-            ],
-            "title": "Updated At"
-          },
-          "updated_by": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Updated By"
-          },
-          "conducted_by": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Conducted By"
-          },
-          "conducted_at": {
-            "anyOf": [
-              { "type": "string", "format": "date-time" },
-              { "type": "null" }
-            ],
-            "title": "Conducted At"
-          },
-          "method_type_id": {
-            "type": "integer",
-            "const": 20,
-            "title": "Method Type Id",
-            "default": 20
-          }
-        },
-        "type": "object",
-        "title": "MethodSRCreate"
-      },
       "MethodSRS": {
         "properties": {
           "method_id": {
@@ -15716,7 +16071,7 @@
           },
           "sounding_class": {
             "$ref": "#/components/schemas/SoundingClass",
-            "default": "Jb-1"
+            "default": "JB1"
           },
           "serial_number": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
@@ -16174,61 +16529,6 @@
         "type": "object",
         "title": "MethodSRSUpdate"
       },
-      "MethodSRUpdate": {
-        "properties": {
-          "method_id": {
-            "anyOf": [
-              { "type": "string", "format": "uuid" },
-              { "type": "null" }
-            ],
-            "title": "Method Id"
-          },
-          "name": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Name"
-          },
-          "remarks": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Remarks"
-          },
-          "method_status_id": {
-            "anyOf": [
-              { "$ref": "#/components/schemas/MethodStatusEnum" },
-              { "type": "null" }
-            ]
-          },
-          "updated_at": {
-            "anyOf": [
-              { "type": "string", "format": "date-time" },
-              { "type": "null" }
-            ],
-            "title": "Updated At"
-          },
-          "updated_by": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Updated By"
-          },
-          "conducted_by": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Conducted By"
-          },
-          "conducted_at": {
-            "anyOf": [
-              { "type": "string", "format": "date-time" },
-              { "type": "null" }
-            ],
-            "title": "Conducted At"
-          },
-          "method_type_id": {
-            "type": "integer",
-            "const": 20,
-            "title": "Method Type Id",
-            "default": 20
-          }
-        },
-        "type": "object",
-        "title": "MethodSRUpdate"
-      },
       "MethodSS": {
         "properties": {
           "method_id": {
@@ -16624,6 +16924,200 @@
         },
         "type": "object",
         "title": "MethodSSUpdate"
+      },
+      "MethodSTI": {
+        "properties": {
+          "method_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Method Id"
+          },
+          "name": { "type": "string", "title": "Name" },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 28,
+            "title": "Method Type Id",
+            "default": 28
+          },
+          "location_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Location Id"
+          },
+          "method_status_id": {
+            "$ref": "#/components/schemas/MethodStatusEnum"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "created_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Created By"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          },
+          "conducted_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Conducted At"
+          },
+          "conducted_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Conducted By"
+          },
+          "files": {
+            "items": { "$ref": "#/components/schemas/File" },
+            "type": "array",
+            "title": "Files",
+            "default": []
+          },
+          "self": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Self"
+          }
+        },
+        "type": "object",
+        "required": [
+          "method_id",
+          "name",
+          "location_id",
+          "method_status_id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "MethodSTI",
+        "description": "STI"
+      },
+      "MethodSTICreate": {
+        "properties": {
+          "method_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Method Id"
+          },
+          "name": { "type": "string", "title": "Name", "default": "Sti" },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks"
+          },
+          "method_status_id": {
+            "$ref": "#/components/schemas/MethodStatusEnum",
+            "default": 1
+          },
+          "created_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Created At"
+          },
+          "created_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Created By"
+          },
+          "updated_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Updated At"
+          },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          },
+          "conducted_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Conducted By"
+          },
+          "conducted_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Conducted At"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 28,
+            "title": "Method Type Id",
+            "default": 28
+          }
+        },
+        "type": "object",
+        "title": "MethodSTICreate"
+      },
+      "MethodSTIUpdate": {
+        "properties": {
+          "method_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Method Id"
+          },
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks"
+          },
+          "method_status_id": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/MethodStatusEnum" },
+              { "type": "null" }
+            ]
+          },
+          "updated_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Updated At"
+          },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          },
+          "conducted_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Conducted By"
+          },
+          "conducted_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Conducted At"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 28,
+            "title": "Method Type Id",
+            "default": 28
+          }
+        },
+        "type": "object",
+        "title": "MethodSTIUpdate"
       },
       "MethodSVT": {
         "properties": {
@@ -17951,6 +18445,487 @@
         "type": "object",
         "title": "MethodTPUpdate"
       },
+      "MethodTR": {
+        "properties": {
+          "method_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Method Id"
+          },
+          "name": { "type": "string", "title": "Name", "default": "Tr" },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 16,
+            "title": "Method Type Id",
+            "default": 16
+          },
+          "location_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Location Id"
+          },
+          "method_status_id": {
+            "$ref": "#/components/schemas/MethodStatusEnum"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "created_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Created By"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          },
+          "conducted_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Conducted At"
+          },
+          "conducted_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Conducted By"
+          },
+          "files": {
+            "items": { "$ref": "#/components/schemas/File" },
+            "type": "array",
+            "title": "Files",
+            "default": []
+          },
+          "self": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Self"
+          },
+          "predrilling_depth": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Predrilling Depth"
+          },
+          "serial_number": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Serial Number"
+          },
+          "depth_top": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Depth Top"
+          },
+          "depth_base": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Depth Base"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "method_id",
+          "location_id",
+          "method_status_id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "MethodTR",
+        "description": "Pressure sounding / Svensk trycksondering"
+      },
+      "MethodTRCreate": {
+        "properties": {
+          "method_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Method Id"
+          },
+          "name": { "type": "string", "title": "Name" },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks"
+          },
+          "method_status_id": {
+            "$ref": "#/components/schemas/MethodStatusEnum",
+            "default": 1
+          },
+          "created_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Created At"
+          },
+          "created_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Created By"
+          },
+          "updated_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Updated At"
+          },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          },
+          "conducted_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Conducted By"
+          },
+          "conducted_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Conducted At"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 16,
+            "title": "Method Type Id",
+            "default": 16
+          },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
+          },
+          "serial_number": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Serial Number"
+          },
+          "depth_top": {
+            "anyOf": [
+              { "type": "number" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Depth Top"
+          },
+          "depth_base": {
+            "anyOf": [
+              { "type": "number" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Depth Base"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
+          }
+        },
+        "type": "object",
+        "required": ["name"],
+        "title": "MethodTRCreate",
+        "description": "Pressure sounding / Svensk trycksondering"
+      },
+      "MethodTRData": {
+        "properties": {
+          "method_data_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Method Data Id"
+          },
+          "method_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Method Id"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 16,
+            "title": "Method Type Id",
+            "default": 16
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "depth": {
+            "type": "number",
+            "title": "Depth",
+            "description": "Depth (m). SGF code D."
+          },
+          "penetration_rate": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Penetration Rate",
+            "description": "Penetration rate (mm/s)"
+          },
+          "penetration_force": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Penetration Force",
+            "description": "Penetration force (kN)"
+          },
+          "rotation_rate": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Rotation Rate",
+            "description": "Rotation rate (rpm)"
+          },
+          "rod_friction": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Rod Friction",
+            "description": "Rod friction (kN)"
+          },
+          "increased_rotation_rate": {
+            "type": "boolean",
+            "title": "Increased Rotation Rate",
+            "description": "Increased rotation rate"
+          }
+        },
+        "type": "object",
+        "required": [
+          "method_data_id",
+          "method_id",
+          "created_at",
+          "updated_at",
+          "depth"
+        ],
+        "title": "MethodTRData"
+      },
+      "MethodTRDataCreate": {
+        "properties": {
+          "method_data_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Method Data Id"
+          },
+          "method_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Method Id"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 16,
+            "title": "Method Type Id",
+            "default": 16
+          },
+          "created_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Updated At"
+          },
+          "depth": {
+            "anyOf": [{ "type": "number" }, { "type": "string" }],
+            "title": "Depth",
+            "description": "Depth (m)"
+          },
+          "penetration_rate": {
+            "anyOf": [
+              { "type": "number" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Penetration Rate",
+            "description": "Penetration rate (mm/s)"
+          },
+          "penetration_force": {
+            "anyOf": [
+              { "type": "number" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Penetration Force",
+            "description": "Penetration force (kN)"
+          },
+          "rotation_rate": {
+            "anyOf": [
+              { "type": "number" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Rotation Rate",
+            "description": "Rotation rate (rpm)"
+          },
+          "rod_friction": {
+            "anyOf": [
+              { "type": "number" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Rod Friction",
+            "description": "Rod friction (kN)"
+          },
+          "increased_rotation_rate": {
+            "type": "boolean",
+            "title": "Increased Rotation Rate",
+            "description": "Increased rotation rate"
+          }
+        },
+        "type": "object",
+        "required": ["depth"],
+        "title": "MethodTRDataCreate"
+      },
+      "MethodTRDataUpdate": {
+        "properties": {
+          "method_type_id": {
+            "type": "integer",
+            "const": 16,
+            "title": "Method Type Id",
+            "default": 16
+          },
+          "depth": {
+            "anyOf": [
+              { "type": "number" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Depth",
+            "description": "Depth (m). SGF code D."
+          },
+          "penetration_rate": {
+            "anyOf": [
+              { "type": "number" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Penetration Rate",
+            "description": "Penetration rate (mm/s)"
+          },
+          "penetration_force": {
+            "anyOf": [
+              { "type": "number" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Penetration Force",
+            "description": "Penetration force (kN)"
+          },
+          "rotation_rate": {
+            "anyOf": [
+              { "type": "number" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Rotation Rate",
+            "description": "Rotation rate (rpm)"
+          },
+          "rod_friction": {
+            "anyOf": [
+              { "type": "number" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Rod Friction",
+            "description": "Rod friction (kN)"
+          },
+          "increased_rotation_rate": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Increased Rotation Rate",
+            "description": "Increased rotation rate"
+          }
+        },
+        "type": "object",
+        "title": "MethodTRDataUpdate"
+      },
+      "MethodTRUpdate": {
+        "properties": {
+          "method_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Method Id"
+          },
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks"
+          },
+          "method_status_id": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/MethodStatusEnum" },
+              { "type": "null" }
+            ]
+          },
+          "updated_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Updated At"
+          },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          },
+          "conducted_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Conducted By"
+          },
+          "conducted_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Conducted At"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 16,
+            "title": "Method Type Id",
+            "default": 16
+          },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
+          },
+          "serial_number": {
+            "anyOf": [
+              { "type": "number" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Serial Number"
+          }
+        },
+        "type": "object",
+        "title": "MethodTRUpdate"
+      },
       "MethodType": {
         "properties": {
           "method_type_id": { "$ref": "#/components/schemas/MethodTypeEnum" },
@@ -17961,7 +18936,14 @@
           "raw_file_extensions": {
             "items": { "$ref": "#/components/schemas/FileExtension" },
             "type": "array",
-            "title": "Raw File Extensions"
+            "title": "Raw File Extensions",
+            "description": "Deprecated, use 'file_extensions' instead.",
+            "deprecated": true
+          },
+          "file_extensions": {
+            "items": { "$ref": "#/components/schemas/FileExtension" },
+            "type": "array",
+            "title": "File Extensions"
           }
         },
         "type": "object",
@@ -17971,18 +18953,18 @@
           "description",
           "category",
           "sort_order",
-          "raw_file_extensions"
+          "file_extensions"
         ],
         "title": "MethodType"
       },
       "MethodTypeEnum": {
         "type": "integer",
         "enum": [
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21,
-          22, 23, 24, 25, 26
+          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+          21, 22, 23, 24, 25, 26, 27, 28
         ],
         "title": "MethodTypeEnum",
-        "description": "(\nCPT=1,\nTOT=2,\nRP=3,\nSA=4,\nPZ=5,\nSS=6,\nRWS=7,\nRCD=8,\nRS=9,\nSVT=10,\nSPT=11,\nCD=12,\nTP=13,\nPT=14,\nESA=15,\nAD=17,\nRO=18,\nINC=19,\nSR=20,\nIW=21,\nDT=22,\nOTHER=23,\nSRS=24,\nDP=25,\nWST=26,\n)"
+        "description": "(\nCPT=1,\nTOT=2,\nRP=3,\nSA=4,\nPZ=5,\nSS=6,\nRWS=7,\nRCD=8,\nRS=9,\nSVT=10,\nSPT=11,\nCD=12,\nTP=13,\nPT=14,\nESA=15,\nTR=16,\nAD=17,\nRO=18,\nINC=19,\nDEF=20,\nIW=21,\nDT=22,\nOTHER=23,\nSRS=24,\nDP=25,\nWST=26,\nSLB = 27,\nSTI = 28,\n)"
       },
       "MethodTypeEnumStr": {
         "type": "string",
@@ -18002,6 +18984,7 @@
           "tp",
           "pt",
           "esa",
+          "tr",
           "ad",
           "ro",
           "inc",
@@ -18011,7 +18994,9 @@
           "other",
           "srs",
           "dp",
-          "wst"
+          "wst",
+          "slb",
+          "sti"
         ],
         "title": "MethodTypeEnumStr"
       },
@@ -19869,8 +20854,8 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "ee5d5c98-b08e-401b-a4f2-7d5b8e65467a",
-          "project_id": "64de2f57-7ebf-4ed3-aa37-ab65fef6e157",
+          "organization_id": "fff31299-1f3d-48e3-ad70-8c9c37370900",
+          "project_id": "e66a377d-3816-4cf8-ad79-d954a3ba632d",
           "srid": 3857
         }
       },
@@ -20045,8 +21030,8 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "ee5d5c98-b08e-401b-a4f2-7d5b8e65467a",
-          "project_id": "64de2f57-7ebf-4ed3-aa37-ab65fef6e157",
+          "organization_id": "fff31299-1f3d-48e3-ad70-8c9c37370900",
+          "project_id": "e66a377d-3816-4cf8-ad79-d954a3ba632d",
           "srid": 3857
         }
       },
@@ -20174,8 +21159,8 @@
           "external_id": "2020193232",
           "height_reference": "NN2000",
           "name": "Project Name",
-          "organization_id": "ee5d5c98-b08e-401b-a4f2-7d5b8e65467a",
-          "project_id": "64de2f57-7ebf-4ed3-aa37-ab65fef6e157",
+          "organization_id": "fff31299-1f3d-48e3-ad70-8c9c37370900",
+          "project_id": "e66a377d-3816-4cf8-ad79-d954a3ba632d",
           "srid": 3857
         }
       },
@@ -20367,7 +21352,7 @@
       },
       "SoundingClass": {
         "type": "string",
-        "enum": ["Jb-1", "Jb-2", "Jb-3", "Jb-tot"],
+        "enum": ["JB1", "JB2", "JB3", "JBTOT"],
         "title": "SoundingClass",
         "description": "Soil-Rock-Sounding (Swedish Jord-bergsondering) classes\n(\nJB1 = Jb-1,\nJB2 = Jb-2,\nJB3 = Jb-3,\nJBTOT = Jb-tot,\n)"
       },

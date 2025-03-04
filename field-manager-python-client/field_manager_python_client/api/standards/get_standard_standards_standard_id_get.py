@@ -6,6 +6,7 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
+from ...models.standard import Standard
 from ...models.standard_type import StandardType
 from ...types import Response
 
@@ -23,9 +24,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, StandardType]]:
+) -> Optional[Union[HTTPValidationError, Standard]]:
     if response.status_code == 200:
-        response_200 = StandardType(response.json())
+        response_200 = Standard.from_dict(response.json())
 
         return response_200
     if response.status_code == 422:
@@ -40,7 +41,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, StandardType]]:
+) -> Response[Union[HTTPValidationError, Standard]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -53,7 +54,7 @@ def sync_detailed(
     standard_id: StandardType,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Response[Union[HTTPValidationError, StandardType]]:
+) -> Response[Union[HTTPValidationError, Standard]]:
     """Get Standard
 
     Args:
@@ -64,7 +65,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, StandardType]]
+        Response[Union[HTTPValidationError, Standard]]
     """
 
     kwargs = _get_kwargs(
@@ -82,7 +83,7 @@ def sync(
     standard_id: StandardType,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Optional[Union[HTTPValidationError, StandardType]]:
+) -> Optional[Union[HTTPValidationError, Standard]]:
     """Get Standard
 
     Args:
@@ -93,7 +94,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, StandardType]
+        Union[HTTPValidationError, Standard]
     """
 
     return sync_detailed(
@@ -106,7 +107,7 @@ async def asyncio_detailed(
     standard_id: StandardType,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Response[Union[HTTPValidationError, StandardType]]:
+) -> Response[Union[HTTPValidationError, Standard]]:
     """Get Standard
 
     Args:
@@ -117,7 +118,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, StandardType]]
+        Response[Union[HTTPValidationError, Standard]]
     """
 
     kwargs = _get_kwargs(
@@ -133,7 +134,7 @@ async def asyncio(
     standard_id: StandardType,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Optional[Union[HTTPValidationError, StandardType]]:
+) -> Optional[Union[HTTPValidationError, Standard]]:
     """Get Standard
 
     Args:
@@ -144,7 +145,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, StandardType]
+        Union[HTTPValidationError, Standard]
     """
 
     return (

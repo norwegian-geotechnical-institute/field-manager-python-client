@@ -26,6 +26,8 @@ from ...models.method_svt_data import MethodSVTData
 from ...models.method_svt_data_update import MethodSVTDataUpdate
 from ...models.method_tot_data import MethodTOTData
 from ...models.method_tot_data_update import MethodTOTDataUpdate
+from ...models.method_tr_data import MethodTRData
+from ...models.method_tr_data_update import MethodTRDataUpdate
 from ...models.method_wst_data import MethodWSTData
 from ...models.method_wst_data_update import MethodWSTDataUpdate
 from ...types import Response
@@ -47,6 +49,7 @@ def _get_kwargs(
         "MethodSSDataUpdate",
         "MethodSVTDataUpdate",
         "MethodTOTDataUpdate",
+        "MethodTRDataUpdate",
         "MethodWSTDataUpdate",
     ],
 ) -> dict[str, Any]:
@@ -76,6 +79,8 @@ def _get_kwargs(
         _body = body.to_dict()
     elif isinstance(body, MethodTOTDataUpdate):
         _body = body.to_dict()
+    elif isinstance(body, MethodTRDataUpdate):
+        _body = body.to_dict()
     else:
         _body = body.to_dict()
 
@@ -102,6 +107,7 @@ def _parse_response(
             "MethodSSData",
             "MethodSVTData",
             "MethodTOTData",
+            "MethodTRData",
             "MethodWSTData",
         ],
     ]
@@ -121,6 +127,7 @@ def _parse_response(
             "MethodSSData",
             "MethodSVTData",
             "MethodTOTData",
+            "MethodTRData",
             "MethodWSTData",
         ]:
             try:
@@ -203,11 +210,19 @@ def _parse_response(
                 return response_200_type_9
             except:  # noqa: E722
                 pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_10 = MethodTRData.from_dict(data)
+
+                return response_200_type_10
+            except:  # noqa: E722
+                pass
             if not isinstance(data, dict):
                 raise TypeError()
-            response_200_type_10 = MethodWSTData.from_dict(data)
+            response_200_type_11 = MethodWSTData.from_dict(data)
 
-            return response_200_type_10
+            return response_200_type_11
 
         response_200 = _parse_response_200(response.json())
 
@@ -238,6 +253,7 @@ def _build_response(
             "MethodSSData",
             "MethodSVTData",
             "MethodTOTData",
+            "MethodTRData",
             "MethodWSTData",
         ],
     ]
@@ -267,6 +283,7 @@ def sync_detailed(
         "MethodSSDataUpdate",
         "MethodSVTDataUpdate",
         "MethodTOTDataUpdate",
+        "MethodTRDataUpdate",
         "MethodWSTDataUpdate",
     ],
 ) -> Response[
@@ -283,6 +300,7 @@ def sync_detailed(
             "MethodSSData",
             "MethodSVTData",
             "MethodTOTData",
+            "MethodTRData",
             "MethodWSTData",
         ],
     ]
@@ -298,14 +316,15 @@ def sync_detailed(
         method_data_id (UUID):
         body (Union['MethodCPTDataUpdate', 'MethodDTDataUpdate', 'MethodPZDataUpdate',
             'MethodRCDDataUpdate', 'MethodRPDataUpdate', 'MethodSRSDataUpdate', 'MethodSSDataUpdate',
-            'MethodSVTDataUpdate', 'MethodTOTDataUpdate', 'MethodWSTDataUpdate']):
+            'MethodSVTDataUpdate', 'MethodTOTDataUpdate', 'MethodTRDataUpdate',
+            'MethodWSTDataUpdate']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]
+        Response[Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodTRData', 'MethodWSTData']]]
     """
 
     kwargs = _get_kwargs(
@@ -340,6 +359,7 @@ def sync(
         "MethodSSDataUpdate",
         "MethodSVTDataUpdate",
         "MethodTOTDataUpdate",
+        "MethodTRDataUpdate",
         "MethodWSTDataUpdate",
     ],
 ) -> Optional[
@@ -356,6 +376,7 @@ def sync(
             "MethodSSData",
             "MethodSVTData",
             "MethodTOTData",
+            "MethodTRData",
             "MethodWSTData",
         ],
     ]
@@ -371,14 +392,15 @@ def sync(
         method_data_id (UUID):
         body (Union['MethodCPTDataUpdate', 'MethodDTDataUpdate', 'MethodPZDataUpdate',
             'MethodRCDDataUpdate', 'MethodRPDataUpdate', 'MethodSRSDataUpdate', 'MethodSSDataUpdate',
-            'MethodSVTDataUpdate', 'MethodTOTDataUpdate', 'MethodWSTDataUpdate']):
+            'MethodSVTDataUpdate', 'MethodTOTDataUpdate', 'MethodTRDataUpdate',
+            'MethodWSTDataUpdate']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]
+        Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodTRData', 'MethodWSTData']]
     """
 
     return sync_detailed(
@@ -408,6 +430,7 @@ async def asyncio_detailed(
         "MethodSSDataUpdate",
         "MethodSVTDataUpdate",
         "MethodTOTDataUpdate",
+        "MethodTRDataUpdate",
         "MethodWSTDataUpdate",
     ],
 ) -> Response[
@@ -424,6 +447,7 @@ async def asyncio_detailed(
             "MethodSSData",
             "MethodSVTData",
             "MethodTOTData",
+            "MethodTRData",
             "MethodWSTData",
         ],
     ]
@@ -439,14 +463,15 @@ async def asyncio_detailed(
         method_data_id (UUID):
         body (Union['MethodCPTDataUpdate', 'MethodDTDataUpdate', 'MethodPZDataUpdate',
             'MethodRCDDataUpdate', 'MethodRPDataUpdate', 'MethodSRSDataUpdate', 'MethodSSDataUpdate',
-            'MethodSVTDataUpdate', 'MethodTOTDataUpdate', 'MethodWSTDataUpdate']):
+            'MethodSVTDataUpdate', 'MethodTOTDataUpdate', 'MethodTRDataUpdate',
+            'MethodWSTDataUpdate']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]
+        Response[Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodTRData', 'MethodWSTData']]]
     """
 
     kwargs = _get_kwargs(
@@ -479,6 +504,7 @@ async def asyncio(
         "MethodSSDataUpdate",
         "MethodSVTDataUpdate",
         "MethodTOTDataUpdate",
+        "MethodTRDataUpdate",
         "MethodWSTDataUpdate",
     ],
 ) -> Optional[
@@ -495,6 +521,7 @@ async def asyncio(
             "MethodSSData",
             "MethodSVTData",
             "MethodTOTData",
+            "MethodTRData",
             "MethodWSTData",
         ],
     ]
@@ -510,14 +537,15 @@ async def asyncio(
         method_data_id (UUID):
         body (Union['MethodCPTDataUpdate', 'MethodDTDataUpdate', 'MethodPZDataUpdate',
             'MethodRCDDataUpdate', 'MethodRPDataUpdate', 'MethodSRSDataUpdate', 'MethodSSDataUpdate',
-            'MethodSVTDataUpdate', 'MethodTOTDataUpdate', 'MethodWSTDataUpdate']):
+            'MethodSVTDataUpdate', 'MethodTOTDataUpdate', 'MethodTRDataUpdate',
+            'MethodWSTDataUpdate']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]
+        Union[HTTPValidationError, Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodTRData', 'MethodWSTData']]
     """
 
     return (

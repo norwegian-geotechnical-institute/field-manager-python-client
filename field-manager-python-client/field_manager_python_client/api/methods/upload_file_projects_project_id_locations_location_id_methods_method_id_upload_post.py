@@ -13,6 +13,7 @@ from ...models.http_validation_error import HTTPValidationError
 from ...models.method_ad import MethodAD
 from ...models.method_cd import MethodCD
 from ...models.method_cpt import MethodCPT
+from ...models.method_def import MethodDEF
 from ...models.method_dp import MethodDP
 from ...models.method_dt import MethodDT
 from ...models.method_esa import MethodESA
@@ -27,13 +28,15 @@ from ...models.method_rp import MethodRP
 from ...models.method_rs import MethodRS
 from ...models.method_rws import MethodRWS
 from ...models.method_sa import MethodSA
+from ...models.method_slb import MethodSLB
 from ...models.method_spt import MethodSPT
-from ...models.method_sr import MethodSR
 from ...models.method_srs import MethodSRS
 from ...models.method_ss import MethodSS
+from ...models.method_sti import MethodSTI
 from ...models.method_svt import MethodSVT
 from ...models.method_tot import MethodTOT
 from ...models.method_tp import MethodTP
+from ...models.method_tr import MethodTR
 from ...models.method_wst import MethodWST
 from ...types import Response
 
@@ -69,6 +72,7 @@ def _parse_response(
             "MethodAD",
             "MethodCD",
             "MethodCPT",
+            "MethodDEF",
             "MethodDP",
             "MethodDT",
             "MethodESA",
@@ -83,13 +87,15 @@ def _parse_response(
             "MethodRS",
             "MethodRWS",
             "MethodSA",
+            "MethodSLB",
             "MethodSPT",
-            "MethodSR",
             "MethodSRS",
             "MethodSS",
+            "MethodSTI",
             "MethodSVT",
             "MethodTOT",
             "MethodTP",
+            "MethodTR",
             "MethodWST",
             None,
         ],
@@ -103,6 +109,7 @@ def _parse_response(
             "MethodAD",
             "MethodCD",
             "MethodCPT",
+            "MethodDEF",
             "MethodDP",
             "MethodDT",
             "MethodESA",
@@ -117,13 +124,15 @@ def _parse_response(
             "MethodRS",
             "MethodRWS",
             "MethodSA",
+            "MethodSLB",
             "MethodSPT",
-            "MethodSR",
             "MethodSRS",
             "MethodSS",
+            "MethodSTI",
             "MethodSVT",
             "MethodTOT",
             "MethodTP",
+            "MethodTR",
             "MethodWST",
             None,
         ]:
@@ -252,7 +261,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_0_type_15 = MethodAD.from_dict(data)
+                response_201_type_0_type_15 = MethodTR.from_dict(data)
 
                 return response_201_type_0_type_15
             except:  # noqa: E722
@@ -260,7 +269,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_0_type_16 = MethodRO.from_dict(data)
+                response_201_type_0_type_16 = MethodAD.from_dict(data)
 
                 return response_201_type_0_type_16
             except:  # noqa: E722
@@ -268,7 +277,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_0_type_17 = MethodINC.from_dict(data)
+                response_201_type_0_type_17 = MethodRO.from_dict(data)
 
                 return response_201_type_0_type_17
             except:  # noqa: E722
@@ -276,7 +285,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_0_type_18 = MethodSR.from_dict(data)
+                response_201_type_0_type_18 = MethodINC.from_dict(data)
 
                 return response_201_type_0_type_18
             except:  # noqa: E722
@@ -284,7 +293,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_0_type_19 = MethodIW.from_dict(data)
+                response_201_type_0_type_19 = MethodDEF.from_dict(data)
 
                 return response_201_type_0_type_19
             except:  # noqa: E722
@@ -292,7 +301,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_0_type_20 = MethodDT.from_dict(data)
+                response_201_type_0_type_20 = MethodIW.from_dict(data)
 
                 return response_201_type_0_type_20
             except:  # noqa: E722
@@ -300,7 +309,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_0_type_21 = MethodOTHER.from_dict(data)
+                response_201_type_0_type_21 = MethodDT.from_dict(data)
 
                 return response_201_type_0_type_21
             except:  # noqa: E722
@@ -308,7 +317,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_0_type_22 = MethodSRS.from_dict(data)
+                response_201_type_0_type_22 = MethodOTHER.from_dict(data)
 
                 return response_201_type_0_type_22
             except:  # noqa: E722
@@ -316,7 +325,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_0_type_23 = MethodDP.from_dict(data)
+                response_201_type_0_type_23 = MethodSRS.from_dict(data)
 
                 return response_201_type_0_type_23
             except:  # noqa: E722
@@ -324,9 +333,33 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_0_type_24 = MethodWST.from_dict(data)
+                response_201_type_0_type_24 = MethodDP.from_dict(data)
 
                 return response_201_type_0_type_24
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_201_type_0_type_25 = MethodWST.from_dict(data)
+
+                return response_201_type_0_type_25
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_201_type_0_type_26 = MethodSLB.from_dict(data)
+
+                return response_201_type_0_type_26
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_201_type_0_type_27 = MethodSTI.from_dict(data)
+
+                return response_201_type_0_type_27
             except:  # noqa: E722
                 pass
             return cast(
@@ -334,6 +367,7 @@ def _parse_response(
                     "MethodAD",
                     "MethodCD",
                     "MethodCPT",
+                    "MethodDEF",
                     "MethodDP",
                     "MethodDT",
                     "MethodESA",
@@ -348,13 +382,15 @@ def _parse_response(
                     "MethodRS",
                     "MethodRWS",
                     "MethodSA",
+                    "MethodSLB",
                     "MethodSPT",
-                    "MethodSR",
                     "MethodSRS",
                     "MethodSS",
+                    "MethodSTI",
                     "MethodSVT",
                     "MethodTOT",
                     "MethodTP",
+                    "MethodTR",
                     "MethodWST",
                     None,
                 ],
@@ -383,6 +419,7 @@ def _build_response(
             "MethodAD",
             "MethodCD",
             "MethodCPT",
+            "MethodDEF",
             "MethodDP",
             "MethodDT",
             "MethodESA",
@@ -397,13 +434,15 @@ def _build_response(
             "MethodRS",
             "MethodRWS",
             "MethodSA",
+            "MethodSLB",
             "MethodSPT",
-            "MethodSR",
             "MethodSRS",
             "MethodSS",
+            "MethodSTI",
             "MethodSVT",
             "MethodTOT",
             "MethodTP",
+            "MethodTR",
             "MethodWST",
             None,
         ],
@@ -431,6 +470,7 @@ def sync_detailed(
             "MethodAD",
             "MethodCD",
             "MethodCPT",
+            "MethodDEF",
             "MethodDP",
             "MethodDT",
             "MethodESA",
@@ -445,13 +485,15 @@ def sync_detailed(
             "MethodRS",
             "MethodRWS",
             "MethodSA",
+            "MethodSLB",
             "MethodSPT",
-            "MethodSR",
             "MethodSRS",
             "MethodSS",
+            "MethodSTI",
             "MethodSVT",
             "MethodTOT",
             "MethodTP",
+            "MethodTR",
             "MethodWST",
             None,
         ],
@@ -479,7 +521,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST', None]]]
+        Response[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDEF', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSLB', 'MethodSPT', 'MethodSRS', 'MethodSS', 'MethodSTI', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodTR', 'MethodWST', None]]]
     """
 
     kwargs = _get_kwargs(
@@ -510,6 +552,7 @@ def sync(
             "MethodAD",
             "MethodCD",
             "MethodCPT",
+            "MethodDEF",
             "MethodDP",
             "MethodDT",
             "MethodESA",
@@ -524,13 +567,15 @@ def sync(
             "MethodRS",
             "MethodRWS",
             "MethodSA",
+            "MethodSLB",
             "MethodSPT",
-            "MethodSR",
             "MethodSRS",
             "MethodSS",
+            "MethodSTI",
             "MethodSVT",
             "MethodTOT",
             "MethodTP",
+            "MethodTR",
             "MethodWST",
             None,
         ],
@@ -558,7 +603,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST', None]]
+        Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDEF', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSLB', 'MethodSPT', 'MethodSRS', 'MethodSS', 'MethodSTI', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodTR', 'MethodWST', None]]
     """
 
     return sync_detailed(
@@ -584,6 +629,7 @@ async def asyncio_detailed(
             "MethodAD",
             "MethodCD",
             "MethodCPT",
+            "MethodDEF",
             "MethodDP",
             "MethodDT",
             "MethodESA",
@@ -598,13 +644,15 @@ async def asyncio_detailed(
             "MethodRS",
             "MethodRWS",
             "MethodSA",
+            "MethodSLB",
             "MethodSPT",
-            "MethodSR",
             "MethodSRS",
             "MethodSS",
+            "MethodSTI",
             "MethodSVT",
             "MethodTOT",
             "MethodTP",
+            "MethodTR",
             "MethodWST",
             None,
         ],
@@ -632,7 +680,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST', None]]]
+        Response[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDEF', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSLB', 'MethodSPT', 'MethodSRS', 'MethodSS', 'MethodSTI', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodTR', 'MethodWST', None]]]
     """
 
     kwargs = _get_kwargs(
@@ -661,6 +709,7 @@ async def asyncio(
             "MethodAD",
             "MethodCD",
             "MethodCPT",
+            "MethodDEF",
             "MethodDP",
             "MethodDT",
             "MethodESA",
@@ -675,13 +724,15 @@ async def asyncio(
             "MethodRS",
             "MethodRWS",
             "MethodSA",
+            "MethodSLB",
             "MethodSPT",
-            "MethodSR",
             "MethodSRS",
             "MethodSS",
+            "MethodSTI",
             "MethodSVT",
             "MethodTOT",
             "MethodTP",
+            "MethodTR",
             "MethodWST",
             None,
         ],
@@ -709,7 +760,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST', None]]
+        Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDEF', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSLB', 'MethodSPT', 'MethodSRS', 'MethodSS', 'MethodSTI', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodTR', 'MethodWST', None]]
     """
 
     return (

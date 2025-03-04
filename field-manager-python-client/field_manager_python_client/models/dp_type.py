@@ -5,8 +5,8 @@ class DPType(str, Enum):
     DPH = "DPH"
     DPL = "DPL"
     DPM = "DPM"
-    DPSH_A = "DPSH-A"
-    DPSH_B = "DPSH-B"
+    DPSHA = "DPSHA"
+    DPSHB = "DPSHB"
 
     def __str__(self) -> str:
         return str(self.value)
