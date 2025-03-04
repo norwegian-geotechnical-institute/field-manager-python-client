@@ -9,15 +9,15 @@ from dateutil.parser import isoparse
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="MethodSRCreate")
+T = TypeVar("T", bound="MethodSLBCreate")
 
 
 @_attrs_define
-class MethodSRCreate:
+class MethodSLBCreate:
     """
     Attributes:
         method_id (Union[None, UUID, Unset]):
-        name (Union[Unset, str]):  Default: 'SR'.
+        name (Union[Unset, str]):  Default: 'Slb'.
         remarks (Union[None, Unset, str]):
         method_status_id (Union[Unset, MethodStatusEnum]): (
             PLANNED=1,
@@ -32,11 +32,11 @@ class MethodSRCreate:
         updated_by (Union[None, Unset, str]):
         conducted_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Literal[20], Unset]):  Default: 20.
+        method_type_id (Union[Literal[27], Unset]):  Default: 27.
     """
 
     method_id: Union[None, UUID, Unset] = UNSET
-    name: Union[Unset, str] = "SR"
+    name: Union[Unset, str] = "Slb"
     remarks: Union[None, Unset, str] = UNSET
     method_status_id: Union[Unset, MethodStatusEnum] = UNSET
     created_at: Union[None, Unset, datetime.datetime] = UNSET
@@ -45,7 +45,7 @@ class MethodSRCreate:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Literal[20], Unset] = 20
+    method_type_id: Union[Literal[27], Unset] = 27
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -258,11 +258,11 @@ class MethodSRCreate:
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        method_type_id = cast(Union[Literal[20], Unset], d.pop("method_type_id", UNSET))
-        if method_type_id != 20 and not isinstance(method_type_id, Unset):
-            raise ValueError(f"method_type_id must match const 20, got '{method_type_id}'")
+        method_type_id = cast(Union[Literal[27], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 27 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 27, got '{method_type_id}'")
 
-        method_sr_create = cls(
+        method_slb_create = cls(
             method_id=method_id,
             name=name,
             remarks=remarks,
@@ -276,8 +276,8 @@ class MethodSRCreate:
             method_type_id=method_type_id,
         )
 
-        method_sr_create.additional_properties = d
-        return method_sr_create
+        method_slb_create.additional_properties = d
+        return method_slb_create
 
     @property
     def additional_keys(self) -> list[str]:

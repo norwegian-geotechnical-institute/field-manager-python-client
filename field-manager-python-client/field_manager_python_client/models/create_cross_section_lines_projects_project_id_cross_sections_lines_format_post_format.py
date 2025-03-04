@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class GetCrossSectionLineProjectsProjectIdCrossSectionsCrossSectionIdLineFormatGetFormat(str, Enum):
+class CreateCrossSectionLinesProjectsProjectIdCrossSectionsLinesFormatPostFormat(str, Enum):
     DXF = "dxf"
     SHP = "shp"
 

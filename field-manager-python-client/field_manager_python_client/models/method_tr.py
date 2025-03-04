@@ -13,16 +13,15 @@ if TYPE_CHECKING:
     from ..models.file import File
 
 
-T = TypeVar("T", bound="MethodESA")
+T = TypeVar("T", bound="MethodTR")
 
 
 @_attrs_define
-class MethodESA:
-    """ESA
+class MethodTR:
+    """Pressure sounding / Svensk trycksondering
 
     Attributes:
         method_id (UUID):
-        name (str):
         location_id (UUID):
         method_status_id (MethodStatusEnum): (
             PLANNED=1,
@@ -33,36 +32,45 @@ class MethodESA:
             )
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
+        name (Union[Unset, str]):  Default: 'Tr'.
         remarks (Union[None, Unset, str]):
-        method_type_id (Union[Literal[15], Unset]):  Default: 15.
+        method_type_id (Union[Literal[16], Unset]):  Default: 16.
         created_by (Union[None, Unset, str]):
         updated_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
         conducted_by (Union[None, Unset, str]):
         files (Union[Unset, list['File']]):
         self_ (Union[None, Unset, str]):
+        predrilling_depth (Union[None, Unset, float]):
+        serial_number (Union[None, Unset, str]):
+        depth_top (Union[None, Unset, float]):
+        depth_base (Union[None, Unset, float]):
+        stopcode (Union[None, Unset, int]):
     """
 
     method_id: UUID
-    name: str
     location_id: UUID
     method_status_id: MethodStatusEnum
     created_at: datetime.datetime
     updated_at: datetime.datetime
+    name: Union[Unset, str] = "Tr"
     remarks: Union[None, Unset, str] = UNSET
-    method_type_id: Union[Literal[15], Unset] = 15
+    method_type_id: Union[Literal[16], Unset] = 16
     created_by: Union[None, Unset, str] = UNSET
     updated_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
     files: Union[Unset, list["File"]] = UNSET
     self_: Union[None, Unset, str] = UNSET
+    predrilling_depth: Union[None, Unset, float] = UNSET
+    serial_number: Union[None, Unset, str] = UNSET
+    depth_top: Union[None, Unset, float] = UNSET
+    depth_base: Union[None, Unset, float] = UNSET
+    stopcode: Union[None, Unset, int] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         method_id = str(self.method_id)
-
-        name = self.name
 
         location_id = str(self.location_id)
 
@@ -71,6 +79,8 @@ class MethodESA:
         created_at = self.created_at.isoformat()
 
         updated_at = self.updated_at.isoformat()
+
+        name = self.name
 
         remarks: Union[None, Unset, str]
         if isinstance(self.remarks, Unset):
@@ -119,18 +129,49 @@ class MethodESA:
         else:
             self_ = self.self_
 
+        predrilling_depth: Union[None, Unset, float]
+        if isinstance(self.predrilling_depth, Unset):
+            predrilling_depth = UNSET
+        else:
+            predrilling_depth = self.predrilling_depth
+
+        serial_number: Union[None, Unset, str]
+        if isinstance(self.serial_number, Unset):
+            serial_number = UNSET
+        else:
+            serial_number = self.serial_number
+
+        depth_top: Union[None, Unset, float]
+        if isinstance(self.depth_top, Unset):
+            depth_top = UNSET
+        else:
+            depth_top = self.depth_top
+
+        depth_base: Union[None, Unset, float]
+        if isinstance(self.depth_base, Unset):
+            depth_base = UNSET
+        else:
+            depth_base = self.depth_base
+
+        stopcode: Union[None, Unset, int]
+        if isinstance(self.stopcode, Unset):
+            stopcode = UNSET
+        else:
+            stopcode = self.stopcode
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "method_id": method_id,
-                "name": name,
                 "location_id": location_id,
                 "method_status_id": method_status_id,
                 "created_at": created_at,
                 "updated_at": updated_at,
             }
         )
+        if name is not UNSET:
+            field_dict["name"] = name
         if remarks is not UNSET:
             field_dict["remarks"] = remarks
         if method_type_id is not UNSET:
@@ -147,6 +188,16 @@ class MethodESA:
             field_dict["files"] = files
         if self_ is not UNSET:
             field_dict["self"] = self_
+        if predrilling_depth is not UNSET:
+            field_dict["predrilling_depth"] = predrilling_depth
+        if serial_number is not UNSET:
+            field_dict["serial_number"] = serial_number
+        if depth_top is not UNSET:
+            field_dict["depth_top"] = depth_top
+        if depth_base is not UNSET:
+            field_dict["depth_base"] = depth_base
+        if stopcode is not UNSET:
+            field_dict["stopcode"] = stopcode
 
         return field_dict
 
@@ -157,8 +208,6 @@ class MethodESA:
         d = src_dict.copy()
         method_id = UUID(d.pop("method_id"))
 
-        name = d.pop("name")
-
         location_id = UUID(d.pop("location_id"))
 
         method_status_id = MethodStatusEnum(d.pop("method_status_id"))
@@ -166,6 +215,8 @@ class MethodESA:
         created_at = isoparse(d.pop("created_at"))
 
         updated_at = isoparse(d.pop("updated_at"))
+
+        name = d.pop("name", UNSET)
 
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -176,9 +227,9 @@ class MethodESA:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-        method_type_id = cast(Union[Literal[15], Unset], d.pop("method_type_id", UNSET))
-        if method_type_id != 15 and not isinstance(method_type_id, Unset):
-            raise ValueError(f"method_type_id must match const 15, got '{method_type_id}'")
+        method_type_id = cast(Union[Literal[16], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 16 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 16, got '{method_type_id}'")
 
         def _parse_created_by(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -240,13 +291,58 @@ class MethodESA:
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
-        method_esa = cls(
+        def _parse_predrilling_depth(data: object) -> Union[None, Unset, float]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, float], data)
+
+        predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
+
+        def _parse_serial_number(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        serial_number = _parse_serial_number(d.pop("serial_number", UNSET))
+
+        def _parse_depth_top(data: object) -> Union[None, Unset, float]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, float], data)
+
+        depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
+
+        def _parse_depth_base(data: object) -> Union[None, Unset, float]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, float], data)
+
+        depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
+
+        def _parse_stopcode(data: object) -> Union[None, Unset, int]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, int], data)
+
+        stopcode = _parse_stopcode(d.pop("stopcode", UNSET))
+
+        method_tr = cls(
             method_id=method_id,
-            name=name,
             location_id=location_id,
             method_status_id=method_status_id,
             created_at=created_at,
             updated_at=updated_at,
+            name=name,
             remarks=remarks,
             method_type_id=method_type_id,
             created_by=created_by,
@@ -255,10 +351,15 @@ class MethodESA:
             conducted_by=conducted_by,
             files=files,
             self_=self_,
+            predrilling_depth=predrilling_depth,
+            serial_number=serial_number,
+            depth_top=depth_top,
+            depth_base=depth_base,
+            stopcode=stopcode,
         )
 
-        method_esa.additional_properties = d
-        return method_esa
+        method_tr.additional_properties = d
+        return method_tr
 
     @property
     def additional_keys(self) -> list[str]:

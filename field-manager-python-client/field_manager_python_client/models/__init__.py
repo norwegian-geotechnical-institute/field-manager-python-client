@@ -27,6 +27,9 @@ from .comment import Comment
 from .comment_create import CommentCreate
 from .comment_update import CommentUpdate
 from .cpt_options import CPTOptions
+from .create_cross_section_lines_projects_project_id_cross_sections_lines_format_post_format import (
+    CreateCrossSectionLinesProjectsProjectIdCrossSectionsLinesFormatPostFormat,
+)
 from .cross_section import CrossSection
 from .cross_section_create import CrossSectionCreate
 from .cross_section_update import CrossSectionUpdate
@@ -40,9 +43,6 @@ from .file_extension import FileExtension
 from .file_type import FileType
 from .file_update import FileUpdate
 from .fm_plot_options import FMPlotOptions
-from .get_cross_section_line_projects_project_id_cross_sections_cross_section_id_line_format_get_format import (
-    GetCrossSectionLineProjectsProjectIdCrossSectionsCrossSectionIdLineFormatGetFormat,
-)
 from .get_cross_section_plot_projects_project_id_cross_sections_cross_section_id_format_get_format import (
     GetCrossSectionPlotProjectsProjectIdCrossSectionsCrossSectionIdFormatGetFormat,
 )
@@ -82,6 +82,9 @@ from .method_cpt_data import MethodCPTData
 from .method_cpt_data_create import MethodCPTDataCreate
 from .method_cpt_data_update import MethodCPTDataUpdate
 from .method_cpt_update import MethodCPTUpdate
+from .method_def import MethodDEF
+from .method_def_create import MethodDEFCreate
+from .method_def_update import MethodDEFUpdate
 from .method_dp import MethodDP
 from .method_dp_create import MethodDPCreate
 from .method_dp_data import MethodDPData
@@ -141,12 +144,12 @@ from .method_rws_update import MethodRWSUpdate
 from .method_sa import MethodSA
 from .method_sa_create import MethodSACreate
 from .method_sa_update import MethodSAUpdate
+from .method_slb import MethodSLB
+from .method_slb_create import MethodSLBCreate
+from .method_slb_update import MethodSLBUpdate
 from .method_spt import MethodSPT
 from .method_spt_create import MethodSPTCreate
 from .method_spt_update import MethodSPTUpdate
-from .method_sr import MethodSR
-from .method_sr_create import MethodSRCreate
-from .method_sr_update import MethodSRUpdate
 from .method_srs import MethodSRS
 from .method_srs_create import MethodSRSCreate
 from .method_srs_data import MethodSRSData
@@ -160,6 +163,9 @@ from .method_ss_data_create import MethodSSDataCreate
 from .method_ss_data_update import MethodSSDataUpdate
 from .method_ss_update import MethodSSUpdate
 from .method_status_enum import MethodStatusEnum
+from .method_sti import MethodSTI
+from .method_sti_create import MethodSTICreate
+from .method_sti_update import MethodSTIUpdate
 from .method_summary import MethodSummary
 from .method_svt import MethodSVT
 from .method_svt_create import MethodSVTCreate
@@ -176,6 +182,12 @@ from .method_tot_update import MethodTOTUpdate
 from .method_tp import MethodTP
 from .method_tp_create import MethodTPCreate
 from .method_tp_update import MethodTPUpdate
+from .method_tr import MethodTR
+from .method_tr_create import MethodTRCreate
+from .method_tr_data import MethodTRData
+from .method_tr_data_create import MethodTRDataCreate
+from .method_tr_data_update import MethodTRDataUpdate
+from .method_tr_update import MethodTRUpdate
 from .method_type import MethodType
 from .method_type_enum import MethodTypeEnum
 from .method_type_enum_str import MethodTypeEnumStr
@@ -259,6 +271,7 @@ __all__ = (
     "CommentCreate",
     "CommentUpdate",
     "CPTOptions",
+    "CreateCrossSectionLinesProjectsProjectIdCrossSectionsLinesFormatPostFormat",
     "CrossSection",
     "CrossSectionCreate",
     "CrossSectionUpdate",
@@ -272,7 +285,6 @@ __all__ = (
     "FileType",
     "FileUpdate",
     "FMPlotOptions",
-    "GetCrossSectionLineProjectsProjectIdCrossSectionsCrossSectionIdLineFormatGetFormat",
     "GetCrossSectionPlotProjectsProjectIdCrossSectionsCrossSectionIdFormatGetFormat",
     "HeightReference",
     "HTTPValidationError",
@@ -310,6 +322,9 @@ __all__ = (
     "MethodCPTDataCreate",
     "MethodCPTDataUpdate",
     "MethodCPTUpdate",
+    "MethodDEF",
+    "MethodDEFCreate",
+    "MethodDEFUpdate",
     "MethodDP",
     "MethodDPCreate",
     "MethodDPData",
@@ -369,18 +384,18 @@ __all__ = (
     "MethodSA",
     "MethodSACreate",
     "MethodSAUpdate",
+    "MethodSLB",
+    "MethodSLBCreate",
+    "MethodSLBUpdate",
     "MethodSPT",
     "MethodSPTCreate",
     "MethodSPTUpdate",
-    "MethodSR",
-    "MethodSRCreate",
     "MethodSRS",
     "MethodSRSCreate",
     "MethodSRSData",
     "MethodSRSDataCreate",
     "MethodSRSDataUpdate",
     "MethodSRSUpdate",
-    "MethodSRUpdate",
     "MethodSS",
     "MethodSSCreate",
     "MethodSSData",
@@ -388,6 +403,9 @@ __all__ = (
     "MethodSSDataUpdate",
     "MethodSSUpdate",
     "MethodStatusEnum",
+    "MethodSTI",
+    "MethodSTICreate",
+    "MethodSTIUpdate",
     "MethodSummary",
     "MethodSVT",
     "MethodSVTCreate",
@@ -404,6 +422,12 @@ __all__ = (
     "MethodTP",
     "MethodTPCreate",
     "MethodTPUpdate",
+    "MethodTR",
+    "MethodTRCreate",
+    "MethodTRData",
+    "MethodTRDataCreate",
+    "MethodTRDataUpdate",
+    "MethodTRUpdate",
     "MethodType",
     "MethodTypeEnum",
     "MethodTypeEnumStr",

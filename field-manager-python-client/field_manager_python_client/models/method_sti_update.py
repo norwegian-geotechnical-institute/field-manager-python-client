@@ -9,11 +9,11 @@ from dateutil.parser import isoparse
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="MethodSRUpdate")
+T = TypeVar("T", bound="MethodSTIUpdate")
 
 
 @_attrs_define
-class MethodSRUpdate:
+class MethodSTIUpdate:
     """
     Attributes:
         method_id (Union[None, UUID, Unset]):
@@ -24,7 +24,7 @@ class MethodSRUpdate:
         updated_by (Union[None, Unset, str]):
         conducted_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Literal[20], Unset]):  Default: 20.
+        method_type_id (Union[Literal[28], Unset]):  Default: 28.
     """
 
     method_id: Union[None, UUID, Unset] = UNSET
@@ -35,7 +35,7 @@ class MethodSRUpdate:
     updated_by: Union[None, Unset, str] = UNSET
     conducted_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Literal[20], Unset] = 20
+    method_type_id: Union[Literal[28], Unset] = 28
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -229,11 +229,11 @@ class MethodSRUpdate:
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        method_type_id = cast(Union[Literal[20], Unset], d.pop("method_type_id", UNSET))
-        if method_type_id != 20 and not isinstance(method_type_id, Unset):
-            raise ValueError(f"method_type_id must match const 20, got '{method_type_id}'")
+        method_type_id = cast(Union[Literal[28], Unset], d.pop("method_type_id", UNSET))
+        if method_type_id != 28 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 28, got '{method_type_id}'")
 
-        method_sr_update = cls(
+        method_sti_update = cls(
             method_id=method_id,
             name=name,
             remarks=remarks,
@@ -245,8 +245,8 @@ class MethodSRUpdate:
             method_type_id=method_type_id,
         )
 
-        method_sr_update.additional_properties = d
-        return method_sr_update
+        method_sti_update.additional_properties = d
+        return method_sti_update
 
     @property
     def additional_keys(self) -> list[str]:

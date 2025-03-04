@@ -13,6 +13,8 @@ from ...models.method_cd import MethodCD
 from ...models.method_cd_create import MethodCDCreate
 from ...models.method_cpt import MethodCPT
 from ...models.method_cpt_create import MethodCPTCreate
+from ...models.method_def import MethodDEF
+from ...models.method_def_create import MethodDEFCreate
 from ...models.method_dp import MethodDP
 from ...models.method_dp_create import MethodDPCreate
 from ...models.method_dt import MethodDT
@@ -41,20 +43,24 @@ from ...models.method_rws import MethodRWS
 from ...models.method_rws_create import MethodRWSCreate
 from ...models.method_sa import MethodSA
 from ...models.method_sa_create import MethodSACreate
+from ...models.method_slb import MethodSLB
+from ...models.method_slb_create import MethodSLBCreate
 from ...models.method_spt import MethodSPT
 from ...models.method_spt_create import MethodSPTCreate
-from ...models.method_sr import MethodSR
-from ...models.method_sr_create import MethodSRCreate
 from ...models.method_srs import MethodSRS
 from ...models.method_srs_create import MethodSRSCreate
 from ...models.method_ss import MethodSS
 from ...models.method_ss_create import MethodSSCreate
+from ...models.method_sti import MethodSTI
+from ...models.method_sti_create import MethodSTICreate
 from ...models.method_svt import MethodSVT
 from ...models.method_svt_create import MethodSVTCreate
 from ...models.method_tot import MethodTOT
 from ...models.method_tot_create import MethodTOTCreate
 from ...models.method_tp import MethodTP
 from ...models.method_tp_create import MethodTPCreate
+from ...models.method_tr import MethodTR
+from ...models.method_tr_create import MethodTRCreate
 from ...models.method_wst import MethodWST
 from ...models.method_wst_create import MethodWSTCreate
 from ...types import Response
@@ -68,6 +74,7 @@ def _get_kwargs(
         "MethodADCreate",
         "MethodCDCreate",
         "MethodCPTCreate",
+        "MethodDEFCreate",
         "MethodDPCreate",
         "MethodDTCreate",
         "MethodESACreate",
@@ -82,13 +89,15 @@ def _get_kwargs(
         "MethodRSCreate",
         "MethodRWSCreate",
         "MethodSACreate",
+        "MethodSLBCreate",
         "MethodSPTCreate",
-        "MethodSRCreate",
         "MethodSRSCreate",
         "MethodSSCreate",
+        "MethodSTICreate",
         "MethodSVTCreate",
         "MethodTOTCreate",
         "MethodTPCreate",
+        "MethodTRCreate",
         "MethodWSTCreate",
     ],
 ) -> dict[str, Any]:
@@ -134,19 +143,25 @@ def _get_kwargs(
         _body = body.to_dict()
     elif isinstance(body, MethodSACreate):
         _body = body.to_dict()
+    elif isinstance(body, MethodSLBCreate):
+        _body = body.to_dict()
     elif isinstance(body, MethodSPTCreate):
         _body = body.to_dict()
-    elif isinstance(body, MethodSRCreate):
+    elif isinstance(body, MethodDEFCreate):
         _body = body.to_dict()
     elif isinstance(body, MethodSRSCreate):
         _body = body.to_dict()
     elif isinstance(body, MethodSSCreate):
+        _body = body.to_dict()
+    elif isinstance(body, MethodSTICreate):
         _body = body.to_dict()
     elif isinstance(body, MethodSVTCreate):
         _body = body.to_dict()
     elif isinstance(body, MethodTOTCreate):
         _body = body.to_dict()
     elif isinstance(body, MethodTPCreate):
+        _body = body.to_dict()
+    elif isinstance(body, MethodTRCreate):
         _body = body.to_dict()
     else:
         _body = body.to_dict()
@@ -167,6 +182,7 @@ def _parse_response(
             "MethodAD",
             "MethodCD",
             "MethodCPT",
+            "MethodDEF",
             "MethodDP",
             "MethodDT",
             "MethodESA",
@@ -181,13 +197,15 @@ def _parse_response(
             "MethodRS",
             "MethodRWS",
             "MethodSA",
+            "MethodSLB",
             "MethodSPT",
-            "MethodSR",
             "MethodSRS",
             "MethodSS",
+            "MethodSTI",
             "MethodSVT",
             "MethodTOT",
             "MethodTP",
+            "MethodTR",
             "MethodWST",
         ],
     ]
@@ -200,6 +218,7 @@ def _parse_response(
             "MethodAD",
             "MethodCD",
             "MethodCPT",
+            "MethodDEF",
             "MethodDP",
             "MethodDT",
             "MethodESA",
@@ -214,13 +233,15 @@ def _parse_response(
             "MethodRS",
             "MethodRWS",
             "MethodSA",
+            "MethodSLB",
             "MethodSPT",
-            "MethodSR",
             "MethodSRS",
             "MethodSS",
+            "MethodSTI",
             "MethodSVT",
             "MethodTOT",
             "MethodTP",
+            "MethodTR",
             "MethodWST",
         ]:
             try:
@@ -346,7 +367,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_15 = MethodAD.from_dict(data)
+                response_201_type_15 = MethodTR.from_dict(data)
 
                 return response_201_type_15
             except:  # noqa: E722
@@ -354,7 +375,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_16 = MethodRO.from_dict(data)
+                response_201_type_16 = MethodAD.from_dict(data)
 
                 return response_201_type_16
             except:  # noqa: E722
@@ -362,7 +383,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_17 = MethodINC.from_dict(data)
+                response_201_type_17 = MethodRO.from_dict(data)
 
                 return response_201_type_17
             except:  # noqa: E722
@@ -370,7 +391,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_18 = MethodSR.from_dict(data)
+                response_201_type_18 = MethodINC.from_dict(data)
 
                 return response_201_type_18
             except:  # noqa: E722
@@ -378,7 +399,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_19 = MethodIW.from_dict(data)
+                response_201_type_19 = MethodDEF.from_dict(data)
 
                 return response_201_type_19
             except:  # noqa: E722
@@ -386,7 +407,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_20 = MethodDT.from_dict(data)
+                response_201_type_20 = MethodIW.from_dict(data)
 
                 return response_201_type_20
             except:  # noqa: E722
@@ -394,7 +415,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_21 = MethodOTHER.from_dict(data)
+                response_201_type_21 = MethodDT.from_dict(data)
 
                 return response_201_type_21
             except:  # noqa: E722
@@ -402,7 +423,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_22 = MethodSRS.from_dict(data)
+                response_201_type_22 = MethodOTHER.from_dict(data)
 
                 return response_201_type_22
             except:  # noqa: E722
@@ -410,16 +431,40 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_201_type_23 = MethodDP.from_dict(data)
+                response_201_type_23 = MethodSRS.from_dict(data)
 
                 return response_201_type_23
             except:  # noqa: E722
                 pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_201_type_24 = MethodDP.from_dict(data)
+
+                return response_201_type_24
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_201_type_25 = MethodWST.from_dict(data)
+
+                return response_201_type_25
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_201_type_26 = MethodSLB.from_dict(data)
+
+                return response_201_type_26
+            except:  # noqa: E722
+                pass
             if not isinstance(data, dict):
                 raise TypeError()
-            response_201_type_24 = MethodWST.from_dict(data)
+            response_201_type_27 = MethodSTI.from_dict(data)
 
-            return response_201_type_24
+            return response_201_type_27
 
         response_201 = _parse_response_201(response.json())
 
@@ -443,6 +488,7 @@ def _build_response(
             "MethodAD",
             "MethodCD",
             "MethodCPT",
+            "MethodDEF",
             "MethodDP",
             "MethodDT",
             "MethodESA",
@@ -457,13 +503,15 @@ def _build_response(
             "MethodRS",
             "MethodRWS",
             "MethodSA",
+            "MethodSLB",
             "MethodSPT",
-            "MethodSR",
             "MethodSRS",
             "MethodSS",
+            "MethodSTI",
             "MethodSVT",
             "MethodTOT",
             "MethodTP",
+            "MethodTR",
             "MethodWST",
         ],
     ]
@@ -485,6 +533,7 @@ def sync_detailed(
         "MethodADCreate",
         "MethodCDCreate",
         "MethodCPTCreate",
+        "MethodDEFCreate",
         "MethodDPCreate",
         "MethodDTCreate",
         "MethodESACreate",
@@ -499,13 +548,15 @@ def sync_detailed(
         "MethodRSCreate",
         "MethodRWSCreate",
         "MethodSACreate",
+        "MethodSLBCreate",
         "MethodSPTCreate",
-        "MethodSRCreate",
         "MethodSRSCreate",
         "MethodSSCreate",
+        "MethodSTICreate",
         "MethodSVTCreate",
         "MethodTOTCreate",
         "MethodTPCreate",
+        "MethodTRCreate",
         "MethodWSTCreate",
     ],
 ) -> Response[
@@ -515,6 +566,7 @@ def sync_detailed(
             "MethodAD",
             "MethodCD",
             "MethodCPT",
+            "MethodDEF",
             "MethodDP",
             "MethodDT",
             "MethodESA",
@@ -529,13 +581,15 @@ def sync_detailed(
             "MethodRS",
             "MethodRWS",
             "MethodSA",
+            "MethodSLB",
             "MethodSPT",
-            "MethodSR",
             "MethodSRS",
             "MethodSS",
+            "MethodSTI",
             "MethodSVT",
             "MethodTOT",
             "MethodTP",
+            "MethodTR",
             "MethodWST",
         ],
     ]
@@ -547,19 +601,20 @@ def sync_detailed(
     Args:
         project_id (str):
         location_id (UUID):
-        body (Union['MethodADCreate', 'MethodCDCreate', 'MethodCPTCreate', 'MethodDPCreate',
-            'MethodDTCreate', 'MethodESACreate', 'MethodINCCreate', 'MethodIWCreate',
-            'MethodOTHERCreate', 'MethodPTCreate', 'MethodPZCreate', 'MethodRCDCreate',
-            'MethodROCreate', 'MethodRPCreate', 'MethodRSCreate', 'MethodRWSCreate', 'MethodSACreate',
-            'MethodSPTCreate', 'MethodSRCreate', 'MethodSRSCreate', 'MethodSSCreate',
-            'MethodSVTCreate', 'MethodTOTCreate', 'MethodTPCreate', 'MethodWSTCreate']):
+        body (Union['MethodADCreate', 'MethodCDCreate', 'MethodCPTCreate', 'MethodDEFCreate',
+            'MethodDPCreate', 'MethodDTCreate', 'MethodESACreate', 'MethodINCCreate',
+            'MethodIWCreate', 'MethodOTHERCreate', 'MethodPTCreate', 'MethodPZCreate',
+            'MethodRCDCreate', 'MethodROCreate', 'MethodRPCreate', 'MethodRSCreate',
+            'MethodRWSCreate', 'MethodSACreate', 'MethodSLBCreate', 'MethodSPTCreate',
+            'MethodSRSCreate', 'MethodSSCreate', 'MethodSTICreate', 'MethodSVTCreate',
+            'MethodTOTCreate', 'MethodTPCreate', 'MethodTRCreate', 'MethodWSTCreate']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST']]]
+        Response[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDEF', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSLB', 'MethodSPT', 'MethodSRS', 'MethodSS', 'MethodSTI', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodTR', 'MethodWST']]]
     """
 
     kwargs = _get_kwargs(
@@ -584,6 +639,7 @@ def sync(
         "MethodADCreate",
         "MethodCDCreate",
         "MethodCPTCreate",
+        "MethodDEFCreate",
         "MethodDPCreate",
         "MethodDTCreate",
         "MethodESACreate",
@@ -598,13 +654,15 @@ def sync(
         "MethodRSCreate",
         "MethodRWSCreate",
         "MethodSACreate",
+        "MethodSLBCreate",
         "MethodSPTCreate",
-        "MethodSRCreate",
         "MethodSRSCreate",
         "MethodSSCreate",
+        "MethodSTICreate",
         "MethodSVTCreate",
         "MethodTOTCreate",
         "MethodTPCreate",
+        "MethodTRCreate",
         "MethodWSTCreate",
     ],
 ) -> Optional[
@@ -614,6 +672,7 @@ def sync(
             "MethodAD",
             "MethodCD",
             "MethodCPT",
+            "MethodDEF",
             "MethodDP",
             "MethodDT",
             "MethodESA",
@@ -628,13 +687,15 @@ def sync(
             "MethodRS",
             "MethodRWS",
             "MethodSA",
+            "MethodSLB",
             "MethodSPT",
-            "MethodSR",
             "MethodSRS",
             "MethodSS",
+            "MethodSTI",
             "MethodSVT",
             "MethodTOT",
             "MethodTP",
+            "MethodTR",
             "MethodWST",
         ],
     ]
@@ -646,19 +707,20 @@ def sync(
     Args:
         project_id (str):
         location_id (UUID):
-        body (Union['MethodADCreate', 'MethodCDCreate', 'MethodCPTCreate', 'MethodDPCreate',
-            'MethodDTCreate', 'MethodESACreate', 'MethodINCCreate', 'MethodIWCreate',
-            'MethodOTHERCreate', 'MethodPTCreate', 'MethodPZCreate', 'MethodRCDCreate',
-            'MethodROCreate', 'MethodRPCreate', 'MethodRSCreate', 'MethodRWSCreate', 'MethodSACreate',
-            'MethodSPTCreate', 'MethodSRCreate', 'MethodSRSCreate', 'MethodSSCreate',
-            'MethodSVTCreate', 'MethodTOTCreate', 'MethodTPCreate', 'MethodWSTCreate']):
+        body (Union['MethodADCreate', 'MethodCDCreate', 'MethodCPTCreate', 'MethodDEFCreate',
+            'MethodDPCreate', 'MethodDTCreate', 'MethodESACreate', 'MethodINCCreate',
+            'MethodIWCreate', 'MethodOTHERCreate', 'MethodPTCreate', 'MethodPZCreate',
+            'MethodRCDCreate', 'MethodROCreate', 'MethodRPCreate', 'MethodRSCreate',
+            'MethodRWSCreate', 'MethodSACreate', 'MethodSLBCreate', 'MethodSPTCreate',
+            'MethodSRSCreate', 'MethodSSCreate', 'MethodSTICreate', 'MethodSVTCreate',
+            'MethodTOTCreate', 'MethodTPCreate', 'MethodTRCreate', 'MethodWSTCreate']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST']]
+        Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDEF', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSLB', 'MethodSPT', 'MethodSRS', 'MethodSS', 'MethodSTI', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodTR', 'MethodWST']]
     """
 
     return sync_detailed(
@@ -678,6 +740,7 @@ async def asyncio_detailed(
         "MethodADCreate",
         "MethodCDCreate",
         "MethodCPTCreate",
+        "MethodDEFCreate",
         "MethodDPCreate",
         "MethodDTCreate",
         "MethodESACreate",
@@ -692,13 +755,15 @@ async def asyncio_detailed(
         "MethodRSCreate",
         "MethodRWSCreate",
         "MethodSACreate",
+        "MethodSLBCreate",
         "MethodSPTCreate",
-        "MethodSRCreate",
         "MethodSRSCreate",
         "MethodSSCreate",
+        "MethodSTICreate",
         "MethodSVTCreate",
         "MethodTOTCreate",
         "MethodTPCreate",
+        "MethodTRCreate",
         "MethodWSTCreate",
     ],
 ) -> Response[
@@ -708,6 +773,7 @@ async def asyncio_detailed(
             "MethodAD",
             "MethodCD",
             "MethodCPT",
+            "MethodDEF",
             "MethodDP",
             "MethodDT",
             "MethodESA",
@@ -722,13 +788,15 @@ async def asyncio_detailed(
             "MethodRS",
             "MethodRWS",
             "MethodSA",
+            "MethodSLB",
             "MethodSPT",
-            "MethodSR",
             "MethodSRS",
             "MethodSS",
+            "MethodSTI",
             "MethodSVT",
             "MethodTOT",
             "MethodTP",
+            "MethodTR",
             "MethodWST",
         ],
     ]
@@ -740,19 +808,20 @@ async def asyncio_detailed(
     Args:
         project_id (str):
         location_id (UUID):
-        body (Union['MethodADCreate', 'MethodCDCreate', 'MethodCPTCreate', 'MethodDPCreate',
-            'MethodDTCreate', 'MethodESACreate', 'MethodINCCreate', 'MethodIWCreate',
-            'MethodOTHERCreate', 'MethodPTCreate', 'MethodPZCreate', 'MethodRCDCreate',
-            'MethodROCreate', 'MethodRPCreate', 'MethodRSCreate', 'MethodRWSCreate', 'MethodSACreate',
-            'MethodSPTCreate', 'MethodSRCreate', 'MethodSRSCreate', 'MethodSSCreate',
-            'MethodSVTCreate', 'MethodTOTCreate', 'MethodTPCreate', 'MethodWSTCreate']):
+        body (Union['MethodADCreate', 'MethodCDCreate', 'MethodCPTCreate', 'MethodDEFCreate',
+            'MethodDPCreate', 'MethodDTCreate', 'MethodESACreate', 'MethodINCCreate',
+            'MethodIWCreate', 'MethodOTHERCreate', 'MethodPTCreate', 'MethodPZCreate',
+            'MethodRCDCreate', 'MethodROCreate', 'MethodRPCreate', 'MethodRSCreate',
+            'MethodRWSCreate', 'MethodSACreate', 'MethodSLBCreate', 'MethodSPTCreate',
+            'MethodSRSCreate', 'MethodSSCreate', 'MethodSTICreate', 'MethodSVTCreate',
+            'MethodTOTCreate', 'MethodTPCreate', 'MethodTRCreate', 'MethodWSTCreate']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST']]]
+        Response[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDEF', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSLB', 'MethodSPT', 'MethodSRS', 'MethodSS', 'MethodSTI', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodTR', 'MethodWST']]]
     """
 
     kwargs = _get_kwargs(
@@ -775,6 +844,7 @@ async def asyncio(
         "MethodADCreate",
         "MethodCDCreate",
         "MethodCPTCreate",
+        "MethodDEFCreate",
         "MethodDPCreate",
         "MethodDTCreate",
         "MethodESACreate",
@@ -789,13 +859,15 @@ async def asyncio(
         "MethodRSCreate",
         "MethodRWSCreate",
         "MethodSACreate",
+        "MethodSLBCreate",
         "MethodSPTCreate",
-        "MethodSRCreate",
         "MethodSRSCreate",
         "MethodSSCreate",
+        "MethodSTICreate",
         "MethodSVTCreate",
         "MethodTOTCreate",
         "MethodTPCreate",
+        "MethodTRCreate",
         "MethodWSTCreate",
     ],
 ) -> Optional[
@@ -805,6 +877,7 @@ async def asyncio(
             "MethodAD",
             "MethodCD",
             "MethodCPT",
+            "MethodDEF",
             "MethodDP",
             "MethodDT",
             "MethodESA",
@@ -819,13 +892,15 @@ async def asyncio(
             "MethodRS",
             "MethodRWS",
             "MethodSA",
+            "MethodSLB",
             "MethodSPT",
-            "MethodSR",
             "MethodSRS",
             "MethodSS",
+            "MethodSTI",
             "MethodSVT",
             "MethodTOT",
             "MethodTP",
+            "MethodTR",
             "MethodWST",
         ],
     ]
@@ -837,19 +912,20 @@ async def asyncio(
     Args:
         project_id (str):
         location_id (UUID):
-        body (Union['MethodADCreate', 'MethodCDCreate', 'MethodCPTCreate', 'MethodDPCreate',
-            'MethodDTCreate', 'MethodESACreate', 'MethodINCCreate', 'MethodIWCreate',
-            'MethodOTHERCreate', 'MethodPTCreate', 'MethodPZCreate', 'MethodRCDCreate',
-            'MethodROCreate', 'MethodRPCreate', 'MethodRSCreate', 'MethodRWSCreate', 'MethodSACreate',
-            'MethodSPTCreate', 'MethodSRCreate', 'MethodSRSCreate', 'MethodSSCreate',
-            'MethodSVTCreate', 'MethodTOTCreate', 'MethodTPCreate', 'MethodWSTCreate']):
+        body (Union['MethodADCreate', 'MethodCDCreate', 'MethodCPTCreate', 'MethodDEFCreate',
+            'MethodDPCreate', 'MethodDTCreate', 'MethodESACreate', 'MethodINCCreate',
+            'MethodIWCreate', 'MethodOTHERCreate', 'MethodPTCreate', 'MethodPZCreate',
+            'MethodRCDCreate', 'MethodROCreate', 'MethodRPCreate', 'MethodRSCreate',
+            'MethodRWSCreate', 'MethodSACreate', 'MethodSLBCreate', 'MethodSPTCreate',
+            'MethodSRSCreate', 'MethodSSCreate', 'MethodSTICreate', 'MethodSVTCreate',
+            'MethodTOTCreate', 'MethodTPCreate', 'MethodTRCreate', 'MethodWSTCreate']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSPT', 'MethodSR', 'MethodSRS', 'MethodSS', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodWST']]
+        Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDEF', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSLB', 'MethodSPT', 'MethodSRS', 'MethodSS', 'MethodSTI', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodTR', 'MethodWST']]
     """
 
     return (

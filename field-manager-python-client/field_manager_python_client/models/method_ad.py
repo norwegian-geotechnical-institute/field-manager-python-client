@@ -18,7 +18,8 @@ T = TypeVar("T", bound="MethodAD")
 
 @_attrs_define
 class MethodAD:
-    """
+    """AD
+
     Attributes:
         method_id (UUID):
         name (str):

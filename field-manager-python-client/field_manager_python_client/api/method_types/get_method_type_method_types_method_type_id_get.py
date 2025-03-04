@@ -56,6 +56,11 @@ def sync_detailed(
 ) -> Response[Union[HTTPValidationError, MethodType]]:
     """Get Method Type
 
+     Get a method type by ID.
+
+    Please note that this endpoint will look at the Accept-Language header in the request
+    to determine the language for the response data.
+
     Args:
         method_type_id (int):
 
@@ -85,6 +90,11 @@ def sync(
 ) -> Optional[Union[HTTPValidationError, MethodType]]:
     """Get Method Type
 
+     Get a method type by ID.
+
+    Please note that this endpoint will look at the Accept-Language header in the request
+    to determine the language for the response data.
+
     Args:
         method_type_id (int):
 
@@ -108,6 +118,11 @@ async def asyncio_detailed(
     client: Union[AuthenticatedClient, Client],
 ) -> Response[Union[HTTPValidationError, MethodType]]:
     """Get Method Type
+
+     Get a method type by ID.
+
+    Please note that this endpoint will look at the Accept-Language header in the request
+    to determine the language for the response data.
 
     Args:
         method_type_id (int):
@@ -135,6 +150,11 @@ async def asyncio(
     client: Union[AuthenticatedClient, Client],
 ) -> Optional[Union[HTTPValidationError, MethodType]]:
     """Get Method Type
+
+     Get a method type by ID.
+
+    Please note that this endpoint will look at the Accept-Language header in the request
+    to determine the language for the response data.
 
     Args:
         method_type_id (int):

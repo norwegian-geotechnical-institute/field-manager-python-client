@@ -47,16 +47,19 @@ class MethodInfo:
             TP=13,
             PT=14,
             ESA=15,
+            TR=16,
             AD=17,
             RO=18,
             INC=19,
-            SR=20,
+            DEF=20,
             IW=21,
             DT=22,
             OTHER=23,
             SRS=24,
             DP=25,
             WST=26,
+            SLB = 27,
+            STI = 28,
             )
         created_at (datetime.datetime):
         conducted_at (Union[None, Unset, datetime.datetime]):

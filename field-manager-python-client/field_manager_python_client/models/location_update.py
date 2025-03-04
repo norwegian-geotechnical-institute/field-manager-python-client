@@ -16,6 +16,8 @@ if TYPE_CHECKING:
     from ..models.method_cd_update import MethodCDUpdate
     from ..models.method_cpt_create import MethodCPTCreate
     from ..models.method_cpt_update import MethodCPTUpdate
+    from ..models.method_def_create import MethodDEFCreate
+    from ..models.method_def_update import MethodDEFUpdate
     from ..models.method_dp_create import MethodDPCreate
     from ..models.method_dp_update import MethodDPUpdate
     from ..models.method_dt_create import MethodDTCreate
@@ -44,20 +46,24 @@ if TYPE_CHECKING:
     from ..models.method_rws_update import MethodRWSUpdate
     from ..models.method_sa_create import MethodSACreate
     from ..models.method_sa_update import MethodSAUpdate
+    from ..models.method_slb_create import MethodSLBCreate
+    from ..models.method_slb_update import MethodSLBUpdate
     from ..models.method_spt_create import MethodSPTCreate
     from ..models.method_spt_update import MethodSPTUpdate
-    from ..models.method_sr_create import MethodSRCreate
-    from ..models.method_sr_update import MethodSRUpdate
     from ..models.method_srs_create import MethodSRSCreate
     from ..models.method_srs_update import MethodSRSUpdate
     from ..models.method_ss_create import MethodSSCreate
     from ..models.method_ss_update import MethodSSUpdate
+    from ..models.method_sti_create import MethodSTICreate
+    from ..models.method_sti_update import MethodSTIUpdate
     from ..models.method_svt_create import MethodSVTCreate
     from ..models.method_svt_update import MethodSVTUpdate
     from ..models.method_tot_create import MethodTOTCreate
     from ..models.method_tot_update import MethodTOTUpdate
     from ..models.method_tp_create import MethodTPCreate
     from ..models.method_tp_update import MethodTPUpdate
+    from ..models.method_tr_create import MethodTRCreate
+    from ..models.method_tr_update import MethodTRUpdate
     from ..models.method_wst_create import MethodWSTCreate
     from ..models.method_wst_update import MethodWSTUpdate
 
@@ -81,14 +87,15 @@ class LocationUpdate:
         srid (Union[None, Unset, int]):
         tags (Union[None, Unset, list[str]]):
         methods (Union[Unset, list[Union['MethodADCreate', 'MethodADUpdate', 'MethodCDCreate', 'MethodCDUpdate',
-            'MethodCPTCreate', 'MethodCPTUpdate', 'MethodDPCreate', 'MethodDPUpdate', 'MethodDTCreate', 'MethodDTUpdate',
-            'MethodESACreate', 'MethodESAUpdate', 'MethodINCCreate', 'MethodINCUpdate', 'MethodIWCreate', 'MethodIWUpdate',
-            'MethodOTHERCreate', 'MethodOTHERUpdate', 'MethodPTCreate', 'MethodPTUpdate', 'MethodPZCreate',
-            'MethodPZUpdate', 'MethodRCDCreate', 'MethodRCDUpdate', 'MethodROCreate', 'MethodROUpdate', 'MethodRPCreate',
-            'MethodRPUpdate', 'MethodRSCreate', 'MethodRSUpdate', 'MethodRWSCreate', 'MethodRWSUpdate', 'MethodSACreate',
-            'MethodSAUpdate', 'MethodSPTCreate', 'MethodSPTUpdate', 'MethodSRCreate', 'MethodSRSCreate', 'MethodSRSUpdate',
-            'MethodSRUpdate', 'MethodSSCreate', 'MethodSSUpdate', 'MethodSVTCreate', 'MethodSVTUpdate', 'MethodTOTCreate',
-            'MethodTOTUpdate', 'MethodTPCreate', 'MethodTPUpdate', 'MethodWSTCreate', 'MethodWSTUpdate']]]):
+            'MethodCPTCreate', 'MethodCPTUpdate', 'MethodDEFCreate', 'MethodDEFUpdate', 'MethodDPCreate', 'MethodDPUpdate',
+            'MethodDTCreate', 'MethodDTUpdate', 'MethodESACreate', 'MethodESAUpdate', 'MethodINCCreate', 'MethodINCUpdate',
+            'MethodIWCreate', 'MethodIWUpdate', 'MethodOTHERCreate', 'MethodOTHERUpdate', 'MethodPTCreate',
+            'MethodPTUpdate', 'MethodPZCreate', 'MethodPZUpdate', 'MethodRCDCreate', 'MethodRCDUpdate', 'MethodROCreate',
+            'MethodROUpdate', 'MethodRPCreate', 'MethodRPUpdate', 'MethodRSCreate', 'MethodRSUpdate', 'MethodRWSCreate',
+            'MethodRWSUpdate', 'MethodSACreate', 'MethodSAUpdate', 'MethodSLBCreate', 'MethodSLBUpdate', 'MethodSPTCreate',
+            'MethodSPTUpdate', 'MethodSRSCreate', 'MethodSRSUpdate', 'MethodSSCreate', 'MethodSSUpdate', 'MethodSTICreate',
+            'MethodSTIUpdate', 'MethodSVTCreate', 'MethodSVTUpdate', 'MethodTOTCreate', 'MethodTOTUpdate', 'MethodTPCreate',
+            'MethodTPUpdate', 'MethodTRCreate', 'MethodTRUpdate', 'MethodWSTCreate', 'MethodWSTUpdate']]]):
     """
 
     project_id: Union[None, UUID, Unset] = UNSET
@@ -112,6 +119,8 @@ class LocationUpdate:
                 "MethodCDUpdate",
                 "MethodCPTCreate",
                 "MethodCPTUpdate",
+                "MethodDEFCreate",
+                "MethodDEFUpdate",
                 "MethodDPCreate",
                 "MethodDPUpdate",
                 "MethodDTCreate",
@@ -140,20 +149,24 @@ class LocationUpdate:
                 "MethodRWSUpdate",
                 "MethodSACreate",
                 "MethodSAUpdate",
+                "MethodSLBCreate",
+                "MethodSLBUpdate",
                 "MethodSPTCreate",
                 "MethodSPTUpdate",
-                "MethodSRCreate",
                 "MethodSRSCreate",
                 "MethodSRSUpdate",
-                "MethodSRUpdate",
                 "MethodSSCreate",
                 "MethodSSUpdate",
+                "MethodSTICreate",
+                "MethodSTIUpdate",
                 "MethodSVTCreate",
                 "MethodSVTUpdate",
                 "MethodTOTCreate",
                 "MethodTOTUpdate",
                 "MethodTPCreate",
                 "MethodTPUpdate",
+                "MethodTRCreate",
+                "MethodTRUpdate",
                 "MethodWSTCreate",
                 "MethodWSTUpdate",
             ]
@@ -168,6 +181,8 @@ class LocationUpdate:
         from ..models.method_cd_update import MethodCDUpdate
         from ..models.method_cpt_create import MethodCPTCreate
         from ..models.method_cpt_update import MethodCPTUpdate
+        from ..models.method_def_create import MethodDEFCreate
+        from ..models.method_def_update import MethodDEFUpdate
         from ..models.method_dp_create import MethodDPCreate
         from ..models.method_dp_update import MethodDPUpdate
         from ..models.method_dt_create import MethodDTCreate
@@ -196,21 +211,25 @@ class LocationUpdate:
         from ..models.method_rws_update import MethodRWSUpdate
         from ..models.method_sa_create import MethodSACreate
         from ..models.method_sa_update import MethodSAUpdate
+        from ..models.method_slb_create import MethodSLBCreate
+        from ..models.method_slb_update import MethodSLBUpdate
         from ..models.method_spt_create import MethodSPTCreate
         from ..models.method_spt_update import MethodSPTUpdate
-        from ..models.method_sr_create import MethodSRCreate
-        from ..models.method_sr_update import MethodSRUpdate
         from ..models.method_srs_create import MethodSRSCreate
         from ..models.method_srs_update import MethodSRSUpdate
         from ..models.method_ss_create import MethodSSCreate
         from ..models.method_ss_update import MethodSSUpdate
+        from ..models.method_sti_create import MethodSTICreate
         from ..models.method_svt_create import MethodSVTCreate
         from ..models.method_svt_update import MethodSVTUpdate
         from ..models.method_tot_create import MethodTOTCreate
         from ..models.method_tot_update import MethodTOTUpdate
         from ..models.method_tp_create import MethodTPCreate
         from ..models.method_tp_update import MethodTPUpdate
+        from ..models.method_tr_create import MethodTRCreate
+        from ..models.method_tr_update import MethodTRUpdate
         from ..models.method_wst_create import MethodWSTCreate
+        from ..models.method_wst_update import MethodWSTUpdate
 
         project_id: Union[None, Unset, str]
         if isinstance(self.project_id, Unset):
@@ -328,19 +347,25 @@ class LocationUpdate:
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodSACreate):
                     methods_item = methods_item_data.to_dict()
+                elif isinstance(methods_item_data, MethodSLBCreate):
+                    methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodSPTCreate):
                     methods_item = methods_item_data.to_dict()
-                elif isinstance(methods_item_data, MethodSRCreate):
+                elif isinstance(methods_item_data, MethodDEFCreate):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodSRSCreate):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodSSCreate):
+                    methods_item = methods_item_data.to_dict()
+                elif isinstance(methods_item_data, MethodSTICreate):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodSVTCreate):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodTOTCreate):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodTPCreate):
+                    methods_item = methods_item_data.to_dict()
+                elif isinstance(methods_item_data, MethodTRCreate):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodWSTCreate):
                     methods_item = methods_item_data.to_dict()
@@ -374,13 +399,15 @@ class LocationUpdate:
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodESAUpdate):
                     methods_item = methods_item_data.to_dict()
+                elif isinstance(methods_item_data, MethodTRUpdate):
+                    methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodADUpdate):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodROUpdate):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodINCUpdate):
                     methods_item = methods_item_data.to_dict()
-                elif isinstance(methods_item_data, MethodSRUpdate):
+                elif isinstance(methods_item_data, MethodDEFUpdate):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodIWUpdate):
                     methods_item = methods_item_data.to_dict()
@@ -391,6 +418,10 @@ class LocationUpdate:
                 elif isinstance(methods_item_data, MethodSRSUpdate):
                     methods_item = methods_item_data.to_dict()
                 elif isinstance(methods_item_data, MethodDPUpdate):
+                    methods_item = methods_item_data.to_dict()
+                elif isinstance(methods_item_data, MethodWSTUpdate):
+                    methods_item = methods_item_data.to_dict()
+                elif isinstance(methods_item_data, MethodSLBUpdate):
                     methods_item = methods_item_data.to_dict()
                 else:
                     methods_item = methods_item_data.to_dict()
@@ -435,6 +466,8 @@ class LocationUpdate:
         from ..models.method_cd_update import MethodCDUpdate
         from ..models.method_cpt_create import MethodCPTCreate
         from ..models.method_cpt_update import MethodCPTUpdate
+        from ..models.method_def_create import MethodDEFCreate
+        from ..models.method_def_update import MethodDEFUpdate
         from ..models.method_dp_create import MethodDPCreate
         from ..models.method_dp_update import MethodDPUpdate
         from ..models.method_dt_create import MethodDTCreate
@@ -463,20 +496,24 @@ class LocationUpdate:
         from ..models.method_rws_update import MethodRWSUpdate
         from ..models.method_sa_create import MethodSACreate
         from ..models.method_sa_update import MethodSAUpdate
+        from ..models.method_slb_create import MethodSLBCreate
+        from ..models.method_slb_update import MethodSLBUpdate
         from ..models.method_spt_create import MethodSPTCreate
         from ..models.method_spt_update import MethodSPTUpdate
-        from ..models.method_sr_create import MethodSRCreate
-        from ..models.method_sr_update import MethodSRUpdate
         from ..models.method_srs_create import MethodSRSCreate
         from ..models.method_srs_update import MethodSRSUpdate
         from ..models.method_ss_create import MethodSSCreate
         from ..models.method_ss_update import MethodSSUpdate
+        from ..models.method_sti_create import MethodSTICreate
+        from ..models.method_sti_update import MethodSTIUpdate
         from ..models.method_svt_create import MethodSVTCreate
         from ..models.method_svt_update import MethodSVTUpdate
         from ..models.method_tot_create import MethodTOTCreate
         from ..models.method_tot_update import MethodTOTUpdate
         from ..models.method_tp_create import MethodTPCreate
         from ..models.method_tp_update import MethodTPUpdate
+        from ..models.method_tr_create import MethodTRCreate
+        from ..models.method_tr_update import MethodTRUpdate
         from ..models.method_wst_create import MethodWSTCreate
         from ..models.method_wst_update import MethodWSTUpdate
 
@@ -634,6 +671,8 @@ class LocationUpdate:
                 "MethodCDUpdate",
                 "MethodCPTCreate",
                 "MethodCPTUpdate",
+                "MethodDEFCreate",
+                "MethodDEFUpdate",
                 "MethodDPCreate",
                 "MethodDPUpdate",
                 "MethodDTCreate",
@@ -662,20 +701,24 @@ class LocationUpdate:
                 "MethodRWSUpdate",
                 "MethodSACreate",
                 "MethodSAUpdate",
+                "MethodSLBCreate",
+                "MethodSLBUpdate",
                 "MethodSPTCreate",
                 "MethodSPTUpdate",
-                "MethodSRCreate",
                 "MethodSRSCreate",
                 "MethodSRSUpdate",
-                "MethodSRUpdate",
                 "MethodSSCreate",
                 "MethodSSUpdate",
+                "MethodSTICreate",
+                "MethodSTIUpdate",
                 "MethodSVTCreate",
                 "MethodSVTUpdate",
                 "MethodTOTCreate",
                 "MethodTOTUpdate",
                 "MethodTPCreate",
                 "MethodTPUpdate",
+                "MethodTRCreate",
+                "MethodTRUpdate",
                 "MethodWSTCreate",
                 "MethodWSTUpdate",
             ]:
@@ -818,7 +861,7 @@ class LocationUpdate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_0_type_17 = MethodSPTCreate.from_dict(data)
+                    methods_item_type_0_type_17 = MethodSLBCreate.from_dict(data)
 
                     return methods_item_type_0_type_17
                 except:  # noqa: E722
@@ -826,7 +869,7 @@ class LocationUpdate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_0_type_18 = MethodSRCreate.from_dict(data)
+                    methods_item_type_0_type_18 = MethodSPTCreate.from_dict(data)
 
                     return methods_item_type_0_type_18
                 except:  # noqa: E722
@@ -834,7 +877,7 @@ class LocationUpdate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_0_type_19 = MethodSRSCreate.from_dict(data)
+                    methods_item_type_0_type_19 = MethodDEFCreate.from_dict(data)
 
                     return methods_item_type_0_type_19
                 except:  # noqa: E722
@@ -842,7 +885,7 @@ class LocationUpdate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_0_type_20 = MethodSSCreate.from_dict(data)
+                    methods_item_type_0_type_20 = MethodSRSCreate.from_dict(data)
 
                     return methods_item_type_0_type_20
                 except:  # noqa: E722
@@ -850,7 +893,7 @@ class LocationUpdate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_0_type_21 = MethodSVTCreate.from_dict(data)
+                    methods_item_type_0_type_21 = MethodSSCreate.from_dict(data)
 
                     return methods_item_type_0_type_21
                 except:  # noqa: E722
@@ -858,7 +901,7 @@ class LocationUpdate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_0_type_22 = MethodTOTCreate.from_dict(data)
+                    methods_item_type_0_type_22 = MethodSTICreate.from_dict(data)
 
                     return methods_item_type_0_type_22
                 except:  # noqa: E722
@@ -866,7 +909,7 @@ class LocationUpdate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_0_type_23 = MethodTPCreate.from_dict(data)
+                    methods_item_type_0_type_23 = MethodSVTCreate.from_dict(data)
 
                     return methods_item_type_0_type_23
                 except:  # noqa: E722
@@ -874,9 +917,33 @@ class LocationUpdate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_0_type_24 = MethodWSTCreate.from_dict(data)
+                    methods_item_type_0_type_24 = MethodTOTCreate.from_dict(data)
 
                     return methods_item_type_0_type_24
+                except:  # noqa: E722
+                    pass
+                try:
+                    if not isinstance(data, dict):
+                        raise TypeError()
+                    methods_item_type_0_type_25 = MethodTPCreate.from_dict(data)
+
+                    return methods_item_type_0_type_25
+                except:  # noqa: E722
+                    pass
+                try:
+                    if not isinstance(data, dict):
+                        raise TypeError()
+                    methods_item_type_0_type_26 = MethodTRCreate.from_dict(data)
+
+                    return methods_item_type_0_type_26
+                except:  # noqa: E722
+                    pass
+                try:
+                    if not isinstance(data, dict):
+                        raise TypeError()
+                    methods_item_type_0_type_27 = MethodWSTCreate.from_dict(data)
+
+                    return methods_item_type_0_type_27
                 except:  # noqa: E722
                     pass
                 try:
@@ -1002,7 +1069,7 @@ class LocationUpdate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_1_type_15 = MethodADUpdate.from_dict(data)
+                    methods_item_type_1_type_15 = MethodTRUpdate.from_dict(data)
 
                     return methods_item_type_1_type_15
                 except:  # noqa: E722
@@ -1010,7 +1077,7 @@ class LocationUpdate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_1_type_16 = MethodROUpdate.from_dict(data)
+                    methods_item_type_1_type_16 = MethodADUpdate.from_dict(data)
 
                     return methods_item_type_1_type_16
                 except:  # noqa: E722
@@ -1018,7 +1085,7 @@ class LocationUpdate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_1_type_17 = MethodINCUpdate.from_dict(data)
+                    methods_item_type_1_type_17 = MethodROUpdate.from_dict(data)
 
                     return methods_item_type_1_type_17
                 except:  # noqa: E722
@@ -1026,7 +1093,7 @@ class LocationUpdate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_1_type_18 = MethodSRUpdate.from_dict(data)
+                    methods_item_type_1_type_18 = MethodINCUpdate.from_dict(data)
 
                     return methods_item_type_1_type_18
                 except:  # noqa: E722
@@ -1034,7 +1101,7 @@ class LocationUpdate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_1_type_19 = MethodIWUpdate.from_dict(data)
+                    methods_item_type_1_type_19 = MethodDEFUpdate.from_dict(data)
 
                     return methods_item_type_1_type_19
                 except:  # noqa: E722
@@ -1042,7 +1109,7 @@ class LocationUpdate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_1_type_20 = MethodDTUpdate.from_dict(data)
+                    methods_item_type_1_type_20 = MethodIWUpdate.from_dict(data)
 
                     return methods_item_type_1_type_20
                 except:  # noqa: E722
@@ -1050,7 +1117,7 @@ class LocationUpdate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_1_type_21 = MethodOTHERUpdate.from_dict(data)
+                    methods_item_type_1_type_21 = MethodDTUpdate.from_dict(data)
 
                     return methods_item_type_1_type_21
                 except:  # noqa: E722
@@ -1058,7 +1125,7 @@ class LocationUpdate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_1_type_22 = MethodSRSUpdate.from_dict(data)
+                    methods_item_type_1_type_22 = MethodOTHERUpdate.from_dict(data)
 
                     return methods_item_type_1_type_22
                 except:  # noqa: E722
@@ -1066,16 +1133,40 @@ class LocationUpdate:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_1_type_23 = MethodDPUpdate.from_dict(data)
+                    methods_item_type_1_type_23 = MethodSRSUpdate.from_dict(data)
 
                     return methods_item_type_1_type_23
                 except:  # noqa: E722
                     pass
+                try:
+                    if not isinstance(data, dict):
+                        raise TypeError()
+                    methods_item_type_1_type_24 = MethodDPUpdate.from_dict(data)
+
+                    return methods_item_type_1_type_24
+                except:  # noqa: E722
+                    pass
+                try:
+                    if not isinstance(data, dict):
+                        raise TypeError()
+                    methods_item_type_1_type_25 = MethodWSTUpdate.from_dict(data)
+
+                    return methods_item_type_1_type_25
+                except:  # noqa: E722
+                    pass
+                try:
+                    if not isinstance(data, dict):
+                        raise TypeError()
+                    methods_item_type_1_type_26 = MethodSLBUpdate.from_dict(data)
+
+                    return methods_item_type_1_type_26
+                except:  # noqa: E722
+                    pass
                 if not isinstance(data, dict):
                     raise TypeError()
-                methods_item_type_1_type_24 = MethodWSTUpdate.from_dict(data)
+                methods_item_type_1_type_27 = MethodSTIUpdate.from_dict(data)
 
-                return methods_item_type_1_type_24
+                return methods_item_type_1_type_27
 
             methods_item = _parse_methods_item(methods_item_data)
 

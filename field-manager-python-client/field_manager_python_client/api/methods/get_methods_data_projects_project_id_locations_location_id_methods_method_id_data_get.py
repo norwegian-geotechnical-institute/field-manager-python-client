@@ -17,6 +17,7 @@ from ...models.method_srs_data import MethodSRSData
 from ...models.method_ss_data import MethodSSData
 from ...models.method_svt_data import MethodSVTData
 from ...models.method_tot_data import MethodTOTData
+from ...models.method_tr_data import MethodTRData
 from ...models.method_wst_data import MethodWSTData
 from ...types import Response
 
@@ -51,6 +52,7 @@ def _parse_response(
                 "MethodSSData",
                 "MethodSVTData",
                 "MethodTOTData",
+                "MethodTRData",
                 "MethodWSTData",
             ]
         ],
@@ -74,6 +76,7 @@ def _parse_response(
                 "MethodSSData",
                 "MethodSVTData",
                 "MethodTOTData",
+                "MethodTRData",
                 "MethodWSTData",
             ]:
                 try:
@@ -156,11 +159,19 @@ def _parse_response(
                     return response_200_item_type_9
                 except:  # noqa: E722
                     pass
+                try:
+                    if not isinstance(data, dict):
+                        raise TypeError()
+                    response_200_item_type_10 = MethodTRData.from_dict(data)
+
+                    return response_200_item_type_10
+                except:  # noqa: E722
+                    pass
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_200_item_type_10 = MethodWSTData.from_dict(data)
+                response_200_item_type_11 = MethodWSTData.from_dict(data)
 
-                return response_200_item_type_10
+                return response_200_item_type_11
 
             response_200_item = _parse_response_200_item(response_200_item_data)
 
@@ -194,6 +205,7 @@ def _build_response(
                 "MethodSSData",
                 "MethodSVTData",
                 "MethodTOTData",
+                "MethodTRData",
                 "MethodWSTData",
             ]
         ],
@@ -228,6 +240,7 @@ def sync_detailed(
                 "MethodSSData",
                 "MethodSVTData",
                 "MethodTOTData",
+                "MethodTRData",
                 "MethodWSTData",
             ]
         ],
@@ -247,7 +260,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list[Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]]
+        Response[Union[HTTPValidationError, list[Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodTRData', 'MethodWSTData']]]]
     """
 
     kwargs = _get_kwargs(
@@ -284,6 +297,7 @@ def sync(
                 "MethodSSData",
                 "MethodSVTData",
                 "MethodTOTData",
+                "MethodTRData",
                 "MethodWSTData",
             ]
         ],
@@ -303,7 +317,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list[Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]
+        Union[HTTPValidationError, list[Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodTRData', 'MethodWSTData']]]
     """
 
     return sync_detailed(
@@ -335,6 +349,7 @@ async def asyncio_detailed(
                 "MethodSSData",
                 "MethodSVTData",
                 "MethodTOTData",
+                "MethodTRData",
                 "MethodWSTData",
             ]
         ],
@@ -354,7 +369,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list[Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]]
+        Response[Union[HTTPValidationError, list[Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodTRData', 'MethodWSTData']]]]
     """
 
     kwargs = _get_kwargs(
@@ -389,6 +404,7 @@ async def asyncio(
                 "MethodSSData",
                 "MethodSVTData",
                 "MethodTOTData",
+                "MethodTRData",
                 "MethodWSTData",
             ]
         ],
@@ -408,7 +424,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list[Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodWSTData']]]
+        Union[HTTPValidationError, list[Union['MethodCPTData', 'MethodDPData', 'MethodDTData', 'MethodPZData', 'MethodRCDData', 'MethodRPData', 'MethodSRSData', 'MethodSSData', 'MethodSVTData', 'MethodTOTData', 'MethodTRData', 'MethodWSTData']]]
     """
 
     return (
