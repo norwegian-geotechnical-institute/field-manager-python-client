@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.5.82" },
+  "info": { "title": "Field Manager Data API", "version": "4.5.89" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -7151,10 +7151,50 @@
         }
       }
     },
+    "/projects/{project_id}/web_map_services": {
+      "get": {
+        "tags": ["projects", "web map services"],
+        "summary": "Get Web Map Services by Project ID",
+        "description": "Get Web Map Services by project_id.",
+        "operationId": "read_web_map_services_projects__project_id__web_map_services_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/WebMapService" },
+                  "title": "Response Read Web Map Services Projects  Project Id  Web Map Services Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/web_map_services": {
       "get": {
         "tags": ["web map services"],
         "summary": "Get Application Layer Web Map Services",
+        "description": "Get all application layer Web Map Services.\n\nOnly allowed for application admins.\n\nFor normal access, you should use the end-point `GET /projects/{project_id}/web_map_services`.",
         "operationId": "list_application_layer_web_map_services_web_map_services_get",
         "responses": {
           "200": {
@@ -7169,7 +7209,8 @@
               }
             }
           }
-        }
+        },
+        "security": [{ "HTTPBearer": [] }]
       },
       "post": {
         "tags": ["web map services"],
@@ -15282,6 +15323,11 @@
           "sampling_technique_id": {
             "anyOf": [{ "type": "integer" }, { "type": "null" }],
             "title": "Sampling Technique Id"
+          },
+          "is_disturbed": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Is Disturbed",
+            "description": "Depending on chosen sampling technique. Output only."
           }
         },
         "type": "object",
@@ -19974,7 +20020,7 @@
         "properties": {
           "lang": {
             "type": "string",
-            "enum": ["eng", "nor"],
+            "enum": ["eng", "nor", "swe"],
             "title": "Lang",
             "default": "eng"
           },
@@ -21308,14 +21354,16 @@
           },
           "name": { "type": "string", "title": "Name" },
           "description": { "type": "string", "title": "Description" },
-          "sort_order": { "type": "integer", "title": "Sort Order" }
+          "sort_order": { "type": "integer", "title": "Sort Order" },
+          "is_disturbed": { "type": "boolean", "title": "Is Disturbed" }
         },
         "type": "object",
         "required": [
           "sampling_technique_id",
           "name",
           "description",
-          "sort_order"
+          "sort_order",
+          "is_disturbed"
         ],
         "title": "SamplingTechnique"
       },
