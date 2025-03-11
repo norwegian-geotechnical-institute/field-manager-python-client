@@ -50,6 +50,7 @@ class MethodSA:
         ags_sample_type (Union[None, Unset, str]): Original AGS SAMP_TYPE value used to populate sampling_technique_id
             during AGS file import.
         sampling_technique_id (Union[None, Unset, int]):
+        is_disturbed (Union[None, Unset, bool]): Depending on chosen sampling technique. Output only.
     """
 
     method_id: UUID
@@ -75,6 +76,7 @@ class MethodSA:
     sample_material_ids: Union[Unset, list[int]] = UNSET
     ags_sample_type: Union[None, Unset, str] = UNSET
     sampling_technique_id: Union[None, Unset, int] = UNSET
+    is_disturbed: Union[None, Unset, bool] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -189,6 +191,12 @@ class MethodSA:
         else:
             sampling_technique_id = self.sampling_technique_id
 
+        is_disturbed: Union[None, Unset, bool]
+        if isinstance(self.is_disturbed, Unset):
+            is_disturbed = UNSET
+        else:
+            is_disturbed = self.is_disturbed
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -235,6 +243,8 @@ class MethodSA:
             field_dict["ags_sample_type"] = ags_sample_type
         if sampling_technique_id is not UNSET:
             field_dict["sampling_technique_id"] = sampling_technique_id
+        if is_disturbed is not UNSET:
+            field_dict["is_disturbed"] = is_disturbed
 
         return field_dict
 
@@ -402,6 +412,15 @@ class MethodSA:
 
         sampling_technique_id = _parse_sampling_technique_id(d.pop("sampling_technique_id", UNSET))
 
+        def _parse_is_disturbed(data: object) -> Union[None, Unset, bool]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, bool], data)
+
+        is_disturbed = _parse_is_disturbed(d.pop("is_disturbed", UNSET))
+
         method_sa = cls(
             method_id=method_id,
             name=name,
@@ -426,6 +445,7 @@ class MethodSA:
             sample_material_ids=sample_material_ids,
             ags_sample_type=ags_sample_type,
             sampling_technique_id=sampling_technique_id,
+            is_disturbed=is_disturbed,
         )
 
         method_sa.additional_properties = d

@@ -14,12 +14,14 @@ class SamplingTechnique:
         name (str):
         description (str):
         sort_order (int):
+        is_disturbed (bool):
     """
 
     sampling_technique_id: int
     name: str
     description: str
     sort_order: int
+    is_disturbed: bool
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -31,6 +33,8 @@ class SamplingTechnique:
 
         sort_order = self.sort_order
 
+        is_disturbed = self.is_disturbed
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -39,6 +43,7 @@ class SamplingTechnique:
                 "name": name,
                 "description": description,
                 "sort_order": sort_order,
+                "is_disturbed": is_disturbed,
             }
         )
 
@@ -55,11 +60,14 @@ class SamplingTechnique:
 
         sort_order = d.pop("sort_order")
 
+        is_disturbed = d.pop("is_disturbed")
+
         sampling_technique = cls(
             sampling_technique_id=sampling_technique_id,
             name=name,
             description=description,
             sort_order=sort_order,
+            is_disturbed=is_disturbed,
         )
 
         sampling_technique.additional_properties = d
