@@ -52,6 +52,7 @@ class MethodSRS:
             stopcode (Union[None, Unset, int]):
             depth_in_soil (Union[None, Unset, float]):
             depth_in_rock (Union[None, Unset, float]):
+            bedrock_elevation (Union[None, Unset, float]):
     """
 
     method_id: UUID
@@ -77,6 +78,7 @@ class MethodSRS:
     stopcode: Union[None, Unset, int] = UNSET
     depth_in_soil: Union[None, Unset, float] = UNSET
     depth_in_rock: Union[None, Unset, float] = UNSET
+    bedrock_elevation: Union[None, Unset, float] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -197,6 +199,12 @@ class MethodSRS:
         else:
             depth_in_rock = self.depth_in_rock
 
+        bedrock_elevation: Union[None, Unset, float]
+        if isinstance(self.bedrock_elevation, Unset):
+            bedrock_elevation = UNSET
+        else:
+            bedrock_elevation = self.bedrock_elevation
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -243,6 +251,8 @@ class MethodSRS:
             field_dict["depth_in_soil"] = depth_in_soil
         if depth_in_rock is not UNSET:
             field_dict["depth_in_rock"] = depth_in_rock
+        if bedrock_elevation is not UNSET:
+            field_dict["bedrock_elevation"] = bedrock_elevation
 
         return field_dict
 
@@ -433,6 +443,15 @@ class MethodSRS:
 
         depth_in_rock = _parse_depth_in_rock(d.pop("depth_in_rock", UNSET))
 
+        def _parse_bedrock_elevation(data: object) -> Union[None, Unset, float]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, float], data)
+
+        bedrock_elevation = _parse_bedrock_elevation(d.pop("bedrock_elevation", UNSET))
+
         method_srs = cls(
             method_id=method_id,
             name=name,
@@ -457,6 +476,7 @@ class MethodSRS:
             stopcode=stopcode,
             depth_in_soil=depth_in_soil,
             depth_in_rock=depth_in_rock,
+            bedrock_elevation=bedrock_elevation,
         )
 
         method_srs.additional_properties = d
