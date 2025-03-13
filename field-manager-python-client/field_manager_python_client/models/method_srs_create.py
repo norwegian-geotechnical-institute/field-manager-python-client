@@ -36,10 +36,10 @@ class MethodSRSCreate:
         method_type_id (Union[Literal[24], Unset]):  Default: 24.
         sounding_class (Union[Unset, SoundingClass]): Soil-Rock-Sounding (Swedish Jord-bergsondering) classes
             (
-            JB1 = Jb-1,
-            JB2 = Jb-2,
-            JB3 = Jb-3,
-            JBTOT = Jb-tot,
+            JB1 = JB1,
+            JB2 = JB2,
+            JB3 = JB3,
+            JBTOT = JBTOT,
             )
         serial_number (Union[None, Unset, str]):
         calibration_date (Union[None, Unset, datetime.datetime]):

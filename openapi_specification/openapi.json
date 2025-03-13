@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.5.89" },
+  "info": { "title": "Field Manager Data API", "version": "4.5.94" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -5087,7 +5087,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "enum": ["dxf", "shp"],
+              "enum": ["dxf", "zip"],
               "type": "string",
               "title": "Format"
             }
@@ -16044,6 +16044,10 @@
           "depth_in_rock": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
             "title": "Depth In Rock"
+          },
+          "bedrock_elevation": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Bedrock Elevation"
           }
         },
         "type": "object",
@@ -21402,7 +21406,7 @@
         "type": "string",
         "enum": ["JB1", "JB2", "JB3", "JBTOT"],
         "title": "SoundingClass",
-        "description": "Soil-Rock-Sounding (Swedish Jord-bergsondering) classes\n(\nJB1 = Jb-1,\nJB2 = Jb-2,\nJB3 = Jb-3,\nJBTOT = Jb-tot,\n)"
+        "description": "Soil-Rock-Sounding (Swedish Jord-bergsondering) classes\n(\nJB1 = JB1,\nJB2 = JB2,\nJB3 = JB3,\nJBTOT = JBTOT,\n)"
       },
       "Standard": {
         "properties": {
