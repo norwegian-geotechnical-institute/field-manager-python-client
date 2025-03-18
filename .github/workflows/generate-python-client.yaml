@@ -14,31 +14,31 @@ jobs:
 
     steps:
       # Step 1: Initialize Log File
-      - name: Initialize Log File
+      - name: 📝 Initialize Log File
         run: |
           mkdir -p logs
           echo "" > logs/log
 
       # Step 2: Checkout the code
-      - name: Checkout repository
+      - name: 📥 Checkout repository
         uses: actions/checkout@v4
         with:
           ref: trunk
 
       # Step 3: Set up Python environment
-      - name: Set up Python
+      - name: 🐍 Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
       # Step 4: Set up Node.js
-      - name: Set up Node.js
+      - name: 🟢 Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "22"
 
       # Step 5: Install dependencies
-      - name: Install Dependencies
+      - name: 📦 Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install openapi-python-client yq
@@ -47,20 +47,20 @@ jobs:
           openapi-python-client --version >> logs/log 2>&1
 
       # Step 6: Download OpenAPI Specification
-      - name: Download OpenAPI Specification
+      - name: ⬇️ Download OpenAPI Specification
         run: |
           echo "Downloading OpenAPI specification..."
           mkdir -p openapi_specification
           curl -s ${{ env.OPENAPI_SPEC_URL }} > ./openapi_specification/openapi.json
 
       # Step 7: Format OpenAPI Specification
-      - name: Format OpenAPI Specification
+      - name: 🔧 Format OpenAPI Specification
         run: |
           echo "Formatting OpenAPI specification..."
           npx prettier --write ./openapi_specification/openapi.json
 
       # Step 8: Get API Version
-      - name: Get API Version
+      - name: 🔢 Get API Version
         run: |
           if yq -e '.package_version_override' config.yaml > /dev/null; then
             VERSION=$(yq -r '.package_version_override' config.yaml)
@@ -81,9 +81,24 @@ jobs:
           echo "$VERSION" > openapi_specification/version
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-      # Step 9: Generate Python Client
-      - name: Generate Python Client
+      # Step 9: Check for existing PR
+      - name: 🔍 Check for existing PR
         if: env.version_changed == 'true'
+        run: |
+          PR_EXISTS=$(gh pr list --repo ${{ github.repository }} --base trunk --head "update-python-client-${{ env.VERSION }}" --json number --jq 'length')
+          if [ "$PR_EXISTS" -gt 0 ]; then
+            echo "A pull request for version ${{ env.VERSION }} already exists. Skipping update."
+            echo "pr_exists=true" >> $GITHUB_ENV
+          else
+            echo "No pull request found for version ${{ env.VERSION }}. Proceeding with update."
+            echo "pr_exists=false" >> $GITHUB_ENV
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Step 10: Generate Python Client
+      - name: ⚙️ Generate Python Client
+        if: env.version_changed == 'true' && env.pr_exists == 'false'
         run: |
           echo "Generating API client..." >> logs/log
           openapi-python-client generate \
@@ -93,9 +108,9 @@ jobs:
             --config config.yaml >> logs/log 2>&1
           cat logs/log
 
-      # Step 10: Check for Changes
-      - name: Check for Changes
-        if: env.version_changed == 'true'
+      # Step 11: Check for Changes
+      - name: 👀 Check for Changes
+        if: env.version_changed == 'true' && env.pr_exists == 'false'
         id: git_diff
         run: |
           git add .
@@ -105,16 +120,16 @@ jobs:
             echo "changes_detected=true" >> $GITHUB_OUTPUT
           fi
 
-      # Step 11: Configure Git
-      - name: Configure Git
-        if: steps.git_diff.outputs.changes_detected == 'true'
+      # Step 12: Configure Git
+      - name: 🔨 Configure Git
+        if: env.version_changed == 'true' && env.pr_exists == 'false' && steps.git_diff.outputs.changes_detected == 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      # Step 12: Create Pull Request
-      - name: Create Pull Request
-        if: steps.git_diff.outputs.changes_detected == 'true'
+      # Step 13: Create Pull Request
+      - name: 🚀 Create Pull Request
+        if: env.version_changed == 'true' && env.pr_exists == 'false' && steps.git_diff.outputs.changes_detected == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.PULL_REQUEST_TOKEN }}
