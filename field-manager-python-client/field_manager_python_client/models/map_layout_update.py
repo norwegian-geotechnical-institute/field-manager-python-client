@@ -1,3 +1,4 @@
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
@@ -63,10 +64,10 @@ class MapLayoutUpdate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.map_layout_version_update import MapLayoutVersionUpdate
 
-        d = src_dict.copy()
+        d = dict(src_dict)
 
         def _parse_map_layout_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:

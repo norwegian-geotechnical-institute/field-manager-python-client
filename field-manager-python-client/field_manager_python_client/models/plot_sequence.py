@@ -1,3 +1,4 @@
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, Union
 
 from attrs import define as _attrs_define
@@ -48,11 +49,11 @@ class PlotSequence:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.plot_info_object import PlotInfoObject
         from ..models.plot_sequence_options import PlotSequenceOptions
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         sequence = []
         _sequence = d.pop("sequence")
         for sequence_item_data in _sequence:

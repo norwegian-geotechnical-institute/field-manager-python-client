@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.5.94" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.1" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -1310,9 +1310,9 @@
       },
       "delete": {
         "tags": ["projects"],
-        "summary": "Update Project Favorite",
+        "summary": "Delete Project Favorite",
         "description": "Remove a project as favorite (for the calling user).",
-        "operationId": "update_project_favorite_projects__project_id__favorite_delete",
+        "operationId": "delete_project_favorite_projects__project_id__favorite_delete",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -6944,7 +6944,7 @@
         "tags": ["organizations", "web map services"],
         "summary": "Get a Web Map Service by ID",
         "description": "Get a Web Map Service by organization_id and web_map_service_id.",
-        "operationId": "read_web_map_service_organizations__organization_id__web_map_services__web_map_service_id__get",
+        "operationId": "get_organization_web_map_service_organizations__organization_id__web_map_services__web_map_service_id__get",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -7117,7 +7117,7 @@
         "tags": ["organizations", "web map services"],
         "summary": "Get Web Map Services by Organization ID",
         "description": "Get Web Map Services by organization_id.",
-        "operationId": "read_web_map_services_organizations__organization_id__web_map_services_get",
+        "operationId": "get_organization_web_map_services_organizations__organization_id__web_map_services_get",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -7135,7 +7135,7 @@
                 "schema": {
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/WebMapService" },
-                  "title": "Response Read Web Map Services Organizations  Organization Id  Web Map Services Get"
+                  "title": "Response Get Organization Web Map Services Organizations  Organization Id  Web Map Services Get"
                 }
               }
             }
@@ -7156,7 +7156,7 @@
         "tags": ["projects", "web map services"],
         "summary": "Get Web Map Services by Project ID",
         "description": "Get Web Map Services by project_id.",
-        "operationId": "read_web_map_services_projects__project_id__web_map_services_get",
+        "operationId": "get_project_web_map_services_projects__project_id__web_map_services_get",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -7174,7 +7174,7 @@
                 "schema": {
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/WebMapService" },
-                  "title": "Response Read Web Map Services Projects  Project Id  Web Map Services Get"
+                  "title": "Response Get Project Web Map Services Projects  Project Id  Web Map Services Get"
                 }
               }
             }
@@ -11050,7 +11050,10 @@
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Self"
           },
-          "type": { "$ref": "#/components/schemas/DPType", "default": "DPSHA" },
+          "dynamic_probing_type": {
+            "$ref": "#/components/schemas/DPType",
+            "default": "DPSHA"
+          },
           "predrilling_depth": {
             "type": "number",
             "title": "Predrilling Depth",
@@ -11083,7 +11086,8 @@
           "depth_in_soil": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
             "title": "Depth In Soil"
-          }
+          },
+          "type": { "$ref": "#/components/schemas/DPType", "readOnly": true }
         },
         "type": "object",
         "required": [
@@ -11092,7 +11096,8 @@
           "location_id",
           "method_status_id",
           "created_at",
-          "updated_at"
+          "updated_at",
+          "type"
         ],
         "title": "MethodDP",
         "description": "DP method\nDynamic Probing\nSwedish Ram sounding (Swedish hejarsondering)"
@@ -11154,7 +11159,12 @@
             "title": "Method Type Id",
             "default": 25
           },
-          "type": { "$ref": "#/components/schemas/DPType", "default": "DPSHA" },
+          "dynamic_probing_type": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/DPType" },
+              { "type": "null" }
+            ]
+          },
           "predrilling_depth": {
             "anyOf": [
               { "type": "number" },
@@ -11437,6 +11447,32 @@
             "const": 25,
             "title": "Method Type Id",
             "default": 25
+          },
+          "dynamic_probing_type": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/DPType" },
+              { "type": "null" }
+            ]
+          },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
+          },
+          "cone_type": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Cone Type"
+          },
+          "cushion_type": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Cushion Type"
+          },
+          "use_damper": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Use Damper"
           }
         },
         "type": "object",
