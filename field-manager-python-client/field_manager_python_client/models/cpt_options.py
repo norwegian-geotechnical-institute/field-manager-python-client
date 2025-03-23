@@ -1,3 +1,4 @@
+from collections.abc import Mapping
 from typing import Any, TypeVar, Union
 
 from attrs import define as _attrs_define
@@ -39,8 +40,8 @@ class CPTOptions:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
         _scaling_mode = d.pop("scaling_mode", UNSET)
         scaling_mode: Union[Unset, ScalingMode]
         if isinstance(_scaling_mode, Unset):

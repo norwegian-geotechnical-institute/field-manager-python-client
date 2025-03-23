@@ -1,3 +1,4 @@
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, Union
 
 from attrs import define as _attrs_define
@@ -201,11 +202,11 @@ class PdfOptions:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.page_number_prefix_by_method import PageNumberPrefixByMethod
         from ..models.page_number_start_per_method import PageNumberStartPerMethod
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         _lang = d.pop("lang", UNSET)
         lang: Union[Unset, PdfOptionsLang]
         if isinstance(_lang, Unset):

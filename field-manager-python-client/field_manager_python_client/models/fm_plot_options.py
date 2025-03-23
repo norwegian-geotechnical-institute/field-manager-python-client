@@ -1,3 +1,4 @@
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
@@ -68,10 +69,10 @@ class FMPlotOptions:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.cpt_options import CPTOptions
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         fill_curve = d.pop("fill_curve", UNSET)
 
         _depth_scale = d.pop("depth_scale", UNSET)

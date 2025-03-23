@@ -1,4 +1,5 @@
 import datetime
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
@@ -36,6 +37,7 @@ class MethodDP:
                 )
             created_at (datetime.datetime):
             updated_at (datetime.datetime):
+            type_ (DPType): (Dynamic Probing) DP Type
             remarks (Union[None, Unset, str]):
             method_type_id (Union[Literal[25], Unset]):  Default: 25.
             created_by (Union[None, Unset, str]):
@@ -44,7 +46,7 @@ class MethodDP:
             conducted_by (Union[None, Unset, str]):
             files (Union[Unset, list['File']]):
             self_ (Union[None, Unset, str]):
-            type_ (Union[Unset, DPType]): (Dynamic Probing) DP Type
+            dynamic_probing_type (Union[Unset, DPType]): (Dynamic Probing) DP Type
             predrilling_depth (Union[Unset, float]):  Default: 0.0.
             cone_type (Union[None, Unset, str]):
             cushion_type (Union[None, Unset, str]):
@@ -61,6 +63,7 @@ class MethodDP:
     method_status_id: MethodStatusEnum
     created_at: datetime.datetime
     updated_at: datetime.datetime
+    type_: DPType
     remarks: Union[None, Unset, str] = UNSET
     method_type_id: Union[Literal[25], Unset] = 25
     created_by: Union[None, Unset, str] = UNSET
@@ -69,7 +72,7 @@ class MethodDP:
     conducted_by: Union[None, Unset, str] = UNSET
     files: Union[Unset, list["File"]] = UNSET
     self_: Union[None, Unset, str] = UNSET
-    type_: Union[Unset, DPType] = UNSET
+    dynamic_probing_type: Union[Unset, DPType] = UNSET
     predrilling_depth: Union[Unset, float] = 0.0
     cone_type: Union[None, Unset, str] = UNSET
     cushion_type: Union[None, Unset, str] = UNSET
@@ -92,6 +95,8 @@ class MethodDP:
         created_at = self.created_at.isoformat()
 
         updated_at = self.updated_at.isoformat()
+
+        type_ = self.type_.value
 
         remarks: Union[None, Unset, str]
         if isinstance(self.remarks, Unset):
@@ -140,9 +145,9 @@ class MethodDP:
         else:
             self_ = self.self_
 
-        type_: Union[Unset, str] = UNSET
-        if not isinstance(self.type_, Unset):
-            type_ = self.type_.value
+        dynamic_probing_type: Union[Unset, str] = UNSET
+        if not isinstance(self.dynamic_probing_type, Unset):
+            dynamic_probing_type = self.dynamic_probing_type.value
 
         predrilling_depth = self.predrilling_depth
 
@@ -198,6 +203,7 @@ class MethodDP:
                 "method_status_id": method_status_id,
                 "created_at": created_at,
                 "updated_at": updated_at,
+                "type": type_,
             }
         )
         if remarks is not UNSET:
@@ -216,8 +222,8 @@ class MethodDP:
             field_dict["files"] = files
         if self_ is not UNSET:
             field_dict["self"] = self_
-        if type_ is not UNSET:
-            field_dict["type"] = type_
+        if dynamic_probing_type is not UNSET:
+            field_dict["dynamic_probing_type"] = dynamic_probing_type
         if predrilling_depth is not UNSET:
             field_dict["predrilling_depth"] = predrilling_depth
         if cone_type is not UNSET:
@@ -238,10 +244,10 @@ class MethodDP:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.file import File
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         method_id = UUID(d.pop("method_id"))
 
         name = d.pop("name")
@@ -253,6 +259,8 @@ class MethodDP:
         created_at = isoparse(d.pop("created_at"))
 
         updated_at = isoparse(d.pop("updated_at"))
+
+        type_ = DPType(d.pop("type"))
 
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -327,12 +335,12 @@ class MethodDP:
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
-        _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, DPType]
-        if isinstance(_type_, Unset):
-            type_ = UNSET
+        _dynamic_probing_type = d.pop("dynamic_probing_type", UNSET)
+        dynamic_probing_type: Union[Unset, DPType]
+        if isinstance(_dynamic_probing_type, Unset):
+            dynamic_probing_type = UNSET
         else:
-            type_ = DPType(_type_)
+            dynamic_probing_type = DPType(_dynamic_probing_type)
 
         predrilling_depth = d.pop("predrilling_depth", UNSET)
 
@@ -406,6 +414,7 @@ class MethodDP:
             method_status_id=method_status_id,
             created_at=created_at,
             updated_at=updated_at,
+            type_=type_,
             remarks=remarks,
             method_type_id=method_type_id,
             created_by=created_by,
@@ -414,7 +423,7 @@ class MethodDP:
             conducted_by=conducted_by,
             files=files,
             self_=self_,
-            type_=type_,
+            dynamic_probing_type=dynamic_probing_type,
             predrilling_depth=predrilling_depth,
             cone_type=cone_type,
             cushion_type=cushion_type,

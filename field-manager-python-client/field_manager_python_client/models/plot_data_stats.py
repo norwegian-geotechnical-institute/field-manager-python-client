@@ -1,3 +1,4 @@
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
@@ -68,10 +69,10 @@ class PlotDataStats:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.plot_data_stats_percentiles import PlotDataStatsPercentiles
 
-        d = src_dict.copy()
+        d = dict(src_dict)
 
         def _parse_value_min(data: object) -> Union[float, str]:
             return cast(Union[float, str], data)

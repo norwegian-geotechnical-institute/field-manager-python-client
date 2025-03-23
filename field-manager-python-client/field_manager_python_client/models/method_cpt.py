@@ -1,4 +1,5 @@
 import datetime
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
@@ -47,8 +48,14 @@ class MethodCPT:
         water_depth (Union[None, Unset, float]):
         cone_area_ratio (Union[None, Unset, float]):
         sleeve_area_ratio (Union[None, Unset, float]):
-        application_class (Union[Unset, Any]): This is the maximum value of all the other application classes (depth,
-            resistance, friction and pressure) Default: 100.
+        application_class (Union[Unset, ApplicationClassEnum]): (
+            ONE=1,
+            TWO=2,
+            THREE=3,
+            FOUR=4,
+            OUT_OF_BOUNDS=10,
+            UNKNOWN=100,
+            )
         application_class_depth (Union[Unset, ApplicationClassEnum]): (
             ONE=1,
             TWO=2,
@@ -105,7 +112,7 @@ class MethodCPT:
     water_depth: Union[None, Unset, float] = UNSET
     cone_area_ratio: Union[None, Unset, float] = UNSET
     sleeve_area_ratio: Union[None, Unset, float] = UNSET
-    application_class: Union[Unset, Any] = 100
+    application_class: Union[Unset, ApplicationClassEnum] = UNSET
     application_class_depth: Union[Unset, ApplicationClassEnum] = UNSET
     application_class_resistance: Union[Unset, ApplicationClassEnum] = UNSET
     application_class_friction: Union[Unset, ApplicationClassEnum] = UNSET
@@ -205,7 +212,9 @@ class MethodCPT:
         else:
             sleeve_area_ratio = self.sleeve_area_ratio
 
-        application_class = self.application_class
+        application_class: Union[Unset, int] = UNSET
+        if not isinstance(self.application_class, Unset):
+            application_class = self.application_class.value
 
         application_class_depth: Union[Unset, int] = UNSET
         if not isinstance(self.application_class_depth, Unset):
@@ -299,10 +308,10 @@ class MethodCPT:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.file import File
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         method_id = UUID(d.pop("method_id"))
 
         name = d.pop("name")
@@ -433,7 +442,12 @@ class MethodCPT:
 
         sleeve_area_ratio = _parse_sleeve_area_ratio(d.pop("sleeve_area_ratio", UNSET))
 
-        application_class = d.pop("application_class", UNSET)
+        _application_class = d.pop("application_class", UNSET)
+        application_class: Union[Unset, ApplicationClassEnum]
+        if isinstance(_application_class, Unset):
+            application_class = UNSET
+        else:
+            application_class = ApplicationClassEnum(_application_class)
 
         _application_class_depth = d.pop("application_class_depth", UNSET)
         application_class_depth: Union[Unset, ApplicationClassEnum]

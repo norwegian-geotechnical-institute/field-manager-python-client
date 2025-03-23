@@ -1,4 +1,5 @@
 import datetime
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
@@ -459,7 +460,7 @@ class LocationUpdate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.method_ad_create import MethodADCreate
         from ..models.method_ad_update import MethodADUpdate
         from ..models.method_cd_create import MethodCDCreate
@@ -517,7 +518,7 @@ class LocationUpdate:
         from ..models.method_wst_create import MethodWSTCreate
         from ..models.method_wst_update import MethodWSTUpdate
 
-        d = src_dict.copy()
+        d = dict(src_dict)
 
         def _parse_project_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:

@@ -1,4 +1,5 @@
 import datetime
+from collections.abc import Mapping
 from typing import Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
@@ -6,6 +7,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
+from ..models.dp_type import DPType
 from ..models.method_status_enum import MethodStatusEnum
 from ..types import UNSET, Unset
 
@@ -25,6 +27,11 @@ class MethodDPUpdate:
         conducted_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
         method_type_id (Union[Literal[25], Unset]):  Default: 25.
+        dynamic_probing_type (Union[DPType, None, Unset]):
+        predrilling_depth (Union[None, Unset, float, str]):
+        cone_type (Union[None, Unset, str]):
+        cushion_type (Union[None, Unset, str]):
+        use_damper (Union[None, Unset, bool]):
     """
 
     method_id: Union[None, UUID, Unset] = UNSET
@@ -36,6 +43,11 @@ class MethodDPUpdate:
     conducted_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
     method_type_id: Union[Literal[25], Unset] = 25
+    dynamic_probing_type: Union[DPType, None, Unset] = UNSET
+    predrilling_depth: Union[None, Unset, float, str] = UNSET
+    cone_type: Union[None, Unset, str] = UNSET
+    cushion_type: Union[None, Unset, str] = UNSET
+    use_damper: Union[None, Unset, bool] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -97,6 +109,38 @@ class MethodDPUpdate:
 
         method_type_id = self.method_type_id
 
+        dynamic_probing_type: Union[None, Unset, str]
+        if isinstance(self.dynamic_probing_type, Unset):
+            dynamic_probing_type = UNSET
+        elif isinstance(self.dynamic_probing_type, DPType):
+            dynamic_probing_type = self.dynamic_probing_type.value
+        else:
+            dynamic_probing_type = self.dynamic_probing_type
+
+        predrilling_depth: Union[None, Unset, float, str]
+        if isinstance(self.predrilling_depth, Unset):
+            predrilling_depth = UNSET
+        else:
+            predrilling_depth = self.predrilling_depth
+
+        cone_type: Union[None, Unset, str]
+        if isinstance(self.cone_type, Unset):
+            cone_type = UNSET
+        else:
+            cone_type = self.cone_type
+
+        cushion_type: Union[None, Unset, str]
+        if isinstance(self.cushion_type, Unset):
+            cushion_type = UNSET
+        else:
+            cushion_type = self.cushion_type
+
+        use_damper: Union[None, Unset, bool]
+        if isinstance(self.use_damper, Unset):
+            use_damper = UNSET
+        else:
+            use_damper = self.use_damper
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -118,12 +162,22 @@ class MethodDPUpdate:
             field_dict["conducted_at"] = conducted_at
         if method_type_id is not UNSET:
             field_dict["method_type_id"] = method_type_id
+        if dynamic_probing_type is not UNSET:
+            field_dict["dynamic_probing_type"] = dynamic_probing_type
+        if predrilling_depth is not UNSET:
+            field_dict["predrilling_depth"] = predrilling_depth
+        if cone_type is not UNSET:
+            field_dict["cone_type"] = cone_type
+        if cushion_type is not UNSET:
+            field_dict["cushion_type"] = cushion_type
+        if use_damper is not UNSET:
+            field_dict["use_damper"] = use_damper
 
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
 
         def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
@@ -233,6 +287,59 @@ class MethodDPUpdate:
         if method_type_id != 25 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 25, got '{method_type_id}'")
 
+        def _parse_dynamic_probing_type(data: object) -> Union[DPType, None, Unset]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                dynamic_probing_type_type_0 = DPType(data)
+
+                return dynamic_probing_type_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[DPType, None, Unset], data)
+
+        dynamic_probing_type = _parse_dynamic_probing_type(d.pop("dynamic_probing_type", UNSET))
+
+        def _parse_predrilling_depth(data: object) -> Union[None, Unset, float, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, float, str], data)
+
+        predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
+
+        def _parse_cone_type(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        cone_type = _parse_cone_type(d.pop("cone_type", UNSET))
+
+        def _parse_cushion_type(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        cushion_type = _parse_cushion_type(d.pop("cushion_type", UNSET))
+
+        def _parse_use_damper(data: object) -> Union[None, Unset, bool]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, bool], data)
+
+        use_damper = _parse_use_damper(d.pop("use_damper", UNSET))
+
         method_dp_update = cls(
             method_id=method_id,
             name=name,
@@ -243,6 +350,11 @@ class MethodDPUpdate:
             conducted_by=conducted_by,
             conducted_at=conducted_at,
             method_type_id=method_type_id,
+            dynamic_probing_type=dynamic_probing_type,
+            predrilling_depth=predrilling_depth,
+            cone_type=cone_type,
+            cushion_type=cushion_type,
+            use_damper=use_damper,
         )
 
         method_dp_update.additional_properties = d
