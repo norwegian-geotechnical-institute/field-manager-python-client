@@ -1,4 +1,5 @@
 import datetime
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
@@ -221,10 +222,10 @@ class MethodTOT:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.file import File
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         method_id = UUID(d.pop("method_id"))
 
         name = d.pop("name")

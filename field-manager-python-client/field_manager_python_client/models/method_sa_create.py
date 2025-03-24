@@ -1,4 +1,5 @@
 import datetime
+from collections.abc import Mapping
 from typing import Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
@@ -220,8 +221,8 @@ class MethodSACreate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
 
         def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
