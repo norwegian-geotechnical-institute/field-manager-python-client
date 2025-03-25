@@ -1,4 +1,5 @@
 import datetime
+from collections.abc import Mapping
 from typing import Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
@@ -34,7 +35,7 @@ class MethodDPCreate:
         conducted_by (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
         method_type_id (Union[Literal[25], Unset]):  Default: 25.
-        type_ (Union[Unset, DPType]): (Dynamic Probing) DP Type
+        dynamic_probing_type (Union[DPType, None, Unset]):
         predrilling_depth (Union[None, Unset, float, str]):
         cone_type (Union[None, Unset, str]):
         cushion_type (Union[None, Unset, str]):
@@ -55,7 +56,7 @@ class MethodDPCreate:
     conducted_by: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
     method_type_id: Union[Literal[25], Unset] = 25
-    type_: Union[Unset, DPType] = UNSET
+    dynamic_probing_type: Union[DPType, None, Unset] = UNSET
     predrilling_depth: Union[None, Unset, float, str] = UNSET
     cone_type: Union[None, Unset, str] = UNSET
     cushion_type: Union[None, Unset, str] = UNSET
@@ -130,9 +131,13 @@ class MethodDPCreate:
 
         method_type_id = self.method_type_id
 
-        type_: Union[Unset, str] = UNSET
-        if not isinstance(self.type_, Unset):
-            type_ = self.type_.value
+        dynamic_probing_type: Union[None, Unset, str]
+        if isinstance(self.dynamic_probing_type, Unset):
+            dynamic_probing_type = UNSET
+        elif isinstance(self.dynamic_probing_type, DPType):
+            dynamic_probing_type = self.dynamic_probing_type.value
+        else:
+            dynamic_probing_type = self.dynamic_probing_type
 
         predrilling_depth: Union[None, Unset, float, str]
         if isinstance(self.predrilling_depth, Unset):
@@ -201,8 +206,8 @@ class MethodDPCreate:
             field_dict["conducted_at"] = conducted_at
         if method_type_id is not UNSET:
             field_dict["method_type_id"] = method_type_id
-        if type_ is not UNSET:
-            field_dict["type"] = type_
+        if dynamic_probing_type is not UNSET:
+            field_dict["dynamic_probing_type"] = dynamic_probing_type
         if predrilling_depth is not UNSET:
             field_dict["predrilling_depth"] = predrilling_depth
         if cone_type is not UNSET:
@@ -221,8 +226,8 @@ class MethodDPCreate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
 
         def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
@@ -341,12 +346,22 @@ class MethodDPCreate:
         if method_type_id != 25 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 25, got '{method_type_id}'")
 
-        _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, DPType]
-        if isinstance(_type_, Unset):
-            type_ = UNSET
-        else:
-            type_ = DPType(_type_)
+        def _parse_dynamic_probing_type(data: object) -> Union[DPType, None, Unset]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                dynamic_probing_type_type_0 = DPType(data)
+
+                return dynamic_probing_type_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[DPType, None, Unset], data)
+
+        dynamic_probing_type = _parse_dynamic_probing_type(d.pop("dynamic_probing_type", UNSET))
 
         def _parse_predrilling_depth(data: object) -> Union[None, Unset, float, str]:
             if data is None:
@@ -423,7 +438,7 @@ class MethodDPCreate:
             conducted_by=conducted_by,
             conducted_at=conducted_at,
             method_type_id=method_type_id,
-            type_=type_,
+            dynamic_probing_type=dynamic_probing_type,
             predrilling_depth=predrilling_depth,
             cone_type=cone_type,
             cushion_type=cushion_type,

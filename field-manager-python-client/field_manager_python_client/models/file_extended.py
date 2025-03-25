@@ -1,4 +1,5 @@
 import datetime
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
@@ -185,11 +186,11 @@ class FileExtended:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.location_min import LocationMin
         from ..models.method_min import MethodMin
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         file_id = UUID(d.pop("file_id"))
 
         name = d.pop("name")

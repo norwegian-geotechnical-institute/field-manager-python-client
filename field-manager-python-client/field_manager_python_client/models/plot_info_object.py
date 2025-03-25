@@ -1,3 +1,4 @@
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
@@ -149,7 +150,7 @@ class PlotInfoObject:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.fm_plot_options import FMPlotOptions
         from ..models.location_coordinates import LocationCoordinates
         from ..models.location_info import LocationInfo
@@ -157,7 +158,7 @@ class PlotInfoObject:
         from ..models.pdf_page_info import PDFPageInfo
         from ..models.plot_info_object_stats_type_0 import PlotInfoObjectStatsType0
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         project_id = UUID(d.pop("project_id"))
 
         location_type = LocationType(d.pop("location_type"))

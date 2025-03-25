@@ -1,3 +1,4 @@
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
@@ -90,10 +91,10 @@ class PiezometerModel:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.piezometer_vendor import PiezometerVendor
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         model_id = UUID(d.pop("model_id"))
 
         vendor_id = UUID(d.pop("vendor_id"))

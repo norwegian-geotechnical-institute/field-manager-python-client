@@ -1,4 +1,5 @@
 import datetime
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
@@ -367,7 +368,7 @@ class Location:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.file import File
         from ..models.method_ad import MethodAD
         from ..models.method_cd import MethodCD
@@ -398,7 +399,7 @@ class Location:
         from ..models.method_tr import MethodTR
         from ..models.method_wst import MethodWST
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         name = d.pop("name")
 
         created_at = isoparse(d.pop("created_at"))
