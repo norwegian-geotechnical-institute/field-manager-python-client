@@ -1,3 +1,4 @@
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, Union
 
 from attrs import define as _attrs_define
@@ -48,10 +49,10 @@ class PlotSequenceOptions:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.pdf_options import PdfOptions
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         auto_set_depth = d.pop("auto_set_depth", UNSET)
 
         pdf_filename = d.pop("pdf_filename", UNSET)

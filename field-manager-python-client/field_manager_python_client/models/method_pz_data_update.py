@@ -1,4 +1,5 @@
 import datetime
+from collections.abc import Mapping
 from typing import Any, Literal, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
@@ -97,8 +98,8 @@ class MethodPZDataUpdate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
         method_type_id = cast(Union[Literal[5], Unset], d.pop("method_type_id", UNSET))
         if method_type_id != 5 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 5, got '{method_type_id}'")

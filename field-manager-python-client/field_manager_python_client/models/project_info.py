@@ -1,4 +1,5 @@
 import datetime
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
@@ -187,11 +188,11 @@ class ProjectInfo:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.organization_min import OrganizationMin
         from ..models.role import Role
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         project_id = UUID(d.pop("project_id"))
 
         external_id = d.pop("external_id")

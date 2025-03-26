@@ -1,4 +1,5 @@
 import datetime
+from collections.abc import Mapping
 from typing import Any, Literal, TypeVar, Union, cast
 from uuid import UUID
 
@@ -142,8 +143,8 @@ class MethodPZDataCreate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
         reading_type = ReadingType(d.pop("reading_type"))
 
         def _parse_method_data_id(data: object) -> Union[None, UUID, Unset]:

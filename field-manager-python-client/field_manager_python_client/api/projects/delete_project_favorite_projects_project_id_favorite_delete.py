@@ -54,7 +54,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Union[HTTPValidationError, ProjectInfo]]:
-    """Update Project Favorite
+    """Delete Project Favorite
 
      Remove a project as favorite (for the calling user).
 
@@ -85,7 +85,7 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Optional[Union[HTTPValidationError, ProjectInfo]]:
-    """Update Project Favorite
+    """Delete Project Favorite
 
      Remove a project as favorite (for the calling user).
 
@@ -111,7 +111,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Union[HTTPValidationError, ProjectInfo]]:
-    """Update Project Favorite
+    """Delete Project Favorite
 
      Remove a project as favorite (for the calling user).
 
@@ -140,7 +140,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Optional[Union[HTTPValidationError, ProjectInfo]]:
-    """Update Project Favorite
+    """Delete Project Favorite
 
      Remove a project as favorite (for the calling user).
 

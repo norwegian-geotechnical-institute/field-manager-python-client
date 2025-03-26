@@ -1,4 +1,5 @@
 import datetime
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
@@ -358,7 +359,7 @@ class LocationCreate:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.method_ad_create import MethodADCreate
         from ..models.method_cd_create import MethodCDCreate
         from ..models.method_cpt_create import MethodCPTCreate
@@ -388,7 +389,7 @@ class LocationCreate:
         from ..models.method_tr_create import MethodTRCreate
         from ..models.method_wst_create import MethodWSTCreate
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         name = d.pop("name")
 
         _iogp_type_id = d.pop("iogp_type_id", UNSET)

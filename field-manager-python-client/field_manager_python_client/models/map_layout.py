@@ -1,4 +1,5 @@
 import datetime
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from uuid import UUID
 
@@ -90,10 +91,10 @@ class MapLayout:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.map_layout_version import MapLayoutVersion
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         map_layout_id = UUID(d.pop("map_layout_id"))
 
         project_id = UUID(d.pop("project_id"))
