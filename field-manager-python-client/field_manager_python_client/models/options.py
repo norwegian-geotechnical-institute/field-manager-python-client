@@ -1,3 +1,4 @@
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, Union
 from uuid import UUID
 
@@ -75,11 +76,11 @@ class Options:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.fm_plot_options import FMPlotOptions
         from ..models.pdf_options import PdfOptions
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         location_ids = []
         _location_ids = d.pop("location_ids")
         for location_ids_item_data in _location_ids:
