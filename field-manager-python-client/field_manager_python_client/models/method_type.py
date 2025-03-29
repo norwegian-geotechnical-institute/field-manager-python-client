@@ -1,11 +1,10 @@
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..models.method_type_enum import MethodTypeEnum
-from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.file_extension import FileExtension
@@ -53,7 +52,6 @@ class MethodType:
         category (str):
         sort_order (int):
         file_extensions (list['FileExtension']):
-        raw_file_extensions (Union[Unset, list['FileExtension']]): Deprecated, use 'file_extensions' instead.
     """
 
     method_type_id: MethodTypeEnum
@@ -62,7 +60,6 @@ class MethodType:
     category: str
     sort_order: int
     file_extensions: list["FileExtension"]
-    raw_file_extensions: Union[Unset, list["FileExtension"]] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -81,13 +78,6 @@ class MethodType:
             file_extensions_item = file_extensions_item_data.to_dict()
             file_extensions.append(file_extensions_item)
 
-        raw_file_extensions: Union[Unset, list[dict[str, Any]]] = UNSET
-        if not isinstance(self.raw_file_extensions, Unset):
-            raw_file_extensions = []
-            for raw_file_extensions_item_data in self.raw_file_extensions:
-                raw_file_extensions_item = raw_file_extensions_item_data.to_dict()
-                raw_file_extensions.append(raw_file_extensions_item)
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -100,8 +90,6 @@ class MethodType:
                 "file_extensions": file_extensions,
             }
         )
-        if raw_file_extensions is not UNSET:
-            field_dict["raw_file_extensions"] = raw_file_extensions
 
         return field_dict
 
@@ -127,13 +115,6 @@ class MethodType:
 
             file_extensions.append(file_extensions_item)
 
-        raw_file_extensions = []
-        _raw_file_extensions = d.pop("raw_file_extensions", UNSET)
-        for raw_file_extensions_item_data in _raw_file_extensions or []:
-            raw_file_extensions_item = FileExtension.from_dict(raw_file_extensions_item_data)
-
-            raw_file_extensions.append(raw_file_extensions_item)
-
         method_type = cls(
             method_type_id=method_type_id,
             name=name,
@@ -141,7 +122,6 @@ class MethodType:
             category=category,
             sort_order=sort_order,
             file_extensions=file_extensions,
-            raw_file_extensions=raw_file_extensions,
         )
 
         method_type.additional_properties = d
