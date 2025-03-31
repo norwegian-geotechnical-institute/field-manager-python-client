@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.1" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.4" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -4734,7 +4734,7 @@
       "post": {
         "tags": ["export", "projects"],
         "summary": "Export",
-        "description": "Endpoint for exporting project data.\n\nSupported **export_type**:\n\n- **ProjectFiles**: Download files, with ID listed in the file_ids, in a Zip file.\n- **LocationGeoJSON**: Download GeoJSON files.\n- **LocationKOF**: Download KOF files.\n- **LocationCSV**: Download CSV file with key location information (onshore format).\n- **LocationXLS**: Download Excel file with key location information (onshore format).\n- **MethodFiles**: Download all original uploaded source data files.\n- **MethodSND**: Download SND files for all methods in a Zip file.\n- **MethodXLS**: Download Excel file with method data (offshore format).\n\n**method_status_ids**: Filter methods by status. Only return specified statuses. Empty list means all statuses.\n\n**method_type_ids**: Filter methods by type. Only return specified method types. Empty list means all types.\n\n**method_conducted_from**: Optional filter. Only return methods conducted after this time.\n\n**method_conducted_to**: Optional filter. Only return methods conducted before (this time + one day).",
+        "description": "Endpoint for exporting project data.\n\nSupported **export_type**:\n\n- **LocationCSV**: Download CSV file with key location information (onshore format).\n- **LocationGeoJSON**: Download GeoJSON files.\n- **LocationKOF**: Download KOF files.\n- **LocationLAS**: Download LAS files.\n- **LocationXLS**: Download Excel file with key location information (onshore format).\n- **MethodFiles**: Download all original uploaded source data files.\n- **MethodSND**: Download SND files for all methods in a Zip file.\n- **MethodXLS**: Download Excel file with method data (offshore format).\n- **ProjectFiles**: Download files, with ID listed in the file_ids, in a Zip file.\n\n**method_status_ids**: Filter methods by status. Only return specified statuses. Empty list means all statuses.\n\n**method_type_ids**: Filter methods by type. Only return specified method types. Empty list means all types.\n\n**method_conducted_from**: Optional filter. Only return methods conducted after this time.\n\n**method_conducted_to**: Optional filter. Only return methods conducted before (this time + one day).",
         "operationId": "export_projects__project_id__export_post",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
@@ -7810,7 +7810,7 @@
             "items": { "type": "string", "format": "uuid" },
             "type": "array",
             "title": "Location Ids",
-            "description": "Used when export_type is one of `LocationKOF`, `LocationXLS`",
+            "description": "Used when export_type is one of `LocationCSV`, `LocationGeoJSON`, `LocationKOF`, `LocationLAS` or `LocationXLS`",
             "default": []
           },
           "file_ids": {
@@ -7868,14 +7868,15 @@
       "ExportType": {
         "type": "string",
         "enum": [
-          "ProjectFiles",
+          "LocationCSV",
           "LocationGeoJSON",
           "LocationKOF",
+          "LocationLAS",
           "LocationXLS",
-          "LocationCSV",
           "MethodFiles",
           "MethodSND",
-          "MethodXLS"
+          "MethodXLS",
+          "ProjectFiles"
         ],
         "title": "ExportType"
       },
@@ -19019,13 +19020,6 @@
           "description": { "type": "string", "title": "Description" },
           "category": { "type": "string", "title": "Category" },
           "sort_order": { "type": "integer", "title": "Sort Order" },
-          "raw_file_extensions": {
-            "items": { "$ref": "#/components/schemas/FileExtension" },
-            "type": "array",
-            "title": "Raw File Extensions",
-            "description": "Deprecated, use 'file_extensions' instead.",
-            "deprecated": true
-          },
           "file_extensions": {
             "items": { "$ref": "#/components/schemas/FileExtension" },
             "type": "array",
