@@ -70,14 +70,15 @@ def sync_detailed(
 
     Supported **export_type**:
 
-    - **ProjectFiles**: Download files, with ID listed in the file_ids, in a Zip file.
+    - **LocationCSV**: Download CSV file with key location information (onshore format).
     - **LocationGeoJSON**: Download GeoJSON files.
     - **LocationKOF**: Download KOF files.
-    - **LocationCSV**: Download CSV file with key location information (onshore format).
+    - **LocationLAS**: Download LAS files.
     - **LocationXLS**: Download Excel file with key location information (onshore format).
     - **MethodFiles**: Download all original uploaded source data files.
     - **MethodSND**: Download SND files for all methods in a Zip file.
     - **MethodXLS**: Download Excel file with method data (offshore format).
+    - **ProjectFiles**: Download files, with ID listed in the file_ids, in a Zip file.
 
     **method_status_ids**: Filter methods by status. Only return specified statuses. Empty list means
     all statuses.
@@ -126,14 +127,15 @@ def sync(
 
     Supported **export_type**:
 
-    - **ProjectFiles**: Download files, with ID listed in the file_ids, in a Zip file.
+    - **LocationCSV**: Download CSV file with key location information (onshore format).
     - **LocationGeoJSON**: Download GeoJSON files.
     - **LocationKOF**: Download KOF files.
-    - **LocationCSV**: Download CSV file with key location information (onshore format).
+    - **LocationLAS**: Download LAS files.
     - **LocationXLS**: Download Excel file with key location information (onshore format).
     - **MethodFiles**: Download all original uploaded source data files.
     - **MethodSND**: Download SND files for all methods in a Zip file.
     - **MethodXLS**: Download Excel file with method data (offshore format).
+    - **ProjectFiles**: Download files, with ID listed in the file_ids, in a Zip file.
 
     **method_status_ids**: Filter methods by status. Only return specified statuses. Empty list means
     all statuses.
@@ -177,14 +179,15 @@ async def asyncio_detailed(
 
     Supported **export_type**:
 
-    - **ProjectFiles**: Download files, with ID listed in the file_ids, in a Zip file.
+    - **LocationCSV**: Download CSV file with key location information (onshore format).
     - **LocationGeoJSON**: Download GeoJSON files.
     - **LocationKOF**: Download KOF files.
-    - **LocationCSV**: Download CSV file with key location information (onshore format).
+    - **LocationLAS**: Download LAS files.
     - **LocationXLS**: Download Excel file with key location information (onshore format).
     - **MethodFiles**: Download all original uploaded source data files.
     - **MethodSND**: Download SND files for all methods in a Zip file.
     - **MethodXLS**: Download Excel file with method data (offshore format).
+    - **ProjectFiles**: Download files, with ID listed in the file_ids, in a Zip file.
 
     **method_status_ids**: Filter methods by status. Only return specified statuses. Empty list means
     all statuses.
@@ -231,14 +234,15 @@ async def asyncio(
 
     Supported **export_type**:
 
-    - **ProjectFiles**: Download files, with ID listed in the file_ids, in a Zip file.
+    - **LocationCSV**: Download CSV file with key location information (onshore format).
     - **LocationGeoJSON**: Download GeoJSON files.
     - **LocationKOF**: Download KOF files.
-    - **LocationCSV**: Download CSV file with key location information (onshore format).
+    - **LocationLAS**: Download LAS files.
     - **LocationXLS**: Download Excel file with key location information (onshore format).
     - **MethodFiles**: Download all original uploaded source data files.
     - **MethodSND**: Download SND files for all methods in a Zip file.
     - **MethodXLS**: Download Excel file with method data (offshore format).
+    - **ProjectFiles**: Download files, with ID listed in the file_ids, in a Zip file.
 
     **method_status_ids**: Filter methods by status. Only return specified statuses. Empty list means
     all statuses.
