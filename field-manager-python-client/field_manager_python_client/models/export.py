@@ -18,7 +18,8 @@ class Export:
     """
     Attributes:
         export_type (ExportType):
-        location_ids (Union[Unset, list[UUID]]): Used when export_type is one of `LocationKOF`, `LocationXLS`
+        location_ids (Union[Unset, list[UUID]]): Used when export_type is one of `LocationCSV`, `LocationGeoJSON`,
+            `LocationKOF`, `LocationLAS` or `LocationXLS`
         file_ids (Union[Unset, list[UUID]]): Used when export_type is `ProjectFiles`
         method_status_ids (Union[Unset, list[int]]): Filter methods by status. Empty list means all statuses.
         method_type_ids (Union[Unset, list[int]]): Filter methods by type. Empty list means all types.
