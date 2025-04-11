@@ -5,6 +5,7 @@ class ExportType(str, Enum):
     LOCATIONCSV = "LocationCSV"
     LOCATIONGEOJSON = "LocationGeoJSON"
     LOCATIONKOF = "LocationKOF"
+    LOCATIONLAS = "LocationLAS"
     LOCATIONXLS = "LocationXLS"
     METHODFILES = "MethodFiles"
     METHODSND = "MethodSND"
