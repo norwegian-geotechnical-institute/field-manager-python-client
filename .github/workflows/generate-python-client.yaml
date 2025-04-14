@@ -85,7 +85,7 @@ jobs:
       - name: 🔍 Check for existing PR
         if: env.version_changed == 'true'
         run: |
-          PR_EXISTS=$(gh pr list --repo ${{ github.repository }} --base trunk --head "update-python-client-${{ env.VERSION }}" --json number --jq 'length')
+          PR_EXISTS=$(gh pr list --repo ${{ github.repository }} --base trunk --head "update-python-client-${{ env.VERSION }}-*" --json number --jq 'length')
           if [ "$PR_EXISTS" -gt 0 ]; then
             echo "A pull request for version ${{ env.VERSION }} already exists. Skipping update."
             echo "pr_exists=true" >> $GITHUB_ENV
