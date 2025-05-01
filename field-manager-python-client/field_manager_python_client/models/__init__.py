@@ -252,6 +252,7 @@ from .user import User
 from .validation_error import ValidationError
 from .web_map_service import WebMapService
 from .web_map_service_create import WebMapServiceCreate
+from .web_map_service_level import WebMapServiceLevel
 from .web_map_service_type import WebMapServiceType
 from .web_map_service_update import WebMapServiceUpdate
 
@@ -492,6 +493,7 @@ __all__ = (
     "ValidationError",
     "WebMapService",
     "WebMapServiceCreate",
+    "WebMapServiceLevel",
     "WebMapServiceType",
     "WebMapServiceUpdate",
 )

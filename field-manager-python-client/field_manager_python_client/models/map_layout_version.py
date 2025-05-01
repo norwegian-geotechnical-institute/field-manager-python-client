@@ -45,6 +45,7 @@ class MapLayoutVersion:
         scale (Union[Unset, MapScale]): Map scales
                 1:50
                 1:100
+                1:200
                 1:500 (default)
                 1:1000
                 1:2000
