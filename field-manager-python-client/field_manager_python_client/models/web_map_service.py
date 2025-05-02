@@ -6,6 +6,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..models.standard_type import StandardType
+from ..models.web_map_service_level import WebMapServiceLevel
 from ..models.web_map_service_type import WebMapServiceType
 from ..types import UNSET, Unset
 
@@ -20,9 +21,9 @@ class WebMapService:
         name (str):
         url (str):
         service_type (WebMapServiceType):
-        organization_id (Union[None, UUID]): The ID for the organization that owns this web map service. If null, it is
-            global.
-        is_application_layer (bool): True if this web map service is global for the application. Output only.
+        organization_id (Union[None, UUID]): The ID for the organization that owns this web map service.
+        project_id (Union[None, UUID]): The ID for the project that owns this web map service.
+        level (WebMapServiceLevel):
         available_standard_ids (Union[Unset, list[StandardType]]):
         description (Union[None, Unset, str]):
     """
@@ -32,7 +33,8 @@ class WebMapService:
     url: str
     service_type: WebMapServiceType
     organization_id: Union[None, UUID]
-    is_application_layer: bool
+    project_id: Union[None, UUID]
+    level: WebMapServiceLevel
     available_standard_ids: Union[Unset, list[StandardType]] = UNSET
     description: Union[None, Unset, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -52,7 +54,13 @@ class WebMapService:
         else:
             organization_id = self.organization_id
 
-        is_application_layer = self.is_application_layer
+        project_id: Union[None, str]
+        if isinstance(self.project_id, UUID):
+            project_id = str(self.project_id)
+        else:
+            project_id = self.project_id
+
+        level = self.level.value
 
         available_standard_ids: Union[Unset, list[str]] = UNSET
         if not isinstance(self.available_standard_ids, Unset):
@@ -76,7 +84,8 @@ class WebMapService:
                 "url": url,
                 "service_type": service_type,
                 "organization_id": organization_id,
-                "is_application_layer": is_application_layer,
+                "project_id": project_id,
+                "level": level,
             }
         )
         if available_standard_ids is not UNSET:
@@ -112,7 +121,22 @@ class WebMapService:
 
         organization_id = _parse_organization_id(d.pop("organization_id"))
 
-        is_application_layer = d.pop("is_application_layer")
+        def _parse_project_id(data: object) -> Union[None, UUID]:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                project_id_type_0 = UUID(data)
+
+                return project_id_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[None, UUID], data)
+
+        project_id = _parse_project_id(d.pop("project_id"))
+
+        level = WebMapServiceLevel(d.pop("level"))
 
         available_standard_ids = []
         _available_standard_ids = d.pop("available_standard_ids", UNSET)
@@ -136,7 +160,8 @@ class WebMapService:
             url=url,
             service_type=service_type,
             organization_id=organization_id,
-            is_application_layer=is_application_layer,
+            project_id=project_id,
+            level=level,
             available_standard_ids=available_standard_ids,
             description=description,
         )

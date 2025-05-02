@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.7" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.11" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -6987,7 +6987,7 @@
         "tags": ["organizations", "web map services"],
         "summary": "Update a Web Map Service",
         "description": "Update a Web Map Service by organization_id and web_map_service_id.",
-        "operationId": "update_web_map_service_organizations__organization_id__web_map_services__web_map_service_id__put",
+        "operationId": "update_web_map_service_organization_organizations__organization_id__web_map_services__web_map_service_id__put",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -7038,7 +7038,7 @@
         "tags": ["organizations", "web map services"],
         "summary": "Delete a Web Map Service",
         "description": "Delete a Web Map Service by organization_id and web_map_service_id.",
-        "operationId": "delete_web_map_service_organizations__organization_id__web_map_services__web_map_service_id__delete",
+        "operationId": "delete_web_map_service_organization_organizations__organization_id__web_map_services__web_map_service_id__delete",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -7076,7 +7076,7 @@
         "tags": ["organizations", "web map services"],
         "summary": "Create a Web Map Service",
         "description": "Create a Web Map Service.",
-        "operationId": "create_web_map_service_organizations__organization_id__web_map_services_post",
+        "operationId": "create_web_map_service_organization_organizations__organization_id__web_map_services_post",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -7151,12 +7151,12 @@
         }
       }
     },
-    "/projects/{project_id}/web_map_services": {
+    "/projects/{project_id}/web_map_services/{web_map_service_id}": {
       "get": {
         "tags": ["projects", "web map services"],
-        "summary": "Get Web Map Services by Project ID",
-        "description": "Get Web Map Services by project_id.",
-        "operationId": "get_project_web_map_services_projects__project_id__web_map_services_get",
+        "summary": "Get a Web Map Service by ID",
+        "description": "Get a Web Map Service by project_id and web_map_service_id.",
+        "operationId": "read_web_map_service_project_projects__project_id__web_map_services__web_map_service_id__get",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -7164,6 +7164,190 @@
             "in": "path",
             "required": true,
             "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "web_map_service_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Web Map Service Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WebMapService" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["projects", "web map services"],
+        "summary": "Update a Web Map Service",
+        "description": "Update a Web Map Service by project_id and web_map_service_id.",
+        "operationId": "update_web_map_service_project_projects__project_id__web_map_services__web_map_service_id__put",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "web_map_service_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Web Map Service Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/WebMapServiceUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WebMapService" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["projects", "web map services"],
+        "summary": "Delete a Web Map Service",
+        "description": "Delete a Web Map Service by project_id and web_map_service_id.",
+        "operationId": "delete_web_map_service_project_projects__project_id__web_map_services__web_map_service_id__delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "web_map_service_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Web Map Service Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Successful Response" },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/web_map_services": {
+      "post": {
+        "tags": ["projects", "web map services"],
+        "summary": "Create a Web Map Service for a Project",
+        "description": "Create a Web Map Service.",
+        "operationId": "create_web_map_service_project_projects__project_id__web_map_services_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/WebMapServiceCreate" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WebMapService" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["organizations", "web map services"],
+        "summary": "Get Web Map Services by Project ID",
+        "description": "Get Web Map Services by project_id.\n\nYou may optionally filter on levels and specify which levels to include.\nNot specifying any levels will return all levels you have access to.",
+        "operationId": "read_web_map_services_project_projects__project_id__web_map_services_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "levels",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/components/schemas/WebMapServiceLevel" },
+              "default": ["PROJECT", "ORGANIZATION", "APP"],
+              "title": "Levels"
+            }
           }
         ],
         "responses": {
@@ -7174,7 +7358,7 @@
                 "schema": {
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/WebMapService" },
-                  "title": "Response Get Project Web Map Services Projects  Project Id  Web Map Services Get"
+                  "title": "Response Read Web Map Services Project Projects  Project Id  Web Map Services Get"
                 }
               }
             }
@@ -9556,6 +9740,7 @@
         "enum": [
           "S_1_50",
           "S_1_100",
+          "S_1_200",
           "S_1_500",
           "S_1_1000",
           "S_1_2000",
@@ -9563,7 +9748,7 @@
           "S_1_10000"
         ],
         "title": "MapScale",
-        "description": "Map scales\n    1:50\n    1:100\n    1:500 (default)\n    1:1000\n    1:2000\n    1:5000\n    1:10000"
+        "description": "Map scales\n    1:50\n    1:100\n    1:200\n    1:500 (default)\n    1:1000\n    1:2000\n    1:5000\n    1:10000"
       },
       "MethodAD": {
         "properties": {
@@ -21570,16 +21755,23 @@
               { "type": "null" }
             ],
             "title": "Organization Id",
-            "description": "The ID for the organization that owns this web map service. If null, it is global."
+            "description": "The ID for the organization that owns this web map service."
+          },
+          "project_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Project Id",
+            "description": "The ID for the project that owns this web map service."
           },
           "description": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Description"
           },
-          "is_application_layer": {
-            "type": "boolean",
-            "title": "Is Application Layer",
-            "description": "True if this web map service is global for the application. Output only."
+          "level": {
+            "$ref": "#/components/schemas/WebMapServiceLevel",
+            "description": "The level of the web map service. Can be `APP`, `ORGANIZATION`, or `PROJECT`. Output only."
           }
         },
         "type": "object",
@@ -21589,7 +21781,8 @@
           "url",
           "service_type",
           "organization_id",
-          "is_application_layer"
+          "project_id",
+          "level"
         ],
         "title": "WebMapService"
       },
@@ -21618,6 +21811,11 @@
         "type": "object",
         "required": ["name", "url", "service_type"],
         "title": "WebMapServiceCreate"
+      },
+      "WebMapServiceLevel": {
+        "type": "string",
+        "enum": ["APP", "ORGANIZATION", "PROJECT"],
+        "title": "WebMapServiceLevel"
       },
       "WebMapServiceType": {
         "type": "string",
