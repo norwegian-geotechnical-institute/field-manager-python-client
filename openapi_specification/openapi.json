@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.11" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.16" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -1838,7 +1838,7 @@
       "get": {
         "tags": ["locations", "export"],
         "summary": "Export",
-        "description": "Endpoint for exporting specified location data.\n\nSupported **export_type** (MethodExportType):\n\n- **SND**: Download SND file.\n           For now only CPT, RP, SS and TOT methods are supported.\n           You will get a single SND file containing all methods for this location.",
+        "description": "Endpoint for exporting specified location data.\n\nSupported **export_type** (MethodExportType):\n\n- **SND**: Download SND, PRV, GRV files for all methods in a location in a zip file.",
         "operationId": "export_projects__project_id__locations__location_id__export_get",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [

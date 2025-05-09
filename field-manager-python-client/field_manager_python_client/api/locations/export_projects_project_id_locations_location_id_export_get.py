@@ -77,9 +77,7 @@ def sync_detailed(
 
     Supported **export_type** (MethodExportType):
 
-    - **SND**: Download SND file.
-               For now only CPT, RP, SS and TOT methods are supported.
-               You will get a single SND file containing all methods for this location.
+    - **SND**: Download SND, PRV, GRV files for all methods in a location in a zip file.
 
     Args:
         project_id (str):
@@ -123,9 +121,7 @@ def sync(
 
     Supported **export_type** (MethodExportType):
 
-    - **SND**: Download SND file.
-               For now only CPT, RP, SS and TOT methods are supported.
-               You will get a single SND file containing all methods for this location.
+    - **SND**: Download SND, PRV, GRV files for all methods in a location in a zip file.
 
     Args:
         project_id (str):
@@ -164,9 +160,7 @@ async def asyncio_detailed(
 
     Supported **export_type** (MethodExportType):
 
-    - **SND**: Download SND file.
-               For now only CPT, RP, SS and TOT methods are supported.
-               You will get a single SND file containing all methods for this location.
+    - **SND**: Download SND, PRV, GRV files for all methods in a location in a zip file.
 
     Args:
         project_id (str):
@@ -208,9 +202,7 @@ async def asyncio(
 
     Supported **export_type** (MethodExportType):
 
-    - **SND**: Download SND file.
-               For now only CPT, RP, SS and TOT methods are supported.
-               You will get a single SND file containing all methods for this location.
+    - **SND**: Download SND, PRV, GRV files for all methods in a location in a zip file.
 
     Args:
         project_id (str):
