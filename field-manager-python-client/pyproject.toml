@@ -1,9 +1,9 @@
 [tool.poetry]
 name = "field-manager-python-client"
-version = "4.6.16"
+version = "4.6.20"
 description = "A client library for accessing Field Manager Data API"
 authors = ["Jiyang Ye <jiyang.ye@ngi.no>"]
-maintainers = ["Jiyang Ye <jiyang.ye@ngi.no>"]
+maintainers = ["Jiyang Ye <jiyang.ye@ngi.no>", "Jostein Leira <jostein.leira@ngi.no>"]
 readme = "README.md"
 packages = [
     {include = "field_manager_python_client"},
