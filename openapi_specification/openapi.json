@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.20" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.25" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -2092,7 +2092,7 @@
       "post": {
         "tags": ["locations", "files"],
         "summary": "Upload File To Location",
-        "description": "Upload a data file to location. Will create new methods and upload the submitted file data\n\nSupported file types are .A00, .ASC, .CPT, .DTR, .ENK, .GVR, .PRV, .RP, .SND, .STD, .TOT, .VB, .VIM",
+        "description": "Upload a data file to location. Will create new methods and upload the submitted file data\n\nSupported file types are .A00, .ASC, .CPT, .CPTU, .DTR, .ENK, .GVR, .PRV, .RP, .SND, .STD, .TOT, .VB, .VIM",
         "operationId": "upload_file_to_location_projects__project_id__locations__location_id__upload_post",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [

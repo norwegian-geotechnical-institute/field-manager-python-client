@@ -469,7 +469,8 @@ def sync_detailed(
 
      Upload a data file to location. Will create new methods and upload the submitted file data
 
-    Supported file types are .A00, .ASC, .CPT, .DTR, .ENK, .GVR, .PRV, .RP, .SND, .STD, .TOT, .VB, .VIM
+    Supported file types are .A00, .ASC, .CPT, .CPTU, .DTR, .ENK, .GVR, .PRV, .RP, .SND, .STD, .TOT,
+    .VB, .VIM
 
     Args:
         project_id (str):
@@ -544,7 +545,8 @@ def sync(
 
      Upload a data file to location. Will create new methods and upload the submitted file data
 
-    Supported file types are .A00, .ASC, .CPT, .DTR, .ENK, .GVR, .PRV, .RP, .SND, .STD, .TOT, .VB, .VIM
+    Supported file types are .A00, .ASC, .CPT, .CPTU, .DTR, .ENK, .GVR, .PRV, .RP, .SND, .STD, .TOT,
+    .VB, .VIM
 
     Args:
         project_id (str):
@@ -614,7 +616,8 @@ async def asyncio_detailed(
 
      Upload a data file to location. Will create new methods and upload the submitted file data
 
-    Supported file types are .A00, .ASC, .CPT, .DTR, .ENK, .GVR, .PRV, .RP, .SND, .STD, .TOT, .VB, .VIM
+    Supported file types are .A00, .ASC, .CPT, .CPTU, .DTR, .ENK, .GVR, .PRV, .RP, .SND, .STD, .TOT,
+    .VB, .VIM
 
     Args:
         project_id (str):
@@ -687,7 +690,8 @@ async def asyncio(
 
      Upload a data file to location. Will create new methods and upload the submitted file data
 
-    Supported file types are .A00, .ASC, .CPT, .DTR, .ENK, .GVR, .PRV, .RP, .SND, .STD, .TOT, .VB, .VIM
+    Supported file types are .A00, .ASC, .CPT, .CPTU, .DTR, .ENK, .GVR, .PRV, .RP, .SND, .STD, .TOT,
+    .VB, .VIM
 
     Args:
         project_id (str):
