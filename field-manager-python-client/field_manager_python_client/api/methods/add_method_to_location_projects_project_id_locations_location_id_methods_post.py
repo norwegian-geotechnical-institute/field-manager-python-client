@@ -108,65 +108,64 @@ def _get_kwargs(
         "url": f"/projects/{project_id}/locations/{location_id}/methods",
     }
 
-    _body: dict[str, Any]
+    _kwargs["json"]: dict[str, Any]
     if isinstance(body, MethodADCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodCDCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodCPTCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodDPCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodDTCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodESACreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodINCCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodIWCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodOTHERCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodPTCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodPZCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodRCDCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodROCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodRPCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodRSCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodRWSCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodSACreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodSLBCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodSPTCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodDEFCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodSRSCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodSSCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodSTICreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodSVTCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodTOTCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodTPCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodTRCreate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     else:
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
 
-    _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers

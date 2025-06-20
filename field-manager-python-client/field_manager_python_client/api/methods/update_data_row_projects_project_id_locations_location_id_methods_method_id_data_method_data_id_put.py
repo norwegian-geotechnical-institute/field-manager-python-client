@@ -60,31 +60,30 @@ def _get_kwargs(
         "url": f"/projects/{project_id}/locations/{location_id}/methods/{method_id}/data/{method_data_id}",
     }
 
-    _body: dict[str, Any]
+    _kwargs["json"]: dict[str, Any]
     if isinstance(body, MethodCPTDataUpdate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodDTDataUpdate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodPZDataUpdate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodRCDDataUpdate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodRPDataUpdate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodSRSDataUpdate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodSSDataUpdate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodSVTDataUpdate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodTOTDataUpdate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodTRDataUpdate):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     else:
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
 
-    _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers

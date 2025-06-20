@@ -5,6 +5,7 @@ from typing import Any, TypeVar, Union, cast
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from .. import types
 from ..types import UNSET, File, Unset
 
 T = TypeVar("T", bound="BodyUploadFileToProjectProjectsProjectIdUploadPost")
@@ -43,31 +44,21 @@ class BodyUploadFileToProjectProjectsProjectIdUploadPost:
 
         return field_dict
 
-    def to_multipart(self) -> dict[str, Any]:
-        file = self.file.to_tuple()
+    def to_multipart(self) -> types.RequestFiles:
+        files: types.RequestFiles = []
 
-        comment: Union[Unset, tuple[None, bytes, str]]
+        files.append(("file", self.file.to_tuple()))
 
-        if isinstance(self.comment, Unset):
-            comment = UNSET
-        elif isinstance(self.comment, str):
-            comment = (None, str(self.comment).encode(), "text/plain")
-        else:
-            comment = (None, str(self.comment).encode(), "text/plain")
+        if not isinstance(self.comment, Unset):
+            if isinstance(self.comment, str):
+                files.append(("comment", (None, str(self.comment).encode(), "text/plain")))
+            else:
+                files.append(("comment", (None, str(self.comment).encode(), "text/plain")))
 
-        field_dict: dict[str, Any] = {}
         for prop_name, prop in self.additional_properties.items():
-            field_dict[prop_name] = (None, str(prop).encode(), "text/plain")
+            files.append((prop_name, (None, str(prop).encode(), "text/plain")))
 
-        field_dict.update(
-            {
-                "file": file,
-            }
-        )
-        if comment is not UNSET:
-            field_dict["comment"] = comment
-
-        return field_dict
+        return files
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:

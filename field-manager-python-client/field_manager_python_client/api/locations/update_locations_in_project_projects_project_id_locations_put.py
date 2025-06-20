@@ -23,12 +23,11 @@ def _get_kwargs(
         "url": f"/projects/{project_id}/locations",
     }
 
-    _body = []
+    _kwargs["json"] = []
     for body_item_data in body:
         body_item = body_item_data.to_dict()
-        _body.append(body_item)
+        _kwargs["json"].append(body_item)
 
-    _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers

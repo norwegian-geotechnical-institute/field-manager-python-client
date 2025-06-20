@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "field-manager-python-client"
-version = "4.6.25.post3"
+version = "4.6.25.post4"
 description = "A client library for accessing Field Manager Data API"
 authors = ["Jiyang Ye <jiyang.ye@ngi.no>"]
 maintainers = ["Jiyang Ye <jiyang.ye@ngi.no>", "Jostein Leira <jostein.leira@ngi.no>"]
@@ -16,6 +16,7 @@ python = "^3.9"
 httpx = ">=0.20.0,<0.28.0"
 attrs = ">=21.3.0"
 python-dateutil = "^2.8.0"
+python-keycloak = "^5.5.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

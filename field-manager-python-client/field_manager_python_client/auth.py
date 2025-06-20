@@ -10,13 +10,13 @@ import time
 import webbrowser
 from getpass import getpass
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from typing import Any, Dict, Literal, Optional
+from typing import Any, Literal, Optional
 from urllib.parse import parse_qs, urlparse
 
 try:
     from keycloak import KeycloakOpenID
 except ImportError:
-    raise ImportError("python-keycloak is required for authentication. " "Install it with: pip install python-keycloak")
+    raise ImportError("python-keycloak is required for authentication. Install it with: pip install python-keycloak")
 
 from .api.public import (
     get_organization_by_email_address_public_organizations_email_address_get,
@@ -49,7 +49,7 @@ class TokenManager:
     def __init__(
         self,
         keycloak_openid: KeycloakOpenID,
-        initial_token: Optional[Dict[str, Any]] = None,
+        initial_token: Optional[dict[str, Any]] = None,
         token_file: Optional[str] = None,
     ):
         """
@@ -151,7 +151,7 @@ def _start_local_server() -> Optional[str]:
     return getattr(server, "auth_code", None)
 
 
-def _get_auth_method(email: str, base_url: str) -> Dict[str, Any]:
+def _get_auth_method(email: str, base_url: str) -> dict[str, Any]:
     """
     Determine if organization uses SSO or password-based auth.
 

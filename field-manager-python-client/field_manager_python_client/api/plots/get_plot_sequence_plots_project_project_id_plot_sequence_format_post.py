@@ -24,13 +24,12 @@ def _get_kwargs(
         "url": f"/plots/project/{project_id}/plot_sequence/{format_}",
     }
 
-    _body: Union[None, dict[str, Any]]
+    _kwargs["json"]: Union[None, dict[str, Any]]
     if isinstance(body, Options):
-        _body = body.to_dict()
+        _kwargs["json"] = body.to_dict()
     else:
-        _body = body
+        _kwargs["json"] = body
 
-    _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
