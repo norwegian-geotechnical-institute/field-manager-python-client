@@ -4,13 +4,13 @@
 # Or run: python simple_setup.py
 # 
 # For using the published version from PyPI (including pre-releases):
-field-manager-python-client>=4.6.25.post1
+field-manager-python-client>=4.6.25.post4
 
 # For using the local development version (comment out the above line and uncomment below):
 # -e ../field-manager-python-client
 
 # Authentication dependencies
-python-keycloak>=4.7.3
+python-keycloak>=5.5.0
 
 # Data processing and visualization
 matplotlib>=3.10.0

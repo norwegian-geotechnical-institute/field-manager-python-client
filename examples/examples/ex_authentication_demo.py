@@ -16,10 +16,16 @@ Run this example:
     python ex_authentication_demo.py
 """
 
+import os
+from dotenv import load_dotenv
 from field_manager_python_client import authenticate, get_prod_client
 from field_manager_python_client.api.organizations import (
     get_organizations_organizations_get,
 )
+
+# Load environment variables
+load_dotenv()
+DEFAULT_EMAIL = os.getenv("DEFAULT_EMAIL", "your.email@example.com")
 
 
 def main():
@@ -27,11 +33,16 @@ def main():
     print("🔐 Field Manager Authentication Examples")
     print()
 
+    # Use default email from environment
+    email = DEFAULT_EMAIL
+    print(f"Using email: {email}")
+    print()
+
     # Method 1: Manual authentication with environment selection
     print("Method 1: Manual authentication")
     try:
         # You can specify environment and email
-        client = authenticate(environment="prod", email="your.email@example.com")
+        client = authenticate(environment="prod", email=email)
 
         # Test the client
         with client as client:
@@ -46,7 +57,7 @@ def main():
     print("Method 2: Using get_prod_client() helper function")
     try:
         # Simplified production client creation
-        prod_client = get_prod_client(email="your.email@example.com")
+        prod_client = get_prod_client(email=email)
 
         # Test the client
         with prod_client as client:
@@ -66,9 +77,12 @@ def main():
     print("\nAdditional features:")
     print("- Automatic token caching and refresh")
     print("- Support for both SSO and password authentication")
-    print("- No need for separate .env files")
+    print("- Email loaded from .env file (DEFAULT_EMAIL)")
     print("- Built-in environment configurations")
     print("- Type hints and proper error handling")
+
+    print("\n💡 To use your own email, create a .env file with:")
+    print("   DEFAULT_EMAIL=your.email@example.com")
 
 
 if __name__ == "__main__":
