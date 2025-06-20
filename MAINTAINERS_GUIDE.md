@@ -2,146 +2,172 @@
 
 See the [Makefile](./Makefile) if you need to install and test locally. Just type `make` to get the help.
 
-## 🔧 Build Pipeline and File Preservation
+## 🚀 Release & Publishing
+
+### Automated Release Process (Default)
+
+The system automatically checks for new OpenAPI specifications daily:
+
+1. **Nightly Check**: GitHub Actions runs at midnight UTC to check for API changes
+2. **PR Creation**: If changes are detected, a PR is automatically created with the new version
+3. **Manual Review**: A developer manually reviews and approves/rejects the PR
+4. **Release Creation**: If approved, developer creates a GitHub release with the version tag from `pyproject.toml`
+5. **Auto-Publish**: The release triggers `release.yaml` workflow, which publishes to PyPI
+
+### Manual Release Process (Override)
+
+For urgent fixes or custom releases (like `4.6.25.post1`):
+
+1. **Update Version Override**:
+   ```bash
+   # Edit config.yaml
+   package_version_override: 4.6.25.post1
+   ```
+
+2. **Generate Client**:
+   ```bash
+   make generate
+   ```
+
+3. **Commit Changes**:
+   ```bash
+   git add field-manager-python-client/pyproject.toml
+   git commit -m "Update version to 4.6.25.post1 - reason for release"
+   git push origin trunk
+   ```
+
+4. **Create GitHub Release**:
+   - Go to: https://github.com/norwegian-geotechnical-institute/field-manager-python-client/releases
+   - Click "Create a new release"
+   - **Tag**: `v4.6.25.post1` (must match pyproject.toml version with `v` prefix)
+   - **Title**: `4.6.25.post1 - Brief description`
+   - **Description**: What changed and why
+   - Click "Publish release"
+
+5. **Monitor Publication**:
+   - Watch GitHub Actions: https://github.com/norwegian-geotechnical-institute/field-manager-python-client/actions
+   - Verify on PyPI: https://pypi.org/project/field-manager-python-client/
+
+### Release Troubleshooting
+
+**Common Issues:**
+- **Missing PYPI_TOKEN**: Ensure repository has the secret configured
+- **Version conflict**: PyPI won't allow republishing the same version number
+- **Tag mismatch**: GitHub release tag must match `pyproject.toml` version (with `v` prefix)
+
+## 🔧 Development Workflow
 
 ### OpenAPI Client Generation
 
-The field-manager-python-client is automatically generated from OpenAPI specifications using `openapi-python-client`. To ensure custom code is preserved during regeneration:
+The client is auto-generated from OpenAPI specifications. Key points:
 
-#### ✅ Files That Are Preserved
-- `field_manager_python_client/auth.py` - **Custom authentication module**
-- `field_manager_python_client/__init__.py` - **Preserved through custom template**
+**✅ Files Preserved During Generation:**
+- `field_manager_python_client/auth.py` - Custom authentication module
+- `field_manager_python_client/__init__.py` - Preserved via custom template
 
-#### ⚠️ Files That Are Regenerated
-- All files in `field_manager_python_client/api/`
-- All files in `field_manager_python_client/models/`  
-- `field_manager_python_client/client.py`
-- `field_manager_python_client/errors.py`
-- `field_manager_python_client/types.py`
+**⚠️ Files Automatically Regenerated:**
+- `field_manager_python_client/api/` - All API endpoints
+- `field_manager_python_client/models/` - All data models
+- `field_manager_python_client/client.py`, `errors.py`, `types.py`
 
-### Custom Template System
-
-The build system uses custom templates in the `templates/` directory:
-
-- `templates/package_init.py.jinja` - **Ensures auth imports are preserved in __init__.py**
-- `templates/pyproject.toml.jinja` - Package metadata template
-- `templates/README.md.jinja` - Package README template
-
-### Generation Process
+### Local Development
 
 ```bash
-# Full regeneration process
+# Generate client from latest API
 make generate
 
-# This runs:
-# 1. Download latest OpenAPI spec
-# 2. Extract version info
-# 3. Generate client code with custom templates
-# 4. Preserve auth.py and custom __init__.py imports
+# Verify auth module is preserved
+ls field-manager-python-client/field_manager_python_client/auth.py
+
+# Check auth imports are included
+grep "from .auth import" field-manager-python_client/field_manager_python_client/__init__.py
 ```
 
-### ✅ Verification After Generation
+### Custom Templates
 
-After running `make generate`, verify these files are preserved:
+The `templates/` directory contains Jinja2 templates that preserve custom code:
+- `templates/package_init.py.jinja` - Ensures auth imports in `__init__.py`
+- `templates/pyproject.toml.jinja` - Package metadata
+- `templates/README.md.jinja` - Package documentation
 
-```bash
-# Check auth module exists
-ls -la field-manager-python-client/field_manager_python_client/auth.py
-
-# Check __init__.py includes auth imports
-grep -n "from .auth import" field-manager-python-client/field_manager_python_client/__init__.py
-
-# Should show lines like:
-# from .auth import authenticate, get_test_client, get_prod_client, TokenManager
-```
-
-## 📚 Examples Directory Management
+## 📚 Examples Management
 
 ### Structure
 ```
 examples/
 ├── setup.py              # Automated setup script
-├── requirements.txt       # Dependencies with version switching
-├── README.md             # Comprehensive documentation
-├── QUICKSTART.md         # 5-minute setup guide
-├── output/               # Git-ignored output directory
+├── requirements.txt       # Package dependencies
 ├── examples/             # Example scripts
+├── output/               # Git-ignored outputs
 └── venv/                 # Git-ignored virtual environment
 ```
 
-### Key Features
-- **Virtual environment based**: No more Poetry complexity
-- **Version switching**: Easy toggle between published/local package
-- **Output management**: All outputs go to `output/` directory (git-ignored)
-- **Automated setup**: `python setup.py` handles everything
+### Testing Examples
 
-### Adding New Examples
-
-1. **Create the example** in `examples/examples/`
-2. **Use new authentication**: `from field_manager_python_client import get_test_client`
-3. **Save outputs** to `output/` directory using `Path("output")`
-4. **Document clearly** with comments and error handling
-5. **Test with both** published and local package versions
-
-## 🚀 Release Process
-
-### 1. Pre-Release Checks
-```bash
-# Ensure auth.py is preserved
-make generate
-git status  # auth.py should be unchanged
-
-# Test examples work
-cd examples
-python setup.py --local
-source venv/bin/activate
-python examples/ex_organizations_new_auth.py
-```
-
-### 2. Version Update
-- OpenAPI client version is auto-extracted from `openapi.json`
-- Update package version if needed in `config.yaml`
-
-### 3. Examples Testing
 ```bash
 cd examples
+
 # Test with published version
 python setup.py
 source venv/bin/activate
-python examples/ex_organizations_new_auth.py
+python examples/ex_authentication_demo.py
 
-# Test with local version  
+# Test with local development version
 python setup.py --local
-python examples/ex_organizations_new_auth.py
+python examples/ex_authentication_demo.py
 ```
+
+### Adding New Examples
+
+1. Create script in `examples/examples/`
+2. Use new authentication: `from field_manager_python_client import get_test_client`
+3. Save outputs to `output/` directory (git-ignored)
+4. Include clear documentation and error handling
 
 ## 🔐 Authentication System
 
-### Architecture
-The authentication is now integrated into the main package:
-
+### Core Components
 - **Module**: `field_manager_python_client/auth.py`
-- **Exports**: `authenticate`, `get_test_client`, `get_prod_client`, `TokenManager`
-- **Environment configs**: Built-in for test/prod
-- **Token management**: Automatic caching and refresh
+- **Main Functions**: `authenticate()`, `get_test_client()`, `get_prod_client()`
+- **Token Management**: `TokenManager` class with auto-refresh
+- **Environments**: Built-in configs for test/production
 
-### Preservation Strategy
-The `auth.py` file is **NOT** generated by openapi-python-client, so it's naturally preserved. The `__init__.py` imports are preserved through the custom template `templates/package_init.py.jinja`.
+### Key Features
+- Automatic token caching and refresh
+- Support for SSO and password authentication
+- Organization-specific auth method detection
+- Environment-specific configurations
 
-## 🐛 Troubleshooting
+## ✅ Pre-Release Checklist
+
+Before any release:
+
+```bash
+# 1. Ensure auth module is preserved
+make generate
+git status  # auth.py should be unchanged
+
+# 2. Test examples work
+cd examples
+python setup.py --local
+source venv/bin/activate
+python examples/ex_authentication_demo.py
+
+# 3. Verify auth imports
+python -c "from field_manager_python_client import authenticate; print('✅ Auth module working')"
+```
+
+## 🐛 Common Issues
 
 ### Auth Module Missing After Generation
 ```bash
-# Check if auth.py exists
-ls field-manager-python-client/field_manager_python_client/auth.py
-
-# If missing, restore from git
-git checkout field-manager-python-client/field_manager_python_client/auth.py
+# Restore from git if accidentally removed
+git checkout field-manager-python_client/field_manager_python_client/auth.py
 ```
 
-### Missing Auth Imports in __init__.py
+### Missing Auth Imports
 ```bash
-# Check custom template
+# Check template exists
 cat templates/package_init.py.jinja
 
 # Regenerate with custom template
@@ -151,27 +177,15 @@ make generate
 ### Examples Not Working
 ```bash
 cd examples
-# Clean reinstall
-rm -rf venv
+rm -rf venv  # Clean slate
 python setup.py
 ```
 
-## 🔄 Continuous Integration
+---
 
-### Pipeline Considerations
-1. **Test auth preservation**: Verify `auth.py` unchanged after generation
-2. **Test examples**: Run examples with both published and local packages
-3. **Version compatibility**: Ensure examples work with current package version
-
-### Recommended CI Steps
-```bash
-# 1. Generate and verify preservation
-make generate
-git diff --exit-code field-manager-python-client/field_manager_python_client/auth.py
-
-# 2. Test examples setup
-cd examples && python setup.py --skip-test
-
-# 3. Test auth imports
-python -c "from field_manager_python_client import authenticate; print('OK')"
-```
+**Quick Commands Reference:**
+- `make generate` - Regenerate client from OpenAPI
+- `make help` - Show all available commands
+- `cd examples && python setup.py` - Set up examples environment
+- `git push origin trunk` - Push changes
+- Create GitHub release → Auto-publish to PyPI
