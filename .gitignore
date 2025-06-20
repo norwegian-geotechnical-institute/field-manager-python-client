@@ -140,4 +140,7 @@ cython_debug/
 # Custom folder to ignore
 _to_delete/
 
+# Examples output directory
+examples/output/
+
 token_store.json
