@@ -1,0 +1,498 @@
+# Field Manager Python Client - Authentication Guide
+
+## Overview
+
+This guide explains how to authenticate with the Field Manager API using the Python client. We support three authentication methods to suit different use cases:
+
+1. **🔑 Manual Token Setup** - Copy/paste your access token directly
+2. **🚀 Integrated Authentication** - Automatic OAuth2/OIDC handling (recommended)
+3. **🤖 Service Account** - For automated workflows and CI/CD pipelines
+
+## Quick Start
+
+### Installation
+
+```bash
+pip install field-manager-python-client python-keycloak
+```
+
+### Choose Your Authentication Method
+
+Pick the method that best fits your needs:
+
+- **New users or simple scripts**: Use [Integrated Authentication](#integrated-authentication)
+- **Testing or one-time use**: Use [Manual Token Setup](#manual-token-setup)
+- **Production automation**: Use [Service Account Authentication](#service-account-authentication)
+
+---
+
+## 1. Manual Token Setup 🔑
+
+**Best for:** Quick testing, one-time scripts, or when you prefer manual control.
+
+### Step 1: Get Your Access Token
+
+1. **Log into Field Manager:**
+
+   - Go to https://app.fieldmanager.io
+
+2. **Generate Token:**
+   - Navigate to the [Developer Portal](https://app.fieldmanager.io/developer)
+   - Click "Generate New Token" or "Get API Token"
+   - Copy the access token
+
+### Step 2: Use the Token in Your Code
+
+```python
+from field_manager_python_client import AuthenticatedClient
+
+# Production environment (recommended)
+client = AuthenticatedClient(
+    base_url="https://app.fieldmanager.io/api/location",
+    token="your-access-token-here"
+)
+
+# Test environment (for internal development)
+# client = AuthenticatedClient(
+#     base_url="https://app.test.fieldmanager.io/api/location",
+#     token="your-access-token-here"
+# )
+```
+
+### Example Script
+
+Save this as `manual_token_example.py`:
+
+```python
+from field_manager_python_client import AuthenticatedClient
+from field_manager_python_client.api.organizations import get_organizations_organizations_get
+
+# Replace with your actual token
+ACCESS_TOKEN = "your-access-token-here"
+
+client = AuthenticatedClient(
+    base_url="https://app.fieldmanager.io/api/location",
+    token=ACCESS_TOKEN
+)
+
+# Test the connection
+organizations = get_organizations_organizations_get.sync(client=client)
+if organizations:
+    print(f"✅ Successfully connected! Found {len(organizations)} organizations.")
+else:
+    print("❌ Connection failed. Check your token.")
+```
+
+**Reference:** See [`manual_token_setup.py`](../examples/examples/manual_token_setup.py) for the basic setup template.
+
+---
+
+## 2. Integrated Authentication 🚀
+
+**Best for:** Most users, development work, interactive scripts.
+
+**Features:**
+
+- Automatic OAuth2/OIDC flow
+- Token caching and refresh
+- Works with both SSO and password authentication
+- No manual token management
+
+### Basic Usage
+
+```python
+from field_manager_python_client import get_prod_client
+
+# Authenticate with your Field Manager account
+client = get_prod_client(email="your.email@example.com")
+```
+
+### Advanced Usage
+
+```python
+from field_manager_python_client import authenticate
+
+client = authenticate(
+    environment="prod",                    # "prod" for production, "test" for development
+    email="your.email@example.com",       # Your email address
+    scope="openid offline_access",        # Optional: enables refresh tokens
+    token_file="my_tokens.json",          # Optional: custom token storage
+    interactive=True                      # Optional: allow prompts
+)
+```
+
+### Authentication Flow
+
+1. **First Time:**
+
+   - Detects your organization's authentication method
+   - If SSO: Opens browser for login
+   - If password: Prompts for email/password
+   - Saves tokens locally
+
+2. **Subsequent Runs:**
+   - Uses cached tokens
+   - Automatically refreshes when needed
+   - Re-authenticates only if refresh fails
+
+### Example Script
+
+```python
+from field_manager_python_client import get_prod_client
+from field_manager_python_client.api.projects import get_projects_projects_get
+
+# Authenticate once - tokens are cached for future use
+client = get_prod_client(email="your.email@example.com")
+
+# Use the client
+projects = get_projects_projects_get.sync(client=client)
+print(f"Found {len(projects)} projects")
+```
+
+### Environment Configurations
+
+The system automatically configures endpoints based on environment:
+
+| Environment    | Keycloak Server                       | API Base URL                                  |
+| -------------- | ------------------------------------- | --------------------------------------------- |
+| **Test**       | https://keycloak.test.ngiapi.no/auth/ | https://app.test.fieldmanager.io/api/location |
+| **Production** | https://keycloak.ngiapi.no/auth/      | https://app.fieldmanager.io/api/location      |
+
+---
+
+## 3. Service Account Authentication 🤖
+
+**Best for:** Automated workflows, CI/CD pipelines, production systems.
+
+**Features:**
+
+- No user interaction required
+- Suitable for server-to-server communication
+- Uses client credentials OAuth2 flow
+- Recommended for production automation
+
+### Prerequisites
+
+#### 1. Create Service Account in Keycloak
+
+1. **Access Keycloak Admin Console:**
+
+   - Test: https://keycloak.test.ngiapi.no/auth/admin/
+   - Production: https://keycloak.ngiapi.no/auth/admin/
+
+2. **Configure Client:**
+
+   - Go to Clients → `fieldmanager-client`
+   - Enable "Service Accounts Enabled"
+   - Save the configuration
+
+3. **Get Client Secret:**
+
+   - Go to Credentials tab
+   - Copy the Client Secret
+
+4. **Set Permissions:**
+   - Go to Service Account Roles tab
+   - Assign appropriate roles for your use case
+
+### Implementation
+
+```python
+import os
+from keycloak import KeycloakOpenID
+from field_manager_python_client import AuthenticatedClient
+
+def get_service_account_client(environment: str = "prod"):
+    """Get authenticated client using service account credentials."""
+
+    # Get client secret from environment variable
+    client_secret = os.getenv("KEYCLOAK_CLIENT_SECRET")
+    if not client_secret:
+        raise ValueError("KEYCLOAK_CLIENT_SECRET environment variable is required")
+
+    # Environment-specific configuration
+    if environment == "prod":
+        server_url = "https://keycloak.ngiapi.no/auth/"
+        base_url = "https://app.fieldmanager.io/api/location"
+    else:  # test environment
+        server_url = "https://keycloak.test.ngiapi.no/auth/"
+        base_url = "https://app.test.fieldmanager.io/api/location"
+
+    # Initialize Keycloak client
+    keycloak_openid = KeycloakOpenID(
+        server_url=server_url,
+        client_id="fieldmanager-client",
+        realm_name="tenant-geohub-public",
+        client_secret_key=client_secret
+    )
+
+    # Get access token
+    token = keycloak_openid.token(grant_type="client_credentials")
+
+    # Create authenticated client
+    return AuthenticatedClient(
+        base_url=base_url,
+        token=token['access_token']
+    )
+
+# Usage
+client = get_service_account_client("prod")
+```
+
+### Environment Setup
+
+#### Option 1: Environment Variables
+
+```bash
+# .env file
+KEYCLOAK_CLIENT_SECRET=your-service-account-client-secret
+
+# Load in Python
+from dotenv import load_dotenv
+load_dotenv()
+```
+
+#### Option 2: CI/CD Pipeline
+
+```yaml
+# GitHub Actions example
+env:
+  KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
+
+# GitLab CI example
+variables:
+  KEYCLOAK_CLIENT_SECRET: $KEYCLOAK_CLIENT_SECRET
+```
+
+### Advanced Service Account Usage
+
+For production use with automatic token refresh:
+
+```python
+import os
+from datetime import datetime, timedelta
+from keycloak import KeycloakOpenID
+from field_manager_python_client import AuthenticatedClient
+
+class ServiceAccountManager:
+    def __init__(self, environment: str = "prod"):
+        self.environment = environment
+        self.client_secret = os.getenv("KEYCLOAK_CLIENT_SECRET")
+        self.token_data = None
+        self.token_expires_at = None
+
+        if not self.client_secret:
+            raise ValueError("KEYCLOAK_CLIENT_SECRET environment variable is required")
+
+        # Environment configuration
+        if environment == "prod":
+            self.server_url = "https://keycloak.ngiapi.no/auth/"
+            self.base_url = "https://app.fieldmanager.io/api/location"
+        else:  # test environment
+            self.server_url = "https://keycloak.test.ngiapi.no/auth/"
+            self.base_url = "https://app.test.fieldmanager.io/api/location"
+
+        self.keycloak_openid = KeycloakOpenID(
+            server_url=self.server_url,
+            client_id="fieldmanager-client",
+            realm_name="tenant-geohub-public",
+            client_secret_key=self.client_secret
+        )
+
+    def _refresh_token(self):
+        """Refresh the access token."""
+        self.token_data = self.keycloak_openid.token(grant_type="client_credentials")
+        expires_in = self.token_data.get('expires_in', 3600)
+        # Add 60-second buffer before expiration
+        self.token_expires_at = datetime.now() + timedelta(seconds=expires_in - 60)
+
+    def get_client(self):
+        """Get authenticated client with valid token."""
+        if not self.token_data or datetime.now() >= self.token_expires_at:
+            self._refresh_token()
+
+        return AuthenticatedClient(
+            base_url=self.base_url,
+            token=self.token_data['access_token']
+        )
+
+# Usage
+manager = ServiceAccountManager("prod")
+client = manager.get_client()  # Always returns client with valid token
+```
+
+### Complete Example
+
+```python
+#!/usr/bin/env python3
+"""
+Service Account Example
+Run with: KEYCLOAK_CLIENT_SECRET=your-secret python service_account_example.py
+"""
+
+import os
+from keycloak import KeycloakOpenID
+from field_manager_python_client import AuthenticatedClient
+from field_manager_python_client.api.organizations import get_organizations_organizations_get
+
+def main():
+    # Check environment variable
+    client_secret = os.getenv("KEYCLOAK_CLIENT_SECRET")
+    if not client_secret:
+        print("❌ Error: KEYCLOAK_CLIENT_SECRET environment variable is required")
+        print("Set it with: export KEYCLOAK_CLIENT_SECRET=your-secret")
+        return
+
+    try:
+                # Initialize Keycloak client
+        keycloak_openid = KeycloakOpenID(
+            server_url="https://keycloak.ngiapi.no/auth/",
+            client_id="fieldmanager-client",
+            realm_name="tenant-geohub-public",
+            client_secret_key=client_secret
+        )
+
+        # Get access token
+        token = keycloak_openid.token(grant_type="client_credentials")
+
+        # Create authenticated client
+        client = AuthenticatedClient(
+            base_url="https://app.fieldmanager.io/api/location",
+            token=token['access_token']
+        )
+
+        # Test the connection
+        organizations = get_organizations_organizations_get.sync(client=client)
+        print(f"✅ Service account authentication successful!")
+        print(f"Found {len(organizations)} organizations")
+
+    except Exception as e:
+        print(f"❌ Authentication failed: {e}")
+
+if __name__ == "__main__":
+    main()
+```
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+#### 1. Import Error: "python-keycloak is required"
+
+```bash
+pip install python-keycloak
+```
+
+#### 2. Browser doesn't open for SSO
+
+- Check if you're in a headless environment
+- Copy the authentication URL from console output
+- Paste it into a browser manually
+
+#### 3. Token refresh fails
+
+- Delete your token file (usually `token_store.json`)
+- Re-authenticate from scratch
+- Check if your organization supports refresh tokens
+
+#### 4. Service account permission denied
+
+- Verify service account is enabled in Keycloak
+- Check that appropriate roles are assigned
+- Ensure client secret is correct
+
+#### 5. "Unable to fetch org info" message
+
+- Check internet connection
+- Verify API endpoints are accessible
+- The system will fallback to password authentication
+
+### Debug Mode
+
+Enable debug logging for troubleshooting:
+
+```python
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
+# Your authentication code here
+```
+
+### Testing Your Setup
+
+Use this script to test any authentication method:
+
+```python
+#!/usr/bin/env python3
+"""Test authentication setup"""
+
+def test_connection(client):
+    """Test if the client can connect to the API."""
+    try:
+        from field_manager_python_client.api.organizations import get_organizations_organizations_get
+
+        organizations = get_organizations_organizations_get.sync(client=client)
+        if organizations:
+            print(f"✅ Connection successful! Found {len(organizations)} organizations.")
+            return True
+        else:
+            print("❌ Connection failed - no organizations returned.")
+            return False
+    except Exception as e:
+        print(f"❌ Connection failed: {e}")
+        return False
+
+# Test your chosen authentication method
+if __name__ == "__main__":
+    # Method 1: Manual token
+    # from field_manager_python_client import AuthenticatedClient
+    # client = AuthenticatedClient(
+    #     base_url="https://app.test.fieldmanager.io/api/location",
+    #     token="your-token-here"
+    # )
+
+        # Method 2: Integrated authentication
+    from field_manager_python_client import get_prod_client
+    client = get_prod_client(email="your.email@example.com")
+
+    # Method 3: Service account
+    # client = get_service_account_client("prod")
+
+    test_connection(client)
+```
+
+---
+
+## Next Steps
+
+1. **Choose your authentication method** based on your use case
+2. **Test the connection** using the test script above
+3. **Explore the examples** in the [`../examples/examples/`](../examples/examples/) directory
+4. **Read the [Advanced User Guide](./ADVANCED_USER_GUIDE.md)** for more sophisticated use cases
+
+### Additional Resources
+
+- **[Advanced User Guide](./ADVANCED_USER_GUIDE.md)** - Covers sync/async operations, error handling, and production considerations
+- **[Examples Overview](../examples/EXAMPLES_OVERVIEW.md)** - Real-world usage examples
+- **[Main Repository](https://github.com/norwegian-geotechnical-institute/field-manager-python-client)** - Source code, issues, and contributions
+
+### Getting Help
+
+If you encounter issues:
+
+1. Check this guide for solutions
+2. Test with the basic examples first
+3. Verify you're using the correct environment (test vs prod)
+4. Open an issue on [GitHub](https://github.com/norwegian-geotechnical-institute/field-manager-python-client/issues)
+
+---
+
+## Security Notes
+
+- **Token Storage**: Tokens are stored locally in JSON format
+- **Token Files**: Keep token files secure and add them to `.gitignore`
+- **Environment Variables**: Use environment variables for secrets in production
+- **Service Accounts**: Use service accounts for automated systems
+- **SSL Verification**: Always verify SSL certificates in production

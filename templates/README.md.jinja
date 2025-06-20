@@ -1,110 +1,150 @@
 # {{ project_name }}
 {{ package_description }}
 
-## Usage
-First, create a client:
+## 🚀 Quick Start
 
-```python
-from {{ package_name }} import Client
+### Installation
 
-client = Client(base_url="https://api.example.com")
+```bash
+pip install {{ package_name }} python-keycloak
 ```
 
-If the endpoints you're going to hit require authentication, use `AuthenticatedClient` instead:
+### Authentication
 
+The easiest way to get started is using the built-in authentication functions:
+
+```python
+from {{ package_name }} import get_prod_client
+
+# Authenticate with your Field Manager account
+client = get_prod_client(email="your.email@example.com")
+```
+
+### Basic Usage
+
+```python
+from {{ package_name }}.api.projects import get_project_projects_project_id_get
+
+# Use the authenticated client
+project_info = get_project_projects_project_id_get.sync(
+    client=client, 
+    project_id="your-project-id"
+)
+print(f"Project: {project_info.name}")
+```
+
+## 🔐 Authentication Options
+
+### 1. Integrated Authentication (Recommended)
+```python
+from {{ package_name }} import authenticate
+
+client = authenticate(environment="prod", email="user@example.com")
+```
+
+### 2. Manual Token Setup
 ```python
 from {{ package_name }} import AuthenticatedClient
 
-client = AuthenticatedClient(base_url="https://api.example.com", token="SuperSecretToken")
-```
-
-Now call your endpoint and use your models:
-
-```python
-from {{ package_name }}.models import MyDataModel
-from {{ package_name }}.api.my_tag import get_my_data_model
-from {{ package_name }}.types import Response
-
-with client as client:
-    my_data: MyDataModel = get_my_data_model.sync(client=client)
-    # or if you need more info (e.g. status_code)
-    response: Response[MyDataModel] = get_my_data_model.sync_detailed(client=client)
-```
-
-Or do the same thing with an async version:
-
-```python
-from {{ package_name }}.models import MyDataModel
-from {{ package_name }}.api.my_tag import get_my_data_model
-from {{ package_name }}.types import Response
-
-async with client as client:
-    my_data: MyDataModel = await get_my_data_model.asyncio(client=client)
-    response: Response[MyDataModel] = await get_my_data_model.asyncio_detailed(client=client)
-```
-
-By default, when you're calling an HTTPS API it will attempt to verify that SSL is working correctly. Using certificate verification is highly recommended most of the time, but sometimes you may need to authenticate to a server (especially an internal server) using a custom certificate bundle.
-
-```python
 client = AuthenticatedClient(
-    base_url="https://internal_api.example.com", 
-    token="SuperSecretToken",
-    verify_ssl="/path/to/certificate_bundle.pem",
+    base_url="https://app.fieldmanager.io/api/location", 
+    token="your-access-token"
 )
 ```
 
-You can also disable certificate validation altogether, but beware that **this is a security risk**.
+### 3. Service Account (for automation)
+See the [main repository](https://github.com/norwegian-geotechnical-institute/field-manager-python-client) for service account setup.
 
+## 📖 API Usage Patterns
+
+### Synchronous Operations
 ```python
+from {{ package_name }}.api.organizations import get_organizations_organizations_get
+
+# Simple request - returns data or None
+organizations = get_organizations_organizations_get.sync(client=client)
+
+# Detailed request - returns Response object with status code, headers, etc.
+from {{ package_name }}.types import Response
+response: Response = get_organizations_organizations_get.sync_detailed(client=client)
+if response.status_code == 200:
+    organizations = response.parsed
+```
+
+### Asynchronous Operations
+```python
+import asyncio
+from {{ package_name }}.api.organizations import get_organizations_organizations_get
+
+async def fetch_organizations():
+    # Simple async request
+    organizations = await get_organizations_organizations_get.asyncio(client=client)
+    
+    # Detailed async request
+    response = await get_organizations_organizations_get.asyncio_detailed(client=client)
+    return response.parsed
+
+# Run async function
+organizations = asyncio.run(fetch_organizations())
+```
+
+## 🛠️ Advanced Features
+
+### SSL Configuration
+```python
+from {{ package_name }} import AuthenticatedClient
+
+# Custom certificate bundle
 client = AuthenticatedClient(
-    base_url="https://internal_api.example.com", 
-    token="SuperSecretToken", 
+    base_url="https://internal.example.com/api", 
+    token="token",
+    verify_ssl="/path/to/certificate_bundle.pem"
+)
+
+# Disable SSL verification (not recommended for production)
+client = AuthenticatedClient(
+    base_url="https://internal.example.com/api", 
+    token="token",
     verify_ssl=False
 )
 ```
 
-Things to know:
-1. Every path/method combo becomes a Python module with four functions:
-    1. `sync`: Blocking request that returns parsed data (if successful) or `None`
-    1. `sync_detailed`: Blocking request that always returns a `Request`, optionally with `parsed` set if the request was successful.
-    1. `asyncio`: Like `sync` but async instead of blocking
-    1. `asyncio_detailed`: Like `sync_detailed` but async instead of blocking
-
-1. All path/query params, and bodies become method arguments.
-1. If your endpoint had any tags on it, the first tag will be used as a module name for the function (my_tag above)
-1. Any endpoint which did not have a tag will be in `{{ package_name }}.api.default`
-
-## Advanced customizations
-
-There are more settings on the generated `Client` class which let you control more runtime behavior, check out the docstring on that class for more info. You can also customize the underlying `httpx.Client` or `httpx.AsyncClient` (depending on your use-case):
-
+### Custom HTTP Configuration
 ```python
-from {{ package_name }} import Client
+from {{ package_name }} import AuthenticatedClient
 
 def log_request(request):
-    print(f"Request event hook: {request.method} {request.url} - Waiting for response")
+    print(f"Request: {request.method} {request.url}")
 
 def log_response(response):
-    request = response.request
-    print(f"Response event hook: {request.method} {request.url} - Status {response.status_code}")
+    print(f"Response: {response.status_code}")
 
-client = Client(
+client = AuthenticatedClient(
     base_url="https://api.example.com",
-    httpx_args={"event_hooks": {"request": [log_request], "response": [log_response]}},
+    token="token",
+    httpx_args={"event_hooks": {"request": [log_request], "response": [log_response]}}
 )
-
-# Or get the underlying httpx client to modify directly with client.get_httpx_client() or client.get_async_httpx_client()
 ```
 
-You can even set the httpx client directly, but beware that this will override any existing settings (e.g., base_url):
+## 📚 Learn More
 
-```python
-import httpx
-from {{ package_name }} import Client
+For comprehensive documentation, examples, and contribution guidelines, visit the main repository:
+**[https://github.com/norwegian-geotechnical-institute/field-manager-python-client](https://github.com/norwegian-geotechnical-institute/field-manager-python-client)**
 
-client = Client(
-    base_url="https://api.example.com",
-)
-# Note that base_url needs to be re-set, as would any shared cookies, headers, etc.
-client.set_httpx_client(httpx.Client(base_url="https://api.example.com", proxies="http://localhost:8030"))
-```
+The repository includes:
+- 📖 Complete authentication guide
+- 🔧 Advanced usage examples  
+- 🚀 Real-world code samples
+- 🤝 Contributing guidelines
+- 📋 Issue tracking and support
+
+## 🔍 API Reference
+
+Every endpoint becomes a Python function with four variants:
+- `sync`: Blocking request returning parsed data or `None`
+- `sync_detailed`: Blocking request returning full `Response` object
+- `asyncio`: Async version of `sync`  
+- `asyncio_detailed`: Async version of `sync_detailed`
+
+All path/query parameters and request bodies become function arguments.
+Functions are organized by API tags in `{{ package_name }}.api.*` modules.

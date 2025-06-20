@@ -5,54 +5,107 @@
 ## ✨ Why Use This Client?
 
 - **Easy Integration:** Each endpoint is ready to use—no manual HTTP calls needed.
+- **Seamless Authentication:** Built-in OAuth2/OIDC authentication with automatic token management.
 - **Auto-Generated & Up-to-Date:** Always in sync with the latest Field Manager API updates.
 - **Full Coverage:** Access every endpoint and model the Field Manager platform provides.
 
 ## ⚙️ Installation & Setup
 
-1. **Install** the package:
+1. **Install** the package with authentication support:
 
    ```bash
-   pip install field-manager-python-client
+   pip install field-manager-python-client python-keycloak
    ```
 
-2. **Authenticate**: - Use the `authenticate` function to handle token retrieval automatically. This function will fetch a new token if the current one is expired or missing.
+2. **Authenticate**: Use the built-in authentication functions for seamless access:
 
    ```python
-   from field_manager_python_client.api.projects import get_project_projects_project_id_get
-   from examples.setup_auto_fetch_token import authenticate
+   from field_manager_python_client import get_prod_client
 
-   client = authenticate()  # Handles token retrieval
+   # Authenticate with your Field Manager account
+   client = get_prod_client(email="your.email@example.com")
    ```
 
 ## 🚀 Quick Example
 
-1. Here's a [quick example](./examples/examples/ex_get_project_details.py) of how to fetch project information using the client:
+Here's how to fetch project information using the authenticated client:
+
+```python
+from field_manager_python_client import get_prod_client
+from field_manager_python_client.api.projects import get_project_projects_project_id_get
+
+# Authenticate and get client
+client = get_prod_client(email="your.email@example.com")
+
+# Use the client to fetch project data
+project_id = "your-project-id"
+project_info = get_project_projects_project_id_get.sync(client=client, project_id=project_id)
+
+print(f"Project Name: {project_info.name}")
+```
+
+## 🔐 Authentication Options
+
+The client supports multiple authentication methods:
+
+1. **Integrated Authentication** (Recommended):
 
    ```python
-   from field_manager_python_client.api.projects import get_project_projects_project_id_get
-   from examples.setup_auto_fetch_token import authenticate
+   from field_manager_python_client import authenticate, get_prod_client
 
-   client = authenticate()
-   project_id = "your-project-id"
-   project_info = get_project_projects_project_id_get.sync(client=client, project_id=project_id)
-
-   print(f"Project Name: {project_info.name}")
+   client = authenticate(environment="prod", email="user@example.com")
+   # or
+   client = get_prod_client(email="user@example.com")
    ```
+
+2. **Manual Token Setup**:
+
+   ```python
+   from field_manager_python_client import AuthenticatedClient
+
+   client = AuthenticatedClient(
+       base_url="https://app.fieldmanager.io/api/location",
+       token="your-access-token"
+   )
+   ```
+
+3. **Service Account Authentication** (for automated workflows):
+   - See the [Authentication Guide](./doc/AUTHENTICATION_GUIDE.md) for details
+   - Also covered in the [Advanced User Guide](./doc/ADVANCED_USER_GUIDE.md)
 
 ## 📂 Explore More Examples
 
-- Check out the [examples folder](./examples/examples/) for scripts demonstrating how to:
+Check out the [examples folder](./examples/examples/) for scripts demonstrating how to:
 
-  - Fetch organization(s)
+- **Authentication**: Multiple ways to authenticate with the API
+- **Organizations**: Fetch and manage organization data
+- **Projects**: Retrieve project details and metadata
+- **Locations**: Manage field locations and associated data
+- **Data Export**: Export project data in various formats
+- **Advanced Usage**: Async operations, bulk operations, and more
 
-  - Manage locations
+## 📚 Documentation
 
-  - Compare data sets and more
+For comprehensive documentation, see the [`./doc/`](./doc/) directory:
+
+- **[Authentication Guide](./doc/AUTHENTICATION_GUIDE.md)**: Complete guide to all authentication methods
+- **[Advanced User Guide](./doc/ADVANCED_USER_GUIDE.md)**: In-depth coverage of sync/async operations and customizations
+- **[Examples Overview](./examples/EXAMPLES_OVERVIEW.md)**: Detailed overview of all available examples
+
+## 🏗️ For Developers
+
+If you want to learn more about this library, contribute, or understand the internals, visit the main repository: [https://github.com/norwegian-geotechnical-institute/field-manager-python-client](https://github.com/norwegian-geotechnical-institute/field-manager-python-client)
+
+The actual client package is auto-generated from the Field Manager API specification and includes:
+
+- Full type hints and IDE support
+- Comprehensive error handling
+- Both synchronous and asynchronous operations
+- Advanced customization options
 
 ## 🤝 Contributing
 
-We welcome issues, bug reports, and feature requests!
+We welcome issues, bug reports, and feature requests! Please check our [contributing guidelines](./doc/MAINTAINERS_GUIDE.md) and feel free to open an issue or submit a pull request.
 
 ---
 
