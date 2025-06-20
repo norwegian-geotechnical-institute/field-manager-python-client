@@ -27,7 +27,7 @@
 
 ## 🚀 Quick Example
 
-1. Here's a [quick example](./examples/examples/ex_get_project_info_by_id.py) of how to fetch project information using the client:
+1. Here's a [quick example](./examples/examples/ex_get_project_details.py) of how to fetch project information using the client:
 
    ```python
    from field_manager_python_client.api.projects import get_project_projects_project_id_get

@@ -1,0 +1,22 @@
+# Field Manager Python Client Examples Dependencies
+# 
+# Quick install: pip install -r requirements.txt
+# Or run: python simple_setup.py
+# 
+# For using the published version from PyPI (including pre-releases):
+# field-manager-python-client>=4.6.25
+
+# For using the local development version (comment out the above line and uncomment below):
+-e ../field-manager-python-client
+
+# Authentication dependencies
+python-keycloak>=4.7.3
+
+# Data processing and visualization
+matplotlib>=3.10.0
+pandas>=2.2.3
+openpyxl>=3.1.5
+folium>=0.19.4
+
+# Environment management (optional, for backward compatibility)
+python-dotenv>=1.0.1

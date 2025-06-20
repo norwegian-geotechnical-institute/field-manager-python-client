@@ -1,0 +1,45 @@
+# Python virtual environment
+venv/
+.venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Output directory for examples
+output/
+
+# Token files
+token_store.json
+*.token
+
+# Environment files
+.env
+.env.local
+
+# Generated files (saved to output/ instead)
+*.html
+*.xlsx
+*.csv
+*.json
+*.log
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db 

@@ -1,3 +1,16 @@
+"""
+DEPRECATED: Legacy Authentication Method
+
+⚠️  This file contains the old authentication method and is kept for reference only.
+
+🔄 For new code, use the integrated authentication instead:
+
+    from field_manager_python_client import get_prod_client
+    client = get_prod_client(email="your.email@example.com")
+
+📖 See the other examples for modern authentication patterns.
+"""
+
 import os
 import json
 import time

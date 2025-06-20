@@ -1,0 +1,14 @@
+{% from "helpers.jinja" import safe_docstring %}
+
+{{ safe_docstring(package_description) }}
+from .client import AuthenticatedClient, Client
+from .auth import authenticate, get_test_client, get_prod_client, TokenManager
+
+__all__ = (
+    "AuthenticatedClient",
+    "Client",
+    "authenticate", 
+    "get_test_client",
+    "get_prod_client",
+    "TokenManager",
+) 
