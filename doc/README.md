@@ -32,6 +32,12 @@ Information for project contributors and maintainers:
 - Release process
 - Maintenance procedures
 
+### 🔧 [Troubleshooting Guide](./TROUBLESHOOTING.md)
+
+Solutions for common installation and usage issues:
+
+- Windows long path support (required for some Windows users)
+
 ## Quick Start
 
 For most users, start with the main [README](../README.md) which covers basic usage.
@@ -42,6 +48,7 @@ For advanced usage patterns, see the [Advanced User Guide](./ADVANCED_USER_GUIDE
 
 ## Getting Help
 
+- **Troubleshooting**: Check the [Troubleshooting Guide](./TROUBLESHOOTING.md) for common issues and solutions
 - **Examples**: See [examples directory](../examples/examples/) for working code samples
 - **Issues**: Report bugs or request features on [GitHub](https://github.com/norwegian-geotechnical-institute/field-manager-python-client/issues)
 - **Support**: Contact the development team for assistance

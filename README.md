@@ -90,6 +90,7 @@ For comprehensive documentation, see the [`./doc/`](./doc/) directory:
 
 - **[Authentication Guide](./doc/AUTHENTICATION_GUIDE.md)**: Complete guide to all authentication methods
 - **[Advanced User Guide](./doc/ADVANCED_USER_GUIDE.md)**: In-depth coverage of sync/async operations and customizations
+- **[Troubleshooting Guide](./doc/TROUBLESHOOTING.md)**: Solutions for common issues, including Windows long path support
 - **[Examples Overview](./examples/EXAMPLES_OVERVIEW.md)**: Detailed overview of all available examples
 
 ## 🏗️ For Developers
