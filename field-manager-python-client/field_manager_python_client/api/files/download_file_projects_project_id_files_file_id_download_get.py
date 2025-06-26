@@ -17,6 +17,7 @@ def _get_kwargs(
     *,
     size: Union[ImageSize, None, Unset] = ImageSize.ORIGINAL,
     geojson: Union[None, Unset, bool] = False,
+    as_attachment: Union[None, Unset, bool] = True,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
 
@@ -35,6 +36,13 @@ def _get_kwargs(
     else:
         json_geojson = geojson
     params["geojson"] = json_geojson
+
+    json_as_attachment: Union[None, Unset, bool]
+    if isinstance(as_attachment, Unset):
+        json_as_attachment = UNSET
+    else:
+        json_as_attachment = as_attachment
+    params["as_attachment"] = json_as_attachment
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -81,6 +89,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     size: Union[ImageSize, None, Unset] = ImageSize.ORIGINAL,
     geojson: Union[None, Unset, bool] = False,
+    as_attachment: Union[None, Unset, bool] = True,
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Download File
 
@@ -91,6 +100,7 @@ def sync_detailed(
         file_id (UUID):
         size (Union[ImageSize, None, Unset]):  Default: ImageSize.ORIGINAL.
         geojson (Union[None, Unset, bool]):  Default: False.
+        as_attachment (Union[None, Unset, bool]):  Default: True.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -105,6 +115,7 @@ def sync_detailed(
         file_id=file_id,
         size=size,
         geojson=geojson,
+        as_attachment=as_attachment,
     )
 
     response = client.get_httpx_client().request(
@@ -121,6 +132,7 @@ def sync(
     client: AuthenticatedClient,
     size: Union[ImageSize, None, Unset] = ImageSize.ORIGINAL,
     geojson: Union[None, Unset, bool] = False,
+    as_attachment: Union[None, Unset, bool] = True,
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Download File
 
@@ -131,6 +143,7 @@ def sync(
         file_id (UUID):
         size (Union[ImageSize, None, Unset]):  Default: ImageSize.ORIGINAL.
         geojson (Union[None, Unset, bool]):  Default: False.
+        as_attachment (Union[None, Unset, bool]):  Default: True.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -146,6 +159,7 @@ def sync(
         client=client,
         size=size,
         geojson=geojson,
+        as_attachment=as_attachment,
     ).parsed
 
 
@@ -156,6 +170,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     size: Union[ImageSize, None, Unset] = ImageSize.ORIGINAL,
     geojson: Union[None, Unset, bool] = False,
+    as_attachment: Union[None, Unset, bool] = True,
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Download File
 
@@ -166,6 +181,7 @@ async def asyncio_detailed(
         file_id (UUID):
         size (Union[ImageSize, None, Unset]):  Default: ImageSize.ORIGINAL.
         geojson (Union[None, Unset, bool]):  Default: False.
+        as_attachment (Union[None, Unset, bool]):  Default: True.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -180,6 +196,7 @@ async def asyncio_detailed(
         file_id=file_id,
         size=size,
         geojson=geojson,
+        as_attachment=as_attachment,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -194,6 +211,7 @@ async def asyncio(
     client: AuthenticatedClient,
     size: Union[ImageSize, None, Unset] = ImageSize.ORIGINAL,
     geojson: Union[None, Unset, bool] = False,
+    as_attachment: Union[None, Unset, bool] = True,
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Download File
 
@@ -204,6 +222,7 @@ async def asyncio(
         file_id (UUID):
         size (Union[ImageSize, None, Unset]):  Default: ImageSize.ORIGINAL.
         geojson (Union[None, Unset, bool]):  Default: False.
+        as_attachment (Union[None, Unset, bool]):  Default: True.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -220,5 +239,6 @@ async def asyncio(
             client=client,
             size=size,
             geojson=geojson,
+            as_attachment=as_attachment,
         )
     ).parsed

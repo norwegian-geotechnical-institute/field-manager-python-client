@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.25" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.37" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -3809,9 +3809,9 @@
       },
       "get": {
         "tags": ["comments"],
-        "summary": "Get Comments",
-        "description": "Get all non-deleted comments, along with associated likes, on a given method or location",
-        "operationId": "get_comments_projects__project_id__locations__location_id__methods__method_id__comments_get",
+        "summary": "Get Method Comments",
+        "description": "Get all method comments, along with associated likes, on a given method",
+        "operationId": "get_method_comments_projects__project_id__locations__location_id__methods__method_id__comments_get",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -3835,10 +3835,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "anyOf": [
-                { "type": "string", "format": "uuid" },
-                { "type": "null" }
-              ],
+              "type": "string",
+              "format": "uuid",
               "title": "Method Id"
             }
           }
@@ -3851,7 +3849,7 @@
                 "schema": {
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/Comment" },
-                  "title": "Response Get Comments Projects  Project Id  Locations  Location Id  Methods  Method Id  Comments Get"
+                  "title": "Response Get Method Comments Projects  Project Id  Locations  Location Id  Methods  Method Id  Comments Get"
                 }
               }
             }
@@ -3933,9 +3931,9 @@
       },
       "get": {
         "tags": ["comments"],
-        "summary": "Get Comments",
-        "description": "Get all non-deleted comments, along with associated likes, on a given method or location",
-        "operationId": "get_comments_projects__project_id__locations__location_id__comments_get",
+        "summary": "Get Location Comments",
+        "description": "Get all location comments, along with associated likes",
+        "operationId": "get_location_comments_projects__project_id__locations__location_id__comments_get",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -3953,18 +3951,6 @@
               "format": "uuid",
               "title": "Location Id"
             }
-          },
-          {
-            "name": "method_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                { "type": "string", "format": "uuid" },
-                { "type": "null" }
-              ],
-              "title": "Method Id"
-            }
           }
         ],
         "responses": {
@@ -3975,7 +3961,7 @@
                 "schema": {
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/Comment" },
-                  "title": "Response Get Comments Projects  Project Id  Locations  Location Id  Comments Get"
+                  "title": "Response Get Location Comments Projects  Project Id  Locations  Location Id  Comments Get"
                 }
               }
             }
@@ -5229,6 +5215,16 @@
               "default": false,
               "title": "Geojson"
             }
+          },
+          {
+            "name": "as_attachment",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+              "default": true,
+              "title": "As Attachment"
+            }
           }
         ],
         "responses": {
@@ -5291,6 +5287,16 @@
               "anyOf": [{ "type": "boolean" }, { "type": "null" }],
               "default": false,
               "title": "Geojson"
+            }
+          },
+          {
+            "name": "as_attachment",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+              "default": true,
+              "title": "As Attachment"
             }
           }
         ],
@@ -5359,6 +5365,16 @@
             "schema": {
               "anyOf": [{ "type": "boolean" }, { "type": "null" }],
               "title": "Geojson"
+            }
+          },
+          {
+            "name": "as_attachment",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+              "default": true,
+              "title": "As Attachment"
             }
           }
         ],
@@ -6606,6 +6622,455 @@
         }
       }
     },
+    "/projects/{project_id}/shapes": {
+      "post": {
+        "tags": ["shapes"],
+        "summary": "Submit Shape",
+        "description": "Submit new shape\nfile can be a DXF, SHP, or GeoJSON file, or a zip file containing one of these formats.",
+        "operationId": "submit_shape_projects__project_id__shapes_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_submit_shape_projects__project_id__shapes_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Shape" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["shapes"],
+        "summary": "Get Shapes",
+        "description": "Get all shapes",
+        "operationId": "get_shapes_projects__project_id__shapes_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Shape" },
+                  "title": "Response Get Shapes Projects  Project Id  Shapes Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/shapes/{shape_id}": {
+      "get": {
+        "tags": ["shapes"],
+        "summary": "Get Shape",
+        "description": "Get shape by shape_id",
+        "operationId": "get_shape_projects__project_id__shapes__shape_id__get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "shape_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Shape Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Shape" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["shapes"],
+        "summary": "Delete Shape",
+        "description": "Hard delete shape",
+        "operationId": "delete_shape_projects__project_id__shapes__shape_id__delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "shape_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Shape Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Successful Response" },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["shapes"],
+        "summary": "Modify Shape",
+        "operationId": "modify_shape_projects__project_id__shapes__shape_id__put",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "shape_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Shape Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ShapeUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Shape" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/shapes/delete": {
+      "delete": {
+        "tags": ["shapes"],
+        "summary": "Delete Shapes",
+        "description": "Hard delete multiple shapes",
+        "operationId": "delete_shapes_projects__project_id__shapes_delete_delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": { "type": "string", "format": "uuid" },
+                "title": "Shape Ids"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": { "description": "Successful Response" },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/shapes/{shape_id}/file": {
+      "post": {
+        "tags": ["shapes"],
+        "summary": "Upload File To Shape",
+        "description": "Upload file and associate it with a shape or sub_shape\nTo associate it with a shape, leave feature_index empty or set it to None.\nTo associate it with a sub_shape, provide the feature_index of the sub_shape in the geojson file.",
+        "operationId": "upload_file_to_shape_projects__project_id__shapes__shape_id__file_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "shape_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Shape Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_file_to_shape_projects__project_id__shapes__shape_id__file_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/File" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/shapes/{shape_id}/files": {
+      "get": {
+        "tags": ["shapes"],
+        "summary": "Get Files",
+        "description": "Get all files attached to a shape",
+        "operationId": "get_files_projects__project_id__shapes__shape_id__files_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "shape_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Shape Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/File" },
+                  "title": "Response Get Files Projects  Project Id  Shapes  Shape Id  Files Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["shapes"],
+        "summary": "Delete Shape Files",
+        "description": "Delete multiple files associated with a shape",
+        "operationId": "delete_shape_files_projects__project_id__shapes__shape_id__files_delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "shape_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Shape Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": { "type": "string", "format": "uuid" },
+                "title": "File Ids"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": { "description": "Successful Response" },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/shapes/{shape_id}/files/{file_id}": {
+      "delete": {
+        "tags": ["shapes"],
+        "summary": "Delete File From Shape",
+        "description": "Delete a file from a shape",
+        "operationId": "delete_file_from_shape_projects__project_id__shapes__shape_id__files__file_id__delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "shape_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Shape Id"
+            }
+          },
+          {
+            "name": "file_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid", "title": "File Id" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Successful Response" },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/standards": {
       "get": {
         "tags": ["standards"],
@@ -7643,6 +8108,37 @@
         "required": ["file"],
         "title": "Body_queue_locations_to_project_projects__project_id__locations_queue_post"
       },
+      "Body_submit_shape_projects__project_id__shapes_post": {
+        "properties": {
+          "color": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/ShapeColor" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Color",
+            "description": "One of the ShapeColor enum values (e.g. 'NEON_RED'), or 'null'/''/None to use the default color in the geojson"
+          },
+          "line_thickness": {
+            "anyOf": [
+              { "type": "integer" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Line Thickness",
+            "description": "An integer (e.g. 3), , or 'null'/''/None to use the default color in the geojson"
+          },
+          "name": { "type": "string", "title": "Name" },
+          "srid": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Srid"
+          },
+          "file": { "type": "string", "format": "binary", "title": "File" }
+        },
+        "type": "object",
+        "required": ["name", "file"],
+        "title": "Body_submit_shape_projects__project_id__shapes_post"
+      },
       "Body_upload_file_projects__project_id__locations__location_id__methods__method_id__upload_post": {
         "properties": {
           "comment": {
@@ -7694,6 +8190,22 @@
         "type": "object",
         "required": ["file"],
         "title": "Body_upload_file_to_project_projects__project_id__upload_post"
+      },
+      "Body_upload_file_to_shape_projects__project_id__shapes__shape_id__file_post": {
+        "properties": {
+          "feature_index": {
+            "anyOf": [
+              { "type": "integer" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Feature Index"
+          },
+          "file": { "type": "string", "format": "binary", "title": "File" }
+        },
+        "type": "object",
+        "required": ["file"],
+        "title": "Body_upload_file_to_shape_projects__project_id__shapes__shape_id__file_post"
       },
       "Body_upload_locations_to_project_projects__project_id__locations_upload_post": {
         "properties": {
@@ -21617,6 +22129,108 @@
         "enum": ["auto", "manual", "percentile"],
         "title": "ScalingMode"
       },
+      "Shape": {
+        "properties": {
+          "shape_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Shape Id"
+          },
+          "project_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Project Id"
+          },
+          "input_geometry_file_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Input Geometry File Id"
+          },
+          "attached_file_ids": {
+            "items": { "type": "string", "format": "uuid" },
+            "type": "array",
+            "title": "Attached File Ids"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "created_by": { "type": "string", "title": "Created By" },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          },
+          "name": { "type": "string", "title": "Name" },
+          "line_thickness": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Line Thickness"
+          },
+          "color": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/ShapeColor" },
+              { "type": "null" }
+            ]
+          },
+          "sub_shapes": {
+            "items": { "$ref": "#/components/schemas/SubShape" },
+            "type": "array",
+            "title": "Sub Shapes",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "shape_id",
+          "project_id",
+          "input_geometry_file_id",
+          "attached_file_ids",
+          "created_at",
+          "updated_at",
+          "created_by",
+          "updated_by",
+          "name"
+        ],
+        "title": "Shape"
+      },
+      "ShapeColor": {
+        "type": "string",
+        "enum": [
+          "NEON_RED",
+          "NEON_GREEN",
+          "NEON_BLUE",
+          "NEON_PURPLE",
+          "NEON_PINK",
+          "NEON_YELLOW",
+          "COMMON_BLACK"
+        ],
+        "title": "ShapeColor"
+      },
+      "ShapeUpdate": {
+        "properties": {
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          },
+          "line_thickness": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Line Thickness"
+          },
+          "color": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/ShapeColor" },
+              { "type": "null" }
+            ]
+          }
+        },
+        "type": "object",
+        "title": "ShapeUpdate"
+      },
       "SoundingClass": {
         "type": "string",
         "enum": ["JB1", "JB2", "JB3", "JBTOT"],
@@ -21644,6 +22258,41 @@
         "type": "string",
         "enum": ["NGF", "SGF", "IOGP", "OW"],
         "title": "StandardType"
+      },
+      "SubShape": {
+        "properties": {
+          "shape_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Shape Id"
+          },
+          "sub_shape_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Sub Shape Id"
+          },
+          "name": { "type": "string", "title": "Name" },
+          "feature_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Feature Id"
+          },
+          "feature_index": { "type": "integer", "title": "Feature Index" },
+          "attached_file_ids": {
+            "items": { "type": "string", "format": "uuid" },
+            "type": "array",
+            "title": "Attached File Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "shape_id",
+          "sub_shape_id",
+          "name",
+          "feature_id",
+          "feature_index",
+          "attached_file_ids"
+        ],
+        "title": "SubShape"
       },
       "TransformationType": {
         "type": "string",

@@ -7,6 +7,7 @@ from .bedrock_type import BedrockType
 from .body_queue_locations_to_project_projects_project_id_locations_queue_post import (
     BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost,
 )
+from .body_submit_shape_projects_project_id_shapes_post import BodySubmitShapeProjectsProjectIdShapesPost
 from .body_upload_file_projects_project_id_locations_location_id_methods_method_id_upload_post import (
     BodyUploadFileProjectsProjectIdLocationsLocationIdMethodsMethodIdUploadPost,
 )
@@ -18,6 +19,9 @@ from .body_upload_file_to_organization_organizations_organization_id_upload_post
 )
 from .body_upload_file_to_project_projects_project_id_upload_post import (
     BodyUploadFileToProjectProjectsProjectIdUploadPost,
+)
+from .body_upload_file_to_shape_projects_project_id_shapes_shape_id_file_post import (
+    BodyUploadFileToShapeProjectsProjectIdShapesShapeIdFilePost,
 )
 from .body_upload_locations_to_project_projects_project_id_locations_upload_post import (
     BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost,
@@ -244,9 +248,13 @@ from .sampler_type import SamplerType
 from .sampling_technique import SamplingTechnique
 from .scales import Scales
 from .scaling_mode import ScalingMode
+from .shape import Shape
+from .shape_color import ShapeColor
+from .shape_update import ShapeUpdate
 from .sounding_class import SoundingClass
 from .standard import Standard
 from .standard_type import StandardType
+from .sub_shape import SubShape
 from .transformation_type import TransformationType
 from .user import User
 from .validation_error import ValidationError
@@ -262,10 +270,12 @@ __all__ = (
     "BedrockInfo",
     "BedrockType",
     "BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost",
+    "BodySubmitShapeProjectsProjectIdShapesPost",
     "BodyUploadFileProjectsProjectIdLocationsLocationIdMethodsMethodIdUploadPost",
     "BodyUploadFileToLocationProjectsProjectIdLocationsLocationIdUploadPost",
     "BodyUploadFileToOrganizationOrganizationsOrganizationIdUploadPost",
     "BodyUploadFileToProjectProjectsProjectIdUploadPost",
+    "BodyUploadFileToShapeProjectsProjectIdShapesShapeIdFilePost",
     "BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost",
     "ColorMode",
     "Comment",
@@ -485,9 +495,13 @@ __all__ = (
     "SamplingTechnique",
     "Scales",
     "ScalingMode",
+    "Shape",
+    "ShapeColor",
+    "ShapeUpdate",
     "SoundingClass",
     "Standard",
     "StandardType",
+    "SubShape",
     "TransformationType",
     "User",
     "ValidationError",
