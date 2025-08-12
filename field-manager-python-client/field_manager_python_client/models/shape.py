@@ -11,6 +11,7 @@ from ..models.shape_color import ShapeColor
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
+    from ..models.file_min import FileMin
     from ..models.sub_shape import SubShape
 
 
@@ -24,6 +25,7 @@ class Shape:
         shape_id (UUID):
         project_id (UUID):
         input_geometry_file_id (UUID):
+        input_geometry_file (FileMin):
         attached_file_ids (list[UUID]):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
@@ -38,6 +40,7 @@ class Shape:
     shape_id: UUID
     project_id: UUID
     input_geometry_file_id: UUID
+    input_geometry_file: "FileMin"
     attached_file_ids: list[UUID]
     created_at: datetime.datetime
     updated_at: datetime.datetime
@@ -55,6 +58,8 @@ class Shape:
         project_id = str(self.project_id)
 
         input_geometry_file_id = str(self.input_geometry_file_id)
+
+        input_geometry_file = self.input_geometry_file.to_dict()
 
         attached_file_ids = []
         for attached_file_ids_item_data in self.attached_file_ids:
@@ -100,6 +105,7 @@ class Shape:
                 "shape_id": shape_id,
                 "project_id": project_id,
                 "input_geometry_file_id": input_geometry_file_id,
+                "input_geometry_file": input_geometry_file,
                 "attached_file_ids": attached_file_ids,
                 "created_at": created_at,
                 "updated_at": updated_at,
@@ -119,6 +125,7 @@ class Shape:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.file_min import FileMin
         from ..models.sub_shape import SubShape
 
         d = dict(src_dict)
@@ -127,6 +134,8 @@ class Shape:
         project_id = UUID(d.pop("project_id"))
 
         input_geometry_file_id = UUID(d.pop("input_geometry_file_id"))
+
+        input_geometry_file = FileMin.from_dict(d.pop("input_geometry_file"))
 
         attached_file_ids = []
         _attached_file_ids = d.pop("attached_file_ids")
@@ -187,6 +196,7 @@ class Shape:
             shape_id=shape_id,
             project_id=project_id,
             input_geometry_file_id=input_geometry_file_id,
+            input_geometry_file=input_geometry_file,
             attached_file_ids=attached_file_ids,
             created_at=created_at,
             updated_at=updated_at,
