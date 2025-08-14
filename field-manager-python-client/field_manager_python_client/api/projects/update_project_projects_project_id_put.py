@@ -69,7 +69,8 @@ def sync_detailed(
 
      Update a project with passed project_in.
 
-    If srid is changed, then all location values are transformed from the old srid to the new srid.
+    If srid is changed, then all location and cross section values are transformed from the old srid to
+    the new srid.
     The location should not move on the map.
 
     Args:
@@ -107,7 +108,8 @@ def sync(
 
      Update a project with passed project_in.
 
-    If srid is changed, then all location values are transformed from the old srid to the new srid.
+    If srid is changed, then all location and cross section values are transformed from the old srid to
+    the new srid.
     The location should not move on the map.
 
     Args:
@@ -140,7 +142,8 @@ async def asyncio_detailed(
 
      Update a project with passed project_in.
 
-    If srid is changed, then all location values are transformed from the old srid to the new srid.
+    If srid is changed, then all location and cross section values are transformed from the old srid to
+    the new srid.
     The location should not move on the map.
 
     Args:
@@ -176,7 +179,8 @@ async def asyncio(
 
      Update a project with passed project_in.
 
-    If srid is changed, then all location values are transformed from the old srid to the new srid.
+    If srid is changed, then all location and cross section values are transformed from the old srid to
+    the new srid.
     The location should not move on the map.
 
     Args:

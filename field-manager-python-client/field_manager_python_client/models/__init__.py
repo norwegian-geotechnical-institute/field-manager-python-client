@@ -44,6 +44,7 @@ from .export_type import ExportType
 from .file import File
 from .file_extended import FileExtended
 from .file_extension import FileExtension
+from .file_min import FileMin
 from .file_type import FileType
 from .file_update import FileUpdate
 from .fm_plot_options import FMPlotOptions
@@ -293,6 +294,7 @@ __all__ = (
     "File",
     "FileExtended",
     "FileExtension",
+    "FileMin",
     "FileType",
     "FileUpdate",
     "FMPlotOptions",

@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.38" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.45" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -510,7 +510,7 @@
       "put": {
         "tags": ["projects"],
         "summary": "Update Project",
-        "description": "Update a project with passed project_in.\n\nIf srid is changed, then all location values are transformed from the old srid to the new srid.\nThe location should not move on the map.",
+        "description": "Update a project with passed project_in.\n\nIf srid is changed, then all location and cross section values are transformed from the old srid to the new srid.\nThe location should not move on the map.",
         "operationId": "update_project_projects__project_id__put",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
@@ -1113,37 +1113,6 @@
           }
         }
       },
-      "delete": {
-        "tags": ["projects"],
-        "summary": "Delete Projects",
-        "description": "Delete multiple projects. Pass a list of project_ids to be deleted in the request body.",
-        "operationId": "delete_projects_projects_delete",
-        "security": [{ "HTTPBearer": [] }],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": { "type": "string", "format": "uuid" },
-                "title": "Project Ids"
-              }
-            }
-          }
-        },
-        "responses": {
-          "204": { "description": "Successful Response" },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      },
       "post": {
         "tags": ["projects"],
         "summary": "Add Project",
@@ -1178,6 +1147,37 @@
               }
             }
           },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["projects"],
+        "summary": "Delete Projects",
+        "description": "Delete multiple projects. Pass a list of project_ids to be deleted in the request body.",
+        "operationId": "delete_projects_projects_delete",
+        "security": [{ "HTTPBearer": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": { "type": "string", "format": "uuid" },
+                "title": "Project Ids"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": { "description": "Successful Response" },
           "422": {
             "description": "Validation Error",
             "content": {
@@ -7139,40 +7139,6 @@
         }
       }
     },
-    "/users/{user_id}": {
-      "get": {
-        "tags": ["users"],
-        "summary": "Get User",
-        "operationId": "get_user_users__user_id__get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid", "title": "User Id" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/User-Output" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
     "/organizations/{organization_id}/users": {
       "get": {
         "tags": ["organizations", "users"],
@@ -8805,6 +8771,23 @@
         ],
         "title": "FileExtension",
         "description": "File extension with description. The extension attribute starts with a period and is always lowercase like '.csv'."
+      },
+      "FileMin": {
+        "properties": {
+          "file_id": { "type": "string", "format": "uuid", "title": "File Id" },
+          "size": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Size"
+          },
+          "blob_url": { "type": "string", "title": "Blob Url" },
+          "original_filename": {
+            "type": "string",
+            "title": "Original Filename"
+          }
+        },
+        "type": "object",
+        "required": ["file_id", "blob_url", "original_filename"],
+        "title": "FileMin"
       },
       "FileType": {
         "type": "string",
@@ -22147,6 +22130,7 @@
             "format": "uuid",
             "title": "Input Geometry File Id"
           },
+          "input_geometry_file": { "$ref": "#/components/schemas/FileMin" },
           "attached_file_ids": {
             "items": { "type": "string", "format": "uuid" },
             "type": "array",
@@ -22190,6 +22174,7 @@
           "shape_id",
           "project_id",
           "input_geometry_file_id",
+          "input_geometry_file",
           "attached_file_ids",
           "created_at",
           "updated_at",
