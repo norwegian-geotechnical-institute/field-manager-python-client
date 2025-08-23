@@ -68,7 +68,9 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: ShapeUpdate,
 ) -> Response[Union[HTTPValidationError, Shape]]:
-    """Modify Shape
+    """Update Shape
+
+     Update a Shape
 
     Args:
         project_id (str):
@@ -103,7 +105,9 @@ def sync(
     client: AuthenticatedClient,
     body: ShapeUpdate,
 ) -> Optional[Union[HTTPValidationError, Shape]]:
-    """Modify Shape
+    """Update Shape
+
+     Update a Shape
 
     Args:
         project_id (str):
@@ -133,7 +137,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: ShapeUpdate,
 ) -> Response[Union[HTTPValidationError, Shape]]:
-    """Modify Shape
+    """Update Shape
+
+     Update a Shape
 
     Args:
         project_id (str):
@@ -166,7 +172,9 @@ async def asyncio(
     client: AuthenticatedClient,
     body: ShapeUpdate,
 ) -> Optional[Union[HTTPValidationError, Shape]]:
-    """Modify Shape
+    """Update Shape
+
+     Update a Shape
 
     Args:
         project_id (str):

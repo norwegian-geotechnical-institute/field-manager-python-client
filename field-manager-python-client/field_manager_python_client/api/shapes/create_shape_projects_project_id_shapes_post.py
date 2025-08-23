@@ -5,7 +5,7 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.body_submit_shape_projects_project_id_shapes_post import BodySubmitShapeProjectsProjectIdShapesPost
+from ...models.body_create_shape_projects_project_id_shapes_post import BodyCreateShapeProjectsProjectIdShapesPost
 from ...models.http_validation_error import HTTPValidationError
 from ...models.shape import Shape
 from ...types import Response
@@ -14,7 +14,7 @@ from ...types import Response
 def _get_kwargs(
     project_id: str,
     *,
-    body: BodySubmitShapeProjectsProjectIdShapesPost,
+    body: BodyCreateShapeProjectsProjectIdShapesPost,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -61,16 +61,16 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: BodySubmitShapeProjectsProjectIdShapesPost,
+    body: BodyCreateShapeProjectsProjectIdShapesPost,
 ) -> Response[Union[HTTPValidationError, Shape]]:
-    """Submit Shape
+    """Create Shape
 
-     Submit new shape
+     Create a new shape
     file can be a DXF, SHP, or GeoJSON file, or a zip file containing one of these formats.
 
     Args:
         project_id (str):
-        body (BodySubmitShapeProjectsProjectIdShapesPost):
+        body (BodyCreateShapeProjectsProjectIdShapesPost):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -96,16 +96,16 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: BodySubmitShapeProjectsProjectIdShapesPost,
+    body: BodyCreateShapeProjectsProjectIdShapesPost,
 ) -> Optional[Union[HTTPValidationError, Shape]]:
-    """Submit Shape
+    """Create Shape
 
-     Submit new shape
+     Create a new shape
     file can be a DXF, SHP, or GeoJSON file, or a zip file containing one of these formats.
 
     Args:
         project_id (str):
-        body (BodySubmitShapeProjectsProjectIdShapesPost):
+        body (BodyCreateShapeProjectsProjectIdShapesPost):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -126,16 +126,16 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: BodySubmitShapeProjectsProjectIdShapesPost,
+    body: BodyCreateShapeProjectsProjectIdShapesPost,
 ) -> Response[Union[HTTPValidationError, Shape]]:
-    """Submit Shape
+    """Create Shape
 
-     Submit new shape
+     Create a new shape
     file can be a DXF, SHP, or GeoJSON file, or a zip file containing one of these formats.
 
     Args:
         project_id (str):
-        body (BodySubmitShapeProjectsProjectIdShapesPost):
+        body (BodyCreateShapeProjectsProjectIdShapesPost):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -159,16 +159,16 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: BodySubmitShapeProjectsProjectIdShapesPost,
+    body: BodyCreateShapeProjectsProjectIdShapesPost,
 ) -> Optional[Union[HTTPValidationError, Shape]]:
-    """Submit Shape
+    """Create Shape
 
-     Submit new shape
+     Create a new shape
     file can be a DXF, SHP, or GeoJSON file, or a zip file containing one of these formats.
 
     Args:
         project_id (str):
-        body (BodySubmitShapeProjectsProjectIdShapesPost):
+        body (BodyCreateShapeProjectsProjectIdShapesPost):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

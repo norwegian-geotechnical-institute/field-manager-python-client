@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.45" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.55" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -6626,9 +6626,9 @@
     "/projects/{project_id}/shapes": {
       "post": {
         "tags": ["shapes"],
-        "summary": "Submit Shape",
-        "description": "Submit new shape\nfile can be a DXF, SHP, or GeoJSON file, or a zip file containing one of these formats.",
-        "operationId": "submit_shape_projects__project_id__shapes_post",
+        "summary": "Create Shape",
+        "description": "Create a new shape\nfile can be a DXF, SHP, or GeoJSON file, or a zip file containing one of these formats.",
+        "operationId": "create_shape_projects__project_id__shapes_post",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -6643,7 +6643,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/Body_submit_shape_projects__project_id__shapes_post"
+                "$ref": "#/components/schemas/Body_create_shape_projects__project_id__shapes_post"
               }
             }
           }
@@ -6787,8 +6787,9 @@
       },
       "put": {
         "tags": ["shapes"],
-        "summary": "Modify Shape",
-        "operationId": "modify_shape_projects__project_id__shapes__shape_id__put",
+        "summary": "Update Shape",
+        "description": "Update a Shape",
+        "operationId": "update_shape_projects__project_id__shapes__shape_id__put",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -6880,7 +6881,7 @@
       "post": {
         "tags": ["shapes"],
         "summary": "Upload File To Shape",
-        "description": "Upload file and associate it with a shape or sub_shape\nTo associate it with a shape, leave feature_index empty or set it to None.\nTo associate it with a sub_shape, provide the feature_index of the sub_shape in the geojson file.",
+        "description": "Upload file and associate it with a shape or sub_shape\n\nTo associate it with a shape, leave feature_index empty or set it to None.\nTo associate it with a sub_shape, provide the feature_index of the sub_shape in the geojson file.",
         "operationId": "upload_file_to_shape_projects__project_id__shapes__shape_id__file_post",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
@@ -8062,20 +8063,7 @@
         "enum": ["ROCK_LAYER", "POSSIBLY_BEDROCK", "BEDROCK"],
         "title": "BedrockType"
       },
-      "Body_queue_locations_to_project_projects__project_id__locations_queue_post": {
-        "properties": {
-          "file": { "type": "string", "format": "binary", "title": "File" },
-          "comment": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Comment",
-            "default": ""
-          }
-        },
-        "type": "object",
-        "required": ["file"],
-        "title": "Body_queue_locations_to_project_projects__project_id__locations_queue_post"
-      },
-      "Body_submit_shape_projects__project_id__shapes_post": {
+      "Body_create_shape_projects__project_id__shapes_post": {
         "properties": {
           "color": {
             "anyOf": [
@@ -8104,7 +8092,20 @@
         },
         "type": "object",
         "required": ["name", "file"],
-        "title": "Body_submit_shape_projects__project_id__shapes_post"
+        "title": "Body_create_shape_projects__project_id__shapes_post"
+      },
+      "Body_queue_locations_to_project_projects__project_id__locations_queue_post": {
+        "properties": {
+          "file": { "type": "string", "format": "binary", "title": "File" },
+          "comment": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Comment",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": ["file"],
+        "title": "Body_queue_locations_to_project_projects__project_id__locations_queue_post"
       },
       "Body_upload_file_projects__project_id__locations__location_id__methods__method_id__upload_post": {
         "properties": {
@@ -22146,7 +22147,10 @@
             "format": "date-time",
             "title": "Updated At"
           },
-          "created_by": { "type": "string", "title": "Created By" },
+          "created_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Created By"
+          },
           "updated_by": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Updated By"

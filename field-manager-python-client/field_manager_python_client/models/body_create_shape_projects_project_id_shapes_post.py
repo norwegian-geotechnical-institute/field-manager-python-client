@@ -9,11 +9,11 @@ from .. import types
 from ..models.shape_color import ShapeColor
 from ..types import UNSET, File, Unset
 
-T = TypeVar("T", bound="BodySubmitShapeProjectsProjectIdShapesPost")
+T = TypeVar("T", bound="BodyCreateShapeProjectsProjectIdShapesPost")
 
 
 @_attrs_define
-class BodySubmitShapeProjectsProjectIdShapesPost:
+class BodyCreateShapeProjectsProjectIdShapesPost:
     """
     Attributes:
         name (str):
@@ -150,7 +150,7 @@ class BodySubmitShapeProjectsProjectIdShapesPost:
 
         srid = _parse_srid(d.pop("srid", UNSET))
 
-        body_submit_shape_projects_project_id_shapes_post = cls(
+        body_create_shape_projects_project_id_shapes_post = cls(
             name=name,
             file=file,
             color=color,
@@ -158,8 +158,8 @@ class BodySubmitShapeProjectsProjectIdShapesPost:
             srid=srid,
         )
 
-        body_submit_shape_projects_project_id_shapes_post.additional_properties = d
-        return body_submit_shape_projects_project_id_shapes_post
+        body_create_shape_projects_project_id_shapes_post.additional_properties = d
+        return body_create_shape_projects_project_id_shapes_post
 
     @property
     def additional_keys(self) -> list[str]:

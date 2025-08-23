@@ -29,7 +29,7 @@ class Shape:
         attached_file_ids (list[UUID]):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        created_by (str):
+        created_by (Union[None, str]):
         updated_by (Union[None, str]):
         name (str):
         line_thickness (Union[None, Unset, int]):
@@ -44,7 +44,7 @@ class Shape:
     attached_file_ids: list[UUID]
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    created_by: str
+    created_by: Union[None, str]
     updated_by: Union[None, str]
     name: str
     line_thickness: Union[None, Unset, int] = UNSET
@@ -70,6 +70,7 @@ class Shape:
 
         updated_at = self.updated_at.isoformat()
 
+        created_by: Union[None, str]
         created_by = self.created_by
 
         updated_by: Union[None, str]
@@ -148,7 +149,12 @@ class Shape:
 
         updated_at = isoparse(d.pop("updated_at"))
 
-        created_by = d.pop("created_by")
+        def _parse_created_by(data: object) -> Union[None, str]:
+            if data is None:
+                return data
+            return cast(Union[None, str], data)
+
+        created_by = _parse_created_by(d.pop("created_by"))
 
         def _parse_updated_by(data: object) -> Union[None, str]:
             if data is None:

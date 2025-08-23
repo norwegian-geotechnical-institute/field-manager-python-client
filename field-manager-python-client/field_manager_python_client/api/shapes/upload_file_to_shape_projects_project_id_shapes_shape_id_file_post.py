@@ -71,6 +71,7 @@ def sync_detailed(
     """Upload File To Shape
 
      Upload file and associate it with a shape or sub_shape
+
     To associate it with a shape, leave feature_index empty or set it to None.
     To associate it with a sub_shape, provide the feature_index of the sub_shape in the geojson file.
 
@@ -110,6 +111,7 @@ def sync(
     """Upload File To Shape
 
      Upload file and associate it with a shape or sub_shape
+
     To associate it with a shape, leave feature_index empty or set it to None.
     To associate it with a sub_shape, provide the feature_index of the sub_shape in the geojson file.
 
@@ -144,6 +146,7 @@ async def asyncio_detailed(
     """Upload File To Shape
 
      Upload file and associate it with a shape or sub_shape
+
     To associate it with a shape, leave feature_index empty or set it to None.
     To associate it with a sub_shape, provide the feature_index of the sub_shape in the geojson file.
 
@@ -181,6 +184,7 @@ async def asyncio(
     """Upload File To Shape
 
      Upload file and associate it with a shape or sub_shape
+
     To associate it with a shape, leave feature_index empty or set it to None.
     To associate it with a sub_shape, provide the feature_index of the sub_shape in the geojson file.
 
