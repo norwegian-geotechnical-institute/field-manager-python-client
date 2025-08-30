@@ -23,6 +23,7 @@ class User:
         email (Union[None, Unset, str]):
         roles (Union[Unset, list['Role']]):
         email_verified (Union[None, Unset, bool]):
+        organization_id (Union[None, UUID, Unset]):
     """
 
     user_id: Union[None, UUID, Unset] = UNSET
@@ -30,6 +31,7 @@ class User:
     email: Union[None, Unset, str] = UNSET
     roles: Union[Unset, list["Role"]] = UNSET
     email_verified: Union[None, Unset, bool] = UNSET
+    organization_id: Union[None, UUID, Unset] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -66,6 +68,14 @@ class User:
         else:
             email_verified = self.email_verified
 
+        organization_id: Union[None, Unset, str]
+        if isinstance(self.organization_id, Unset):
+            organization_id = UNSET
+        elif isinstance(self.organization_id, UUID):
+            organization_id = str(self.organization_id)
+        else:
+            organization_id = self.organization_id
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -79,6 +89,8 @@ class User:
             field_dict["roles"] = roles
         if email_verified is not UNSET:
             field_dict["email_verified"] = email_verified
+        if organization_id is not UNSET:
+            field_dict["organization_id"] = organization_id
 
         return field_dict
 
@@ -139,12 +151,30 @@ class User:
 
         email_verified = _parse_email_verified(d.pop("email_verified", UNSET))
 
+        def _parse_organization_id(data: object) -> Union[None, UUID, Unset]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                organization_id_type_0 = UUID(data)
+
+                return organization_id_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[None, UUID, Unset], data)
+
+        organization_id = _parse_organization_id(d.pop("organization_id", UNSET))
+
         user = cls(
             user_id=user_id,
             name=name,
             email=email,
             roles=roles,
             email_verified=email_verified,
+            organization_id=organization_id,
         )
 
         user.additional_properties = d

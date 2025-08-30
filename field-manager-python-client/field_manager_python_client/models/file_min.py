@@ -15,21 +15,17 @@ class FileMin:
     """
     Attributes:
         file_id (UUID):
-        blob_url (str):
         original_filename (str):
         size (Union[None, Unset, int]):
     """
 
     file_id: UUID
-    blob_url: str
     original_filename: str
     size: Union[None, Unset, int] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         file_id = str(self.file_id)
-
-        blob_url = self.blob_url
 
         original_filename = self.original_filename
 
@@ -44,7 +40,6 @@ class FileMin:
         field_dict.update(
             {
                 "file_id": file_id,
-                "blob_url": blob_url,
                 "original_filename": original_filename,
             }
         )
@@ -57,8 +52,6 @@ class FileMin:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         file_id = UUID(d.pop("file_id"))
-
-        blob_url = d.pop("blob_url")
 
         original_filename = d.pop("original_filename")
 
@@ -73,7 +66,6 @@ class FileMin:
 
         file_min = cls(
             file_id=file_id,
-            blob_url=blob_url,
             original_filename=original_filename,
             size=size,
         )

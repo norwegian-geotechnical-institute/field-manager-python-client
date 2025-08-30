@@ -40,10 +40,12 @@ def _parse_response(
         response_201 = File.from_dict(response.json())
 
         return response_201
+
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
         return response_422
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -71,6 +73,7 @@ def sync_detailed(
     """Upload File To Shape
 
      Upload file and associate it with a shape or sub_shape
+
     To associate it with a shape, leave feature_index empty or set it to None.
     To associate it with a sub_shape, provide the feature_index of the sub_shape in the geojson file.
 
@@ -110,6 +113,7 @@ def sync(
     """Upload File To Shape
 
      Upload file and associate it with a shape or sub_shape
+
     To associate it with a shape, leave feature_index empty or set it to None.
     To associate it with a sub_shape, provide the feature_index of the sub_shape in the geojson file.
 
@@ -144,6 +148,7 @@ async def asyncio_detailed(
     """Upload File To Shape
 
      Upload file and associate it with a shape or sub_shape
+
     To associate it with a shape, leave feature_index empty or set it to None.
     To associate it with a sub_shape, provide the feature_index of the sub_shape in the geojson file.
 
@@ -181,6 +186,7 @@ async def asyncio(
     """Upload File To Shape
 
      Upload file and associate it with a shape or sub_shape
+
     To associate it with a shape, leave feature_index empty or set it to None.
     To associate it with a sub_shape, provide the feature_index of the sub_shape in the geojson file.
 

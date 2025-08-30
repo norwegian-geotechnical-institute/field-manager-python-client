@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.45" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.60" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -6626,9 +6626,9 @@
     "/projects/{project_id}/shapes": {
       "post": {
         "tags": ["shapes"],
-        "summary": "Submit Shape",
-        "description": "Submit new shape\nfile can be a DXF, SHP, or GeoJSON file, or a zip file containing one of these formats.",
-        "operationId": "submit_shape_projects__project_id__shapes_post",
+        "summary": "Create Shape",
+        "description": "Create a new shape\nfile can be a DXF, SHP, or GeoJSON file, or a zip file containing one of these formats.",
+        "operationId": "create_shape_projects__project_id__shapes_post",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -6643,7 +6643,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/Body_submit_shape_projects__project_id__shapes_post"
+                "$ref": "#/components/schemas/Body_create_shape_projects__project_id__shapes_post"
               }
             }
           }
@@ -6787,8 +6787,9 @@
       },
       "put": {
         "tags": ["shapes"],
-        "summary": "Modify Shape",
-        "operationId": "modify_shape_projects__project_id__shapes__shape_id__put",
+        "summary": "Update Shape",
+        "description": "Update a Shape",
+        "operationId": "update_shape_projects__project_id__shapes__shape_id__put",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -6880,7 +6881,7 @@
       "post": {
         "tags": ["shapes"],
         "summary": "Upload File To Shape",
-        "description": "Upload file and associate it with a shape or sub_shape\nTo associate it with a shape, leave feature_index empty or set it to None.\nTo associate it with a sub_shape, provide the feature_index of the sub_shape in the geojson file.",
+        "description": "Upload file and associate it with a shape or sub_shape\n\nTo associate it with a shape, leave feature_index empty or set it to None.\nTo associate it with a sub_shape, provide the feature_index of the sub_shape in the geojson file.",
         "operationId": "upload_file_to_shape_projects__project_id__shapes__shape_id__file_post",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
@@ -7032,7 +7033,7 @@
       "delete": {
         "tags": ["shapes"],
         "summary": "Delete File From Shape",
-        "description": "Delete a file from a shape",
+        "description": "Delete a file from a shape (not sub_shape yet)",
         "operationId": "delete_file_from_shape_projects__project_id__shapes__shape_id__files__file_id__delete",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
@@ -8062,6 +8063,42 @@
         "enum": ["ROCK_LAYER", "POSSIBLY_BEDROCK", "BEDROCK"],
         "title": "BedrockType"
       },
+      "Body_create_shape_projects__project_id__shapes_post": {
+        "properties": {
+          "color": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/ShapeColor" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Color",
+            "description": "One of the ShapeColor enum values (e.g. 'NEON_RED'), or 'null'/'' to use the default color in the geojson"
+          },
+          "line_thickness": {
+            "anyOf": [
+              { "type": "integer" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Line Thickness",
+            "description": "An integer (e.g. 3) or 'null'/'' to use the default color in the geojson"
+          },
+          "name": { "type": "string", "title": "Name" },
+          "srid": {
+            "anyOf": [
+              { "type": "string" },
+              { "type": "integer" },
+              { "type": "null" }
+            ],
+            "title": "Srid",
+            "description": "The EPSG:SRID of the source shape file. If not provided, 'null' or '' empty string, then the file content will be searched for a projection."
+          },
+          "file": { "type": "string", "format": "binary", "title": "File" }
+        },
+        "type": "object",
+        "required": ["name", "file"],
+        "title": "Body_create_shape_projects__project_id__shapes_post"
+      },
       "Body_queue_locations_to_project_projects__project_id__locations_queue_post": {
         "properties": {
           "file": { "type": "string", "format": "binary", "title": "File" },
@@ -8074,37 +8111,6 @@
         "type": "object",
         "required": ["file"],
         "title": "Body_queue_locations_to_project_projects__project_id__locations_queue_post"
-      },
-      "Body_submit_shape_projects__project_id__shapes_post": {
-        "properties": {
-          "color": {
-            "anyOf": [
-              { "$ref": "#/components/schemas/ShapeColor" },
-              { "type": "string" },
-              { "type": "null" }
-            ],
-            "title": "Color",
-            "description": "One of the ShapeColor enum values (e.g. 'NEON_RED'), or 'null'/''/None to use the default color in the geojson"
-          },
-          "line_thickness": {
-            "anyOf": [
-              { "type": "integer" },
-              { "type": "string" },
-              { "type": "null" }
-            ],
-            "title": "Line Thickness",
-            "description": "An integer (e.g. 3), , or 'null'/''/None to use the default color in the geojson"
-          },
-          "name": { "type": "string", "title": "Name" },
-          "srid": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Srid"
-          },
-          "file": { "type": "string", "format": "binary", "title": "File" }
-        },
-        "type": "object",
-        "required": ["name", "file"],
-        "title": "Body_submit_shape_projects__project_id__shapes_post"
       },
       "Body_upload_file_projects__project_id__locations__location_id__methods__method_id__upload_post": {
         "properties": {
@@ -8779,14 +8785,13 @@
             "anyOf": [{ "type": "integer" }, { "type": "null" }],
             "title": "Size"
           },
-          "blob_url": { "type": "string", "title": "Blob Url" },
           "original_filename": {
             "type": "string",
             "title": "Original Filename"
           }
         },
         "type": "object",
-        "required": ["file_id", "blob_url", "original_filename"],
+        "required": ["file_id", "original_filename"],
         "title": "FileMin"
       },
       "FileType": {
@@ -22125,11 +22130,6 @@
             "format": "uuid",
             "title": "Project Id"
           },
-          "input_geometry_file_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Input Geometry File Id"
-          },
           "input_geometry_file": { "$ref": "#/components/schemas/FileMin" },
           "attached_file_ids": {
             "items": { "type": "string", "format": "uuid" },
@@ -22146,7 +22146,10 @@
             "format": "date-time",
             "title": "Updated At"
           },
-          "created_by": { "type": "string", "title": "Created By" },
+          "created_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Created By"
+          },
           "updated_by": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Updated By"
@@ -22173,7 +22176,6 @@
         "required": [
           "shape_id",
           "project_id",
-          "input_geometry_file_id",
           "input_geometry_file",
           "attached_file_ids",
           "created_at",
@@ -22312,6 +22314,13 @@
           "email_verified": {
             "anyOf": [{ "type": "boolean" }, { "type": "null" }],
             "title": "Email Verified"
+          },
+          "organization_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Organization Id"
           }
         },
         "type": "object",
@@ -22343,6 +22352,13 @@
           "email_verified": {
             "anyOf": [{ "type": "boolean" }, { "type": "null" }],
             "title": "Email Verified"
+          },
+          "organization_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Organization Id"
           }
         },
         "type": "object",
