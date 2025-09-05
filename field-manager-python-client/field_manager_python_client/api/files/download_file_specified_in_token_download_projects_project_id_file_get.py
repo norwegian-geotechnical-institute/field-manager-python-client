@@ -13,11 +13,10 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     project_id: UUID,
-    file_id: UUID,
     *,
     token: str,
     size: Union[ImageSize, None, Unset] = ImageSize.ORIGINAL,
-    geojson: Union[None, Unset, bool] = UNSET,
+    geojson: Union[None, Unset, bool] = False,
     as_attachment: Union[None, Unset, bool] = True,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
@@ -51,7 +50,7 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/download/projects/{project_id}/file/{file_id}",
+        "url": f"/download/projects/{project_id}/file",
         "params": params,
     }
 
@@ -64,10 +63,12 @@ def _parse_response(
     if response.status_code == 200:
         response_200 = response.json()
         return response_200
+
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
         return response_422
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -87,24 +88,22 @@ def _build_response(
 
 def sync_detailed(
     project_id: UUID,
-    file_id: UUID,
     *,
     client: Union[AuthenticatedClient, Client],
     token: str,
     size: Union[ImageSize, None, Unset] = ImageSize.ORIGINAL,
-    geojson: Union[None, Unset, bool] = UNSET,
+    geojson: Union[None, Unset, bool] = False,
     as_attachment: Union[None, Unset, bool] = True,
 ) -> Response[Union[Any, HTTPValidationError]]:
-    """Download File With Temporary Project Token
+    """Download File Specified In Token
 
      Download the file specified in the token
 
     Args:
         project_id (UUID):
-        file_id (UUID):
         token (str):
         size (Union[ImageSize, None, Unset]):  Default: ImageSize.ORIGINAL.
-        geojson (Union[None, Unset, bool]):
+        geojson (Union[None, Unset, bool]):  Default: False.
         as_attachment (Union[None, Unset, bool]):  Default: True.
 
     Raises:
@@ -117,7 +116,6 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        file_id=file_id,
         token=token,
         size=size,
         geojson=geojson,
@@ -133,24 +131,22 @@ def sync_detailed(
 
 def sync(
     project_id: UUID,
-    file_id: UUID,
     *,
     client: Union[AuthenticatedClient, Client],
     token: str,
     size: Union[ImageSize, None, Unset] = ImageSize.ORIGINAL,
-    geojson: Union[None, Unset, bool] = UNSET,
+    geojson: Union[None, Unset, bool] = False,
     as_attachment: Union[None, Unset, bool] = True,
 ) -> Optional[Union[Any, HTTPValidationError]]:
-    """Download File With Temporary Project Token
+    """Download File Specified In Token
 
      Download the file specified in the token
 
     Args:
         project_id (UUID):
-        file_id (UUID):
         token (str):
         size (Union[ImageSize, None, Unset]):  Default: ImageSize.ORIGINAL.
-        geojson (Union[None, Unset, bool]):
+        geojson (Union[None, Unset, bool]):  Default: False.
         as_attachment (Union[None, Unset, bool]):  Default: True.
 
     Raises:
@@ -163,7 +159,6 @@ def sync(
 
     return sync_detailed(
         project_id=project_id,
-        file_id=file_id,
         client=client,
         token=token,
         size=size,
@@ -174,24 +169,22 @@ def sync(
 
 async def asyncio_detailed(
     project_id: UUID,
-    file_id: UUID,
     *,
     client: Union[AuthenticatedClient, Client],
     token: str,
     size: Union[ImageSize, None, Unset] = ImageSize.ORIGINAL,
-    geojson: Union[None, Unset, bool] = UNSET,
+    geojson: Union[None, Unset, bool] = False,
     as_attachment: Union[None, Unset, bool] = True,
 ) -> Response[Union[Any, HTTPValidationError]]:
-    """Download File With Temporary Project Token
+    """Download File Specified In Token
 
      Download the file specified in the token
 
     Args:
         project_id (UUID):
-        file_id (UUID):
         token (str):
         size (Union[ImageSize, None, Unset]):  Default: ImageSize.ORIGINAL.
-        geojson (Union[None, Unset, bool]):
+        geojson (Union[None, Unset, bool]):  Default: False.
         as_attachment (Union[None, Unset, bool]):  Default: True.
 
     Raises:
@@ -204,7 +197,6 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        file_id=file_id,
         token=token,
         size=size,
         geojson=geojson,
@@ -218,24 +210,22 @@ async def asyncio_detailed(
 
 async def asyncio(
     project_id: UUID,
-    file_id: UUID,
     *,
     client: Union[AuthenticatedClient, Client],
     token: str,
     size: Union[ImageSize, None, Unset] = ImageSize.ORIGINAL,
-    geojson: Union[None, Unset, bool] = UNSET,
+    geojson: Union[None, Unset, bool] = False,
     as_attachment: Union[None, Unset, bool] = True,
 ) -> Optional[Union[Any, HTTPValidationError]]:
-    """Download File With Temporary Project Token
+    """Download File Specified In Token
 
      Download the file specified in the token
 
     Args:
         project_id (UUID):
-        file_id (UUID):
         token (str):
         size (Union[ImageSize, None, Unset]):  Default: ImageSize.ORIGINAL.
-        geojson (Union[None, Unset, bool]):
+        geojson (Union[None, Unset, bool]):  Default: False.
         as_attachment (Union[None, Unset, bool]):  Default: True.
 
     Raises:
@@ -249,7 +239,6 @@ async def asyncio(
     return (
         await asyncio_detailed(
             project_id=project_id,
-            file_id=file_id,
             client=client,
             token=token,
             size=size,

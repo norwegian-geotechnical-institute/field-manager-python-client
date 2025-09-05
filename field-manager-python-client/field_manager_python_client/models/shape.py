@@ -24,12 +24,11 @@ class Shape:
     Attributes:
         shape_id (UUID):
         project_id (UUID):
-        input_geometry_file_id (UUID):
         input_geometry_file (FileMin):
         attached_file_ids (list[UUID]):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        created_by (str):
+        created_by (Union[None, str]):
         updated_by (Union[None, str]):
         name (str):
         line_thickness (Union[None, Unset, int]):
@@ -39,12 +38,11 @@ class Shape:
 
     shape_id: UUID
     project_id: UUID
-    input_geometry_file_id: UUID
     input_geometry_file: "FileMin"
     attached_file_ids: list[UUID]
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    created_by: str
+    created_by: Union[None, str]
     updated_by: Union[None, str]
     name: str
     line_thickness: Union[None, Unset, int] = UNSET
@@ -57,8 +55,6 @@ class Shape:
 
         project_id = str(self.project_id)
 
-        input_geometry_file_id = str(self.input_geometry_file_id)
-
         input_geometry_file = self.input_geometry_file.to_dict()
 
         attached_file_ids = []
@@ -70,6 +66,7 @@ class Shape:
 
         updated_at = self.updated_at.isoformat()
 
+        created_by: Union[None, str]
         created_by = self.created_by
 
         updated_by: Union[None, str]
@@ -104,7 +101,6 @@ class Shape:
             {
                 "shape_id": shape_id,
                 "project_id": project_id,
-                "input_geometry_file_id": input_geometry_file_id,
                 "input_geometry_file": input_geometry_file,
                 "attached_file_ids": attached_file_ids,
                 "created_at": created_at,
@@ -133,8 +129,6 @@ class Shape:
 
         project_id = UUID(d.pop("project_id"))
 
-        input_geometry_file_id = UUID(d.pop("input_geometry_file_id"))
-
         input_geometry_file = FileMin.from_dict(d.pop("input_geometry_file"))
 
         attached_file_ids = []
@@ -148,7 +142,12 @@ class Shape:
 
         updated_at = isoparse(d.pop("updated_at"))
 
-        created_by = d.pop("created_by")
+        def _parse_created_by(data: object) -> Union[None, str]:
+            if data is None:
+                return data
+            return cast(Union[None, str], data)
+
+        created_by = _parse_created_by(d.pop("created_by"))
 
         def _parse_updated_by(data: object) -> Union[None, str]:
             if data is None:
@@ -195,7 +194,6 @@ class Shape:
         shape = cls(
             shape_id=shape_id,
             project_id=project_id,
-            input_geometry_file_id=input_geometry_file_id,
             input_geometry_file=input_geometry_file,
             attached_file_ids=attached_file_ids,
             created_at=created_at,
