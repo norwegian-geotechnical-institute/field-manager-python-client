@@ -15,6 +15,7 @@ def _get_kwargs(
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
     tags: Union[Unset, list[str]] = UNSET,
+    external_id: Union[None, Unset, str] = UNSET,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
 
@@ -27,6 +28,13 @@ def _get_kwargs(
         json_tags = tags
 
     params["tags"] = json_tags
+
+    json_external_id: Union[None, Unset, str]
+    if isinstance(external_id, Unset):
+        json_external_id = UNSET
+    else:
+        json_external_id = external_id
+    params["external_id"] = json_external_id
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -51,10 +59,12 @@ def _parse_response(
             response_200.append(response_200_item)
 
         return response_200
+
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
         return response_422
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -78,15 +88,21 @@ def sync_detailed(
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
     tags: Union[Unset, list[str]] = UNSET,
+    external_id: Union[None, Unset, str] = UNSET,
 ) -> Response[Union[HTTPValidationError, list["ProjectInfo"]]]:
     """Get Projects
 
      Get all projects you have access to.
 
+    You may limit the projects returned by passing in tags to filter on.
+
+    You may limit the projects by passing an external_id or part of an external_id as a query parameter.
+
     Args:
         skip (Union[Unset, int]):  Default: 0.
         limit (Union[Unset, int]):  Default: 100.
         tags (Union[Unset, list[str]]):
+        external_id (Union[None, Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -100,6 +116,7 @@ def sync_detailed(
         skip=skip,
         limit=limit,
         tags=tags,
+        external_id=external_id,
     )
 
     response = client.get_httpx_client().request(
@@ -115,15 +132,21 @@ def sync(
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
     tags: Union[Unset, list[str]] = UNSET,
+    external_id: Union[None, Unset, str] = UNSET,
 ) -> Optional[Union[HTTPValidationError, list["ProjectInfo"]]]:
     """Get Projects
 
      Get all projects you have access to.
 
+    You may limit the projects returned by passing in tags to filter on.
+
+    You may limit the projects by passing an external_id or part of an external_id as a query parameter.
+
     Args:
         skip (Union[Unset, int]):  Default: 0.
         limit (Union[Unset, int]):  Default: 100.
         tags (Union[Unset, list[str]]):
+        external_id (Union[None, Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -138,6 +161,7 @@ def sync(
         skip=skip,
         limit=limit,
         tags=tags,
+        external_id=external_id,
     ).parsed
 
 
@@ -147,15 +171,21 @@ async def asyncio_detailed(
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
     tags: Union[Unset, list[str]] = UNSET,
+    external_id: Union[None, Unset, str] = UNSET,
 ) -> Response[Union[HTTPValidationError, list["ProjectInfo"]]]:
     """Get Projects
 
      Get all projects you have access to.
 
+    You may limit the projects returned by passing in tags to filter on.
+
+    You may limit the projects by passing an external_id or part of an external_id as a query parameter.
+
     Args:
         skip (Union[Unset, int]):  Default: 0.
         limit (Union[Unset, int]):  Default: 100.
         tags (Union[Unset, list[str]]):
+        external_id (Union[None, Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -169,6 +199,7 @@ async def asyncio_detailed(
         skip=skip,
         limit=limit,
         tags=tags,
+        external_id=external_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -182,15 +213,21 @@ async def asyncio(
     skip: Union[Unset, int] = 0,
     limit: Union[Unset, int] = 100,
     tags: Union[Unset, list[str]] = UNSET,
+    external_id: Union[None, Unset, str] = UNSET,
 ) -> Optional[Union[HTTPValidationError, list["ProjectInfo"]]]:
     """Get Projects
 
      Get all projects you have access to.
 
+    You may limit the projects returned by passing in tags to filter on.
+
+    You may limit the projects by passing an external_id or part of an external_id as a query parameter.
+
     Args:
         skip (Union[Unset, int]):  Default: 0.
         limit (Union[Unset, int]):  Default: 100.
         tags (Union[Unset, list[str]]):
+        external_id (Union[None, Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -206,5 +243,6 @@ async def asyncio(
             skip=skip,
             limit=limit,
             tags=tags,
+            external_id=external_id,
         )
     ).parsed

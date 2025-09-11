@@ -4,6 +4,7 @@ from typing import Any, TypeVar, Union, cast
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..models.file_type import FileType
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="FileUpdate")
@@ -15,10 +16,12 @@ class FileUpdate:
     Attributes:
         name (Union[None, Unset, str]):
         comment (Union[None, Unset, str]):
+        file_type (Union[FileType, None, Unset]):
     """
 
     name: Union[None, Unset, str] = UNSET
     comment: Union[None, Unset, str] = UNSET
+    file_type: Union[FileType, None, Unset] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -34,6 +37,14 @@ class FileUpdate:
         else:
             comment = self.comment
 
+        file_type: Union[None, Unset, str]
+        if isinstance(self.file_type, Unset):
+            file_type = UNSET
+        elif isinstance(self.file_type, FileType):
+            file_type = self.file_type.value
+        else:
+            file_type = self.file_type
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -41,6 +52,8 @@ class FileUpdate:
             field_dict["name"] = name
         if comment is not UNSET:
             field_dict["comment"] = comment
+        if file_type is not UNSET:
+            field_dict["file_type"] = file_type
 
         return field_dict
 
@@ -66,9 +79,27 @@ class FileUpdate:
 
         comment = _parse_comment(d.pop("comment", UNSET))
 
+        def _parse_file_type(data: object) -> Union[FileType, None, Unset]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                file_type_type_0 = FileType(data)
+
+                return file_type_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[FileType, None, Unset], data)
+
+        file_type = _parse_file_type(d.pop("file_type", UNSET))
+
         file_update = cls(
             name=name,
             comment=comment,
+            file_type=file_type,
         )
 
         file_update.additional_properties = d

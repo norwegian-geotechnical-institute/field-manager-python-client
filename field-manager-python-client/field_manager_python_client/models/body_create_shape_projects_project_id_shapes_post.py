@@ -9,27 +9,28 @@ from .. import types
 from ..models.shape_color import ShapeColor
 from ..types import UNSET, File, Unset
 
-T = TypeVar("T", bound="BodySubmitShapeProjectsProjectIdShapesPost")
+T = TypeVar("T", bound="BodyCreateShapeProjectsProjectIdShapesPost")
 
 
 @_attrs_define
-class BodySubmitShapeProjectsProjectIdShapesPost:
+class BodyCreateShapeProjectsProjectIdShapesPost:
     """
     Attributes:
         name (str):
         file (File):
-        color (Union[None, ShapeColor, Unset, str]): One of the ShapeColor enum values (e.g. 'NEON_RED'), or
-            'null'/''/None to use the default color in the geojson
-        line_thickness (Union[None, Unset, int, str]): An integer (e.g. 3), , or 'null'/''/None to use the default color
-            in the geojson
-        srid (Union[None, Unset, str]):
+        color (Union[None, ShapeColor, Unset, str]): One of the ShapeColor enum values (e.g. 'NEON_RED'), or 'null'/''
+            to use the default color in the geojson
+        line_thickness (Union[None, Unset, int, str]): An integer (e.g. 3) or 'null'/'' to use the default color in the
+            geojson
+        srid (Union[None, Unset, int, str]): The EPSG:SRID of the source shape file. If not provided, 'null' or '' empty
+            string, then the file content will be searched for a projection.
     """
 
     name: str
     file: File
     color: Union[None, ShapeColor, Unset, str] = UNSET
     line_thickness: Union[None, Unset, int, str] = UNSET
-    srid: Union[None, Unset, str] = UNSET
+    srid: Union[None, Unset, int, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -51,7 +52,7 @@ class BodySubmitShapeProjectsProjectIdShapesPost:
         else:
             line_thickness = self.line_thickness
 
-        srid: Union[None, Unset, str]
+        srid: Union[None, Unset, int, str]
         if isinstance(self.srid, Unset):
             srid = UNSET
         else:
@@ -100,6 +101,8 @@ class BodySubmitShapeProjectsProjectIdShapesPost:
         if not isinstance(self.srid, Unset):
             if isinstance(self.srid, str):
                 files.append(("srid", (None, str(self.srid).encode(), "text/plain")))
+            elif isinstance(self.srid, int):
+                files.append(("srid", (None, str(self.srid).encode(), "text/plain")))
             else:
                 files.append(("srid", (None, str(self.srid).encode(), "text/plain")))
 
@@ -141,16 +144,16 @@ class BodySubmitShapeProjectsProjectIdShapesPost:
 
         line_thickness = _parse_line_thickness(d.pop("line_thickness", UNSET))
 
-        def _parse_srid(data: object) -> Union[None, Unset, str]:
+        def _parse_srid(data: object) -> Union[None, Unset, int, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(Union[None, Unset, int, str], data)
 
         srid = _parse_srid(d.pop("srid", UNSET))
 
-        body_submit_shape_projects_project_id_shapes_post = cls(
+        body_create_shape_projects_project_id_shapes_post = cls(
             name=name,
             file=file,
             color=color,
@@ -158,8 +161,8 @@ class BodySubmitShapeProjectsProjectIdShapesPost:
             srid=srid,
         )
 
-        body_submit_shape_projects_project_id_shapes_post.additional_properties = d
-        return body_submit_shape_projects_project_id_shapes_post
+        body_create_shape_projects_project_id_shapes_post.additional_properties = d
+        return body_create_shape_projects_project_id_shapes_post
 
     @property
     def additional_keys(self) -> list[str]:

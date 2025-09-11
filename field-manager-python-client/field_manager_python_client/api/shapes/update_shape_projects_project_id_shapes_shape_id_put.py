@@ -1,29 +1,33 @@
 from http import HTTPStatus
 from typing import Any, Optional, Union
+from uuid import UUID
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.body_submit_shape_projects_project_id_shapes_post import BodySubmitShapeProjectsProjectIdShapesPost
 from ...models.http_validation_error import HTTPValidationError
 from ...models.shape import Shape
+from ...models.shape_update import ShapeUpdate
 from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
+    shape_id: UUID,
     *,
-    body: BodySubmitShapeProjectsProjectIdShapesPost,
+    body: ShapeUpdate,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
     _kwargs: dict[str, Any] = {
-        "method": "post",
-        "url": f"/projects/{project_id}/shapes",
+        "method": "put",
+        "url": f"/projects/{project_id}/shapes/{shape_id}",
     }
 
-    _kwargs["files"] = body.to_multipart()
+    _kwargs["json"] = body.to_dict()
+
+    headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
@@ -32,14 +36,16 @@ def _get_kwargs(
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
 ) -> Optional[Union[HTTPValidationError, Shape]]:
-    if response.status_code == 201:
-        response_201 = Shape.from_dict(response.json())
+    if response.status_code == 200:
+        response_200 = Shape.from_dict(response.json())
 
-        return response_201
+        return response_200
+
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
         return response_422
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -59,18 +65,19 @@ def _build_response(
 
 def sync_detailed(
     project_id: str,
+    shape_id: UUID,
     *,
     client: AuthenticatedClient,
-    body: BodySubmitShapeProjectsProjectIdShapesPost,
+    body: ShapeUpdate,
 ) -> Response[Union[HTTPValidationError, Shape]]:
-    """Submit Shape
+    """Update Shape
 
-     Submit new shape
-    file can be a DXF, SHP, or GeoJSON file, or a zip file containing one of these formats.
+     Update a Shape
 
     Args:
         project_id (str):
-        body (BodySubmitShapeProjectsProjectIdShapesPost):
+        shape_id (UUID):
+        body (ShapeUpdate):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -82,6 +89,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
+        shape_id=shape_id,
         body=body,
     )
 
@@ -94,18 +102,19 @@ def sync_detailed(
 
 def sync(
     project_id: str,
+    shape_id: UUID,
     *,
     client: AuthenticatedClient,
-    body: BodySubmitShapeProjectsProjectIdShapesPost,
+    body: ShapeUpdate,
 ) -> Optional[Union[HTTPValidationError, Shape]]:
-    """Submit Shape
+    """Update Shape
 
-     Submit new shape
-    file can be a DXF, SHP, or GeoJSON file, or a zip file containing one of these formats.
+     Update a Shape
 
     Args:
         project_id (str):
-        body (BodySubmitShapeProjectsProjectIdShapesPost):
+        shape_id (UUID):
+        body (ShapeUpdate):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -117,6 +126,7 @@ def sync(
 
     return sync_detailed(
         project_id=project_id,
+        shape_id=shape_id,
         client=client,
         body=body,
     ).parsed
@@ -124,18 +134,19 @@ def sync(
 
 async def asyncio_detailed(
     project_id: str,
+    shape_id: UUID,
     *,
     client: AuthenticatedClient,
-    body: BodySubmitShapeProjectsProjectIdShapesPost,
+    body: ShapeUpdate,
 ) -> Response[Union[HTTPValidationError, Shape]]:
-    """Submit Shape
+    """Update Shape
 
-     Submit new shape
-    file can be a DXF, SHP, or GeoJSON file, or a zip file containing one of these formats.
+     Update a Shape
 
     Args:
         project_id (str):
-        body (BodySubmitShapeProjectsProjectIdShapesPost):
+        shape_id (UUID):
+        body (ShapeUpdate):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -147,6 +158,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
+        shape_id=shape_id,
         body=body,
     )
 
@@ -157,18 +169,19 @@ async def asyncio_detailed(
 
 async def asyncio(
     project_id: str,
+    shape_id: UUID,
     *,
     client: AuthenticatedClient,
-    body: BodySubmitShapeProjectsProjectIdShapesPost,
+    body: ShapeUpdate,
 ) -> Optional[Union[HTTPValidationError, Shape]]:
-    """Submit Shape
+    """Update Shape
 
-     Submit new shape
-    file can be a DXF, SHP, or GeoJSON file, or a zip file containing one of these formats.
+     Update a Shape
 
     Args:
         project_id (str):
-        body (BodySubmitShapeProjectsProjectIdShapesPost):
+        shape_id (UUID):
+        body (ShapeUpdate):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -181,6 +194,7 @@ async def asyncio(
     return (
         await asyncio_detailed(
             project_id=project_id,
+            shape_id=shape_id,
             client=client,
             body=body,
         )
