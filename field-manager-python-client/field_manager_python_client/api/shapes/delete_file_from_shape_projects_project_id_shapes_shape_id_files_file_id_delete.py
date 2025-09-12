@@ -29,10 +29,12 @@ def _parse_response(
     if response.status_code == 204:
         response_204 = cast(Any, None)
         return response_204
+
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
         return response_422
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -59,7 +61,7 @@ def sync_detailed(
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Delete File From Shape
 
-     Delete a file from a shape
+     Delete a file from a shape (not sub_shape yet)
 
     Args:
         project_id (str):
@@ -96,7 +98,7 @@ def sync(
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Delete File From Shape
 
-     Delete a file from a shape
+     Delete a file from a shape (not sub_shape yet)
 
     Args:
         project_id (str):
@@ -128,7 +130,7 @@ async def asyncio_detailed(
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Delete File From Shape
 
-     Delete a file from a shape
+     Delete a file from a shape (not sub_shape yet)
 
     Args:
         project_id (str):
@@ -163,7 +165,7 @@ async def asyncio(
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Delete File From Shape
 
-     Delete a file from a shape
+     Delete a file from a shape (not sub_shape yet)
 
     Args:
         project_id (str):

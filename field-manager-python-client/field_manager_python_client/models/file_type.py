@@ -6,6 +6,7 @@ class FileType(str, Enum):
     GENERAL = "GENERAL"
     IMAGE = "IMAGE"
     LAYER = "LAYER"
+    REPORT = "REPORT"
 
     def __str__(self) -> str:
         return str(self.value)
