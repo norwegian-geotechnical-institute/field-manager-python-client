@@ -61,7 +61,7 @@ def sync_detailed(
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Delete Method For Location
 
-     Delete method
+     Soft delete a method
 
     Args:
         project_id (str):
@@ -98,7 +98,7 @@ def sync(
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Delete Method For Location
 
-     Delete method
+     Soft delete a method
 
     Args:
         project_id (str):
@@ -130,7 +130,7 @@ async def asyncio_detailed(
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Delete Method For Location
 
-     Delete method
+     Soft delete a method
 
     Args:
         project_id (str):
@@ -165,7 +165,7 @@ async def asyncio(
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Delete Method For Location
 
-     Delete method
+     Soft delete a method
 
     Args:
         project_id (str):
