@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.68" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.75" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -2839,7 +2839,7 @@
       "delete": {
         "tags": ["methods"],
         "summary": "Delete Method For Location",
-        "description": "Delete method",
+        "description": "Soft delete a method",
         "operationId": "delete_method_for_location_projects__project_id__locations__location_id__methods__method_id__delete",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
@@ -6196,7 +6196,13 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PiezometerModel" }
+                "schema": {
+                  "anyOf": [
+                    { "$ref": "#/components/schemas/PiezometerModel" },
+                    { "type": "null" }
+                  ],
+                  "title": "Response Update Piezometer Model Projects  Project Id  Piezometers Models  Model Id  Put"
+                }
               }
             }
           },
@@ -20973,7 +20979,7 @@
             ]
           },
           "default_pore_pressure_unit": {
-            "type": "string",
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Default Pore Pressure Unit"
           },
           "sort_order": {
@@ -20982,7 +20988,6 @@
           }
         },
         "type": "object",
-        "required": ["default_pore_pressure_unit"],
         "title": "PiezometerModelUpdate"
       },
       "PiezometerType": {
