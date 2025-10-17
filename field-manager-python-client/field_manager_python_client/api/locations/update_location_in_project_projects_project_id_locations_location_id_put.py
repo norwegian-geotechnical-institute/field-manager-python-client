@@ -7,7 +7,6 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
-from ...models.location import Location
 from ...models.location_update import LocationUpdate
 from ...types import Response
 
@@ -35,12 +34,7 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, Location]]:
-    if response.status_code == 200:
-        response_200 = Location.from_dict(response.json())
-
-        return response_200
-
+) -> Optional[HTTPValidationError]:
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
@@ -54,7 +48,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, Location]]:
+) -> Response[HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -69,7 +63,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: LocationUpdate,
-) -> Response[Union[HTTPValidationError, Location]]:
+) -> Response[HTTPValidationError]:
     """Update Location In Project
 
      Updates location
@@ -84,7 +78,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Location]]
+        Response[HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -106,7 +100,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: LocationUpdate,
-) -> Optional[Union[HTTPValidationError, Location]]:
+) -> Optional[HTTPValidationError]:
     """Update Location In Project
 
      Updates location
@@ -121,7 +115,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Location]
+        HTTPValidationError
     """
 
     return sync_detailed(
@@ -138,7 +132,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: LocationUpdate,
-) -> Response[Union[HTTPValidationError, Location]]:
+) -> Response[HTTPValidationError]:
     """Update Location In Project
 
      Updates location
@@ -153,7 +147,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Location]]
+        Response[HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -173,7 +167,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: LocationUpdate,
-) -> Optional[Union[HTTPValidationError, Location]]:
+) -> Optional[HTTPValidationError]:
     """Update Location In Project
 
      Updates location
@@ -188,7 +182,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Location]
+        HTTPValidationError
     """
 
     return (

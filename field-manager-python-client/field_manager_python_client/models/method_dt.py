@@ -42,13 +42,14 @@ class MethodDT:
         conducted_by (Union[None, Unset, str]):
         files (Union[Unset, list['File']]):
         self_ (Union[None, Unset, str]):
-        depth (Union[None, Unset, float]): Depth (m). SGF code D.
-        u2_initial (Union[None, Unset, float]): Initial shoulder pressure (kPa).
-        u2_equilibrium (Union[None, Unset, float]): Equilibrium shoulder pressure (kPa).
-        degree_dissipation (Union[None, Unset, float]): Degree of dissipation (%).
-        time_dissipation (Union[None, Unset, float]): Time of dissipation (s).
-        coefficient_consolidation_vertical (Union[None, Unset, float]): Vertical consolidation coefficient (m**2/year).
-        coefficient_consolidation_horizontal (Union[None, Unset, float]): Horizontal consolidation coefficient
+        depth (Union[None, Unset, float, str]): Depth (m). SGF code D.
+        u2_initial (Union[None, Unset, float, str]): Initial shoulder pressure (kPa).
+        u2_equilibrium (Union[None, Unset, float, str]): Equilibrium shoulder pressure (kPa).
+        degree_dissipation (Union[None, Unset, float, str]): Degree of dissipation (%).
+        time_dissipation (Union[None, Unset, float, str]): Time of dissipation (s).
+        coefficient_consolidation_vertical (Union[None, Unset, float, str]): Vertical consolidation coefficient
+            (m**2/year).
+        coefficient_consolidation_horizontal (Union[None, Unset, float, str]): Horizontal consolidation coefficient
             (m**2/year). Year = 365.25 * days.
     """
 
@@ -66,13 +67,13 @@ class MethodDT:
     conducted_by: Union[None, Unset, str] = UNSET
     files: Union[Unset, list["File"]] = UNSET
     self_: Union[None, Unset, str] = UNSET
-    depth: Union[None, Unset, float] = UNSET
-    u2_initial: Union[None, Unset, float] = UNSET
-    u2_equilibrium: Union[None, Unset, float] = UNSET
-    degree_dissipation: Union[None, Unset, float] = UNSET
-    time_dissipation: Union[None, Unset, float] = UNSET
-    coefficient_consolidation_vertical: Union[None, Unset, float] = UNSET
-    coefficient_consolidation_horizontal: Union[None, Unset, float] = UNSET
+    depth: Union[None, Unset, float, str] = UNSET
+    u2_initial: Union[None, Unset, float, str] = UNSET
+    u2_equilibrium: Union[None, Unset, float, str] = UNSET
+    degree_dissipation: Union[None, Unset, float, str] = UNSET
+    time_dissipation: Union[None, Unset, float, str] = UNSET
+    coefficient_consolidation_vertical: Union[None, Unset, float, str] = UNSET
+    coefficient_consolidation_horizontal: Union[None, Unset, float, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -135,43 +136,43 @@ class MethodDT:
         else:
             self_ = self.self_
 
-        depth: Union[None, Unset, float]
+        depth: Union[None, Unset, float, str]
         if isinstance(self.depth, Unset):
             depth = UNSET
         else:
             depth = self.depth
 
-        u2_initial: Union[None, Unset, float]
+        u2_initial: Union[None, Unset, float, str]
         if isinstance(self.u2_initial, Unset):
             u2_initial = UNSET
         else:
             u2_initial = self.u2_initial
 
-        u2_equilibrium: Union[None, Unset, float]
+        u2_equilibrium: Union[None, Unset, float, str]
         if isinstance(self.u2_equilibrium, Unset):
             u2_equilibrium = UNSET
         else:
             u2_equilibrium = self.u2_equilibrium
 
-        degree_dissipation: Union[None, Unset, float]
+        degree_dissipation: Union[None, Unset, float, str]
         if isinstance(self.degree_dissipation, Unset):
             degree_dissipation = UNSET
         else:
             degree_dissipation = self.degree_dissipation
 
-        time_dissipation: Union[None, Unset, float]
+        time_dissipation: Union[None, Unset, float, str]
         if isinstance(self.time_dissipation, Unset):
             time_dissipation = UNSET
         else:
             time_dissipation = self.time_dissipation
 
-        coefficient_consolidation_vertical: Union[None, Unset, float]
+        coefficient_consolidation_vertical: Union[None, Unset, float, str]
         if isinstance(self.coefficient_consolidation_vertical, Unset):
             coefficient_consolidation_vertical = UNSET
         else:
             coefficient_consolidation_vertical = self.coefficient_consolidation_vertical
 
-        coefficient_consolidation_horizontal: Union[None, Unset, float]
+        coefficient_consolidation_horizontal: Union[None, Unset, float, str]
         if isinstance(self.coefficient_consolidation_horizontal, Unset):
             coefficient_consolidation_horizontal = UNSET
         else:
@@ -312,68 +313,68 @@ class MethodDT:
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
-        def _parse_depth(data: object) -> Union[None, Unset, float]:
+        def _parse_depth(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth = _parse_depth(d.pop("depth", UNSET))
 
-        def _parse_u2_initial(data: object) -> Union[None, Unset, float]:
+        def _parse_u2_initial(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         u2_initial = _parse_u2_initial(d.pop("u2_initial", UNSET))
 
-        def _parse_u2_equilibrium(data: object) -> Union[None, Unset, float]:
+        def _parse_u2_equilibrium(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         u2_equilibrium = _parse_u2_equilibrium(d.pop("u2_equilibrium", UNSET))
 
-        def _parse_degree_dissipation(data: object) -> Union[None, Unset, float]:
+        def _parse_degree_dissipation(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         degree_dissipation = _parse_degree_dissipation(d.pop("degree_dissipation", UNSET))
 
-        def _parse_time_dissipation(data: object) -> Union[None, Unset, float]:
+        def _parse_time_dissipation(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         time_dissipation = _parse_time_dissipation(d.pop("time_dissipation", UNSET))
 
-        def _parse_coefficient_consolidation_vertical(data: object) -> Union[None, Unset, float]:
+        def _parse_coefficient_consolidation_vertical(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         coefficient_consolidation_vertical = _parse_coefficient_consolidation_vertical(
             d.pop("coefficient_consolidation_vertical", UNSET)
         )
 
-        def _parse_coefficient_consolidation_horizontal(data: object) -> Union[None, Unset, float]:
+        def _parse_coefficient_consolidation_horizontal(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         coefficient_consolidation_horizontal = _parse_coefficient_consolidation_horizontal(
             d.pop("coefficient_consolidation_horizontal", UNSET)

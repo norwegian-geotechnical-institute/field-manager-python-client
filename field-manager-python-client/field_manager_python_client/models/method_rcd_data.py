@@ -20,22 +20,22 @@ class MethodRCDData:
         method_id (UUID):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        depth (float): Depth (m). SGF code D.
+        depth (Union[float, str]): Depth (m). SGF code D.
         method_type_id (Union[Literal[8], Unset]):  Default: 8.
         remarks (Union[None, Unset, str]): Remarks. SGF code T
         comment_code (Union[None, Unset, int]): Comment code. Two digit value.
-        penetration_rate (Union[None, Unset, float]): Penetration rate (mm/s). SGF code B.
+        penetration_rate (Union[None, Unset, float, str]): Penetration rate (mm/s). SGF code B.
     """
 
     method_data_id: UUID
     method_id: UUID
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    depth: float
+    depth: Union[float, str]
     method_type_id: Union[Literal[8], Unset] = 8
     remarks: Union[None, Unset, str] = UNSET
     comment_code: Union[None, Unset, int] = UNSET
-    penetration_rate: Union[None, Unset, float] = UNSET
+    penetration_rate: Union[None, Unset, float, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -47,6 +47,7 @@ class MethodRCDData:
 
         updated_at = self.updated_at.isoformat()
 
+        depth: Union[float, str]
         depth = self.depth
 
         method_type_id = self.method_type_id
@@ -63,7 +64,7 @@ class MethodRCDData:
         else:
             comment_code = self.comment_code
 
-        penetration_rate: Union[None, Unset, float]
+        penetration_rate: Union[None, Unset, float, str]
         if isinstance(self.penetration_rate, Unset):
             penetration_rate = UNSET
         else:
@@ -102,7 +103,10 @@ class MethodRCDData:
 
         updated_at = isoparse(d.pop("updated_at"))
 
-        depth = d.pop("depth")
+        def _parse_depth(data: object) -> Union[float, str]:
+            return cast(Union[float, str], data)
+
+        depth = _parse_depth(d.pop("depth"))
 
         method_type_id = cast(Union[Literal[8], Unset], d.pop("method_type_id", UNSET))
         if method_type_id != 8 and not isinstance(method_type_id, Unset):
@@ -126,12 +130,12 @@ class MethodRCDData:
 
         comment_code = _parse_comment_code(d.pop("comment_code", UNSET))
 
-        def _parse_penetration_rate(data: object) -> Union[None, Unset, float]:
+        def _parse_penetration_rate(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         penetration_rate = _parse_penetration_rate(d.pop("penetration_rate", UNSET))
 

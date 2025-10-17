@@ -20,10 +20,10 @@ class MethodSSData:
         method_id (UUID):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        depth_base (float): Depth (m). SGF code D.
+        depth_base (Union[float, str]): Depth (m). SGF code D.
         method_type_id (Union[Literal[6], Unset]):  Default: 6.
-        depth_top (Union[None, Unset, float]): Depth top (m).
-        time (Union[None, Unset, float]):
+        depth_top (Union[None, Unset, float, str]): Depth top (m).
+        time (Union[None, Unset, float, str]):
         remarks (Union[None, Unset, str]):
         comment_code (Union[None, Unset, int]):
     """
@@ -32,10 +32,10 @@ class MethodSSData:
     method_id: UUID
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    depth_base: float
+    depth_base: Union[float, str]
     method_type_id: Union[Literal[6], Unset] = 6
-    depth_top: Union[None, Unset, float] = UNSET
-    time: Union[None, Unset, float] = UNSET
+    depth_top: Union[None, Unset, float, str] = UNSET
+    time: Union[None, Unset, float, str] = UNSET
     remarks: Union[None, Unset, str] = UNSET
     comment_code: Union[None, Unset, int] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -49,17 +49,18 @@ class MethodSSData:
 
         updated_at = self.updated_at.isoformat()
 
+        depth_base: Union[float, str]
         depth_base = self.depth_base
 
         method_type_id = self.method_type_id
 
-        depth_top: Union[None, Unset, float]
+        depth_top: Union[None, Unset, float, str]
         if isinstance(self.depth_top, Unset):
             depth_top = UNSET
         else:
             depth_top = self.depth_top
 
-        time: Union[None, Unset, float]
+        time: Union[None, Unset, float, str]
         if isinstance(self.time, Unset):
             time = UNSET
         else:
@@ -112,27 +113,30 @@ class MethodSSData:
 
         updated_at = isoparse(d.pop("updated_at"))
 
-        depth_base = d.pop("depth_base")
+        def _parse_depth_base(data: object) -> Union[float, str]:
+            return cast(Union[float, str], data)
+
+        depth_base = _parse_depth_base(d.pop("depth_base"))
 
         method_type_id = cast(Union[Literal[6], Unset], d.pop("method_type_id", UNSET))
         if method_type_id != 6 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 6, got '{method_type_id}'")
 
-        def _parse_depth_top(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
 
-        def _parse_time(data: object) -> Union[None, Unset, float]:
+        def _parse_time(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         time = _parse_time(d.pop("time", UNSET))
 

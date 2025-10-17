@@ -37,7 +37,6 @@ class MethodDP:
                 )
             created_at (datetime.datetime):
             updated_at (datetime.datetime):
-            type_ (DPType): (Dynamic Probing) DP Type
             remarks (Union[None, Unset, str]):
             method_type_id (Union[Literal[25], Unset]):  Default: 25.
             created_by (Union[None, Unset, str]):
@@ -47,14 +46,14 @@ class MethodDP:
             files (Union[Unset, list['File']]):
             self_ (Union[None, Unset, str]):
             dynamic_probing_type (Union[Unset, DPType]): (Dynamic Probing) DP Type
-            predrilling_depth (Union[Unset, float]):  Default: 0.0.
+            predrilling_depth (Union[Unset, float, str]):  Default: 0.0.
             cone_type (Union[None, Unset, str]):
             cushion_type (Union[None, Unset, str]):
             use_damper (Union[None, Unset, bool]):
-            depth_top (Union[None, Unset, float]):
-            depth_base (Union[None, Unset, float]):
+            depth_top (Union[None, Unset, float, str]):
+            depth_base (Union[None, Unset, float, str]):
             stopcode (Union[None, Unset, int]):
-            depth_in_soil (Union[None, Unset, float]):
+            depth_in_soil (Union[None, Unset, float, str]):
     """
 
     method_id: UUID
@@ -63,7 +62,6 @@ class MethodDP:
     method_status_id: MethodStatusEnum
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    type_: DPType
     remarks: Union[None, Unset, str] = UNSET
     method_type_id: Union[Literal[25], Unset] = 25
     created_by: Union[None, Unset, str] = UNSET
@@ -73,14 +71,14 @@ class MethodDP:
     files: Union[Unset, list["File"]] = UNSET
     self_: Union[None, Unset, str] = UNSET
     dynamic_probing_type: Union[Unset, DPType] = UNSET
-    predrilling_depth: Union[Unset, float] = 0.0
+    predrilling_depth: Union[Unset, float, str] = 0.0
     cone_type: Union[None, Unset, str] = UNSET
     cushion_type: Union[None, Unset, str] = UNSET
     use_damper: Union[None, Unset, bool] = UNSET
-    depth_top: Union[None, Unset, float] = UNSET
-    depth_base: Union[None, Unset, float] = UNSET
+    depth_top: Union[None, Unset, float, str] = UNSET
+    depth_base: Union[None, Unset, float, str] = UNSET
     stopcode: Union[None, Unset, int] = UNSET
-    depth_in_soil: Union[None, Unset, float] = UNSET
+    depth_in_soil: Union[None, Unset, float, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -95,8 +93,6 @@ class MethodDP:
         created_at = self.created_at.isoformat()
 
         updated_at = self.updated_at.isoformat()
-
-        type_ = self.type_.value
 
         remarks: Union[None, Unset, str]
         if isinstance(self.remarks, Unset):
@@ -149,7 +145,11 @@ class MethodDP:
         if not isinstance(self.dynamic_probing_type, Unset):
             dynamic_probing_type = self.dynamic_probing_type.value
 
-        predrilling_depth = self.predrilling_depth
+        predrilling_depth: Union[Unset, float, str]
+        if isinstance(self.predrilling_depth, Unset):
+            predrilling_depth = UNSET
+        else:
+            predrilling_depth = self.predrilling_depth
 
         cone_type: Union[None, Unset, str]
         if isinstance(self.cone_type, Unset):
@@ -169,13 +169,13 @@ class MethodDP:
         else:
             use_damper = self.use_damper
 
-        depth_top: Union[None, Unset, float]
+        depth_top: Union[None, Unset, float, str]
         if isinstance(self.depth_top, Unset):
             depth_top = UNSET
         else:
             depth_top = self.depth_top
 
-        depth_base: Union[None, Unset, float]
+        depth_base: Union[None, Unset, float, str]
         if isinstance(self.depth_base, Unset):
             depth_base = UNSET
         else:
@@ -187,7 +187,7 @@ class MethodDP:
         else:
             stopcode = self.stopcode
 
-        depth_in_soil: Union[None, Unset, float]
+        depth_in_soil: Union[None, Unset, float, str]
         if isinstance(self.depth_in_soil, Unset):
             depth_in_soil = UNSET
         else:
@@ -203,7 +203,6 @@ class MethodDP:
                 "method_status_id": method_status_id,
                 "created_at": created_at,
                 "updated_at": updated_at,
-                "type": type_,
             }
         )
         if remarks is not UNSET:
@@ -259,8 +258,6 @@ class MethodDP:
         created_at = isoparse(d.pop("created_at"))
 
         updated_at = isoparse(d.pop("updated_at"))
-
-        type_ = DPType(d.pop("type"))
 
         def _parse_remarks(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -342,7 +339,12 @@ class MethodDP:
         else:
             dynamic_probing_type = DPType(_dynamic_probing_type)
 
-        predrilling_depth = d.pop("predrilling_depth", UNSET)
+        def _parse_predrilling_depth(data: object) -> Union[Unset, float, str]:
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[Unset, float, str], data)
+
+        predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
 
         def _parse_cone_type(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -371,21 +373,21 @@ class MethodDP:
 
         use_damper = _parse_use_damper(d.pop("use_damper", UNSET))
 
-        def _parse_depth_top(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
 
-        def _parse_depth_base(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_base(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
 
@@ -398,12 +400,12 @@ class MethodDP:
 
         stopcode = _parse_stopcode(d.pop("stopcode", UNSET))
 
-        def _parse_depth_in_soil(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_in_soil(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_in_soil = _parse_depth_in_soil(d.pop("depth_in_soil", UNSET))
 
@@ -414,7 +416,6 @@ class MethodDP:
             method_status_id=method_status_id,
             created_at=created_at,
             updated_at=updated_at,
-            type_=type_,
             remarks=remarks,
             method_type_id=method_type_id,
             created_by=created_by,

@@ -59,19 +59,19 @@ class MethodSummary:
             )
         name (Union[None, Unset, str]):
         conducted_at (Union[None, Unset, datetime.datetime]):
-        depth_in_soil (Union[None, Unset, float]):
-        depth_in_rock (Union[None, Unset, float]):
-        depth_top (Union[None, Unset, float]):
-        depth_base (Union[None, Unset, float]):
-        bedrock_elevation (Union[None, Unset, float]):
+        depth_in_soil (Union[None, Unset, float, str]):
+        depth_in_rock (Union[None, Unset, float, str]):
+        depth_top (Union[None, Unset, float, str]):
+        depth_base (Union[None, Unset, float, str]):
+        bedrock_elevation (Union[None, Unset, float, str]):
         sample_container_id (Union[None, Unset, str]):
-        inclination (Union[None, Unset, float]):
-        azimuth (Union[None, Unset, float]):
-        total_length (Union[None, Unset, float]):
-        length_in_rock (Union[None, Unset, float]):
+        inclination (Union[None, Unset, float, str]):
+        azimuth (Union[None, Unset, float, str]):
+        total_length (Union[None, Unset, float, str]):
+        length_in_rock (Union[None, Unset, float, str]):
         sample_container_type_id (Union[None, Unset, int]):
         sampling_technique_id (Union[None, Unset, int]):
-        diameter (Union[None, Unset, float]):
+        diameter (Union[None, Unset, float, str]):
     """
 
     method_id: UUID
@@ -79,19 +79,19 @@ class MethodSummary:
     method_status_id: MethodStatusEnum
     name: Union[None, Unset, str] = UNSET
     conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    depth_in_soil: Union[None, Unset, float] = UNSET
-    depth_in_rock: Union[None, Unset, float] = UNSET
-    depth_top: Union[None, Unset, float] = UNSET
-    depth_base: Union[None, Unset, float] = UNSET
-    bedrock_elevation: Union[None, Unset, float] = UNSET
+    depth_in_soil: Union[None, Unset, float, str] = UNSET
+    depth_in_rock: Union[None, Unset, float, str] = UNSET
+    depth_top: Union[None, Unset, float, str] = UNSET
+    depth_base: Union[None, Unset, float, str] = UNSET
+    bedrock_elevation: Union[None, Unset, float, str] = UNSET
     sample_container_id: Union[None, Unset, str] = UNSET
-    inclination: Union[None, Unset, float] = UNSET
-    azimuth: Union[None, Unset, float] = UNSET
-    total_length: Union[None, Unset, float] = UNSET
-    length_in_rock: Union[None, Unset, float] = UNSET
+    inclination: Union[None, Unset, float, str] = UNSET
+    azimuth: Union[None, Unset, float, str] = UNSET
+    total_length: Union[None, Unset, float, str] = UNSET
+    length_in_rock: Union[None, Unset, float, str] = UNSET
     sample_container_type_id: Union[None, Unset, int] = UNSET
     sampling_technique_id: Union[None, Unset, int] = UNSET
-    diameter: Union[None, Unset, float] = UNSET
+    diameter: Union[None, Unset, float, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -115,31 +115,31 @@ class MethodSummary:
         else:
             conducted_at = self.conducted_at
 
-        depth_in_soil: Union[None, Unset, float]
+        depth_in_soil: Union[None, Unset, float, str]
         if isinstance(self.depth_in_soil, Unset):
             depth_in_soil = UNSET
         else:
             depth_in_soil = self.depth_in_soil
 
-        depth_in_rock: Union[None, Unset, float]
+        depth_in_rock: Union[None, Unset, float, str]
         if isinstance(self.depth_in_rock, Unset):
             depth_in_rock = UNSET
         else:
             depth_in_rock = self.depth_in_rock
 
-        depth_top: Union[None, Unset, float]
+        depth_top: Union[None, Unset, float, str]
         if isinstance(self.depth_top, Unset):
             depth_top = UNSET
         else:
             depth_top = self.depth_top
 
-        depth_base: Union[None, Unset, float]
+        depth_base: Union[None, Unset, float, str]
         if isinstance(self.depth_base, Unset):
             depth_base = UNSET
         else:
             depth_base = self.depth_base
 
-        bedrock_elevation: Union[None, Unset, float]
+        bedrock_elevation: Union[None, Unset, float, str]
         if isinstance(self.bedrock_elevation, Unset):
             bedrock_elevation = UNSET
         else:
@@ -151,25 +151,25 @@ class MethodSummary:
         else:
             sample_container_id = self.sample_container_id
 
-        inclination: Union[None, Unset, float]
+        inclination: Union[None, Unset, float, str]
         if isinstance(self.inclination, Unset):
             inclination = UNSET
         else:
             inclination = self.inclination
 
-        azimuth: Union[None, Unset, float]
+        azimuth: Union[None, Unset, float, str]
         if isinstance(self.azimuth, Unset):
             azimuth = UNSET
         else:
             azimuth = self.azimuth
 
-        total_length: Union[None, Unset, float]
+        total_length: Union[None, Unset, float, str]
         if isinstance(self.total_length, Unset):
             total_length = UNSET
         else:
             total_length = self.total_length
 
-        length_in_rock: Union[None, Unset, float]
+        length_in_rock: Union[None, Unset, float, str]
         if isinstance(self.length_in_rock, Unset):
             length_in_rock = UNSET
         else:
@@ -187,7 +187,7 @@ class MethodSummary:
         else:
             sampling_technique_id = self.sampling_technique_id
 
-        diameter: Union[None, Unset, float]
+        diameter: Union[None, Unset, float, str]
         if isinstance(self.diameter, Unset):
             diameter = UNSET
         else:
@@ -270,48 +270,48 @@ class MethodSummary:
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        def _parse_depth_in_soil(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_in_soil(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_in_soil = _parse_depth_in_soil(d.pop("depth_in_soil", UNSET))
 
-        def _parse_depth_in_rock(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_in_rock(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_in_rock = _parse_depth_in_rock(d.pop("depth_in_rock", UNSET))
 
-        def _parse_depth_top(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
 
-        def _parse_depth_base(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_base(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
 
-        def _parse_bedrock_elevation(data: object) -> Union[None, Unset, float]:
+        def _parse_bedrock_elevation(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         bedrock_elevation = _parse_bedrock_elevation(d.pop("bedrock_elevation", UNSET))
 
@@ -324,39 +324,39 @@ class MethodSummary:
 
         sample_container_id = _parse_sample_container_id(d.pop("sample_container_id", UNSET))
 
-        def _parse_inclination(data: object) -> Union[None, Unset, float]:
+        def _parse_inclination(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         inclination = _parse_inclination(d.pop("inclination", UNSET))
 
-        def _parse_azimuth(data: object) -> Union[None, Unset, float]:
+        def _parse_azimuth(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         azimuth = _parse_azimuth(d.pop("azimuth", UNSET))
 
-        def _parse_total_length(data: object) -> Union[None, Unset, float]:
+        def _parse_total_length(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         total_length = _parse_total_length(d.pop("total_length", UNSET))
 
-        def _parse_length_in_rock(data: object) -> Union[None, Unset, float]:
+        def _parse_length_in_rock(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         length_in_rock = _parse_length_in_rock(d.pop("length_in_rock", UNSET))
 
@@ -378,12 +378,12 @@ class MethodSummary:
 
         sampling_technique_id = _parse_sampling_technique_id(d.pop("sampling_technique_id", UNSET))
 
-        def _parse_diameter(data: object) -> Union[None, Unset, float]:
+        def _parse_diameter(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         diameter = _parse_diameter(d.pop("diameter", UNSET))
 

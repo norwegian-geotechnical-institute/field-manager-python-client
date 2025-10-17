@@ -24,13 +24,13 @@ class MethodPZData:
         reading_type (ReadingType):
         date (datetime.datetime):
         method_type_id (Union[Literal[5], Unset]):  Default: 5.
-        pore_pressure (Union[None, Unset, float]):
-        barometric_pressure (Union[None, Unset, float]):
-        temperature (Union[None, Unset, float]):
+        pore_pressure (Union[None, Unset, float, str]):
+        barometric_pressure (Union[None, Unset, float, str]):
+        temperature (Union[None, Unset, float, str]):
         remarks (Union[None, Unset, str]):
-        calculated_pore_pressure (Union[None, Unset, float]):
-        calculated_piezometric_head (Union[None, Unset, float]):
-        calculated_piezometric_potential_level (Union[None, Unset, float]):
+        calculated_pore_pressure (Union[None, Unset, float, str]):
+        calculated_piezometric_head (Union[None, Unset, float, str]):
+        calculated_piezometric_potential_level (Union[None, Unset, float, str]):
     """
 
     method_data_id: UUID
@@ -40,13 +40,13 @@ class MethodPZData:
     reading_type: ReadingType
     date: datetime.datetime
     method_type_id: Union[Literal[5], Unset] = 5
-    pore_pressure: Union[None, Unset, float] = UNSET
-    barometric_pressure: Union[None, Unset, float] = UNSET
-    temperature: Union[None, Unset, float] = UNSET
+    pore_pressure: Union[None, Unset, float, str] = UNSET
+    barometric_pressure: Union[None, Unset, float, str] = UNSET
+    temperature: Union[None, Unset, float, str] = UNSET
     remarks: Union[None, Unset, str] = UNSET
-    calculated_pore_pressure: Union[None, Unset, float] = UNSET
-    calculated_piezometric_head: Union[None, Unset, float] = UNSET
-    calculated_piezometric_potential_level: Union[None, Unset, float] = UNSET
+    calculated_pore_pressure: Union[None, Unset, float, str] = UNSET
+    calculated_piezometric_head: Union[None, Unset, float, str] = UNSET
+    calculated_piezometric_potential_level: Union[None, Unset, float, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -64,19 +64,19 @@ class MethodPZData:
 
         method_type_id = self.method_type_id
 
-        pore_pressure: Union[None, Unset, float]
+        pore_pressure: Union[None, Unset, float, str]
         if isinstance(self.pore_pressure, Unset):
             pore_pressure = UNSET
         else:
             pore_pressure = self.pore_pressure
 
-        barometric_pressure: Union[None, Unset, float]
+        barometric_pressure: Union[None, Unset, float, str]
         if isinstance(self.barometric_pressure, Unset):
             barometric_pressure = UNSET
         else:
             barometric_pressure = self.barometric_pressure
 
-        temperature: Union[None, Unset, float]
+        temperature: Union[None, Unset, float, str]
         if isinstance(self.temperature, Unset):
             temperature = UNSET
         else:
@@ -88,19 +88,19 @@ class MethodPZData:
         else:
             remarks = self.remarks
 
-        calculated_pore_pressure: Union[None, Unset, float]
+        calculated_pore_pressure: Union[None, Unset, float, str]
         if isinstance(self.calculated_pore_pressure, Unset):
             calculated_pore_pressure = UNSET
         else:
             calculated_pore_pressure = self.calculated_pore_pressure
 
-        calculated_piezometric_head: Union[None, Unset, float]
+        calculated_piezometric_head: Union[None, Unset, float, str]
         if isinstance(self.calculated_piezometric_head, Unset):
             calculated_piezometric_head = UNSET
         else:
             calculated_piezometric_head = self.calculated_piezometric_head
 
-        calculated_piezometric_potential_level: Union[None, Unset, float]
+        calculated_piezometric_potential_level: Union[None, Unset, float, str]
         if isinstance(self.calculated_piezometric_potential_level, Unset):
             calculated_piezometric_potential_level = UNSET
         else:
@@ -156,30 +156,30 @@ class MethodPZData:
         if method_type_id != 5 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 5, got '{method_type_id}'")
 
-        def _parse_pore_pressure(data: object) -> Union[None, Unset, float]:
+        def _parse_pore_pressure(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         pore_pressure = _parse_pore_pressure(d.pop("pore_pressure", UNSET))
 
-        def _parse_barometric_pressure(data: object) -> Union[None, Unset, float]:
+        def _parse_barometric_pressure(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         barometric_pressure = _parse_barometric_pressure(d.pop("barometric_pressure", UNSET))
 
-        def _parse_temperature(data: object) -> Union[None, Unset, float]:
+        def _parse_temperature(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         temperature = _parse_temperature(d.pop("temperature", UNSET))
 
@@ -192,30 +192,30 @@ class MethodPZData:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-        def _parse_calculated_pore_pressure(data: object) -> Union[None, Unset, float]:
+        def _parse_calculated_pore_pressure(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         calculated_pore_pressure = _parse_calculated_pore_pressure(d.pop("calculated_pore_pressure", UNSET))
 
-        def _parse_calculated_piezometric_head(data: object) -> Union[None, Unset, float]:
+        def _parse_calculated_piezometric_head(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         calculated_piezometric_head = _parse_calculated_piezometric_head(d.pop("calculated_piezometric_head", UNSET))
 
-        def _parse_calculated_piezometric_potential_level(data: object) -> Union[None, Unset, float]:
+        def _parse_calculated_piezometric_potential_level(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         calculated_piezometric_potential_level = _parse_calculated_piezometric_potential_level(
             d.pop("calculated_piezometric_potential_level", UNSET)

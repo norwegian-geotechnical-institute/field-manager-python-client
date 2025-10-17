@@ -20,12 +20,12 @@ class MethodTRData:
         method_id (UUID):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        depth (float): Depth (m). SGF code D.
+        depth (Union[float, str]): Depth (m). SGF code D.
         method_type_id (Union[Literal[16], Unset]):  Default: 16.
-        penetration_rate (Union[None, Unset, float]): Penetration rate (mm/s)
-        penetration_force (Union[None, Unset, float]): Penetration force (kN)
-        rotation_rate (Union[None, Unset, float]): Rotation rate (rpm)
-        rod_friction (Union[None, Unset, float]): Rod friction (kN)
+        penetration_rate (Union[None, Unset, float, str]): Penetration rate (mm/s)
+        penetration_force (Union[None, Unset, float, str]): Penetration force (kN)
+        rotation_rate (Union[None, Unset, float, str]): Rotation rate (rpm)
+        rod_friction (Union[None, Unset, float, str]): Rod friction (kN)
         increased_rotation_rate (Union[Unset, bool]): Increased rotation rate
     """
 
@@ -33,12 +33,12 @@ class MethodTRData:
     method_id: UUID
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    depth: float
+    depth: Union[float, str]
     method_type_id: Union[Literal[16], Unset] = 16
-    penetration_rate: Union[None, Unset, float] = UNSET
-    penetration_force: Union[None, Unset, float] = UNSET
-    rotation_rate: Union[None, Unset, float] = UNSET
-    rod_friction: Union[None, Unset, float] = UNSET
+    penetration_rate: Union[None, Unset, float, str] = UNSET
+    penetration_force: Union[None, Unset, float, str] = UNSET
+    rotation_rate: Union[None, Unset, float, str] = UNSET
+    rod_friction: Union[None, Unset, float, str] = UNSET
     increased_rotation_rate: Union[Unset, bool] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -51,29 +51,30 @@ class MethodTRData:
 
         updated_at = self.updated_at.isoformat()
 
+        depth: Union[float, str]
         depth = self.depth
 
         method_type_id = self.method_type_id
 
-        penetration_rate: Union[None, Unset, float]
+        penetration_rate: Union[None, Unset, float, str]
         if isinstance(self.penetration_rate, Unset):
             penetration_rate = UNSET
         else:
             penetration_rate = self.penetration_rate
 
-        penetration_force: Union[None, Unset, float]
+        penetration_force: Union[None, Unset, float, str]
         if isinstance(self.penetration_force, Unset):
             penetration_force = UNSET
         else:
             penetration_force = self.penetration_force
 
-        rotation_rate: Union[None, Unset, float]
+        rotation_rate: Union[None, Unset, float, str]
         if isinstance(self.rotation_rate, Unset):
             rotation_rate = UNSET
         else:
             rotation_rate = self.rotation_rate
 
-        rod_friction: Union[None, Unset, float]
+        rod_friction: Union[None, Unset, float, str]
         if isinstance(self.rod_friction, Unset):
             rod_friction = UNSET
         else:
@@ -118,45 +119,48 @@ class MethodTRData:
 
         updated_at = isoparse(d.pop("updated_at"))
 
-        depth = d.pop("depth")
+        def _parse_depth(data: object) -> Union[float, str]:
+            return cast(Union[float, str], data)
+
+        depth = _parse_depth(d.pop("depth"))
 
         method_type_id = cast(Union[Literal[16], Unset], d.pop("method_type_id", UNSET))
         if method_type_id != 16 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 16, got '{method_type_id}'")
 
-        def _parse_penetration_rate(data: object) -> Union[None, Unset, float]:
+        def _parse_penetration_rate(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         penetration_rate = _parse_penetration_rate(d.pop("penetration_rate", UNSET))
 
-        def _parse_penetration_force(data: object) -> Union[None, Unset, float]:
+        def _parse_penetration_force(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         penetration_force = _parse_penetration_force(d.pop("penetration_force", UNSET))
 
-        def _parse_rotation_rate(data: object) -> Union[None, Unset, float]:
+        def _parse_rotation_rate(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         rotation_rate = _parse_rotation_rate(d.pop("rotation_rate", UNSET))
 
-        def _parse_rod_friction(data: object) -> Union[None, Unset, float]:
+        def _parse_rod_friction(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         rod_friction = _parse_rod_friction(d.pop("rod_friction", UNSET))
 

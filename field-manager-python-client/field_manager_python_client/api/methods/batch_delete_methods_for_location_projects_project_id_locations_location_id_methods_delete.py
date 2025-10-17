@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any, Optional, Union, cast
 from uuid import UUID
 
 import httpx
@@ -13,19 +13,34 @@ from ...types import Response
 def _get_kwargs(
     project_id: str,
     location_id: UUID,
-    method_id: UUID,
+    *,
+    body: list[UUID],
 ) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
+
     _kwargs: dict[str, Any] = {
-        "method": "get",
-        "url": f"/projects/{project_id}/locations/{location_id}/methods/{method_id}/data",
+        "method": "delete",
+        "url": f"/projects/{project_id}/locations/{location_id}/methods",
     }
 
+    _kwargs["json"] = []
+    for body_item_data in body:
+        body_item = str(body_item_data)
+        _kwargs["json"].append(body_item)
+
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
     return _kwargs
 
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[HTTPValidationError]:
+) -> Optional[Union[Any, HTTPValidationError]]:
+    if response.status_code == 204:
+        response_204 = cast(Any, None)
+        return response_204
+
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
@@ -39,7 +54,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[HTTPValidationError]:
+) -> Response[Union[Any, HTTPValidationError]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -51,31 +66,31 @@ def _build_response(
 def sync_detailed(
     project_id: str,
     location_id: UUID,
-    method_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Response[HTTPValidationError]:
-    """Get Methods Data
+    body: list[UUID],
+) -> Response[Union[Any, HTTPValidationError]]:
+    """Batch Delete Methods For Location
 
-     Get the method's data
+     Soft delete a location's methods by method IDs
 
     Args:
         project_id (str):
         location_id (UUID):
-        method_id (UUID):
+        body (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[Union[Any, HTTPValidationError]]
     """
 
     kwargs = _get_kwargs(
         project_id=project_id,
         location_id=location_id,
-        method_id=method_id,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -88,63 +103,63 @@ def sync_detailed(
 def sync(
     project_id: str,
     location_id: UUID,
-    method_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Optional[HTTPValidationError]:
-    """Get Methods Data
+    body: list[UUID],
+) -> Optional[Union[Any, HTTPValidationError]]:
+    """Batch Delete Methods For Location
 
-     Get the method's data
+     Soft delete a location's methods by method IDs
 
     Args:
         project_id (str):
         location_id (UUID):
-        method_id (UUID):
+        body (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        Union[Any, HTTPValidationError]
     """
 
     return sync_detailed(
         project_id=project_id,
         location_id=location_id,
-        method_id=method_id,
         client=client,
+        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
     project_id: str,
     location_id: UUID,
-    method_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Response[HTTPValidationError]:
-    """Get Methods Data
+    body: list[UUID],
+) -> Response[Union[Any, HTTPValidationError]]:
+    """Batch Delete Methods For Location
 
-     Get the method's data
+     Soft delete a location's methods by method IDs
 
     Args:
         project_id (str):
         location_id (UUID):
-        method_id (UUID):
+        body (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[Union[Any, HTTPValidationError]]
     """
 
     kwargs = _get_kwargs(
         project_id=project_id,
         location_id=location_id,
-        method_id=method_id,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -155,32 +170,32 @@ async def asyncio_detailed(
 async def asyncio(
     project_id: str,
     location_id: UUID,
-    method_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Optional[HTTPValidationError]:
-    """Get Methods Data
+    body: list[UUID],
+) -> Optional[Union[Any, HTTPValidationError]]:
+    """Batch Delete Methods For Location
 
-     Get the method's data
+     Soft delete a location's methods by method IDs
 
     Args:
         project_id (str):
         location_id (UUID):
-        method_id (UUID):
+        body (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        Union[Any, HTTPValidationError]
     """
 
     return (
         await asyncio_detailed(
             project_id=project_id,
             location_id=location_id,
-            method_id=method_id,
             client=client,
+            body=body,
         )
     ).parsed

@@ -42,10 +42,10 @@ class MethodTR:
         conducted_by (Union[None, Unset, str]):
         files (Union[Unset, list['File']]):
         self_ (Union[None, Unset, str]):
-        predrilling_depth (Union[None, Unset, float]):
+        predrilling_depth (Union[None, Unset, float, str]):
         serial_number (Union[None, Unset, str]):
-        depth_top (Union[None, Unset, float]):
-        depth_base (Union[None, Unset, float]):
+        depth_top (Union[None, Unset, float, str]):
+        depth_base (Union[None, Unset, float, str]):
         stopcode (Union[None, Unset, int]):
     """
 
@@ -63,10 +63,10 @@ class MethodTR:
     conducted_by: Union[None, Unset, str] = UNSET
     files: Union[Unset, list["File"]] = UNSET
     self_: Union[None, Unset, str] = UNSET
-    predrilling_depth: Union[None, Unset, float] = UNSET
+    predrilling_depth: Union[None, Unset, float, str] = UNSET
     serial_number: Union[None, Unset, str] = UNSET
-    depth_top: Union[None, Unset, float] = UNSET
-    depth_base: Union[None, Unset, float] = UNSET
+    depth_top: Union[None, Unset, float, str] = UNSET
+    depth_base: Union[None, Unset, float, str] = UNSET
     stopcode: Union[None, Unset, int] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -130,7 +130,7 @@ class MethodTR:
         else:
             self_ = self.self_
 
-        predrilling_depth: Union[None, Unset, float]
+        predrilling_depth: Union[None, Unset, float, str]
         if isinstance(self.predrilling_depth, Unset):
             predrilling_depth = UNSET
         else:
@@ -142,13 +142,13 @@ class MethodTR:
         else:
             serial_number = self.serial_number
 
-        depth_top: Union[None, Unset, float]
+        depth_top: Union[None, Unset, float, str]
         if isinstance(self.depth_top, Unset):
             depth_top = UNSET
         else:
             depth_top = self.depth_top
 
-        depth_base: Union[None, Unset, float]
+        depth_base: Union[None, Unset, float, str]
         if isinstance(self.depth_base, Unset):
             depth_base = UNSET
         else:
@@ -292,12 +292,12 @@ class MethodTR:
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
-        def _parse_predrilling_depth(data: object) -> Union[None, Unset, float]:
+        def _parse_predrilling_depth(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
 
@@ -310,21 +310,21 @@ class MethodTR:
 
         serial_number = _parse_serial_number(d.pop("serial_number", UNSET))
 
-        def _parse_depth_top(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
 
-        def _parse_depth_base(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_base(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
 

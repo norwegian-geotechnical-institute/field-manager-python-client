@@ -42,12 +42,12 @@ class MethodSVT:
         conducted_by (Union[None, Unset, str]):
         files (Union[Unset, list['File']]):
         self_ (Union[None, Unset, str]):
-        vane_height (Union[None, Unset, float]): Height of the vane used (mm).
-        vane_diameter (Union[None, Unset, float]): Diameter of the vane used (mm).
+        vane_height (Union[None, Unset, float, str]): Height of the vane used (mm).
+        vane_diameter (Union[None, Unset, float, str]): Diameter of the vane used (mm).
         serial_number (Union[None, Unset, str]): Serial number of the vane used.
         calibration_date (Union[None, Unset, datetime.datetime]): Date of calibration of the vane used.
-        depth_top (Union[None, Unset, float]): Minimum depth of the data rows (m).
-        depth_base (Union[None, Unset, float]): Maximum depth of the data rows (m).
+        depth_top (Union[None, Unset, float, str]): Minimum depth of the data rows (m).
+        depth_base (Union[None, Unset, float, str]): Maximum depth of the data rows (m).
     """
 
     method_id: UUID
@@ -64,12 +64,12 @@ class MethodSVT:
     conducted_by: Union[None, Unset, str] = UNSET
     files: Union[Unset, list["File"]] = UNSET
     self_: Union[None, Unset, str] = UNSET
-    vane_height: Union[None, Unset, float] = UNSET
-    vane_diameter: Union[None, Unset, float] = UNSET
+    vane_height: Union[None, Unset, float, str] = UNSET
+    vane_diameter: Union[None, Unset, float, str] = UNSET
     serial_number: Union[None, Unset, str] = UNSET
     calibration_date: Union[None, Unset, datetime.datetime] = UNSET
-    depth_top: Union[None, Unset, float] = UNSET
-    depth_base: Union[None, Unset, float] = UNSET
+    depth_top: Union[None, Unset, float, str] = UNSET
+    depth_base: Union[None, Unset, float, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -132,13 +132,13 @@ class MethodSVT:
         else:
             self_ = self.self_
 
-        vane_height: Union[None, Unset, float]
+        vane_height: Union[None, Unset, float, str]
         if isinstance(self.vane_height, Unset):
             vane_height = UNSET
         else:
             vane_height = self.vane_height
 
-        vane_diameter: Union[None, Unset, float]
+        vane_diameter: Union[None, Unset, float, str]
         if isinstance(self.vane_diameter, Unset):
             vane_diameter = UNSET
         else:
@@ -158,13 +158,13 @@ class MethodSVT:
         else:
             calibration_date = self.calibration_date
 
-        depth_top: Union[None, Unset, float]
+        depth_top: Union[None, Unset, float, str]
         if isinstance(self.depth_top, Unset):
             depth_top = UNSET
         else:
             depth_top = self.depth_top
 
-        depth_base: Union[None, Unset, float]
+        depth_base: Union[None, Unset, float, str]
         if isinstance(self.depth_base, Unset):
             depth_base = UNSET
         else:
@@ -303,21 +303,21 @@ class MethodSVT:
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
-        def _parse_vane_height(data: object) -> Union[None, Unset, float]:
+        def _parse_vane_height(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         vane_height = _parse_vane_height(d.pop("vane_height", UNSET))
 
-        def _parse_vane_diameter(data: object) -> Union[None, Unset, float]:
+        def _parse_vane_diameter(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         vane_diameter = _parse_vane_diameter(d.pop("vane_diameter", UNSET))
 
@@ -347,21 +347,21 @@ class MethodSVT:
 
         calibration_date = _parse_calibration_date(d.pop("calibration_date", UNSET))
 
-        def _parse_depth_top(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
 
-        def _parse_depth_base(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_base(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
 

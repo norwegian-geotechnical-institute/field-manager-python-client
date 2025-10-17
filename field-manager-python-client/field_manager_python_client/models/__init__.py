@@ -59,7 +59,6 @@ from .iogp_type_enum import IOGPTypeEnum
 from .language import Language
 from .like import Like
 from .linked_project_info import LinkedProjectInfo
-from .location import Location
 from .location_coordinates import LocationCoordinates
 from .location_create import LocationCreate
 from .location_gis import LocationGis
@@ -237,7 +236,6 @@ from .project import Project
 from .project_create import ProjectCreate
 from .project_info import ProjectInfo
 from .project_search import ProjectSearch
-from .project_summary import ProjectSummary
 from .project_update import ProjectUpdate
 from .reading_type import ReadingType
 from .role import Role
@@ -307,7 +305,6 @@ __all__ = (
     "Language",
     "Like",
     "LinkedProjectInfo",
-    "Location",
     "LocationCoordinates",
     "LocationCreate",
     "LocationGis",
@@ -485,7 +482,6 @@ __all__ = (
     "ProjectCreate",
     "ProjectInfo",
     "ProjectSearch",
-    "ProjectSummary",
     "ProjectUpdate",
     "ReadingType",
     "Role",
