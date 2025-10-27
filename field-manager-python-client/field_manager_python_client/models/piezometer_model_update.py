@@ -15,25 +15,23 @@ T = TypeVar("T", bound="PiezometerModelUpdate")
 class PiezometerModelUpdate:
     """
     Attributes:
-        default_pore_pressure_unit (str):
         vendor_id (Union[None, UUID, Unset]):
         name (Union[None, Unset, str]):
         piezometer_type (Union[None, Unset, str]):
         default_transformation_type (Union[None, TransformationType, Unset]):
+        default_pore_pressure_unit (Union[None, Unset, str]):
         sort_order (Union[None, Unset, int]):
     """
 
-    default_pore_pressure_unit: str
     vendor_id: Union[None, UUID, Unset] = UNSET
     name: Union[None, Unset, str] = UNSET
     piezometer_type: Union[None, Unset, str] = UNSET
     default_transformation_type: Union[None, TransformationType, Unset] = UNSET
+    default_pore_pressure_unit: Union[None, Unset, str] = UNSET
     sort_order: Union[None, Unset, int] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        default_pore_pressure_unit = self.default_pore_pressure_unit
-
         vendor_id: Union[None, Unset, str]
         if isinstance(self.vendor_id, Unset):
             vendor_id = UNSET
@@ -62,6 +60,12 @@ class PiezometerModelUpdate:
         else:
             default_transformation_type = self.default_transformation_type
 
+        default_pore_pressure_unit: Union[None, Unset, str]
+        if isinstance(self.default_pore_pressure_unit, Unset):
+            default_pore_pressure_unit = UNSET
+        else:
+            default_pore_pressure_unit = self.default_pore_pressure_unit
+
         sort_order: Union[None, Unset, int]
         if isinstance(self.sort_order, Unset):
             sort_order = UNSET
@@ -70,11 +74,7 @@ class PiezometerModelUpdate:
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "default_pore_pressure_unit": default_pore_pressure_unit,
-            }
-        )
+        field_dict.update({})
         if vendor_id is not UNSET:
             field_dict["vendor_id"] = vendor_id
         if name is not UNSET:
@@ -83,6 +83,8 @@ class PiezometerModelUpdate:
             field_dict["piezometer_type"] = piezometer_type
         if default_transformation_type is not UNSET:
             field_dict["default_transformation_type"] = default_transformation_type
+        if default_pore_pressure_unit is not UNSET:
+            field_dict["default_pore_pressure_unit"] = default_pore_pressure_unit
         if sort_order is not UNSET:
             field_dict["sort_order"] = sort_order
 
@@ -91,7 +93,6 @@ class PiezometerModelUpdate:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        default_pore_pressure_unit = d.pop("default_pore_pressure_unit")
 
         def _parse_vendor_id(data: object) -> Union[None, UUID, Unset]:
             if data is None:
@@ -145,6 +146,15 @@ class PiezometerModelUpdate:
 
         default_transformation_type = _parse_default_transformation_type(d.pop("default_transformation_type", UNSET))
 
+        def _parse_default_pore_pressure_unit(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        default_pore_pressure_unit = _parse_default_pore_pressure_unit(d.pop("default_pore_pressure_unit", UNSET))
+
         def _parse_sort_order(data: object) -> Union[None, Unset, int]:
             if data is None:
                 return data
@@ -155,11 +165,11 @@ class PiezometerModelUpdate:
         sort_order = _parse_sort_order(d.pop("sort_order", UNSET))
 
         piezometer_model_update = cls(
-            default_pore_pressure_unit=default_pore_pressure_unit,
             vendor_id=vendor_id,
             name=name,
             piezometer_type=piezometer_type,
             default_transformation_type=default_transformation_type,
+            default_pore_pressure_unit=default_pore_pressure_unit,
             sort_order=sort_order,
         )
 

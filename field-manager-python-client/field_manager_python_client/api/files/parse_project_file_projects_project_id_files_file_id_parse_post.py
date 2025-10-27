@@ -7,7 +7,6 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
-from ...models.location import Location
 from ...types import UNSET, Response, Unset
 
 
@@ -42,17 +41,7 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, list["Location"]]]:
-    if response.status_code == 201:
-        response_201 = []
-        _response_201 = response.json()
-        for response_201_item_data in _response_201:
-            response_201_item = Location.from_dict(response_201_item_data)
-
-            response_201.append(response_201_item)
-
-        return response_201
-
+) -> Optional[HTTPValidationError]:
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
@@ -66,7 +55,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, list["Location"]]]:
+) -> Response[HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,7 +71,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     srid: Union[None, Unset, int] = UNSET,
     swap_x_y: Union[Unset, bool] = False,
-) -> Response[Union[HTTPValidationError, list["Location"]]]:
+) -> Response[HTTPValidationError]:
     """Parse Project File
 
      Parse an already queued location file.
@@ -98,7 +87,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['Location']]]
+        Response[HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -122,7 +111,7 @@ def sync(
     client: AuthenticatedClient,
     srid: Union[None, Unset, int] = UNSET,
     swap_x_y: Union[Unset, bool] = False,
-) -> Optional[Union[HTTPValidationError, list["Location"]]]:
+) -> Optional[HTTPValidationError]:
     """Parse Project File
 
      Parse an already queued location file.
@@ -138,7 +127,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['Location']]
+        HTTPValidationError
     """
 
     return sync_detailed(
@@ -157,7 +146,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     srid: Union[None, Unset, int] = UNSET,
     swap_x_y: Union[Unset, bool] = False,
-) -> Response[Union[HTTPValidationError, list["Location"]]]:
+) -> Response[HTTPValidationError]:
     """Parse Project File
 
      Parse an already queued location file.
@@ -173,7 +162,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['Location']]]
+        Response[HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -195,7 +184,7 @@ async def asyncio(
     client: AuthenticatedClient,
     srid: Union[None, Unset, int] = UNSET,
     swap_x_y: Union[Unset, bool] = False,
-) -> Optional[Union[HTTPValidationError, list["Location"]]]:
+) -> Optional[HTTPValidationError]:
     """Parse Project File
 
      Parse an already queued location file.
@@ -211,7 +200,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['Location']]
+        HTTPValidationError
     """
 
     return (

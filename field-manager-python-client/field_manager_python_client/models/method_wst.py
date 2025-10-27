@@ -49,8 +49,8 @@ class MethodWST:
             conducted_by (Union[None, Unset, str]):
             files (Union[Unset, list['File']]):
             self_ (Union[None, Unset, str]):
-            depth_top (Union[None, Unset, float]):
-            depth_base (Union[None, Unset, float]):
+            depth_top (Union[None, Unset, float, str]):
+            depth_base (Union[None, Unset, float, str]):
     """
 
     method_id: UUID
@@ -68,8 +68,8 @@ class MethodWST:
     conducted_by: Union[None, Unset, str] = UNSET
     files: Union[Unset, list["File"]] = UNSET
     self_: Union[None, Unset, str] = UNSET
-    depth_top: Union[None, Unset, float] = UNSET
-    depth_base: Union[None, Unset, float] = UNSET
+    depth_top: Union[None, Unset, float, str] = UNSET
+    depth_base: Union[None, Unset, float, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -134,13 +134,13 @@ class MethodWST:
         else:
             self_ = self.self_
 
-        depth_top: Union[None, Unset, float]
+        depth_top: Union[None, Unset, float, str]
         if isinstance(self.depth_top, Unset):
             depth_top = UNSET
         else:
             depth_top = self.depth_top
 
-        depth_base: Union[None, Unset, float]
+        depth_base: Union[None, Unset, float, str]
         if isinstance(self.depth_base, Unset):
             depth_base = UNSET
         else:
@@ -274,21 +274,21 @@ class MethodWST:
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
-        def _parse_depth_top(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
 
-        def _parse_depth_base(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_base(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
 

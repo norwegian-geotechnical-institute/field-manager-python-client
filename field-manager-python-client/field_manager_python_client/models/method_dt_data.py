@@ -21,10 +21,10 @@ class MethodDTData:
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
         method_type_id (Union[Literal[22], Unset]):  Default: 22.
-        depth (Union[None, Unset, float]): Depth (m). SGF code D.
-        time (Union[None, Unset, float]): Time (s).
-        qc (Union[None, Unset, float]): Cone resistance (MPa). SGF code QC.
-        u2 (Union[None, Unset, float]): Shoulder pressure (kPa). SGF code U.
+        depth (Union[None, Unset, float, str]): Depth (m). SGF code D.
+        time (Union[None, Unset, float, str]): Time (s).
+        qc (Union[None, Unset, float, str]): Cone resistance (MPa). SGF code QC.
+        u2 (Union[None, Unset, float, str]): Shoulder pressure (kPa). SGF code U.
         remarks (Union[None, Unset, str]):
     """
 
@@ -33,10 +33,10 @@ class MethodDTData:
     created_at: datetime.datetime
     updated_at: datetime.datetime
     method_type_id: Union[Literal[22], Unset] = 22
-    depth: Union[None, Unset, float] = UNSET
-    time: Union[None, Unset, float] = UNSET
-    qc: Union[None, Unset, float] = UNSET
-    u2: Union[None, Unset, float] = UNSET
+    depth: Union[None, Unset, float, str] = UNSET
+    time: Union[None, Unset, float, str] = UNSET
+    qc: Union[None, Unset, float, str] = UNSET
+    u2: Union[None, Unset, float, str] = UNSET
     remarks: Union[None, Unset, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -51,25 +51,25 @@ class MethodDTData:
 
         method_type_id = self.method_type_id
 
-        depth: Union[None, Unset, float]
+        depth: Union[None, Unset, float, str]
         if isinstance(self.depth, Unset):
             depth = UNSET
         else:
             depth = self.depth
 
-        time: Union[None, Unset, float]
+        time: Union[None, Unset, float, str]
         if isinstance(self.time, Unset):
             time = UNSET
         else:
             time = self.time
 
-        qc: Union[None, Unset, float]
+        qc: Union[None, Unset, float, str]
         if isinstance(self.qc, Unset):
             qc = UNSET
         else:
             qc = self.qc
 
-        u2: Union[None, Unset, float]
+        u2: Union[None, Unset, float, str]
         if isinstance(self.u2, Unset):
             u2 = UNSET
         else:
@@ -121,39 +121,39 @@ class MethodDTData:
         if method_type_id != 22 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 22, got '{method_type_id}'")
 
-        def _parse_depth(data: object) -> Union[None, Unset, float]:
+        def _parse_depth(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth = _parse_depth(d.pop("depth", UNSET))
 
-        def _parse_time(data: object) -> Union[None, Unset, float]:
+        def _parse_time(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         time = _parse_time(d.pop("time", UNSET))
 
-        def _parse_qc(data: object) -> Union[None, Unset, float]:
+        def _parse_qc(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         qc = _parse_qc(d.pop("qc", UNSET))
 
-        def _parse_u2(data: object) -> Union[None, Unset, float]:
+        def _parse_u2(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         u2 = _parse_u2(d.pop("u2", UNSET))
 

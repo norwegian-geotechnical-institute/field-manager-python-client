@@ -41,10 +41,10 @@ class MethodSA:
         conducted_by (Union[None, Unset, str]):
         files (Union[Unset, list['File']]):
         self_ (Union[None, Unset, str]):
-        depth_top (Union[None, Unset, float]): Depth top (m).
-        depth_base (Union[None, Unset, float]): Depth base (m).
-        length (Union[None, Unset, float]):
-        diameter (Union[None, Unset, float]): Diameter (mm).
+        depth_top (Union[None, Unset, float, str]): Depth top (m).
+        depth_base (Union[None, Unset, float, str]): Depth base (m).
+        length (Union[None, Unset, float, str]):
+        diameter (Union[None, Unset, float, str]): Diameter (mm).
         sample_container_id (Union[None, Unset, str]):
         sample_container_type_id (Union[None, Unset, int]):
         sample_material_ids (Union[Unset, list[int]]):
@@ -68,10 +68,10 @@ class MethodSA:
     conducted_by: Union[None, Unset, str] = UNSET
     files: Union[Unset, list["File"]] = UNSET
     self_: Union[None, Unset, str] = UNSET
-    depth_top: Union[None, Unset, float] = UNSET
-    depth_base: Union[None, Unset, float] = UNSET
-    length: Union[None, Unset, float] = UNSET
-    diameter: Union[None, Unset, float] = UNSET
+    depth_top: Union[None, Unset, float, str] = UNSET
+    depth_base: Union[None, Unset, float, str] = UNSET
+    length: Union[None, Unset, float, str] = UNSET
+    diameter: Union[None, Unset, float, str] = UNSET
     sample_container_id: Union[None, Unset, str] = UNSET
     sample_container_type_id: Union[None, Unset, int] = UNSET
     sample_material_ids: Union[Unset, list[int]] = UNSET
@@ -140,25 +140,25 @@ class MethodSA:
         else:
             self_ = self.self_
 
-        depth_top: Union[None, Unset, float]
+        depth_top: Union[None, Unset, float, str]
         if isinstance(self.depth_top, Unset):
             depth_top = UNSET
         else:
             depth_top = self.depth_top
 
-        depth_base: Union[None, Unset, float]
+        depth_base: Union[None, Unset, float, str]
         if isinstance(self.depth_base, Unset):
             depth_base = UNSET
         else:
             depth_base = self.depth_base
 
-        length: Union[None, Unset, float]
+        length: Union[None, Unset, float, str]
         if isinstance(self.length, Unset):
             length = UNSET
         else:
             length = self.length
 
-        diameter: Union[None, Unset, float]
+        diameter: Union[None, Unset, float, str]
         if isinstance(self.diameter, Unset):
             diameter = UNSET
         else:
@@ -339,39 +339,39 @@ class MethodSA:
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
-        def _parse_depth_top(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
 
-        def _parse_depth_base(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_base(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
 
-        def _parse_length(data: object) -> Union[None, Unset, float]:
+        def _parse_length(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         length = _parse_length(d.pop("length", UNSET))
 
-        def _parse_diameter(data: object) -> Union[None, Unset, float]:
+        def _parse_diameter(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         diameter = _parse_diameter(d.pop("diameter", UNSET))
 

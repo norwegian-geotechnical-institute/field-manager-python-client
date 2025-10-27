@@ -20,16 +20,17 @@ class MethodSVTData:
         method_id (UUID):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        depth (float): Depth (m). SGF code D.
+        depth (Union[float, str]): Depth (m). SGF code D.
         method_type_id (Union[Literal[10], Unset]):  Default: 10.
-        maximum_measurement_torque (Union[None, Unset, float]): Maximum measurement torque (Nm). SGF code AB.
-        maximum_measurement_torque_remoulded (Union[None, Unset, float]): Maximum measurement torque (Nm). SGF code AB2.
-        shear_strength (Union[None, Unset, float]): Shear strength (kPa). SGF code AS.
-        shear_strength_remoulded (Union[None, Unset, float]): Shear strength (kPa).
-        sensitivity (Union[None, Unset, float]): Sensitivity (unitless). SGF code SV.
-        calculated_shear_strength (Union[None, Unset, float]): Calculated shear strength (kPa).
-        calculated_shear_strength_remoulded (Union[None, Unset, float]): Calculated shear strength (kPa).
-        calculated_sensitivity (Union[None, Unset, float]): Calculated sensitivity (unitless).
+        maximum_measurement_torque (Union[None, Unset, float, str]): Maximum measurement torque (Nm). SGF code AB.
+        maximum_measurement_torque_remoulded (Union[None, Unset, float, str]): Maximum measurement torque (Nm). SGF code
+            AB2.
+        shear_strength (Union[None, Unset, float, str]): Shear strength (kPa). SGF code AS.
+        shear_strength_remoulded (Union[None, Unset, float, str]): Shear strength (kPa).
+        sensitivity (Union[None, Unset, float, str]): Sensitivity (unitless). SGF code SV.
+        calculated_shear_strength (Union[None, Unset, float, str]): Calculated shear strength (kPa).
+        calculated_shear_strength_remoulded (Union[None, Unset, float, str]): Calculated shear strength (kPa).
+        calculated_sensitivity (Union[None, Unset, float, str]): Calculated sensitivity (unitless).
         remarks (Union[None, Unset, str]):
     """
 
@@ -37,16 +38,16 @@ class MethodSVTData:
     method_id: UUID
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    depth: float
+    depth: Union[float, str]
     method_type_id: Union[Literal[10], Unset] = 10
-    maximum_measurement_torque: Union[None, Unset, float] = UNSET
-    maximum_measurement_torque_remoulded: Union[None, Unset, float] = UNSET
-    shear_strength: Union[None, Unset, float] = UNSET
-    shear_strength_remoulded: Union[None, Unset, float] = UNSET
-    sensitivity: Union[None, Unset, float] = UNSET
-    calculated_shear_strength: Union[None, Unset, float] = UNSET
-    calculated_shear_strength_remoulded: Union[None, Unset, float] = UNSET
-    calculated_sensitivity: Union[None, Unset, float] = UNSET
+    maximum_measurement_torque: Union[None, Unset, float, str] = UNSET
+    maximum_measurement_torque_remoulded: Union[None, Unset, float, str] = UNSET
+    shear_strength: Union[None, Unset, float, str] = UNSET
+    shear_strength_remoulded: Union[None, Unset, float, str] = UNSET
+    sensitivity: Union[None, Unset, float, str] = UNSET
+    calculated_shear_strength: Union[None, Unset, float, str] = UNSET
+    calculated_shear_strength_remoulded: Union[None, Unset, float, str] = UNSET
+    calculated_sensitivity: Union[None, Unset, float, str] = UNSET
     remarks: Union[None, Unset, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -59,53 +60,54 @@ class MethodSVTData:
 
         updated_at = self.updated_at.isoformat()
 
+        depth: Union[float, str]
         depth = self.depth
 
         method_type_id = self.method_type_id
 
-        maximum_measurement_torque: Union[None, Unset, float]
+        maximum_measurement_torque: Union[None, Unset, float, str]
         if isinstance(self.maximum_measurement_torque, Unset):
             maximum_measurement_torque = UNSET
         else:
             maximum_measurement_torque = self.maximum_measurement_torque
 
-        maximum_measurement_torque_remoulded: Union[None, Unset, float]
+        maximum_measurement_torque_remoulded: Union[None, Unset, float, str]
         if isinstance(self.maximum_measurement_torque_remoulded, Unset):
             maximum_measurement_torque_remoulded = UNSET
         else:
             maximum_measurement_torque_remoulded = self.maximum_measurement_torque_remoulded
 
-        shear_strength: Union[None, Unset, float]
+        shear_strength: Union[None, Unset, float, str]
         if isinstance(self.shear_strength, Unset):
             shear_strength = UNSET
         else:
             shear_strength = self.shear_strength
 
-        shear_strength_remoulded: Union[None, Unset, float]
+        shear_strength_remoulded: Union[None, Unset, float, str]
         if isinstance(self.shear_strength_remoulded, Unset):
             shear_strength_remoulded = UNSET
         else:
             shear_strength_remoulded = self.shear_strength_remoulded
 
-        sensitivity: Union[None, Unset, float]
+        sensitivity: Union[None, Unset, float, str]
         if isinstance(self.sensitivity, Unset):
             sensitivity = UNSET
         else:
             sensitivity = self.sensitivity
 
-        calculated_shear_strength: Union[None, Unset, float]
+        calculated_shear_strength: Union[None, Unset, float, str]
         if isinstance(self.calculated_shear_strength, Unset):
             calculated_shear_strength = UNSET
         else:
             calculated_shear_strength = self.calculated_shear_strength
 
-        calculated_shear_strength_remoulded: Union[None, Unset, float]
+        calculated_shear_strength_remoulded: Union[None, Unset, float, str]
         if isinstance(self.calculated_shear_strength_remoulded, Unset):
             calculated_shear_strength_remoulded = UNSET
         else:
             calculated_shear_strength_remoulded = self.calculated_shear_strength_remoulded
 
-        calculated_sensitivity: Union[None, Unset, float]
+        calculated_sensitivity: Union[None, Unset, float, str]
         if isinstance(self.calculated_sensitivity, Unset):
             calculated_sensitivity = UNSET
         else:
@@ -162,85 +164,88 @@ class MethodSVTData:
 
         updated_at = isoparse(d.pop("updated_at"))
 
-        depth = d.pop("depth")
+        def _parse_depth(data: object) -> Union[float, str]:
+            return cast(Union[float, str], data)
+
+        depth = _parse_depth(d.pop("depth"))
 
         method_type_id = cast(Union[Literal[10], Unset], d.pop("method_type_id", UNSET))
         if method_type_id != 10 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 10, got '{method_type_id}'")
 
-        def _parse_maximum_measurement_torque(data: object) -> Union[None, Unset, float]:
+        def _parse_maximum_measurement_torque(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         maximum_measurement_torque = _parse_maximum_measurement_torque(d.pop("maximum_measurement_torque", UNSET))
 
-        def _parse_maximum_measurement_torque_remoulded(data: object) -> Union[None, Unset, float]:
+        def _parse_maximum_measurement_torque_remoulded(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         maximum_measurement_torque_remoulded = _parse_maximum_measurement_torque_remoulded(
             d.pop("maximum_measurement_torque_remoulded", UNSET)
         )
 
-        def _parse_shear_strength(data: object) -> Union[None, Unset, float]:
+        def _parse_shear_strength(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         shear_strength = _parse_shear_strength(d.pop("shear_strength", UNSET))
 
-        def _parse_shear_strength_remoulded(data: object) -> Union[None, Unset, float]:
+        def _parse_shear_strength_remoulded(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         shear_strength_remoulded = _parse_shear_strength_remoulded(d.pop("shear_strength_remoulded", UNSET))
 
-        def _parse_sensitivity(data: object) -> Union[None, Unset, float]:
+        def _parse_sensitivity(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         sensitivity = _parse_sensitivity(d.pop("sensitivity", UNSET))
 
-        def _parse_calculated_shear_strength(data: object) -> Union[None, Unset, float]:
+        def _parse_calculated_shear_strength(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         calculated_shear_strength = _parse_calculated_shear_strength(d.pop("calculated_shear_strength", UNSET))
 
-        def _parse_calculated_shear_strength_remoulded(data: object) -> Union[None, Unset, float]:
+        def _parse_calculated_shear_strength_remoulded(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         calculated_shear_strength_remoulded = _parse_calculated_shear_strength_remoulded(
             d.pop("calculated_shear_strength_remoulded", UNSET)
         )
 
-        def _parse_calculated_sensitivity(data: object) -> Union[None, Unset, float]:
+        def _parse_calculated_sensitivity(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         calculated_sensitivity = _parse_calculated_sensitivity(d.pop("calculated_sensitivity", UNSET))
 

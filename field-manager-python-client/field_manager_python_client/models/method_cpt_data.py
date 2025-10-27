@@ -20,42 +20,42 @@ class MethodCPTData:
         method_id (UUID):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        depth (float): Depth (m). SGF code D.
+        depth (Union[float, str]): Depth (m). SGF code D.
         method_type_id (Union[Literal[1], Unset]):  Default: 1.
-        penetration_rate (Union[None, Unset, float]): Penetration rate (mm/s). SGF code B.
-        penetration_force (Union[None, Unset, float]): Penetration force (kN). SGF code A.
-        fs (Union[None, Unset, float]): Friction (kPa). SGF code FS/F.
+        penetration_rate (Union[None, Unset, float, str]): Penetration rate (mm/s). SGF code B.
+        penetration_force (Union[None, Unset, float, str]): Penetration force (kN). SGF code A.
+        fs (Union[None, Unset, float, str]): Friction (kPa). SGF code FS/F.
         comment_code (Union[None, Unset, int]): Comment code. Two digit value.
-        conductivity (Union[None, Unset, float]): Conductivity (S/m). SGF code M.
-        zero_value_resistance (Union[None, Unset, float]): Zero value resistance (MPa). SGF code NA.
-        zero_value_friction (Union[None, Unset, float]): Zero value friction (kPa). SGF code NB.
-        zero_value_pressure (Union[None, Unset, float]): Zero value pressure (kPa). SGF code NC.
-        temperature (Union[None, Unset, float]): Temperature (degree C). SGF code O.
-        qc (Union[None, Unset, float]): Resistance (MPa). SGF code QC.
+        conductivity (Union[None, Unset, float, str]): Conductivity (S/m). SGF code M.
+        zero_value_resistance (Union[None, Unset, float, str]): Zero value resistance (MPa). SGF code NA.
+        zero_value_friction (Union[None, Unset, float, str]): Zero value friction (kPa). SGF code NB.
+        zero_value_pressure (Union[None, Unset, float, str]): Zero value pressure (kPa). SGF code NC.
+        temperature (Union[None, Unset, float, str]): Temperature (degree C). SGF code O.
+        qc (Union[None, Unset, float, str]): Resistance (MPa). SGF code QC.
         remarks (Union[None, Unset, str]): Remarks. SGF code T
-        tilt (Union[None, Unset, float]): Inclination (degree). SGF code TA.
-        u2 (Union[None, Unset, float]): Shoulder pressure (kPa). SGF code U.
+        tilt (Union[None, Unset, float, str]): Inclination (degree). SGF code TA.
+        u2 (Union[None, Unset, float, str]): Shoulder pressure (kPa). SGF code U.
     """
 
     method_data_id: UUID
     method_id: UUID
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    depth: float
+    depth: Union[float, str]
     method_type_id: Union[Literal[1], Unset] = 1
-    penetration_rate: Union[None, Unset, float] = UNSET
-    penetration_force: Union[None, Unset, float] = UNSET
-    fs: Union[None, Unset, float] = UNSET
+    penetration_rate: Union[None, Unset, float, str] = UNSET
+    penetration_force: Union[None, Unset, float, str] = UNSET
+    fs: Union[None, Unset, float, str] = UNSET
     comment_code: Union[None, Unset, int] = UNSET
-    conductivity: Union[None, Unset, float] = UNSET
-    zero_value_resistance: Union[None, Unset, float] = UNSET
-    zero_value_friction: Union[None, Unset, float] = UNSET
-    zero_value_pressure: Union[None, Unset, float] = UNSET
-    temperature: Union[None, Unset, float] = UNSET
-    qc: Union[None, Unset, float] = UNSET
+    conductivity: Union[None, Unset, float, str] = UNSET
+    zero_value_resistance: Union[None, Unset, float, str] = UNSET
+    zero_value_friction: Union[None, Unset, float, str] = UNSET
+    zero_value_pressure: Union[None, Unset, float, str] = UNSET
+    temperature: Union[None, Unset, float, str] = UNSET
+    qc: Union[None, Unset, float, str] = UNSET
     remarks: Union[None, Unset, str] = UNSET
-    tilt: Union[None, Unset, float] = UNSET
-    u2: Union[None, Unset, float] = UNSET
+    tilt: Union[None, Unset, float, str] = UNSET
+    u2: Union[None, Unset, float, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -67,23 +67,24 @@ class MethodCPTData:
 
         updated_at = self.updated_at.isoformat()
 
+        depth: Union[float, str]
         depth = self.depth
 
         method_type_id = self.method_type_id
 
-        penetration_rate: Union[None, Unset, float]
+        penetration_rate: Union[None, Unset, float, str]
         if isinstance(self.penetration_rate, Unset):
             penetration_rate = UNSET
         else:
             penetration_rate = self.penetration_rate
 
-        penetration_force: Union[None, Unset, float]
+        penetration_force: Union[None, Unset, float, str]
         if isinstance(self.penetration_force, Unset):
             penetration_force = UNSET
         else:
             penetration_force = self.penetration_force
 
-        fs: Union[None, Unset, float]
+        fs: Union[None, Unset, float, str]
         if isinstance(self.fs, Unset):
             fs = UNSET
         else:
@@ -95,37 +96,37 @@ class MethodCPTData:
         else:
             comment_code = self.comment_code
 
-        conductivity: Union[None, Unset, float]
+        conductivity: Union[None, Unset, float, str]
         if isinstance(self.conductivity, Unset):
             conductivity = UNSET
         else:
             conductivity = self.conductivity
 
-        zero_value_resistance: Union[None, Unset, float]
+        zero_value_resistance: Union[None, Unset, float, str]
         if isinstance(self.zero_value_resistance, Unset):
             zero_value_resistance = UNSET
         else:
             zero_value_resistance = self.zero_value_resistance
 
-        zero_value_friction: Union[None, Unset, float]
+        zero_value_friction: Union[None, Unset, float, str]
         if isinstance(self.zero_value_friction, Unset):
             zero_value_friction = UNSET
         else:
             zero_value_friction = self.zero_value_friction
 
-        zero_value_pressure: Union[None, Unset, float]
+        zero_value_pressure: Union[None, Unset, float, str]
         if isinstance(self.zero_value_pressure, Unset):
             zero_value_pressure = UNSET
         else:
             zero_value_pressure = self.zero_value_pressure
 
-        temperature: Union[None, Unset, float]
+        temperature: Union[None, Unset, float, str]
         if isinstance(self.temperature, Unset):
             temperature = UNSET
         else:
             temperature = self.temperature
 
-        qc: Union[None, Unset, float]
+        qc: Union[None, Unset, float, str]
         if isinstance(self.qc, Unset):
             qc = UNSET
         else:
@@ -137,13 +138,13 @@ class MethodCPTData:
         else:
             remarks = self.remarks
 
-        tilt: Union[None, Unset, float]
+        tilt: Union[None, Unset, float, str]
         if isinstance(self.tilt, Unset):
             tilt = UNSET
         else:
             tilt = self.tilt
 
-        u2: Union[None, Unset, float]
+        u2: Union[None, Unset, float, str]
         if isinstance(self.u2, Unset):
             u2 = UNSET
         else:
@@ -202,36 +203,39 @@ class MethodCPTData:
 
         updated_at = isoparse(d.pop("updated_at"))
 
-        depth = d.pop("depth")
+        def _parse_depth(data: object) -> Union[float, str]:
+            return cast(Union[float, str], data)
+
+        depth = _parse_depth(d.pop("depth"))
 
         method_type_id = cast(Union[Literal[1], Unset], d.pop("method_type_id", UNSET))
         if method_type_id != 1 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 1, got '{method_type_id}'")
 
-        def _parse_penetration_rate(data: object) -> Union[None, Unset, float]:
+        def _parse_penetration_rate(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         penetration_rate = _parse_penetration_rate(d.pop("penetration_rate", UNSET))
 
-        def _parse_penetration_force(data: object) -> Union[None, Unset, float]:
+        def _parse_penetration_force(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         penetration_force = _parse_penetration_force(d.pop("penetration_force", UNSET))
 
-        def _parse_fs(data: object) -> Union[None, Unset, float]:
+        def _parse_fs(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         fs = _parse_fs(d.pop("fs", UNSET))
 
@@ -244,57 +248,57 @@ class MethodCPTData:
 
         comment_code = _parse_comment_code(d.pop("comment_code", UNSET))
 
-        def _parse_conductivity(data: object) -> Union[None, Unset, float]:
+        def _parse_conductivity(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         conductivity = _parse_conductivity(d.pop("conductivity", UNSET))
 
-        def _parse_zero_value_resistance(data: object) -> Union[None, Unset, float]:
+        def _parse_zero_value_resistance(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         zero_value_resistance = _parse_zero_value_resistance(d.pop("zero_value_resistance", UNSET))
 
-        def _parse_zero_value_friction(data: object) -> Union[None, Unset, float]:
+        def _parse_zero_value_friction(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         zero_value_friction = _parse_zero_value_friction(d.pop("zero_value_friction", UNSET))
 
-        def _parse_zero_value_pressure(data: object) -> Union[None, Unset, float]:
+        def _parse_zero_value_pressure(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         zero_value_pressure = _parse_zero_value_pressure(d.pop("zero_value_pressure", UNSET))
 
-        def _parse_temperature(data: object) -> Union[None, Unset, float]:
+        def _parse_temperature(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         temperature = _parse_temperature(d.pop("temperature", UNSET))
 
-        def _parse_qc(data: object) -> Union[None, Unset, float]:
+        def _parse_qc(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         qc = _parse_qc(d.pop("qc", UNSET))
 
@@ -307,21 +311,21 @@ class MethodCPTData:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-        def _parse_tilt(data: object) -> Union[None, Unset, float]:
+        def _parse_tilt(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         tilt = _parse_tilt(d.pop("tilt", UNSET))
 
-        def _parse_u2(data: object) -> Union[None, Unset, float]:
+        def _parse_u2(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         u2 = _parse_u2(d.pop("u2", UNSET))
 

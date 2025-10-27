@@ -52,22 +52,22 @@ class MethodPZ:
         conducted_by (Union[None, Unset, str]):
         files (Union[Unset, list['File']]):
         self_ (Union[None, Unset, str]):
-        depth_top (Union[None, Unset, float]):
-        depth_base (Union[None, Unset, float]):
-        distance_over_terrain (Union[None, Unset, float]):
+        depth_top (Union[None, Unset, float, str]):
+        depth_base (Union[None, Unset, float, str]):
+        distance_over_terrain (Union[None, Unset, float, str]):
         model_id (Union[None, UUID, Unset]):
         pore_pressure_unit (Union[None, Unset, str]):
         serial_number (Union[None, Unset, str]):
-        default_barometric_pressure (Union[None, Unset, float]):
-        polynomial_factor_a (Union[None, Unset, float]):
-        polynomial_factor_b (Union[None, Unset, float]):
-        polynomial_factor_k (Union[None, Unset, float]):
+        default_barometric_pressure (Union[None, Unset, float, str]):
+        polynomial_factor_a (Union[None, Unset, float, str]):
+        polynomial_factor_b (Union[None, Unset, float, str]):
+        polynomial_factor_k (Union[None, Unset, float, str]):
         polynomial_factor_a_unit (Union[None, Unset, str]):
         polynomial_factor_b_unit (Union[None, Unset, str]):
         polynomial_factor_k_unit (Union[None, Unset, str]):
-        zero_reading_pore_pressure (Union[None, Unset, float]):
-        zero_reading_barometric_pressure (Union[None, Unset, float]):
-        zero_reading_temperature (Union[None, Unset, float]):
+        zero_reading_pore_pressure (Union[None, Unset, float, str]):
+        zero_reading_barometric_pressure (Union[None, Unset, float, str]):
+        zero_reading_temperature (Union[None, Unset, float, str]):
         missing_variables_pore_pressure (Union[None, Unset, list[str]]): Missing variables to calculate pore pressure.
         missing_variables_piezometric_head (Union[None, Unset, list[str]]): Missing variables to calculate piezometric
             head.
@@ -93,22 +93,22 @@ class MethodPZ:
     conducted_by: Union[None, Unset, str] = UNSET
     files: Union[Unset, list["File"]] = UNSET
     self_: Union[None, Unset, str] = UNSET
-    depth_top: Union[None, Unset, float] = UNSET
-    depth_base: Union[None, Unset, float] = UNSET
-    distance_over_terrain: Union[None, Unset, float] = UNSET
+    depth_top: Union[None, Unset, float, str] = UNSET
+    depth_base: Union[None, Unset, float, str] = UNSET
+    distance_over_terrain: Union[None, Unset, float, str] = UNSET
     model_id: Union[None, UUID, Unset] = UNSET
     pore_pressure_unit: Union[None, Unset, str] = UNSET
     serial_number: Union[None, Unset, str] = UNSET
-    default_barometric_pressure: Union[None, Unset, float] = UNSET
-    polynomial_factor_a: Union[None, Unset, float] = UNSET
-    polynomial_factor_b: Union[None, Unset, float] = UNSET
-    polynomial_factor_k: Union[None, Unset, float] = UNSET
+    default_barometric_pressure: Union[None, Unset, float, str] = UNSET
+    polynomial_factor_a: Union[None, Unset, float, str] = UNSET
+    polynomial_factor_b: Union[None, Unset, float, str] = UNSET
+    polynomial_factor_k: Union[None, Unset, float, str] = UNSET
     polynomial_factor_a_unit: Union[None, Unset, str] = UNSET
     polynomial_factor_b_unit: Union[None, Unset, str] = UNSET
     polynomial_factor_k_unit: Union[None, Unset, str] = UNSET
-    zero_reading_pore_pressure: Union[None, Unset, float] = UNSET
-    zero_reading_barometric_pressure: Union[None, Unset, float] = UNSET
-    zero_reading_temperature: Union[None, Unset, float] = UNSET
+    zero_reading_pore_pressure: Union[None, Unset, float, str] = UNSET
+    zero_reading_barometric_pressure: Union[None, Unset, float, str] = UNSET
+    zero_reading_temperature: Union[None, Unset, float, str] = UNSET
     missing_variables_pore_pressure: Union[None, Unset, list[str]] = UNSET
     missing_variables_piezometric_head: Union[None, Unset, list[str]] = UNSET
     missing_variables_piezometric_potential: Union[None, Unset, list[str]] = UNSET
@@ -182,19 +182,19 @@ class MethodPZ:
         else:
             self_ = self.self_
 
-        depth_top: Union[None, Unset, float]
+        depth_top: Union[None, Unset, float, str]
         if isinstance(self.depth_top, Unset):
             depth_top = UNSET
         else:
             depth_top = self.depth_top
 
-        depth_base: Union[None, Unset, float]
+        depth_base: Union[None, Unset, float, str]
         if isinstance(self.depth_base, Unset):
             depth_base = UNSET
         else:
             depth_base = self.depth_base
 
-        distance_over_terrain: Union[None, Unset, float]
+        distance_over_terrain: Union[None, Unset, float, str]
         if isinstance(self.distance_over_terrain, Unset):
             distance_over_terrain = UNSET
         else:
@@ -220,25 +220,25 @@ class MethodPZ:
         else:
             serial_number = self.serial_number
 
-        default_barometric_pressure: Union[None, Unset, float]
+        default_barometric_pressure: Union[None, Unset, float, str]
         if isinstance(self.default_barometric_pressure, Unset):
             default_barometric_pressure = UNSET
         else:
             default_barometric_pressure = self.default_barometric_pressure
 
-        polynomial_factor_a: Union[None, Unset, float]
+        polynomial_factor_a: Union[None, Unset, float, str]
         if isinstance(self.polynomial_factor_a, Unset):
             polynomial_factor_a = UNSET
         else:
             polynomial_factor_a = self.polynomial_factor_a
 
-        polynomial_factor_b: Union[None, Unset, float]
+        polynomial_factor_b: Union[None, Unset, float, str]
         if isinstance(self.polynomial_factor_b, Unset):
             polynomial_factor_b = UNSET
         else:
             polynomial_factor_b = self.polynomial_factor_b
 
-        polynomial_factor_k: Union[None, Unset, float]
+        polynomial_factor_k: Union[None, Unset, float, str]
         if isinstance(self.polynomial_factor_k, Unset):
             polynomial_factor_k = UNSET
         else:
@@ -262,19 +262,19 @@ class MethodPZ:
         else:
             polynomial_factor_k_unit = self.polynomial_factor_k_unit
 
-        zero_reading_pore_pressure: Union[None, Unset, float]
+        zero_reading_pore_pressure: Union[None, Unset, float, str]
         if isinstance(self.zero_reading_pore_pressure, Unset):
             zero_reading_pore_pressure = UNSET
         else:
             zero_reading_pore_pressure = self.zero_reading_pore_pressure
 
-        zero_reading_barometric_pressure: Union[None, Unset, float]
+        zero_reading_barometric_pressure: Union[None, Unset, float, str]
         if isinstance(self.zero_reading_barometric_pressure, Unset):
             zero_reading_barometric_pressure = UNSET
         else:
             zero_reading_barometric_pressure = self.zero_reading_barometric_pressure
 
-        zero_reading_temperature: Union[None, Unset, float]
+        zero_reading_temperature: Union[None, Unset, float, str]
         if isinstance(self.zero_reading_temperature, Unset):
             zero_reading_temperature = UNSET
         else:
@@ -478,30 +478,30 @@ class MethodPZ:
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
-        def _parse_depth_top(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
 
-        def _parse_depth_base(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_base(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
 
-        def _parse_distance_over_terrain(data: object) -> Union[None, Unset, float]:
+        def _parse_distance_over_terrain(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         distance_over_terrain = _parse_distance_over_terrain(d.pop("distance_over_terrain", UNSET))
 
@@ -540,39 +540,39 @@ class MethodPZ:
 
         serial_number = _parse_serial_number(d.pop("serial_number", UNSET))
 
-        def _parse_default_barometric_pressure(data: object) -> Union[None, Unset, float]:
+        def _parse_default_barometric_pressure(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         default_barometric_pressure = _parse_default_barometric_pressure(d.pop("default_barometric_pressure", UNSET))
 
-        def _parse_polynomial_factor_a(data: object) -> Union[None, Unset, float]:
+        def _parse_polynomial_factor_a(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         polynomial_factor_a = _parse_polynomial_factor_a(d.pop("polynomial_factor_a", UNSET))
 
-        def _parse_polynomial_factor_b(data: object) -> Union[None, Unset, float]:
+        def _parse_polynomial_factor_b(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         polynomial_factor_b = _parse_polynomial_factor_b(d.pop("polynomial_factor_b", UNSET))
 
-        def _parse_polynomial_factor_k(data: object) -> Union[None, Unset, float]:
+        def _parse_polynomial_factor_k(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         polynomial_factor_k = _parse_polynomial_factor_k(d.pop("polynomial_factor_k", UNSET))
 
@@ -603,32 +603,32 @@ class MethodPZ:
 
         polynomial_factor_k_unit = _parse_polynomial_factor_k_unit(d.pop("polynomial_factor_k_unit", UNSET))
 
-        def _parse_zero_reading_pore_pressure(data: object) -> Union[None, Unset, float]:
+        def _parse_zero_reading_pore_pressure(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         zero_reading_pore_pressure = _parse_zero_reading_pore_pressure(d.pop("zero_reading_pore_pressure", UNSET))
 
-        def _parse_zero_reading_barometric_pressure(data: object) -> Union[None, Unset, float]:
+        def _parse_zero_reading_barometric_pressure(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         zero_reading_barometric_pressure = _parse_zero_reading_barometric_pressure(
             d.pop("zero_reading_barometric_pressure", UNSET)
         )
 
-        def _parse_zero_reading_temperature(data: object) -> Union[None, Unset, float]:
+        def _parse_zero_reading_temperature(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         zero_reading_temperature = _parse_zero_reading_temperature(d.pop("zero_reading_temperature", UNSET))
 

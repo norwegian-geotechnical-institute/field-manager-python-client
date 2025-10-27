@@ -43,11 +43,11 @@ class MethodCPT:
         conducted_by (Union[None, Unset, str]):
         files (Union[Unset, list['File']]):
         self_ (Union[None, Unset, str]):
-        predrilling_depth (Union[None, Unset, float]):
+        predrilling_depth (Union[None, Unset, float, str]):
         cone_reference (Union[None, Unset, str]):
-        water_depth (Union[None, Unset, float]):
-        cone_area_ratio (Union[None, Unset, float]):
-        sleeve_area_ratio (Union[None, Unset, float]):
+        water_depth (Union[None, Unset, float, str]):
+        cone_area_ratio (Union[None, Unset, float, str]):
+        sleeve_area_ratio (Union[None, Unset, float, str]):
         application_class (Union[Unset, ApplicationClassEnum]): (
             ONE=1,
             TWO=2,
@@ -88,8 +88,8 @@ class MethodCPT:
             OUT_OF_BOUNDS=10,
             UNKNOWN=100,
             )
-        depth_top (Union[None, Unset, float]):
-        depth_base (Union[None, Unset, float]):
+        depth_top (Union[None, Unset, float, str]):
+        depth_base (Union[None, Unset, float, str]):
         stopcode (Union[None, Unset, int]):
     """
 
@@ -107,18 +107,18 @@ class MethodCPT:
     conducted_by: Union[None, Unset, str] = UNSET
     files: Union[Unset, list["File"]] = UNSET
     self_: Union[None, Unset, str] = UNSET
-    predrilling_depth: Union[None, Unset, float] = UNSET
+    predrilling_depth: Union[None, Unset, float, str] = UNSET
     cone_reference: Union[None, Unset, str] = UNSET
-    water_depth: Union[None, Unset, float] = UNSET
-    cone_area_ratio: Union[None, Unset, float] = UNSET
-    sleeve_area_ratio: Union[None, Unset, float] = UNSET
+    water_depth: Union[None, Unset, float, str] = UNSET
+    cone_area_ratio: Union[None, Unset, float, str] = UNSET
+    sleeve_area_ratio: Union[None, Unset, float, str] = UNSET
     application_class: Union[Unset, ApplicationClassEnum] = UNSET
     application_class_depth: Union[Unset, ApplicationClassEnum] = UNSET
     application_class_resistance: Union[Unset, ApplicationClassEnum] = UNSET
     application_class_friction: Union[Unset, ApplicationClassEnum] = UNSET
     application_class_pressure: Union[Unset, ApplicationClassEnum] = UNSET
-    depth_top: Union[None, Unset, float] = UNSET
-    depth_base: Union[None, Unset, float] = UNSET
+    depth_top: Union[None, Unset, float, str] = UNSET
+    depth_base: Union[None, Unset, float, str] = UNSET
     stopcode: Union[None, Unset, int] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -182,7 +182,7 @@ class MethodCPT:
         else:
             self_ = self.self_
 
-        predrilling_depth: Union[None, Unset, float]
+        predrilling_depth: Union[None, Unset, float, str]
         if isinstance(self.predrilling_depth, Unset):
             predrilling_depth = UNSET
         else:
@@ -194,19 +194,19 @@ class MethodCPT:
         else:
             cone_reference = self.cone_reference
 
-        water_depth: Union[None, Unset, float]
+        water_depth: Union[None, Unset, float, str]
         if isinstance(self.water_depth, Unset):
             water_depth = UNSET
         else:
             water_depth = self.water_depth
 
-        cone_area_ratio: Union[None, Unset, float]
+        cone_area_ratio: Union[None, Unset, float, str]
         if isinstance(self.cone_area_ratio, Unset):
             cone_area_ratio = UNSET
         else:
             cone_area_ratio = self.cone_area_ratio
 
-        sleeve_area_ratio: Union[None, Unset, float]
+        sleeve_area_ratio: Union[None, Unset, float, str]
         if isinstance(self.sleeve_area_ratio, Unset):
             sleeve_area_ratio = UNSET
         else:
@@ -232,13 +232,13 @@ class MethodCPT:
         if not isinstance(self.application_class_pressure, Unset):
             application_class_pressure = self.application_class_pressure.value
 
-        depth_top: Union[None, Unset, float]
+        depth_top: Union[None, Unset, float, str]
         if isinstance(self.depth_top, Unset):
             depth_top = UNSET
         else:
             depth_top = self.depth_top
 
-        depth_base: Union[None, Unset, float]
+        depth_base: Union[None, Unset, float, str]
         if isinstance(self.depth_base, Unset):
             depth_base = UNSET
         else:
@@ -397,12 +397,12 @@ class MethodCPT:
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
-        def _parse_predrilling_depth(data: object) -> Union[None, Unset, float]:
+        def _parse_predrilling_depth(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
 
@@ -415,30 +415,30 @@ class MethodCPT:
 
         cone_reference = _parse_cone_reference(d.pop("cone_reference", UNSET))
 
-        def _parse_water_depth(data: object) -> Union[None, Unset, float]:
+        def _parse_water_depth(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         water_depth = _parse_water_depth(d.pop("water_depth", UNSET))
 
-        def _parse_cone_area_ratio(data: object) -> Union[None, Unset, float]:
+        def _parse_cone_area_ratio(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         cone_area_ratio = _parse_cone_area_ratio(d.pop("cone_area_ratio", UNSET))
 
-        def _parse_sleeve_area_ratio(data: object) -> Union[None, Unset, float]:
+        def _parse_sleeve_area_ratio(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         sleeve_area_ratio = _parse_sleeve_area_ratio(d.pop("sleeve_area_ratio", UNSET))
 
@@ -477,21 +477,21 @@ class MethodCPT:
         else:
             application_class_pressure = ApplicationClassEnum(_application_class_pressure)
 
-        def _parse_depth_top(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
 
-        def _parse_depth_base(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_base(data: object) -> Union[None, Unset, float, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(Union[None, Unset, float, str], data)
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
 

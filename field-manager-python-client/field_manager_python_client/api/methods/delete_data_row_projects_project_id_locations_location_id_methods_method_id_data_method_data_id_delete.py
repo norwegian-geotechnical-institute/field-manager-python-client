@@ -63,7 +63,7 @@ def sync_detailed(
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Delete Data Row
 
-     Delete a data row
+     Delete a method data row
 
     Args:
         project_id (str):
@@ -103,7 +103,7 @@ def sync(
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Delete Data Row
 
-     Delete a data row
+     Delete a method data row
 
     Args:
         project_id (str):
@@ -138,7 +138,7 @@ async def asyncio_detailed(
 ) -> Response[Union[Any, HTTPValidationError]]:
     """Delete Data Row
 
-     Delete a data row
+     Delete a method data row
 
     Args:
         project_id (str):
@@ -176,7 +176,7 @@ async def asyncio(
 ) -> Optional[Union[Any, HTTPValidationError]]:
     """Delete Data Row
 
-     Delete a data row
+     Delete a method data row
 
     Args:
         project_id (str):

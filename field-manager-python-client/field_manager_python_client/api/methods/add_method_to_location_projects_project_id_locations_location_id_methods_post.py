@@ -7,61 +7,33 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
-from ...models.method_ad import MethodAD
 from ...models.method_ad_create import MethodADCreate
-from ...models.method_cd import MethodCD
 from ...models.method_cd_create import MethodCDCreate
-from ...models.method_cpt import MethodCPT
 from ...models.method_cpt_create import MethodCPTCreate
-from ...models.method_def import MethodDEF
 from ...models.method_def_create import MethodDEFCreate
-from ...models.method_dp import MethodDP
 from ...models.method_dp_create import MethodDPCreate
-from ...models.method_dt import MethodDT
 from ...models.method_dt_create import MethodDTCreate
-from ...models.method_esa import MethodESA
 from ...models.method_esa_create import MethodESACreate
-from ...models.method_inc import MethodINC
 from ...models.method_inc_create import MethodINCCreate
-from ...models.method_iw import MethodIW
 from ...models.method_iw_create import MethodIWCreate
-from ...models.method_other import MethodOTHER
 from ...models.method_other_create import MethodOTHERCreate
-from ...models.method_pt import MethodPT
 from ...models.method_pt_create import MethodPTCreate
-from ...models.method_pz import MethodPZ
 from ...models.method_pz_create import MethodPZCreate
-from ...models.method_rcd import MethodRCD
 from ...models.method_rcd_create import MethodRCDCreate
-from ...models.method_ro import MethodRO
 from ...models.method_ro_create import MethodROCreate
-from ...models.method_rp import MethodRP
 from ...models.method_rp_create import MethodRPCreate
-from ...models.method_rs import MethodRS
 from ...models.method_rs_create import MethodRSCreate
-from ...models.method_rws import MethodRWS
 from ...models.method_rws_create import MethodRWSCreate
-from ...models.method_sa import MethodSA
 from ...models.method_sa_create import MethodSACreate
-from ...models.method_slb import MethodSLB
 from ...models.method_slb_create import MethodSLBCreate
-from ...models.method_spt import MethodSPT
 from ...models.method_spt_create import MethodSPTCreate
-from ...models.method_srs import MethodSRS
 from ...models.method_srs_create import MethodSRSCreate
-from ...models.method_ss import MethodSS
 from ...models.method_ss_create import MethodSSCreate
-from ...models.method_sti import MethodSTI
 from ...models.method_sti_create import MethodSTICreate
-from ...models.method_svt import MethodSVT
 from ...models.method_svt_create import MethodSVTCreate
-from ...models.method_tot import MethodTOT
 from ...models.method_tot_create import MethodTOTCreate
-from ...models.method_tp import MethodTP
 from ...models.method_tp_create import MethodTPCreate
-from ...models.method_tr import MethodTR
 from ...models.method_tr_create import MethodTRCreate
-from ...models.method_wst import MethodWST
 from ...models.method_wst_create import MethodWSTCreate
 from ...types import Response
 
@@ -174,301 +146,7 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[
-    Union[
-        HTTPValidationError,
-        Union[
-            "MethodAD",
-            "MethodCD",
-            "MethodCPT",
-            "MethodDEF",
-            "MethodDP",
-            "MethodDT",
-            "MethodESA",
-            "MethodINC",
-            "MethodIW",
-            "MethodOTHER",
-            "MethodPT",
-            "MethodPZ",
-            "MethodRCD",
-            "MethodRO",
-            "MethodRP",
-            "MethodRS",
-            "MethodRWS",
-            "MethodSA",
-            "MethodSLB",
-            "MethodSPT",
-            "MethodSRS",
-            "MethodSS",
-            "MethodSTI",
-            "MethodSVT",
-            "MethodTOT",
-            "MethodTP",
-            "MethodTR",
-            "MethodWST",
-        ],
-    ]
-]:
-    if response.status_code == 201:
-
-        def _parse_response_201(
-            data: object,
-        ) -> Union[
-            "MethodAD",
-            "MethodCD",
-            "MethodCPT",
-            "MethodDEF",
-            "MethodDP",
-            "MethodDT",
-            "MethodESA",
-            "MethodINC",
-            "MethodIW",
-            "MethodOTHER",
-            "MethodPT",
-            "MethodPZ",
-            "MethodRCD",
-            "MethodRO",
-            "MethodRP",
-            "MethodRS",
-            "MethodRWS",
-            "MethodSA",
-            "MethodSLB",
-            "MethodSPT",
-            "MethodSRS",
-            "MethodSS",
-            "MethodSTI",
-            "MethodSVT",
-            "MethodTOT",
-            "MethodTP",
-            "MethodTR",
-            "MethodWST",
-        ]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_0 = MethodCPT.from_dict(data)
-
-                return response_201_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_1 = MethodTOT.from_dict(data)
-
-                return response_201_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_2 = MethodRP.from_dict(data)
-
-                return response_201_type_2
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_3 = MethodSA.from_dict(data)
-
-                return response_201_type_3
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_4 = MethodPZ.from_dict(data)
-
-                return response_201_type_4
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_5 = MethodSS.from_dict(data)
-
-                return response_201_type_5
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_6 = MethodRWS.from_dict(data)
-
-                return response_201_type_6
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_7 = MethodRCD.from_dict(data)
-
-                return response_201_type_7
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_8 = MethodRS.from_dict(data)
-
-                return response_201_type_8
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_9 = MethodSVT.from_dict(data)
-
-                return response_201_type_9
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_10 = MethodSPT.from_dict(data)
-
-                return response_201_type_10
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_11 = MethodCD.from_dict(data)
-
-                return response_201_type_11
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_12 = MethodTP.from_dict(data)
-
-                return response_201_type_12
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_13 = MethodPT.from_dict(data)
-
-                return response_201_type_13
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_14 = MethodESA.from_dict(data)
-
-                return response_201_type_14
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_15 = MethodTR.from_dict(data)
-
-                return response_201_type_15
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_16 = MethodAD.from_dict(data)
-
-                return response_201_type_16
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_17 = MethodRO.from_dict(data)
-
-                return response_201_type_17
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_18 = MethodINC.from_dict(data)
-
-                return response_201_type_18
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_19 = MethodDEF.from_dict(data)
-
-                return response_201_type_19
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_20 = MethodIW.from_dict(data)
-
-                return response_201_type_20
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_21 = MethodDT.from_dict(data)
-
-                return response_201_type_21
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_22 = MethodOTHER.from_dict(data)
-
-                return response_201_type_22
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_23 = MethodSRS.from_dict(data)
-
-                return response_201_type_23
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_24 = MethodDP.from_dict(data)
-
-                return response_201_type_24
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_25 = MethodWST.from_dict(data)
-
-                return response_201_type_25
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                response_201_type_26 = MethodSLB.from_dict(data)
-
-                return response_201_type_26
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            response_201_type_27 = MethodSTI.from_dict(data)
-
-            return response_201_type_27
-
-        response_201 = _parse_response_201(response.json())
-
-        return response_201
-
+) -> Optional[HTTPValidationError]:
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
@@ -482,41 +160,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[
-    Union[
-        HTTPValidationError,
-        Union[
-            "MethodAD",
-            "MethodCD",
-            "MethodCPT",
-            "MethodDEF",
-            "MethodDP",
-            "MethodDT",
-            "MethodESA",
-            "MethodINC",
-            "MethodIW",
-            "MethodOTHER",
-            "MethodPT",
-            "MethodPZ",
-            "MethodRCD",
-            "MethodRO",
-            "MethodRP",
-            "MethodRS",
-            "MethodRWS",
-            "MethodSA",
-            "MethodSLB",
-            "MethodSPT",
-            "MethodSRS",
-            "MethodSS",
-            "MethodSTI",
-            "MethodSVT",
-            "MethodTOT",
-            "MethodTP",
-            "MethodTR",
-            "MethodWST",
-        ],
-    ]
-]:
+) -> Response[HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -560,41 +204,7 @@ def sync_detailed(
         "MethodTRCreate",
         "MethodWSTCreate",
     ],
-) -> Response[
-    Union[
-        HTTPValidationError,
-        Union[
-            "MethodAD",
-            "MethodCD",
-            "MethodCPT",
-            "MethodDEF",
-            "MethodDP",
-            "MethodDT",
-            "MethodESA",
-            "MethodINC",
-            "MethodIW",
-            "MethodOTHER",
-            "MethodPT",
-            "MethodPZ",
-            "MethodRCD",
-            "MethodRO",
-            "MethodRP",
-            "MethodRS",
-            "MethodRWS",
-            "MethodSA",
-            "MethodSLB",
-            "MethodSPT",
-            "MethodSRS",
-            "MethodSS",
-            "MethodSTI",
-            "MethodSVT",
-            "MethodTOT",
-            "MethodTP",
-            "MethodTR",
-            "MethodWST",
-        ],
-    ]
-]:
+) -> Response[HTTPValidationError]:
     """Add Method To Location
 
      Add method to location
@@ -615,7 +225,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDEF', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSLB', 'MethodSPT', 'MethodSRS', 'MethodSS', 'MethodSTI', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodTR', 'MethodWST']]]
+        Response[HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -666,41 +276,7 @@ def sync(
         "MethodTRCreate",
         "MethodWSTCreate",
     ],
-) -> Optional[
-    Union[
-        HTTPValidationError,
-        Union[
-            "MethodAD",
-            "MethodCD",
-            "MethodCPT",
-            "MethodDEF",
-            "MethodDP",
-            "MethodDT",
-            "MethodESA",
-            "MethodINC",
-            "MethodIW",
-            "MethodOTHER",
-            "MethodPT",
-            "MethodPZ",
-            "MethodRCD",
-            "MethodRO",
-            "MethodRP",
-            "MethodRS",
-            "MethodRWS",
-            "MethodSA",
-            "MethodSLB",
-            "MethodSPT",
-            "MethodSRS",
-            "MethodSS",
-            "MethodSTI",
-            "MethodSVT",
-            "MethodTOT",
-            "MethodTP",
-            "MethodTR",
-            "MethodWST",
-        ],
-    ]
-]:
+) -> Optional[HTTPValidationError]:
     """Add Method To Location
 
      Add method to location
@@ -721,7 +297,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDEF', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSLB', 'MethodSPT', 'MethodSRS', 'MethodSS', 'MethodSTI', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodTR', 'MethodWST']]
+        HTTPValidationError
     """
 
     return sync_detailed(
@@ -767,41 +343,7 @@ async def asyncio_detailed(
         "MethodTRCreate",
         "MethodWSTCreate",
     ],
-) -> Response[
-    Union[
-        HTTPValidationError,
-        Union[
-            "MethodAD",
-            "MethodCD",
-            "MethodCPT",
-            "MethodDEF",
-            "MethodDP",
-            "MethodDT",
-            "MethodESA",
-            "MethodINC",
-            "MethodIW",
-            "MethodOTHER",
-            "MethodPT",
-            "MethodPZ",
-            "MethodRCD",
-            "MethodRO",
-            "MethodRP",
-            "MethodRS",
-            "MethodRWS",
-            "MethodSA",
-            "MethodSLB",
-            "MethodSPT",
-            "MethodSRS",
-            "MethodSS",
-            "MethodSTI",
-            "MethodSVT",
-            "MethodTOT",
-            "MethodTP",
-            "MethodTR",
-            "MethodWST",
-        ],
-    ]
-]:
+) -> Response[HTTPValidationError]:
     """Add Method To Location
 
      Add method to location
@@ -822,7 +364,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDEF', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSLB', 'MethodSPT', 'MethodSRS', 'MethodSS', 'MethodSTI', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodTR', 'MethodWST']]]
+        Response[HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -871,41 +413,7 @@ async def asyncio(
         "MethodTRCreate",
         "MethodWSTCreate",
     ],
-) -> Optional[
-    Union[
-        HTTPValidationError,
-        Union[
-            "MethodAD",
-            "MethodCD",
-            "MethodCPT",
-            "MethodDEF",
-            "MethodDP",
-            "MethodDT",
-            "MethodESA",
-            "MethodINC",
-            "MethodIW",
-            "MethodOTHER",
-            "MethodPT",
-            "MethodPZ",
-            "MethodRCD",
-            "MethodRO",
-            "MethodRP",
-            "MethodRS",
-            "MethodRWS",
-            "MethodSA",
-            "MethodSLB",
-            "MethodSPT",
-            "MethodSRS",
-            "MethodSS",
-            "MethodSTI",
-            "MethodSVT",
-            "MethodTOT",
-            "MethodTP",
-            "MethodTR",
-            "MethodWST",
-        ],
-    ]
-]:
+) -> Optional[HTTPValidationError]:
     """Add Method To Location
 
      Add method to location
@@ -926,7 +434,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Union['MethodAD', 'MethodCD', 'MethodCPT', 'MethodDEF', 'MethodDP', 'MethodDT', 'MethodESA', 'MethodINC', 'MethodIW', 'MethodOTHER', 'MethodPT', 'MethodPZ', 'MethodRCD', 'MethodRO', 'MethodRP', 'MethodRS', 'MethodRWS', 'MethodSA', 'MethodSLB', 'MethodSPT', 'MethodSRS', 'MethodSS', 'MethodSTI', 'MethodSVT', 'MethodTOT', 'MethodTP', 'MethodTR', 'MethodWST']]
+        HTTPValidationError
     """
 
     return (

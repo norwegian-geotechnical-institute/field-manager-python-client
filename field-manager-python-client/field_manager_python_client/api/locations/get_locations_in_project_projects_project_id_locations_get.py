@@ -6,7 +6,6 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
-from ...models.location import Location
 from ...models.method_type_enum import MethodTypeEnum
 from ...types import UNSET, Response, Unset
 
@@ -56,17 +55,7 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, list["Location"]]]:
-    if response.status_code == 200:
-        response_200 = []
-        _response_200 = response.json()
-        for response_200_item_data in _response_200:
-            response_200_item = Location.from_dict(response_200_item_data)
-
-            response_200.append(response_200_item)
-
-        return response_200
-
+) -> Optional[HTTPValidationError]:
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
@@ -80,7 +69,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, list["Location"]]]:
+) -> Response[HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -98,7 +87,7 @@ def sync_detailed(
     deleted: Union[Unset, bool] = False,
     tags: Union[Unset, list[str]] = UNSET,
     method_types: Union[Unset, list[MethodTypeEnum]] = UNSET,
-) -> Response[Union[HTTPValidationError, list["Location"]]]:
+) -> Response[HTTPValidationError]:
     """Get Locations In Project
 
      Return all locations in project.
@@ -121,7 +110,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['Location']]]
+        Response[HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -149,7 +138,7 @@ def sync(
     deleted: Union[Unset, bool] = False,
     tags: Union[Unset, list[str]] = UNSET,
     method_types: Union[Unset, list[MethodTypeEnum]] = UNSET,
-) -> Optional[Union[HTTPValidationError, list["Location"]]]:
+) -> Optional[HTTPValidationError]:
     """Get Locations In Project
 
      Return all locations in project.
@@ -172,7 +161,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['Location']]
+        HTTPValidationError
     """
 
     return sync_detailed(
@@ -195,7 +184,7 @@ async def asyncio_detailed(
     deleted: Union[Unset, bool] = False,
     tags: Union[Unset, list[str]] = UNSET,
     method_types: Union[Unset, list[MethodTypeEnum]] = UNSET,
-) -> Response[Union[HTTPValidationError, list["Location"]]]:
+) -> Response[HTTPValidationError]:
     """Get Locations In Project
 
      Return all locations in project.
@@ -218,7 +207,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['Location']]]
+        Response[HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -244,7 +233,7 @@ async def asyncio(
     deleted: Union[Unset, bool] = False,
     tags: Union[Unset, list[str]] = UNSET,
     method_types: Union[Unset, list[MethodTypeEnum]] = UNSET,
-) -> Optional[Union[HTTPValidationError, list["Location"]]]:
+) -> Optional[HTTPValidationError]:
     """Get Locations In Project
 
      Return all locations in project.
@@ -267,7 +256,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['Location']]
+        HTTPValidationError
     """
 
     return (
