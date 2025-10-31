@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, Literal, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -13,66 +15,66 @@ T = TypeVar("T", bound="MethodSVTDataUpdate")
 class MethodSVTDataUpdate:
     """
     Attributes:
-        method_type_id (Union[Literal[10], Unset]):  Default: 10.
-        depth_top (Union[None, Unset, float, str]): Depth (m).
-        maximum_measurement_torque (Union[None, Unset, float, str]): Maximum measurement torque (Nm).
-        maximum_measurement_torque_remoulded (Union[None, Unset, float, str]): Maximum measurement torque (Nm).
-        shear_strength (Union[None, Unset, float, str]): Shear strength (kPa). SGF code AS.
-        shear_strength_remoulded (Union[None, Unset, float, str]): Shear strength (kPa).
-        sensitivity (Union[None, Unset, float, str]): Sensitivity (unitless). SGF code SV.
-        remarks (Union[None, Unset, str]):
+        method_type_id (Literal[10] | Unset):  Default: 10.
+        depth_top (float | None | str | Unset): Depth (m).
+        maximum_measurement_torque (float | None | str | Unset): Maximum measurement torque (Nm).
+        maximum_measurement_torque_remoulded (float | None | str | Unset): Maximum measurement torque (Nm).
+        shear_strength (float | None | str | Unset): Shear strength (kPa). SGF code AS.
+        shear_strength_remoulded (float | None | str | Unset): Shear strength (kPa).
+        sensitivity (float | None | str | Unset): Sensitivity (unitless). SGF code SV.
+        remarks (None | str | Unset):
     """
 
-    method_type_id: Union[Literal[10], Unset] = 10
-    depth_top: Union[None, Unset, float, str] = UNSET
-    maximum_measurement_torque: Union[None, Unset, float, str] = UNSET
-    maximum_measurement_torque_remoulded: Union[None, Unset, float, str] = UNSET
-    shear_strength: Union[None, Unset, float, str] = UNSET
-    shear_strength_remoulded: Union[None, Unset, float, str] = UNSET
-    sensitivity: Union[None, Unset, float, str] = UNSET
-    remarks: Union[None, Unset, str] = UNSET
+    method_type_id: Literal[10] | Unset = 10
+    depth_top: float | None | str | Unset = UNSET
+    maximum_measurement_torque: float | None | str | Unset = UNSET
+    maximum_measurement_torque_remoulded: float | None | str | Unset = UNSET
+    shear_strength: float | None | str | Unset = UNSET
+    shear_strength_remoulded: float | None | str | Unset = UNSET
+    sensitivity: float | None | str | Unset = UNSET
+    remarks: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         method_type_id = self.method_type_id
 
-        depth_top: Union[None, Unset, float, str]
+        depth_top: float | None | str | Unset
         if isinstance(self.depth_top, Unset):
             depth_top = UNSET
         else:
             depth_top = self.depth_top
 
-        maximum_measurement_torque: Union[None, Unset, float, str]
+        maximum_measurement_torque: float | None | str | Unset
         if isinstance(self.maximum_measurement_torque, Unset):
             maximum_measurement_torque = UNSET
         else:
             maximum_measurement_torque = self.maximum_measurement_torque
 
-        maximum_measurement_torque_remoulded: Union[None, Unset, float, str]
+        maximum_measurement_torque_remoulded: float | None | str | Unset
         if isinstance(self.maximum_measurement_torque_remoulded, Unset):
             maximum_measurement_torque_remoulded = UNSET
         else:
             maximum_measurement_torque_remoulded = self.maximum_measurement_torque_remoulded
 
-        shear_strength: Union[None, Unset, float, str]
+        shear_strength: float | None | str | Unset
         if isinstance(self.shear_strength, Unset):
             shear_strength = UNSET
         else:
             shear_strength = self.shear_strength
 
-        shear_strength_remoulded: Union[None, Unset, float, str]
+        shear_strength_remoulded: float | None | str | Unset
         if isinstance(self.shear_strength_remoulded, Unset):
             shear_strength_remoulded = UNSET
         else:
             shear_strength_remoulded = self.shear_strength_remoulded
 
-        sensitivity: Union[None, Unset, float, str]
+        sensitivity: float | None | str | Unset
         if isinstance(self.sensitivity, Unset):
             sensitivity = UNSET
         else:
             sensitivity = self.sensitivity
 
-        remarks: Union[None, Unset, str]
+        remarks: None | str | Unset
         if isinstance(self.remarks, Unset):
             remarks = UNSET
         else:
@@ -103,72 +105,72 @@ class MethodSVTDataUpdate:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        method_type_id = cast(Union[Literal[10], Unset], d.pop("method_type_id", UNSET))
+        method_type_id = cast(Literal[10] | Unset, d.pop("method_type_id", UNSET))
         if method_type_id != 10 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 10, got '{method_type_id}'")
 
-        def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
+        def _parse_depth_top(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
 
-        def _parse_maximum_measurement_torque(data: object) -> Union[None, Unset, float, str]:
+        def _parse_maximum_measurement_torque(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         maximum_measurement_torque = _parse_maximum_measurement_torque(d.pop("maximum_measurement_torque", UNSET))
 
-        def _parse_maximum_measurement_torque_remoulded(data: object) -> Union[None, Unset, float, str]:
+        def _parse_maximum_measurement_torque_remoulded(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         maximum_measurement_torque_remoulded = _parse_maximum_measurement_torque_remoulded(
             d.pop("maximum_measurement_torque_remoulded", UNSET)
         )
 
-        def _parse_shear_strength(data: object) -> Union[None, Unset, float, str]:
+        def _parse_shear_strength(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         shear_strength = _parse_shear_strength(d.pop("shear_strength", UNSET))
 
-        def _parse_shear_strength_remoulded(data: object) -> Union[None, Unset, float, str]:
+        def _parse_shear_strength_remoulded(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         shear_strength_remoulded = _parse_shear_strength_remoulded(d.pop("shear_strength_remoulded", UNSET))
 
-        def _parse_sensitivity(data: object) -> Union[None, Unset, float, str]:
+        def _parse_sensitivity(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         sensitivity = _parse_sensitivity(d.pop("sensitivity", UNSET))
 
-        def _parse_remarks(data: object) -> Union[None, Unset, str]:
+        def _parse_remarks(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 

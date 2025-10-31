@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -19,8 +19,8 @@ def _get_kwargs() -> dict[str, Any]:
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[list["SamplingTechnique"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> list[SamplingTechnique] | None:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -38,8 +38,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[list["SamplingTechnique"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[list[SamplingTechnique]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -50,16 +50,21 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[list["SamplingTechnique"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list[SamplingTechnique]]:
     """Get Sampling Techniques
+
+     Get all sampling techniques.
+
+    Please note that this endpoint will look at the Accept-Language header in the request
+    to determine the language for the response data.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list['SamplingTechnique']]
+        Response[list[SamplingTechnique]]
     """
 
     kwargs = _get_kwargs()
@@ -73,16 +78,21 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[list["SamplingTechnique"]]:
+    client: AuthenticatedClient | Client,
+) -> list[SamplingTechnique] | None:
     """Get Sampling Techniques
+
+     Get all sampling techniques.
+
+    Please note that this endpoint will look at the Accept-Language header in the request
+    to determine the language for the response data.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list['SamplingTechnique']
+        list[SamplingTechnique]
     """
 
     return sync_detailed(
@@ -92,16 +102,21 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[list["SamplingTechnique"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list[SamplingTechnique]]:
     """Get Sampling Techniques
+
+     Get all sampling techniques.
+
+    Please note that this endpoint will look at the Accept-Language header in the request
+    to determine the language for the response data.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list['SamplingTechnique']]
+        Response[list[SamplingTechnique]]
     """
 
     kwargs = _get_kwargs()
@@ -113,16 +128,21 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[list["SamplingTechnique"]]:
+    client: AuthenticatedClient | Client,
+) -> list[SamplingTechnique] | None:
     """Get Sampling Techniques
+
+     Get all sampling techniques.
+
+    Please note that this endpoint will look at the Accept-Language header in the request
+    to determine the language for the response data.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list['SamplingTechnique']
+        list[SamplingTechnique]
     """
 
     return (

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,12 +20,12 @@ T = TypeVar("T", bound="PlotSequence")
 class PlotSequence:
     """
     Attributes:
-        sequence (list['PlotInfoObject']):
-        options (Union[Unset, PlotSequenceOptions]):
+        sequence (list[PlotInfoObject]):
+        options (PlotSequenceOptions | Unset):
     """
 
-    sequence: list["PlotInfoObject"]
-    options: Union[Unset, "PlotSequenceOptions"] = UNSET
+    sequence: list[PlotInfoObject]
+    options: PlotSequenceOptions | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -32,7 +34,7 @@ class PlotSequence:
             sequence_item = sequence_item_data.to_dict()
             sequence.append(sequence_item)
 
-        options: Union[Unset, dict[str, Any]] = UNSET
+        options: dict[str, Any] | Unset = UNSET
         if not isinstance(self.options, Unset):
             options = self.options.to_dict()
 
@@ -62,7 +64,7 @@ class PlotSequence:
             sequence.append(sequence_item)
 
         _options = d.pop("options", UNSET)
-        options: Union[Unset, PlotSequenceOptions]
+        options: PlotSequenceOptions | Unset
         if isinstance(_options, Unset):
             options = UNSET
         else:

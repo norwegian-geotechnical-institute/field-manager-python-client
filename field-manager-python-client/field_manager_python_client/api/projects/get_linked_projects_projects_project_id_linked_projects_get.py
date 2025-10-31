@@ -1,11 +1,12 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
+from ...models.linked_project_info import LinkedProjectInfo
 from ...types import Response
 
 
@@ -21,8 +22,18 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[HTTPValidationError]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | list[LinkedProjectInfo] | None:
+    if response.status_code == 200:
+        response_200 = []
+        _response_200 = response.json()
+        for response_200_item_data in _response_200:
+            response_200_item = LinkedProjectInfo.from_dict(response_200_item_data)
+
+            response_200.append(response_200_item)
+
+        return response_200
+
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
@@ -35,8 +46,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[HTTPValidationError]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | list[LinkedProjectInfo]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -49,7 +60,7 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[HTTPValidationError]:
+) -> Response[HTTPValidationError | list[LinkedProjectInfo]]:
     """Get Linked Projects
 
      Get all linked projects in a project by project_id.
@@ -62,7 +73,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[HTTPValidationError | list[LinkedProjectInfo]]
     """
 
     kwargs = _get_kwargs(
@@ -80,7 +91,7 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[HTTPValidationError]:
+) -> HTTPValidationError | list[LinkedProjectInfo] | None:
     """Get Linked Projects
 
      Get all linked projects in a project by project_id.
@@ -93,7 +104,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        HTTPValidationError | list[LinkedProjectInfo]
     """
 
     return sync_detailed(
@@ -106,7 +117,7 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[HTTPValidationError]:
+) -> Response[HTTPValidationError | list[LinkedProjectInfo]]:
     """Get Linked Projects
 
      Get all linked projects in a project by project_id.
@@ -119,7 +130,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[HTTPValidationError | list[LinkedProjectInfo]]
     """
 
     kwargs = _get_kwargs(
@@ -135,7 +146,7 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[HTTPValidationError]:
+) -> HTTPValidationError | list[LinkedProjectInfo] | None:
     """Get Linked Projects
 
      Get all linked projects in a project by project_id.
@@ -148,7 +159,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        HTTPValidationError | list[LinkedProjectInfo]
     """
 
     return (

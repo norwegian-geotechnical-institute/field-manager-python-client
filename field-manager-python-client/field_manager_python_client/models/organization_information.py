@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -13,46 +15,46 @@ T = TypeVar("T", bound="OrganizationInformation")
 class OrganizationInformation:
     """
     Attributes:
-        external_id (Union[None, Unset, str]):
-        name (Union[None, Unset, str]):
-        logo (Union[None, Unset, str]):
-        logo_mime_type (Union[None, Unset, str]):
-        authentication_alias (Union[None, Unset, str]):
+        external_id (None | str | Unset):
+        name (None | str | Unset):
+        logo (None | str | Unset):
+        logo_mime_type (None | str | Unset):
+        authentication_alias (None | str | Unset):
     """
 
-    external_id: Union[None, Unset, str] = UNSET
-    name: Union[None, Unset, str] = UNSET
-    logo: Union[None, Unset, str] = UNSET
-    logo_mime_type: Union[None, Unset, str] = UNSET
-    authentication_alias: Union[None, Unset, str] = UNSET
+    external_id: None | str | Unset = UNSET
+    name: None | str | Unset = UNSET
+    logo: None | str | Unset = UNSET
+    logo_mime_type: None | str | Unset = UNSET
+    authentication_alias: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        external_id: Union[None, Unset, str]
+        external_id: None | str | Unset
         if isinstance(self.external_id, Unset):
             external_id = UNSET
         else:
             external_id = self.external_id
 
-        name: Union[None, Unset, str]
+        name: None | str | Unset
         if isinstance(self.name, Unset):
             name = UNSET
         else:
             name = self.name
 
-        logo: Union[None, Unset, str]
+        logo: None | str | Unset
         if isinstance(self.logo, Unset):
             logo = UNSET
         else:
             logo = self.logo
 
-        logo_mime_type: Union[None, Unset, str]
+        logo_mime_type: None | str | Unset
         if isinstance(self.logo_mime_type, Unset):
             logo_mime_type = UNSET
         else:
             logo_mime_type = self.logo_mime_type
 
-        authentication_alias: Union[None, Unset, str]
+        authentication_alias: None | str | Unset
         if isinstance(self.authentication_alias, Unset):
             authentication_alias = UNSET
         else:
@@ -78,48 +80,48 @@ class OrganizationInformation:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
 
-        def _parse_external_id(data: object) -> Union[None, Unset, str]:
+        def _parse_external_id(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         external_id = _parse_external_id(d.pop("external_id", UNSET))
 
-        def _parse_name(data: object) -> Union[None, Unset, str]:
+        def _parse_name(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         name = _parse_name(d.pop("name", UNSET))
 
-        def _parse_logo(data: object) -> Union[None, Unset, str]:
+        def _parse_logo(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         logo = _parse_logo(d.pop("logo", UNSET))
 
-        def _parse_logo_mime_type(data: object) -> Union[None, Unset, str]:
+        def _parse_logo_mime_type(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         logo_mime_type = _parse_logo_mime_type(d.pop("logo_mime_type", UNSET))
 
-        def _parse_authentication_alias(data: object) -> Union[None, Unset, str]:
+        def _parse_authentication_alias(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         authentication_alias = _parse_authentication_alias(d.pop("authentication_alias", UNSET))
 

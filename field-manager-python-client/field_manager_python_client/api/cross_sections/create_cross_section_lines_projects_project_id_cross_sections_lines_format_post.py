@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -17,11 +17,11 @@ def _get_kwargs(
     project_id: str,
     format_: CreateCrossSectionLinesProjectsProjectIdCrossSectionsLinesFormatPostFormat,
     *,
-    cross_section_ids: Union[Unset, list[UUID]] = UNSET,
+    cross_section_ids: list[UUID] | Unset = UNSET,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
 
-    json_cross_section_ids: Union[Unset, list[str]] = UNSET
+    json_cross_section_ids: list[str] | Unset = UNSET
     if not isinstance(cross_section_ids, Unset):
         json_cross_section_ids = []
         for cross_section_ids_item_data in cross_section_ids:
@@ -42,8 +42,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Any | HTTPValidationError | None:
     if response.status_code == 201:
         response_201 = response.json()
         return response_201
@@ -60,8 +60,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Any | HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -75,8 +75,8 @@ def sync_detailed(
     format_: CreateCrossSectionLinesProjectsProjectIdCrossSectionsLinesFormatPostFormat,
     *,
     client: AuthenticatedClient,
-    cross_section_ids: Union[Unset, list[UUID]] = UNSET,
-) -> Response[Union[Any, HTTPValidationError]]:
+    cross_section_ids: list[UUID] | Unset = UNSET,
+) -> Response[Any | HTTPValidationError]:
     """Create Cross Section Lines
 
      Get a dxf file or shapefile bundle containing the cross section lines
@@ -84,14 +84,14 @@ def sync_detailed(
     Args:
         project_id (str):
         format_ (CreateCrossSectionLinesProjectsProjectIdCrossSectionsLinesFormatPostFormat):
-        cross_section_ids (Union[Unset, list[UUID]]):
+        cross_section_ids (list[UUID] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, HTTPValidationError]]
+        Response[Any | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -112,8 +112,8 @@ def sync(
     format_: CreateCrossSectionLinesProjectsProjectIdCrossSectionsLinesFormatPostFormat,
     *,
     client: AuthenticatedClient,
-    cross_section_ids: Union[Unset, list[UUID]] = UNSET,
-) -> Optional[Union[Any, HTTPValidationError]]:
+    cross_section_ids: list[UUID] | Unset = UNSET,
+) -> Any | HTTPValidationError | None:
     """Create Cross Section Lines
 
      Get a dxf file or shapefile bundle containing the cross section lines
@@ -121,14 +121,14 @@ def sync(
     Args:
         project_id (str):
         format_ (CreateCrossSectionLinesProjectsProjectIdCrossSectionsLinesFormatPostFormat):
-        cross_section_ids (Union[Unset, list[UUID]]):
+        cross_section_ids (list[UUID] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, HTTPValidationError]
+        Any | HTTPValidationError
     """
 
     return sync_detailed(
@@ -144,8 +144,8 @@ async def asyncio_detailed(
     format_: CreateCrossSectionLinesProjectsProjectIdCrossSectionsLinesFormatPostFormat,
     *,
     client: AuthenticatedClient,
-    cross_section_ids: Union[Unset, list[UUID]] = UNSET,
-) -> Response[Union[Any, HTTPValidationError]]:
+    cross_section_ids: list[UUID] | Unset = UNSET,
+) -> Response[Any | HTTPValidationError]:
     """Create Cross Section Lines
 
      Get a dxf file or shapefile bundle containing the cross section lines
@@ -153,14 +153,14 @@ async def asyncio_detailed(
     Args:
         project_id (str):
         format_ (CreateCrossSectionLinesProjectsProjectIdCrossSectionsLinesFormatPostFormat):
-        cross_section_ids (Union[Unset, list[UUID]]):
+        cross_section_ids (list[UUID] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, HTTPValidationError]]
+        Response[Any | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -179,8 +179,8 @@ async def asyncio(
     format_: CreateCrossSectionLinesProjectsProjectIdCrossSectionsLinesFormatPostFormat,
     *,
     client: AuthenticatedClient,
-    cross_section_ids: Union[Unset, list[UUID]] = UNSET,
-) -> Optional[Union[Any, HTTPValidationError]]:
+    cross_section_ids: list[UUID] | Unset = UNSET,
+) -> Any | HTTPValidationError | None:
     """Create Cross Section Lines
 
      Get a dxf file or shapefile bundle containing the cross section lines
@@ -188,14 +188,14 @@ async def asyncio(
     Args:
         project_id (str):
         format_ (CreateCrossSectionLinesProjectsProjectIdCrossSectionsLinesFormatPostFormat):
-        cross_section_ids (Union[Unset, list[UUID]]):
+        cross_section_ids (list[UUID] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, HTTPValidationError]
+        Any | HTTPValidationError
     """
 
     return (

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -17,7 +17,7 @@ def _get_kwargs(
     method_id: UUID,
     *,
     export_type: MethodExportType,
-    swap_x_y: Union[Unset, bool] = False,
+    swap_x_y: bool | Unset = False,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
 
@@ -38,8 +38,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Any | HTTPValidationError | None:
     if response.status_code == 200:
         response_200 = response.json()
         return response_200
@@ -56,8 +56,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Any | HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -73,8 +73,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     export_type: MethodExportType,
-    swap_x_y: Union[Unset, bool] = False,
-) -> Response[Union[Any, HTTPValidationError]]:
+    swap_x_y: bool | Unset = False,
+) -> Response[Any | HTTPValidationError]:
     """Export
 
      Endpoint for exporting specified method data.
@@ -93,14 +93,14 @@ def sync_detailed(
         location_id (UUID):
         method_id (UUID):
         export_type (MethodExportType):
-        swap_x_y (Union[Unset, bool]):  Default: False.
+        swap_x_y (bool | Unset):  Default: False.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, HTTPValidationError]]
+        Response[Any | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -125,8 +125,8 @@ def sync(
     *,
     client: AuthenticatedClient,
     export_type: MethodExportType,
-    swap_x_y: Union[Unset, bool] = False,
-) -> Optional[Union[Any, HTTPValidationError]]:
+    swap_x_y: bool | Unset = False,
+) -> Any | HTTPValidationError | None:
     """Export
 
      Endpoint for exporting specified method data.
@@ -145,14 +145,14 @@ def sync(
         location_id (UUID):
         method_id (UUID):
         export_type (MethodExportType):
-        swap_x_y (Union[Unset, bool]):  Default: False.
+        swap_x_y (bool | Unset):  Default: False.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, HTTPValidationError]
+        Any | HTTPValidationError
     """
 
     return sync_detailed(
@@ -172,8 +172,8 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     export_type: MethodExportType,
-    swap_x_y: Union[Unset, bool] = False,
-) -> Response[Union[Any, HTTPValidationError]]:
+    swap_x_y: bool | Unset = False,
+) -> Response[Any | HTTPValidationError]:
     """Export
 
      Endpoint for exporting specified method data.
@@ -192,14 +192,14 @@ async def asyncio_detailed(
         location_id (UUID):
         method_id (UUID):
         export_type (MethodExportType):
-        swap_x_y (Union[Unset, bool]):  Default: False.
+        swap_x_y (bool | Unset):  Default: False.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, HTTPValidationError]]
+        Response[Any | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -222,8 +222,8 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     export_type: MethodExportType,
-    swap_x_y: Union[Unset, bool] = False,
-) -> Optional[Union[Any, HTTPValidationError]]:
+    swap_x_y: bool | Unset = False,
+) -> Any | HTTPValidationError | None:
     """Export
 
      Endpoint for exporting specified method data.
@@ -242,14 +242,14 @@ async def asyncio(
         location_id (UUID):
         method_id (UUID):
         export_type (MethodExportType):
-        swap_x_y (Union[Unset, bool]):  Default: False.
+        swap_x_y (bool | Unset):  Default: False.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, HTTPValidationError]
+        Any | HTTPValidationError
     """
 
     return (

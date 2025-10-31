@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -13,11 +13,11 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     project_id: str,
     *,
-    file_ids: Union[Unset, list[UUID]] = UNSET,
+    file_ids: list[UUID] | Unset = UNSET,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
 
-    json_file_ids: Union[Unset, list[str]] = UNSET
+    json_file_ids: list[str] | Unset = UNSET
     if not isinstance(file_ids, Unset):
         json_file_ids = []
         for file_ids_item_data in file_ids:
@@ -38,8 +38,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Any | HTTPValidationError | None:
     if response.status_code == 200:
         response_200 = response.json()
         return response_200
@@ -56,8 +56,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Any | HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -70,8 +70,8 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    file_ids: Union[Unset, list[UUID]] = UNSET,
-) -> Response[Union[Any, HTTPValidationError]]:
+    file_ids: list[UUID] | Unset = UNSET,
+) -> Response[Any | HTTPValidationError]:
     """Export Files
 
      Export specified project files in one zip file.
@@ -81,14 +81,14 @@ def sync_detailed(
 
     Args:
         project_id (str):
-        file_ids (Union[Unset, list[UUID]]):
+        file_ids (list[UUID] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, HTTPValidationError]]
+        Response[Any | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -107,8 +107,8 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    file_ids: Union[Unset, list[UUID]] = UNSET,
-) -> Optional[Union[Any, HTTPValidationError]]:
+    file_ids: list[UUID] | Unset = UNSET,
+) -> Any | HTTPValidationError | None:
     """Export Files
 
      Export specified project files in one zip file.
@@ -118,14 +118,14 @@ def sync(
 
     Args:
         project_id (str):
-        file_ids (Union[Unset, list[UUID]]):
+        file_ids (list[UUID] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, HTTPValidationError]
+        Any | HTTPValidationError
     """
 
     return sync_detailed(
@@ -139,8 +139,8 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    file_ids: Union[Unset, list[UUID]] = UNSET,
-) -> Response[Union[Any, HTTPValidationError]]:
+    file_ids: list[UUID] | Unset = UNSET,
+) -> Response[Any | HTTPValidationError]:
     """Export Files
 
      Export specified project files in one zip file.
@@ -150,14 +150,14 @@ async def asyncio_detailed(
 
     Args:
         project_id (str):
-        file_ids (Union[Unset, list[UUID]]):
+        file_ids (list[UUID] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, HTTPValidationError]]
+        Response[Any | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -174,8 +174,8 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    file_ids: Union[Unset, list[UUID]] = UNSET,
-) -> Optional[Union[Any, HTTPValidationError]]:
+    file_ids: list[UUID] | Unset = UNSET,
+) -> Any | HTTPValidationError | None:
     """Export Files
 
      Export specified project files in one zip file.
@@ -185,14 +185,14 @@ async def asyncio(
 
     Args:
         project_id (str):
-        file_ids (Union[Unset, list[UUID]]):
+        file_ids (list[UUID] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, HTTPValidationError]
+        Any | HTTPValidationError
     """
 
     return (

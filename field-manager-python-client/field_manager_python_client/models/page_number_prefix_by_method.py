@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -13,86 +15,86 @@ T = TypeVar("T", bound="PageNumberPrefixByMethod")
 class PageNumberPrefixByMethod:
     """
     Attributes:
-        cpt (Union[None, Unset, str]):  Default: ''.
-        pz (Union[None, Unset, str]):  Default: ''.
-        ss (Union[None, Unset, str]):  Default: ''.
-        svt (Union[None, Unset, str]):  Default: ''.
-        rp (Union[None, Unset, str]):  Default: ''.
-        tot (Union[None, Unset, str]):  Default: ''.
-        rcd (Union[None, Unset, str]):  Default: ''.
-        dp (Union[None, Unset, str]):  Default: ''.
-        srs (Union[None, Unset, str]):  Default: ''.
-        wst (Union[None, Unset, str]):  Default: ''.
+        cpt (None | str | Unset):  Default: ''.
+        pz (None | str | Unset):  Default: ''.
+        ss (None | str | Unset):  Default: ''.
+        svt (None | str | Unset):  Default: ''.
+        rp (None | str | Unset):  Default: ''.
+        tot (None | str | Unset):  Default: ''.
+        rcd (None | str | Unset):  Default: ''.
+        dp (None | str | Unset):  Default: ''.
+        srs (None | str | Unset):  Default: ''.
+        wst (None | str | Unset):  Default: ''.
     """
 
-    cpt: Union[None, Unset, str] = ""
-    pz: Union[None, Unset, str] = ""
-    ss: Union[None, Unset, str] = ""
-    svt: Union[None, Unset, str] = ""
-    rp: Union[None, Unset, str] = ""
-    tot: Union[None, Unset, str] = ""
-    rcd: Union[None, Unset, str] = ""
-    dp: Union[None, Unset, str] = ""
-    srs: Union[None, Unset, str] = ""
-    wst: Union[None, Unset, str] = ""
+    cpt: None | str | Unset = ""
+    pz: None | str | Unset = ""
+    ss: None | str | Unset = ""
+    svt: None | str | Unset = ""
+    rp: None | str | Unset = ""
+    tot: None | str | Unset = ""
+    rcd: None | str | Unset = ""
+    dp: None | str | Unset = ""
+    srs: None | str | Unset = ""
+    wst: None | str | Unset = ""
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        cpt: Union[None, Unset, str]
+        cpt: None | str | Unset
         if isinstance(self.cpt, Unset):
             cpt = UNSET
         else:
             cpt = self.cpt
 
-        pz: Union[None, Unset, str]
+        pz: None | str | Unset
         if isinstance(self.pz, Unset):
             pz = UNSET
         else:
             pz = self.pz
 
-        ss: Union[None, Unset, str]
+        ss: None | str | Unset
         if isinstance(self.ss, Unset):
             ss = UNSET
         else:
             ss = self.ss
 
-        svt: Union[None, Unset, str]
+        svt: None | str | Unset
         if isinstance(self.svt, Unset):
             svt = UNSET
         else:
             svt = self.svt
 
-        rp: Union[None, Unset, str]
+        rp: None | str | Unset
         if isinstance(self.rp, Unset):
             rp = UNSET
         else:
             rp = self.rp
 
-        tot: Union[None, Unset, str]
+        tot: None | str | Unset
         if isinstance(self.tot, Unset):
             tot = UNSET
         else:
             tot = self.tot
 
-        rcd: Union[None, Unset, str]
+        rcd: None | str | Unset
         if isinstance(self.rcd, Unset):
             rcd = UNSET
         else:
             rcd = self.rcd
 
-        dp: Union[None, Unset, str]
+        dp: None | str | Unset
         if isinstance(self.dp, Unset):
             dp = UNSET
         else:
             dp = self.dp
 
-        srs: Union[None, Unset, str]
+        srs: None | str | Unset
         if isinstance(self.srs, Unset):
             srs = UNSET
         else:
             srs = self.srs
 
-        wst: Union[None, Unset, str]
+        wst: None | str | Unset
         if isinstance(self.wst, Unset):
             wst = UNSET
         else:
@@ -128,93 +130,93 @@ class PageNumberPrefixByMethod:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
 
-        def _parse_cpt(data: object) -> Union[None, Unset, str]:
+        def _parse_cpt(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         cpt = _parse_cpt(d.pop("CPT", UNSET))
 
-        def _parse_pz(data: object) -> Union[None, Unset, str]:
+        def _parse_pz(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         pz = _parse_pz(d.pop("PZ", UNSET))
 
-        def _parse_ss(data: object) -> Union[None, Unset, str]:
+        def _parse_ss(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         ss = _parse_ss(d.pop("SS", UNSET))
 
-        def _parse_svt(data: object) -> Union[None, Unset, str]:
+        def _parse_svt(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         svt = _parse_svt(d.pop("SVT", UNSET))
 
-        def _parse_rp(data: object) -> Union[None, Unset, str]:
+        def _parse_rp(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         rp = _parse_rp(d.pop("RP", UNSET))
 
-        def _parse_tot(data: object) -> Union[None, Unset, str]:
+        def _parse_tot(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         tot = _parse_tot(d.pop("TOT", UNSET))
 
-        def _parse_rcd(data: object) -> Union[None, Unset, str]:
+        def _parse_rcd(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         rcd = _parse_rcd(d.pop("RCD", UNSET))
 
-        def _parse_dp(data: object) -> Union[None, Unset, str]:
+        def _parse_dp(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         dp = _parse_dp(d.pop("DP", UNSET))
 
-        def _parse_srs(data: object) -> Union[None, Unset, str]:
+        def _parse_srs(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         srs = _parse_srs(d.pop("SRS", UNSET))
 
-        def _parse_wst(data: object) -> Union[None, Unset, str]:
+        def _parse_wst(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         wst = _parse_wst(d.pop("WST", UNSET))
 

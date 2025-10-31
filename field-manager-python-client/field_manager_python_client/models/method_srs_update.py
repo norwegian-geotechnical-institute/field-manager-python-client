@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, Literal, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -18,38 +20,38 @@ T = TypeVar("T", bound="MethodSRSUpdate")
 class MethodSRSUpdate:
     """
     Attributes:
-        method_id (Union[None, UUID, Unset]):
-        name (Union[None, Unset, str]):
-        remarks (Union[None, Unset, str]):
-        method_status_id (Union[MethodStatusEnum, None, Unset]):
-        updated_at (Union[None, Unset, datetime.datetime]):
-        updated_by (Union[None, Unset, str]):
-        conducted_by (Union[None, Unset, str]):
-        conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Literal[24], Unset]):  Default: 24.
-        sounding_class (Union[None, SoundingClass, Unset]):
-        serial_number (Union[None, Unset, str]):
-        calibration_date (Union[None, Unset, datetime.datetime]):
-        conversion_factor (Union[None, Unset, float, str]):
+        method_id (None | Unset | UUID):
+        name (None | str | Unset):
+        remarks (None | str | Unset):
+        method_status_id (MethodStatusEnum | None | Unset):
+        updated_at (datetime.datetime | None | Unset):
+        updated_by (None | str | Unset):
+        conducted_by (None | str | Unset):
+        conducted_at (datetime.datetime | None | Unset):
+        method_type_id (Literal[24] | Unset):  Default: 24.
+        sounding_class (None | SoundingClass | Unset):
+        serial_number (None | str | Unset):
+        calibration_date (datetime.datetime | None | Unset):
+        conversion_factor (float | None | str | Unset):
     """
 
-    method_id: Union[None, UUID, Unset] = UNSET
-    name: Union[None, Unset, str] = UNSET
-    remarks: Union[None, Unset, str] = UNSET
-    method_status_id: Union[MethodStatusEnum, None, Unset] = UNSET
-    updated_at: Union[None, Unset, datetime.datetime] = UNSET
-    updated_by: Union[None, Unset, str] = UNSET
-    conducted_by: Union[None, Unset, str] = UNSET
-    conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Literal[24], Unset] = 24
-    sounding_class: Union[None, SoundingClass, Unset] = UNSET
-    serial_number: Union[None, Unset, str] = UNSET
-    calibration_date: Union[None, Unset, datetime.datetime] = UNSET
-    conversion_factor: Union[None, Unset, float, str] = UNSET
+    method_id: None | Unset | UUID = UNSET
+    name: None | str | Unset = UNSET
+    remarks: None | str | Unset = UNSET
+    method_status_id: MethodStatusEnum | None | Unset = UNSET
+    updated_at: datetime.datetime | None | Unset = UNSET
+    updated_by: None | str | Unset = UNSET
+    conducted_by: None | str | Unset = UNSET
+    conducted_at: datetime.datetime | None | Unset = UNSET
+    method_type_id: Literal[24] | Unset = 24
+    sounding_class: None | SoundingClass | Unset = UNSET
+    serial_number: None | str | Unset = UNSET
+    calibration_date: datetime.datetime | None | Unset = UNSET
+    conversion_factor: float | None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        method_id: Union[None, Unset, str]
+        method_id: None | str | Unset
         if isinstance(self.method_id, Unset):
             method_id = UNSET
         elif isinstance(self.method_id, UUID):
@@ -57,19 +59,19 @@ class MethodSRSUpdate:
         else:
             method_id = self.method_id
 
-        name: Union[None, Unset, str]
+        name: None | str | Unset
         if isinstance(self.name, Unset):
             name = UNSET
         else:
             name = self.name
 
-        remarks: Union[None, Unset, str]
+        remarks: None | str | Unset
         if isinstance(self.remarks, Unset):
             remarks = UNSET
         else:
             remarks = self.remarks
 
-        method_status_id: Union[None, Unset, int]
+        method_status_id: int | None | Unset
         if isinstance(self.method_status_id, Unset):
             method_status_id = UNSET
         elif isinstance(self.method_status_id, MethodStatusEnum):
@@ -77,7 +79,7 @@ class MethodSRSUpdate:
         else:
             method_status_id = self.method_status_id
 
-        updated_at: Union[None, Unset, str]
+        updated_at: None | str | Unset
         if isinstance(self.updated_at, Unset):
             updated_at = UNSET
         elif isinstance(self.updated_at, datetime.datetime):
@@ -85,19 +87,19 @@ class MethodSRSUpdate:
         else:
             updated_at = self.updated_at
 
-        updated_by: Union[None, Unset, str]
+        updated_by: None | str | Unset
         if isinstance(self.updated_by, Unset):
             updated_by = UNSET
         else:
             updated_by = self.updated_by
 
-        conducted_by: Union[None, Unset, str]
+        conducted_by: None | str | Unset
         if isinstance(self.conducted_by, Unset):
             conducted_by = UNSET
         else:
             conducted_by = self.conducted_by
 
-        conducted_at: Union[None, Unset, str]
+        conducted_at: None | str | Unset
         if isinstance(self.conducted_at, Unset):
             conducted_at = UNSET
         elif isinstance(self.conducted_at, datetime.datetime):
@@ -107,7 +109,7 @@ class MethodSRSUpdate:
 
         method_type_id = self.method_type_id
 
-        sounding_class: Union[None, Unset, str]
+        sounding_class: None | str | Unset
         if isinstance(self.sounding_class, Unset):
             sounding_class = UNSET
         elif isinstance(self.sounding_class, SoundingClass):
@@ -115,13 +117,13 @@ class MethodSRSUpdate:
         else:
             sounding_class = self.sounding_class
 
-        serial_number: Union[None, Unset, str]
+        serial_number: None | str | Unset
         if isinstance(self.serial_number, Unset):
             serial_number = UNSET
         else:
             serial_number = self.serial_number
 
-        calibration_date: Union[None, Unset, str]
+        calibration_date: None | str | Unset
         if isinstance(self.calibration_date, Unset):
             calibration_date = UNSET
         elif isinstance(self.calibration_date, datetime.datetime):
@@ -129,7 +131,7 @@ class MethodSRSUpdate:
         else:
             calibration_date = self.calibration_date
 
-        conversion_factor: Union[None, Unset, float, str]
+        conversion_factor: float | None | str | Unset
         if isinstance(self.conversion_factor, Unset):
             conversion_factor = UNSET
         else:
@@ -171,7 +173,7 @@ class MethodSRSUpdate:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
 
-        def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
+        def _parse_method_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -184,29 +186,29 @@ class MethodSRSUpdate:
                 return method_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID, Unset], data)
+            return cast(None | Unset | UUID, data)
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
 
-        def _parse_name(data: object) -> Union[None, Unset, str]:
+        def _parse_name(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         name = _parse_name(d.pop("name", UNSET))
 
-        def _parse_remarks(data: object) -> Union[None, Unset, str]:
+        def _parse_remarks(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-        def _parse_method_status_id(data: object) -> Union[MethodStatusEnum, None, Unset]:
+        def _parse_method_status_id(data: object) -> MethodStatusEnum | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -219,11 +221,11 @@ class MethodSRSUpdate:
                 return method_status_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[MethodStatusEnum, None, Unset], data)
+            return cast(MethodStatusEnum | None | Unset, data)
 
         method_status_id = _parse_method_status_id(d.pop("method_status_id", UNSET))
 
-        def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_updated_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -236,29 +238,29 @@ class MethodSRSUpdate:
                 return updated_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
 
-        def _parse_updated_by(data: object) -> Union[None, Unset, str]:
+        def _parse_updated_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
 
-        def _parse_conducted_by(data: object) -> Union[None, Unset, str]:
+        def _parse_conducted_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         conducted_by = _parse_conducted_by(d.pop("conducted_by", UNSET))
 
-        def _parse_conducted_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_conducted_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -271,15 +273,15 @@ class MethodSRSUpdate:
                 return conducted_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        method_type_id = cast(Union[Literal[24], Unset], d.pop("method_type_id", UNSET))
+        method_type_id = cast(Literal[24] | Unset, d.pop("method_type_id", UNSET))
         if method_type_id != 24 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 24, got '{method_type_id}'")
 
-        def _parse_sounding_class(data: object) -> Union[None, SoundingClass, Unset]:
+        def _parse_sounding_class(data: object) -> None | SoundingClass | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -292,20 +294,20 @@ class MethodSRSUpdate:
                 return sounding_class_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, SoundingClass, Unset], data)
+            return cast(None | SoundingClass | Unset, data)
 
         sounding_class = _parse_sounding_class(d.pop("sounding_class", UNSET))
 
-        def _parse_serial_number(data: object) -> Union[None, Unset, str]:
+        def _parse_serial_number(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         serial_number = _parse_serial_number(d.pop("serial_number", UNSET))
 
-        def _parse_calibration_date(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_calibration_date(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -318,16 +320,16 @@ class MethodSRSUpdate:
                 return calibration_date_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         calibration_date = _parse_calibration_date(d.pop("calibration_date", UNSET))
 
-        def _parse_conversion_factor(data: object) -> Union[None, Unset, float, str]:
+        def _parse_conversion_factor(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         conversion_factor = _parse_conversion_factor(d.pop("conversion_factor", UNSET))
 

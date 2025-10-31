@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union, cast
+from typing import Any, cast
 from uuid import UUID
 
 import httpx
@@ -34,11 +34,11 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, Union["PiezometerModel", None]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | None | PiezometerModel | None:
     if response.status_code == 200:
 
-        def _parse_response_200(data: object) -> Union["PiezometerModel", None]:
+        def _parse_response_200(data: object) -> None | PiezometerModel:
             if data is None:
                 return data
             try:
@@ -49,7 +49,7 @@ def _parse_response(
                 return response_200_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union["PiezometerModel", None], data)
+            return cast(None | PiezometerModel, data)
 
         response_200 = _parse_response_200(response.json())
 
@@ -67,8 +67,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, Union["PiezometerModel", None]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | None | PiezometerModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -83,7 +83,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: PiezometerModelUpdate,
-) -> Response[Union[HTTPValidationError, Union["PiezometerModel", None]]]:
+) -> Response[HTTPValidationError | None | PiezometerModel]:
     """Update Piezometer Model
 
      Update piezometer model
@@ -98,7 +98,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Union['PiezometerModel', None]]]
+        Response[HTTPValidationError | None | PiezometerModel]
     """
 
     kwargs = _get_kwargs(
@@ -120,7 +120,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: PiezometerModelUpdate,
-) -> Optional[Union[HTTPValidationError, Union["PiezometerModel", None]]]:
+) -> HTTPValidationError | None | PiezometerModel | None:
     """Update Piezometer Model
 
      Update piezometer model
@@ -135,7 +135,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Union['PiezometerModel', None]]
+        HTTPValidationError | None | PiezometerModel
     """
 
     return sync_detailed(
@@ -152,7 +152,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: PiezometerModelUpdate,
-) -> Response[Union[HTTPValidationError, Union["PiezometerModel", None]]]:
+) -> Response[HTTPValidationError | None | PiezometerModel]:
     """Update Piezometer Model
 
      Update piezometer model
@@ -167,7 +167,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Union['PiezometerModel', None]]]
+        Response[HTTPValidationError | None | PiezometerModel]
     """
 
     kwargs = _get_kwargs(
@@ -187,7 +187,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: PiezometerModelUpdate,
-) -> Optional[Union[HTTPValidationError, Union["PiezometerModel", None]]]:
+) -> HTTPValidationError | None | PiezometerModel | None:
     """Update Piezometer Model
 
      Update piezometer model
@@ -202,7 +202,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Union['PiezometerModel', None]]
+        HTTPValidationError | None | PiezometerModel
     """
 
     return (

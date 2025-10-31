@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -22,8 +22,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, ProjectInfo]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | ProjectInfo | None:
     if response.status_code == 200:
         response_200 = ProjectInfo.from_dict(response.json())
 
@@ -41,8 +41,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, ProjectInfo]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | ProjectInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -55,7 +55,7 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[HTTPValidationError, ProjectInfo]]:
+) -> Response[HTTPValidationError | ProjectInfo]:
     """Update Project Favorite
 
      Update a project favorite (for the calling user).
@@ -68,7 +68,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, ProjectInfo]]
+        Response[HTTPValidationError | ProjectInfo]
     """
 
     kwargs = _get_kwargs(
@@ -86,7 +86,7 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[HTTPValidationError, ProjectInfo]]:
+) -> HTTPValidationError | ProjectInfo | None:
     """Update Project Favorite
 
      Update a project favorite (for the calling user).
@@ -99,7 +99,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, ProjectInfo]
+        HTTPValidationError | ProjectInfo
     """
 
     return sync_detailed(
@@ -112,7 +112,7 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[HTTPValidationError, ProjectInfo]]:
+) -> Response[HTTPValidationError | ProjectInfo]:
     """Update Project Favorite
 
      Update a project favorite (for the calling user).
@@ -125,7 +125,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, ProjectInfo]]
+        Response[HTTPValidationError | ProjectInfo]
     """
 
     kwargs = _get_kwargs(
@@ -141,7 +141,7 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[HTTPValidationError, ProjectInfo]]:
+) -> HTTPValidationError | ProjectInfo | None:
     """Update Project Favorite
 
      Update a project favorite (for the calling user).
@@ -154,7 +154,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, ProjectInfo]
+        HTTPValidationError | ProjectInfo
     """
 
     return (

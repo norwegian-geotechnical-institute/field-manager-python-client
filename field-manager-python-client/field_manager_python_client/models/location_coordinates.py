@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -13,30 +15,30 @@ T = TypeVar("T", bound="LocationCoordinates")
 class LocationCoordinates:
     """
     Attributes:
-        easting (Union[None, Unset, float]):
-        northing (Union[None, Unset, float]):
-        elevation (Union[None, Unset, float]):
+        easting (float | None | Unset):
+        northing (float | None | Unset):
+        elevation (float | None | Unset):
     """
 
-    easting: Union[None, Unset, float] = UNSET
-    northing: Union[None, Unset, float] = UNSET
-    elevation: Union[None, Unset, float] = UNSET
+    easting: float | None | Unset = UNSET
+    northing: float | None | Unset = UNSET
+    elevation: float | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        easting: Union[None, Unset, float]
+        easting: float | None | Unset
         if isinstance(self.easting, Unset):
             easting = UNSET
         else:
             easting = self.easting
 
-        northing: Union[None, Unset, float]
+        northing: float | None | Unset
         if isinstance(self.northing, Unset):
             northing = UNSET
         else:
             northing = self.northing
 
-        elevation: Union[None, Unset, float]
+        elevation: float | None | Unset
         if isinstance(self.elevation, Unset):
             elevation = UNSET
         else:
@@ -58,30 +60,30 @@ class LocationCoordinates:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
 
-        def _parse_easting(data: object) -> Union[None, Unset, float]:
+        def _parse_easting(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         easting = _parse_easting(d.pop("easting", UNSET))
 
-        def _parse_northing(data: object) -> Union[None, Unset, float]:
+        def _parse_northing(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         northing = _parse_northing(d.pop("northing", UNSET))
 
-        def _parse_elevation(data: object) -> Union[None, Unset, float]:
+        def _parse_elevation(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         elevation = _parse_elevation(d.pop("elevation", UNSET))
 

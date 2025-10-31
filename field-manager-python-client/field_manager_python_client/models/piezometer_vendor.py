@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,14 +18,14 @@ class PiezometerVendor:
     Attributes:
         vendor_id (UUID):
         name (str):
-        organization_id (Union[None, UUID, Unset]):
-        sort_order (Union[None, Unset, int]):
+        organization_id (None | Unset | UUID):
+        sort_order (int | None | Unset):
     """
 
     vendor_id: UUID
     name: str
-    organization_id: Union[None, UUID, Unset] = UNSET
-    sort_order: Union[None, Unset, int] = UNSET
+    organization_id: None | Unset | UUID = UNSET
+    sort_order: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -31,7 +33,7 @@ class PiezometerVendor:
 
         name = self.name
 
-        organization_id: Union[None, Unset, str]
+        organization_id: None | str | Unset
         if isinstance(self.organization_id, Unset):
             organization_id = UNSET
         elif isinstance(self.organization_id, UUID):
@@ -39,7 +41,7 @@ class PiezometerVendor:
         else:
             organization_id = self.organization_id
 
-        sort_order: Union[None, Unset, int]
+        sort_order: int | None | Unset
         if isinstance(self.sort_order, Unset):
             sort_order = UNSET
         else:
@@ -67,7 +69,7 @@ class PiezometerVendor:
 
         name = d.pop("name")
 
-        def _parse_organization_id(data: object) -> Union[None, UUID, Unset]:
+        def _parse_organization_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -80,16 +82,16 @@ class PiezometerVendor:
                 return organization_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID, Unset], data)
+            return cast(None | Unset | UUID, data)
 
         organization_id = _parse_organization_id(d.pop("organization_id", UNSET))
 
-        def _parse_sort_order(data: object) -> Union[None, Unset, int]:
+        def _parse_sort_order(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         sort_order = _parse_sort_order(d.pop("sort_order", UNSET))
 

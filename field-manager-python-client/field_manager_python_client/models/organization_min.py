@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,14 +18,14 @@ class OrganizationMin:
     Attributes:
         organization_id (UUID):
         name (str):
-        external_id (Union[None, Unset, str]):
-        short_name (Union[None, Unset, str]):
+        external_id (None | str | Unset):
+        short_name (None | str | Unset):
     """
 
     organization_id: UUID
     name: str
-    external_id: Union[None, Unset, str] = UNSET
-    short_name: Union[None, Unset, str] = UNSET
+    external_id: None | str | Unset = UNSET
+    short_name: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -31,13 +33,13 @@ class OrganizationMin:
 
         name = self.name
 
-        external_id: Union[None, Unset, str]
+        external_id: None | str | Unset
         if isinstance(self.external_id, Unset):
             external_id = UNSET
         else:
             external_id = self.external_id
 
-        short_name: Union[None, Unset, str]
+        short_name: None | str | Unset
         if isinstance(self.short_name, Unset):
             short_name = UNSET
         else:
@@ -65,21 +67,21 @@ class OrganizationMin:
 
         name = d.pop("name")
 
-        def _parse_external_id(data: object) -> Union[None, Unset, str]:
+        def _parse_external_id(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         external_id = _parse_external_id(d.pop("external_id", UNSET))
 
-        def _parse_short_name(data: object) -> Union[None, Unset, str]:
+        def _parse_short_name(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         short_name = _parse_short_name(d.pop("short_name", UNSET))
 

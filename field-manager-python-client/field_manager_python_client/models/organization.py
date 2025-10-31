@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -26,32 +28,32 @@ class Organization:
         name (str):
         number_of_projects (int):
         default_role (RoleEnum):
-        external_id (Union[None, Unset, str]):
-        short_name (Union[None, Unset, str]):
-        email_domains (Union[None, Unset, str]):
-        authentication_alias (Union[None, Unset, str]):
-        authentication_issuer (Union[None, Unset, str]):
-        created_at (Union[None, Unset, datetime.datetime]):
-        updated_at (Union[None, Unset, datetime.datetime]):
-        effective_role (Union['Role', None, Unset]):
-        default_standard_id (Union[None, StandardType, Unset]):
-        available_standard_ids (Union[Unset, list[StandardType]]):
+        external_id (None | str | Unset):
+        short_name (None | str | Unset):
+        email_domains (None | str | Unset):
+        authentication_alias (None | str | Unset):
+        authentication_issuer (None | str | Unset):
+        created_at (datetime.datetime | None | Unset):
+        updated_at (datetime.datetime | None | Unset):
+        effective_role (None | Role | Unset):
+        default_standard_id (None | StandardType | Unset):
+        available_standard_ids (list[StandardType] | Unset):
     """
 
     organization_id: UUID
     name: str
     number_of_projects: int
     default_role: RoleEnum
-    external_id: Union[None, Unset, str] = UNSET
-    short_name: Union[None, Unset, str] = UNSET
-    email_domains: Union[None, Unset, str] = UNSET
-    authentication_alias: Union[None, Unset, str] = UNSET
-    authentication_issuer: Union[None, Unset, str] = UNSET
-    created_at: Union[None, Unset, datetime.datetime] = UNSET
-    updated_at: Union[None, Unset, datetime.datetime] = UNSET
-    effective_role: Union["Role", None, Unset] = UNSET
-    default_standard_id: Union[None, StandardType, Unset] = UNSET
-    available_standard_ids: Union[Unset, list[StandardType]] = UNSET
+    external_id: None | str | Unset = UNSET
+    short_name: None | str | Unset = UNSET
+    email_domains: None | str | Unset = UNSET
+    authentication_alias: None | str | Unset = UNSET
+    authentication_issuer: None | str | Unset = UNSET
+    created_at: datetime.datetime | None | Unset = UNSET
+    updated_at: datetime.datetime | None | Unset = UNSET
+    effective_role: None | Role | Unset = UNSET
+    default_standard_id: None | StandardType | Unset = UNSET
+    available_standard_ids: list[StandardType] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -65,37 +67,37 @@ class Organization:
 
         default_role = self.default_role.value
 
-        external_id: Union[None, Unset, str]
+        external_id: None | str | Unset
         if isinstance(self.external_id, Unset):
             external_id = UNSET
         else:
             external_id = self.external_id
 
-        short_name: Union[None, Unset, str]
+        short_name: None | str | Unset
         if isinstance(self.short_name, Unset):
             short_name = UNSET
         else:
             short_name = self.short_name
 
-        email_domains: Union[None, Unset, str]
+        email_domains: None | str | Unset
         if isinstance(self.email_domains, Unset):
             email_domains = UNSET
         else:
             email_domains = self.email_domains
 
-        authentication_alias: Union[None, Unset, str]
+        authentication_alias: None | str | Unset
         if isinstance(self.authentication_alias, Unset):
             authentication_alias = UNSET
         else:
             authentication_alias = self.authentication_alias
 
-        authentication_issuer: Union[None, Unset, str]
+        authentication_issuer: None | str | Unset
         if isinstance(self.authentication_issuer, Unset):
             authentication_issuer = UNSET
         else:
             authentication_issuer = self.authentication_issuer
 
-        created_at: Union[None, Unset, str]
+        created_at: None | str | Unset
         if isinstance(self.created_at, Unset):
             created_at = UNSET
         elif isinstance(self.created_at, datetime.datetime):
@@ -103,7 +105,7 @@ class Organization:
         else:
             created_at = self.created_at
 
-        updated_at: Union[None, Unset, str]
+        updated_at: None | str | Unset
         if isinstance(self.updated_at, Unset):
             updated_at = UNSET
         elif isinstance(self.updated_at, datetime.datetime):
@@ -111,7 +113,7 @@ class Organization:
         else:
             updated_at = self.updated_at
 
-        effective_role: Union[None, Unset, dict[str, Any]]
+        effective_role: dict[str, Any] | None | Unset
         if isinstance(self.effective_role, Unset):
             effective_role = UNSET
         elif isinstance(self.effective_role, Role):
@@ -119,7 +121,7 @@ class Organization:
         else:
             effective_role = self.effective_role
 
-        default_standard_id: Union[None, Unset, str]
+        default_standard_id: None | str | Unset
         if isinstance(self.default_standard_id, Unset):
             default_standard_id = UNSET
         elif isinstance(self.default_standard_id, StandardType):
@@ -127,7 +129,7 @@ class Organization:
         else:
             default_standard_id = self.default_standard_id
 
-        available_standard_ids: Union[Unset, list[str]] = UNSET
+        available_standard_ids: list[str] | Unset = UNSET
         if not isinstance(self.available_standard_ids, Unset):
             available_standard_ids = []
             for available_standard_ids_item_data in self.available_standard_ids:
@@ -180,52 +182,52 @@ class Organization:
 
         default_role = RoleEnum(d.pop("default_role"))
 
-        def _parse_external_id(data: object) -> Union[None, Unset, str]:
+        def _parse_external_id(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         external_id = _parse_external_id(d.pop("external_id", UNSET))
 
-        def _parse_short_name(data: object) -> Union[None, Unset, str]:
+        def _parse_short_name(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         short_name = _parse_short_name(d.pop("short_name", UNSET))
 
-        def _parse_email_domains(data: object) -> Union[None, Unset, str]:
+        def _parse_email_domains(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         email_domains = _parse_email_domains(d.pop("email_domains", UNSET))
 
-        def _parse_authentication_alias(data: object) -> Union[None, Unset, str]:
+        def _parse_authentication_alias(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         authentication_alias = _parse_authentication_alias(d.pop("authentication_alias", UNSET))
 
-        def _parse_authentication_issuer(data: object) -> Union[None, Unset, str]:
+        def _parse_authentication_issuer(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         authentication_issuer = _parse_authentication_issuer(d.pop("authentication_issuer", UNSET))
 
-        def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_created_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -238,11 +240,11 @@ class Organization:
                 return created_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         created_at = _parse_created_at(d.pop("created_at", UNSET))
 
-        def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_updated_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -255,11 +257,11 @@ class Organization:
                 return updated_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
 
-        def _parse_effective_role(data: object) -> Union["Role", None, Unset]:
+        def _parse_effective_role(data: object) -> None | Role | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -272,11 +274,11 @@ class Organization:
                 return effective_role_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union["Role", None, Unset], data)
+            return cast(None | Role | Unset, data)
 
         effective_role = _parse_effective_role(d.pop("effective_role", UNSET))
 
-        def _parse_default_standard_id(data: object) -> Union[None, StandardType, Unset]:
+        def _parse_default_standard_id(data: object) -> None | StandardType | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -289,7 +291,7 @@ class Organization:
                 return default_standard_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, StandardType, Unset], data)
+            return cast(None | StandardType | Unset, data)
 
         default_standard_id = _parse_default_standard_id(d.pop("default_standard_id", UNSET))
 

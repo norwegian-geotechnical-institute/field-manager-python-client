@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -14,14 +16,14 @@ T = TypeVar("T", bound="ProjectSearch")
 class ProjectSearch:
     """
     Attributes:
-        project_ids (Union[None, Unset, list[UUID]]):
+        project_ids (list[UUID] | None | Unset):
     """
 
-    project_ids: Union[None, Unset, list[UUID]] = UNSET
+    project_ids: list[UUID] | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        project_ids: Union[None, Unset, list[str]]
+        project_ids: list[str] | None | Unset
         if isinstance(self.project_ids, Unset):
             project_ids = UNSET
         elif isinstance(self.project_ids, list):
@@ -45,7 +47,7 @@ class ProjectSearch:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
 
-        def _parse_project_ids(data: object) -> Union[None, Unset, list[UUID]]:
+        def _parse_project_ids(data: object) -> list[UUID] | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -63,7 +65,7 @@ class ProjectSearch:
                 return project_ids_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, list[UUID]], data)
+            return cast(list[UUID] | None | Unset, data)
 
         project_ids = _parse_project_ids(d.pop("project_ids", UNSET))
 

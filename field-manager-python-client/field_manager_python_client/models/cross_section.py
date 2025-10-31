@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -28,10 +30,10 @@ class CrossSection:
         srid (int):
         created_by (UUID):
         polyline_coordinates (list[list[float]]): Compute the polyline_coordinates from the polyline_linestring
-        language (Union[Unset, Language]): ISO 639-2 language three-letter codes (set 2)
-        updated_at (Union[None, Unset, datetime.datetime]):
-        updated_by (Union[None, UUID, Unset]):
-        created_at (Union[None, Unset, datetime.datetime]):
+        language (Language | Unset): ISO 639-2 language three-letter codes (set 2)
+        updated_at (datetime.datetime | None | Unset):
+        updated_by (None | Unset | UUID):
+        created_at (datetime.datetime | None | Unset):
     """
 
     cross_section_id: UUID
@@ -45,10 +47,10 @@ class CrossSection:
     srid: int
     created_by: UUID
     polyline_coordinates: list[list[float]]
-    language: Union[Unset, Language] = UNSET
-    updated_at: Union[None, Unset, datetime.datetime] = UNSET
-    updated_by: Union[None, UUID, Unset] = UNSET
-    created_at: Union[None, Unset, datetime.datetime] = UNSET
+    language: Language | Unset = UNSET
+    updated_at: datetime.datetime | None | Unset = UNSET
+    updated_by: None | Unset | UUID = UNSET
+    created_at: datetime.datetime | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -85,11 +87,11 @@ class CrossSection:
 
             polyline_coordinates.append(polyline_coordinates_item)
 
-        language: Union[Unset, str] = UNSET
+        language: str | Unset = UNSET
         if not isinstance(self.language, Unset):
             language = self.language.value
 
-        updated_at: Union[None, Unset, str]
+        updated_at: None | str | Unset
         if isinstance(self.updated_at, Unset):
             updated_at = UNSET
         elif isinstance(self.updated_at, datetime.datetime):
@@ -97,7 +99,7 @@ class CrossSection:
         else:
             updated_at = self.updated_at
 
-        updated_by: Union[None, Unset, str]
+        updated_by: None | str | Unset
         if isinstance(self.updated_by, Unset):
             updated_by = UNSET
         elif isinstance(self.updated_by, UUID):
@@ -105,7 +107,7 @@ class CrossSection:
         else:
             updated_by = self.updated_by
 
-        created_at: Union[None, Unset, str]
+        created_at: None | str | Unset
         if isinstance(self.created_at, Unset):
             created_at = UNSET
         elif isinstance(self.created_at, datetime.datetime):
@@ -188,13 +190,13 @@ class CrossSection:
             polyline_coordinates.append(polyline_coordinates_item)
 
         _language = d.pop("language", UNSET)
-        language: Union[Unset, Language]
+        language: Language | Unset
         if isinstance(_language, Unset):
             language = UNSET
         else:
             language = Language(_language)
 
-        def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_updated_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -207,11 +209,11 @@ class CrossSection:
                 return updated_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
 
-        def _parse_updated_by(data: object) -> Union[None, UUID, Unset]:
+        def _parse_updated_by(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -224,11 +226,11 @@ class CrossSection:
                 return updated_by_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID, Unset], data)
+            return cast(None | Unset | UUID, data)
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
 
-        def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_created_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -241,7 +243,7 @@ class CrossSection:
                 return created_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         created_at = _parse_created_at(d.pop("created_at", UNSET))
 

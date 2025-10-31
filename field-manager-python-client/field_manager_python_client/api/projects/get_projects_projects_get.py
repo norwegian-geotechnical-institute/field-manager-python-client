@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -12,10 +12,10 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-    tags: Union[Unset, list[str]] = UNSET,
-    external_id: Union[None, Unset, str] = UNSET,
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+    tags: list[str] | Unset = UNSET,
+    external_id: None | str | Unset = UNSET,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
 
@@ -23,13 +23,13 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_tags: Union[Unset, list[str]] = UNSET
+    json_tags: list[str] | Unset = UNSET
     if not isinstance(tags, Unset):
         json_tags = tags
 
     params["tags"] = json_tags
 
-    json_external_id: Union[None, Unset, str]
+    json_external_id: None | str | Unset
     if isinstance(external_id, Unset):
         json_external_id = UNSET
     else:
@@ -48,8 +48,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, list["ProjectInfo"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | list[ProjectInfo] | None:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -72,8 +72,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, list["ProjectInfo"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | list[ProjectInfo]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -85,11 +85,11 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-    tags: Union[Unset, list[str]] = UNSET,
-    external_id: Union[None, Unset, str] = UNSET,
-) -> Response[Union[HTTPValidationError, list["ProjectInfo"]]]:
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+    tags: list[str] | Unset = UNSET,
+    external_id: None | str | Unset = UNSET,
+) -> Response[HTTPValidationError | list[ProjectInfo]]:
     """Get Projects
 
      Get all projects you have access to.
@@ -99,17 +99,17 @@ def sync_detailed(
     You may limit the projects by passing an external_id or part of an external_id as a query parameter.
 
     Args:
-        skip (Union[Unset, int]):  Default: 0.
-        limit (Union[Unset, int]):  Default: 100.
-        tags (Union[Unset, list[str]]):
-        external_id (Union[None, Unset, str]):
+        skip (int | Unset):  Default: 0.
+        limit (int | Unset):  Default: 100.
+        tags (list[str] | Unset):
+        external_id (None | str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['ProjectInfo']]]
+        Response[HTTPValidationError | list[ProjectInfo]]
     """
 
     kwargs = _get_kwargs(
@@ -129,11 +129,11 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-    tags: Union[Unset, list[str]] = UNSET,
-    external_id: Union[None, Unset, str] = UNSET,
-) -> Optional[Union[HTTPValidationError, list["ProjectInfo"]]]:
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+    tags: list[str] | Unset = UNSET,
+    external_id: None | str | Unset = UNSET,
+) -> HTTPValidationError | list[ProjectInfo] | None:
     """Get Projects
 
      Get all projects you have access to.
@@ -143,17 +143,17 @@ def sync(
     You may limit the projects by passing an external_id or part of an external_id as a query parameter.
 
     Args:
-        skip (Union[Unset, int]):  Default: 0.
-        limit (Union[Unset, int]):  Default: 100.
-        tags (Union[Unset, list[str]]):
-        external_id (Union[None, Unset, str]):
+        skip (int | Unset):  Default: 0.
+        limit (int | Unset):  Default: 100.
+        tags (list[str] | Unset):
+        external_id (None | str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['ProjectInfo']]
+        HTTPValidationError | list[ProjectInfo]
     """
 
     return sync_detailed(
@@ -168,11 +168,11 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-    tags: Union[Unset, list[str]] = UNSET,
-    external_id: Union[None, Unset, str] = UNSET,
-) -> Response[Union[HTTPValidationError, list["ProjectInfo"]]]:
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+    tags: list[str] | Unset = UNSET,
+    external_id: None | str | Unset = UNSET,
+) -> Response[HTTPValidationError | list[ProjectInfo]]:
     """Get Projects
 
      Get all projects you have access to.
@@ -182,17 +182,17 @@ async def asyncio_detailed(
     You may limit the projects by passing an external_id or part of an external_id as a query parameter.
 
     Args:
-        skip (Union[Unset, int]):  Default: 0.
-        limit (Union[Unset, int]):  Default: 100.
-        tags (Union[Unset, list[str]]):
-        external_id (Union[None, Unset, str]):
+        skip (int | Unset):  Default: 0.
+        limit (int | Unset):  Default: 100.
+        tags (list[str] | Unset):
+        external_id (None | str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['ProjectInfo']]]
+        Response[HTTPValidationError | list[ProjectInfo]]
     """
 
     kwargs = _get_kwargs(
@@ -210,11 +210,11 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-    tags: Union[Unset, list[str]] = UNSET,
-    external_id: Union[None, Unset, str] = UNSET,
-) -> Optional[Union[HTTPValidationError, list["ProjectInfo"]]]:
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+    tags: list[str] | Unset = UNSET,
+    external_id: None | str | Unset = UNSET,
+) -> HTTPValidationError | list[ProjectInfo] | None:
     """Get Projects
 
      Get all projects you have access to.
@@ -224,17 +224,17 @@ async def asyncio(
     You may limit the projects by passing an external_id or part of an external_id as a query parameter.
 
     Args:
-        skip (Union[Unset, int]):  Default: 0.
-        limit (Union[Unset, int]):  Default: 100.
-        tags (Union[Unset, list[str]]):
-        external_id (Union[None, Unset, str]):
+        skip (int | Unset):  Default: 0.
+        limit (int | Unset):  Default: 100.
+        tags (list[str] | Unset):
+        external_id (None | str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['ProjectInfo']]
+        HTTPValidationError | list[ProjectInfo]
     """
 
     return (

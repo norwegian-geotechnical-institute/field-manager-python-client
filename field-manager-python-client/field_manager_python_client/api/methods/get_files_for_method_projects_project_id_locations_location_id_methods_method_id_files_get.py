@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -17,11 +17,11 @@ def _get_kwargs(
     location_id: UUID,
     method_id: UUID,
     *,
-    file_type: Union[FileType, None, Unset] = UNSET,
+    file_type: FileType | None | Unset = UNSET,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
 
-    json_file_type: Union[None, Unset, str]
+    json_file_type: None | str | Unset
     if isinstance(file_type, Unset):
         json_file_type = UNSET
     elif isinstance(file_type, FileType):
@@ -42,8 +42,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, list["File"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | list[File] | None:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -66,8 +66,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, list["File"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | list[File]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,8 +82,8 @@ def sync_detailed(
     method_id: UUID,
     *,
     client: AuthenticatedClient,
-    file_type: Union[FileType, None, Unset] = UNSET,
-) -> Response[Union[HTTPValidationError, list["File"]]]:
+    file_type: FileType | None | Unset = UNSET,
+) -> Response[HTTPValidationError | list[File]]:
     """Get Files For Method
 
      Get the method's database file objects.
@@ -92,14 +92,14 @@ def sync_detailed(
         project_id (str):
         location_id (UUID):
         method_id (UUID):
-        file_type (Union[FileType, None, Unset]):
+        file_type (FileType | None | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['File']]]
+        Response[HTTPValidationError | list[File]]
     """
 
     kwargs = _get_kwargs(
@@ -122,8 +122,8 @@ def sync(
     method_id: UUID,
     *,
     client: AuthenticatedClient,
-    file_type: Union[FileType, None, Unset] = UNSET,
-) -> Optional[Union[HTTPValidationError, list["File"]]]:
+    file_type: FileType | None | Unset = UNSET,
+) -> HTTPValidationError | list[File] | None:
     """Get Files For Method
 
      Get the method's database file objects.
@@ -132,14 +132,14 @@ def sync(
         project_id (str):
         location_id (UUID):
         method_id (UUID):
-        file_type (Union[FileType, None, Unset]):
+        file_type (FileType | None | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['File']]
+        HTTPValidationError | list[File]
     """
 
     return sync_detailed(
@@ -157,8 +157,8 @@ async def asyncio_detailed(
     method_id: UUID,
     *,
     client: AuthenticatedClient,
-    file_type: Union[FileType, None, Unset] = UNSET,
-) -> Response[Union[HTTPValidationError, list["File"]]]:
+    file_type: FileType | None | Unset = UNSET,
+) -> Response[HTTPValidationError | list[File]]:
     """Get Files For Method
 
      Get the method's database file objects.
@@ -167,14 +167,14 @@ async def asyncio_detailed(
         project_id (str):
         location_id (UUID):
         method_id (UUID):
-        file_type (Union[FileType, None, Unset]):
+        file_type (FileType | None | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['File']]]
+        Response[HTTPValidationError | list[File]]
     """
 
     kwargs = _get_kwargs(
@@ -195,8 +195,8 @@ async def asyncio(
     method_id: UUID,
     *,
     client: AuthenticatedClient,
-    file_type: Union[FileType, None, Unset] = UNSET,
-) -> Optional[Union[HTTPValidationError, list["File"]]]:
+    file_type: FileType | None | Unset = UNSET,
+) -> HTTPValidationError | list[File] | None:
     """Get Files For Method
 
      Get the method's database file objects.
@@ -205,14 +205,14 @@ async def asyncio(
         project_id (str):
         location_id (UUID):
         method_id (UUID):
-        file_type (Union[FileType, None, Unset]):
+        file_type (FileType | None | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['File']]
+        HTTPValidationError | list[File]
     """
 
     return (

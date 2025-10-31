@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -18,9 +18,7 @@ def _get_kwargs() -> dict[str, Any]:
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[list["IOGPType"]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list[IOGPType] | None:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -37,9 +35,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[list["IOGPType"]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[list[IOGPType]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -50,8 +46,8 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[list["IOGPType"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list[IOGPType]]:
     """Get Location Iogp Types
 
     Raises:
@@ -59,7 +55,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list['IOGPType']]
+        Response[list[IOGPType]]
     """
 
     kwargs = _get_kwargs()
@@ -73,8 +69,8 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[list["IOGPType"]]:
+    client: AuthenticatedClient | Client,
+) -> list[IOGPType] | None:
     """Get Location Iogp Types
 
     Raises:
@@ -82,7 +78,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list['IOGPType']
+        list[IOGPType]
     """
 
     return sync_detailed(
@@ -92,8 +88,8 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[list["IOGPType"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list[IOGPType]]:
     """Get Location Iogp Types
 
     Raises:
@@ -101,7 +97,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list['IOGPType']]
+        Response[list[IOGPType]]
     """
 
     kwargs = _get_kwargs()
@@ -113,8 +109,8 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[list["IOGPType"]]:
+    client: AuthenticatedClient | Client,
+) -> list[IOGPType] | None:
     """Get Location Iogp Types
 
     Raises:
@@ -122,7 +118,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list['IOGPType']
+        list[IOGPType]
     """
 
     return (

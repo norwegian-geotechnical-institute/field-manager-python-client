@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -13,64 +15,64 @@ T = TypeVar("T", bound="PDFPageInfo")
 class PDFPageInfo:
     """
     Attributes:
-        project_name (Union[None, Unset, str]):  Default: ''.
-        client (Union[None, Unset, str]):  Default: ''.
-        report_number (Union[None, Unset, str]):  Default: ''.
-        revision (Union[None, Unset, str]):  Default: ''.
-        date (Union[None, Unset, str]):  Default: ''.
-        page_number (Union[None, Unset, list[str], str]):  Default: ''.
-        info_table (Union[None, Unset, list[Any], str]):
-        drawn_by (Union[None, Unset, str]):  Default: ''.
-        controlled_by (Union[None, Unset, str]):  Default: ''.
-        approved_by (Union[None, Unset, str]):  Default: ''.
-        split_page_info (Union[None, Unset, str]):
+        project_name (None | str | Unset):  Default: ''.
+        client (None | str | Unset):  Default: ''.
+        report_number (None | str | Unset):  Default: ''.
+        revision (None | str | Unset):  Default: ''.
+        date (None | str | Unset):  Default: ''.
+        page_number (list[str] | None | str | Unset):  Default: ''.
+        info_table (list[Any] | None | str | Unset):
+        drawn_by (None | str | Unset):  Default: ''.
+        controlled_by (None | str | Unset):  Default: ''.
+        approved_by (None | str | Unset):  Default: ''.
+        split_page_info (None | str | Unset):
     """
 
-    project_name: Union[None, Unset, str] = ""
-    client: Union[None, Unset, str] = ""
-    report_number: Union[None, Unset, str] = ""
-    revision: Union[None, Unset, str] = ""
-    date: Union[None, Unset, str] = ""
-    page_number: Union[None, Unset, list[str], str] = ""
-    info_table: Union[None, Unset, list[Any], str] = UNSET
-    drawn_by: Union[None, Unset, str] = ""
-    controlled_by: Union[None, Unset, str] = ""
-    approved_by: Union[None, Unset, str] = ""
-    split_page_info: Union[None, Unset, str] = UNSET
+    project_name: None | str | Unset = ""
+    client: None | str | Unset = ""
+    report_number: None | str | Unset = ""
+    revision: None | str | Unset = ""
+    date: None | str | Unset = ""
+    page_number: list[str] | None | str | Unset = ""
+    info_table: list[Any] | None | str | Unset = UNSET
+    drawn_by: None | str | Unset = ""
+    controlled_by: None | str | Unset = ""
+    approved_by: None | str | Unset = ""
+    split_page_info: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        project_name: Union[None, Unset, str]
+        project_name: None | str | Unset
         if isinstance(self.project_name, Unset):
             project_name = UNSET
         else:
             project_name = self.project_name
 
-        client: Union[None, Unset, str]
+        client: None | str | Unset
         if isinstance(self.client, Unset):
             client = UNSET
         else:
             client = self.client
 
-        report_number: Union[None, Unset, str]
+        report_number: None | str | Unset
         if isinstance(self.report_number, Unset):
             report_number = UNSET
         else:
             report_number = self.report_number
 
-        revision: Union[None, Unset, str]
+        revision: None | str | Unset
         if isinstance(self.revision, Unset):
             revision = UNSET
         else:
             revision = self.revision
 
-        date: Union[None, Unset, str]
+        date: None | str | Unset
         if isinstance(self.date, Unset):
             date = UNSET
         else:
             date = self.date
 
-        page_number: Union[None, Unset, list[str], str]
+        page_number: list[str] | None | str | Unset
         if isinstance(self.page_number, Unset):
             page_number = UNSET
         elif isinstance(self.page_number, list):
@@ -79,7 +81,7 @@ class PDFPageInfo:
         else:
             page_number = self.page_number
 
-        info_table: Union[None, Unset, list[Any], str]
+        info_table: list[Any] | None | str | Unset
         if isinstance(self.info_table, Unset):
             info_table = UNSET
         elif isinstance(self.info_table, list):
@@ -88,25 +90,25 @@ class PDFPageInfo:
         else:
             info_table = self.info_table
 
-        drawn_by: Union[None, Unset, str]
+        drawn_by: None | str | Unset
         if isinstance(self.drawn_by, Unset):
             drawn_by = UNSET
         else:
             drawn_by = self.drawn_by
 
-        controlled_by: Union[None, Unset, str]
+        controlled_by: None | str | Unset
         if isinstance(self.controlled_by, Unset):
             controlled_by = UNSET
         else:
             controlled_by = self.controlled_by
 
-        approved_by: Union[None, Unset, str]
+        approved_by: None | str | Unset
         if isinstance(self.approved_by, Unset):
             approved_by = UNSET
         else:
             approved_by = self.approved_by
 
-        split_page_info: Union[None, Unset, str]
+        split_page_info: None | str | Unset
         if isinstance(self.split_page_info, Unset):
             split_page_info = UNSET
         else:
@@ -144,52 +146,52 @@ class PDFPageInfo:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
 
-        def _parse_project_name(data: object) -> Union[None, Unset, str]:
+        def _parse_project_name(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         project_name = _parse_project_name(d.pop("project_name", UNSET))
 
-        def _parse_client(data: object) -> Union[None, Unset, str]:
+        def _parse_client(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         client = _parse_client(d.pop("client", UNSET))
 
-        def _parse_report_number(data: object) -> Union[None, Unset, str]:
+        def _parse_report_number(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         report_number = _parse_report_number(d.pop("report_number", UNSET))
 
-        def _parse_revision(data: object) -> Union[None, Unset, str]:
+        def _parse_revision(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         revision = _parse_revision(d.pop("revision", UNSET))
 
-        def _parse_date(data: object) -> Union[None, Unset, str]:
+        def _parse_date(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         date = _parse_date(d.pop("date", UNSET))
 
-        def _parse_page_number(data: object) -> Union[None, Unset, list[str], str]:
+        def _parse_page_number(data: object) -> list[str] | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -202,11 +204,11 @@ class PDFPageInfo:
                 return page_number_type_1
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, list[str], str], data)
+            return cast(list[str] | None | str | Unset, data)
 
         page_number = _parse_page_number(d.pop("page_number", UNSET))
 
-        def _parse_info_table(data: object) -> Union[None, Unset, list[Any], str]:
+        def _parse_info_table(data: object) -> list[Any] | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -219,43 +221,43 @@ class PDFPageInfo:
                 return info_table_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, list[Any], str], data)
+            return cast(list[Any] | None | str | Unset, data)
 
         info_table = _parse_info_table(d.pop("info_table", UNSET))
 
-        def _parse_drawn_by(data: object) -> Union[None, Unset, str]:
+        def _parse_drawn_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         drawn_by = _parse_drawn_by(d.pop("drawn_by", UNSET))
 
-        def _parse_controlled_by(data: object) -> Union[None, Unset, str]:
+        def _parse_controlled_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         controlled_by = _parse_controlled_by(d.pop("controlled_by", UNSET))
 
-        def _parse_approved_by(data: object) -> Union[None, Unset, str]:
+        def _parse_approved_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         approved_by = _parse_approved_by(d.pop("approved_by", UNSET))
 
-        def _parse_split_page_info(data: object) -> Union[None, Unset, str]:
+        def _parse_split_page_info(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         split_page_info = _parse_split_page_info(d.pop("split_page_info", UNSET))
 

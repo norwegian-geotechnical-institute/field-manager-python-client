@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from io import BytesIO
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,19 +20,19 @@ class BodyCreateShapeProjectsProjectIdShapesPost:
     Attributes:
         name (str):
         file (File):
-        color (Union[None, ShapeColor, Unset, str]): One of the ShapeColor enum values (e.g. 'NEON_RED'), or 'null'/''
-            to use the default color in the geojson
-        line_thickness (Union[None, Unset, int, str]): An integer (e.g. 3) or 'null'/'' to use the default color in the
+        color (None | ShapeColor | str | Unset): One of the ShapeColor enum values (e.g. 'NEON_RED'), or 'null'/'' to
+            use the default color in the geojson
+        line_thickness (int | None | str | Unset): An integer (e.g. 3) or 'null'/'' to use the default color in the
             geojson
-        srid (Union[None, Unset, int, str]): The EPSG:SRID of the source shape file. If not provided, 'null' or '' empty
+        srid (int | None | str | Unset): The EPSG:SRID of the source shape file. If not provided, 'null' or '' empty
             string, then the file content will be searched for a projection.
     """
 
     name: str
     file: File
-    color: Union[None, ShapeColor, Unset, str] = UNSET
-    line_thickness: Union[None, Unset, int, str] = UNSET
-    srid: Union[None, Unset, int, str] = UNSET
+    color: None | ShapeColor | str | Unset = UNSET
+    line_thickness: int | None | str | Unset = UNSET
+    srid: int | None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -38,7 +40,7 @@ class BodyCreateShapeProjectsProjectIdShapesPost:
 
         file = self.file.to_tuple()
 
-        color: Union[None, Unset, str]
+        color: None | str | Unset
         if isinstance(self.color, Unset):
             color = UNSET
         elif isinstance(self.color, ShapeColor):
@@ -46,13 +48,13 @@ class BodyCreateShapeProjectsProjectIdShapesPost:
         else:
             color = self.color
 
-        line_thickness: Union[None, Unset, int, str]
+        line_thickness: int | None | str | Unset
         if isinstance(self.line_thickness, Unset):
             line_thickness = UNSET
         else:
             line_thickness = self.line_thickness
 
-        srid: Union[None, Unset, int, str]
+        srid: int | None | str | Unset
         if isinstance(self.srid, Unset):
             srid = UNSET
         else:
@@ -118,7 +120,7 @@ class BodyCreateShapeProjectsProjectIdShapesPost:
 
         file = File(payload=BytesIO(d.pop("file")))
 
-        def _parse_color(data: object) -> Union[None, ShapeColor, Unset, str]:
+        def _parse_color(data: object) -> None | ShapeColor | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -131,25 +133,25 @@ class BodyCreateShapeProjectsProjectIdShapesPost:
                 return color_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, ShapeColor, Unset, str], data)
+            return cast(None | ShapeColor | str | Unset, data)
 
         color = _parse_color(d.pop("color", UNSET))
 
-        def _parse_line_thickness(data: object) -> Union[None, Unset, int, str]:
+        def _parse_line_thickness(data: object) -> int | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int, str], data)
+            return cast(int | None | str | Unset, data)
 
         line_thickness = _parse_line_thickness(d.pop("line_thickness", UNSET))
 
-        def _parse_srid(data: object) -> Union[None, Unset, int, str]:
+        def _parse_srid(data: object) -> int | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int, str], data)
+            return cast(int | None | str | Unset, data)
 
         srid = _parse_srid(d.pop("srid", UNSET))
 

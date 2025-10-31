@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -14,11 +14,11 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     project_id: str,
     *,
-    levels: Union[Unset, list[WebMapServiceLevel]] = UNSET,
+    levels: list[WebMapServiceLevel] | Unset = UNSET,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
 
-    json_levels: Union[Unset, list[str]] = UNSET
+    json_levels: list[str] | Unset = UNSET
     if not isinstance(levels, Unset):
         json_levels = []
         for levels_item_data in levels:
@@ -39,8 +39,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, list["WebMapService"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | list[WebMapService] | None:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -63,8 +63,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, list["WebMapService"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | list[WebMapService]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -77,8 +77,8 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    levels: Union[Unset, list[WebMapServiceLevel]] = UNSET,
-) -> Response[Union[HTTPValidationError, list["WebMapService"]]]:
+    levels: list[WebMapServiceLevel] | Unset = UNSET,
+) -> Response[HTTPValidationError | list[WebMapService]]:
     """Get Web Map Services by Project ID
 
      Get Web Map Services by project_id.
@@ -88,14 +88,14 @@ def sync_detailed(
 
     Args:
         project_id (str):
-        levels (Union[Unset, list[WebMapServiceLevel]]):
+        levels (list[WebMapServiceLevel] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['WebMapService']]]
+        Response[HTTPValidationError | list[WebMapService]]
     """
 
     kwargs = _get_kwargs(
@@ -114,8 +114,8 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    levels: Union[Unset, list[WebMapServiceLevel]] = UNSET,
-) -> Optional[Union[HTTPValidationError, list["WebMapService"]]]:
+    levels: list[WebMapServiceLevel] | Unset = UNSET,
+) -> HTTPValidationError | list[WebMapService] | None:
     """Get Web Map Services by Project ID
 
      Get Web Map Services by project_id.
@@ -125,14 +125,14 @@ def sync(
 
     Args:
         project_id (str):
-        levels (Union[Unset, list[WebMapServiceLevel]]):
+        levels (list[WebMapServiceLevel] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['WebMapService']]
+        HTTPValidationError | list[WebMapService]
     """
 
     return sync_detailed(
@@ -146,8 +146,8 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    levels: Union[Unset, list[WebMapServiceLevel]] = UNSET,
-) -> Response[Union[HTTPValidationError, list["WebMapService"]]]:
+    levels: list[WebMapServiceLevel] | Unset = UNSET,
+) -> Response[HTTPValidationError | list[WebMapService]]:
     """Get Web Map Services by Project ID
 
      Get Web Map Services by project_id.
@@ -157,14 +157,14 @@ async def asyncio_detailed(
 
     Args:
         project_id (str):
-        levels (Union[Unset, list[WebMapServiceLevel]]):
+        levels (list[WebMapServiceLevel] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['WebMapService']]]
+        Response[HTTPValidationError | list[WebMapService]]
     """
 
     kwargs = _get_kwargs(
@@ -181,8 +181,8 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    levels: Union[Unset, list[WebMapServiceLevel]] = UNSET,
-) -> Optional[Union[HTTPValidationError, list["WebMapService"]]]:
+    levels: list[WebMapServiceLevel] | Unset = UNSET,
+) -> HTTPValidationError | list[WebMapService] | None:
     """Get Web Map Services by Project ID
 
      Get Web Map Services by project_id.
@@ -192,14 +192,14 @@ async def asyncio(
 
     Args:
         project_id (str):
-        levels (Union[Unset, list[WebMapServiceLevel]]):
+        levels (list[WebMapServiceLevel] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['WebMapService']]
+        HTTPValidationError | list[WebMapService]
     """
 
     return (

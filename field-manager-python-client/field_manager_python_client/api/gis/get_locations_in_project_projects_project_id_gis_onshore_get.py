@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -13,8 +13,8 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     project_id: str,
     *,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
 
@@ -34,8 +34,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, list["LocationGis"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | list[LocationGis] | None:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -58,8 +58,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, list["LocationGis"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | list[LocationGis]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -72,9 +72,9 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-) -> Response[Union[HTTPValidationError, list["LocationGis"]]]:
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+) -> Response[HTTPValidationError | list[LocationGis]]:
     """Get Locations In Project
 
      Special endpoint for getting a project's locations flattened with limited aggregated method data.
@@ -83,15 +83,15 @@ def sync_detailed(
 
     Args:
         project_id (str):
-        skip (Union[Unset, int]):  Default: 0.
-        limit (Union[Unset, int]):  Default: 100.
+        skip (int | Unset):  Default: 0.
+        limit (int | Unset):  Default: 100.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['LocationGis']]]
+        Response[HTTPValidationError | list[LocationGis]]
     """
 
     kwargs = _get_kwargs(
@@ -111,9 +111,9 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-) -> Optional[Union[HTTPValidationError, list["LocationGis"]]]:
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+) -> HTTPValidationError | list[LocationGis] | None:
     """Get Locations In Project
 
      Special endpoint for getting a project's locations flattened with limited aggregated method data.
@@ -122,15 +122,15 @@ def sync(
 
     Args:
         project_id (str):
-        skip (Union[Unset, int]):  Default: 0.
-        limit (Union[Unset, int]):  Default: 100.
+        skip (int | Unset):  Default: 0.
+        limit (int | Unset):  Default: 100.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['LocationGis']]
+        HTTPValidationError | list[LocationGis]
     """
 
     return sync_detailed(
@@ -145,9 +145,9 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-) -> Response[Union[HTTPValidationError, list["LocationGis"]]]:
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+) -> Response[HTTPValidationError | list[LocationGis]]:
     """Get Locations In Project
 
      Special endpoint for getting a project's locations flattened with limited aggregated method data.
@@ -156,15 +156,15 @@ async def asyncio_detailed(
 
     Args:
         project_id (str):
-        skip (Union[Unset, int]):  Default: 0.
-        limit (Union[Unset, int]):  Default: 100.
+        skip (int | Unset):  Default: 0.
+        limit (int | Unset):  Default: 100.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['LocationGis']]]
+        Response[HTTPValidationError | list[LocationGis]]
     """
 
     kwargs = _get_kwargs(
@@ -182,9 +182,9 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-) -> Optional[Union[HTTPValidationError, list["LocationGis"]]]:
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+) -> HTTPValidationError | list[LocationGis] | None:
     """Get Locations In Project
 
      Special endpoint for getting a project's locations flattened with limited aggregated method data.
@@ -193,15 +193,15 @@ async def asyncio(
 
     Args:
         project_id (str):
-        skip (Union[Unset, int]):  Default: 0.
-        limit (Union[Unset, int]):  Default: 100.
+        skip (int | Unset):  Default: 0.
+        limit (int | Unset):  Default: 100.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['LocationGis']]
+        HTTPValidationError | list[LocationGis]
     """
 
     return (

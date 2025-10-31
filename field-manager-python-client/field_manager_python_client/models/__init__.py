@@ -37,6 +37,7 @@ from .create_cross_section_lines_projects_project_id_cross_sections_lines_format
 from .cross_section import CrossSection
 from .cross_section_create import CrossSectionCreate
 from .cross_section_update import CrossSectionUpdate
+from .crs_info import CRSInfo
 from .date_format import DateFormat
 from .dp_type import DPType
 from .export import Export
@@ -59,6 +60,7 @@ from .iogp_type_enum import IOGPTypeEnum
 from .language import Language
 from .like import Like
 from .linked_project_info import LinkedProjectInfo
+from .location import Location
 from .location_coordinates import LocationCoordinates
 from .location_create import LocationCreate
 from .location_gis import LocationGis
@@ -115,6 +117,7 @@ from .method_min import MethodMin
 from .method_other import MethodOTHER
 from .method_other_create import MethodOTHERCreate
 from .method_other_update import MethodOTHERUpdate
+from .method_plot_format import MethodPlotFormat
 from .method_pt import MethodPT
 from .method_pt_create import MethodPTCreate
 from .method_pt_update import MethodPTUpdate
@@ -236,6 +239,7 @@ from .project import Project
 from .project_create import ProjectCreate
 from .project_info import ProjectInfo
 from .project_search import ProjectSearch
+from .project_summary import ProjectSummary
 from .project_update import ProjectUpdate
 from .reading_type import ReadingType
 from .role import Role
@@ -285,6 +289,7 @@ __all__ = (
     "CrossSection",
     "CrossSectionCreate",
     "CrossSectionUpdate",
+    "CRSInfo",
     "DateFormat",
     "DPType",
     "Export",
@@ -305,6 +310,7 @@ __all__ = (
     "Language",
     "Like",
     "LinkedProjectInfo",
+    "Location",
     "LocationCoordinates",
     "LocationCreate",
     "LocationGis",
@@ -361,6 +367,7 @@ __all__ = (
     "MethodOTHER",
     "MethodOTHERCreate",
     "MethodOTHERUpdate",
+    "MethodPlotFormat",
     "MethodPT",
     "MethodPTCreate",
     "MethodPTUpdate",
@@ -482,6 +489,7 @@ __all__ = (
     "ProjectCreate",
     "ProjectInfo",
     "ProjectSearch",
+    "ProjectSummary",
     "ProjectUpdate",
     "ReadingType",
     "Role",

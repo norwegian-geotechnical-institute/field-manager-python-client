@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -22,8 +22,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, list["WebMapService"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | list[WebMapService] | None:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -46,8 +46,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, list["WebMapService"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | list[WebMapService]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -60,7 +60,7 @@ def sync_detailed(
     organization_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[HTTPValidationError, list["WebMapService"]]]:
+) -> Response[HTTPValidationError | list[WebMapService]]:
     """Get Web Map Services by Organization ID
 
      Get Web Map Services by organization_id.
@@ -73,7 +73,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['WebMapService']]]
+        Response[HTTPValidationError | list[WebMapService]]
     """
 
     kwargs = _get_kwargs(
@@ -91,7 +91,7 @@ def sync(
     organization_id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[HTTPValidationError, list["WebMapService"]]]:
+) -> HTTPValidationError | list[WebMapService] | None:
     """Get Web Map Services by Organization ID
 
      Get Web Map Services by organization_id.
@@ -104,7 +104,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['WebMapService']]
+        HTTPValidationError | list[WebMapService]
     """
 
     return sync_detailed(
@@ -117,7 +117,7 @@ async def asyncio_detailed(
     organization_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[HTTPValidationError, list["WebMapService"]]]:
+) -> Response[HTTPValidationError | list[WebMapService]]:
     """Get Web Map Services by Organization ID
 
      Get Web Map Services by organization_id.
@@ -130,7 +130,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['WebMapService']]]
+        Response[HTTPValidationError | list[WebMapService]]
     """
 
     kwargs = _get_kwargs(
@@ -146,7 +146,7 @@ async def asyncio(
     organization_id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[HTTPValidationError, list["WebMapService"]]]:
+) -> HTTPValidationError | list[WebMapService] | None:
     """Get Web Map Services by Organization ID
 
      Get Web Map Services by organization_id.
@@ -159,7 +159,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['WebMapService']]
+        HTTPValidationError | list[WebMapService]
     """
 
     return (

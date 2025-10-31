@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -9,6 +9,7 @@ from ...models.body_upload_locations_to_project_projects_project_id_locations_up
     BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost,
 )
 from ...models.http_validation_error import HTTPValidationError
+from ...models.location import Location
 from ...types import UNSET, Response, Unset
 
 
@@ -16,21 +17,21 @@ def _get_kwargs(
     project_id: str,
     *,
     body: BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost,
-    srid: Union[None, Unset, int] = UNSET,
-    swap_x_y: Union[None, Unset, bool] = False,
+    srid: int | None | Unset = UNSET,
+    swap_x_y: bool | None | Unset = False,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
     params: dict[str, Any] = {}
 
-    json_srid: Union[None, Unset, int]
+    json_srid: int | None | Unset
     if isinstance(srid, Unset):
         json_srid = UNSET
     else:
         json_srid = srid
     params["srid"] = json_srid
 
-    json_swap_x_y: Union[None, Unset, bool]
+    json_swap_x_y: bool | None | Unset
     if isinstance(swap_x_y, Unset):
         json_swap_x_y = UNSET
     else:
@@ -52,8 +53,18 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[HTTPValidationError]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | list[Location] | None:
+    if response.status_code == 201:
+        response_201 = []
+        _response_201 = response.json()
+        for response_201_item_data in _response_201:
+            response_201_item = Location.from_dict(response_201_item_data)
+
+            response_201.append(response_201_item)
+
+        return response_201
+
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
@@ -66,8 +77,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[HTTPValidationError]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | list[Location]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -81,9 +92,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost,
-    srid: Union[None, Unset, int] = UNSET,
-    swap_x_y: Union[None, Unset, bool] = False,
-) -> Response[HTTPValidationError]:
+    srid: int | None | Unset = UNSET,
+    swap_x_y: bool | None | Unset = False,
+) -> Response[HTTPValidationError | list[Location]]:
     """Upload Locations To Project
 
      Upload locations from a file.
@@ -97,8 +108,8 @@ def sync_detailed(
 
     Args:
         project_id (str):
-        srid (Union[None, Unset, int]):
-        swap_x_y (Union[None, Unset, bool]):  Default: False.
+        srid (int | None | Unset):
+        swap_x_y (bool | None | Unset):  Default: False.
         body (BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost):
 
     Raises:
@@ -106,7 +117,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[HTTPValidationError | list[Location]]
     """
 
     kwargs = _get_kwargs(
@@ -128,9 +139,9 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost,
-    srid: Union[None, Unset, int] = UNSET,
-    swap_x_y: Union[None, Unset, bool] = False,
-) -> Optional[HTTPValidationError]:
+    srid: int | None | Unset = UNSET,
+    swap_x_y: bool | None | Unset = False,
+) -> HTTPValidationError | list[Location] | None:
     """Upload Locations To Project
 
      Upload locations from a file.
@@ -144,8 +155,8 @@ def sync(
 
     Args:
         project_id (str):
-        srid (Union[None, Unset, int]):
-        swap_x_y (Union[None, Unset, bool]):  Default: False.
+        srid (int | None | Unset):
+        swap_x_y (bool | None | Unset):  Default: False.
         body (BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost):
 
     Raises:
@@ -153,7 +164,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        HTTPValidationError | list[Location]
     """
 
     return sync_detailed(
@@ -170,9 +181,9 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost,
-    srid: Union[None, Unset, int] = UNSET,
-    swap_x_y: Union[None, Unset, bool] = False,
-) -> Response[HTTPValidationError]:
+    srid: int | None | Unset = UNSET,
+    swap_x_y: bool | None | Unset = False,
+) -> Response[HTTPValidationError | list[Location]]:
     """Upload Locations To Project
 
      Upload locations from a file.
@@ -186,8 +197,8 @@ async def asyncio_detailed(
 
     Args:
         project_id (str):
-        srid (Union[None, Unset, int]):
-        swap_x_y (Union[None, Unset, bool]):  Default: False.
+        srid (int | None | Unset):
+        swap_x_y (bool | None | Unset):  Default: False.
         body (BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost):
 
     Raises:
@@ -195,7 +206,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[HTTPValidationError | list[Location]]
     """
 
     kwargs = _get_kwargs(
@@ -215,9 +226,9 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost,
-    srid: Union[None, Unset, int] = UNSET,
-    swap_x_y: Union[None, Unset, bool] = False,
-) -> Optional[HTTPValidationError]:
+    srid: int | None | Unset = UNSET,
+    swap_x_y: bool | None | Unset = False,
+) -> HTTPValidationError | list[Location] | None:
     """Upload Locations To Project
 
      Upload locations from a file.
@@ -231,8 +242,8 @@ async def asyncio(
 
     Args:
         project_id (str):
-        srid (Union[None, Unset, int]):
-        swap_x_y (Union[None, Unset, bool]):  Default: False.
+        srid (int | None | Unset):
+        swap_x_y (bool | None | Unset):  Default: False.
         body (BodyUploadLocationsToProjectProjectsProjectIdLocationsUploadPost):
 
     Raises:
@@ -240,7 +251,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        HTTPValidationError | list[Location]
     """
 
     return (

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -63,12 +65,12 @@ class MethodInfo:
             STI = 28,
             )
         created_at (datetime.datetime):
-        conducted_at (Union[None, Unset, datetime.datetime]):
-        conducted_by (Union[None, Unset, str]):
-        created_by (Union[None, Unset, str]):
-        cone_reference (Union[None, Unset, str]):
-        srs_type (Union[None, SoundingClass, Unset]):
-        bedrock_info (Union['BedrockInfo', None, Unset]):
+        conducted_at (datetime.datetime | None | Unset):
+        conducted_by (None | str | Unset):
+        created_by (None | str | Unset):
+        cone_reference (None | str | Unset):
+        srs_type (None | SoundingClass | Unset):
+        bedrock_info (BedrockInfo | None | Unset):
     """
 
     method_id: UUID
@@ -76,12 +78,12 @@ class MethodInfo:
     method_status: MethodStatusEnum
     method_type: MethodTypeEnum
     created_at: datetime.datetime
-    conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    conducted_by: Union[None, Unset, str] = UNSET
-    created_by: Union[None, Unset, str] = UNSET
-    cone_reference: Union[None, Unset, str] = UNSET
-    srs_type: Union[None, SoundingClass, Unset] = UNSET
-    bedrock_info: Union["BedrockInfo", None, Unset] = UNSET
+    conducted_at: datetime.datetime | None | Unset = UNSET
+    conducted_by: None | str | Unset = UNSET
+    created_by: None | str | Unset = UNSET
+    cone_reference: None | str | Unset = UNSET
+    srs_type: None | SoundingClass | Unset = UNSET
+    bedrock_info: BedrockInfo | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -97,7 +99,7 @@ class MethodInfo:
 
         created_at = self.created_at.isoformat()
 
-        conducted_at: Union[None, Unset, str]
+        conducted_at: None | str | Unset
         if isinstance(self.conducted_at, Unset):
             conducted_at = UNSET
         elif isinstance(self.conducted_at, datetime.datetime):
@@ -105,25 +107,25 @@ class MethodInfo:
         else:
             conducted_at = self.conducted_at
 
-        conducted_by: Union[None, Unset, str]
+        conducted_by: None | str | Unset
         if isinstance(self.conducted_by, Unset):
             conducted_by = UNSET
         else:
             conducted_by = self.conducted_by
 
-        created_by: Union[None, Unset, str]
+        created_by: None | str | Unset
         if isinstance(self.created_by, Unset):
             created_by = UNSET
         else:
             created_by = self.created_by
 
-        cone_reference: Union[None, Unset, str]
+        cone_reference: None | str | Unset
         if isinstance(self.cone_reference, Unset):
             cone_reference = UNSET
         else:
             cone_reference = self.cone_reference
 
-        srs_type: Union[None, Unset, str]
+        srs_type: None | str | Unset
         if isinstance(self.srs_type, Unset):
             srs_type = UNSET
         elif isinstance(self.srs_type, SoundingClass):
@@ -131,7 +133,7 @@ class MethodInfo:
         else:
             srs_type = self.srs_type
 
-        bedrock_info: Union[None, Unset, dict[str, Any]]
+        bedrock_info: dict[str, Any] | None | Unset
         if isinstance(self.bedrock_info, Unset):
             bedrock_info = UNSET
         elif isinstance(self.bedrock_info, BedrockInfo):
@@ -180,7 +182,7 @@ class MethodInfo:
 
         created_at = isoparse(d.pop("created_at"))
 
-        def _parse_conducted_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_conducted_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -193,38 +195,38 @@ class MethodInfo:
                 return conducted_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        def _parse_conducted_by(data: object) -> Union[None, Unset, str]:
+        def _parse_conducted_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         conducted_by = _parse_conducted_by(d.pop("conducted_by", UNSET))
 
-        def _parse_created_by(data: object) -> Union[None, Unset, str]:
+        def _parse_created_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
 
-        def _parse_cone_reference(data: object) -> Union[None, Unset, str]:
+        def _parse_cone_reference(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         cone_reference = _parse_cone_reference(d.pop("cone_reference", UNSET))
 
-        def _parse_srs_type(data: object) -> Union[None, SoundingClass, Unset]:
+        def _parse_srs_type(data: object) -> None | SoundingClass | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -237,11 +239,11 @@ class MethodInfo:
                 return srs_type_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, SoundingClass, Unset], data)
+            return cast(None | SoundingClass | Unset, data)
 
         srs_type = _parse_srs_type(d.pop("srs_type", UNSET))
 
-        def _parse_bedrock_info(data: object) -> Union["BedrockInfo", None, Unset]:
+        def _parse_bedrock_info(data: object) -> BedrockInfo | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -254,7 +256,7 @@ class MethodInfo:
                 return bedrock_info_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union["BedrockInfo", None, Unset], data)
+            return cast(BedrockInfo | None | Unset, data)
 
         bedrock_info = _parse_bedrock_info(d.pop("bedrock_info", UNSET))
 

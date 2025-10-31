@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -24,8 +24,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[File, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> File | HTTPValidationError | None:
     if response.status_code == 200:
         response_200 = File.from_dict(response.json())
 
@@ -43,8 +43,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[File, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[File | HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -58,7 +58,7 @@ def sync_detailed(
     file_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[File, HTTPValidationError]]:
+) -> Response[File | HTTPValidationError]:
     """Get File In Project
 
      Return a database file object with the given file_id in specified project.
@@ -72,7 +72,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[File, HTTPValidationError]]
+        Response[File | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -92,7 +92,7 @@ def sync(
     file_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[File, HTTPValidationError]]:
+) -> File | HTTPValidationError | None:
     """Get File In Project
 
      Return a database file object with the given file_id in specified project.
@@ -106,7 +106,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[File, HTTPValidationError]
+        File | HTTPValidationError
     """
 
     return sync_detailed(
@@ -121,7 +121,7 @@ async def asyncio_detailed(
     file_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[File, HTTPValidationError]]:
+) -> Response[File | HTTPValidationError]:
     """Get File In Project
 
      Return a database file object with the given file_id in specified project.
@@ -135,7 +135,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[File, HTTPValidationError]]
+        Response[File | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -153,7 +153,7 @@ async def asyncio(
     file_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[File, HTTPValidationError]]:
+) -> File | HTTPValidationError | None:
     """Get File In Project
 
      Return a database file object with the given file_id in specified project.
@@ -167,7 +167,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[File, HTTPValidationError]
+        File | HTTPValidationError
     """
 
     return (

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, Literal, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,43 +18,43 @@ T = TypeVar("T", bound="MethodDPDataCreate")
 class MethodDPDataCreate:
     """
     Attributes:
-        depth (Union[float, str]): Depth (m). SGF code D.
-        method_data_id (Union[None, UUID, Unset]):
-        method_id (Union[None, UUID, Unset]):
-        method_type_id (Union[Literal[25], Unset]):  Default: 25.
-        created_at (Union[None, Unset, datetime.datetime]):
-        updated_at (Union[None, Unset, datetime.datetime]):
-        comment_code (Union[None, Unset, int]): Comment code. Two digit value.
-        remarks (Union[None, Unset, str]):
-        penetration_force (Union[None, Unset, float, str]): Penetration force (kN). SGF code A.
-        penetration_rate (Union[None, Unset, float, str]): Penetration rate (mm/s). SGF code B.
-        torque (Union[None, Unset, float, str]): Torque (kNm). SGF code V.
-        ramming (Union[None, Unset, float, str]): Ramming (blow/0.2m)
-        rotation_rate (Union[None, Unset, float, str]): Rotation rate (rpm). SGF code R.
-        increased_rotation_rate (Union[None, Unset, bool]): rotation
+        depth (float | str): Depth (m). SGF code D.
+        method_data_id (None | Unset | UUID):
+        method_id (None | Unset | UUID):
+        method_type_id (Literal[25] | Unset):  Default: 25.
+        created_at (datetime.datetime | None | Unset):
+        updated_at (datetime.datetime | None | Unset):
+        comment_code (int | None | Unset): Comment code. Two digit value.
+        remarks (None | str | Unset):
+        penetration_force (float | None | str | Unset): Penetration force (kN). SGF code A.
+        penetration_rate (float | None | str | Unset): Penetration rate (mm/s). SGF code B.
+        torque (float | None | str | Unset): Torque (kNm). SGF code V.
+        ramming (float | None | str | Unset): Ramming (blow/0.2m)
+        rotation_rate (float | None | str | Unset): Rotation rate (rpm). SGF code R.
+        increased_rotation_rate (bool | None | Unset): rotation
     """
 
-    depth: Union[float, str]
-    method_data_id: Union[None, UUID, Unset] = UNSET
-    method_id: Union[None, UUID, Unset] = UNSET
-    method_type_id: Union[Literal[25], Unset] = 25
-    created_at: Union[None, Unset, datetime.datetime] = UNSET
-    updated_at: Union[None, Unset, datetime.datetime] = UNSET
-    comment_code: Union[None, Unset, int] = UNSET
-    remarks: Union[None, Unset, str] = UNSET
-    penetration_force: Union[None, Unset, float, str] = UNSET
-    penetration_rate: Union[None, Unset, float, str] = UNSET
-    torque: Union[None, Unset, float, str] = UNSET
-    ramming: Union[None, Unset, float, str] = UNSET
-    rotation_rate: Union[None, Unset, float, str] = UNSET
-    increased_rotation_rate: Union[None, Unset, bool] = UNSET
+    depth: float | str
+    method_data_id: None | Unset | UUID = UNSET
+    method_id: None | Unset | UUID = UNSET
+    method_type_id: Literal[25] | Unset = 25
+    created_at: datetime.datetime | None | Unset = UNSET
+    updated_at: datetime.datetime | None | Unset = UNSET
+    comment_code: int | None | Unset = UNSET
+    remarks: None | str | Unset = UNSET
+    penetration_force: float | None | str | Unset = UNSET
+    penetration_rate: float | None | str | Unset = UNSET
+    torque: float | None | str | Unset = UNSET
+    ramming: float | None | str | Unset = UNSET
+    rotation_rate: float | None | str | Unset = UNSET
+    increased_rotation_rate: bool | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        depth: Union[float, str]
+        depth: float | str
         depth = self.depth
 
-        method_data_id: Union[None, Unset, str]
+        method_data_id: None | str | Unset
         if isinstance(self.method_data_id, Unset):
             method_data_id = UNSET
         elif isinstance(self.method_data_id, UUID):
@@ -60,7 +62,7 @@ class MethodDPDataCreate:
         else:
             method_data_id = self.method_data_id
 
-        method_id: Union[None, Unset, str]
+        method_id: None | str | Unset
         if isinstance(self.method_id, Unset):
             method_id = UNSET
         elif isinstance(self.method_id, UUID):
@@ -70,7 +72,7 @@ class MethodDPDataCreate:
 
         method_type_id = self.method_type_id
 
-        created_at: Union[None, Unset, str]
+        created_at: None | str | Unset
         if isinstance(self.created_at, Unset):
             created_at = UNSET
         elif isinstance(self.created_at, datetime.datetime):
@@ -78,7 +80,7 @@ class MethodDPDataCreate:
         else:
             created_at = self.created_at
 
-        updated_at: Union[None, Unset, str]
+        updated_at: None | str | Unset
         if isinstance(self.updated_at, Unset):
             updated_at = UNSET
         elif isinstance(self.updated_at, datetime.datetime):
@@ -86,49 +88,49 @@ class MethodDPDataCreate:
         else:
             updated_at = self.updated_at
 
-        comment_code: Union[None, Unset, int]
+        comment_code: int | None | Unset
         if isinstance(self.comment_code, Unset):
             comment_code = UNSET
         else:
             comment_code = self.comment_code
 
-        remarks: Union[None, Unset, str]
+        remarks: None | str | Unset
         if isinstance(self.remarks, Unset):
             remarks = UNSET
         else:
             remarks = self.remarks
 
-        penetration_force: Union[None, Unset, float, str]
+        penetration_force: float | None | str | Unset
         if isinstance(self.penetration_force, Unset):
             penetration_force = UNSET
         else:
             penetration_force = self.penetration_force
 
-        penetration_rate: Union[None, Unset, float, str]
+        penetration_rate: float | None | str | Unset
         if isinstance(self.penetration_rate, Unset):
             penetration_rate = UNSET
         else:
             penetration_rate = self.penetration_rate
 
-        torque: Union[None, Unset, float, str]
+        torque: float | None | str | Unset
         if isinstance(self.torque, Unset):
             torque = UNSET
         else:
             torque = self.torque
 
-        ramming: Union[None, Unset, float, str]
+        ramming: float | None | str | Unset
         if isinstance(self.ramming, Unset):
             ramming = UNSET
         else:
             ramming = self.ramming
 
-        rotation_rate: Union[None, Unset, float, str]
+        rotation_rate: float | None | str | Unset
         if isinstance(self.rotation_rate, Unset):
             rotation_rate = UNSET
         else:
             rotation_rate = self.rotation_rate
 
-        increased_rotation_rate: Union[None, Unset, bool]
+        increased_rotation_rate: bool | None | Unset
         if isinstance(self.increased_rotation_rate, Unset):
             increased_rotation_rate = UNSET
         else:
@@ -174,12 +176,12 @@ class MethodDPDataCreate:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
 
-        def _parse_depth(data: object) -> Union[float, str]:
-            return cast(Union[float, str], data)
+        def _parse_depth(data: object) -> float | str:
+            return cast(float | str, data)
 
         depth = _parse_depth(d.pop("depth"))
 
-        def _parse_method_data_id(data: object) -> Union[None, UUID, Unset]:
+        def _parse_method_data_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -192,11 +194,11 @@ class MethodDPDataCreate:
                 return method_data_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID, Unset], data)
+            return cast(None | Unset | UUID, data)
 
         method_data_id = _parse_method_data_id(d.pop("method_data_id", UNSET))
 
-        def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
+        def _parse_method_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -209,15 +211,15 @@ class MethodDPDataCreate:
                 return method_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID, Unset], data)
+            return cast(None | Unset | UUID, data)
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
 
-        method_type_id = cast(Union[Literal[25], Unset], d.pop("method_type_id", UNSET))
+        method_type_id = cast(Literal[25] | Unset, d.pop("method_type_id", UNSET))
         if method_type_id != 25 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 25, got '{method_type_id}'")
 
-        def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_created_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -230,11 +232,11 @@ class MethodDPDataCreate:
                 return created_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         created_at = _parse_created_at(d.pop("created_at", UNSET))
 
-        def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_updated_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -247,79 +249,79 @@ class MethodDPDataCreate:
                 return updated_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
 
-        def _parse_comment_code(data: object) -> Union[None, Unset, int]:
+        def _parse_comment_code(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         comment_code = _parse_comment_code(d.pop("comment_code", UNSET))
 
-        def _parse_remarks(data: object) -> Union[None, Unset, str]:
+        def _parse_remarks(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-        def _parse_penetration_force(data: object) -> Union[None, Unset, float, str]:
+        def _parse_penetration_force(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         penetration_force = _parse_penetration_force(d.pop("penetration_force", UNSET))
 
-        def _parse_penetration_rate(data: object) -> Union[None, Unset, float, str]:
+        def _parse_penetration_rate(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         penetration_rate = _parse_penetration_rate(d.pop("penetration_rate", UNSET))
 
-        def _parse_torque(data: object) -> Union[None, Unset, float, str]:
+        def _parse_torque(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         torque = _parse_torque(d.pop("torque", UNSET))
 
-        def _parse_ramming(data: object) -> Union[None, Unset, float, str]:
+        def _parse_ramming(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         ramming = _parse_ramming(d.pop("ramming", UNSET))
 
-        def _parse_rotation_rate(data: object) -> Union[None, Unset, float, str]:
+        def _parse_rotation_rate(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         rotation_rate = _parse_rotation_rate(d.pop("rotation_rate", UNSET))
 
-        def _parse_increased_rotation_rate(data: object) -> Union[None, Unset, bool]:
+        def _parse_increased_rotation_rate(data: object) -> bool | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, bool], data)
+            return cast(bool | None | Unset, data)
 
         increased_rotation_rate = _parse_increased_rotation_rate(d.pop("increased_rotation_rate", UNSET))
 

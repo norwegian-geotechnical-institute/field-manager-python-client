@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,19 +19,19 @@ class Role:
     """
     Attributes:
         role_type (RoleEnum):
-        role_entity_type (Union[None, RoleEntityEnum, Unset]):
-        role_entity_id (Union[None, UUID, Unset]):
+        role_entity_type (None | RoleEntityEnum | Unset):
+        role_entity_id (None | Unset | UUID):
     """
 
     role_type: RoleEnum
-    role_entity_type: Union[None, RoleEntityEnum, Unset] = UNSET
-    role_entity_id: Union[None, UUID, Unset] = UNSET
+    role_entity_type: None | RoleEntityEnum | Unset = UNSET
+    role_entity_id: None | Unset | UUID = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         role_type = self.role_type.value
 
-        role_entity_type: Union[None, Unset, str]
+        role_entity_type: None | str | Unset
         if isinstance(self.role_entity_type, Unset):
             role_entity_type = UNSET
         elif isinstance(self.role_entity_type, RoleEntityEnum):
@@ -37,7 +39,7 @@ class Role:
         else:
             role_entity_type = self.role_entity_type
 
-        role_entity_id: Union[None, Unset, str]
+        role_entity_id: None | str | Unset
         if isinstance(self.role_entity_id, Unset):
             role_entity_id = UNSET
         elif isinstance(self.role_entity_id, UUID):
@@ -64,7 +66,7 @@ class Role:
         d = dict(src_dict)
         role_type = RoleEnum(d.pop("role_type"))
 
-        def _parse_role_entity_type(data: object) -> Union[None, RoleEntityEnum, Unset]:
+        def _parse_role_entity_type(data: object) -> None | RoleEntityEnum | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -77,11 +79,11 @@ class Role:
                 return role_entity_type_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, RoleEntityEnum, Unset], data)
+            return cast(None | RoleEntityEnum | Unset, data)
 
         role_entity_type = _parse_role_entity_type(d.pop("role_entity_type", UNSET))
 
-        def _parse_role_entity_id(data: object) -> Union[None, UUID, Unset]:
+        def _parse_role_entity_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -94,7 +96,7 @@ class Role:
                 return role_entity_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID, Unset], data)
+            return cast(None | Unset | UUID, data)
 
         role_entity_id = _parse_role_entity_id(d.pop("role_entity_id", UNSET))
 

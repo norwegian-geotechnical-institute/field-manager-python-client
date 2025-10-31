@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -34,8 +34,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[File, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> File | HTTPValidationError | None:
     if response.status_code == 201:
         response_201 = File.from_dict(response.json())
 
@@ -53,8 +53,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[File, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[File | HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -69,7 +69,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: BodyUploadFileToShapeProjectsProjectIdShapesShapeIdFilePost,
-) -> Response[Union[File, HTTPValidationError]]:
+) -> Response[File | HTTPValidationError]:
     """Upload File To Shape
 
      Upload file and associate it with a shape or sub_shape
@@ -87,7 +87,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[File, HTTPValidationError]]
+        Response[File | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -109,7 +109,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: BodyUploadFileToShapeProjectsProjectIdShapesShapeIdFilePost,
-) -> Optional[Union[File, HTTPValidationError]]:
+) -> File | HTTPValidationError | None:
     """Upload File To Shape
 
      Upload file and associate it with a shape or sub_shape
@@ -127,7 +127,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[File, HTTPValidationError]
+        File | HTTPValidationError
     """
 
     return sync_detailed(
@@ -144,7 +144,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: BodyUploadFileToShapeProjectsProjectIdShapesShapeIdFilePost,
-) -> Response[Union[File, HTTPValidationError]]:
+) -> Response[File | HTTPValidationError]:
     """Upload File To Shape
 
      Upload file and associate it with a shape or sub_shape
@@ -162,7 +162,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[File, HTTPValidationError]]
+        Response[File | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -182,7 +182,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: BodyUploadFileToShapeProjectsProjectIdShapesShapeIdFilePost,
-) -> Optional[Union[File, HTTPValidationError]]:
+) -> File | HTTPValidationError | None:
     """Upload File To Shape
 
      Upload file and associate it with a shape or sub_shape
@@ -200,7 +200,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[File, HTTPValidationError]
+        File | HTTPValidationError
     """
 
     return (

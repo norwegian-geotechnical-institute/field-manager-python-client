@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,34 +17,34 @@ T = TypeVar("T", bound="WebMapServiceUpdate")
 class WebMapServiceUpdate:
     """
     Attributes:
-        name (Union[None, Unset, str]):
-        url (Union[None, Unset, str]):
-        service_type (Union[None, Unset, WebMapServiceType]):
-        available_standard_ids (Union[None, Unset, list[StandardType]]):
-        description (Union[None, Unset, str]):
+        name (None | str | Unset):
+        url (None | str | Unset):
+        service_type (None | Unset | WebMapServiceType):
+        available_standard_ids (list[StandardType] | None | Unset):
+        description (None | str | Unset):
     """
 
-    name: Union[None, Unset, str] = UNSET
-    url: Union[None, Unset, str] = UNSET
-    service_type: Union[None, Unset, WebMapServiceType] = UNSET
-    available_standard_ids: Union[None, Unset, list[StandardType]] = UNSET
-    description: Union[None, Unset, str] = UNSET
+    name: None | str | Unset = UNSET
+    url: None | str | Unset = UNSET
+    service_type: None | Unset | WebMapServiceType = UNSET
+    available_standard_ids: list[StandardType] | None | Unset = UNSET
+    description: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        name: Union[None, Unset, str]
+        name: None | str | Unset
         if isinstance(self.name, Unset):
             name = UNSET
         else:
             name = self.name
 
-        url: Union[None, Unset, str]
+        url: None | str | Unset
         if isinstance(self.url, Unset):
             url = UNSET
         else:
             url = self.url
 
-        service_type: Union[None, Unset, str]
+        service_type: None | str | Unset
         if isinstance(self.service_type, Unset):
             service_type = UNSET
         elif isinstance(self.service_type, WebMapServiceType):
@@ -50,7 +52,7 @@ class WebMapServiceUpdate:
         else:
             service_type = self.service_type
 
-        available_standard_ids: Union[None, Unset, list[str]]
+        available_standard_ids: list[str] | None | Unset
         if isinstance(self.available_standard_ids, Unset):
             available_standard_ids = UNSET
         elif isinstance(self.available_standard_ids, list):
@@ -62,7 +64,7 @@ class WebMapServiceUpdate:
         else:
             available_standard_ids = self.available_standard_ids
 
-        description: Union[None, Unset, str]
+        description: None | str | Unset
         if isinstance(self.description, Unset):
             description = UNSET
         else:
@@ -88,25 +90,25 @@ class WebMapServiceUpdate:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
 
-        def _parse_name(data: object) -> Union[None, Unset, str]:
+        def _parse_name(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         name = _parse_name(d.pop("name", UNSET))
 
-        def _parse_url(data: object) -> Union[None, Unset, str]:
+        def _parse_url(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         url = _parse_url(d.pop("url", UNSET))
 
-        def _parse_service_type(data: object) -> Union[None, Unset, WebMapServiceType]:
+        def _parse_service_type(data: object) -> None | Unset | WebMapServiceType:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -119,11 +121,11 @@ class WebMapServiceUpdate:
                 return service_type_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, WebMapServiceType], data)
+            return cast(None | Unset | WebMapServiceType, data)
 
         service_type = _parse_service_type(d.pop("service_type", UNSET))
 
-        def _parse_available_standard_ids(data: object) -> Union[None, Unset, list[StandardType]]:
+        def _parse_available_standard_ids(data: object) -> list[StandardType] | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -141,16 +143,16 @@ class WebMapServiceUpdate:
                 return available_standard_ids_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, list[StandardType]], data)
+            return cast(list[StandardType] | None | Unset, data)
 
         available_standard_ids = _parse_available_standard_ids(d.pop("available_standard_ids", UNSET))
 
-        def _parse_description(data: object) -> Union[None, Unset, str]:
+        def _parse_description(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         description = _parse_description(d.pop("description", UNSET))
 

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, Literal, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -19,29 +21,29 @@ class MethodCPTCreate:
     """Structure for creating a new CPT method. All parameters are optional and defaults values are provided.
 
     Attributes:
-        method_id (Union[None, UUID, Unset]):
-        name (Union[Unset, str]):  Default: 'CPT'.
-        remarks (Union[None, Unset, str]):
-        method_status_id (Union[Unset, MethodStatusEnum]): (
+        method_id (None | Unset | UUID):
+        name (str | Unset):  Default: 'CPT'.
+        remarks (None | str | Unset):
+        method_status_id (MethodStatusEnum | Unset): (
             PLANNED=1,
             READY=2,
             CONDUCTED=3,
             VOIDED=4,
             APPROVED=5,
             )
-        created_at (Union[None, Unset, datetime.datetime]):
-        created_by (Union[None, Unset, str]):
-        updated_at (Union[None, Unset, datetime.datetime]):
-        updated_by (Union[None, Unset, str]):
-        conducted_by (Union[None, Unset, str]):
-        conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Literal[1], Unset]):  Default: 1.
-        predrilling_depth (Union[None, Unset, float, str]):
-        cone_reference (Union[None, Unset, str]):
-        water_depth (Union[None, Unset, float, str]):
-        cone_area_ratio (Union[None, Unset, float, str]):
-        sleeve_area_ratio (Union[None, Unset, float, str]):
-        application_class_depth (Union[Unset, ApplicationClassEnum]): (
+        created_at (datetime.datetime | None | Unset):
+        created_by (None | str | Unset):
+        updated_at (datetime.datetime | None | Unset):
+        updated_by (None | str | Unset):
+        conducted_by (None | str | Unset):
+        conducted_at (datetime.datetime | None | Unset):
+        method_type_id (Literal[1] | Unset):  Default: 1.
+        predrilling_depth (float | None | str | Unset):
+        cone_reference (None | str | Unset):
+        water_depth (float | None | str | Unset):
+        cone_area_ratio (float | None | str | Unset):
+        sleeve_area_ratio (float | None | str | Unset):
+        application_class_depth (ApplicationClassEnum | Unset): (
             ONE=1,
             TWO=2,
             THREE=3,
@@ -49,7 +51,7 @@ class MethodCPTCreate:
             OUT_OF_BOUNDS=10,
             UNKNOWN=100,
             )
-        application_class_resistance (Union[Unset, ApplicationClassEnum]): (
+        application_class_resistance (ApplicationClassEnum | Unset): (
             ONE=1,
             TWO=2,
             THREE=3,
@@ -57,7 +59,7 @@ class MethodCPTCreate:
             OUT_OF_BOUNDS=10,
             UNKNOWN=100,
             )
-        application_class_friction (Union[Unset, ApplicationClassEnum]): (
+        application_class_friction (ApplicationClassEnum | Unset): (
             ONE=1,
             TWO=2,
             THREE=3,
@@ -65,7 +67,7 @@ class MethodCPTCreate:
             OUT_OF_BOUNDS=10,
             UNKNOWN=100,
             )
-        application_class_pressure (Union[Unset, ApplicationClassEnum]): (
+        application_class_pressure (ApplicationClassEnum | Unset): (
             ONE=1,
             TWO=2,
             THREE=3,
@@ -75,30 +77,30 @@ class MethodCPTCreate:
             )
     """
 
-    method_id: Union[None, UUID, Unset] = UNSET
-    name: Union[Unset, str] = "CPT"
-    remarks: Union[None, Unset, str] = UNSET
-    method_status_id: Union[Unset, MethodStatusEnum] = UNSET
-    created_at: Union[None, Unset, datetime.datetime] = UNSET
-    created_by: Union[None, Unset, str] = UNSET
-    updated_at: Union[None, Unset, datetime.datetime] = UNSET
-    updated_by: Union[None, Unset, str] = UNSET
-    conducted_by: Union[None, Unset, str] = UNSET
-    conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Literal[1], Unset] = 1
-    predrilling_depth: Union[None, Unset, float, str] = UNSET
-    cone_reference: Union[None, Unset, str] = UNSET
-    water_depth: Union[None, Unset, float, str] = UNSET
-    cone_area_ratio: Union[None, Unset, float, str] = UNSET
-    sleeve_area_ratio: Union[None, Unset, float, str] = UNSET
-    application_class_depth: Union[Unset, ApplicationClassEnum] = UNSET
-    application_class_resistance: Union[Unset, ApplicationClassEnum] = UNSET
-    application_class_friction: Union[Unset, ApplicationClassEnum] = UNSET
-    application_class_pressure: Union[Unset, ApplicationClassEnum] = UNSET
+    method_id: None | Unset | UUID = UNSET
+    name: str | Unset = "CPT"
+    remarks: None | str | Unset = UNSET
+    method_status_id: MethodStatusEnum | Unset = UNSET
+    created_at: datetime.datetime | None | Unset = UNSET
+    created_by: None | str | Unset = UNSET
+    updated_at: datetime.datetime | None | Unset = UNSET
+    updated_by: None | str | Unset = UNSET
+    conducted_by: None | str | Unset = UNSET
+    conducted_at: datetime.datetime | None | Unset = UNSET
+    method_type_id: Literal[1] | Unset = 1
+    predrilling_depth: float | None | str | Unset = UNSET
+    cone_reference: None | str | Unset = UNSET
+    water_depth: float | None | str | Unset = UNSET
+    cone_area_ratio: float | None | str | Unset = UNSET
+    sleeve_area_ratio: float | None | str | Unset = UNSET
+    application_class_depth: ApplicationClassEnum | Unset = UNSET
+    application_class_resistance: ApplicationClassEnum | Unset = UNSET
+    application_class_friction: ApplicationClassEnum | Unset = UNSET
+    application_class_pressure: ApplicationClassEnum | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        method_id: Union[None, Unset, str]
+        method_id: None | str | Unset
         if isinstance(self.method_id, Unset):
             method_id = UNSET
         elif isinstance(self.method_id, UUID):
@@ -108,17 +110,17 @@ class MethodCPTCreate:
 
         name = self.name
 
-        remarks: Union[None, Unset, str]
+        remarks: None | str | Unset
         if isinstance(self.remarks, Unset):
             remarks = UNSET
         else:
             remarks = self.remarks
 
-        method_status_id: Union[Unset, int] = UNSET
+        method_status_id: int | Unset = UNSET
         if not isinstance(self.method_status_id, Unset):
             method_status_id = self.method_status_id.value
 
-        created_at: Union[None, Unset, str]
+        created_at: None | str | Unset
         if isinstance(self.created_at, Unset):
             created_at = UNSET
         elif isinstance(self.created_at, datetime.datetime):
@@ -126,13 +128,13 @@ class MethodCPTCreate:
         else:
             created_at = self.created_at
 
-        created_by: Union[None, Unset, str]
+        created_by: None | str | Unset
         if isinstance(self.created_by, Unset):
             created_by = UNSET
         else:
             created_by = self.created_by
 
-        updated_at: Union[None, Unset, str]
+        updated_at: None | str | Unset
         if isinstance(self.updated_at, Unset):
             updated_at = UNSET
         elif isinstance(self.updated_at, datetime.datetime):
@@ -140,19 +142,19 @@ class MethodCPTCreate:
         else:
             updated_at = self.updated_at
 
-        updated_by: Union[None, Unset, str]
+        updated_by: None | str | Unset
         if isinstance(self.updated_by, Unset):
             updated_by = UNSET
         else:
             updated_by = self.updated_by
 
-        conducted_by: Union[None, Unset, str]
+        conducted_by: None | str | Unset
         if isinstance(self.conducted_by, Unset):
             conducted_by = UNSET
         else:
             conducted_by = self.conducted_by
 
-        conducted_at: Union[None, Unset, str]
+        conducted_at: None | str | Unset
         if isinstance(self.conducted_at, Unset):
             conducted_at = UNSET
         elif isinstance(self.conducted_at, datetime.datetime):
@@ -162,49 +164,49 @@ class MethodCPTCreate:
 
         method_type_id = self.method_type_id
 
-        predrilling_depth: Union[None, Unset, float, str]
+        predrilling_depth: float | None | str | Unset
         if isinstance(self.predrilling_depth, Unset):
             predrilling_depth = UNSET
         else:
             predrilling_depth = self.predrilling_depth
 
-        cone_reference: Union[None, Unset, str]
+        cone_reference: None | str | Unset
         if isinstance(self.cone_reference, Unset):
             cone_reference = UNSET
         else:
             cone_reference = self.cone_reference
 
-        water_depth: Union[None, Unset, float, str]
+        water_depth: float | None | str | Unset
         if isinstance(self.water_depth, Unset):
             water_depth = UNSET
         else:
             water_depth = self.water_depth
 
-        cone_area_ratio: Union[None, Unset, float, str]
+        cone_area_ratio: float | None | str | Unset
         if isinstance(self.cone_area_ratio, Unset):
             cone_area_ratio = UNSET
         else:
             cone_area_ratio = self.cone_area_ratio
 
-        sleeve_area_ratio: Union[None, Unset, float, str]
+        sleeve_area_ratio: float | None | str | Unset
         if isinstance(self.sleeve_area_ratio, Unset):
             sleeve_area_ratio = UNSET
         else:
             sleeve_area_ratio = self.sleeve_area_ratio
 
-        application_class_depth: Union[Unset, int] = UNSET
+        application_class_depth: int | Unset = UNSET
         if not isinstance(self.application_class_depth, Unset):
             application_class_depth = self.application_class_depth.value
 
-        application_class_resistance: Union[Unset, int] = UNSET
+        application_class_resistance: int | Unset = UNSET
         if not isinstance(self.application_class_resistance, Unset):
             application_class_resistance = self.application_class_resistance.value
 
-        application_class_friction: Union[Unset, int] = UNSET
+        application_class_friction: int | Unset = UNSET
         if not isinstance(self.application_class_friction, Unset):
             application_class_friction = self.application_class_friction.value
 
-        application_class_pressure: Union[Unset, int] = UNSET
+        application_class_pressure: int | Unset = UNSET
         if not isinstance(self.application_class_pressure, Unset):
             application_class_pressure = self.application_class_pressure.value
 
@@ -258,7 +260,7 @@ class MethodCPTCreate:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
 
-        def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
+        def _parse_method_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -271,29 +273,29 @@ class MethodCPTCreate:
                 return method_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID, Unset], data)
+            return cast(None | Unset | UUID, data)
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
 
         name = d.pop("name", UNSET)
 
-        def _parse_remarks(data: object) -> Union[None, Unset, str]:
+        def _parse_remarks(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
         _method_status_id = d.pop("method_status_id", UNSET)
-        method_status_id: Union[Unset, MethodStatusEnum]
+        method_status_id: MethodStatusEnum | Unset
         if isinstance(_method_status_id, Unset):
             method_status_id = UNSET
         else:
             method_status_id = MethodStatusEnum(_method_status_id)
 
-        def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_created_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -306,20 +308,20 @@ class MethodCPTCreate:
                 return created_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         created_at = _parse_created_at(d.pop("created_at", UNSET))
 
-        def _parse_created_by(data: object) -> Union[None, Unset, str]:
+        def _parse_created_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
 
-        def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_updated_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -332,29 +334,29 @@ class MethodCPTCreate:
                 return updated_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
 
-        def _parse_updated_by(data: object) -> Union[None, Unset, str]:
+        def _parse_updated_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
 
-        def _parse_conducted_by(data: object) -> Union[None, Unset, str]:
+        def _parse_conducted_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         conducted_by = _parse_conducted_by(d.pop("conducted_by", UNSET))
 
-        def _parse_conducted_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_conducted_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -367,82 +369,82 @@ class MethodCPTCreate:
                 return conducted_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        method_type_id = cast(Union[Literal[1], Unset], d.pop("method_type_id", UNSET))
+        method_type_id = cast(Literal[1] | Unset, d.pop("method_type_id", UNSET))
         if method_type_id != 1 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 1, got '{method_type_id}'")
 
-        def _parse_predrilling_depth(data: object) -> Union[None, Unset, float, str]:
+        def _parse_predrilling_depth(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
 
-        def _parse_cone_reference(data: object) -> Union[None, Unset, str]:
+        def _parse_cone_reference(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         cone_reference = _parse_cone_reference(d.pop("cone_reference", UNSET))
 
-        def _parse_water_depth(data: object) -> Union[None, Unset, float, str]:
+        def _parse_water_depth(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         water_depth = _parse_water_depth(d.pop("water_depth", UNSET))
 
-        def _parse_cone_area_ratio(data: object) -> Union[None, Unset, float, str]:
+        def _parse_cone_area_ratio(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         cone_area_ratio = _parse_cone_area_ratio(d.pop("cone_area_ratio", UNSET))
 
-        def _parse_sleeve_area_ratio(data: object) -> Union[None, Unset, float, str]:
+        def _parse_sleeve_area_ratio(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         sleeve_area_ratio = _parse_sleeve_area_ratio(d.pop("sleeve_area_ratio", UNSET))
 
         _application_class_depth = d.pop("application_class_depth", UNSET)
-        application_class_depth: Union[Unset, ApplicationClassEnum]
+        application_class_depth: ApplicationClassEnum | Unset
         if isinstance(_application_class_depth, Unset):
             application_class_depth = UNSET
         else:
             application_class_depth = ApplicationClassEnum(_application_class_depth)
 
         _application_class_resistance = d.pop("application_class_resistance", UNSET)
-        application_class_resistance: Union[Unset, ApplicationClassEnum]
+        application_class_resistance: ApplicationClassEnum | Unset
         if isinstance(_application_class_resistance, Unset):
             application_class_resistance = UNSET
         else:
             application_class_resistance = ApplicationClassEnum(_application_class_resistance)
 
         _application_class_friction = d.pop("application_class_friction", UNSET)
-        application_class_friction: Union[Unset, ApplicationClassEnum]
+        application_class_friction: ApplicationClassEnum | Unset
         if isinstance(_application_class_friction, Unset):
             application_class_friction = UNSET
         else:
             application_class_friction = ApplicationClassEnum(_application_class_friction)
 
         _application_class_pressure = d.pop("application_class_pressure", UNSET)
-        application_class_pressure: Union[Unset, ApplicationClassEnum]
+        application_class_pressure: ApplicationClassEnum | Unset
         if isinstance(_application_class_pressure, Unset):
             application_class_pressure = UNSET
         else:

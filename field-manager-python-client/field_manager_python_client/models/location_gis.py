@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -19,44 +21,44 @@ class LocationGis:
     Attributes:
         location_id (UUID):
         arcgisid (int):
-        project_name (Union[None, Unset, str]):
-        project_external_id (Union[None, Unset, str]):
-        name (Union[None, Unset, str]):
-        point_x_wgs84_web (Union[None, Unset, float]):
-        point_y_wgs84_web (Union[None, Unset, float]):
-        point_z (Union[None, Unset, float]):
-        height_reference (Union[HeightReference, None, Unset]):
-        point_easting (Union[None, Unset, float]):
-        point_northing (Union[None, Unset, float]):
-        srid (Union[None, Unset, int]):
-        method_names (Union[None, Unset, str]):
-        location_status (Union[None, Unset, str]):
-        stopcode (Union[None, Unset, int]):
-        depth_in_soil (Union[None, Unset, float]):
-        depth_in_rock (Union[None, Unset, float]):
-        location_url (Union[None, Unset, str]):
-        updated_at (Union[None, Unset, datetime.datetime]):
+        project_name (None | str | Unset):
+        project_external_id (None | str | Unset):
+        name (None | str | Unset):
+        point_x_wgs84_web (float | None | Unset):
+        point_y_wgs84_web (float | None | Unset):
+        point_z (float | None | Unset):
+        height_reference (HeightReference | None | Unset):
+        point_easting (float | None | Unset):
+        point_northing (float | None | Unset):
+        srid (int | None | Unset):
+        method_names (None | str | Unset):
+        location_status (None | str | Unset):
+        stopcode (int | None | Unset):
+        depth_in_soil (float | None | Unset):
+        depth_in_rock (float | None | Unset):
+        location_url (None | str | Unset):
+        updated_at (datetime.datetime | None | Unset):
     """
 
     location_id: UUID
     arcgisid: int
-    project_name: Union[None, Unset, str] = UNSET
-    project_external_id: Union[None, Unset, str] = UNSET
-    name: Union[None, Unset, str] = UNSET
-    point_x_wgs84_web: Union[None, Unset, float] = UNSET
-    point_y_wgs84_web: Union[None, Unset, float] = UNSET
-    point_z: Union[None, Unset, float] = UNSET
-    height_reference: Union[HeightReference, None, Unset] = UNSET
-    point_easting: Union[None, Unset, float] = UNSET
-    point_northing: Union[None, Unset, float] = UNSET
-    srid: Union[None, Unset, int] = UNSET
-    method_names: Union[None, Unset, str] = UNSET
-    location_status: Union[None, Unset, str] = UNSET
-    stopcode: Union[None, Unset, int] = UNSET
-    depth_in_soil: Union[None, Unset, float] = UNSET
-    depth_in_rock: Union[None, Unset, float] = UNSET
-    location_url: Union[None, Unset, str] = UNSET
-    updated_at: Union[None, Unset, datetime.datetime] = UNSET
+    project_name: None | str | Unset = UNSET
+    project_external_id: None | str | Unset = UNSET
+    name: None | str | Unset = UNSET
+    point_x_wgs84_web: float | None | Unset = UNSET
+    point_y_wgs84_web: float | None | Unset = UNSET
+    point_z: float | None | Unset = UNSET
+    height_reference: HeightReference | None | Unset = UNSET
+    point_easting: float | None | Unset = UNSET
+    point_northing: float | None | Unset = UNSET
+    srid: int | None | Unset = UNSET
+    method_names: None | str | Unset = UNSET
+    location_status: None | str | Unset = UNSET
+    stopcode: int | None | Unset = UNSET
+    depth_in_soil: float | None | Unset = UNSET
+    depth_in_rock: float | None | Unset = UNSET
+    location_url: None | str | Unset = UNSET
+    updated_at: datetime.datetime | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -64,43 +66,43 @@ class LocationGis:
 
         arcgisid = self.arcgisid
 
-        project_name: Union[None, Unset, str]
+        project_name: None | str | Unset
         if isinstance(self.project_name, Unset):
             project_name = UNSET
         else:
             project_name = self.project_name
 
-        project_external_id: Union[None, Unset, str]
+        project_external_id: None | str | Unset
         if isinstance(self.project_external_id, Unset):
             project_external_id = UNSET
         else:
             project_external_id = self.project_external_id
 
-        name: Union[None, Unset, str]
+        name: None | str | Unset
         if isinstance(self.name, Unset):
             name = UNSET
         else:
             name = self.name
 
-        point_x_wgs84_web: Union[None, Unset, float]
+        point_x_wgs84_web: float | None | Unset
         if isinstance(self.point_x_wgs84_web, Unset):
             point_x_wgs84_web = UNSET
         else:
             point_x_wgs84_web = self.point_x_wgs84_web
 
-        point_y_wgs84_web: Union[None, Unset, float]
+        point_y_wgs84_web: float | None | Unset
         if isinstance(self.point_y_wgs84_web, Unset):
             point_y_wgs84_web = UNSET
         else:
             point_y_wgs84_web = self.point_y_wgs84_web
 
-        point_z: Union[None, Unset, float]
+        point_z: float | None | Unset
         if isinstance(self.point_z, Unset):
             point_z = UNSET
         else:
             point_z = self.point_z
 
-        height_reference: Union[None, Unset, str]
+        height_reference: None | str | Unset
         if isinstance(self.height_reference, Unset):
             height_reference = UNSET
         elif isinstance(self.height_reference, HeightReference):
@@ -108,61 +110,61 @@ class LocationGis:
         else:
             height_reference = self.height_reference
 
-        point_easting: Union[None, Unset, float]
+        point_easting: float | None | Unset
         if isinstance(self.point_easting, Unset):
             point_easting = UNSET
         else:
             point_easting = self.point_easting
 
-        point_northing: Union[None, Unset, float]
+        point_northing: float | None | Unset
         if isinstance(self.point_northing, Unset):
             point_northing = UNSET
         else:
             point_northing = self.point_northing
 
-        srid: Union[None, Unset, int]
+        srid: int | None | Unset
         if isinstance(self.srid, Unset):
             srid = UNSET
         else:
             srid = self.srid
 
-        method_names: Union[None, Unset, str]
+        method_names: None | str | Unset
         if isinstance(self.method_names, Unset):
             method_names = UNSET
         else:
             method_names = self.method_names
 
-        location_status: Union[None, Unset, str]
+        location_status: None | str | Unset
         if isinstance(self.location_status, Unset):
             location_status = UNSET
         else:
             location_status = self.location_status
 
-        stopcode: Union[None, Unset, int]
+        stopcode: int | None | Unset
         if isinstance(self.stopcode, Unset):
             stopcode = UNSET
         else:
             stopcode = self.stopcode
 
-        depth_in_soil: Union[None, Unset, float]
+        depth_in_soil: float | None | Unset
         if isinstance(self.depth_in_soil, Unset):
             depth_in_soil = UNSET
         else:
             depth_in_soil = self.depth_in_soil
 
-        depth_in_rock: Union[None, Unset, float]
+        depth_in_rock: float | None | Unset
         if isinstance(self.depth_in_rock, Unset):
             depth_in_rock = UNSET
         else:
             depth_in_rock = self.depth_in_rock
 
-        location_url: Union[None, Unset, str]
+        location_url: None | str | Unset
         if isinstance(self.location_url, Unset):
             location_url = UNSET
         else:
             location_url = self.location_url
 
-        updated_at: Union[None, Unset, str]
+        updated_at: None | str | Unset
         if isinstance(self.updated_at, Unset):
             updated_at = UNSET
         elif isinstance(self.updated_at, datetime.datetime):
@@ -222,61 +224,61 @@ class LocationGis:
 
         arcgisid = d.pop("arcgisid")
 
-        def _parse_project_name(data: object) -> Union[None, Unset, str]:
+        def _parse_project_name(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         project_name = _parse_project_name(d.pop("project_name", UNSET))
 
-        def _parse_project_external_id(data: object) -> Union[None, Unset, str]:
+        def _parse_project_external_id(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         project_external_id = _parse_project_external_id(d.pop("project_external_id", UNSET))
 
-        def _parse_name(data: object) -> Union[None, Unset, str]:
+        def _parse_name(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         name = _parse_name(d.pop("name", UNSET))
 
-        def _parse_point_x_wgs84_web(data: object) -> Union[None, Unset, float]:
+        def _parse_point_x_wgs84_web(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_x_wgs84_web = _parse_point_x_wgs84_web(d.pop("point_x_wgs84_web", UNSET))
 
-        def _parse_point_y_wgs84_web(data: object) -> Union[None, Unset, float]:
+        def _parse_point_y_wgs84_web(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_y_wgs84_web = _parse_point_y_wgs84_web(d.pop("point_y_wgs84_web", UNSET))
 
-        def _parse_point_z(data: object) -> Union[None, Unset, float]:
+        def _parse_point_z(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_z = _parse_point_z(d.pop("point_z", UNSET))
 
-        def _parse_height_reference(data: object) -> Union[HeightReference, None, Unset]:
+        def _parse_height_reference(data: object) -> HeightReference | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -289,92 +291,92 @@ class LocationGis:
                 return height_reference_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[HeightReference, None, Unset], data)
+            return cast(HeightReference | None | Unset, data)
 
         height_reference = _parse_height_reference(d.pop("height_reference", UNSET))
 
-        def _parse_point_easting(data: object) -> Union[None, Unset, float]:
+        def _parse_point_easting(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_easting = _parse_point_easting(d.pop("point_easting", UNSET))
 
-        def _parse_point_northing(data: object) -> Union[None, Unset, float]:
+        def _parse_point_northing(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_northing = _parse_point_northing(d.pop("point_northing", UNSET))
 
-        def _parse_srid(data: object) -> Union[None, Unset, int]:
+        def _parse_srid(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         srid = _parse_srid(d.pop("srid", UNSET))
 
-        def _parse_method_names(data: object) -> Union[None, Unset, str]:
+        def _parse_method_names(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         method_names = _parse_method_names(d.pop("method_names", UNSET))
 
-        def _parse_location_status(data: object) -> Union[None, Unset, str]:
+        def _parse_location_status(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         location_status = _parse_location_status(d.pop("location_status", UNSET))
 
-        def _parse_stopcode(data: object) -> Union[None, Unset, int]:
+        def _parse_stopcode(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         stopcode = _parse_stopcode(d.pop("stopcode", UNSET))
 
-        def _parse_depth_in_soil(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_in_soil(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         depth_in_soil = _parse_depth_in_soil(d.pop("depth_in_soil", UNSET))
 
-        def _parse_depth_in_rock(data: object) -> Union[None, Unset, float]:
+        def _parse_depth_in_rock(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         depth_in_rock = _parse_depth_in_rock(d.pop("depth_in_rock", UNSET))
 
-        def _parse_location_url(data: object) -> Union[None, Unset, str]:
+        def _parse_location_url(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         location_url = _parse_location_url(d.pop("location_url", UNSET))
 
-        def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_updated_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -387,7 +389,7 @@ class LocationGis:
                 return updated_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
 

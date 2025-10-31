@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, Literal, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -20,24 +22,24 @@ class MethodDTData:
         method_id (UUID):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        method_type_id (Union[Literal[22], Unset]):  Default: 22.
-        depth (Union[None, Unset, float, str]): Depth (m). SGF code D.
-        time (Union[None, Unset, float, str]): Time (s).
-        qc (Union[None, Unset, float, str]): Cone resistance (MPa). SGF code QC.
-        u2 (Union[None, Unset, float, str]): Shoulder pressure (kPa). SGF code U.
-        remarks (Union[None, Unset, str]):
+        method_type_id (Literal[22] | Unset):  Default: 22.
+        depth (float | None | Unset): Depth (m). SGF code D.
+        time (float | None | Unset): Time (s).
+        qc (float | None | Unset): Cone resistance (MPa). SGF code QC.
+        u2 (float | None | Unset): Shoulder pressure (kPa). SGF code U.
+        remarks (None | str | Unset):
     """
 
     method_data_id: UUID
     method_id: UUID
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    method_type_id: Union[Literal[22], Unset] = 22
-    depth: Union[None, Unset, float, str] = UNSET
-    time: Union[None, Unset, float, str] = UNSET
-    qc: Union[None, Unset, float, str] = UNSET
-    u2: Union[None, Unset, float, str] = UNSET
-    remarks: Union[None, Unset, str] = UNSET
+    method_type_id: Literal[22] | Unset = 22
+    depth: float | None | Unset = UNSET
+    time: float | None | Unset = UNSET
+    qc: float | None | Unset = UNSET
+    u2: float | None | Unset = UNSET
+    remarks: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -51,31 +53,31 @@ class MethodDTData:
 
         method_type_id = self.method_type_id
 
-        depth: Union[None, Unset, float, str]
+        depth: float | None | Unset
         if isinstance(self.depth, Unset):
             depth = UNSET
         else:
             depth = self.depth
 
-        time: Union[None, Unset, float, str]
+        time: float | None | Unset
         if isinstance(self.time, Unset):
             time = UNSET
         else:
             time = self.time
 
-        qc: Union[None, Unset, float, str]
+        qc: float | None | Unset
         if isinstance(self.qc, Unset):
             qc = UNSET
         else:
             qc = self.qc
 
-        u2: Union[None, Unset, float, str]
+        u2: float | None | Unset
         if isinstance(self.u2, Unset):
             u2 = UNSET
         else:
             u2 = self.u2
 
-        remarks: Union[None, Unset, str]
+        remarks: None | str | Unset
         if isinstance(self.remarks, Unset):
             remarks = UNSET
         else:
@@ -117,52 +119,52 @@ class MethodDTData:
 
         updated_at = isoparse(d.pop("updated_at"))
 
-        method_type_id = cast(Union[Literal[22], Unset], d.pop("method_type_id", UNSET))
+        method_type_id = cast(Literal[22] | Unset, d.pop("method_type_id", UNSET))
         if method_type_id != 22 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 22, got '{method_type_id}'")
 
-        def _parse_depth(data: object) -> Union[None, Unset, float, str]:
+        def _parse_depth(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | Unset, data)
 
         depth = _parse_depth(d.pop("depth", UNSET))
 
-        def _parse_time(data: object) -> Union[None, Unset, float, str]:
+        def _parse_time(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | Unset, data)
 
         time = _parse_time(d.pop("time", UNSET))
 
-        def _parse_qc(data: object) -> Union[None, Unset, float, str]:
+        def _parse_qc(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | Unset, data)
 
         qc = _parse_qc(d.pop("qc", UNSET))
 
-        def _parse_u2(data: object) -> Union[None, Unset, float, str]:
+        def _parse_u2(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | Unset, data)
 
         u2 = _parse_u2(d.pop("u2", UNSET))
 
-        def _parse_remarks(data: object) -> Union[None, Unset, str]:
+        def _parse_remarks(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 

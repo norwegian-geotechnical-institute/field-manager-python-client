@@ -10,7 +10,7 @@ import time
 import webbrowser
 from getpass import getpass
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from typing import Any, Literal, Optional
+from typing import Any, Literal
 from urllib.parse import parse_qs, urlparse
 
 try:
@@ -49,8 +49,8 @@ class TokenManager:
     def __init__(
         self,
         keycloak_openid: KeycloakOpenID,
-        initial_token: Optional[dict[str, Any]] = None,
-        token_file: Optional[str] = None,
+        initial_token: dict[str, Any] | None = None,
+        token_file: str | None = None,
     ):
         """
         Initialize the TokenManager.
@@ -118,7 +118,7 @@ class TokenManager:
             print(f"Failed to refresh access token. Error: {e}")
             return False
 
-    def get_valid_token(self) -> Optional[str]:
+    def get_valid_token(self) -> str | None:
         """Return a valid access token, refreshing if necessary."""
         if self.is_access_token_valid():
             return self.access_token
@@ -143,7 +143,7 @@ class AuthCodeHandler(BaseHTTPRequestHandler):
         pass
 
 
-def _start_local_server() -> Optional[str]:
+def _start_local_server() -> str | None:
     """Start a local server to capture the authorization code."""
     server = HTTPServer(("localhost", 8000), AuthCodeHandler)
     print("Waiting for authorization code...")
@@ -185,7 +185,7 @@ def _get_auth_method(email: str, base_url: str) -> dict[str, Any]:
 
 
 def _authenticate_with_sso(
-    keycloak_openid: KeycloakOpenID, authentication_alias: Optional[str], scope: str = DEFAULT_SCOPE
+    keycloak_openid: KeycloakOpenID, authentication_alias: str | None, scope: str = DEFAULT_SCOPE
 ) -> TokenManager:
     """Authenticate using SSO (Authorization Code Flow)."""
     redirect_uri = "http://localhost:8000"
@@ -232,9 +232,9 @@ def _authenticate_with_password(
 
 def authenticate(
     environment: Literal["test", "prod"] = "test",
-    email: Optional[str] = None,
+    email: str | None = None,
     scope: str = DEFAULT_SCOPE,
-    token_file: Optional[str] = None,
+    token_file: str | None = None,
     interactive: bool = True,
 ) -> AuthenticatedClient:
     """
@@ -311,7 +311,7 @@ def authenticate(
     return client
 
 
-def get_test_client(email: Optional[str] = None, **kwargs) -> AuthenticatedClient:
+def get_test_client(email: str | None = None, **kwargs) -> AuthenticatedClient:
     """
     Convenient method to get an authenticated client for the test environment.
 
@@ -325,7 +325,7 @@ def get_test_client(email: Optional[str] = None, **kwargs) -> AuthenticatedClien
     return authenticate(environment="test", email=email, **kwargs)
 
 
-def get_prod_client(email: Optional[str] = None, **kwargs) -> AuthenticatedClient:
+def get_prod_client(email: str | None = None, **kwargs) -> AuthenticatedClient:
     """
     Convenient method to get an authenticated client for the production environment.
 

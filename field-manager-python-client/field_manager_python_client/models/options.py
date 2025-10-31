@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -21,17 +23,17 @@ class Options:
     """
     Attributes:
         location_ids (list[UUID]):
-        pdf (Union[Unset, PdfOptions]):
-        plot (Union[Unset, FMPlotOptions]):
-        auto_set_depth (Union[Unset, bool]):  Default: False.
-        methods (Union[Unset, list[PlotType]]):
+        pdf (PdfOptions | Unset):
+        plot (FMPlotOptions | Unset):
+        auto_set_depth (bool | Unset):  Default: False.
+        methods (list[PlotType] | Unset):
     """
 
     location_ids: list[UUID]
-    pdf: Union[Unset, "PdfOptions"] = UNSET
-    plot: Union[Unset, "FMPlotOptions"] = UNSET
-    auto_set_depth: Union[Unset, bool] = False
-    methods: Union[Unset, list[PlotType]] = UNSET
+    pdf: PdfOptions | Unset = UNSET
+    plot: FMPlotOptions | Unset = UNSET
+    auto_set_depth: bool | Unset = False
+    methods: list[PlotType] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -40,17 +42,17 @@ class Options:
             location_ids_item = str(location_ids_item_data)
             location_ids.append(location_ids_item)
 
-        pdf: Union[Unset, dict[str, Any]] = UNSET
+        pdf: dict[str, Any] | Unset = UNSET
         if not isinstance(self.pdf, Unset):
             pdf = self.pdf.to_dict()
 
-        plot: Union[Unset, dict[str, Any]] = UNSET
+        plot: dict[str, Any] | Unset = UNSET
         if not isinstance(self.plot, Unset):
             plot = self.plot.to_dict()
 
         auto_set_depth = self.auto_set_depth
 
-        methods: Union[Unset, list[str]] = UNSET
+        methods: list[str] | Unset = UNSET
         if not isinstance(self.methods, Unset):
             methods = []
             for methods_item_data in self.methods:
@@ -89,14 +91,14 @@ class Options:
             location_ids.append(location_ids_item)
 
         _pdf = d.pop("pdf", UNSET)
-        pdf: Union[Unset, PdfOptions]
+        pdf: PdfOptions | Unset
         if isinstance(_pdf, Unset):
             pdf = UNSET
         else:
             pdf = PdfOptions.from_dict(_pdf)
 
         _plot = d.pop("plot", UNSET)
-        plot: Union[Unset, FMPlotOptions]
+        plot: FMPlotOptions | Unset
         if isinstance(_plot, Unset):
             plot = UNSET
         else:

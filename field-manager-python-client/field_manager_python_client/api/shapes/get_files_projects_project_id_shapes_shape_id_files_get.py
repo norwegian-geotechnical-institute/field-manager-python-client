@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -24,8 +24,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, list["File"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | list[File] | None:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -48,8 +48,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, list["File"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | list[File]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -63,7 +63,7 @@ def sync_detailed(
     shape_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[HTTPValidationError, list["File"]]]:
+) -> Response[HTTPValidationError | list[File]]:
     """Get Files
 
      Get all files attached to a shape
@@ -77,7 +77,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['File']]]
+        Response[HTTPValidationError | list[File]]
     """
 
     kwargs = _get_kwargs(
@@ -97,7 +97,7 @@ def sync(
     shape_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[HTTPValidationError, list["File"]]]:
+) -> HTTPValidationError | list[File] | None:
     """Get Files
 
      Get all files attached to a shape
@@ -111,7 +111,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['File']]
+        HTTPValidationError | list[File]
     """
 
     return sync_detailed(
@@ -126,7 +126,7 @@ async def asyncio_detailed(
     shape_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[HTTPValidationError, list["File"]]]:
+) -> Response[HTTPValidationError | list[File]]:
     """Get Files
 
      Get all files attached to a shape
@@ -140,7 +140,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['File']]]
+        Response[HTTPValidationError | list[File]]
     """
 
     kwargs = _get_kwargs(
@@ -158,7 +158,7 @@ async def asyncio(
     shape_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[HTTPValidationError, list["File"]]]:
+) -> HTTPValidationError | list[File] | None:
     """Get Files
 
      Get all files attached to a shape
@@ -172,7 +172,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['File']]
+        HTTPValidationError | list[File]
     """
 
     return (

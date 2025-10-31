@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -18,13 +18,13 @@ def _get_kwargs(
     comment_id: UUID,
     *,
     body: CommentUpdate,
-    method_id: Union[None, UUID, Unset] = UNSET,
+    method_id: None | Unset | UUID = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
     params: dict[str, Any] = {}
 
-    json_method_id: Union[None, Unset, str]
+    json_method_id: None | str | Unset
     if isinstance(method_id, Unset):
         json_method_id = UNSET
     elif isinstance(method_id, UUID):
@@ -50,8 +50,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Comment, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Comment | HTTPValidationError | None:
     if response.status_code == 200:
         response_200 = Comment.from_dict(response.json())
 
@@ -69,8 +69,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Comment, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Comment | HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -86,15 +86,15 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: CommentUpdate,
-    method_id: Union[None, UUID, Unset] = UNSET,
-) -> Response[Union[Comment, HTTPValidationError]]:
+    method_id: None | Unset | UUID = UNSET,
+) -> Response[Comment | HTTPValidationError]:
     """Modify Comment
 
     Args:
         project_id (str):
         location_id (UUID):
         comment_id (UUID):
-        method_id (Union[None, UUID, Unset]):
+        method_id (None | Unset | UUID):
         body (CommentUpdate):
 
     Raises:
@@ -102,7 +102,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Comment, HTTPValidationError]]
+        Response[Comment | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -127,15 +127,15 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: CommentUpdate,
-    method_id: Union[None, UUID, Unset] = UNSET,
-) -> Optional[Union[Comment, HTTPValidationError]]:
+    method_id: None | Unset | UUID = UNSET,
+) -> Comment | HTTPValidationError | None:
     """Modify Comment
 
     Args:
         project_id (str):
         location_id (UUID):
         comment_id (UUID):
-        method_id (Union[None, UUID, Unset]):
+        method_id (None | Unset | UUID):
         body (CommentUpdate):
 
     Raises:
@@ -143,7 +143,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Comment, HTTPValidationError]
+        Comment | HTTPValidationError
     """
 
     return sync_detailed(
@@ -163,15 +163,15 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: CommentUpdate,
-    method_id: Union[None, UUID, Unset] = UNSET,
-) -> Response[Union[Comment, HTTPValidationError]]:
+    method_id: None | Unset | UUID = UNSET,
+) -> Response[Comment | HTTPValidationError]:
     """Modify Comment
 
     Args:
         project_id (str):
         location_id (UUID):
         comment_id (UUID):
-        method_id (Union[None, UUID, Unset]):
+        method_id (None | Unset | UUID):
         body (CommentUpdate):
 
     Raises:
@@ -179,7 +179,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Comment, HTTPValidationError]]
+        Response[Comment | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -202,15 +202,15 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: CommentUpdate,
-    method_id: Union[None, UUID, Unset] = UNSET,
-) -> Optional[Union[Comment, HTTPValidationError]]:
+    method_id: None | Unset | UUID = UNSET,
+) -> Comment | HTTPValidationError | None:
     """Modify Comment
 
     Args:
         project_id (str):
         location_id (UUID):
         comment_id (UUID):
-        method_id (Union[None, UUID, Unset]):
+        method_id (None | Unset | UUID):
         body (CommentUpdate):
 
     Raises:
@@ -218,7 +218,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Comment, HTTPValidationError]
+        Comment | HTTPValidationError
     """
 
     return (

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -21,22 +23,22 @@ class WebMapService:
         name (str):
         url (str):
         service_type (WebMapServiceType):
-        organization_id (Union[None, UUID]): The ID for the organization that owns this web map service.
-        project_id (Union[None, UUID]): The ID for the project that owns this web map service.
+        organization_id (None | UUID): The ID for the organization that owns this web map service.
+        project_id (None | UUID): The ID for the project that owns this web map service.
         level (WebMapServiceLevel):
-        available_standard_ids (Union[Unset, list[StandardType]]):
-        description (Union[None, Unset, str]):
+        available_standard_ids (list[StandardType] | Unset):
+        description (None | str | Unset):
     """
 
     web_map_service_id: UUID
     name: str
     url: str
     service_type: WebMapServiceType
-    organization_id: Union[None, UUID]
-    project_id: Union[None, UUID]
+    organization_id: None | UUID
+    project_id: None | UUID
     level: WebMapServiceLevel
-    available_standard_ids: Union[Unset, list[StandardType]] = UNSET
-    description: Union[None, Unset, str] = UNSET
+    available_standard_ids: list[StandardType] | Unset = UNSET
+    description: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -48,13 +50,13 @@ class WebMapService:
 
         service_type = self.service_type.value
 
-        organization_id: Union[None, str]
+        organization_id: None | str
         if isinstance(self.organization_id, UUID):
             organization_id = str(self.organization_id)
         else:
             organization_id = self.organization_id
 
-        project_id: Union[None, str]
+        project_id: None | str
         if isinstance(self.project_id, UUID):
             project_id = str(self.project_id)
         else:
@@ -62,14 +64,14 @@ class WebMapService:
 
         level = self.level.value
 
-        available_standard_ids: Union[Unset, list[str]] = UNSET
+        available_standard_ids: list[str] | Unset = UNSET
         if not isinstance(self.available_standard_ids, Unset):
             available_standard_ids = []
             for available_standard_ids_item_data in self.available_standard_ids:
                 available_standard_ids_item = available_standard_ids_item_data.value
                 available_standard_ids.append(available_standard_ids_item)
 
-        description: Union[None, Unset, str]
+        description: None | str | Unset
         if isinstance(self.description, Unset):
             description = UNSET
         else:
@@ -106,7 +108,7 @@ class WebMapService:
 
         service_type = WebMapServiceType(d.pop("service_type"))
 
-        def _parse_organization_id(data: object) -> Union[None, UUID]:
+        def _parse_organization_id(data: object) -> None | UUID:
             if data is None:
                 return data
             try:
@@ -117,11 +119,11 @@ class WebMapService:
                 return organization_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID], data)
+            return cast(None | UUID, data)
 
         organization_id = _parse_organization_id(d.pop("organization_id"))
 
-        def _parse_project_id(data: object) -> Union[None, UUID]:
+        def _parse_project_id(data: object) -> None | UUID:
             if data is None:
                 return data
             try:
@@ -132,7 +134,7 @@ class WebMapService:
                 return project_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID], data)
+            return cast(None | UUID, data)
 
         project_id = _parse_project_id(d.pop("project_id"))
 
@@ -145,12 +147,12 @@ class WebMapService:
 
             available_standard_ids.append(available_standard_ids_item)
 
-        def _parse_description(data: object) -> Union[None, Unset, str]:
+        def _parse_description(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         description = _parse_description(d.pop("description", UNSET))
 

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -28,9 +30,9 @@ class Comment:
         is_updated (bool):
         is_deleted (bool):
         comment_id (UUID):
-        location_id (Union[None, UUID]):
-        method_id (Union[None, UUID]):
-        likes (Union[Unset, list['Like']]):
+        location_id (None | UUID):
+        method_id (None | UUID):
+        likes (list[Like] | Unset):
     """
 
     text: str
@@ -41,9 +43,9 @@ class Comment:
     is_updated: bool
     is_deleted: bool
     comment_id: UUID
-    location_id: Union[None, UUID]
-    method_id: Union[None, UUID]
-    likes: Union[Unset, list["Like"]] = UNSET
+    location_id: None | UUID
+    method_id: None | UUID
+    likes: list[Like] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -63,19 +65,19 @@ class Comment:
 
         comment_id = str(self.comment_id)
 
-        location_id: Union[None, str]
+        location_id: None | str
         if isinstance(self.location_id, UUID):
             location_id = str(self.location_id)
         else:
             location_id = self.location_id
 
-        method_id: Union[None, str]
+        method_id: None | str
         if isinstance(self.method_id, UUID):
             method_id = str(self.method_id)
         else:
             method_id = self.method_id
 
-        likes: Union[Unset, list[dict[str, Any]]] = UNSET
+        likes: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.likes, Unset):
             likes = []
             for likes_item_data in self.likes:
@@ -124,7 +126,7 @@ class Comment:
 
         comment_id = UUID(d.pop("comment_id"))
 
-        def _parse_location_id(data: object) -> Union[None, UUID]:
+        def _parse_location_id(data: object) -> None | UUID:
             if data is None:
                 return data
             try:
@@ -135,11 +137,11 @@ class Comment:
                 return location_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID], data)
+            return cast(None | UUID, data)
 
         location_id = _parse_location_id(d.pop("location_id"))
 
-        def _parse_method_id(data: object) -> Union[None, UUID]:
+        def _parse_method_id(data: object) -> None | UUID:
             if data is None:
                 return data
             try:
@@ -150,7 +152,7 @@ class Comment:
                 return method_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID], data)
+            return cast(None | UUID, data)
 
         method_id = _parse_method_id(d.pop("method_id"))
 

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -7,6 +7,34 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
+from ...models.method_ad import MethodAD
+from ...models.method_cd import MethodCD
+from ...models.method_cpt import MethodCPT
+from ...models.method_def import MethodDEF
+from ...models.method_dp import MethodDP
+from ...models.method_dt import MethodDT
+from ...models.method_esa import MethodESA
+from ...models.method_inc import MethodINC
+from ...models.method_iw import MethodIW
+from ...models.method_other import MethodOTHER
+from ...models.method_pt import MethodPT
+from ...models.method_pz import MethodPZ
+from ...models.method_rcd import MethodRCD
+from ...models.method_ro import MethodRO
+from ...models.method_rp import MethodRP
+from ...models.method_rs import MethodRS
+from ...models.method_rws import MethodRWS
+from ...models.method_sa import MethodSA
+from ...models.method_slb import MethodSLB
+from ...models.method_spt import MethodSPT
+from ...models.method_srs import MethodSRS
+from ...models.method_ss import MethodSS
+from ...models.method_sti import MethodSTI
+from ...models.method_svt import MethodSVT
+from ...models.method_tot import MethodTOT
+from ...models.method_tp import MethodTP
+from ...models.method_tr import MethodTR
+from ...models.method_wst import MethodWST
 from ...types import Response
 
 
@@ -24,8 +52,299 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[HTTPValidationError]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> (
+    HTTPValidationError
+    | MethodAD
+    | MethodCD
+    | MethodCPT
+    | MethodDEF
+    | MethodDP
+    | MethodDT
+    | MethodESA
+    | MethodINC
+    | MethodIW
+    | MethodOTHER
+    | MethodPT
+    | MethodPZ
+    | MethodRCD
+    | MethodRO
+    | MethodRP
+    | MethodRS
+    | MethodRWS
+    | MethodSA
+    | MethodSLB
+    | MethodSPT
+    | MethodSRS
+    | MethodSS
+    | MethodSTI
+    | MethodSVT
+    | MethodTOT
+    | MethodTP
+    | MethodTR
+    | MethodWST
+    | None
+):
+    if response.status_code == 200:
+
+        def _parse_response_200(
+            data: object,
+        ) -> (
+            MethodAD
+            | MethodCD
+            | MethodCPT
+            | MethodDEF
+            | MethodDP
+            | MethodDT
+            | MethodESA
+            | MethodINC
+            | MethodIW
+            | MethodOTHER
+            | MethodPT
+            | MethodPZ
+            | MethodRCD
+            | MethodRO
+            | MethodRP
+            | MethodRS
+            | MethodRWS
+            | MethodSA
+            | MethodSLB
+            | MethodSPT
+            | MethodSRS
+            | MethodSS
+            | MethodSTI
+            | MethodSVT
+            | MethodTOT
+            | MethodTP
+            | MethodTR
+            | MethodWST
+        ):
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_0 = MethodCPT.from_dict(data)
+
+                return response_200_type_0
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_1 = MethodTOT.from_dict(data)
+
+                return response_200_type_1
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_2 = MethodRP.from_dict(data)
+
+                return response_200_type_2
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_3 = MethodSA.from_dict(data)
+
+                return response_200_type_3
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_4 = MethodPZ.from_dict(data)
+
+                return response_200_type_4
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_5 = MethodSS.from_dict(data)
+
+                return response_200_type_5
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_6 = MethodRWS.from_dict(data)
+
+                return response_200_type_6
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_7 = MethodRCD.from_dict(data)
+
+                return response_200_type_7
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_8 = MethodRS.from_dict(data)
+
+                return response_200_type_8
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_9 = MethodSVT.from_dict(data)
+
+                return response_200_type_9
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_10 = MethodSPT.from_dict(data)
+
+                return response_200_type_10
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_11 = MethodCD.from_dict(data)
+
+                return response_200_type_11
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_12 = MethodTP.from_dict(data)
+
+                return response_200_type_12
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_13 = MethodPT.from_dict(data)
+
+                return response_200_type_13
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_14 = MethodESA.from_dict(data)
+
+                return response_200_type_14
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_15 = MethodTR.from_dict(data)
+
+                return response_200_type_15
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_16 = MethodAD.from_dict(data)
+
+                return response_200_type_16
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_17 = MethodRO.from_dict(data)
+
+                return response_200_type_17
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_18 = MethodINC.from_dict(data)
+
+                return response_200_type_18
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_19 = MethodDEF.from_dict(data)
+
+                return response_200_type_19
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_20 = MethodIW.from_dict(data)
+
+                return response_200_type_20
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_21 = MethodDT.from_dict(data)
+
+                return response_200_type_21
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_22 = MethodOTHER.from_dict(data)
+
+                return response_200_type_22
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_23 = MethodSRS.from_dict(data)
+
+                return response_200_type_23
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_24 = MethodDP.from_dict(data)
+
+                return response_200_type_24
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_25 = MethodWST.from_dict(data)
+
+                return response_200_type_25
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_26 = MethodSLB.from_dict(data)
+
+                return response_200_type_26
+            except:  # noqa: E722
+                pass
+            if not isinstance(data, dict):
+                raise TypeError()
+            response_200_type_27 = MethodSTI.from_dict(data)
+
+            return response_200_type_27
+
+        response_200 = _parse_response_200(response.json())
+
+        return response_200
+
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
@@ -38,8 +357,38 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[HTTPValidationError]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[
+    HTTPValidationError
+    | MethodAD
+    | MethodCD
+    | MethodCPT
+    | MethodDEF
+    | MethodDP
+    | MethodDT
+    | MethodESA
+    | MethodINC
+    | MethodIW
+    | MethodOTHER
+    | MethodPT
+    | MethodPZ
+    | MethodRCD
+    | MethodRO
+    | MethodRP
+    | MethodRS
+    | MethodRWS
+    | MethodSA
+    | MethodSLB
+    | MethodSPT
+    | MethodSRS
+    | MethodSS
+    | MethodSTI
+    | MethodSVT
+    | MethodTOT
+    | MethodTP
+    | MethodTR
+    | MethodWST
+]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -54,7 +403,37 @@ def sync_detailed(
     method_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Response[HTTPValidationError]:
+) -> Response[
+    HTTPValidationError
+    | MethodAD
+    | MethodCD
+    | MethodCPT
+    | MethodDEF
+    | MethodDP
+    | MethodDT
+    | MethodESA
+    | MethodINC
+    | MethodIW
+    | MethodOTHER
+    | MethodPT
+    | MethodPZ
+    | MethodRCD
+    | MethodRO
+    | MethodRP
+    | MethodRS
+    | MethodRWS
+    | MethodSA
+    | MethodSLB
+    | MethodSPT
+    | MethodSRS
+    | MethodSS
+    | MethodSTI
+    | MethodSVT
+    | MethodTOT
+    | MethodTP
+    | MethodTR
+    | MethodWST
+]:
     """Get Method
 
      Get the method by method_id
@@ -69,7 +448,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[HTTPValidationError | MethodAD | MethodCD | MethodCPT | MethodDEF | MethodDP | MethodDT | MethodESA | MethodINC | MethodIW | MethodOTHER | MethodPT | MethodPZ | MethodRCD | MethodRO | MethodRP | MethodRS | MethodRWS | MethodSA | MethodSLB | MethodSPT | MethodSRS | MethodSS | MethodSTI | MethodSVT | MethodTOT | MethodTP | MethodTR | MethodWST]
     """
 
     kwargs = _get_kwargs(
@@ -91,7 +470,38 @@ def sync(
     method_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Optional[HTTPValidationError]:
+) -> (
+    HTTPValidationError
+    | MethodAD
+    | MethodCD
+    | MethodCPT
+    | MethodDEF
+    | MethodDP
+    | MethodDT
+    | MethodESA
+    | MethodINC
+    | MethodIW
+    | MethodOTHER
+    | MethodPT
+    | MethodPZ
+    | MethodRCD
+    | MethodRO
+    | MethodRP
+    | MethodRS
+    | MethodRWS
+    | MethodSA
+    | MethodSLB
+    | MethodSPT
+    | MethodSRS
+    | MethodSS
+    | MethodSTI
+    | MethodSVT
+    | MethodTOT
+    | MethodTP
+    | MethodTR
+    | MethodWST
+    | None
+):
     """Get Method
 
      Get the method by method_id
@@ -106,7 +516,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        HTTPValidationError | MethodAD | MethodCD | MethodCPT | MethodDEF | MethodDP | MethodDT | MethodESA | MethodINC | MethodIW | MethodOTHER | MethodPT | MethodPZ | MethodRCD | MethodRO | MethodRP | MethodRS | MethodRWS | MethodSA | MethodSLB | MethodSPT | MethodSRS | MethodSS | MethodSTI | MethodSVT | MethodTOT | MethodTP | MethodTR | MethodWST
     """
 
     return sync_detailed(
@@ -123,7 +533,37 @@ async def asyncio_detailed(
     method_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Response[HTTPValidationError]:
+) -> Response[
+    HTTPValidationError
+    | MethodAD
+    | MethodCD
+    | MethodCPT
+    | MethodDEF
+    | MethodDP
+    | MethodDT
+    | MethodESA
+    | MethodINC
+    | MethodIW
+    | MethodOTHER
+    | MethodPT
+    | MethodPZ
+    | MethodRCD
+    | MethodRO
+    | MethodRP
+    | MethodRS
+    | MethodRWS
+    | MethodSA
+    | MethodSLB
+    | MethodSPT
+    | MethodSRS
+    | MethodSS
+    | MethodSTI
+    | MethodSVT
+    | MethodTOT
+    | MethodTP
+    | MethodTR
+    | MethodWST
+]:
     """Get Method
 
      Get the method by method_id
@@ -138,7 +578,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[HTTPValidationError | MethodAD | MethodCD | MethodCPT | MethodDEF | MethodDP | MethodDT | MethodESA | MethodINC | MethodIW | MethodOTHER | MethodPT | MethodPZ | MethodRCD | MethodRO | MethodRP | MethodRS | MethodRWS | MethodSA | MethodSLB | MethodSPT | MethodSRS | MethodSS | MethodSTI | MethodSVT | MethodTOT | MethodTP | MethodTR | MethodWST]
     """
 
     kwargs = _get_kwargs(
@@ -158,7 +598,38 @@ async def asyncio(
     method_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Optional[HTTPValidationError]:
+) -> (
+    HTTPValidationError
+    | MethodAD
+    | MethodCD
+    | MethodCPT
+    | MethodDEF
+    | MethodDP
+    | MethodDT
+    | MethodESA
+    | MethodINC
+    | MethodIW
+    | MethodOTHER
+    | MethodPT
+    | MethodPZ
+    | MethodRCD
+    | MethodRO
+    | MethodRP
+    | MethodRS
+    | MethodRWS
+    | MethodSA
+    | MethodSLB
+    | MethodSPT
+    | MethodSRS
+    | MethodSS
+    | MethodSTI
+    | MethodSVT
+    | MethodTOT
+    | MethodTP
+    | MethodTR
+    | MethodWST
+    | None
+):
     """Get Method
 
      Get the method by method_id
@@ -173,7 +644,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        HTTPValidationError | MethodAD | MethodCD | MethodCPT | MethodDEF | MethodDP | MethodDT | MethodESA | MethodINC | MethodIW | MethodOTHER | MethodPT | MethodPZ | MethodRCD | MethodRO | MethodRP | MethodRS | MethodRWS | MethodSA | MethodSLB | MethodSPT | MethodSRS | MethodSS | MethodSTI | MethodSVT | MethodTOT | MethodTP | MethodTR | MethodWST
     """
 
     return (

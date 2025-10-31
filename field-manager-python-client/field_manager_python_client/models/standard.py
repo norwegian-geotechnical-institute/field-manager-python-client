@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -22,14 +24,14 @@ class Standard:
         name (str):
         description (str):
         sort_order (int):
-        method_types (Union[Unset, list['MethodType']]):
+        method_types (list[MethodType] | Unset):
     """
 
     standard_id: StandardType
     name: str
     description: str
     sort_order: int
-    method_types: Union[Unset, list["MethodType"]] = UNSET
+    method_types: list[MethodType] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -41,7 +43,7 @@ class Standard:
 
         sort_order = self.sort_order
 
-        method_types: Union[Unset, list[dict[str, Any]]] = UNSET
+        method_types: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.method_types, Unset):
             method_types = []
             for method_types_item_data in self.method_types:

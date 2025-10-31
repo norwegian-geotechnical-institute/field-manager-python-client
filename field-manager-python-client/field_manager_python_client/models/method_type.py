@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -51,7 +53,7 @@ class MethodType:
         description (str):
         category (str):
         sort_order (int):
-        file_extensions (list['FileExtension']):
+        file_extensions (list[FileExtension]):
     """
 
     method_type_id: MethodTypeEnum
@@ -59,7 +61,7 @@ class MethodType:
     description: str
     category: str
     sort_order: int
-    file_extensions: list["FileExtension"]
+    file_extensions: list[FileExtension]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -15,7 +17,7 @@ class SubShape:
         shape_id (UUID):
         sub_shape_id (UUID):
         name (str):
-        feature_id (Union[None, str]):
+        feature_id (None | str):
         feature_index (int):
         attached_file_ids (list[UUID]):
     """
@@ -23,7 +25,7 @@ class SubShape:
     shape_id: UUID
     sub_shape_id: UUID
     name: str
-    feature_id: Union[None, str]
+    feature_id: None | str
     feature_index: int
     attached_file_ids: list[UUID]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -35,7 +37,7 @@ class SubShape:
 
         name = self.name
 
-        feature_id: Union[None, str]
+        feature_id: None | str
         feature_id = self.feature_id
 
         feature_index = self.feature_index
@@ -69,10 +71,10 @@ class SubShape:
 
         name = d.pop("name")
 
-        def _parse_feature_id(data: object) -> Union[None, str]:
+        def _parse_feature_id(data: object) -> None | str:
             if data is None:
                 return data
-            return cast(Union[None, str], data)
+            return cast(None | str, data)
 
         feature_id = _parse_feature_id(d.pop("feature_id"))
 

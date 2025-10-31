@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,38 +19,38 @@ T = TypeVar("T", bound="PlotDataStats")
 class PlotDataStats:
     """
     Attributes:
-        value_min (Union[float, str]):
-        value_max (Union[float, str]):
+        value_min (float | str):
+        value_max (float | str):
         count (int):
-        mean (Union[float, str]):
-        std (Union[float, str]):
-        percentiles (Union[Unset, PlotDataStatsPercentiles]):
+        mean (float | str):
+        std (float | str):
+        percentiles (PlotDataStatsPercentiles | Unset):
     """
 
-    value_min: Union[float, str]
-    value_max: Union[float, str]
+    value_min: float | str
+    value_max: float | str
     count: int
-    mean: Union[float, str]
-    std: Union[float, str]
-    percentiles: Union[Unset, "PlotDataStatsPercentiles"] = UNSET
+    mean: float | str
+    std: float | str
+    percentiles: PlotDataStatsPercentiles | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        value_min: Union[float, str]
+        value_min: float | str
         value_min = self.value_min
 
-        value_max: Union[float, str]
+        value_max: float | str
         value_max = self.value_max
 
         count = self.count
 
-        mean: Union[float, str]
+        mean: float | str
         mean = self.mean
 
-        std: Union[float, str]
+        std: float | str
         std = self.std
 
-        percentiles: Union[Unset, dict[str, Any]] = UNSET
+        percentiles: dict[str, Any] | Unset = UNSET
         if not isinstance(self.percentiles, Unset):
             percentiles = self.percentiles.to_dict()
 
@@ -74,30 +76,30 @@ class PlotDataStats:
 
         d = dict(src_dict)
 
-        def _parse_value_min(data: object) -> Union[float, str]:
-            return cast(Union[float, str], data)
+        def _parse_value_min(data: object) -> float | str:
+            return cast(float | str, data)
 
         value_min = _parse_value_min(d.pop("value_min"))
 
-        def _parse_value_max(data: object) -> Union[float, str]:
-            return cast(Union[float, str], data)
+        def _parse_value_max(data: object) -> float | str:
+            return cast(float | str, data)
 
         value_max = _parse_value_max(d.pop("value_max"))
 
         count = d.pop("count")
 
-        def _parse_mean(data: object) -> Union[float, str]:
-            return cast(Union[float, str], data)
+        def _parse_mean(data: object) -> float | str:
+            return cast(float | str, data)
 
         mean = _parse_mean(d.pop("mean"))
 
-        def _parse_std(data: object) -> Union[float, str]:
-            return cast(Union[float, str], data)
+        def _parse_std(data: object) -> float | str:
+            return cast(float | str, data)
 
         std = _parse_std(d.pop("std"))
 
         _percentiles = d.pop("percentiles", UNSET)
-        percentiles: Union[Unset, PlotDataStatsPercentiles]
+        percentiles: PlotDataStatsPercentiles | Unset
         if isinstance(_percentiles, Unset):
             percentiles = UNSET
         else:

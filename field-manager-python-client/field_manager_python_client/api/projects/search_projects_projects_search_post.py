@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -14,8 +14,8 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     *,
     body: ProjectSearch,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -42,8 +42,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, list["ProjectInfo"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | list[ProjectInfo] | None:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -66,8 +66,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, list["ProjectInfo"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | list[ProjectInfo]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -80,14 +80,14 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: ProjectSearch,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-) -> Response[Union[HTTPValidationError, list["ProjectInfo"]]]:
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+) -> Response[HTTPValidationError | list[ProjectInfo]]:
     """Search Projects
 
     Args:
-        skip (Union[Unset, int]):  Default: 0.
-        limit (Union[Unset, int]):  Default: 100.
+        skip (int | Unset):  Default: 0.
+        limit (int | Unset):  Default: 100.
         body (ProjectSearch):
 
     Raises:
@@ -95,7 +95,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['ProjectInfo']]]
+        Response[HTTPValidationError | list[ProjectInfo]]
     """
 
     kwargs = _get_kwargs(
@@ -115,14 +115,14 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: ProjectSearch,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-) -> Optional[Union[HTTPValidationError, list["ProjectInfo"]]]:
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+) -> HTTPValidationError | list[ProjectInfo] | None:
     """Search Projects
 
     Args:
-        skip (Union[Unset, int]):  Default: 0.
-        limit (Union[Unset, int]):  Default: 100.
+        skip (int | Unset):  Default: 0.
+        limit (int | Unset):  Default: 100.
         body (ProjectSearch):
 
     Raises:
@@ -130,7 +130,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['ProjectInfo']]
+        HTTPValidationError | list[ProjectInfo]
     """
 
     return sync_detailed(
@@ -145,14 +145,14 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: ProjectSearch,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-) -> Response[Union[HTTPValidationError, list["ProjectInfo"]]]:
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+) -> Response[HTTPValidationError | list[ProjectInfo]]:
     """Search Projects
 
     Args:
-        skip (Union[Unset, int]):  Default: 0.
-        limit (Union[Unset, int]):  Default: 100.
+        skip (int | Unset):  Default: 0.
+        limit (int | Unset):  Default: 100.
         body (ProjectSearch):
 
     Raises:
@@ -160,7 +160,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list['ProjectInfo']]]
+        Response[HTTPValidationError | list[ProjectInfo]]
     """
 
     kwargs = _get_kwargs(
@@ -178,14 +178,14 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: ProjectSearch,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-) -> Optional[Union[HTTPValidationError, list["ProjectInfo"]]]:
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+) -> HTTPValidationError | list[ProjectInfo] | None:
     """Search Projects
 
     Args:
-        skip (Union[Unset, int]):  Default: 0.
-        limit (Union[Unset, int]):  Default: 100.
+        skip (int | Unset):  Default: 0.
+        limit (int | Unset):  Default: 100.
         body (ProjectSearch):
 
     Raises:
@@ -193,7 +193,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list['ProjectInfo']]
+        HTTPValidationError | list[ProjectInfo]
     """
 
     return (

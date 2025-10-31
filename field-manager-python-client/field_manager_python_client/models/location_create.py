@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -53,80 +55,77 @@ class LocationCreate:
 
     Attributes:
         name (str):
-        iogp_type_id (Union[Unset, IOGPTypeEnum]): For offshore locations, an IOGP type is required
-        created_at (Union[None, Unset, datetime.datetime]):
-        created_by (Union[None, Unset, str]):
-        updated_at (Union[None, Unset, datetime.datetime]):
-        updated_by (Union[None, Unset, str]):
-        point_easting (Union[None, Unset, float]):
-        point_northing (Union[None, Unset, float]):
-        point_z (Union[None, Unset, float]):
-        srid (Union[None, Unset, int]):
-        point_x_wgs84_pseudo (Union[None, Unset, float]):
-        point_y_wgs84_pseudo (Union[None, Unset, float]):
-        point_x_wgs84_web (Union[None, Unset, float]):
-        point_y_wgs84_web (Union[None, Unset, float]):
-        tags (Union[Unset, list[str]]):
-        project_id (Union[None, UUID, Unset]):
-        methods (Union[Unset, list[Union['MethodADCreate', 'MethodCDCreate', 'MethodCPTCreate', 'MethodDEFCreate',
-            'MethodDPCreate', 'MethodDTCreate', 'MethodESACreate', 'MethodINCCreate', 'MethodIWCreate', 'MethodOTHERCreate',
-            'MethodPTCreate', 'MethodPZCreate', 'MethodRCDCreate', 'MethodROCreate', 'MethodRPCreate', 'MethodRSCreate',
-            'MethodRWSCreate', 'MethodSACreate', 'MethodSLBCreate', 'MethodSPTCreate', 'MethodSRSCreate', 'MethodSSCreate',
-            'MethodSTICreate', 'MethodSVTCreate', 'MethodTOTCreate', 'MethodTPCreate', 'MethodTRCreate',
-            'MethodWSTCreate']]]):
+        iogp_type_id (IOGPTypeEnum | Unset): For offshore locations, an IOGP type is required
+        created_at (datetime.datetime | None | Unset):
+        created_by (None | str | Unset):
+        updated_at (datetime.datetime | None | Unset):
+        updated_by (None | str | Unset):
+        point_easting (float | None | Unset):
+        point_northing (float | None | Unset):
+        point_z (float | None | Unset):
+        srid (int | None | Unset):
+        point_x_wgs84_pseudo (float | None | Unset):
+        point_y_wgs84_pseudo (float | None | Unset):
+        point_x_wgs84_web (float | None | Unset):
+        point_y_wgs84_web (float | None | Unset):
+        tags (list[str] | Unset):
+        project_id (None | Unset | UUID):
+        methods (list[MethodADCreate | MethodCDCreate | MethodCPTCreate | MethodDEFCreate | MethodDPCreate |
+            MethodDTCreate | MethodESACreate | MethodINCCreate | MethodIWCreate | MethodOTHERCreate | MethodPTCreate |
+            MethodPZCreate | MethodRCDCreate | MethodROCreate | MethodRPCreate | MethodRSCreate | MethodRWSCreate |
+            MethodSACreate | MethodSLBCreate | MethodSPTCreate | MethodSRSCreate | MethodSSCreate | MethodSTICreate |
+            MethodSVTCreate | MethodTOTCreate | MethodTPCreate | MethodTRCreate | MethodWSTCreate] | Unset):
     """
 
     name: str
-    iogp_type_id: Union[Unset, IOGPTypeEnum] = UNSET
-    created_at: Union[None, Unset, datetime.datetime] = UNSET
-    created_by: Union[None, Unset, str] = UNSET
-    updated_at: Union[None, Unset, datetime.datetime] = UNSET
-    updated_by: Union[None, Unset, str] = UNSET
-    point_easting: Union[None, Unset, float] = UNSET
-    point_northing: Union[None, Unset, float] = UNSET
-    point_z: Union[None, Unset, float] = UNSET
-    srid: Union[None, Unset, int] = UNSET
-    point_x_wgs84_pseudo: Union[None, Unset, float] = UNSET
-    point_y_wgs84_pseudo: Union[None, Unset, float] = UNSET
-    point_x_wgs84_web: Union[None, Unset, float] = UNSET
-    point_y_wgs84_web: Union[None, Unset, float] = UNSET
-    tags: Union[Unset, list[str]] = UNSET
-    project_id: Union[None, UUID, Unset] = UNSET
-    methods: Union[
-        Unset,
+    iogp_type_id: IOGPTypeEnum | Unset = UNSET
+    created_at: datetime.datetime | None | Unset = UNSET
+    created_by: None | str | Unset = UNSET
+    updated_at: datetime.datetime | None | Unset = UNSET
+    updated_by: None | str | Unset = UNSET
+    point_easting: float | None | Unset = UNSET
+    point_northing: float | None | Unset = UNSET
+    point_z: float | None | Unset = UNSET
+    srid: int | None | Unset = UNSET
+    point_x_wgs84_pseudo: float | None | Unset = UNSET
+    point_y_wgs84_pseudo: float | None | Unset = UNSET
+    point_x_wgs84_web: float | None | Unset = UNSET
+    point_y_wgs84_web: float | None | Unset = UNSET
+    tags: list[str] | Unset = UNSET
+    project_id: None | Unset | UUID = UNSET
+    methods: (
         list[
-            Union[
-                "MethodADCreate",
-                "MethodCDCreate",
-                "MethodCPTCreate",
-                "MethodDEFCreate",
-                "MethodDPCreate",
-                "MethodDTCreate",
-                "MethodESACreate",
-                "MethodINCCreate",
-                "MethodIWCreate",
-                "MethodOTHERCreate",
-                "MethodPTCreate",
-                "MethodPZCreate",
-                "MethodRCDCreate",
-                "MethodROCreate",
-                "MethodRPCreate",
-                "MethodRSCreate",
-                "MethodRWSCreate",
-                "MethodSACreate",
-                "MethodSLBCreate",
-                "MethodSPTCreate",
-                "MethodSRSCreate",
-                "MethodSSCreate",
-                "MethodSTICreate",
-                "MethodSVTCreate",
-                "MethodTOTCreate",
-                "MethodTPCreate",
-                "MethodTRCreate",
-                "MethodWSTCreate",
-            ]
-        ],
-    ] = UNSET
+            MethodADCreate
+            | MethodCDCreate
+            | MethodCPTCreate
+            | MethodDEFCreate
+            | MethodDPCreate
+            | MethodDTCreate
+            | MethodESACreate
+            | MethodINCCreate
+            | MethodIWCreate
+            | MethodOTHERCreate
+            | MethodPTCreate
+            | MethodPZCreate
+            | MethodRCDCreate
+            | MethodROCreate
+            | MethodRPCreate
+            | MethodRSCreate
+            | MethodRWSCreate
+            | MethodSACreate
+            | MethodSLBCreate
+            | MethodSPTCreate
+            | MethodSRSCreate
+            | MethodSSCreate
+            | MethodSTICreate
+            | MethodSVTCreate
+            | MethodTOTCreate
+            | MethodTPCreate
+            | MethodTRCreate
+            | MethodWSTCreate
+        ]
+        | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -160,11 +159,11 @@ class LocationCreate:
 
         name = self.name
 
-        iogp_type_id: Union[Unset, str] = UNSET
+        iogp_type_id: str | Unset = UNSET
         if not isinstance(self.iogp_type_id, Unset):
             iogp_type_id = self.iogp_type_id.value
 
-        created_at: Union[None, Unset, str]
+        created_at: None | str | Unset
         if isinstance(self.created_at, Unset):
             created_at = UNSET
         elif isinstance(self.created_at, datetime.datetime):
@@ -172,13 +171,13 @@ class LocationCreate:
         else:
             created_at = self.created_at
 
-        created_by: Union[None, Unset, str]
+        created_by: None | str | Unset
         if isinstance(self.created_by, Unset):
             created_by = UNSET
         else:
             created_by = self.created_by
 
-        updated_at: Union[None, Unset, str]
+        updated_at: None | str | Unset
         if isinstance(self.updated_at, Unset):
             updated_at = UNSET
         elif isinstance(self.updated_at, datetime.datetime):
@@ -186,65 +185,65 @@ class LocationCreate:
         else:
             updated_at = self.updated_at
 
-        updated_by: Union[None, Unset, str]
+        updated_by: None | str | Unset
         if isinstance(self.updated_by, Unset):
             updated_by = UNSET
         else:
             updated_by = self.updated_by
 
-        point_easting: Union[None, Unset, float]
+        point_easting: float | None | Unset
         if isinstance(self.point_easting, Unset):
             point_easting = UNSET
         else:
             point_easting = self.point_easting
 
-        point_northing: Union[None, Unset, float]
+        point_northing: float | None | Unset
         if isinstance(self.point_northing, Unset):
             point_northing = UNSET
         else:
             point_northing = self.point_northing
 
-        point_z: Union[None, Unset, float]
+        point_z: float | None | Unset
         if isinstance(self.point_z, Unset):
             point_z = UNSET
         else:
             point_z = self.point_z
 
-        srid: Union[None, Unset, int]
+        srid: int | None | Unset
         if isinstance(self.srid, Unset):
             srid = UNSET
         else:
             srid = self.srid
 
-        point_x_wgs84_pseudo: Union[None, Unset, float]
+        point_x_wgs84_pseudo: float | None | Unset
         if isinstance(self.point_x_wgs84_pseudo, Unset):
             point_x_wgs84_pseudo = UNSET
         else:
             point_x_wgs84_pseudo = self.point_x_wgs84_pseudo
 
-        point_y_wgs84_pseudo: Union[None, Unset, float]
+        point_y_wgs84_pseudo: float | None | Unset
         if isinstance(self.point_y_wgs84_pseudo, Unset):
             point_y_wgs84_pseudo = UNSET
         else:
             point_y_wgs84_pseudo = self.point_y_wgs84_pseudo
 
-        point_x_wgs84_web: Union[None, Unset, float]
+        point_x_wgs84_web: float | None | Unset
         if isinstance(self.point_x_wgs84_web, Unset):
             point_x_wgs84_web = UNSET
         else:
             point_x_wgs84_web = self.point_x_wgs84_web
 
-        point_y_wgs84_web: Union[None, Unset, float]
+        point_y_wgs84_web: float | None | Unset
         if isinstance(self.point_y_wgs84_web, Unset):
             point_y_wgs84_web = UNSET
         else:
             point_y_wgs84_web = self.point_y_wgs84_web
 
-        tags: Union[Unset, list[str]] = UNSET
+        tags: list[str] | Unset = UNSET
         if not isinstance(self.tags, Unset):
             tags = self.tags
 
-        project_id: Union[None, Unset, str]
+        project_id: None | str | Unset
         if isinstance(self.project_id, Unset):
             project_id = UNSET
         elif isinstance(self.project_id, UUID):
@@ -252,7 +251,7 @@ class LocationCreate:
         else:
             project_id = self.project_id
 
-        methods: Union[Unset, list[dict[str, Any]]] = UNSET
+        methods: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.methods, Unset):
             methods = []
             for methods_item_data in self.methods:
@@ -393,13 +392,13 @@ class LocationCreate:
         name = d.pop("name")
 
         _iogp_type_id = d.pop("iogp_type_id", UNSET)
-        iogp_type_id: Union[Unset, IOGPTypeEnum]
+        iogp_type_id: IOGPTypeEnum | Unset
         if isinstance(_iogp_type_id, Unset):
             iogp_type_id = UNSET
         else:
             iogp_type_id = IOGPTypeEnum(_iogp_type_id)
 
-        def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_created_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -412,20 +411,20 @@ class LocationCreate:
                 return created_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         created_at = _parse_created_at(d.pop("created_at", UNSET))
 
-        def _parse_created_by(data: object) -> Union[None, Unset, str]:
+        def _parse_created_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
 
-        def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_updated_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -438,94 +437,94 @@ class LocationCreate:
                 return updated_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
 
-        def _parse_updated_by(data: object) -> Union[None, Unset, str]:
+        def _parse_updated_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
 
-        def _parse_point_easting(data: object) -> Union[None, Unset, float]:
+        def _parse_point_easting(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_easting = _parse_point_easting(d.pop("point_easting", UNSET))
 
-        def _parse_point_northing(data: object) -> Union[None, Unset, float]:
+        def _parse_point_northing(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_northing = _parse_point_northing(d.pop("point_northing", UNSET))
 
-        def _parse_point_z(data: object) -> Union[None, Unset, float]:
+        def _parse_point_z(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_z = _parse_point_z(d.pop("point_z", UNSET))
 
-        def _parse_srid(data: object) -> Union[None, Unset, int]:
+        def _parse_srid(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         srid = _parse_srid(d.pop("srid", UNSET))
 
-        def _parse_point_x_wgs84_pseudo(data: object) -> Union[None, Unset, float]:
+        def _parse_point_x_wgs84_pseudo(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_x_wgs84_pseudo = _parse_point_x_wgs84_pseudo(d.pop("point_x_wgs84_pseudo", UNSET))
 
-        def _parse_point_y_wgs84_pseudo(data: object) -> Union[None, Unset, float]:
+        def _parse_point_y_wgs84_pseudo(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_y_wgs84_pseudo = _parse_point_y_wgs84_pseudo(d.pop("point_y_wgs84_pseudo", UNSET))
 
-        def _parse_point_x_wgs84_web(data: object) -> Union[None, Unset, float]:
+        def _parse_point_x_wgs84_web(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_x_wgs84_web = _parse_point_x_wgs84_web(d.pop("point_x_wgs84_web", UNSET))
 
-        def _parse_point_y_wgs84_web(data: object) -> Union[None, Unset, float]:
+        def _parse_point_y_wgs84_web(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_y_wgs84_web = _parse_point_y_wgs84_web(d.pop("point_y_wgs84_web", UNSET))
 
         tags = cast(list[str], d.pop("tags", UNSET))
 
-        def _parse_project_id(data: object) -> Union[None, UUID, Unset]:
+        def _parse_project_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -538,7 +537,7 @@ class LocationCreate:
                 return project_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID, Unset], data)
+            return cast(None | Unset | UUID, data)
 
         project_id = _parse_project_id(d.pop("project_id", UNSET))
 
@@ -548,36 +547,36 @@ class LocationCreate:
 
             def _parse_methods_item(
                 data: object,
-            ) -> Union[
-                "MethodADCreate",
-                "MethodCDCreate",
-                "MethodCPTCreate",
-                "MethodDEFCreate",
-                "MethodDPCreate",
-                "MethodDTCreate",
-                "MethodESACreate",
-                "MethodINCCreate",
-                "MethodIWCreate",
-                "MethodOTHERCreate",
-                "MethodPTCreate",
-                "MethodPZCreate",
-                "MethodRCDCreate",
-                "MethodROCreate",
-                "MethodRPCreate",
-                "MethodRSCreate",
-                "MethodRWSCreate",
-                "MethodSACreate",
-                "MethodSLBCreate",
-                "MethodSPTCreate",
-                "MethodSRSCreate",
-                "MethodSSCreate",
-                "MethodSTICreate",
-                "MethodSVTCreate",
-                "MethodTOTCreate",
-                "MethodTPCreate",
-                "MethodTRCreate",
-                "MethodWSTCreate",
-            ]:
+            ) -> (
+                MethodADCreate
+                | MethodCDCreate
+                | MethodCPTCreate
+                | MethodDEFCreate
+                | MethodDPCreate
+                | MethodDTCreate
+                | MethodESACreate
+                | MethodINCCreate
+                | MethodIWCreate
+                | MethodOTHERCreate
+                | MethodPTCreate
+                | MethodPZCreate
+                | MethodRCDCreate
+                | MethodROCreate
+                | MethodRPCreate
+                | MethodRSCreate
+                | MethodRWSCreate
+                | MethodSACreate
+                | MethodSLBCreate
+                | MethodSPTCreate
+                | MethodSRSCreate
+                | MethodSSCreate
+                | MethodSTICreate
+                | MethodSVTCreate
+                | MethodTOTCreate
+                | MethodTPCreate
+                | MethodTRCreate
+                | MethodWSTCreate
+            ):
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()

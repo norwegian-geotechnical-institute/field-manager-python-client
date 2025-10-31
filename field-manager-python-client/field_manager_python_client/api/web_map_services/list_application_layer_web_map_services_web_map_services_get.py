@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -18,9 +18,7 @@ def _get_kwargs() -> dict[str, Any]:
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[list["WebMapService"]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list[WebMapService] | None:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
@@ -37,9 +35,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[list["WebMapService"]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[list[WebMapService]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -51,7 +47,7 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-) -> Response[list["WebMapService"]]:
+) -> Response[list[WebMapService]]:
     """Get Application Layer Web Map Services
 
      Get all application layer Web Map Services.
@@ -65,7 +61,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list['WebMapService']]
+        Response[list[WebMapService]]
     """
 
     kwargs = _get_kwargs()
@@ -80,7 +76,7 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-) -> Optional[list["WebMapService"]]:
+) -> list[WebMapService] | None:
     """Get Application Layer Web Map Services
 
      Get all application layer Web Map Services.
@@ -94,7 +90,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list['WebMapService']
+        list[WebMapService]
     """
 
     return sync_detailed(
@@ -105,7 +101,7 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-) -> Response[list["WebMapService"]]:
+) -> Response[list[WebMapService]]:
     """Get Application Layer Web Map Services
 
      Get all application layer Web Map Services.
@@ -119,7 +115,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list['WebMapService']]
+        Response[list[WebMapService]]
     """
 
     kwargs = _get_kwargs()
@@ -132,7 +128,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-) -> Optional[list["WebMapService"]]:
+) -> list[WebMapService] | None:
     """Get Application Layer Web Map Services
 
      Get all application layer Web Map Services.
@@ -146,7 +142,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list['WebMapService']
+        list[WebMapService]
     """
 
     return (

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -19,18 +21,18 @@ class MapLayoutUpdate:
     """Map Layout Update
 
     Attributes:
-        map_layout_id (Union[None, UUID, Unset]):
-        name (Union[None, Unset, str]):
-        versions (Union[Unset, list['MapLayoutVersionUpdate']]):
+        map_layout_id (None | Unset | UUID):
+        name (None | str | Unset):
+        versions (list[MapLayoutVersionUpdate] | Unset):
     """
 
-    map_layout_id: Union[None, UUID, Unset] = UNSET
-    name: Union[None, Unset, str] = UNSET
-    versions: Union[Unset, list["MapLayoutVersionUpdate"]] = UNSET
+    map_layout_id: None | Unset | UUID = UNSET
+    name: None | str | Unset = UNSET
+    versions: list[MapLayoutVersionUpdate] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        map_layout_id: Union[None, Unset, str]
+        map_layout_id: None | str | Unset
         if isinstance(self.map_layout_id, Unset):
             map_layout_id = UNSET
         elif isinstance(self.map_layout_id, UUID):
@@ -38,13 +40,13 @@ class MapLayoutUpdate:
         else:
             map_layout_id = self.map_layout_id
 
-        name: Union[None, Unset, str]
+        name: None | str | Unset
         if isinstance(self.name, Unset):
             name = UNSET
         else:
             name = self.name
 
-        versions: Union[Unset, list[dict[str, Any]]] = UNSET
+        versions: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.versions, Unset):
             versions = []
             for versions_item_data in self.versions:
@@ -69,7 +71,7 @@ class MapLayoutUpdate:
 
         d = dict(src_dict)
 
-        def _parse_map_layout_id(data: object) -> Union[None, UUID, Unset]:
+        def _parse_map_layout_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -82,16 +84,16 @@ class MapLayoutUpdate:
                 return map_layout_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID, Unset], data)
+            return cast(None | Unset | UUID, data)
 
         map_layout_id = _parse_map_layout_id(d.pop("map_layout_id", UNSET))
 
-        def _parse_name(data: object) -> Union[None, Unset, str]:
+        def _parse_name(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         name = _parse_name(d.pop("name", UNSET))
 

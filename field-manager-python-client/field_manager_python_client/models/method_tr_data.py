@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, Literal, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -20,26 +22,26 @@ class MethodTRData:
         method_id (UUID):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        depth (Union[float, str]): Depth (m). SGF code D.
-        method_type_id (Union[Literal[16], Unset]):  Default: 16.
-        penetration_rate (Union[None, Unset, float, str]): Penetration rate (mm/s)
-        penetration_force (Union[None, Unset, float, str]): Penetration force (kN)
-        rotation_rate (Union[None, Unset, float, str]): Rotation rate (rpm)
-        rod_friction (Union[None, Unset, float, str]): Rod friction (kN)
-        increased_rotation_rate (Union[Unset, bool]): Increased rotation rate
+        depth (float): Depth (m). SGF code D.
+        method_type_id (Literal[16] | Unset):  Default: 16.
+        penetration_rate (float | None | Unset): Penetration rate (mm/s)
+        penetration_force (float | None | Unset): Penetration force (kN)
+        rotation_rate (float | None | Unset): Rotation rate (rpm)
+        rod_friction (float | None | Unset): Rod friction (kN)
+        increased_rotation_rate (bool | Unset): Increased rotation rate
     """
 
     method_data_id: UUID
     method_id: UUID
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    depth: Union[float, str]
-    method_type_id: Union[Literal[16], Unset] = 16
-    penetration_rate: Union[None, Unset, float, str] = UNSET
-    penetration_force: Union[None, Unset, float, str] = UNSET
-    rotation_rate: Union[None, Unset, float, str] = UNSET
-    rod_friction: Union[None, Unset, float, str] = UNSET
-    increased_rotation_rate: Union[Unset, bool] = UNSET
+    depth: float
+    method_type_id: Literal[16] | Unset = 16
+    penetration_rate: float | None | Unset = UNSET
+    penetration_force: float | None | Unset = UNSET
+    rotation_rate: float | None | Unset = UNSET
+    rod_friction: float | None | Unset = UNSET
+    increased_rotation_rate: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -51,30 +53,29 @@ class MethodTRData:
 
         updated_at = self.updated_at.isoformat()
 
-        depth: Union[float, str]
         depth = self.depth
 
         method_type_id = self.method_type_id
 
-        penetration_rate: Union[None, Unset, float, str]
+        penetration_rate: float | None | Unset
         if isinstance(self.penetration_rate, Unset):
             penetration_rate = UNSET
         else:
             penetration_rate = self.penetration_rate
 
-        penetration_force: Union[None, Unset, float, str]
+        penetration_force: float | None | Unset
         if isinstance(self.penetration_force, Unset):
             penetration_force = UNSET
         else:
             penetration_force = self.penetration_force
 
-        rotation_rate: Union[None, Unset, float, str]
+        rotation_rate: float | None | Unset
         if isinstance(self.rotation_rate, Unset):
             rotation_rate = UNSET
         else:
             rotation_rate = self.rotation_rate
 
-        rod_friction: Union[None, Unset, float, str]
+        rod_friction: float | None | Unset
         if isinstance(self.rod_friction, Unset):
             rod_friction = UNSET
         else:
@@ -119,48 +120,45 @@ class MethodTRData:
 
         updated_at = isoparse(d.pop("updated_at"))
 
-        def _parse_depth(data: object) -> Union[float, str]:
-            return cast(Union[float, str], data)
+        depth = d.pop("depth")
 
-        depth = _parse_depth(d.pop("depth"))
-
-        method_type_id = cast(Union[Literal[16], Unset], d.pop("method_type_id", UNSET))
+        method_type_id = cast(Literal[16] | Unset, d.pop("method_type_id", UNSET))
         if method_type_id != 16 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 16, got '{method_type_id}'")
 
-        def _parse_penetration_rate(data: object) -> Union[None, Unset, float, str]:
+        def _parse_penetration_rate(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | Unset, data)
 
         penetration_rate = _parse_penetration_rate(d.pop("penetration_rate", UNSET))
 
-        def _parse_penetration_force(data: object) -> Union[None, Unset, float, str]:
+        def _parse_penetration_force(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | Unset, data)
 
         penetration_force = _parse_penetration_force(d.pop("penetration_force", UNSET))
 
-        def _parse_rotation_rate(data: object) -> Union[None, Unset, float, str]:
+        def _parse_rotation_rate(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | Unset, data)
 
         rotation_rate = _parse_rotation_rate(d.pop("rotation_rate", UNSET))
 
-        def _parse_rod_friction(data: object) -> Union[None, Unset, float, str]:
+        def _parse_rod_friction(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | Unset, data)
 
         rod_friction = _parse_rod_friction(d.pop("rod_friction", UNSET))
 
