@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -24,8 +24,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[CrossSection, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> CrossSection | HTTPValidationError | None:
     if response.status_code == 200:
         response_200 = CrossSection.from_dict(response.json())
 
@@ -43,8 +43,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[CrossSection, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[CrossSection | HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -58,7 +58,7 @@ def sync_detailed(
     cross_section_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[CrossSection, HTTPValidationError]]:
+) -> Response[CrossSection | HTTPValidationError]:
     """Get Cross Section
 
      Get a cross section.
@@ -72,7 +72,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[CrossSection, HTTPValidationError]]
+        Response[CrossSection | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -92,7 +92,7 @@ def sync(
     cross_section_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[CrossSection, HTTPValidationError]]:
+) -> CrossSection | HTTPValidationError | None:
     """Get Cross Section
 
      Get a cross section.
@@ -106,7 +106,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[CrossSection, HTTPValidationError]
+        CrossSection | HTTPValidationError
     """
 
     return sync_detailed(
@@ -121,7 +121,7 @@ async def asyncio_detailed(
     cross_section_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[CrossSection, HTTPValidationError]]:
+) -> Response[CrossSection | HTTPValidationError]:
     """Get Cross Section
 
      Get a cross section.
@@ -135,7 +135,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[CrossSection, HTTPValidationError]]
+        Response[CrossSection | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -153,7 +153,7 @@ async def asyncio(
     cross_section_id: UUID,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[CrossSection, HTTPValidationError]]:
+) -> CrossSection | HTTPValidationError | None:
     """Get Cross Section
 
      Get a cross section.
@@ -167,7 +167,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[CrossSection, HTTPValidationError]
+        CrossSection | HTTPValidationError
     """
 
     return (

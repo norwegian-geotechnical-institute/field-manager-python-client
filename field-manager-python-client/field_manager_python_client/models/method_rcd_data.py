@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, Literal, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -20,22 +22,22 @@ class MethodRCDData:
         method_id (UUID):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        depth (Union[float, str]): Depth (m). SGF code D.
-        method_type_id (Union[Literal[8], Unset]):  Default: 8.
-        remarks (Union[None, Unset, str]): Remarks. SGF code T
-        comment_code (Union[None, Unset, int]): Comment code. Two digit value.
-        penetration_rate (Union[None, Unset, float, str]): Penetration rate (mm/s). SGF code B.
+        depth (float): Depth (m). SGF code D.
+        method_type_id (Literal[8] | Unset):  Default: 8.
+        remarks (None | str | Unset): Remarks. SGF code T
+        comment_code (int | None | Unset): Comment code. Two digit value.
+        penetration_rate (float | None | Unset): Penetration rate (mm/s). SGF code B.
     """
 
     method_data_id: UUID
     method_id: UUID
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    depth: Union[float, str]
-    method_type_id: Union[Literal[8], Unset] = 8
-    remarks: Union[None, Unset, str] = UNSET
-    comment_code: Union[None, Unset, int] = UNSET
-    penetration_rate: Union[None, Unset, float, str] = UNSET
+    depth: float
+    method_type_id: Literal[8] | Unset = 8
+    remarks: None | str | Unset = UNSET
+    comment_code: int | None | Unset = UNSET
+    penetration_rate: float | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -47,24 +49,23 @@ class MethodRCDData:
 
         updated_at = self.updated_at.isoformat()
 
-        depth: Union[float, str]
         depth = self.depth
 
         method_type_id = self.method_type_id
 
-        remarks: Union[None, Unset, str]
+        remarks: None | str | Unset
         if isinstance(self.remarks, Unset):
             remarks = UNSET
         else:
             remarks = self.remarks
 
-        comment_code: Union[None, Unset, int]
+        comment_code: int | None | Unset
         if isinstance(self.comment_code, Unset):
             comment_code = UNSET
         else:
             comment_code = self.comment_code
 
-        penetration_rate: Union[None, Unset, float, str]
+        penetration_rate: float | None | Unset
         if isinstance(self.penetration_rate, Unset):
             penetration_rate = UNSET
         else:
@@ -103,39 +104,36 @@ class MethodRCDData:
 
         updated_at = isoparse(d.pop("updated_at"))
 
-        def _parse_depth(data: object) -> Union[float, str]:
-            return cast(Union[float, str], data)
+        depth = d.pop("depth")
 
-        depth = _parse_depth(d.pop("depth"))
-
-        method_type_id = cast(Union[Literal[8], Unset], d.pop("method_type_id", UNSET))
+        method_type_id = cast(Literal[8] | Unset, d.pop("method_type_id", UNSET))
         if method_type_id != 8 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 8, got '{method_type_id}'")
 
-        def _parse_remarks(data: object) -> Union[None, Unset, str]:
+        def _parse_remarks(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-        def _parse_comment_code(data: object) -> Union[None, Unset, int]:
+        def _parse_comment_code(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         comment_code = _parse_comment_code(d.pop("comment_code", UNSET))
 
-        def _parse_penetration_rate(data: object) -> Union[None, Unset, float, str]:
+        def _parse_penetration_rate(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | Unset, data)
 
         penetration_rate = _parse_penetration_rate(d.pop("penetration_rate", UNSET))
 

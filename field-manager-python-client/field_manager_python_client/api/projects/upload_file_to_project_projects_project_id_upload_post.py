@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -17,8 +17,8 @@ def _get_kwargs(
     project_id: str,
     *,
     body: BodyUploadFileToProjectProjectsProjectIdUploadPost,
-    layer_file: Union[Unset, bool] = False,
-    srid: Union[None, Unset, str] = UNSET,
+    layer_file: bool | Unset = False,
+    srid: None | str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -26,7 +26,7 @@ def _get_kwargs(
 
     params["layer_file"] = layer_file
 
-    json_srid: Union[None, Unset, str]
+    json_srid: None | str | Unset
     if isinstance(srid, Unset):
         json_srid = UNSET
     else:
@@ -48,8 +48,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, Project]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | Project | None:
     if response.status_code == 201:
         response_201 = Project.from_dict(response.json())
 
@@ -67,8 +67,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, Project]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | Project]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,9 +82,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: BodyUploadFileToProjectProjectsProjectIdUploadPost,
-    layer_file: Union[Unset, bool] = False,
-    srid: Union[None, Unset, str] = UNSET,
-) -> Response[Union[HTTPValidationError, Project]]:
+    layer_file: bool | Unset = False,
+    srid: None | str | Unset = UNSET,
+) -> Response[HTTPValidationError | Project]:
     """Upload File To Project
 
      Upload a data file to project. If layer_file is passed as True, then the file is converted to
@@ -98,8 +98,8 @@ def sync_detailed(
 
     Args:
         project_id (str):
-        layer_file (Union[Unset, bool]):  Default: False.
-        srid (Union[None, Unset, str]):
+        layer_file (bool | Unset):  Default: False.
+        srid (None | str | Unset):
         body (BodyUploadFileToProjectProjectsProjectIdUploadPost):
 
     Raises:
@@ -107,7 +107,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Project]]
+        Response[HTTPValidationError | Project]
     """
 
     kwargs = _get_kwargs(
@@ -129,9 +129,9 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: BodyUploadFileToProjectProjectsProjectIdUploadPost,
-    layer_file: Union[Unset, bool] = False,
-    srid: Union[None, Unset, str] = UNSET,
-) -> Optional[Union[HTTPValidationError, Project]]:
+    layer_file: bool | Unset = False,
+    srid: None | str | Unset = UNSET,
+) -> HTTPValidationError | Project | None:
     """Upload File To Project
 
      Upload a data file to project. If layer_file is passed as True, then the file is converted to
@@ -145,8 +145,8 @@ def sync(
 
     Args:
         project_id (str):
-        layer_file (Union[Unset, bool]):  Default: False.
-        srid (Union[None, Unset, str]):
+        layer_file (bool | Unset):  Default: False.
+        srid (None | str | Unset):
         body (BodyUploadFileToProjectProjectsProjectIdUploadPost):
 
     Raises:
@@ -154,7 +154,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Project]
+        HTTPValidationError | Project
     """
 
     return sync_detailed(
@@ -171,9 +171,9 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: BodyUploadFileToProjectProjectsProjectIdUploadPost,
-    layer_file: Union[Unset, bool] = False,
-    srid: Union[None, Unset, str] = UNSET,
-) -> Response[Union[HTTPValidationError, Project]]:
+    layer_file: bool | Unset = False,
+    srid: None | str | Unset = UNSET,
+) -> Response[HTTPValidationError | Project]:
     """Upload File To Project
 
      Upload a data file to project. If layer_file is passed as True, then the file is converted to
@@ -187,8 +187,8 @@ async def asyncio_detailed(
 
     Args:
         project_id (str):
-        layer_file (Union[Unset, bool]):  Default: False.
-        srid (Union[None, Unset, str]):
+        layer_file (bool | Unset):  Default: False.
+        srid (None | str | Unset):
         body (BodyUploadFileToProjectProjectsProjectIdUploadPost):
 
     Raises:
@@ -196,7 +196,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Project]]
+        Response[HTTPValidationError | Project]
     """
 
     kwargs = _get_kwargs(
@@ -216,9 +216,9 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: BodyUploadFileToProjectProjectsProjectIdUploadPost,
-    layer_file: Union[Unset, bool] = False,
-    srid: Union[None, Unset, str] = UNSET,
-) -> Optional[Union[HTTPValidationError, Project]]:
+    layer_file: bool | Unset = False,
+    srid: None | str | Unset = UNSET,
+) -> HTTPValidationError | Project | None:
     """Upload File To Project
 
      Upload a data file to project. If layer_file is passed as True, then the file is converted to
@@ -232,8 +232,8 @@ async def asyncio(
 
     Args:
         project_id (str):
-        layer_file (Union[Unset, bool]):  Default: False.
-        srid (Union[None, Unset, str]):
+        layer_file (bool | Unset):  Default: False.
+        srid (None | str | Unset):
         body (BodyUploadFileToProjectProjectsProjectIdUploadPost):
 
     Raises:
@@ -241,7 +241,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Project]
+        HTTPValidationError | Project
     """
 
     return (

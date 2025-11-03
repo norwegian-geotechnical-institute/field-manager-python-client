@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -17,21 +17,21 @@ def _get_kwargs(
     project_id: str,
     *,
     body: BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost,
-    srid: Union[None, Unset, int] = UNSET,
-    swap_x_y: Union[None, Unset, bool] = False,
+    srid: int | None | Unset = UNSET,
+    swap_x_y: bool | None | Unset = False,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
     params: dict[str, Any] = {}
 
-    json_srid: Union[None, Unset, int]
+    json_srid: int | None | Unset
     if isinstance(srid, Unset):
         json_srid = UNSET
     else:
         json_srid = srid
     params["srid"] = json_srid
 
-    json_swap_x_y: Union[None, Unset, bool]
+    json_swap_x_y: bool | None | Unset
     if isinstance(swap_x_y, Unset):
         json_swap_x_y = UNSET
     else:
@@ -53,8 +53,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[File, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> File | HTTPValidationError | None:
     if response.status_code == 201:
         response_201 = File.from_dict(response.json())
 
@@ -72,8 +72,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[File, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[File | HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -87,9 +87,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost,
-    srid: Union[None, Unset, int] = UNSET,
-    swap_x_y: Union[None, Unset, bool] = False,
-) -> Response[Union[File, HTTPValidationError]]:
+    srid: int | None | Unset = UNSET,
+    swap_x_y: bool | None | Unset = False,
+) -> Response[File | HTTPValidationError]:
     """Queue Locations To Project
 
      Upload location file and add to queue for parsing.
@@ -104,8 +104,8 @@ def sync_detailed(
 
     Args:
         project_id (str):
-        srid (Union[None, Unset, int]):
-        swap_x_y (Union[None, Unset, bool]):  Default: False.
+        srid (int | None | Unset):
+        swap_x_y (bool | None | Unset):  Default: False.
         body (BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost):
 
     Raises:
@@ -113,7 +113,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[File, HTTPValidationError]]
+        Response[File | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -135,9 +135,9 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost,
-    srid: Union[None, Unset, int] = UNSET,
-    swap_x_y: Union[None, Unset, bool] = False,
-) -> Optional[Union[File, HTTPValidationError]]:
+    srid: int | None | Unset = UNSET,
+    swap_x_y: bool | None | Unset = False,
+) -> File | HTTPValidationError | None:
     """Queue Locations To Project
 
      Upload location file and add to queue for parsing.
@@ -152,8 +152,8 @@ def sync(
 
     Args:
         project_id (str):
-        srid (Union[None, Unset, int]):
-        swap_x_y (Union[None, Unset, bool]):  Default: False.
+        srid (int | None | Unset):
+        swap_x_y (bool | None | Unset):  Default: False.
         body (BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost):
 
     Raises:
@@ -161,7 +161,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[File, HTTPValidationError]
+        File | HTTPValidationError
     """
 
     return sync_detailed(
@@ -178,9 +178,9 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost,
-    srid: Union[None, Unset, int] = UNSET,
-    swap_x_y: Union[None, Unset, bool] = False,
-) -> Response[Union[File, HTTPValidationError]]:
+    srid: int | None | Unset = UNSET,
+    swap_x_y: bool | None | Unset = False,
+) -> Response[File | HTTPValidationError]:
     """Queue Locations To Project
 
      Upload location file and add to queue for parsing.
@@ -195,8 +195,8 @@ async def asyncio_detailed(
 
     Args:
         project_id (str):
-        srid (Union[None, Unset, int]):
-        swap_x_y (Union[None, Unset, bool]):  Default: False.
+        srid (int | None | Unset):
+        swap_x_y (bool | None | Unset):  Default: False.
         body (BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost):
 
     Raises:
@@ -204,7 +204,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[File, HTTPValidationError]]
+        Response[File | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -224,9 +224,9 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost,
-    srid: Union[None, Unset, int] = UNSET,
-    swap_x_y: Union[None, Unset, bool] = False,
-) -> Optional[Union[File, HTTPValidationError]]:
+    srid: int | None | Unset = UNSET,
+    swap_x_y: bool | None | Unset = False,
+) -> File | HTTPValidationError | None:
     """Queue Locations To Project
 
      Upload location file and add to queue for parsing.
@@ -241,8 +241,8 @@ async def asyncio(
 
     Args:
         project_id (str):
-        srid (Union[None, Unset, int]):
-        swap_x_y (Union[None, Unset, bool]):  Default: False.
+        srid (int | None | Unset):
+        swap_x_y (bool | None | Unset):  Default: False.
         body (BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost):
 
     Raises:
@@ -250,7 +250,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[File, HTTPValidationError]
+        File | HTTPValidationError
     """
 
     return (

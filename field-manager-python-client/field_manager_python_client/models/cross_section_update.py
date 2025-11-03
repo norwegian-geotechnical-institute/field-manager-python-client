@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -15,26 +17,26 @@ T = TypeVar("T", bound="CrossSectionUpdate")
 class CrossSectionUpdate:
     """
     Attributes:
-        polyline_coordinates (Union[None, Unset, list[list[float]]]):
-        width (Union[None, Unset, float]):
-        vertical_scale (Union[None, Unset, str]):
-        horizontal_scale (Union[None, Unset, str]):
-        method_ids (Union[None, Unset, list[UUID]]):
-        name (Union[None, Unset, str]):
-        language (Union[Unset, Language]): ISO 639-2 language three-letter codes (set 2)
+        polyline_coordinates (list[list[float]] | None | Unset):
+        width (float | None | Unset):
+        vertical_scale (None | str | Unset):
+        horizontal_scale (None | str | Unset):
+        method_ids (list[UUID] | None | Unset):
+        name (None | str | Unset):
+        language (Language | Unset): ISO 639-2 language three-letter codes (set 2)
     """
 
-    polyline_coordinates: Union[None, Unset, list[list[float]]] = UNSET
-    width: Union[None, Unset, float] = UNSET
-    vertical_scale: Union[None, Unset, str] = UNSET
-    horizontal_scale: Union[None, Unset, str] = UNSET
-    method_ids: Union[None, Unset, list[UUID]] = UNSET
-    name: Union[None, Unset, str] = UNSET
-    language: Union[Unset, Language] = UNSET
+    polyline_coordinates: list[list[float]] | None | Unset = UNSET
+    width: float | None | Unset = UNSET
+    vertical_scale: None | str | Unset = UNSET
+    horizontal_scale: None | str | Unset = UNSET
+    method_ids: list[UUID] | None | Unset = UNSET
+    name: None | str | Unset = UNSET
+    language: Language | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        polyline_coordinates: Union[None, Unset, list[list[float]]]
+        polyline_coordinates: list[list[float]] | None | Unset
         if isinstance(self.polyline_coordinates, Unset):
             polyline_coordinates = UNSET
         elif isinstance(self.polyline_coordinates, list):
@@ -51,25 +53,25 @@ class CrossSectionUpdate:
         else:
             polyline_coordinates = self.polyline_coordinates
 
-        width: Union[None, Unset, float]
+        width: float | None | Unset
         if isinstance(self.width, Unset):
             width = UNSET
         else:
             width = self.width
 
-        vertical_scale: Union[None, Unset, str]
+        vertical_scale: None | str | Unset
         if isinstance(self.vertical_scale, Unset):
             vertical_scale = UNSET
         else:
             vertical_scale = self.vertical_scale
 
-        horizontal_scale: Union[None, Unset, str]
+        horizontal_scale: None | str | Unset
         if isinstance(self.horizontal_scale, Unset):
             horizontal_scale = UNSET
         else:
             horizontal_scale = self.horizontal_scale
 
-        method_ids: Union[None, Unset, list[str]]
+        method_ids: list[str] | None | Unset
         if isinstance(self.method_ids, Unset):
             method_ids = UNSET
         elif isinstance(self.method_ids, list):
@@ -81,13 +83,13 @@ class CrossSectionUpdate:
         else:
             method_ids = self.method_ids
 
-        name: Union[None, Unset, str]
+        name: None | str | Unset
         if isinstance(self.name, Unset):
             name = UNSET
         else:
             name = self.name
 
-        language: Union[Unset, str] = UNSET
+        language: str | Unset = UNSET
         if not isinstance(self.language, Unset):
             language = self.language.value
 
@@ -115,7 +117,7 @@ class CrossSectionUpdate:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
 
-        def _parse_polyline_coordinates(data: object) -> Union[None, Unset, list[list[float]]]:
+        def _parse_polyline_coordinates(data: object) -> list[list[float]] | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -144,38 +146,38 @@ class CrossSectionUpdate:
                 return polyline_coordinates_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, list[list[float]]], data)
+            return cast(list[list[float]] | None | Unset, data)
 
         polyline_coordinates = _parse_polyline_coordinates(d.pop("polyline_coordinates", UNSET))
 
-        def _parse_width(data: object) -> Union[None, Unset, float]:
+        def _parse_width(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         width = _parse_width(d.pop("width", UNSET))
 
-        def _parse_vertical_scale(data: object) -> Union[None, Unset, str]:
+        def _parse_vertical_scale(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         vertical_scale = _parse_vertical_scale(d.pop("vertical_scale", UNSET))
 
-        def _parse_horizontal_scale(data: object) -> Union[None, Unset, str]:
+        def _parse_horizontal_scale(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         horizontal_scale = _parse_horizontal_scale(d.pop("horizontal_scale", UNSET))
 
-        def _parse_method_ids(data: object) -> Union[None, Unset, list[UUID]]:
+        def _parse_method_ids(data: object) -> list[UUID] | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -193,21 +195,21 @@ class CrossSectionUpdate:
                 return method_ids_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, list[UUID]], data)
+            return cast(list[UUID] | None | Unset, data)
 
         method_ids = _parse_method_ids(d.pop("method_ids", UNSET))
 
-        def _parse_name(data: object) -> Union[None, Unset, str]:
+        def _parse_name(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         name = _parse_name(d.pop("name", UNSET))
 
         _language = d.pop("language", UNSET)
-        language: Union[Unset, Language]
+        language: Language | Unset
         if isinstance(_language, Unset):
             language = UNSET
         else:

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from io import BytesIO
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,17 +18,17 @@ class BodyUploadFileToShapeProjectsProjectIdShapesShapeIdFilePost:
     """
     Attributes:
         file (File):
-        feature_index (Union[None, Unset, int, str]):
+        feature_index (int | None | str | Unset):
     """
 
     file: File
-    feature_index: Union[None, Unset, int, str] = UNSET
+    feature_index: int | None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         file = self.file.to_tuple()
 
-        feature_index: Union[None, Unset, int, str]
+        feature_index: int | None | str | Unset
         if isinstance(self.feature_index, Unset):
             feature_index = UNSET
         else:
@@ -67,12 +69,12 @@ class BodyUploadFileToShapeProjectsProjectIdShapesShapeIdFilePost:
         d = dict(src_dict)
         file = File(payload=BytesIO(d.pop("file")))
 
-        def _parse_feature_index(data: object) -> Union[None, Unset, int, str]:
+        def _parse_feature_index(data: object) -> int | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int, str], data)
+            return cast(int | None | str | Unset, data)
 
         feature_index = _parse_feature_index(d.pop("feature_index", UNSET))
 

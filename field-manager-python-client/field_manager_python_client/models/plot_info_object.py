@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -29,34 +31,34 @@ class PlotInfoObject:
         location_type (LocationType):
         location_ids (list[UUID]):
         location_names (list[str]):
-        location_coordinates (list['LocationCoordinates']):
-        location_info (list['LocationInfo']):
-        method_info (list['MethodInfo']):
+        location_coordinates (list[LocationCoordinates]):
+        location_info (list[LocationInfo]):
+        method_info (list[MethodInfo]):
         method_ids (list[UUID]):
         method_type (str):
         is_combined_plot (bool):
         plot_type (PlotType):
         plot_options (FMPlotOptions):
-        messages (Union[None, Unset, list[str]]):
-        pdf_info (Union[Unset, PDFPageInfo]):
-        stats (Union['PlotInfoObjectStatsType0', None, Unset]):
+        messages (list[str] | None | Unset):
+        pdf_info (PDFPageInfo | Unset):
+        stats (None | PlotInfoObjectStatsType0 | Unset):
     """
 
     project_id: UUID
     location_type: LocationType
     location_ids: list[UUID]
     location_names: list[str]
-    location_coordinates: list["LocationCoordinates"]
-    location_info: list["LocationInfo"]
-    method_info: list["MethodInfo"]
+    location_coordinates: list[LocationCoordinates]
+    location_info: list[LocationInfo]
+    method_info: list[MethodInfo]
     method_ids: list[UUID]
     method_type: str
     is_combined_plot: bool
     plot_type: PlotType
-    plot_options: "FMPlotOptions"
-    messages: Union[None, Unset, list[str]] = UNSET
-    pdf_info: Union[Unset, "PDFPageInfo"] = UNSET
-    stats: Union["PlotInfoObjectStatsType0", None, Unset] = UNSET
+    plot_options: FMPlotOptions
+    messages: list[str] | None | Unset = UNSET
+    pdf_info: PDFPageInfo | Unset = UNSET
+    stats: None | PlotInfoObjectStatsType0 | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -101,7 +103,7 @@ class PlotInfoObject:
 
         plot_options = self.plot_options.to_dict()
 
-        messages: Union[None, Unset, list[str]]
+        messages: list[str] | None | Unset
         if isinstance(self.messages, Unset):
             messages = UNSET
         elif isinstance(self.messages, list):
@@ -110,11 +112,11 @@ class PlotInfoObject:
         else:
             messages = self.messages
 
-        pdf_info: Union[Unset, dict[str, Any]] = UNSET
+        pdf_info: dict[str, Any] | Unset = UNSET
         if not isinstance(self.pdf_info, Unset):
             pdf_info = self.pdf_info.to_dict()
 
-        stats: Union[None, Unset, dict[str, Any]]
+        stats: dict[str, Any] | None | Unset
         if isinstance(self.stats, Unset):
             stats = UNSET
         elif isinstance(self.stats, PlotInfoObjectStatsType0):
@@ -208,7 +210,7 @@ class PlotInfoObject:
 
         plot_options = FMPlotOptions.from_dict(d.pop("plot_options"))
 
-        def _parse_messages(data: object) -> Union[None, Unset, list[str]]:
+        def _parse_messages(data: object) -> list[str] | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -221,18 +223,18 @@ class PlotInfoObject:
                 return messages_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, list[str]], data)
+            return cast(list[str] | None | Unset, data)
 
         messages = _parse_messages(d.pop("messages", UNSET))
 
         _pdf_info = d.pop("pdf_info", UNSET)
-        pdf_info: Union[Unset, PDFPageInfo]
+        pdf_info: PDFPageInfo | Unset
         if isinstance(_pdf_info, Unset):
             pdf_info = UNSET
         else:
             pdf_info = PDFPageInfo.from_dict(_pdf_info)
 
-        def _parse_stats(data: object) -> Union["PlotInfoObjectStatsType0", None, Unset]:
+        def _parse_stats(data: object) -> None | PlotInfoObjectStatsType0 | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -245,7 +247,7 @@ class PlotInfoObject:
                 return stats_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union["PlotInfoObjectStatsType0", None, Unset], data)
+            return cast(None | PlotInfoObjectStatsType0 | Unset, data)
 
         stats = _parse_stats(d.pop("stats", UNSET))
 

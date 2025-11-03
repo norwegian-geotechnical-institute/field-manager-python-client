@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -22,8 +22,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, MethodType]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | MethodType | None:
     if response.status_code == 200:
         response_200 = MethodType.from_dict(response.json())
 
@@ -41,8 +41,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, MethodType]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | MethodType]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -54,8 +54,8 @@ def _build_response(
 def sync_detailed(
     method_type_id: int,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[Union[HTTPValidationError, MethodType]]:
+    client: AuthenticatedClient | Client,
+) -> Response[HTTPValidationError | MethodType]:
     """Get Method Type
 
      Get a method type by ID.
@@ -71,7 +71,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, MethodType]]
+        Response[HTTPValidationError | MethodType]
     """
 
     kwargs = _get_kwargs(
@@ -88,8 +88,8 @@ def sync_detailed(
 def sync(
     method_type_id: int,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[Union[HTTPValidationError, MethodType]]:
+    client: AuthenticatedClient | Client,
+) -> HTTPValidationError | MethodType | None:
     """Get Method Type
 
      Get a method type by ID.
@@ -105,7 +105,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, MethodType]
+        HTTPValidationError | MethodType
     """
 
     return sync_detailed(
@@ -117,8 +117,8 @@ def sync(
 async def asyncio_detailed(
     method_type_id: int,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[Union[HTTPValidationError, MethodType]]:
+    client: AuthenticatedClient | Client,
+) -> Response[HTTPValidationError | MethodType]:
     """Get Method Type
 
      Get a method type by ID.
@@ -134,7 +134,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, MethodType]]
+        Response[HTTPValidationError | MethodType]
     """
 
     kwargs = _get_kwargs(
@@ -149,8 +149,8 @@ async def asyncio_detailed(
 async def asyncio(
     method_type_id: int,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[Union[HTTPValidationError, MethodType]]:
+    client: AuthenticatedClient | Client,
+) -> HTTPValidationError | MethodType | None:
     """Get Method Type
 
      Get a method type by ID.
@@ -166,7 +166,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, MethodType]
+        HTTPValidationError | MethodType
     """
 
     return (

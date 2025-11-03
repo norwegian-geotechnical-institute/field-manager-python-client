@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -24,15 +26,15 @@ class File:
         file_type (FileType):
         mime_type (str):
         created_at (datetime.datetime):
-        comment (Union[None, Unset, str]):
-        size (Union[None, Unset, int]):
-        created_by (Union[None, Unset, str]):
-        image_size_width (Union[None, Unset, int]):
-        image_size_height (Union[None, Unset, int]):
-        image_taken (Union[None, Unset, datetime.datetime]):
-        image_point_latitude (Union[None, Unset, float]):
-        image_point_longitude (Union[None, Unset, float]):
-        image_point_z (Union[None, Unset, float]):
+        comment (None | str | Unset):
+        size (int | None | Unset):
+        created_by (None | str | Unset):
+        image_size_width (int | None | Unset):
+        image_size_height (int | None | Unset):
+        image_taken (datetime.datetime | None | Unset):
+        image_point_latitude (float | None | Unset):
+        image_point_longitude (float | None | Unset):
+        image_point_z (float | None | Unset):
     """
 
     file_id: UUID
@@ -42,15 +44,15 @@ class File:
     file_type: FileType
     mime_type: str
     created_at: datetime.datetime
-    comment: Union[None, Unset, str] = UNSET
-    size: Union[None, Unset, int] = UNSET
-    created_by: Union[None, Unset, str] = UNSET
-    image_size_width: Union[None, Unset, int] = UNSET
-    image_size_height: Union[None, Unset, int] = UNSET
-    image_taken: Union[None, Unset, datetime.datetime] = UNSET
-    image_point_latitude: Union[None, Unset, float] = UNSET
-    image_point_longitude: Union[None, Unset, float] = UNSET
-    image_point_z: Union[None, Unset, float] = UNSET
+    comment: None | str | Unset = UNSET
+    size: int | None | Unset = UNSET
+    created_by: None | str | Unset = UNSET
+    image_size_width: int | None | Unset = UNSET
+    image_size_height: int | None | Unset = UNSET
+    image_taken: datetime.datetime | None | Unset = UNSET
+    image_point_latitude: float | None | Unset = UNSET
+    image_point_longitude: float | None | Unset = UNSET
+    image_point_z: float | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -68,37 +70,37 @@ class File:
 
         created_at = self.created_at.isoformat()
 
-        comment: Union[None, Unset, str]
+        comment: None | str | Unset
         if isinstance(self.comment, Unset):
             comment = UNSET
         else:
             comment = self.comment
 
-        size: Union[None, Unset, int]
+        size: int | None | Unset
         if isinstance(self.size, Unset):
             size = UNSET
         else:
             size = self.size
 
-        created_by: Union[None, Unset, str]
+        created_by: None | str | Unset
         if isinstance(self.created_by, Unset):
             created_by = UNSET
         else:
             created_by = self.created_by
 
-        image_size_width: Union[None, Unset, int]
+        image_size_width: int | None | Unset
         if isinstance(self.image_size_width, Unset):
             image_size_width = UNSET
         else:
             image_size_width = self.image_size_width
 
-        image_size_height: Union[None, Unset, int]
+        image_size_height: int | None | Unset
         if isinstance(self.image_size_height, Unset):
             image_size_height = UNSET
         else:
             image_size_height = self.image_size_height
 
-        image_taken: Union[None, Unset, str]
+        image_taken: None | str | Unset
         if isinstance(self.image_taken, Unset):
             image_taken = UNSET
         elif isinstance(self.image_taken, datetime.datetime):
@@ -106,19 +108,19 @@ class File:
         else:
             image_taken = self.image_taken
 
-        image_point_latitude: Union[None, Unset, float]
+        image_point_latitude: float | None | Unset
         if isinstance(self.image_point_latitude, Unset):
             image_point_latitude = UNSET
         else:
             image_point_latitude = self.image_point_latitude
 
-        image_point_longitude: Union[None, Unset, float]
+        image_point_longitude: float | None | Unset
         if isinstance(self.image_point_longitude, Unset):
             image_point_longitude = UNSET
         else:
             image_point_longitude = self.image_point_longitude
 
-        image_point_z: Union[None, Unset, float]
+        image_point_z: float | None | Unset
         if isinstance(self.image_point_z, Unset):
             image_point_z = UNSET
         else:
@@ -175,52 +177,52 @@ class File:
 
         created_at = isoparse(d.pop("created_at"))
 
-        def _parse_comment(data: object) -> Union[None, Unset, str]:
+        def _parse_comment(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         comment = _parse_comment(d.pop("comment", UNSET))
 
-        def _parse_size(data: object) -> Union[None, Unset, int]:
+        def _parse_size(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         size = _parse_size(d.pop("size", UNSET))
 
-        def _parse_created_by(data: object) -> Union[None, Unset, str]:
+        def _parse_created_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
 
-        def _parse_image_size_width(data: object) -> Union[None, Unset, int]:
+        def _parse_image_size_width(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         image_size_width = _parse_image_size_width(d.pop("image_size_width", UNSET))
 
-        def _parse_image_size_height(data: object) -> Union[None, Unset, int]:
+        def _parse_image_size_height(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         image_size_height = _parse_image_size_height(d.pop("image_size_height", UNSET))
 
-        def _parse_image_taken(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_image_taken(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -233,34 +235,34 @@ class File:
                 return image_taken_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         image_taken = _parse_image_taken(d.pop("image_taken", UNSET))
 
-        def _parse_image_point_latitude(data: object) -> Union[None, Unset, float]:
+        def _parse_image_point_latitude(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         image_point_latitude = _parse_image_point_latitude(d.pop("image_point_latitude", UNSET))
 
-        def _parse_image_point_longitude(data: object) -> Union[None, Unset, float]:
+        def _parse_image_point_longitude(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         image_point_longitude = _parse_image_point_longitude(d.pop("image_point_longitude", UNSET))
 
-        def _parse_image_point_z(data: object) -> Union[None, Unset, float]:
+        def _parse_image_point_z(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         image_point_z = _parse_image_point_z(d.pop("image_point_z", UNSET))
 

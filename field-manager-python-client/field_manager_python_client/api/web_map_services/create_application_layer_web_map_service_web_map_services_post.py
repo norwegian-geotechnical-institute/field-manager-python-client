@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -31,8 +31,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, WebMapService]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | WebMapService | None:
     if response.status_code == 201:
         response_201 = WebMapService.from_dict(response.json())
 
@@ -50,8 +50,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, WebMapService]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | WebMapService]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -64,7 +64,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: WebMapServiceCreate,
-) -> Response[Union[HTTPValidationError, WebMapService]]:
+) -> Response[HTTPValidationError | WebMapService]:
     """Create an Application Layer Web Map Service
 
      Create an application layer Web Map Service. Only allowed for application admins.
@@ -77,7 +77,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, WebMapService]]
+        Response[HTTPValidationError | WebMapService]
     """
 
     kwargs = _get_kwargs(
@@ -95,7 +95,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: WebMapServiceCreate,
-) -> Optional[Union[HTTPValidationError, WebMapService]]:
+) -> HTTPValidationError | WebMapService | None:
     """Create an Application Layer Web Map Service
 
      Create an application layer Web Map Service. Only allowed for application admins.
@@ -108,7 +108,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, WebMapService]
+        HTTPValidationError | WebMapService
     """
 
     return sync_detailed(
@@ -121,7 +121,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: WebMapServiceCreate,
-) -> Response[Union[HTTPValidationError, WebMapService]]:
+) -> Response[HTTPValidationError | WebMapService]:
     """Create an Application Layer Web Map Service
 
      Create an application layer Web Map Service. Only allowed for application admins.
@@ -134,7 +134,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, WebMapService]]
+        Response[HTTPValidationError | WebMapService]
     """
 
     kwargs = _get_kwargs(
@@ -150,7 +150,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: WebMapServiceCreate,
-) -> Optional[Union[HTTPValidationError, WebMapService]]:
+) -> HTTPValidationError | WebMapService | None:
     """Create an Application Layer Web Map Service
 
      Create an application layer Web Map Service. Only allowed for application admins.
@@ -163,7 +163,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, WebMapService]
+        HTTPValidationError | WebMapService
     """
 
     return (

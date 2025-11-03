@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -33,17 +35,17 @@ class ProjectInfo:
         name (str):
         standard_id (StandardType):
         srid (int):
-        height_reference (Union[HeightReference, None]):
+        height_reference (HeightReference | None):
         number_of_locations (int):
-        created_at (Union[None, Unset, datetime.datetime]):
-        updated_at (Union[None, Unset, datetime.datetime]):
-        external_id_source (Union[None, Unset, str]):
-        description (Union[None, Unset, str]):
-        tags (Union[None, Unset, list[str]]):
-        organization (Union['OrganizationMin', None, Unset]):
-        effective_role (Union['Role', None, Unset]):
-        last_updated (Union[None, Unset, datetime.datetime]):
-        favorite (Union[Unset, bool]):  Default: False.
+        created_at (datetime.datetime | None | Unset):
+        updated_at (datetime.datetime | None | Unset):
+        external_id_source (None | str | Unset):
+        description (None | str | Unset):
+        tags (list[str] | None | Unset):
+        organization (None | OrganizationMin | Unset):
+        effective_role (None | Role | Unset):
+        last_updated (datetime.datetime | None | Unset):
+        favorite (bool | Unset):  Default: False.
     """
 
     project_id: UUID
@@ -52,17 +54,17 @@ class ProjectInfo:
     name: str
     standard_id: StandardType
     srid: int
-    height_reference: Union[HeightReference, None]
+    height_reference: HeightReference | None
     number_of_locations: int
-    created_at: Union[None, Unset, datetime.datetime] = UNSET
-    updated_at: Union[None, Unset, datetime.datetime] = UNSET
-    external_id_source: Union[None, Unset, str] = UNSET
-    description: Union[None, Unset, str] = UNSET
-    tags: Union[None, Unset, list[str]] = UNSET
-    organization: Union["OrganizationMin", None, Unset] = UNSET
-    effective_role: Union["Role", None, Unset] = UNSET
-    last_updated: Union[None, Unset, datetime.datetime] = UNSET
-    favorite: Union[Unset, bool] = False
+    created_at: datetime.datetime | None | Unset = UNSET
+    updated_at: datetime.datetime | None | Unset = UNSET
+    external_id_source: None | str | Unset = UNSET
+    description: None | str | Unset = UNSET
+    tags: list[str] | None | Unset = UNSET
+    organization: None | OrganizationMin | Unset = UNSET
+    effective_role: None | Role | Unset = UNSET
+    last_updated: datetime.datetime | None | Unset = UNSET
+    favorite: bool | Unset = False
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -81,7 +83,7 @@ class ProjectInfo:
 
         srid = self.srid
 
-        height_reference: Union[None, str]
+        height_reference: None | str
         if isinstance(self.height_reference, HeightReference):
             height_reference = self.height_reference.value
         else:
@@ -89,7 +91,7 @@ class ProjectInfo:
 
         number_of_locations = self.number_of_locations
 
-        created_at: Union[None, Unset, str]
+        created_at: None | str | Unset
         if isinstance(self.created_at, Unset):
             created_at = UNSET
         elif isinstance(self.created_at, datetime.datetime):
@@ -97,7 +99,7 @@ class ProjectInfo:
         else:
             created_at = self.created_at
 
-        updated_at: Union[None, Unset, str]
+        updated_at: None | str | Unset
         if isinstance(self.updated_at, Unset):
             updated_at = UNSET
         elif isinstance(self.updated_at, datetime.datetime):
@@ -105,19 +107,19 @@ class ProjectInfo:
         else:
             updated_at = self.updated_at
 
-        external_id_source: Union[None, Unset, str]
+        external_id_source: None | str | Unset
         if isinstance(self.external_id_source, Unset):
             external_id_source = UNSET
         else:
             external_id_source = self.external_id_source
 
-        description: Union[None, Unset, str]
+        description: None | str | Unset
         if isinstance(self.description, Unset):
             description = UNSET
         else:
             description = self.description
 
-        tags: Union[None, Unset, list[str]]
+        tags: list[str] | None | Unset
         if isinstance(self.tags, Unset):
             tags = UNSET
         elif isinstance(self.tags, list):
@@ -126,7 +128,7 @@ class ProjectInfo:
         else:
             tags = self.tags
 
-        organization: Union[None, Unset, dict[str, Any]]
+        organization: dict[str, Any] | None | Unset
         if isinstance(self.organization, Unset):
             organization = UNSET
         elif isinstance(self.organization, OrganizationMin):
@@ -134,7 +136,7 @@ class ProjectInfo:
         else:
             organization = self.organization
 
-        effective_role: Union[None, Unset, dict[str, Any]]
+        effective_role: dict[str, Any] | None | Unset
         if isinstance(self.effective_role, Unset):
             effective_role = UNSET
         elif isinstance(self.effective_role, Role):
@@ -142,7 +144,7 @@ class ProjectInfo:
         else:
             effective_role = self.effective_role
 
-        last_updated: Union[None, Unset, str]
+        last_updated: None | str | Unset
         if isinstance(self.last_updated, Unset):
             last_updated = UNSET
         elif isinstance(self.last_updated, datetime.datetime):
@@ -205,7 +207,7 @@ class ProjectInfo:
 
         srid = d.pop("srid")
 
-        def _parse_height_reference(data: object) -> Union[HeightReference, None]:
+        def _parse_height_reference(data: object) -> HeightReference | None:
             if data is None:
                 return data
             try:
@@ -216,13 +218,13 @@ class ProjectInfo:
                 return height_reference_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[HeightReference, None], data)
+            return cast(HeightReference | None, data)
 
         height_reference = _parse_height_reference(d.pop("height_reference"))
 
         number_of_locations = d.pop("number_of_locations")
 
-        def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_created_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -235,11 +237,11 @@ class ProjectInfo:
                 return created_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         created_at = _parse_created_at(d.pop("created_at", UNSET))
 
-        def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_updated_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -252,29 +254,29 @@ class ProjectInfo:
                 return updated_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
 
-        def _parse_external_id_source(data: object) -> Union[None, Unset, str]:
+        def _parse_external_id_source(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         external_id_source = _parse_external_id_source(d.pop("external_id_source", UNSET))
 
-        def _parse_description(data: object) -> Union[None, Unset, str]:
+        def _parse_description(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         description = _parse_description(d.pop("description", UNSET))
 
-        def _parse_tags(data: object) -> Union[None, Unset, list[str]]:
+        def _parse_tags(data: object) -> list[str] | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -287,11 +289,11 @@ class ProjectInfo:
                 return tags_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, list[str]], data)
+            return cast(list[str] | None | Unset, data)
 
         tags = _parse_tags(d.pop("tags", UNSET))
 
-        def _parse_organization(data: object) -> Union["OrganizationMin", None, Unset]:
+        def _parse_organization(data: object) -> None | OrganizationMin | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -304,11 +306,11 @@ class ProjectInfo:
                 return organization_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union["OrganizationMin", None, Unset], data)
+            return cast(None | OrganizationMin | Unset, data)
 
         organization = _parse_organization(d.pop("organization", UNSET))
 
-        def _parse_effective_role(data: object) -> Union["Role", None, Unset]:
+        def _parse_effective_role(data: object) -> None | Role | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -321,11 +323,11 @@ class ProjectInfo:
                 return effective_role_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union["Role", None, Unset], data)
+            return cast(None | Role | Unset, data)
 
         effective_role = _parse_effective_role(d.pop("effective_role", UNSET))
 
-        def _parse_last_updated(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_last_updated(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -338,7 +340,7 @@ class ProjectInfo:
                 return last_updated_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         last_updated = _parse_last_updated(d.pop("last_updated", UNSET))
 

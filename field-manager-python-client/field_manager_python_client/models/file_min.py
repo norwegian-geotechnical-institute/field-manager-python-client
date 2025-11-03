@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,12 +18,12 @@ class FileMin:
     Attributes:
         file_id (UUID):
         original_filename (str):
-        size (Union[None, Unset, int]):
+        size (int | None | Unset):
     """
 
     file_id: UUID
     original_filename: str
-    size: Union[None, Unset, int] = UNSET
+    size: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -29,7 +31,7 @@ class FileMin:
 
         original_filename = self.original_filename
 
-        size: Union[None, Unset, int]
+        size: int | None | Unset
         if isinstance(self.size, Unset):
             size = UNSET
         else:
@@ -55,12 +57,12 @@ class FileMin:
 
         original_filename = d.pop("original_filename")
 
-        def _parse_size(data: object) -> Union[None, Unset, int]:
+        def _parse_size(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         size = _parse_size(d.pop("size", UNSET))
 

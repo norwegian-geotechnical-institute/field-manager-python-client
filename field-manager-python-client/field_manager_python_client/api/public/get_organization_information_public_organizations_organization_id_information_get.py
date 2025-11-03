@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -23,8 +23,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, OrganizationInformation]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | OrganizationInformation | None:
     if response.status_code == 200:
         response_200 = OrganizationInformation.from_dict(response.json())
 
@@ -42,8 +42,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, OrganizationInformation]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | OrganizationInformation]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -55,8 +55,8 @@ def _build_response(
 def sync_detailed(
     organization_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[Union[HTTPValidationError, OrganizationInformation]]:
+    client: AuthenticatedClient | Client,
+) -> Response[HTTPValidationError | OrganizationInformation]:
     """Get Organization Information
 
      Return a specified organization's login information.
@@ -69,7 +69,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, OrganizationInformation]]
+        Response[HTTPValidationError | OrganizationInformation]
     """
 
     kwargs = _get_kwargs(
@@ -86,8 +86,8 @@ def sync_detailed(
 def sync(
     organization_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[Union[HTTPValidationError, OrganizationInformation]]:
+    client: AuthenticatedClient | Client,
+) -> HTTPValidationError | OrganizationInformation | None:
     """Get Organization Information
 
      Return a specified organization's login information.
@@ -100,7 +100,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, OrganizationInformation]
+        HTTPValidationError | OrganizationInformation
     """
 
     return sync_detailed(
@@ -112,8 +112,8 @@ def sync(
 async def asyncio_detailed(
     organization_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[Union[HTTPValidationError, OrganizationInformation]]:
+    client: AuthenticatedClient | Client,
+) -> Response[HTTPValidationError | OrganizationInformation]:
     """Get Organization Information
 
      Return a specified organization's login information.
@@ -126,7 +126,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, OrganizationInformation]]
+        Response[HTTPValidationError | OrganizationInformation]
     """
 
     kwargs = _get_kwargs(
@@ -141,8 +141,8 @@ async def asyncio_detailed(
 async def asyncio(
     organization_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[Union[HTTPValidationError, OrganizationInformation]]:
+    client: AuthenticatedClient | Client,
+) -> HTTPValidationError | OrganizationInformation | None:
     """Get Organization Information
 
      Return a specified organization's login information.
@@ -155,7 +155,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, OrganizationInformation]
+        HTTPValidationError | OrganizationInformation
     """
 
     return (

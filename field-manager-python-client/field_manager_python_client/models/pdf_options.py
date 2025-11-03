@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -24,66 +26,66 @@ T = TypeVar("T", bound="PdfOptions")
 class PdfOptions:
     """
     Attributes:
-        lang (Union[Unset, PdfOptionsLang]):  Default: PdfOptionsLang.ENG.
-        date_format (Union[Unset, PdfOptionsDateFormat]):  Default: PdfOptionsDateFormat.YYYY_MM_DD.
-        date (Union[Unset, str]):  Default: ''.
-        use_controlled_by (Union[Unset, bool]):  Default: False.
-        use_revision (Union[Unset, bool]):  Default: True.
-        report_number_suffix (Union[Unset, str]):  Default: ''.
-        revision (Union[Unset, str]):  Default: ''.
-        paper_size (Union[Unset, PdfOptionsPaperSize]):  Default: PdfOptionsPaperSize.A4.
-        plot_scale (Union[Unset, Scales]):
-        report_number (Union[Unset, str]):  Default: ''.
-        client_name (Union[Unset, str]):  Default: ''.
-        sort_figures_by (Union[Unset, PdfOptionsSortFiguresBy]):  Default: PdfOptionsSortFiguresBy.LOCATION.
-        page_number_prefix (Union[Unset, str]):  Default: ''.
-        page_number_start (Union[Unset, str]):  Default: '1'.
-        page_number_prefix_per_method (Union[Unset, PageNumberPrefixByMethod]):
-        page_number_start_per_method (Union[Unset, PageNumberStartPerMethod]):
-        drawn_by (Union[Unset, str]):  Default: ''.
-        controlled_by (Union[Unset, str]):  Default: ''.
-        use_approved_by (Union[Unset, bool]):  Default: True.
-        approved_by (Union[Unset, str]):  Default: ''.
-        show_comment_in_plot (Union[Unset, bool]):  Default: False.
-        projection_system (Union[Unset, str]):  Default: ''.
-        max_pages (Union[Unset, int]):  Default: -1.
-        color_mode (Union[Unset, ColorMode]):
-        fill_curve (Union[Unset, bool]):  Default: True.
+        lang (PdfOptionsLang | Unset):  Default: PdfOptionsLang.ENG.
+        date_format (PdfOptionsDateFormat | Unset):  Default: PdfOptionsDateFormat.YYYY_MM_DD.
+        date (str | Unset):  Default: ''.
+        use_controlled_by (bool | Unset):  Default: False.
+        use_revision (bool | Unset):  Default: True.
+        report_number_suffix (str | Unset):  Default: ''.
+        revision (str | Unset):  Default: ''.
+        paper_size (PdfOptionsPaperSize | Unset):  Default: PdfOptionsPaperSize.A4.
+        plot_scale (Scales | Unset):
+        report_number (str | Unset):  Default: ''.
+        client_name (str | Unset):  Default: ''.
+        sort_figures_by (PdfOptionsSortFiguresBy | Unset):  Default: PdfOptionsSortFiguresBy.LOCATION.
+        page_number_prefix (str | Unset):  Default: ''.
+        page_number_start (str | Unset):  Default: '1'.
+        page_number_prefix_per_method (PageNumberPrefixByMethod | Unset):
+        page_number_start_per_method (PageNumberStartPerMethod | Unset):
+        drawn_by (str | Unset):  Default: ''.
+        controlled_by (str | Unset):  Default: ''.
+        use_approved_by (bool | Unset):  Default: True.
+        approved_by (str | Unset):  Default: ''.
+        show_comment_in_plot (bool | Unset):  Default: False.
+        projection_system (str | Unset):  Default: ''.
+        max_pages (int | Unset):  Default: -1.
+        color_mode (ColorMode | Unset):
+        fill_curve (bool | Unset):  Default: True.
     """
 
-    lang: Union[Unset, PdfOptionsLang] = PdfOptionsLang.ENG
-    date_format: Union[Unset, PdfOptionsDateFormat] = PdfOptionsDateFormat.YYYY_MM_DD
-    date: Union[Unset, str] = ""
-    use_controlled_by: Union[Unset, bool] = False
-    use_revision: Union[Unset, bool] = True
-    report_number_suffix: Union[Unset, str] = ""
-    revision: Union[Unset, str] = ""
-    paper_size: Union[Unset, PdfOptionsPaperSize] = PdfOptionsPaperSize.A4
-    plot_scale: Union[Unset, Scales] = UNSET
-    report_number: Union[Unset, str] = ""
-    client_name: Union[Unset, str] = ""
-    sort_figures_by: Union[Unset, PdfOptionsSortFiguresBy] = PdfOptionsSortFiguresBy.LOCATION
-    page_number_prefix: Union[Unset, str] = ""
-    page_number_start: Union[Unset, str] = "1"
-    page_number_prefix_per_method: Union[Unset, "PageNumberPrefixByMethod"] = UNSET
-    page_number_start_per_method: Union[Unset, "PageNumberStartPerMethod"] = UNSET
-    drawn_by: Union[Unset, str] = ""
-    controlled_by: Union[Unset, str] = ""
-    use_approved_by: Union[Unset, bool] = True
-    approved_by: Union[Unset, str] = ""
-    show_comment_in_plot: Union[Unset, bool] = False
-    projection_system: Union[Unset, str] = ""
-    max_pages: Union[Unset, int] = -1
-    color_mode: Union[Unset, ColorMode] = UNSET
-    fill_curve: Union[Unset, bool] = True
+    lang: PdfOptionsLang | Unset = PdfOptionsLang.ENG
+    date_format: PdfOptionsDateFormat | Unset = PdfOptionsDateFormat.YYYY_MM_DD
+    date: str | Unset = ""
+    use_controlled_by: bool | Unset = False
+    use_revision: bool | Unset = True
+    report_number_suffix: str | Unset = ""
+    revision: str | Unset = ""
+    paper_size: PdfOptionsPaperSize | Unset = PdfOptionsPaperSize.A4
+    plot_scale: Scales | Unset = UNSET
+    report_number: str | Unset = ""
+    client_name: str | Unset = ""
+    sort_figures_by: PdfOptionsSortFiguresBy | Unset = PdfOptionsSortFiguresBy.LOCATION
+    page_number_prefix: str | Unset = ""
+    page_number_start: str | Unset = "1"
+    page_number_prefix_per_method: PageNumberPrefixByMethod | Unset = UNSET
+    page_number_start_per_method: PageNumberStartPerMethod | Unset = UNSET
+    drawn_by: str | Unset = ""
+    controlled_by: str | Unset = ""
+    use_approved_by: bool | Unset = True
+    approved_by: str | Unset = ""
+    show_comment_in_plot: bool | Unset = False
+    projection_system: str | Unset = ""
+    max_pages: int | Unset = -1
+    color_mode: ColorMode | Unset = UNSET
+    fill_curve: bool | Unset = True
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        lang: Union[Unset, str] = UNSET
+        lang: str | Unset = UNSET
         if not isinstance(self.lang, Unset):
             lang = self.lang.value
 
-        date_format: Union[Unset, str] = UNSET
+        date_format: str | Unset = UNSET
         if not isinstance(self.date_format, Unset):
             date_format = self.date_format.value
 
@@ -97,11 +99,11 @@ class PdfOptions:
 
         revision = self.revision
 
-        paper_size: Union[Unset, str] = UNSET
+        paper_size: str | Unset = UNSET
         if not isinstance(self.paper_size, Unset):
             paper_size = self.paper_size.value
 
-        plot_scale: Union[Unset, str] = UNSET
+        plot_scale: str | Unset = UNSET
         if not isinstance(self.plot_scale, Unset):
             plot_scale = self.plot_scale.value
 
@@ -109,7 +111,7 @@ class PdfOptions:
 
         client_name = self.client_name
 
-        sort_figures_by: Union[Unset, str] = UNSET
+        sort_figures_by: str | Unset = UNSET
         if not isinstance(self.sort_figures_by, Unset):
             sort_figures_by = self.sort_figures_by.value
 
@@ -117,11 +119,11 @@ class PdfOptions:
 
         page_number_start = self.page_number_start
 
-        page_number_prefix_per_method: Union[Unset, dict[str, Any]] = UNSET
+        page_number_prefix_per_method: dict[str, Any] | Unset = UNSET
         if not isinstance(self.page_number_prefix_per_method, Unset):
             page_number_prefix_per_method = self.page_number_prefix_per_method.to_dict()
 
-        page_number_start_per_method: Union[Unset, dict[str, Any]] = UNSET
+        page_number_start_per_method: dict[str, Any] | Unset = UNSET
         if not isinstance(self.page_number_start_per_method, Unset):
             page_number_start_per_method = self.page_number_start_per_method.to_dict()
 
@@ -139,7 +141,7 @@ class PdfOptions:
 
         max_pages = self.max_pages
 
-        color_mode: Union[Unset, str] = UNSET
+        color_mode: str | Unset = UNSET
         if not isinstance(self.color_mode, Unset):
             color_mode = self.color_mode.value
 
@@ -208,14 +210,14 @@ class PdfOptions:
 
         d = dict(src_dict)
         _lang = d.pop("lang", UNSET)
-        lang: Union[Unset, PdfOptionsLang]
+        lang: PdfOptionsLang | Unset
         if isinstance(_lang, Unset):
             lang = UNSET
         else:
             lang = PdfOptionsLang(_lang)
 
         _date_format = d.pop("date_format", UNSET)
-        date_format: Union[Unset, PdfOptionsDateFormat]
+        date_format: PdfOptionsDateFormat | Unset
         if isinstance(_date_format, Unset):
             date_format = UNSET
         else:
@@ -232,14 +234,14 @@ class PdfOptions:
         revision = d.pop("revision", UNSET)
 
         _paper_size = d.pop("paper_size", UNSET)
-        paper_size: Union[Unset, PdfOptionsPaperSize]
+        paper_size: PdfOptionsPaperSize | Unset
         if isinstance(_paper_size, Unset):
             paper_size = UNSET
         else:
             paper_size = PdfOptionsPaperSize(_paper_size)
 
         _plot_scale = d.pop("plot_scale", UNSET)
-        plot_scale: Union[Unset, Scales]
+        plot_scale: Scales | Unset
         if isinstance(_plot_scale, Unset):
             plot_scale = UNSET
         else:
@@ -250,7 +252,7 @@ class PdfOptions:
         client_name = d.pop("client_name", UNSET)
 
         _sort_figures_by = d.pop("sort_figures_by", UNSET)
-        sort_figures_by: Union[Unset, PdfOptionsSortFiguresBy]
+        sort_figures_by: PdfOptionsSortFiguresBy | Unset
         if isinstance(_sort_figures_by, Unset):
             sort_figures_by = UNSET
         else:
@@ -261,14 +263,14 @@ class PdfOptions:
         page_number_start = d.pop("page_number_start", UNSET)
 
         _page_number_prefix_per_method = d.pop("page_number_prefix_per_method", UNSET)
-        page_number_prefix_per_method: Union[Unset, PageNumberPrefixByMethod]
+        page_number_prefix_per_method: PageNumberPrefixByMethod | Unset
         if isinstance(_page_number_prefix_per_method, Unset):
             page_number_prefix_per_method = UNSET
         else:
             page_number_prefix_per_method = PageNumberPrefixByMethod.from_dict(_page_number_prefix_per_method)
 
         _page_number_start_per_method = d.pop("page_number_start_per_method", UNSET)
-        page_number_start_per_method: Union[Unset, PageNumberStartPerMethod]
+        page_number_start_per_method: PageNumberStartPerMethod | Unset
         if isinstance(_page_number_start_per_method, Unset):
             page_number_start_per_method = UNSET
         else:
@@ -289,7 +291,7 @@ class PdfOptions:
         max_pages = d.pop("max_pages", UNSET)
 
         _color_mode = d.pop("color_mode", UNSET)
-        color_mode: Union[Unset, ColorMode]
+        color_mode: ColorMode | Unset
         if isinstance(_color_mode, Unset):
             color_mode = UNSET
         else:

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -34,8 +34,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, MapLayout]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | MapLayout | None:
     if response.status_code == 200:
         response_200 = MapLayout.from_dict(response.json())
 
@@ -53,8 +53,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, MapLayout]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | MapLayout]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -69,7 +69,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: MapLayoutUpdate,
-) -> Response[Union[HTTPValidationError, MapLayout]]:
+) -> Response[HTTPValidationError | MapLayout]:
     """Update Map Layout In Project
 
      Update map layout by project_id and map_layout_id.
@@ -84,7 +84,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, MapLayout]]
+        Response[HTTPValidationError | MapLayout]
     """
 
     kwargs = _get_kwargs(
@@ -106,7 +106,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: MapLayoutUpdate,
-) -> Optional[Union[HTTPValidationError, MapLayout]]:
+) -> HTTPValidationError | MapLayout | None:
     """Update Map Layout In Project
 
      Update map layout by project_id and map_layout_id.
@@ -121,7 +121,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, MapLayout]
+        HTTPValidationError | MapLayout
     """
 
     return sync_detailed(
@@ -138,7 +138,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: MapLayoutUpdate,
-) -> Response[Union[HTTPValidationError, MapLayout]]:
+) -> Response[HTTPValidationError | MapLayout]:
     """Update Map Layout In Project
 
      Update map layout by project_id and map_layout_id.
@@ -153,7 +153,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, MapLayout]]
+        Response[HTTPValidationError | MapLayout]
     """
 
     kwargs = _get_kwargs(
@@ -173,7 +173,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: MapLayoutUpdate,
-) -> Optional[Union[HTTPValidationError, MapLayout]]:
+) -> HTTPValidationError | MapLayout | None:
     """Update Map Layout In Project
 
      Update map layout by project_id and map_layout_id.
@@ -188,7 +188,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, MapLayout]
+        HTTPValidationError | MapLayout
     """
 
     return (

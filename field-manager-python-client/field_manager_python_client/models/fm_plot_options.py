@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,26 +20,26 @@ T = TypeVar("T", bound="FMPlotOptions")
 class FMPlotOptions:
     """
     Attributes:
-        fill_curve (Union[Unset, bool]):  Default: True.
-        depth_scale (Union[Unset, Scales]):
-        depth_range (Union[None, Unset, list[float]]):
-        cpt (Union[Unset, CPTOptions]):
+        fill_curve (bool | Unset):  Default: True.
+        depth_scale (Scales | Unset):
+        depth_range (list[float] | None | Unset):
+        cpt (CPTOptions | Unset):
     """
 
-    fill_curve: Union[Unset, bool] = True
-    depth_scale: Union[Unset, Scales] = UNSET
-    depth_range: Union[None, Unset, list[float]] = UNSET
-    cpt: Union[Unset, "CPTOptions"] = UNSET
+    fill_curve: bool | Unset = True
+    depth_scale: Scales | Unset = UNSET
+    depth_range: list[float] | None | Unset = UNSET
+    cpt: CPTOptions | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         fill_curve = self.fill_curve
 
-        depth_scale: Union[Unset, str] = UNSET
+        depth_scale: str | Unset = UNSET
         if not isinstance(self.depth_scale, Unset):
             depth_scale = self.depth_scale.value
 
-        depth_range: Union[None, Unset, list[float]]
+        depth_range: list[float] | None | Unset
         if isinstance(self.depth_range, Unset):
             depth_range = UNSET
         elif isinstance(self.depth_range, list):
@@ -50,7 +52,7 @@ class FMPlotOptions:
         else:
             depth_range = self.depth_range
 
-        cpt: Union[Unset, dict[str, Any]] = UNSET
+        cpt: dict[str, Any] | Unset = UNSET
         if not isinstance(self.cpt, Unset):
             cpt = self.cpt.to_dict()
 
@@ -76,13 +78,13 @@ class FMPlotOptions:
         fill_curve = d.pop("fill_curve", UNSET)
 
         _depth_scale = d.pop("depth_scale", UNSET)
-        depth_scale: Union[Unset, Scales]
+        depth_scale: Scales | Unset
         if isinstance(_depth_scale, Unset):
             depth_scale = UNSET
         else:
             depth_scale = Scales(_depth_scale)
 
-        def _parse_depth_range(data: object) -> Union[None, Unset, list[float]]:
+        def _parse_depth_range(data: object) -> list[float] | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -104,12 +106,12 @@ class FMPlotOptions:
                 return depth_range_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, list[float]], data)
+            return cast(list[float] | None | Unset, data)
 
         depth_range = _parse_depth_range(d.pop("depth_range", UNSET))
 
         _cpt = d.pop("cpt", UNSET)
-        cpt: Union[Unset, CPTOptions]
+        cpt: CPTOptions | Unset
         if isinstance(_cpt, Unset):
             cpt = UNSET
         else:

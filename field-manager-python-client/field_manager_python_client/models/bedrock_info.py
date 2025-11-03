@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,22 +16,22 @@ T = TypeVar("T", bound="BedrockInfo")
 class BedrockInfo:
     """
     Attributes:
-        depth (Union[None, Unset, float]):
-        bedrock_type (Union[BedrockType, None, Unset]):
+        depth (float | None | Unset):
+        bedrock_type (BedrockType | None | Unset):
     """
 
-    depth: Union[None, Unset, float] = UNSET
-    bedrock_type: Union[BedrockType, None, Unset] = UNSET
+    depth: float | None | Unset = UNSET
+    bedrock_type: BedrockType | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        depth: Union[None, Unset, float]
+        depth: float | None | Unset
         if isinstance(self.depth, Unset):
             depth = UNSET
         else:
             depth = self.depth
 
-        bedrock_type: Union[None, Unset, str]
+        bedrock_type: None | str | Unset
         if isinstance(self.bedrock_type, Unset):
             bedrock_type = UNSET
         elif isinstance(self.bedrock_type, BedrockType):
@@ -51,16 +53,16 @@ class BedrockInfo:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
 
-        def _parse_depth(data: object) -> Union[None, Unset, float]:
+        def _parse_depth(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         depth = _parse_depth(d.pop("depth", UNSET))
 
-        def _parse_bedrock_type(data: object) -> Union[BedrockType, None, Unset]:
+        def _parse_bedrock_type(data: object) -> BedrockType | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -73,7 +75,7 @@ class BedrockInfo:
                 return bedrock_type_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[BedrockType, None, Unset], data)
+            return cast(BedrockType | None | Unset, data)
 
         bedrock_type = _parse_bedrock_type(d.pop("bedrock_type", UNSET))
 

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -15,11 +15,11 @@ def _get_kwargs(
     organization_id: str,
     file_id: UUID,
     *,
-    size: Union[Unset, ImageSize] = UNSET,
+    size: ImageSize | Unset = UNSET,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
 
-    json_size: Union[Unset, str] = UNSET
+    json_size: str | Unset = UNSET
     if not isinstance(size, Unset):
         json_size = size.value
 
@@ -37,8 +37,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Any | HTTPValidationError | None:
     if response.status_code == 200:
         response_200 = response.json()
         return response_200
@@ -55,8 +55,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Any | HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -70,8 +70,8 @@ def sync_detailed(
     file_id: UUID,
     *,
     client: AuthenticatedClient,
-    size: Union[Unset, ImageSize] = UNSET,
-) -> Response[Union[Any, HTTPValidationError]]:
+    size: ImageSize | Unset = UNSET,
+) -> Response[Any | HTTPValidationError]:
     """Download File
 
      Download the file blob content by organization_id and file_id
@@ -79,14 +79,14 @@ def sync_detailed(
     Args:
         organization_id (str):
         file_id (UUID):
-        size (Union[Unset, ImageSize]):
+        size (ImageSize | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, HTTPValidationError]]
+        Response[Any | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -107,8 +107,8 @@ def sync(
     file_id: UUID,
     *,
     client: AuthenticatedClient,
-    size: Union[Unset, ImageSize] = UNSET,
-) -> Optional[Union[Any, HTTPValidationError]]:
+    size: ImageSize | Unset = UNSET,
+) -> Any | HTTPValidationError | None:
     """Download File
 
      Download the file blob content by organization_id and file_id
@@ -116,14 +116,14 @@ def sync(
     Args:
         organization_id (str):
         file_id (UUID):
-        size (Union[Unset, ImageSize]):
+        size (ImageSize | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, HTTPValidationError]
+        Any | HTTPValidationError
     """
 
     return sync_detailed(
@@ -139,8 +139,8 @@ async def asyncio_detailed(
     file_id: UUID,
     *,
     client: AuthenticatedClient,
-    size: Union[Unset, ImageSize] = UNSET,
-) -> Response[Union[Any, HTTPValidationError]]:
+    size: ImageSize | Unset = UNSET,
+) -> Response[Any | HTTPValidationError]:
     """Download File
 
      Download the file blob content by organization_id and file_id
@@ -148,14 +148,14 @@ async def asyncio_detailed(
     Args:
         organization_id (str):
         file_id (UUID):
-        size (Union[Unset, ImageSize]):
+        size (ImageSize | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, HTTPValidationError]]
+        Response[Any | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -174,8 +174,8 @@ async def asyncio(
     file_id: UUID,
     *,
     client: AuthenticatedClient,
-    size: Union[Unset, ImageSize] = UNSET,
-) -> Optional[Union[Any, HTTPValidationError]]:
+    size: ImageSize | Unset = UNSET,
+) -> Any | HTTPValidationError | None:
     """Download File
 
      Download the file blob content by organization_id and file_id
@@ -183,14 +183,14 @@ async def asyncio(
     Args:
         organization_id (str):
         file_id (UUID):
-        size (Union[Unset, ImageSize]):
+        size (ImageSize | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, HTTPValidationError]
+        Any | HTTPValidationError
     """
 
     return (

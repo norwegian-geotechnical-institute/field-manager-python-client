@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -15,15 +15,15 @@ def _get_kwargs(
     project_id: UUID,
     *,
     token: str,
-    size: Union[ImageSize, None, Unset] = ImageSize.ORIGINAL,
-    geojson: Union[None, Unset, bool] = False,
-    as_attachment: Union[None, Unset, bool] = True,
+    size: ImageSize | None | Unset = ImageSize.ORIGINAL,
+    geojson: bool | None | Unset = False,
+    as_attachment: bool | None | Unset = True,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
 
     params["token"] = token
 
-    json_size: Union[None, Unset, str]
+    json_size: None | str | Unset
     if isinstance(size, Unset):
         json_size = UNSET
     elif isinstance(size, ImageSize):
@@ -32,14 +32,14 @@ def _get_kwargs(
         json_size = size
     params["size"] = json_size
 
-    json_geojson: Union[None, Unset, bool]
+    json_geojson: bool | None | Unset
     if isinstance(geojson, Unset):
         json_geojson = UNSET
     else:
         json_geojson = geojson
     params["geojson"] = json_geojson
 
-    json_as_attachment: Union[None, Unset, bool]
+    json_as_attachment: bool | None | Unset
     if isinstance(as_attachment, Unset):
         json_as_attachment = UNSET
     else:
@@ -58,8 +58,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Any | HTTPValidationError | None:
     if response.status_code == 200:
         response_200 = response.json()
         return response_200
@@ -76,8 +76,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, HTTPValidationError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Any | HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -89,12 +89,12 @@ def _build_response(
 def sync_detailed(
     project_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     token: str,
-    size: Union[ImageSize, None, Unset] = ImageSize.ORIGINAL,
-    geojson: Union[None, Unset, bool] = False,
-    as_attachment: Union[None, Unset, bool] = True,
-) -> Response[Union[Any, HTTPValidationError]]:
+    size: ImageSize | None | Unset = ImageSize.ORIGINAL,
+    geojson: bool | None | Unset = False,
+    as_attachment: bool | None | Unset = True,
+) -> Response[Any | HTTPValidationError]:
     """Download File Specified In Token
 
      Download the file specified in the token
@@ -102,16 +102,16 @@ def sync_detailed(
     Args:
         project_id (UUID):
         token (str):
-        size (Union[ImageSize, None, Unset]):  Default: ImageSize.ORIGINAL.
-        geojson (Union[None, Unset, bool]):  Default: False.
-        as_attachment (Union[None, Unset, bool]):  Default: True.
+        size (ImageSize | None | Unset):  Default: ImageSize.ORIGINAL.
+        geojson (bool | None | Unset):  Default: False.
+        as_attachment (bool | None | Unset):  Default: True.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, HTTPValidationError]]
+        Response[Any | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -132,12 +132,12 @@ def sync_detailed(
 def sync(
     project_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     token: str,
-    size: Union[ImageSize, None, Unset] = ImageSize.ORIGINAL,
-    geojson: Union[None, Unset, bool] = False,
-    as_attachment: Union[None, Unset, bool] = True,
-) -> Optional[Union[Any, HTTPValidationError]]:
+    size: ImageSize | None | Unset = ImageSize.ORIGINAL,
+    geojson: bool | None | Unset = False,
+    as_attachment: bool | None | Unset = True,
+) -> Any | HTTPValidationError | None:
     """Download File Specified In Token
 
      Download the file specified in the token
@@ -145,16 +145,16 @@ def sync(
     Args:
         project_id (UUID):
         token (str):
-        size (Union[ImageSize, None, Unset]):  Default: ImageSize.ORIGINAL.
-        geojson (Union[None, Unset, bool]):  Default: False.
-        as_attachment (Union[None, Unset, bool]):  Default: True.
+        size (ImageSize | None | Unset):  Default: ImageSize.ORIGINAL.
+        geojson (bool | None | Unset):  Default: False.
+        as_attachment (bool | None | Unset):  Default: True.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, HTTPValidationError]
+        Any | HTTPValidationError
     """
 
     return sync_detailed(
@@ -170,12 +170,12 @@ def sync(
 async def asyncio_detailed(
     project_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     token: str,
-    size: Union[ImageSize, None, Unset] = ImageSize.ORIGINAL,
-    geojson: Union[None, Unset, bool] = False,
-    as_attachment: Union[None, Unset, bool] = True,
-) -> Response[Union[Any, HTTPValidationError]]:
+    size: ImageSize | None | Unset = ImageSize.ORIGINAL,
+    geojson: bool | None | Unset = False,
+    as_attachment: bool | None | Unset = True,
+) -> Response[Any | HTTPValidationError]:
     """Download File Specified In Token
 
      Download the file specified in the token
@@ -183,16 +183,16 @@ async def asyncio_detailed(
     Args:
         project_id (UUID):
         token (str):
-        size (Union[ImageSize, None, Unset]):  Default: ImageSize.ORIGINAL.
-        geojson (Union[None, Unset, bool]):  Default: False.
-        as_attachment (Union[None, Unset, bool]):  Default: True.
+        size (ImageSize | None | Unset):  Default: ImageSize.ORIGINAL.
+        geojson (bool | None | Unset):  Default: False.
+        as_attachment (bool | None | Unset):  Default: True.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, HTTPValidationError]]
+        Response[Any | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -211,12 +211,12 @@ async def asyncio_detailed(
 async def asyncio(
     project_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     token: str,
-    size: Union[ImageSize, None, Unset] = ImageSize.ORIGINAL,
-    geojson: Union[None, Unset, bool] = False,
-    as_attachment: Union[None, Unset, bool] = True,
-) -> Optional[Union[Any, HTTPValidationError]]:
+    size: ImageSize | None | Unset = ImageSize.ORIGINAL,
+    geojson: bool | None | Unset = False,
+    as_attachment: bool | None | Unset = True,
+) -> Any | HTTPValidationError | None:
     """Download File Specified In Token
 
      Download the file specified in the token
@@ -224,16 +224,16 @@ async def asyncio(
     Args:
         project_id (UUID):
         token (str):
-        size (Union[ImageSize, None, Unset]):  Default: ImageSize.ORIGINAL.
-        geojson (Union[None, Unset, bool]):  Default: False.
-        as_attachment (Union[None, Unset, bool]):  Default: True.
+        size (ImageSize | None | Unset):  Default: ImageSize.ORIGINAL.
+        geojson (bool | None | Unset):  Default: False.
+        as_attachment (bool | None | Unset):  Default: True.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, HTTPValidationError]
+        Any | HTTPValidationError
     """
 
     return (

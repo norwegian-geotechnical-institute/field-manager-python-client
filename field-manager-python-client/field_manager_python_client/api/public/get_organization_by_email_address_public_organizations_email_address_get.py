@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union, cast
+from typing import Any, cast
 
 import httpx
 
@@ -22,11 +22,11 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, Union["OrganizationMin", None]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | None | OrganizationMin | None:
     if response.status_code == 200:
 
-        def _parse_response_200(data: object) -> Union["OrganizationMin", None]:
+        def _parse_response_200(data: object) -> None | OrganizationMin:
             if data is None:
                 return data
             try:
@@ -37,7 +37,7 @@ def _parse_response(
                 return response_200_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union["OrganizationMin", None], data)
+            return cast(None | OrganizationMin, data)
 
         response_200 = _parse_response_200(response.json())
 
@@ -55,8 +55,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, Union["OrganizationMin", None]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | None | OrganizationMin]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -68,8 +68,8 @@ def _build_response(
 def sync_detailed(
     email_address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[Union[HTTPValidationError, Union["OrganizationMin", None]]]:
+    client: AuthenticatedClient | Client,
+) -> Response[HTTPValidationError | None | OrganizationMin]:
     """Get Organization By Email Address
 
      Return a specific organization by email_address.
@@ -82,7 +82,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Union['OrganizationMin', None]]]
+        Response[HTTPValidationError | None | OrganizationMin]
     """
 
     kwargs = _get_kwargs(
@@ -99,8 +99,8 @@ def sync_detailed(
 def sync(
     email_address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[Union[HTTPValidationError, Union["OrganizationMin", None]]]:
+    client: AuthenticatedClient | Client,
+) -> HTTPValidationError | None | OrganizationMin | None:
     """Get Organization By Email Address
 
      Return a specific organization by email_address.
@@ -113,7 +113,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Union['OrganizationMin', None]]
+        HTTPValidationError | None | OrganizationMin
     """
 
     return sync_detailed(
@@ -125,8 +125,8 @@ def sync(
 async def asyncio_detailed(
     email_address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[Union[HTTPValidationError, Union["OrganizationMin", None]]]:
+    client: AuthenticatedClient | Client,
+) -> Response[HTTPValidationError | None | OrganizationMin]:
     """Get Organization By Email Address
 
      Return a specific organization by email_address.
@@ -139,7 +139,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Union['OrganizationMin', None]]]
+        Response[HTTPValidationError | None | OrganizationMin]
     """
 
     kwargs = _get_kwargs(
@@ -154,8 +154,8 @@ async def asyncio_detailed(
 async def asyncio(
     email_address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[Union[HTTPValidationError, Union["OrganizationMin", None]]]:
+    client: AuthenticatedClient | Client,
+) -> HTTPValidationError | None | OrganizationMin | None:
     """Get Organization By Email Address
 
      Return a specific organization by email_address.
@@ -168,7 +168,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Union['OrganizationMin', None]]
+        HTTPValidationError | None | OrganizationMin
     """
 
     return (

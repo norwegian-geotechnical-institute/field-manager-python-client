@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -24,33 +26,33 @@ class LocationSummary:
         location_id (UUID):
         name (str):
         last_updated (datetime.datetime):
-        iogp_type_id (Union[IOGPTypeEnum, None, Unset]):
-        point_easting (Union[None, Unset, float]):
-        point_northing (Union[None, Unset, float]):
-        point_z (Union[None, Unset, float]):
-        srid (Union[None, Unset, int]):
-        point_x_wgs84_web (Union[None, Unset, float]):
-        point_y_wgs84_web (Union[None, Unset, float]):
-        point_x_wgs84_pseudo (Union[None, Unset, float]):
-        point_y_wgs84_pseudo (Union[None, Unset, float]):
-        methods (Union[Unset, list['MethodSummary']]):
-        tags (Union[Unset, list[str]]):
+        iogp_type_id (IOGPTypeEnum | None | Unset):
+        point_easting (float | None | Unset):
+        point_northing (float | None | Unset):
+        point_z (float | None | Unset):
+        srid (int | None | Unset):
+        point_x_wgs84_web (float | None | Unset):
+        point_y_wgs84_web (float | None | Unset):
+        point_x_wgs84_pseudo (float | None | Unset):
+        point_y_wgs84_pseudo (float | None | Unset):
+        methods (list[MethodSummary] | Unset):
+        tags (list[str] | Unset):
     """
 
     location_id: UUID
     name: str
     last_updated: datetime.datetime
-    iogp_type_id: Union[IOGPTypeEnum, None, Unset] = UNSET
-    point_easting: Union[None, Unset, float] = UNSET
-    point_northing: Union[None, Unset, float] = UNSET
-    point_z: Union[None, Unset, float] = UNSET
-    srid: Union[None, Unset, int] = UNSET
-    point_x_wgs84_web: Union[None, Unset, float] = UNSET
-    point_y_wgs84_web: Union[None, Unset, float] = UNSET
-    point_x_wgs84_pseudo: Union[None, Unset, float] = UNSET
-    point_y_wgs84_pseudo: Union[None, Unset, float] = UNSET
-    methods: Union[Unset, list["MethodSummary"]] = UNSET
-    tags: Union[Unset, list[str]] = UNSET
+    iogp_type_id: IOGPTypeEnum | None | Unset = UNSET
+    point_easting: float | None | Unset = UNSET
+    point_northing: float | None | Unset = UNSET
+    point_z: float | None | Unset = UNSET
+    srid: int | None | Unset = UNSET
+    point_x_wgs84_web: float | None | Unset = UNSET
+    point_y_wgs84_web: float | None | Unset = UNSET
+    point_x_wgs84_pseudo: float | None | Unset = UNSET
+    point_y_wgs84_pseudo: float | None | Unset = UNSET
+    methods: list[MethodSummary] | Unset = UNSET
+    tags: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -60,7 +62,7 @@ class LocationSummary:
 
         last_updated = self.last_updated.isoformat()
 
-        iogp_type_id: Union[None, Unset, str]
+        iogp_type_id: None | str | Unset
         if isinstance(self.iogp_type_id, Unset):
             iogp_type_id = UNSET
         elif isinstance(self.iogp_type_id, IOGPTypeEnum):
@@ -68,62 +70,62 @@ class LocationSummary:
         else:
             iogp_type_id = self.iogp_type_id
 
-        point_easting: Union[None, Unset, float]
+        point_easting: float | None | Unset
         if isinstance(self.point_easting, Unset):
             point_easting = UNSET
         else:
             point_easting = self.point_easting
 
-        point_northing: Union[None, Unset, float]
+        point_northing: float | None | Unset
         if isinstance(self.point_northing, Unset):
             point_northing = UNSET
         else:
             point_northing = self.point_northing
 
-        point_z: Union[None, Unset, float]
+        point_z: float | None | Unset
         if isinstance(self.point_z, Unset):
             point_z = UNSET
         else:
             point_z = self.point_z
 
-        srid: Union[None, Unset, int]
+        srid: int | None | Unset
         if isinstance(self.srid, Unset):
             srid = UNSET
         else:
             srid = self.srid
 
-        point_x_wgs84_web: Union[None, Unset, float]
+        point_x_wgs84_web: float | None | Unset
         if isinstance(self.point_x_wgs84_web, Unset):
             point_x_wgs84_web = UNSET
         else:
             point_x_wgs84_web = self.point_x_wgs84_web
 
-        point_y_wgs84_web: Union[None, Unset, float]
+        point_y_wgs84_web: float | None | Unset
         if isinstance(self.point_y_wgs84_web, Unset):
             point_y_wgs84_web = UNSET
         else:
             point_y_wgs84_web = self.point_y_wgs84_web
 
-        point_x_wgs84_pseudo: Union[None, Unset, float]
+        point_x_wgs84_pseudo: float | None | Unset
         if isinstance(self.point_x_wgs84_pseudo, Unset):
             point_x_wgs84_pseudo = UNSET
         else:
             point_x_wgs84_pseudo = self.point_x_wgs84_pseudo
 
-        point_y_wgs84_pseudo: Union[None, Unset, float]
+        point_y_wgs84_pseudo: float | None | Unset
         if isinstance(self.point_y_wgs84_pseudo, Unset):
             point_y_wgs84_pseudo = UNSET
         else:
             point_y_wgs84_pseudo = self.point_y_wgs84_pseudo
 
-        methods: Union[Unset, list[dict[str, Any]]] = UNSET
+        methods: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.methods, Unset):
             methods = []
             for methods_item_data in self.methods:
                 methods_item = methods_item_data.to_dict()
                 methods.append(methods_item)
 
-        tags: Union[Unset, list[str]] = UNSET
+        tags: list[str] | Unset = UNSET
         if not isinstance(self.tags, Unset):
             tags = self.tags
 
@@ -172,7 +174,7 @@ class LocationSummary:
 
         last_updated = isoparse(d.pop("last_updated"))
 
-        def _parse_iogp_type_id(data: object) -> Union[IOGPTypeEnum, None, Unset]:
+        def _parse_iogp_type_id(data: object) -> IOGPTypeEnum | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -185,79 +187,79 @@ class LocationSummary:
                 return iogp_type_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[IOGPTypeEnum, None, Unset], data)
+            return cast(IOGPTypeEnum | None | Unset, data)
 
         iogp_type_id = _parse_iogp_type_id(d.pop("iogp_type_id", UNSET))
 
-        def _parse_point_easting(data: object) -> Union[None, Unset, float]:
+        def _parse_point_easting(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_easting = _parse_point_easting(d.pop("point_easting", UNSET))
 
-        def _parse_point_northing(data: object) -> Union[None, Unset, float]:
+        def _parse_point_northing(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_northing = _parse_point_northing(d.pop("point_northing", UNSET))
 
-        def _parse_point_z(data: object) -> Union[None, Unset, float]:
+        def _parse_point_z(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_z = _parse_point_z(d.pop("point_z", UNSET))
 
-        def _parse_srid(data: object) -> Union[None, Unset, int]:
+        def _parse_srid(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         srid = _parse_srid(d.pop("srid", UNSET))
 
-        def _parse_point_x_wgs84_web(data: object) -> Union[None, Unset, float]:
+        def _parse_point_x_wgs84_web(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_x_wgs84_web = _parse_point_x_wgs84_web(d.pop("point_x_wgs84_web", UNSET))
 
-        def _parse_point_y_wgs84_web(data: object) -> Union[None, Unset, float]:
+        def _parse_point_y_wgs84_web(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_y_wgs84_web = _parse_point_y_wgs84_web(d.pop("point_y_wgs84_web", UNSET))
 
-        def _parse_point_x_wgs84_pseudo(data: object) -> Union[None, Unset, float]:
+        def _parse_point_x_wgs84_pseudo(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_x_wgs84_pseudo = _parse_point_x_wgs84_pseudo(d.pop("point_x_wgs84_pseudo", UNSET))
 
-        def _parse_point_y_wgs84_pseudo(data: object) -> Union[None, Unset, float]:
+        def _parse_point_y_wgs84_pseudo(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float], data)
+            return cast(float | None | Unset, data)
 
         point_y_wgs84_pseudo = _parse_point_y_wgs84_pseudo(d.pop("point_y_wgs84_pseudo", UNSET))
 

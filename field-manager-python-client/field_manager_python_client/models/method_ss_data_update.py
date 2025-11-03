@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, Literal, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,50 +16,50 @@ class MethodSSDataUpdate:
     """Method SS data update structure
 
     Attributes:
-        method_type_id (Union[Literal[6], Unset]):  Default: 6.
-        depth_top (Union[None, Unset, float, str]): Depth top (m).
-        depth_base (Union[None, Unset, float, str]): Depth base (m).
-        time (Union[None, Unset, float, str]):
-        remarks (Union[None, Unset, str]):
-        comment_code (Union[None, Unset, int]):
+        method_type_id (Literal[6] | Unset):  Default: 6.
+        depth_top (float | None | str | Unset): Depth top (m).
+        depth_base (float | None | str | Unset): Depth base (m).
+        time (float | None | str | Unset):
+        remarks (None | str | Unset):
+        comment_code (int | None | Unset):
     """
 
-    method_type_id: Union[Literal[6], Unset] = 6
-    depth_top: Union[None, Unset, float, str] = UNSET
-    depth_base: Union[None, Unset, float, str] = UNSET
-    time: Union[None, Unset, float, str] = UNSET
-    remarks: Union[None, Unset, str] = UNSET
-    comment_code: Union[None, Unset, int] = UNSET
+    method_type_id: Literal[6] | Unset = 6
+    depth_top: float | None | str | Unset = UNSET
+    depth_base: float | None | str | Unset = UNSET
+    time: float | None | str | Unset = UNSET
+    remarks: None | str | Unset = UNSET
+    comment_code: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         method_type_id = self.method_type_id
 
-        depth_top: Union[None, Unset, float, str]
+        depth_top: float | None | str | Unset
         if isinstance(self.depth_top, Unset):
             depth_top = UNSET
         else:
             depth_top = self.depth_top
 
-        depth_base: Union[None, Unset, float, str]
+        depth_base: float | None | str | Unset
         if isinstance(self.depth_base, Unset):
             depth_base = UNSET
         else:
             depth_base = self.depth_base
 
-        time: Union[None, Unset, float, str]
+        time: float | None | str | Unset
         if isinstance(self.time, Unset):
             time = UNSET
         else:
             time = self.time
 
-        remarks: Union[None, Unset, str]
+        remarks: None | str | Unset
         if isinstance(self.remarks, Unset):
             remarks = UNSET
         else:
             remarks = self.remarks
 
-        comment_code: Union[None, Unset, int]
+        comment_code: int | None | Unset
         if isinstance(self.comment_code, Unset):
             comment_code = UNSET
         else:
@@ -84,52 +86,52 @@ class MethodSSDataUpdate:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        method_type_id = cast(Union[Literal[6], Unset], d.pop("method_type_id", UNSET))
+        method_type_id = cast(Literal[6] | Unset, d.pop("method_type_id", UNSET))
         if method_type_id != 6 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 6, got '{method_type_id}'")
 
-        def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
+        def _parse_depth_top(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
 
-        def _parse_depth_base(data: object) -> Union[None, Unset, float, str]:
+        def _parse_depth_base(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
 
-        def _parse_time(data: object) -> Union[None, Unset, float, str]:
+        def _parse_time(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         time = _parse_time(d.pop("time", UNSET))
 
-        def _parse_remarks(data: object) -> Union[None, Unset, str]:
+        def _parse_remarks(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-        def _parse_comment_code(data: object) -> Union[None, Unset, int]:
+        def _parse_comment_code(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         comment_code = _parse_comment_code(d.pop("comment_code", UNSET))
 

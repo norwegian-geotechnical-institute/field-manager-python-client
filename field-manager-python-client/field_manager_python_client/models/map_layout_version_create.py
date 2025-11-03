@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -22,13 +24,13 @@ T = TypeVar("T", bound="MapLayoutVersionCreate")
 class MapLayoutVersionCreate:
     """
     Attributes:
-        name (Union[None, Unset, str]):
-        file_id (Union[None, UUID, Unset]):
-        paper_size (Union[Unset, PaperSize]):
-        orientation (Union[Unset, Orientation]): Page orientation. Default is landscape.
-        dpi (Union[Unset, int]):  Default: 150.
-        background_map_layer (Union[Unset, BackgroundMapLayer]): Background map layers. Default is STREET_MAP_WORLD.
-        scale (Union[Unset, MapScale]): Map scales
+        name (None | str | Unset):
+        file_id (None | Unset | UUID):
+        paper_size (PaperSize | Unset):
+        orientation (Orientation | Unset): Page orientation. Default is landscape.
+        dpi (int | Unset):  Default: 150.
+        background_map_layer (BackgroundMapLayer | Unset): Background map layers. Default is STREET_MAP_WORLD.
+        scale (MapScale | Unset): Map scales
                 1:50
                 1:100
                 1:200
@@ -37,53 +39,53 @@ class MapLayoutVersionCreate:
                 1:2000
                 1:5000
                 1:10000
-        boundary (Union[None, Unset, str]): Boundary as a Well-Known Text (WKT) 2D POLYGON. Example 'POLYGON((1184848.67
+        boundary (None | str | Unset): Boundary as a Well-Known Text (WKT) 2D POLYGON. Example 'POLYGON((1184848.67
             8385496.52, 1184848.67 8386496.52,1185848.67 8386496.52, 1185848.67 8385496.52, 1184848.67 8385496.52))'
-        srid (Union[None, Unset, int]): Spatial Reference Identifier (SRID) for the boundary box. Defaults to 3857 WGS
-            84 / Pseudo-Mercator (unit: meter). Default: 3857.
-        rotation (Union[Unset, float]):  Default: 0.0.
-        report_number (Union[None, Unset, str]):
-        report_date (Union[None, Unset, datetime.date]):
-        client_name (Union[None, Unset, str]):
-        description (Union[None, Unset, str]):
-        drawn_by (Union[None, Unset, str]):
-        approved_by (Union[None, Unset, str]):
-        controlled_by (Union[None, Unset, str]):
-        language (Union[Unset, Language]): ISO 639-2 language three-letter codes (set 2)
-        date_format (Union[Unset, DateFormat]): Date format
-        show_method_status (Union[Unset, bool]):  Default: False.
+        srid (int | None | Unset): Spatial Reference Identifier (SRID) for the boundary box. Defaults to 3857 WGS 84 /
+            Pseudo-Mercator (unit: meter). Default: 3857.
+        rotation (float | Unset):  Default: 0.0.
+        report_number (None | str | Unset):
+        report_date (datetime.date | None | Unset):
+        client_name (None | str | Unset):
+        description (None | str | Unset):
+        drawn_by (None | str | Unset):
+        approved_by (None | str | Unset):
+        controlled_by (None | str | Unset):
+        language (Language | Unset): ISO 639-2 language three-letter codes (set 2)
+        date_format (DateFormat | Unset): Date format
+        show_method_status (bool | Unset):  Default: False.
     """
 
-    name: Union[None, Unset, str] = UNSET
-    file_id: Union[None, UUID, Unset] = UNSET
-    paper_size: Union[Unset, PaperSize] = UNSET
-    orientation: Union[Unset, Orientation] = UNSET
-    dpi: Union[Unset, int] = 150
-    background_map_layer: Union[Unset, BackgroundMapLayer] = UNSET
-    scale: Union[Unset, MapScale] = UNSET
-    boundary: Union[None, Unset, str] = UNSET
-    srid: Union[None, Unset, int] = 3857
-    rotation: Union[Unset, float] = 0.0
-    report_number: Union[None, Unset, str] = UNSET
-    report_date: Union[None, Unset, datetime.date] = UNSET
-    client_name: Union[None, Unset, str] = UNSET
-    description: Union[None, Unset, str] = UNSET
-    drawn_by: Union[None, Unset, str] = UNSET
-    approved_by: Union[None, Unset, str] = UNSET
-    controlled_by: Union[None, Unset, str] = UNSET
-    language: Union[Unset, Language] = UNSET
-    date_format: Union[Unset, DateFormat] = UNSET
-    show_method_status: Union[Unset, bool] = False
+    name: None | str | Unset = UNSET
+    file_id: None | Unset | UUID = UNSET
+    paper_size: PaperSize | Unset = UNSET
+    orientation: Orientation | Unset = UNSET
+    dpi: int | Unset = 150
+    background_map_layer: BackgroundMapLayer | Unset = UNSET
+    scale: MapScale | Unset = UNSET
+    boundary: None | str | Unset = UNSET
+    srid: int | None | Unset = 3857
+    rotation: float | Unset = 0.0
+    report_number: None | str | Unset = UNSET
+    report_date: datetime.date | None | Unset = UNSET
+    client_name: None | str | Unset = UNSET
+    description: None | str | Unset = UNSET
+    drawn_by: None | str | Unset = UNSET
+    approved_by: None | str | Unset = UNSET
+    controlled_by: None | str | Unset = UNSET
+    language: Language | Unset = UNSET
+    date_format: DateFormat | Unset = UNSET
+    show_method_status: bool | Unset = False
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        name: Union[None, Unset, str]
+        name: None | str | Unset
         if isinstance(self.name, Unset):
             name = UNSET
         else:
             name = self.name
 
-        file_id: Union[None, Unset, str]
+        file_id: None | str | Unset
         if isinstance(self.file_id, Unset):
             file_id = UNSET
         elif isinstance(self.file_id, UUID):
@@ -91,31 +93,31 @@ class MapLayoutVersionCreate:
         else:
             file_id = self.file_id
 
-        paper_size: Union[Unset, str] = UNSET
+        paper_size: str | Unset = UNSET
         if not isinstance(self.paper_size, Unset):
             paper_size = self.paper_size.value
 
-        orientation: Union[Unset, str] = UNSET
+        orientation: str | Unset = UNSET
         if not isinstance(self.orientation, Unset):
             orientation = self.orientation.value
 
         dpi = self.dpi
 
-        background_map_layer: Union[Unset, str] = UNSET
+        background_map_layer: str | Unset = UNSET
         if not isinstance(self.background_map_layer, Unset):
             background_map_layer = self.background_map_layer.value
 
-        scale: Union[Unset, str] = UNSET
+        scale: str | Unset = UNSET
         if not isinstance(self.scale, Unset):
             scale = self.scale.value
 
-        boundary: Union[None, Unset, str]
+        boundary: None | str | Unset
         if isinstance(self.boundary, Unset):
             boundary = UNSET
         else:
             boundary = self.boundary
 
-        srid: Union[None, Unset, int]
+        srid: int | None | Unset
         if isinstance(self.srid, Unset):
             srid = UNSET
         else:
@@ -123,13 +125,13 @@ class MapLayoutVersionCreate:
 
         rotation = self.rotation
 
-        report_number: Union[None, Unset, str]
+        report_number: None | str | Unset
         if isinstance(self.report_number, Unset):
             report_number = UNSET
         else:
             report_number = self.report_number
 
-        report_date: Union[None, Unset, str]
+        report_date: None | str | Unset
         if isinstance(self.report_date, Unset):
             report_date = UNSET
         elif isinstance(self.report_date, datetime.date):
@@ -137,41 +139,41 @@ class MapLayoutVersionCreate:
         else:
             report_date = self.report_date
 
-        client_name: Union[None, Unset, str]
+        client_name: None | str | Unset
         if isinstance(self.client_name, Unset):
             client_name = UNSET
         else:
             client_name = self.client_name
 
-        description: Union[None, Unset, str]
+        description: None | str | Unset
         if isinstance(self.description, Unset):
             description = UNSET
         else:
             description = self.description
 
-        drawn_by: Union[None, Unset, str]
+        drawn_by: None | str | Unset
         if isinstance(self.drawn_by, Unset):
             drawn_by = UNSET
         else:
             drawn_by = self.drawn_by
 
-        approved_by: Union[None, Unset, str]
+        approved_by: None | str | Unset
         if isinstance(self.approved_by, Unset):
             approved_by = UNSET
         else:
             approved_by = self.approved_by
 
-        controlled_by: Union[None, Unset, str]
+        controlled_by: None | str | Unset
         if isinstance(self.controlled_by, Unset):
             controlled_by = UNSET
         else:
             controlled_by = self.controlled_by
 
-        language: Union[Unset, str] = UNSET
+        language: str | Unset = UNSET
         if not isinstance(self.language, Unset):
             language = self.language.value
 
-        date_format: Union[Unset, str] = UNSET
+        date_format: str | Unset = UNSET
         if not isinstance(self.date_format, Unset):
             date_format = self.date_format.value
 
@@ -227,16 +229,16 @@ class MapLayoutVersionCreate:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
 
-        def _parse_name(data: object) -> Union[None, Unset, str]:
+        def _parse_name(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         name = _parse_name(d.pop("name", UNSET))
 
-        def _parse_file_id(data: object) -> Union[None, UUID, Unset]:
+        def _parse_file_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -249,19 +251,19 @@ class MapLayoutVersionCreate:
                 return file_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID, Unset], data)
+            return cast(None | Unset | UUID, data)
 
         file_id = _parse_file_id(d.pop("file_id", UNSET))
 
         _paper_size = d.pop("paper_size", UNSET)
-        paper_size: Union[Unset, PaperSize]
+        paper_size: PaperSize | Unset
         if isinstance(_paper_size, Unset):
             paper_size = UNSET
         else:
             paper_size = PaperSize(_paper_size)
 
         _orientation = d.pop("orientation", UNSET)
-        orientation: Union[Unset, Orientation]
+        orientation: Orientation | Unset
         if isinstance(_orientation, Unset):
             orientation = UNSET
         else:
@@ -270,49 +272,49 @@ class MapLayoutVersionCreate:
         dpi = d.pop("dpi", UNSET)
 
         _background_map_layer = d.pop("background_map_layer", UNSET)
-        background_map_layer: Union[Unset, BackgroundMapLayer]
+        background_map_layer: BackgroundMapLayer | Unset
         if isinstance(_background_map_layer, Unset):
             background_map_layer = UNSET
         else:
             background_map_layer = BackgroundMapLayer(_background_map_layer)
 
         _scale = d.pop("scale", UNSET)
-        scale: Union[Unset, MapScale]
+        scale: MapScale | Unset
         if isinstance(_scale, Unset):
             scale = UNSET
         else:
             scale = MapScale(_scale)
 
-        def _parse_boundary(data: object) -> Union[None, Unset, str]:
+        def _parse_boundary(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         boundary = _parse_boundary(d.pop("boundary", UNSET))
 
-        def _parse_srid(data: object) -> Union[None, Unset, int]:
+        def _parse_srid(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         srid = _parse_srid(d.pop("srid", UNSET))
 
         rotation = d.pop("rotation", UNSET)
 
-        def _parse_report_number(data: object) -> Union[None, Unset, str]:
+        def _parse_report_number(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         report_number = _parse_report_number(d.pop("report_number", UNSET))
 
-        def _parse_report_date(data: object) -> Union[None, Unset, datetime.date]:
+        def _parse_report_date(data: object) -> datetime.date | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -325,64 +327,64 @@ class MapLayoutVersionCreate:
                 return report_date_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.date], data)
+            return cast(datetime.date | None | Unset, data)
 
         report_date = _parse_report_date(d.pop("report_date", UNSET))
 
-        def _parse_client_name(data: object) -> Union[None, Unset, str]:
+        def _parse_client_name(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         client_name = _parse_client_name(d.pop("client_name", UNSET))
 
-        def _parse_description(data: object) -> Union[None, Unset, str]:
+        def _parse_description(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         description = _parse_description(d.pop("description", UNSET))
 
-        def _parse_drawn_by(data: object) -> Union[None, Unset, str]:
+        def _parse_drawn_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         drawn_by = _parse_drawn_by(d.pop("drawn_by", UNSET))
 
-        def _parse_approved_by(data: object) -> Union[None, Unset, str]:
+        def _parse_approved_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         approved_by = _parse_approved_by(d.pop("approved_by", UNSET))
 
-        def _parse_controlled_by(data: object) -> Union[None, Unset, str]:
+        def _parse_controlled_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         controlled_by = _parse_controlled_by(d.pop("controlled_by", UNSET))
 
         _language = d.pop("language", UNSET)
-        language: Union[Unset, Language]
+        language: Language | Unset
         if isinstance(_language, Unset):
             language = UNSET
         else:
             language = Language(_language)
 
         _date_format = d.pop("date_format", UNSET)
-        date_format: Union[Unset, DateFormat]
+        date_format: DateFormat | Unset
         if isinstance(_date_format, Unset):
             date_format = UNSET
         else:

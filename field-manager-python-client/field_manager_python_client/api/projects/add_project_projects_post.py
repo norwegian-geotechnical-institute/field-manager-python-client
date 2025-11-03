@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -14,13 +14,13 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     *,
     body: ProjectCreate,
-    set_manager_user: Union[None, Unset, bool] = UNSET,
+    set_manager_user: bool | None | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
     params: dict[str, Any] = {}
 
-    json_set_manager_user: Union[None, Unset, bool]
+    json_set_manager_user: bool | None | Unset
     if isinstance(set_manager_user, Unset):
         json_set_manager_user = UNSET
     else:
@@ -44,8 +44,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, Project]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | Project | None:
     if response.status_code == 201:
         response_201 = Project.from_dict(response.json())
 
@@ -63,8 +63,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, Project]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | Project]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -77,8 +77,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: ProjectCreate,
-    set_manager_user: Union[None, Unset, bool] = UNSET,
-) -> Response[Union[HTTPValidationError, Project]]:
+    set_manager_user: bool | None | Unset = UNSET,
+) -> Response[HTTPValidationError | Project]:
     """Add Project
 
      Add a project with passed project_in.
@@ -90,7 +90,7 @@ def sync_detailed(
     admin.
 
     Args:
-        set_manager_user (Union[None, Unset, bool]):
+        set_manager_user (bool | None | Unset):
         body (ProjectCreate):
 
     Raises:
@@ -98,7 +98,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Project]]
+        Response[HTTPValidationError | Project]
     """
 
     kwargs = _get_kwargs(
@@ -117,8 +117,8 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: ProjectCreate,
-    set_manager_user: Union[None, Unset, bool] = UNSET,
-) -> Optional[Union[HTTPValidationError, Project]]:
+    set_manager_user: bool | None | Unset = UNSET,
+) -> HTTPValidationError | Project | None:
     """Add Project
 
      Add a project with passed project_in.
@@ -130,7 +130,7 @@ def sync(
     admin.
 
     Args:
-        set_manager_user (Union[None, Unset, bool]):
+        set_manager_user (bool | None | Unset):
         body (ProjectCreate):
 
     Raises:
@@ -138,7 +138,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Project]
+        HTTPValidationError | Project
     """
 
     return sync_detailed(
@@ -152,8 +152,8 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: ProjectCreate,
-    set_manager_user: Union[None, Unset, bool] = UNSET,
-) -> Response[Union[HTTPValidationError, Project]]:
+    set_manager_user: bool | None | Unset = UNSET,
+) -> Response[HTTPValidationError | Project]:
     """Add Project
 
      Add a project with passed project_in.
@@ -165,7 +165,7 @@ async def asyncio_detailed(
     admin.
 
     Args:
-        set_manager_user (Union[None, Unset, bool]):
+        set_manager_user (bool | None | Unset):
         body (ProjectCreate):
 
     Raises:
@@ -173,7 +173,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, Project]]
+        Response[HTTPValidationError | Project]
     """
 
     kwargs = _get_kwargs(
@@ -190,8 +190,8 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: ProjectCreate,
-    set_manager_user: Union[None, Unset, bool] = UNSET,
-) -> Optional[Union[HTTPValidationError, Project]]:
+    set_manager_user: bool | None | Unset = UNSET,
+) -> HTTPValidationError | Project | None:
     """Add Project
 
      Add a project with passed project_in.
@@ -203,7 +203,7 @@ async def asyncio(
     admin.
 
     Args:
-        set_manager_user (Union[None, Unset, bool]):
+        set_manager_user (bool | None | Unset):
         body (ProjectCreate):
 
     Raises:
@@ -211,7 +211,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, Project]
+        HTTPValidationError | Project
     """
 
     return (

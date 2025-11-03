@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, Literal, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,37 +18,37 @@ T = TypeVar("T", bound="MethodWSTDataCreate")
 class MethodWSTDataCreate:
     """
     Attributes:
-        depth (Union[float, str]): Depth (m)
-        method_data_id (Union[None, UUID, Unset]):
-        method_id (Union[None, UUID, Unset]):
-        method_type_id (Union[Literal[26], Unset]):  Default: 26.
-        created_at (Union[None, Unset, datetime.datetime]):
-        updated_at (Union[None, Unset, datetime.datetime]):
-        turning (Union[None, Unset, float, str]): Turning (half revolution/0.2 m)
-        load (Union[None, Unset, float, str]): Load (kN)
-        penetration_rate (Union[None, Unset, float, str]): Penetration rate (mm/s)
-        hammering (Union[None, Unset, bool]):
-        rotation_rate (Union[None, Unset, float, str]): Rotation rate (rpm)
+        depth (float | str): Depth (m)
+        method_data_id (None | Unset | UUID):
+        method_id (None | Unset | UUID):
+        method_type_id (Literal[26] | Unset):  Default: 26.
+        created_at (datetime.datetime | None | Unset):
+        updated_at (datetime.datetime | None | Unset):
+        turning (float | None | str | Unset): Turning (half revolution/0.2 m)
+        load (float | None | str | Unset): Load (kN)
+        penetration_rate (float | None | str | Unset): Penetration rate (mm/s)
+        hammering (bool | None | Unset):
+        rotation_rate (float | None | str | Unset): Rotation rate (rpm)
     """
 
-    depth: Union[float, str]
-    method_data_id: Union[None, UUID, Unset] = UNSET
-    method_id: Union[None, UUID, Unset] = UNSET
-    method_type_id: Union[Literal[26], Unset] = 26
-    created_at: Union[None, Unset, datetime.datetime] = UNSET
-    updated_at: Union[None, Unset, datetime.datetime] = UNSET
-    turning: Union[None, Unset, float, str] = UNSET
-    load: Union[None, Unset, float, str] = UNSET
-    penetration_rate: Union[None, Unset, float, str] = UNSET
-    hammering: Union[None, Unset, bool] = UNSET
-    rotation_rate: Union[None, Unset, float, str] = UNSET
+    depth: float | str
+    method_data_id: None | Unset | UUID = UNSET
+    method_id: None | Unset | UUID = UNSET
+    method_type_id: Literal[26] | Unset = 26
+    created_at: datetime.datetime | None | Unset = UNSET
+    updated_at: datetime.datetime | None | Unset = UNSET
+    turning: float | None | str | Unset = UNSET
+    load: float | None | str | Unset = UNSET
+    penetration_rate: float | None | str | Unset = UNSET
+    hammering: bool | None | Unset = UNSET
+    rotation_rate: float | None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        depth: Union[float, str]
+        depth: float | str
         depth = self.depth
 
-        method_data_id: Union[None, Unset, str]
+        method_data_id: None | str | Unset
         if isinstance(self.method_data_id, Unset):
             method_data_id = UNSET
         elif isinstance(self.method_data_id, UUID):
@@ -54,7 +56,7 @@ class MethodWSTDataCreate:
         else:
             method_data_id = self.method_data_id
 
-        method_id: Union[None, Unset, str]
+        method_id: None | str | Unset
         if isinstance(self.method_id, Unset):
             method_id = UNSET
         elif isinstance(self.method_id, UUID):
@@ -64,7 +66,7 @@ class MethodWSTDataCreate:
 
         method_type_id = self.method_type_id
 
-        created_at: Union[None, Unset, str]
+        created_at: None | str | Unset
         if isinstance(self.created_at, Unset):
             created_at = UNSET
         elif isinstance(self.created_at, datetime.datetime):
@@ -72,7 +74,7 @@ class MethodWSTDataCreate:
         else:
             created_at = self.created_at
 
-        updated_at: Union[None, Unset, str]
+        updated_at: None | str | Unset
         if isinstance(self.updated_at, Unset):
             updated_at = UNSET
         elif isinstance(self.updated_at, datetime.datetime):
@@ -80,31 +82,31 @@ class MethodWSTDataCreate:
         else:
             updated_at = self.updated_at
 
-        turning: Union[None, Unset, float, str]
+        turning: float | None | str | Unset
         if isinstance(self.turning, Unset):
             turning = UNSET
         else:
             turning = self.turning
 
-        load: Union[None, Unset, float, str]
+        load: float | None | str | Unset
         if isinstance(self.load, Unset):
             load = UNSET
         else:
             load = self.load
 
-        penetration_rate: Union[None, Unset, float, str]
+        penetration_rate: float | None | str | Unset
         if isinstance(self.penetration_rate, Unset):
             penetration_rate = UNSET
         else:
             penetration_rate = self.penetration_rate
 
-        hammering: Union[None, Unset, bool]
+        hammering: bool | None | Unset
         if isinstance(self.hammering, Unset):
             hammering = UNSET
         else:
             hammering = self.hammering
 
-        rotation_rate: Union[None, Unset, float, str]
+        rotation_rate: float | None | str | Unset
         if isinstance(self.rotation_rate, Unset):
             rotation_rate = UNSET
         else:
@@ -144,12 +146,12 @@ class MethodWSTDataCreate:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
 
-        def _parse_depth(data: object) -> Union[float, str]:
-            return cast(Union[float, str], data)
+        def _parse_depth(data: object) -> float | str:
+            return cast(float | str, data)
 
         depth = _parse_depth(d.pop("depth"))
 
-        def _parse_method_data_id(data: object) -> Union[None, UUID, Unset]:
+        def _parse_method_data_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -162,11 +164,11 @@ class MethodWSTDataCreate:
                 return method_data_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID, Unset], data)
+            return cast(None | Unset | UUID, data)
 
         method_data_id = _parse_method_data_id(d.pop("method_data_id", UNSET))
 
-        def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
+        def _parse_method_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -179,15 +181,15 @@ class MethodWSTDataCreate:
                 return method_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID, Unset], data)
+            return cast(None | Unset | UUID, data)
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
 
-        method_type_id = cast(Union[Literal[26], Unset], d.pop("method_type_id", UNSET))
+        method_type_id = cast(Literal[26] | Unset, d.pop("method_type_id", UNSET))
         if method_type_id != 26 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 26, got '{method_type_id}'")
 
-        def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_created_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -200,11 +202,11 @@ class MethodWSTDataCreate:
                 return created_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         created_at = _parse_created_at(d.pop("created_at", UNSET))
 
-        def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_updated_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -217,52 +219,52 @@ class MethodWSTDataCreate:
                 return updated_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
 
-        def _parse_turning(data: object) -> Union[None, Unset, float, str]:
+        def _parse_turning(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         turning = _parse_turning(d.pop("turning", UNSET))
 
-        def _parse_load(data: object) -> Union[None, Unset, float, str]:
+        def _parse_load(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         load = _parse_load(d.pop("load", UNSET))
 
-        def _parse_penetration_rate(data: object) -> Union[None, Unset, float, str]:
+        def _parse_penetration_rate(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         penetration_rate = _parse_penetration_rate(d.pop("penetration_rate", UNSET))
 
-        def _parse_hammering(data: object) -> Union[None, Unset, bool]:
+        def _parse_hammering(data: object) -> bool | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, bool], data)
+            return cast(bool | None | Unset, data)
 
         hammering = _parse_hammering(d.pop("hammering", UNSET))
 
-        def _parse_rotation_rate(data: object) -> Union[None, Unset, float, str]:
+        def _parse_rotation_rate(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         rotation_rate = _parse_rotation_rate(d.pop("rotation_rate", UNSET))
 

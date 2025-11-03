@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -18,24 +20,24 @@ T = TypeVar("T", bound="User")
 class User:
     """
     Attributes:
-        user_id (Union[None, UUID, Unset]):
-        name (Union[None, Unset, str]):
-        email (Union[None, Unset, str]):
-        roles (Union[Unset, list['Role']]):
-        email_verified (Union[None, Unset, bool]):
-        organization_id (Union[None, UUID, Unset]):
+        user_id (None | Unset | UUID):
+        name (None | str | Unset):
+        email (None | str | Unset):
+        roles (list[Role] | Unset):
+        email_verified (bool | None | Unset):
+        organization_id (None | Unset | UUID):
     """
 
-    user_id: Union[None, UUID, Unset] = UNSET
-    name: Union[None, Unset, str] = UNSET
-    email: Union[None, Unset, str] = UNSET
-    roles: Union[Unset, list["Role"]] = UNSET
-    email_verified: Union[None, Unset, bool] = UNSET
-    organization_id: Union[None, UUID, Unset] = UNSET
+    user_id: None | Unset | UUID = UNSET
+    name: None | str | Unset = UNSET
+    email: None | str | Unset = UNSET
+    roles: list[Role] | Unset = UNSET
+    email_verified: bool | None | Unset = UNSET
+    organization_id: None | Unset | UUID = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        user_id: Union[None, Unset, str]
+        user_id: None | str | Unset
         if isinstance(self.user_id, Unset):
             user_id = UNSET
         elif isinstance(self.user_id, UUID):
@@ -43,32 +45,32 @@ class User:
         else:
             user_id = self.user_id
 
-        name: Union[None, Unset, str]
+        name: None | str | Unset
         if isinstance(self.name, Unset):
             name = UNSET
         else:
             name = self.name
 
-        email: Union[None, Unset, str]
+        email: None | str | Unset
         if isinstance(self.email, Unset):
             email = UNSET
         else:
             email = self.email
 
-        roles: Union[Unset, list[dict[str, Any]]] = UNSET
+        roles: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.roles, Unset):
             roles = []
             for roles_item_data in self.roles:
                 roles_item = roles_item_data.to_dict()
                 roles.append(roles_item)
 
-        email_verified: Union[None, Unset, bool]
+        email_verified: bool | None | Unset
         if isinstance(self.email_verified, Unset):
             email_verified = UNSET
         else:
             email_verified = self.email_verified
 
-        organization_id: Union[None, Unset, str]
+        organization_id: None | str | Unset
         if isinstance(self.organization_id, Unset):
             organization_id = UNSET
         elif isinstance(self.organization_id, UUID):
@@ -100,7 +102,7 @@ class User:
 
         d = dict(src_dict)
 
-        def _parse_user_id(data: object) -> Union[None, UUID, Unset]:
+        def _parse_user_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -113,25 +115,25 @@ class User:
                 return user_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID, Unset], data)
+            return cast(None | Unset | UUID, data)
 
         user_id = _parse_user_id(d.pop("user_id", UNSET))
 
-        def _parse_name(data: object) -> Union[None, Unset, str]:
+        def _parse_name(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         name = _parse_name(d.pop("name", UNSET))
 
-        def _parse_email(data: object) -> Union[None, Unset, str]:
+        def _parse_email(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         email = _parse_email(d.pop("email", UNSET))
 
@@ -142,16 +144,16 @@ class User:
 
             roles.append(roles_item)
 
-        def _parse_email_verified(data: object) -> Union[None, Unset, bool]:
+        def _parse_email_verified(data: object) -> bool | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, bool], data)
+            return cast(bool | None | Unset, data)
 
         email_verified = _parse_email_verified(d.pop("email_verified", UNSET))
 
-        def _parse_organization_id(data: object) -> Union[None, UUID, Unset]:
+        def _parse_organization_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -164,7 +166,7 @@ class User:
                 return organization_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID, Unset], data)
+            return cast(None | Unset | UUID, data)
 
         organization_id = _parse_organization_id(d.pop("organization_id", UNSET))
 

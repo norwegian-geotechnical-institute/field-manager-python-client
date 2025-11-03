@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -28,26 +30,26 @@ class Shape:
         attached_file_ids (list[UUID]):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        created_by (Union[None, str]):
-        updated_by (Union[None, str]):
+        created_by (None | str):
+        updated_by (None | str):
         name (str):
-        line_thickness (Union[None, Unset, int]):
-        color (Union[None, ShapeColor, Unset]):
-        sub_shapes (Union[Unset, list['SubShape']]):
+        line_thickness (int | None | Unset):
+        color (None | ShapeColor | Unset):
+        sub_shapes (list[SubShape] | Unset):
     """
 
     shape_id: UUID
     project_id: UUID
-    input_geometry_file: "FileMin"
+    input_geometry_file: FileMin
     attached_file_ids: list[UUID]
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    created_by: Union[None, str]
-    updated_by: Union[None, str]
+    created_by: None | str
+    updated_by: None | str
     name: str
-    line_thickness: Union[None, Unset, int] = UNSET
-    color: Union[None, ShapeColor, Unset] = UNSET
-    sub_shapes: Union[Unset, list["SubShape"]] = UNSET
+    line_thickness: int | None | Unset = UNSET
+    color: None | ShapeColor | Unset = UNSET
+    sub_shapes: list[SubShape] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -66,21 +68,21 @@ class Shape:
 
         updated_at = self.updated_at.isoformat()
 
-        created_by: Union[None, str]
+        created_by: None | str
         created_by = self.created_by
 
-        updated_by: Union[None, str]
+        updated_by: None | str
         updated_by = self.updated_by
 
         name = self.name
 
-        line_thickness: Union[None, Unset, int]
+        line_thickness: int | None | Unset
         if isinstance(self.line_thickness, Unset):
             line_thickness = UNSET
         else:
             line_thickness = self.line_thickness
 
-        color: Union[None, Unset, str]
+        color: None | str | Unset
         if isinstance(self.color, Unset):
             color = UNSET
         elif isinstance(self.color, ShapeColor):
@@ -88,7 +90,7 @@ class Shape:
         else:
             color = self.color
 
-        sub_shapes: Union[Unset, list[dict[str, Any]]] = UNSET
+        sub_shapes: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.sub_shapes, Unset):
             sub_shapes = []
             for sub_shapes_item_data in self.sub_shapes:
@@ -142,32 +144,32 @@ class Shape:
 
         updated_at = isoparse(d.pop("updated_at"))
 
-        def _parse_created_by(data: object) -> Union[None, str]:
+        def _parse_created_by(data: object) -> None | str:
             if data is None:
                 return data
-            return cast(Union[None, str], data)
+            return cast(None | str, data)
 
         created_by = _parse_created_by(d.pop("created_by"))
 
-        def _parse_updated_by(data: object) -> Union[None, str]:
+        def _parse_updated_by(data: object) -> None | str:
             if data is None:
                 return data
-            return cast(Union[None, str], data)
+            return cast(None | str, data)
 
         updated_by = _parse_updated_by(d.pop("updated_by"))
 
         name = d.pop("name")
 
-        def _parse_line_thickness(data: object) -> Union[None, Unset, int]:
+        def _parse_line_thickness(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         line_thickness = _parse_line_thickness(d.pop("line_thickness", UNSET))
 
-        def _parse_color(data: object) -> Union[None, ShapeColor, Unset]:
+        def _parse_color(data: object) -> None | ShapeColor | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -180,7 +182,7 @@ class Shape:
                 return color_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, ShapeColor, Unset], data)
+            return cast(None | ShapeColor | Unset, data)
 
         color = _parse_color(d.pop("color", UNSET))
 

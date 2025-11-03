@@ -1,11 +1,12 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
+from ...models.location import Location
 from ...models.method_type_enum import MethodTypeEnum
 from ...types import UNSET, Response, Unset
 
@@ -13,11 +14,11 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     project_id: str,
     *,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-    deleted: Union[Unset, bool] = False,
-    tags: Union[Unset, list[str]] = UNSET,
-    method_types: Union[Unset, list[MethodTypeEnum]] = UNSET,
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+    deleted: bool | Unset = False,
+    tags: list[str] | Unset = UNSET,
+    method_types: list[MethodTypeEnum] | Unset = UNSET,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
 
@@ -27,13 +28,13 @@ def _get_kwargs(
 
     params["deleted"] = deleted
 
-    json_tags: Union[Unset, list[str]] = UNSET
+    json_tags: list[str] | Unset = UNSET
     if not isinstance(tags, Unset):
         json_tags = tags
 
     params["tags"] = json_tags
 
-    json_method_types: Union[Unset, list[int]] = UNSET
+    json_method_types: list[int] | Unset = UNSET
     if not isinstance(method_types, Unset):
         json_method_types = []
         for method_types_item_data in method_types:
@@ -54,8 +55,18 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[HTTPValidationError]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | list[Location] | None:
+    if response.status_code == 200:
+        response_200 = []
+        _response_200 = response.json()
+        for response_200_item_data in _response_200:
+            response_200_item = Location.from_dict(response_200_item_data)
+
+            response_200.append(response_200_item)
+
+        return response_200
+
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
@@ -68,8 +79,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[HTTPValidationError]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | list[Location]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,12 +93,12 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-    deleted: Union[Unset, bool] = False,
-    tags: Union[Unset, list[str]] = UNSET,
-    method_types: Union[Unset, list[MethodTypeEnum]] = UNSET,
-) -> Response[HTTPValidationError]:
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+    deleted: bool | Unset = False,
+    tags: list[str] | Unset = UNSET,
+    method_types: list[MethodTypeEnum] | Unset = UNSET,
+) -> Response[HTTPValidationError | list[Location]]:
     """Get Locations In Project
 
      Return all locations in project.
@@ -99,18 +110,18 @@ def sync_detailed(
 
     Args:
         project_id (str):
-        skip (Union[Unset, int]):  Default: 0.
-        limit (Union[Unset, int]):  Default: 100.
-        deleted (Union[Unset, bool]):  Default: False.
-        tags (Union[Unset, list[str]]):
-        method_types (Union[Unset, list[MethodTypeEnum]]):
+        skip (int | Unset):  Default: 0.
+        limit (int | Unset):  Default: 100.
+        deleted (bool | Unset):  Default: False.
+        tags (list[str] | Unset):
+        method_types (list[MethodTypeEnum] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[HTTPValidationError | list[Location]]
     """
 
     kwargs = _get_kwargs(
@@ -133,12 +144,12 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-    deleted: Union[Unset, bool] = False,
-    tags: Union[Unset, list[str]] = UNSET,
-    method_types: Union[Unset, list[MethodTypeEnum]] = UNSET,
-) -> Optional[HTTPValidationError]:
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+    deleted: bool | Unset = False,
+    tags: list[str] | Unset = UNSET,
+    method_types: list[MethodTypeEnum] | Unset = UNSET,
+) -> HTTPValidationError | list[Location] | None:
     """Get Locations In Project
 
      Return all locations in project.
@@ -150,18 +161,18 @@ def sync(
 
     Args:
         project_id (str):
-        skip (Union[Unset, int]):  Default: 0.
-        limit (Union[Unset, int]):  Default: 100.
-        deleted (Union[Unset, bool]):  Default: False.
-        tags (Union[Unset, list[str]]):
-        method_types (Union[Unset, list[MethodTypeEnum]]):
+        skip (int | Unset):  Default: 0.
+        limit (int | Unset):  Default: 100.
+        deleted (bool | Unset):  Default: False.
+        tags (list[str] | Unset):
+        method_types (list[MethodTypeEnum] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        HTTPValidationError | list[Location]
     """
 
     return sync_detailed(
@@ -179,12 +190,12 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-    deleted: Union[Unset, bool] = False,
-    tags: Union[Unset, list[str]] = UNSET,
-    method_types: Union[Unset, list[MethodTypeEnum]] = UNSET,
-) -> Response[HTTPValidationError]:
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+    deleted: bool | Unset = False,
+    tags: list[str] | Unset = UNSET,
+    method_types: list[MethodTypeEnum] | Unset = UNSET,
+) -> Response[HTTPValidationError | list[Location]]:
     """Get Locations In Project
 
      Return all locations in project.
@@ -196,18 +207,18 @@ async def asyncio_detailed(
 
     Args:
         project_id (str):
-        skip (Union[Unset, int]):  Default: 0.
-        limit (Union[Unset, int]):  Default: 100.
-        deleted (Union[Unset, bool]):  Default: False.
-        tags (Union[Unset, list[str]]):
-        method_types (Union[Unset, list[MethodTypeEnum]]):
+        skip (int | Unset):  Default: 0.
+        limit (int | Unset):  Default: 100.
+        deleted (bool | Unset):  Default: False.
+        tags (list[str] | Unset):
+        method_types (list[MethodTypeEnum] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[HTTPValidationError | list[Location]]
     """
 
     kwargs = _get_kwargs(
@@ -228,12 +239,12 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    skip: Union[Unset, int] = 0,
-    limit: Union[Unset, int] = 100,
-    deleted: Union[Unset, bool] = False,
-    tags: Union[Unset, list[str]] = UNSET,
-    method_types: Union[Unset, list[MethodTypeEnum]] = UNSET,
-) -> Optional[HTTPValidationError]:
+    skip: int | Unset = 0,
+    limit: int | Unset = 100,
+    deleted: bool | Unset = False,
+    tags: list[str] | Unset = UNSET,
+    method_types: list[MethodTypeEnum] | Unset = UNSET,
+) -> HTTPValidationError | list[Location] | None:
     """Get Locations In Project
 
      Return all locations in project.
@@ -245,18 +256,18 @@ async def asyncio(
 
     Args:
         project_id (str):
-        skip (Union[Unset, int]):  Default: 0.
-        limit (Union[Unset, int]):  Default: 100.
-        deleted (Union[Unset, bool]):  Default: False.
-        tags (Union[Unset, list[str]]):
-        method_types (Union[Unset, list[MethodTypeEnum]]):
+        skip (int | Unset):  Default: 0.
+        limit (int | Unset):  Default: 100.
+        deleted (bool | Unset):  Default: False.
+        tags (list[str] | Unset):
+        method_types (list[MethodTypeEnum] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        HTTPValidationError | list[Location]
     """
 
     return (

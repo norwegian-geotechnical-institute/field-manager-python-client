@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -15,7 +15,7 @@ def _get_kwargs(
     project_id: str,
     format_: PlotFormat,
     *,
-    body: Union["Options", None],
+    body: None | Options,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -24,7 +24,7 @@ def _get_kwargs(
         "url": f"/plots/project/{project_id}/plot_sequence/{format_}",
     }
 
-    _kwargs["json"]: Union[None, dict[str, Any]]
+    _kwargs["json"]: dict[str, Any] | None
     if isinstance(body, Options):
         _kwargs["json"] = body.to_dict()
     else:
@@ -36,9 +36,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[HTTPValidationError]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> HTTPValidationError | None:
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
@@ -50,9 +48,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[HTTPValidationError]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -66,7 +62,7 @@ def sync_detailed(
     format_: PlotFormat,
     *,
     client: AuthenticatedClient,
-    body: Union["Options", None],
+    body: None | Options,
 ) -> Response[HTTPValidationError]:
     """Get Plot Sequence
 
@@ -75,7 +71,7 @@ def sync_detailed(
     Args:
         project_id (str):
         format_ (PlotFormat):
-        body (Union['Options', None]):
+        body (None | Options):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -103,8 +99,8 @@ def sync(
     format_: PlotFormat,
     *,
     client: AuthenticatedClient,
-    body: Union["Options", None],
-) -> Optional[HTTPValidationError]:
+    body: None | Options,
+) -> HTTPValidationError | None:
     """Get Plot Sequence
 
      Get the plots sequence from any location within a given project.
@@ -112,7 +108,7 @@ def sync(
     Args:
         project_id (str):
         format_ (PlotFormat):
-        body (Union['Options', None]):
+        body (None | Options):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -135,7 +131,7 @@ async def asyncio_detailed(
     format_: PlotFormat,
     *,
     client: AuthenticatedClient,
-    body: Union["Options", None],
+    body: None | Options,
 ) -> Response[HTTPValidationError]:
     """Get Plot Sequence
 
@@ -144,7 +140,7 @@ async def asyncio_detailed(
     Args:
         project_id (str):
         format_ (PlotFormat):
-        body (Union['Options', None]):
+        body (None | Options):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -170,8 +166,8 @@ async def asyncio(
     format_: PlotFormat,
     *,
     client: AuthenticatedClient,
-    body: Union["Options", None],
-) -> Optional[HTTPValidationError]:
+    body: None | Options,
+) -> HTTPValidationError | None:
     """Get Plot Sequence
 
      Get the plots sequence from any location within a given project.
@@ -179,7 +175,7 @@ async def asyncio(
     Args:
         project_id (str):
         format_ (PlotFormat):
-        body (Union['Options', None]):
+        body (None | Options):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

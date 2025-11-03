@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,16 +16,16 @@ T = TypeVar("T", bound="CPTOptions")
 class CPTOptions:
     """
     Attributes:
-        scaling_mode (Union[Unset, ScalingMode]):
-        percentile (Union[Unset, float]):  Default: 0.975.
+        scaling_mode (ScalingMode | Unset):
+        percentile (float | Unset):  Default: 0.975.
     """
 
-    scaling_mode: Union[Unset, ScalingMode] = UNSET
-    percentile: Union[Unset, float] = 0.975
+    scaling_mode: ScalingMode | Unset = UNSET
+    percentile: float | Unset = 0.975
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        scaling_mode: Union[Unset, str] = UNSET
+        scaling_mode: str | Unset = UNSET
         if not isinstance(self.scaling_mode, Unset):
             scaling_mode = self.scaling_mode.value
 
@@ -43,7 +45,7 @@ class CPTOptions:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _scaling_mode = d.pop("scaling_mode", UNSET)
-        scaling_mode: Union[Unset, ScalingMode]
+        scaling_mode: ScalingMode | Unset
         if isinstance(_scaling_mode, Unset):
             scaling_mode = UNSET
         else:

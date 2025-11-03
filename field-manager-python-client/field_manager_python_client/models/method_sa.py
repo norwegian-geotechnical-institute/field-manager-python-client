@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, Literal, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, Literal, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -33,25 +35,25 @@ class MethodSA:
             )
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        remarks (Union[None, Unset, str]):
-        method_type_id (Union[Literal[4], Unset]):  Default: 4.
-        created_by (Union[None, Unset, str]):
-        updated_by (Union[None, Unset, str]):
-        conducted_at (Union[None, Unset, datetime.datetime]):
-        conducted_by (Union[None, Unset, str]):
-        files (Union[Unset, list['File']]):
-        self_ (Union[None, Unset, str]):
-        depth_top (Union[None, Unset, float, str]): Depth top (m).
-        depth_base (Union[None, Unset, float, str]): Depth base (m).
-        length (Union[None, Unset, float, str]):
-        diameter (Union[None, Unset, float, str]): Diameter (mm).
-        sample_container_id (Union[None, Unset, str]):
-        sample_container_type_id (Union[None, Unset, int]):
-        sample_material_ids (Union[Unset, list[int]]):
-        ags_sample_type (Union[None, Unset, str]): Original AGS SAMP_TYPE value used to populate sampling_technique_id
-            during AGS file import.
-        sampling_technique_id (Union[None, Unset, int]):
-        is_disturbed (Union[None, Unset, bool]): Depending on chosen sampling technique. Output only.
+        remarks (None | str | Unset):
+        method_type_id (Literal[4] | Unset):  Default: 4.
+        created_by (None | str | Unset):
+        updated_by (None | str | Unset):
+        conducted_at (datetime.datetime | None | Unset):
+        conducted_by (None | str | Unset):
+        files (list[File] | Unset):
+        self_ (None | str | Unset):
+        depth_top (float | None | Unset): Depth top (m).
+        depth_base (float | None | Unset): Depth base (m).
+        length (float | None | Unset):
+        diameter (float | None | Unset): Diameter (mm).
+        sample_container_id (None | str | Unset):
+        sample_container_type_id (int | None | Unset):
+        sample_material_ids (list[int] | Unset):
+        ags_sample_type (None | str | Unset): Original AGS SAMP_TYPE value used to populate sampling_technique_id during
+            AGS file import.
+        sampling_technique_id (int | None | Unset):
+        is_disturbed (bool | None | Unset): Depending on chosen sampling technique. Output only.
     """
 
     method_id: UUID
@@ -60,24 +62,24 @@ class MethodSA:
     method_status_id: MethodStatusEnum
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    remarks: Union[None, Unset, str] = UNSET
-    method_type_id: Union[Literal[4], Unset] = 4
-    created_by: Union[None, Unset, str] = UNSET
-    updated_by: Union[None, Unset, str] = UNSET
-    conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    conducted_by: Union[None, Unset, str] = UNSET
-    files: Union[Unset, list["File"]] = UNSET
-    self_: Union[None, Unset, str] = UNSET
-    depth_top: Union[None, Unset, float, str] = UNSET
-    depth_base: Union[None, Unset, float, str] = UNSET
-    length: Union[None, Unset, float, str] = UNSET
-    diameter: Union[None, Unset, float, str] = UNSET
-    sample_container_id: Union[None, Unset, str] = UNSET
-    sample_container_type_id: Union[None, Unset, int] = UNSET
-    sample_material_ids: Union[Unset, list[int]] = UNSET
-    ags_sample_type: Union[None, Unset, str] = UNSET
-    sampling_technique_id: Union[None, Unset, int] = UNSET
-    is_disturbed: Union[None, Unset, bool] = UNSET
+    remarks: None | str | Unset = UNSET
+    method_type_id: Literal[4] | Unset = 4
+    created_by: None | str | Unset = UNSET
+    updated_by: None | str | Unset = UNSET
+    conducted_at: datetime.datetime | None | Unset = UNSET
+    conducted_by: None | str | Unset = UNSET
+    files: list[File] | Unset = UNSET
+    self_: None | str | Unset = UNSET
+    depth_top: float | None | Unset = UNSET
+    depth_base: float | None | Unset = UNSET
+    length: float | None | Unset = UNSET
+    diameter: float | None | Unset = UNSET
+    sample_container_id: None | str | Unset = UNSET
+    sample_container_type_id: int | None | Unset = UNSET
+    sample_material_ids: list[int] | Unset = UNSET
+    ags_sample_type: None | str | Unset = UNSET
+    sampling_technique_id: int | None | Unset = UNSET
+    is_disturbed: bool | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -93,7 +95,7 @@ class MethodSA:
 
         updated_at = self.updated_at.isoformat()
 
-        remarks: Union[None, Unset, str]
+        remarks: None | str | Unset
         if isinstance(self.remarks, Unset):
             remarks = UNSET
         else:
@@ -101,19 +103,19 @@ class MethodSA:
 
         method_type_id = self.method_type_id
 
-        created_by: Union[None, Unset, str]
+        created_by: None | str | Unset
         if isinstance(self.created_by, Unset):
             created_by = UNSET
         else:
             created_by = self.created_by
 
-        updated_by: Union[None, Unset, str]
+        updated_by: None | str | Unset
         if isinstance(self.updated_by, Unset):
             updated_by = UNSET
         else:
             updated_by = self.updated_by
 
-        conducted_at: Union[None, Unset, str]
+        conducted_at: None | str | Unset
         if isinstance(self.conducted_at, Unset):
             conducted_at = UNSET
         elif isinstance(self.conducted_at, datetime.datetime):
@@ -121,78 +123,78 @@ class MethodSA:
         else:
             conducted_at = self.conducted_at
 
-        conducted_by: Union[None, Unset, str]
+        conducted_by: None | str | Unset
         if isinstance(self.conducted_by, Unset):
             conducted_by = UNSET
         else:
             conducted_by = self.conducted_by
 
-        files: Union[Unset, list[dict[str, Any]]] = UNSET
+        files: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.files, Unset):
             files = []
             for files_item_data in self.files:
                 files_item = files_item_data.to_dict()
                 files.append(files_item)
 
-        self_: Union[None, Unset, str]
+        self_: None | str | Unset
         if isinstance(self.self_, Unset):
             self_ = UNSET
         else:
             self_ = self.self_
 
-        depth_top: Union[None, Unset, float, str]
+        depth_top: float | None | Unset
         if isinstance(self.depth_top, Unset):
             depth_top = UNSET
         else:
             depth_top = self.depth_top
 
-        depth_base: Union[None, Unset, float, str]
+        depth_base: float | None | Unset
         if isinstance(self.depth_base, Unset):
             depth_base = UNSET
         else:
             depth_base = self.depth_base
 
-        length: Union[None, Unset, float, str]
+        length: float | None | Unset
         if isinstance(self.length, Unset):
             length = UNSET
         else:
             length = self.length
 
-        diameter: Union[None, Unset, float, str]
+        diameter: float | None | Unset
         if isinstance(self.diameter, Unset):
             diameter = UNSET
         else:
             diameter = self.diameter
 
-        sample_container_id: Union[None, Unset, str]
+        sample_container_id: None | str | Unset
         if isinstance(self.sample_container_id, Unset):
             sample_container_id = UNSET
         else:
             sample_container_id = self.sample_container_id
 
-        sample_container_type_id: Union[None, Unset, int]
+        sample_container_type_id: int | None | Unset
         if isinstance(self.sample_container_type_id, Unset):
             sample_container_type_id = UNSET
         else:
             sample_container_type_id = self.sample_container_type_id
 
-        sample_material_ids: Union[Unset, list[int]] = UNSET
+        sample_material_ids: list[int] | Unset = UNSET
         if not isinstance(self.sample_material_ids, Unset):
             sample_material_ids = self.sample_material_ids
 
-        ags_sample_type: Union[None, Unset, str]
+        ags_sample_type: None | str | Unset
         if isinstance(self.ags_sample_type, Unset):
             ags_sample_type = UNSET
         else:
             ags_sample_type = self.ags_sample_type
 
-        sampling_technique_id: Union[None, Unset, int]
+        sampling_technique_id: int | None | Unset
         if isinstance(self.sampling_technique_id, Unset):
             sampling_technique_id = UNSET
         else:
             sampling_technique_id = self.sampling_technique_id
 
-        is_disturbed: Union[None, Unset, bool]
+        is_disturbed: bool | None | Unset
         if isinstance(self.is_disturbed, Unset):
             is_disturbed = UNSET
         else:
@@ -266,38 +268,38 @@ class MethodSA:
 
         updated_at = isoparse(d.pop("updated_at"))
 
-        def _parse_remarks(data: object) -> Union[None, Unset, str]:
+        def _parse_remarks(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-        method_type_id = cast(Union[Literal[4], Unset], d.pop("method_type_id", UNSET))
+        method_type_id = cast(Literal[4] | Unset, d.pop("method_type_id", UNSET))
         if method_type_id != 4 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 4, got '{method_type_id}'")
 
-        def _parse_created_by(data: object) -> Union[None, Unset, str]:
+        def _parse_created_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
 
-        def _parse_updated_by(data: object) -> Union[None, Unset, str]:
+        def _parse_updated_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
 
-        def _parse_conducted_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_conducted_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -310,16 +312,16 @@ class MethodSA:
                 return conducted_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        def _parse_conducted_by(data: object) -> Union[None, Unset, str]:
+        def _parse_conducted_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         conducted_by = _parse_conducted_by(d.pop("conducted_by", UNSET))
 
@@ -330,95 +332,95 @@ class MethodSA:
 
             files.append(files_item)
 
-        def _parse_self_(data: object) -> Union[None, Unset, str]:
+        def _parse_self_(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
-        def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
+        def _parse_depth_top(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | Unset, data)
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
 
-        def _parse_depth_base(data: object) -> Union[None, Unset, float, str]:
+        def _parse_depth_base(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | Unset, data)
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
 
-        def _parse_length(data: object) -> Union[None, Unset, float, str]:
+        def _parse_length(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | Unset, data)
 
         length = _parse_length(d.pop("length", UNSET))
 
-        def _parse_diameter(data: object) -> Union[None, Unset, float, str]:
+        def _parse_diameter(data: object) -> float | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | Unset, data)
 
         diameter = _parse_diameter(d.pop("diameter", UNSET))
 
-        def _parse_sample_container_id(data: object) -> Union[None, Unset, str]:
+        def _parse_sample_container_id(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         sample_container_id = _parse_sample_container_id(d.pop("sample_container_id", UNSET))
 
-        def _parse_sample_container_type_id(data: object) -> Union[None, Unset, int]:
+        def _parse_sample_container_type_id(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         sample_container_type_id = _parse_sample_container_type_id(d.pop("sample_container_type_id", UNSET))
 
         sample_material_ids = cast(list[int], d.pop("sample_material_ids", UNSET))
 
-        def _parse_ags_sample_type(data: object) -> Union[None, Unset, str]:
+        def _parse_ags_sample_type(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         ags_sample_type = _parse_ags_sample_type(d.pop("ags_sample_type", UNSET))
 
-        def _parse_sampling_technique_id(data: object) -> Union[None, Unset, int]:
+        def _parse_sampling_technique_id(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         sampling_technique_id = _parse_sampling_technique_id(d.pop("sampling_technique_id", UNSET))
 
-        def _parse_is_disturbed(data: object) -> Union[None, Unset, bool]:
+        def _parse_is_disturbed(data: object) -> bool | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, bool], data)
+            return cast(bool | None | Unset, data)
 
         is_disturbed = _parse_is_disturbed(d.pop("is_disturbed", UNSET))
 

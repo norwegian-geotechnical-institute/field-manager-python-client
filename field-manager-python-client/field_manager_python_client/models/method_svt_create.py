@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, Literal, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,52 +19,52 @@ T = TypeVar("T", bound="MethodSVTCreate")
 class MethodSVTCreate:
     """
     Attributes:
-        method_id (Union[None, UUID, Unset]):
-        name (Union[Unset, str]):  Default: 'SVT'.
-        remarks (Union[None, Unset, str]):
-        method_status_id (Union[Unset, MethodStatusEnum]): (
+        method_id (None | Unset | UUID):
+        name (str | Unset):  Default: 'SVT'.
+        remarks (None | str | Unset):
+        method_status_id (MethodStatusEnum | Unset): (
             PLANNED=1,
             READY=2,
             CONDUCTED=3,
             VOIDED=4,
             APPROVED=5,
             )
-        created_at (Union[None, Unset, datetime.datetime]):
-        created_by (Union[None, Unset, str]):
-        updated_at (Union[None, Unset, datetime.datetime]):
-        updated_by (Union[None, Unset, str]):
-        conducted_by (Union[None, Unset, str]):
-        conducted_at (Union[None, Unset, datetime.datetime]):
-        method_type_id (Union[Literal[10], Unset]):  Default: 10.
-        depth_top (Union[None, Unset, float, str]):
-        depth_base (Union[None, Unset, float, str]):
-        vane_height (Union[None, Unset, float, str]): Height of the vane used (mm).
-        vane_diameter (Union[None, Unset, float, str]): Diameter of the vane used (mm).
-        serial_number (Union[None, Unset, str]): Serial number of the vane used.
-        calibration_date (Union[None, Unset, datetime.datetime]): Date of calibration of the vane used.
+        created_at (datetime.datetime | None | Unset):
+        created_by (None | str | Unset):
+        updated_at (datetime.datetime | None | Unset):
+        updated_by (None | str | Unset):
+        conducted_by (None | str | Unset):
+        conducted_at (datetime.datetime | None | Unset):
+        method_type_id (Literal[10] | Unset):  Default: 10.
+        depth_top (float | None | str | Unset):
+        depth_base (float | None | str | Unset):
+        vane_height (float | None | str | Unset): Height of the vane used (mm).
+        vane_diameter (float | None | str | Unset): Diameter of the vane used (mm).
+        serial_number (None | str | Unset): Serial number of the vane used.
+        calibration_date (datetime.datetime | None | Unset): Date of calibration of the vane used.
     """
 
-    method_id: Union[None, UUID, Unset] = UNSET
-    name: Union[Unset, str] = "SVT"
-    remarks: Union[None, Unset, str] = UNSET
-    method_status_id: Union[Unset, MethodStatusEnum] = UNSET
-    created_at: Union[None, Unset, datetime.datetime] = UNSET
-    created_by: Union[None, Unset, str] = UNSET
-    updated_at: Union[None, Unset, datetime.datetime] = UNSET
-    updated_by: Union[None, Unset, str] = UNSET
-    conducted_by: Union[None, Unset, str] = UNSET
-    conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    method_type_id: Union[Literal[10], Unset] = 10
-    depth_top: Union[None, Unset, float, str] = UNSET
-    depth_base: Union[None, Unset, float, str] = UNSET
-    vane_height: Union[None, Unset, float, str] = UNSET
-    vane_diameter: Union[None, Unset, float, str] = UNSET
-    serial_number: Union[None, Unset, str] = UNSET
-    calibration_date: Union[None, Unset, datetime.datetime] = UNSET
+    method_id: None | Unset | UUID = UNSET
+    name: str | Unset = "SVT"
+    remarks: None | str | Unset = UNSET
+    method_status_id: MethodStatusEnum | Unset = UNSET
+    created_at: datetime.datetime | None | Unset = UNSET
+    created_by: None | str | Unset = UNSET
+    updated_at: datetime.datetime | None | Unset = UNSET
+    updated_by: None | str | Unset = UNSET
+    conducted_by: None | str | Unset = UNSET
+    conducted_at: datetime.datetime | None | Unset = UNSET
+    method_type_id: Literal[10] | Unset = 10
+    depth_top: float | None | str | Unset = UNSET
+    depth_base: float | None | str | Unset = UNSET
+    vane_height: float | None | str | Unset = UNSET
+    vane_diameter: float | None | str | Unset = UNSET
+    serial_number: None | str | Unset = UNSET
+    calibration_date: datetime.datetime | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        method_id: Union[None, Unset, str]
+        method_id: None | str | Unset
         if isinstance(self.method_id, Unset):
             method_id = UNSET
         elif isinstance(self.method_id, UUID):
@@ -72,17 +74,17 @@ class MethodSVTCreate:
 
         name = self.name
 
-        remarks: Union[None, Unset, str]
+        remarks: None | str | Unset
         if isinstance(self.remarks, Unset):
             remarks = UNSET
         else:
             remarks = self.remarks
 
-        method_status_id: Union[Unset, int] = UNSET
+        method_status_id: int | Unset = UNSET
         if not isinstance(self.method_status_id, Unset):
             method_status_id = self.method_status_id.value
 
-        created_at: Union[None, Unset, str]
+        created_at: None | str | Unset
         if isinstance(self.created_at, Unset):
             created_at = UNSET
         elif isinstance(self.created_at, datetime.datetime):
@@ -90,13 +92,13 @@ class MethodSVTCreate:
         else:
             created_at = self.created_at
 
-        created_by: Union[None, Unset, str]
+        created_by: None | str | Unset
         if isinstance(self.created_by, Unset):
             created_by = UNSET
         else:
             created_by = self.created_by
 
-        updated_at: Union[None, Unset, str]
+        updated_at: None | str | Unset
         if isinstance(self.updated_at, Unset):
             updated_at = UNSET
         elif isinstance(self.updated_at, datetime.datetime):
@@ -104,19 +106,19 @@ class MethodSVTCreate:
         else:
             updated_at = self.updated_at
 
-        updated_by: Union[None, Unset, str]
+        updated_by: None | str | Unset
         if isinstance(self.updated_by, Unset):
             updated_by = UNSET
         else:
             updated_by = self.updated_by
 
-        conducted_by: Union[None, Unset, str]
+        conducted_by: None | str | Unset
         if isinstance(self.conducted_by, Unset):
             conducted_by = UNSET
         else:
             conducted_by = self.conducted_by
 
-        conducted_at: Union[None, Unset, str]
+        conducted_at: None | str | Unset
         if isinstance(self.conducted_at, Unset):
             conducted_at = UNSET
         elif isinstance(self.conducted_at, datetime.datetime):
@@ -126,37 +128,37 @@ class MethodSVTCreate:
 
         method_type_id = self.method_type_id
 
-        depth_top: Union[None, Unset, float, str]
+        depth_top: float | None | str | Unset
         if isinstance(self.depth_top, Unset):
             depth_top = UNSET
         else:
             depth_top = self.depth_top
 
-        depth_base: Union[None, Unset, float, str]
+        depth_base: float | None | str | Unset
         if isinstance(self.depth_base, Unset):
             depth_base = UNSET
         else:
             depth_base = self.depth_base
 
-        vane_height: Union[None, Unset, float, str]
+        vane_height: float | None | str | Unset
         if isinstance(self.vane_height, Unset):
             vane_height = UNSET
         else:
             vane_height = self.vane_height
 
-        vane_diameter: Union[None, Unset, float, str]
+        vane_diameter: float | None | str | Unset
         if isinstance(self.vane_diameter, Unset):
             vane_diameter = UNSET
         else:
             vane_diameter = self.vane_diameter
 
-        serial_number: Union[None, Unset, str]
+        serial_number: None | str | Unset
         if isinstance(self.serial_number, Unset):
             serial_number = UNSET
         else:
             serial_number = self.serial_number
 
-        calibration_date: Union[None, Unset, str]
+        calibration_date: None | str | Unset
         if isinstance(self.calibration_date, Unset):
             calibration_date = UNSET
         elif isinstance(self.calibration_date, datetime.datetime):
@@ -208,7 +210,7 @@ class MethodSVTCreate:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
 
-        def _parse_method_id(data: object) -> Union[None, UUID, Unset]:
+        def _parse_method_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -221,29 +223,29 @@ class MethodSVTCreate:
                 return method_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID, Unset], data)
+            return cast(None | Unset | UUID, data)
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
 
         name = d.pop("name", UNSET)
 
-        def _parse_remarks(data: object) -> Union[None, Unset, str]:
+        def _parse_remarks(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
         _method_status_id = d.pop("method_status_id", UNSET)
-        method_status_id: Union[Unset, MethodStatusEnum]
+        method_status_id: MethodStatusEnum | Unset
         if isinstance(_method_status_id, Unset):
             method_status_id = UNSET
         else:
             method_status_id = MethodStatusEnum(_method_status_id)
 
-        def _parse_created_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_created_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -256,20 +258,20 @@ class MethodSVTCreate:
                 return created_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         created_at = _parse_created_at(d.pop("created_at", UNSET))
 
-        def _parse_created_by(data: object) -> Union[None, Unset, str]:
+        def _parse_created_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
 
-        def _parse_updated_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_updated_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -282,29 +284,29 @@ class MethodSVTCreate:
                 return updated_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
 
-        def _parse_updated_by(data: object) -> Union[None, Unset, str]:
+        def _parse_updated_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
 
-        def _parse_conducted_by(data: object) -> Union[None, Unset, str]:
+        def _parse_conducted_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         conducted_by = _parse_conducted_by(d.pop("conducted_by", UNSET))
 
-        def _parse_conducted_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_conducted_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -317,60 +319,60 @@ class MethodSVTCreate:
                 return conducted_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        method_type_id = cast(Union[Literal[10], Unset], d.pop("method_type_id", UNSET))
+        method_type_id = cast(Literal[10] | Unset, d.pop("method_type_id", UNSET))
         if method_type_id != 10 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 10, got '{method_type_id}'")
 
-        def _parse_depth_top(data: object) -> Union[None, Unset, float, str]:
+        def _parse_depth_top(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
 
-        def _parse_depth_base(data: object) -> Union[None, Unset, float, str]:
+        def _parse_depth_base(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
 
-        def _parse_vane_height(data: object) -> Union[None, Unset, float, str]:
+        def _parse_vane_height(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         vane_height = _parse_vane_height(d.pop("vane_height", UNSET))
 
-        def _parse_vane_diameter(data: object) -> Union[None, Unset, float, str]:
+        def _parse_vane_diameter(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         vane_diameter = _parse_vane_diameter(d.pop("vane_diameter", UNSET))
 
-        def _parse_serial_number(data: object) -> Union[None, Unset, str]:
+        def _parse_serial_number(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         serial_number = _parse_serial_number(d.pop("serial_number", UNSET))
 
-        def _parse_calibration_date(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_calibration_date(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -383,7 +385,7 @@ class MethodSVTCreate:
                 return calibration_date_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         calibration_date = _parse_calibration_date(d.pop("calibration_date", UNSET))
 

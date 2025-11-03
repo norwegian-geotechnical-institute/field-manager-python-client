@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -22,8 +22,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, SampleMaterial]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | SampleMaterial | None:
     if response.status_code == 200:
         response_200 = SampleMaterial.from_dict(response.json())
 
@@ -41,8 +41,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, SampleMaterial]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | SampleMaterial]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -54,8 +54,8 @@ def _build_response(
 def sync_detailed(
     sample_material_id: int,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[Union[HTTPValidationError, SampleMaterial]]:
+    client: AuthenticatedClient | Client,
+) -> Response[HTTPValidationError | SampleMaterial]:
     """Get Sample Material
 
     Args:
@@ -66,7 +66,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, SampleMaterial]]
+        Response[HTTPValidationError | SampleMaterial]
     """
 
     kwargs = _get_kwargs(
@@ -83,8 +83,8 @@ def sync_detailed(
 def sync(
     sample_material_id: int,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[Union[HTTPValidationError, SampleMaterial]]:
+    client: AuthenticatedClient | Client,
+) -> HTTPValidationError | SampleMaterial | None:
     """Get Sample Material
 
     Args:
@@ -95,7 +95,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, SampleMaterial]
+        HTTPValidationError | SampleMaterial
     """
 
     return sync_detailed(
@@ -107,8 +107,8 @@ def sync(
 async def asyncio_detailed(
     sample_material_id: int,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[Union[HTTPValidationError, SampleMaterial]]:
+    client: AuthenticatedClient | Client,
+) -> Response[HTTPValidationError | SampleMaterial]:
     """Get Sample Material
 
     Args:
@@ -119,7 +119,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, SampleMaterial]]
+        Response[HTTPValidationError | SampleMaterial]
     """
 
     kwargs = _get_kwargs(
@@ -134,8 +134,8 @@ async def asyncio_detailed(
 async def asyncio(
     sample_material_id: int,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[Union[HTTPValidationError, SampleMaterial]]:
+    client: AuthenticatedClient | Client,
+) -> HTTPValidationError | SampleMaterial | None:
     """Get Sample Material
 
     Args:
@@ -146,7 +146,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, SampleMaterial]
+        HTTPValidationError | SampleMaterial
     """
 
     return (

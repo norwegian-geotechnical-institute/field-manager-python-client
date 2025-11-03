@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -21,7 +23,7 @@ class CrossSectionCreate:
         horizontal_scale (str):
         method_ids (list[UUID]):
         name (str):
-        language (Union[Unset, Language]): ISO 639-2 language three-letter codes (set 2)
+        language (Language | Unset): ISO 639-2 language three-letter codes (set 2)
     """
 
     polyline_coordinates: list[list[float]]
@@ -30,7 +32,7 @@ class CrossSectionCreate:
     horizontal_scale: str
     method_ids: list[UUID]
     name: str
-    language: Union[Unset, Language] = UNSET
+    language: Language | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -57,7 +59,7 @@ class CrossSectionCreate:
 
         name = self.name
 
-        language: Union[Unset, str] = UNSET
+        language: str | Unset = UNSET
         if not isinstance(self.language, Unset):
             language = self.language.value
 
@@ -115,7 +117,7 @@ class CrossSectionCreate:
         name = d.pop("name")
 
         _language = d.pop("language", UNSET)
-        language: Union[Unset, Language]
+        language: Language | Unset
         if isinstance(_language, Unset):
             language = UNSET
         else:

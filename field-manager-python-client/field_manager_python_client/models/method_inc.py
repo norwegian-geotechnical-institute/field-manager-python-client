@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, Literal, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, Literal, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -34,14 +36,14 @@ class MethodINC:
             )
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        remarks (Union[None, Unset, str]):
-        method_type_id (Union[Literal[19], Unset]):  Default: 19.
-        created_by (Union[None, Unset, str]):
-        updated_by (Union[None, Unset, str]):
-        conducted_at (Union[None, Unset, datetime.datetime]):
-        conducted_by (Union[None, Unset, str]):
-        files (Union[Unset, list['File']]):
-        self_ (Union[None, Unset, str]):
+        remarks (None | str | Unset):
+        method_type_id (Literal[19] | Unset):  Default: 19.
+        created_by (None | str | Unset):
+        updated_by (None | str | Unset):
+        conducted_at (datetime.datetime | None | Unset):
+        conducted_by (None | str | Unset):
+        files (list[File] | Unset):
+        self_ (None | str | Unset):
     """
 
     method_id: UUID
@@ -50,14 +52,14 @@ class MethodINC:
     method_status_id: MethodStatusEnum
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    remarks: Union[None, Unset, str] = UNSET
-    method_type_id: Union[Literal[19], Unset] = 19
-    created_by: Union[None, Unset, str] = UNSET
-    updated_by: Union[None, Unset, str] = UNSET
-    conducted_at: Union[None, Unset, datetime.datetime] = UNSET
-    conducted_by: Union[None, Unset, str] = UNSET
-    files: Union[Unset, list["File"]] = UNSET
-    self_: Union[None, Unset, str] = UNSET
+    remarks: None | str | Unset = UNSET
+    method_type_id: Literal[19] | Unset = 19
+    created_by: None | str | Unset = UNSET
+    updated_by: None | str | Unset = UNSET
+    conducted_at: datetime.datetime | None | Unset = UNSET
+    conducted_by: None | str | Unset = UNSET
+    files: list[File] | Unset = UNSET
+    self_: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -73,7 +75,7 @@ class MethodINC:
 
         updated_at = self.updated_at.isoformat()
 
-        remarks: Union[None, Unset, str]
+        remarks: None | str | Unset
         if isinstance(self.remarks, Unset):
             remarks = UNSET
         else:
@@ -81,19 +83,19 @@ class MethodINC:
 
         method_type_id = self.method_type_id
 
-        created_by: Union[None, Unset, str]
+        created_by: None | str | Unset
         if isinstance(self.created_by, Unset):
             created_by = UNSET
         else:
             created_by = self.created_by
 
-        updated_by: Union[None, Unset, str]
+        updated_by: None | str | Unset
         if isinstance(self.updated_by, Unset):
             updated_by = UNSET
         else:
             updated_by = self.updated_by
 
-        conducted_at: Union[None, Unset, str]
+        conducted_at: None | str | Unset
         if isinstance(self.conducted_at, Unset):
             conducted_at = UNSET
         elif isinstance(self.conducted_at, datetime.datetime):
@@ -101,20 +103,20 @@ class MethodINC:
         else:
             conducted_at = self.conducted_at
 
-        conducted_by: Union[None, Unset, str]
+        conducted_by: None | str | Unset
         if isinstance(self.conducted_by, Unset):
             conducted_by = UNSET
         else:
             conducted_by = self.conducted_by
 
-        files: Union[Unset, list[dict[str, Any]]] = UNSET
+        files: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.files, Unset):
             files = []
             for files_item_data in self.files:
                 files_item = files_item_data.to_dict()
                 files.append(files_item)
 
-        self_: Union[None, Unset, str]
+        self_: None | str | Unset
         if isinstance(self.self_, Unset):
             self_ = UNSET
         else:
@@ -168,38 +170,38 @@ class MethodINC:
 
         updated_at = isoparse(d.pop("updated_at"))
 
-        def _parse_remarks(data: object) -> Union[None, Unset, str]:
+        def _parse_remarks(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
-        method_type_id = cast(Union[Literal[19], Unset], d.pop("method_type_id", UNSET))
+        method_type_id = cast(Literal[19] | Unset, d.pop("method_type_id", UNSET))
         if method_type_id != 19 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 19, got '{method_type_id}'")
 
-        def _parse_created_by(data: object) -> Union[None, Unset, str]:
+        def _parse_created_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
 
-        def _parse_updated_by(data: object) -> Union[None, Unset, str]:
+        def _parse_updated_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
 
-        def _parse_conducted_at(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_conducted_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -212,16 +214,16 @@ class MethodINC:
                 return conducted_at_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         conducted_at = _parse_conducted_at(d.pop("conducted_at", UNSET))
 
-        def _parse_conducted_by(data: object) -> Union[None, Unset, str]:
+        def _parse_conducted_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         conducted_by = _parse_conducted_by(d.pop("conducted_by", UNSET))
 
@@ -232,12 +234,12 @@ class MethodINC:
 
             files.append(files_item)
 
-        def _parse_self_(data: object) -> Union[None, Unset, str]:
+        def _parse_self_(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         self_ = _parse_self_(d.pop("self", UNSET))
 

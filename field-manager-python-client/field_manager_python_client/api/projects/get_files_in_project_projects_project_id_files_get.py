@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -15,12 +15,12 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     project_id: str,
     *,
-    file_types: Union[Unset, list[FileType]] = UNSET,
-    extended_result: Union[Unset, bool] = False,
+    file_types: list[FileType] | Unset = UNSET,
+    extended_result: bool | Unset = False,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
 
-    json_file_types: Union[Unset, list[str]] = UNSET
+    json_file_types: list[str] | Unset = UNSET
     if not isinstance(file_types, Unset):
         json_file_types = []
         for file_types_item_data in file_types:
@@ -43,14 +43,14 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, list[Union["File", "FileExtended"]]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | list[File | FileExtended] | None:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
 
-            def _parse_response_200_item(data: object) -> Union["File", "FileExtended"]:
+            def _parse_response_200_item(data: object) -> File | FileExtended:
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
@@ -83,8 +83,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, list[Union["File", "FileExtended"]]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | list[File | FileExtended]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -97,24 +97,24 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    file_types: Union[Unset, list[FileType]] = UNSET,
-    extended_result: Union[Unset, bool] = False,
-) -> Response[Union[HTTPValidationError, list[Union["File", "FileExtended"]]]]:
+    file_types: list[FileType] | Unset = UNSET,
+    extended_result: bool | Unset = False,
+) -> Response[HTTPValidationError | list[File | FileExtended]]:
     """Get Files In Project
 
      Get all database file objects in a project by project_id and possible filtered by file type.
 
     Args:
         project_id (str):
-        file_types (Union[Unset, list[FileType]]):
-        extended_result (Union[Unset, bool]):  Default: False.
+        file_types (list[FileType] | Unset):
+        extended_result (bool | Unset):  Default: False.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list[Union['File', 'FileExtended']]]]
+        Response[HTTPValidationError | list[File | FileExtended]]
     """
 
     kwargs = _get_kwargs(
@@ -134,24 +134,24 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    file_types: Union[Unset, list[FileType]] = UNSET,
-    extended_result: Union[Unset, bool] = False,
-) -> Optional[Union[HTTPValidationError, list[Union["File", "FileExtended"]]]]:
+    file_types: list[FileType] | Unset = UNSET,
+    extended_result: bool | Unset = False,
+) -> HTTPValidationError | list[File | FileExtended] | None:
     """Get Files In Project
 
      Get all database file objects in a project by project_id and possible filtered by file type.
 
     Args:
         project_id (str):
-        file_types (Union[Unset, list[FileType]]):
-        extended_result (Union[Unset, bool]):  Default: False.
+        file_types (list[FileType] | Unset):
+        extended_result (bool | Unset):  Default: False.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list[Union['File', 'FileExtended']]]
+        HTTPValidationError | list[File | FileExtended]
     """
 
     return sync_detailed(
@@ -166,24 +166,24 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    file_types: Union[Unset, list[FileType]] = UNSET,
-    extended_result: Union[Unset, bool] = False,
-) -> Response[Union[HTTPValidationError, list[Union["File", "FileExtended"]]]]:
+    file_types: list[FileType] | Unset = UNSET,
+    extended_result: bool | Unset = False,
+) -> Response[HTTPValidationError | list[File | FileExtended]]:
     """Get Files In Project
 
      Get all database file objects in a project by project_id and possible filtered by file type.
 
     Args:
         project_id (str):
-        file_types (Union[Unset, list[FileType]]):
-        extended_result (Union[Unset, bool]):  Default: False.
+        file_types (list[FileType] | Unset):
+        extended_result (bool | Unset):  Default: False.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, list[Union['File', 'FileExtended']]]]
+        Response[HTTPValidationError | list[File | FileExtended]]
     """
 
     kwargs = _get_kwargs(
@@ -201,24 +201,24 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    file_types: Union[Unset, list[FileType]] = UNSET,
-    extended_result: Union[Unset, bool] = False,
-) -> Optional[Union[HTTPValidationError, list[Union["File", "FileExtended"]]]]:
+    file_types: list[FileType] | Unset = UNSET,
+    extended_result: bool | Unset = False,
+) -> HTTPValidationError | list[File | FileExtended] | None:
     """Get Files In Project
 
      Get all database file objects in a project by project_id and possible filtered by file type.
 
     Args:
         project_id (str):
-        file_types (Union[Unset, list[FileType]]):
-        extended_result (Union[Unset, bool]):  Default: False.
+        file_types (list[FileType] | Unset):
+        extended_result (bool | Unset):  Default: False.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, list[Union['File', 'FileExtended']]]
+        HTTPValidationError | list[File | FileExtended]
     """
 
     return (

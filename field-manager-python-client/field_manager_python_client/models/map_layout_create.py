@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -20,13 +22,13 @@ class MapLayoutCreate:
 
     Attributes:
         name (str):
-        versions (list['MapLayoutVersionCreate']):
-        map_layout_id (Union[None, UUID, Unset]):
+        versions (list[MapLayoutVersionCreate]):
+        map_layout_id (None | Unset | UUID):
     """
 
     name: str
-    versions: list["MapLayoutVersionCreate"]
-    map_layout_id: Union[None, UUID, Unset] = UNSET
+    versions: list[MapLayoutVersionCreate]
+    map_layout_id: None | Unset | UUID = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -37,7 +39,7 @@ class MapLayoutCreate:
             versions_item = versions_item_data.to_dict()
             versions.append(versions_item)
 
-        map_layout_id: Union[None, Unset, str]
+        map_layout_id: None | str | Unset
         if isinstance(self.map_layout_id, Unset):
             map_layout_id = UNSET
         elif isinstance(self.map_layout_id, UUID):
@@ -72,7 +74,7 @@ class MapLayoutCreate:
 
             versions.append(versions_item)
 
-        def _parse_map_layout_id(data: object) -> Union[None, UUID, Unset]:
+        def _parse_map_layout_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -85,7 +87,7 @@ class MapLayoutCreate:
                 return map_layout_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, UUID, Unset], data)
+            return cast(None | Unset | UUID, data)
 
         map_layout_id = _parse_map_layout_id(d.pop("map_layout_id", UNSET))
 

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -7,17 +7,29 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
+from ...models.method_cpt_data import MethodCPTData
 from ...models.method_cpt_data_create import MethodCPTDataCreate
+from ...models.method_dp_data import MethodDPData
 from ...models.method_dp_data_create import MethodDPDataCreate
+from ...models.method_dt_data import MethodDTData
 from ...models.method_dt_data_create import MethodDTDataCreate
+from ...models.method_pz_data import MethodPZData
 from ...models.method_pz_data_create import MethodPZDataCreate
+from ...models.method_rcd_data import MethodRCDData
 from ...models.method_rcd_data_create import MethodRCDDataCreate
+from ...models.method_rp_data import MethodRPData
 from ...models.method_rp_data_create import MethodRPDataCreate
+from ...models.method_srs_data import MethodSRSData
 from ...models.method_srs_data_create import MethodSRSDataCreate
+from ...models.method_ss_data import MethodSSData
 from ...models.method_ss_data_create import MethodSSDataCreate
+from ...models.method_svt_data import MethodSVTData
 from ...models.method_svt_data_create import MethodSVTDataCreate
+from ...models.method_tot_data import MethodTOTData
 from ...models.method_tot_data_create import MethodTOTDataCreate
+from ...models.method_tr_data import MethodTRData
 from ...models.method_tr_data_create import MethodTRDataCreate
+from ...models.method_wst_data import MethodWSTData
 from ...models.method_wst_data_create import MethodWSTDataCreate
 from ...types import Response
 
@@ -27,20 +39,18 @@ def _get_kwargs(
     location_id: UUID,
     method_id: UUID,
     *,
-    body: Union[
-        "MethodCPTDataCreate",
-        "MethodDPDataCreate",
-        "MethodDTDataCreate",
-        "MethodPZDataCreate",
-        "MethodRCDDataCreate",
-        "MethodRPDataCreate",
-        "MethodSRSDataCreate",
-        "MethodSSDataCreate",
-        "MethodSVTDataCreate",
-        "MethodTOTDataCreate",
-        "MethodTRDataCreate",
-        "MethodWSTDataCreate",
-    ],
+    body: MethodCPTDataCreate
+    | MethodDPDataCreate
+    | MethodDTDataCreate
+    | MethodPZDataCreate
+    | MethodRCDDataCreate
+    | MethodRPDataCreate
+    | MethodSRSDataCreate
+    | MethodSSDataCreate
+    | MethodSVTDataCreate
+    | MethodTOTDataCreate
+    | MethodTRDataCreate
+    | MethodWSTDataCreate,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -82,8 +92,139 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[HTTPValidationError]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> (
+    HTTPValidationError
+    | MethodCPTData
+    | MethodDPData
+    | MethodDTData
+    | MethodPZData
+    | MethodRCDData
+    | MethodRPData
+    | MethodSRSData
+    | MethodSSData
+    | MethodSVTData
+    | MethodTOTData
+    | MethodTRData
+    | MethodWSTData
+    | None
+):
+    if response.status_code == 201:
+
+        def _parse_response_201(
+            data: object,
+        ) -> (
+            MethodCPTData
+            | MethodDPData
+            | MethodDTData
+            | MethodPZData
+            | MethodRCDData
+            | MethodRPData
+            | MethodSRSData
+            | MethodSSData
+            | MethodSVTData
+            | MethodTOTData
+            | MethodTRData
+            | MethodWSTData
+        ):
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_201_type_0 = MethodCPTData.from_dict(data)
+
+                return response_201_type_0
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_201_type_1 = MethodDPData.from_dict(data)
+
+                return response_201_type_1
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_201_type_2 = MethodDTData.from_dict(data)
+
+                return response_201_type_2
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_201_type_3 = MethodPZData.from_dict(data)
+
+                return response_201_type_3
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_201_type_4 = MethodRCDData.from_dict(data)
+
+                return response_201_type_4
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_201_type_5 = MethodRPData.from_dict(data)
+
+                return response_201_type_5
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_201_type_6 = MethodSSData.from_dict(data)
+
+                return response_201_type_6
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_201_type_7 = MethodSRSData.from_dict(data)
+
+                return response_201_type_7
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_201_type_8 = MethodSVTData.from_dict(data)
+
+                return response_201_type_8
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_201_type_9 = MethodTOTData.from_dict(data)
+
+                return response_201_type_9
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_201_type_10 = MethodTRData.from_dict(data)
+
+                return response_201_type_10
+            except:  # noqa: E722
+                pass
+            if not isinstance(data, dict):
+                raise TypeError()
+            response_201_type_11 = MethodWSTData.from_dict(data)
+
+            return response_201_type_11
+
+        response_201 = _parse_response_201(response.json())
+
+        return response_201
+
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
@@ -96,8 +237,22 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[HTTPValidationError]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[
+    HTTPValidationError
+    | MethodCPTData
+    | MethodDPData
+    | MethodDTData
+    | MethodPZData
+    | MethodRCDData
+    | MethodRPData
+    | MethodSRSData
+    | MethodSSData
+    | MethodSVTData
+    | MethodTOTData
+    | MethodTRData
+    | MethodWSTData
+]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -112,21 +267,33 @@ def sync_detailed(
     method_id: UUID,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        "MethodCPTDataCreate",
-        "MethodDPDataCreate",
-        "MethodDTDataCreate",
-        "MethodPZDataCreate",
-        "MethodRCDDataCreate",
-        "MethodRPDataCreate",
-        "MethodSRSDataCreate",
-        "MethodSSDataCreate",
-        "MethodSVTDataCreate",
-        "MethodTOTDataCreate",
-        "MethodTRDataCreate",
-        "MethodWSTDataCreate",
-    ],
-) -> Response[HTTPValidationError]:
+    body: MethodCPTDataCreate
+    | MethodDPDataCreate
+    | MethodDTDataCreate
+    | MethodPZDataCreate
+    | MethodRCDDataCreate
+    | MethodRPDataCreate
+    | MethodSRSDataCreate
+    | MethodSSDataCreate
+    | MethodSVTDataCreate
+    | MethodTOTDataCreate
+    | MethodTRDataCreate
+    | MethodWSTDataCreate,
+) -> Response[
+    HTTPValidationError
+    | MethodCPTData
+    | MethodDPData
+    | MethodDTData
+    | MethodPZData
+    | MethodRCDData
+    | MethodRPData
+    | MethodSRSData
+    | MethodSSData
+    | MethodSVTData
+    | MethodTOTData
+    | MethodTRData
+    | MethodWSTData
+]:
     """Create Data Row
 
      Create a new data row for a method
@@ -135,17 +302,16 @@ def sync_detailed(
         project_id (str):
         location_id (UUID):
         method_id (UUID):
-        body (Union['MethodCPTDataCreate', 'MethodDPDataCreate', 'MethodDTDataCreate',
-            'MethodPZDataCreate', 'MethodRCDDataCreate', 'MethodRPDataCreate', 'MethodSRSDataCreate',
-            'MethodSSDataCreate', 'MethodSVTDataCreate', 'MethodTOTDataCreate', 'MethodTRDataCreate',
-            'MethodWSTDataCreate']):
+        body (MethodCPTDataCreate | MethodDPDataCreate | MethodDTDataCreate | MethodPZDataCreate |
+            MethodRCDDataCreate | MethodRPDataCreate | MethodSRSDataCreate | MethodSSDataCreate |
+            MethodSVTDataCreate | MethodTOTDataCreate | MethodTRDataCreate | MethodWSTDataCreate):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[HTTPValidationError | MethodCPTData | MethodDPData | MethodDTData | MethodPZData | MethodRCDData | MethodRPData | MethodSRSData | MethodSSData | MethodSVTData | MethodTOTData | MethodTRData | MethodWSTData]
     """
 
     kwargs = _get_kwargs(
@@ -168,21 +334,34 @@ def sync(
     method_id: UUID,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        "MethodCPTDataCreate",
-        "MethodDPDataCreate",
-        "MethodDTDataCreate",
-        "MethodPZDataCreate",
-        "MethodRCDDataCreate",
-        "MethodRPDataCreate",
-        "MethodSRSDataCreate",
-        "MethodSSDataCreate",
-        "MethodSVTDataCreate",
-        "MethodTOTDataCreate",
-        "MethodTRDataCreate",
-        "MethodWSTDataCreate",
-    ],
-) -> Optional[HTTPValidationError]:
+    body: MethodCPTDataCreate
+    | MethodDPDataCreate
+    | MethodDTDataCreate
+    | MethodPZDataCreate
+    | MethodRCDDataCreate
+    | MethodRPDataCreate
+    | MethodSRSDataCreate
+    | MethodSSDataCreate
+    | MethodSVTDataCreate
+    | MethodTOTDataCreate
+    | MethodTRDataCreate
+    | MethodWSTDataCreate,
+) -> (
+    HTTPValidationError
+    | MethodCPTData
+    | MethodDPData
+    | MethodDTData
+    | MethodPZData
+    | MethodRCDData
+    | MethodRPData
+    | MethodSRSData
+    | MethodSSData
+    | MethodSVTData
+    | MethodTOTData
+    | MethodTRData
+    | MethodWSTData
+    | None
+):
     """Create Data Row
 
      Create a new data row for a method
@@ -191,17 +370,16 @@ def sync(
         project_id (str):
         location_id (UUID):
         method_id (UUID):
-        body (Union['MethodCPTDataCreate', 'MethodDPDataCreate', 'MethodDTDataCreate',
-            'MethodPZDataCreate', 'MethodRCDDataCreate', 'MethodRPDataCreate', 'MethodSRSDataCreate',
-            'MethodSSDataCreate', 'MethodSVTDataCreate', 'MethodTOTDataCreate', 'MethodTRDataCreate',
-            'MethodWSTDataCreate']):
+        body (MethodCPTDataCreate | MethodDPDataCreate | MethodDTDataCreate | MethodPZDataCreate |
+            MethodRCDDataCreate | MethodRPDataCreate | MethodSRSDataCreate | MethodSSDataCreate |
+            MethodSVTDataCreate | MethodTOTDataCreate | MethodTRDataCreate | MethodWSTDataCreate):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        HTTPValidationError | MethodCPTData | MethodDPData | MethodDTData | MethodPZData | MethodRCDData | MethodRPData | MethodSRSData | MethodSSData | MethodSVTData | MethodTOTData | MethodTRData | MethodWSTData
     """
 
     return sync_detailed(
@@ -219,21 +397,33 @@ async def asyncio_detailed(
     method_id: UUID,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        "MethodCPTDataCreate",
-        "MethodDPDataCreate",
-        "MethodDTDataCreate",
-        "MethodPZDataCreate",
-        "MethodRCDDataCreate",
-        "MethodRPDataCreate",
-        "MethodSRSDataCreate",
-        "MethodSSDataCreate",
-        "MethodSVTDataCreate",
-        "MethodTOTDataCreate",
-        "MethodTRDataCreate",
-        "MethodWSTDataCreate",
-    ],
-) -> Response[HTTPValidationError]:
+    body: MethodCPTDataCreate
+    | MethodDPDataCreate
+    | MethodDTDataCreate
+    | MethodPZDataCreate
+    | MethodRCDDataCreate
+    | MethodRPDataCreate
+    | MethodSRSDataCreate
+    | MethodSSDataCreate
+    | MethodSVTDataCreate
+    | MethodTOTDataCreate
+    | MethodTRDataCreate
+    | MethodWSTDataCreate,
+) -> Response[
+    HTTPValidationError
+    | MethodCPTData
+    | MethodDPData
+    | MethodDTData
+    | MethodPZData
+    | MethodRCDData
+    | MethodRPData
+    | MethodSRSData
+    | MethodSSData
+    | MethodSVTData
+    | MethodTOTData
+    | MethodTRData
+    | MethodWSTData
+]:
     """Create Data Row
 
      Create a new data row for a method
@@ -242,17 +432,16 @@ async def asyncio_detailed(
         project_id (str):
         location_id (UUID):
         method_id (UUID):
-        body (Union['MethodCPTDataCreate', 'MethodDPDataCreate', 'MethodDTDataCreate',
-            'MethodPZDataCreate', 'MethodRCDDataCreate', 'MethodRPDataCreate', 'MethodSRSDataCreate',
-            'MethodSSDataCreate', 'MethodSVTDataCreate', 'MethodTOTDataCreate', 'MethodTRDataCreate',
-            'MethodWSTDataCreate']):
+        body (MethodCPTDataCreate | MethodDPDataCreate | MethodDTDataCreate | MethodPZDataCreate |
+            MethodRCDDataCreate | MethodRPDataCreate | MethodSRSDataCreate | MethodSSDataCreate |
+            MethodSVTDataCreate | MethodTOTDataCreate | MethodTRDataCreate | MethodWSTDataCreate):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[HTTPValidationError | MethodCPTData | MethodDPData | MethodDTData | MethodPZData | MethodRCDData | MethodRPData | MethodSRSData | MethodSSData | MethodSVTData | MethodTOTData | MethodTRData | MethodWSTData]
     """
 
     kwargs = _get_kwargs(
@@ -273,21 +462,34 @@ async def asyncio(
     method_id: UUID,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        "MethodCPTDataCreate",
-        "MethodDPDataCreate",
-        "MethodDTDataCreate",
-        "MethodPZDataCreate",
-        "MethodRCDDataCreate",
-        "MethodRPDataCreate",
-        "MethodSRSDataCreate",
-        "MethodSSDataCreate",
-        "MethodSVTDataCreate",
-        "MethodTOTDataCreate",
-        "MethodTRDataCreate",
-        "MethodWSTDataCreate",
-    ],
-) -> Optional[HTTPValidationError]:
+    body: MethodCPTDataCreate
+    | MethodDPDataCreate
+    | MethodDTDataCreate
+    | MethodPZDataCreate
+    | MethodRCDDataCreate
+    | MethodRPDataCreate
+    | MethodSRSDataCreate
+    | MethodSSDataCreate
+    | MethodSVTDataCreate
+    | MethodTOTDataCreate
+    | MethodTRDataCreate
+    | MethodWSTDataCreate,
+) -> (
+    HTTPValidationError
+    | MethodCPTData
+    | MethodDPData
+    | MethodDTData
+    | MethodPZData
+    | MethodRCDData
+    | MethodRPData
+    | MethodSRSData
+    | MethodSSData
+    | MethodSVTData
+    | MethodTOTData
+    | MethodTRData
+    | MethodWSTData
+    | None
+):
     """Create Data Row
 
      Create a new data row for a method
@@ -296,17 +498,16 @@ async def asyncio(
         project_id (str):
         location_id (UUID):
         method_id (UUID):
-        body (Union['MethodCPTDataCreate', 'MethodDPDataCreate', 'MethodDTDataCreate',
-            'MethodPZDataCreate', 'MethodRCDDataCreate', 'MethodRPDataCreate', 'MethodSRSDataCreate',
-            'MethodSSDataCreate', 'MethodSVTDataCreate', 'MethodTOTDataCreate', 'MethodTRDataCreate',
-            'MethodWSTDataCreate']):
+        body (MethodCPTDataCreate | MethodDPDataCreate | MethodDTDataCreate | MethodPZDataCreate |
+            MethodRCDDataCreate | MethodRPDataCreate | MethodSRSDataCreate | MethodSSDataCreate |
+            MethodSVTDataCreate | MethodTOTDataCreate | MethodTRDataCreate | MethodWSTDataCreate):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        HTTPValidationError | MethodCPTData | MethodDPData | MethodDTData | MethodPZData | MethodRCDData | MethodRPData | MethodSRSData | MethodSSData | MethodSVTData | MethodTOTData | MethodTRData | MethodWSTData
     """
 
     return (

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, Literal, TypeVar, Union, cast
+from typing import Any, Literal, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,28 +18,28 @@ T = TypeVar("T", bound="MethodPZDataUpdate")
 class MethodPZDataUpdate:
     """
     Attributes:
-        method_type_id (Union[Literal[5], Unset]):  Default: 5.
-        reading_type (Union[None, ReadingType, Unset]):
-        date (Union[None, Unset, datetime.datetime]):
-        pore_pressure (Union[None, Unset, float, str]):
-        barometric_pressure (Union[None, Unset, float, str]):
-        temperature (Union[None, Unset, float, str]):
-        remarks (Union[None, Unset, str]):
+        method_type_id (Literal[5] | Unset):  Default: 5.
+        reading_type (None | ReadingType | Unset):
+        date (datetime.datetime | None | Unset):
+        pore_pressure (float | None | str | Unset):
+        barometric_pressure (float | None | str | Unset):
+        temperature (float | None | str | Unset):
+        remarks (None | str | Unset):
     """
 
-    method_type_id: Union[Literal[5], Unset] = 5
-    reading_type: Union[None, ReadingType, Unset] = UNSET
-    date: Union[None, Unset, datetime.datetime] = UNSET
-    pore_pressure: Union[None, Unset, float, str] = UNSET
-    barometric_pressure: Union[None, Unset, float, str] = UNSET
-    temperature: Union[None, Unset, float, str] = UNSET
-    remarks: Union[None, Unset, str] = UNSET
+    method_type_id: Literal[5] | Unset = 5
+    reading_type: None | ReadingType | Unset = UNSET
+    date: datetime.datetime | None | Unset = UNSET
+    pore_pressure: float | None | str | Unset = UNSET
+    barometric_pressure: float | None | str | Unset = UNSET
+    temperature: float | None | str | Unset = UNSET
+    remarks: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         method_type_id = self.method_type_id
 
-        reading_type: Union[None, Unset, str]
+        reading_type: None | str | Unset
         if isinstance(self.reading_type, Unset):
             reading_type = UNSET
         elif isinstance(self.reading_type, ReadingType):
@@ -45,7 +47,7 @@ class MethodPZDataUpdate:
         else:
             reading_type = self.reading_type
 
-        date: Union[None, Unset, str]
+        date: None | str | Unset
         if isinstance(self.date, Unset):
             date = UNSET
         elif isinstance(self.date, datetime.datetime):
@@ -53,25 +55,25 @@ class MethodPZDataUpdate:
         else:
             date = self.date
 
-        pore_pressure: Union[None, Unset, float, str]
+        pore_pressure: float | None | str | Unset
         if isinstance(self.pore_pressure, Unset):
             pore_pressure = UNSET
         else:
             pore_pressure = self.pore_pressure
 
-        barometric_pressure: Union[None, Unset, float, str]
+        barometric_pressure: float | None | str | Unset
         if isinstance(self.barometric_pressure, Unset):
             barometric_pressure = UNSET
         else:
             barometric_pressure = self.barometric_pressure
 
-        temperature: Union[None, Unset, float, str]
+        temperature: float | None | str | Unset
         if isinstance(self.temperature, Unset):
             temperature = UNSET
         else:
             temperature = self.temperature
 
-        remarks: Union[None, Unset, str]
+        remarks: None | str | Unset
         if isinstance(self.remarks, Unset):
             remarks = UNSET
         else:
@@ -100,11 +102,11 @@ class MethodPZDataUpdate:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        method_type_id = cast(Union[Literal[5], Unset], d.pop("method_type_id", UNSET))
+        method_type_id = cast(Literal[5] | Unset, d.pop("method_type_id", UNSET))
         if method_type_id != 5 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 5, got '{method_type_id}'")
 
-        def _parse_reading_type(data: object) -> Union[None, ReadingType, Unset]:
+        def _parse_reading_type(data: object) -> None | ReadingType | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -117,11 +119,11 @@ class MethodPZDataUpdate:
                 return reading_type_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, ReadingType, Unset], data)
+            return cast(None | ReadingType | Unset, data)
 
         reading_type = _parse_reading_type(d.pop("reading_type", UNSET))
 
-        def _parse_date(data: object) -> Union[None, Unset, datetime.datetime]:
+        def _parse_date(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -134,43 +136,43 @@ class MethodPZDataUpdate:
                 return date_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, datetime.datetime], data)
+            return cast(datetime.datetime | None | Unset, data)
 
         date = _parse_date(d.pop("date", UNSET))
 
-        def _parse_pore_pressure(data: object) -> Union[None, Unset, float, str]:
+        def _parse_pore_pressure(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         pore_pressure = _parse_pore_pressure(d.pop("pore_pressure", UNSET))
 
-        def _parse_barometric_pressure(data: object) -> Union[None, Unset, float, str]:
+        def _parse_barometric_pressure(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         barometric_pressure = _parse_barometric_pressure(d.pop("barometric_pressure", UNSET))
 
-        def _parse_temperature(data: object) -> Union[None, Unset, float, str]:
+        def _parse_temperature(data: object) -> float | None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, float, str], data)
+            return cast(float | None | str | Unset, data)
 
         temperature = _parse_temperature(d.pop("temperature", UNSET))
 
-        def _parse_remarks(data: object) -> Union[None, Unset, str]:
+        def _parse_remarks(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 

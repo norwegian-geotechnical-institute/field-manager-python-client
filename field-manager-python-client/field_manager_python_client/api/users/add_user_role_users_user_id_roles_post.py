@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -31,9 +31,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[HTTPValidationError]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> HTTPValidationError | None:
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
@@ -45,9 +43,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[HTTPValidationError]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -93,7 +89,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: Role,
-) -> Optional[HTTPValidationError]:
+) -> HTTPValidationError | None:
     """Add User Role
 
     Args:
@@ -150,7 +146,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: Role,
-) -> Optional[HTTPValidationError]:
+) -> HTTPValidationError | None:
     """Add User Role
 
     Args:

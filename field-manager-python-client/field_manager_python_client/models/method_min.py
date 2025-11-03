@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,12 +18,12 @@ class MethodMin:
     Attributes:
         method_id (UUID):
         location_id (UUID):
-        name (Union[None, Unset, str]):
+        name (None | str | Unset):
     """
 
     method_id: UUID
     location_id: UUID
-    name: Union[None, Unset, str] = UNSET
+    name: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -29,7 +31,7 @@ class MethodMin:
 
         location_id = str(self.location_id)
 
-        name: Union[None, Unset, str]
+        name: None | str | Unset
         if isinstance(self.name, Unset):
             name = UNSET
         else:
@@ -55,12 +57,12 @@ class MethodMin:
 
         location_id = UUID(d.pop("location_id"))
 
-        def _parse_name(data: object) -> Union[None, Unset, str]:
+        def _parse_name(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         name = _parse_name(d.pop("name", UNSET))
 

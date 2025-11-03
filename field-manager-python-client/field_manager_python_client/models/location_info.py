@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -23,15 +25,15 @@ class LocationInfo:
         location_id (UUID):
         created_at (datetime.datetime):
         coordinates (LocationCoordinates):
-        location_name (Union[None, Unset, str]):
-        created_by (Union[None, Unset, str]):
+        location_name (None | str | Unset):
+        created_by (None | str | Unset):
     """
 
     location_id: UUID
     created_at: datetime.datetime
-    coordinates: "LocationCoordinates"
-    location_name: Union[None, Unset, str] = UNSET
-    created_by: Union[None, Unset, str] = UNSET
+    coordinates: LocationCoordinates
+    location_name: None | str | Unset = UNSET
+    created_by: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -41,13 +43,13 @@ class LocationInfo:
 
         coordinates = self.coordinates.to_dict()
 
-        location_name: Union[None, Unset, str]
+        location_name: None | str | Unset
         if isinstance(self.location_name, Unset):
             location_name = UNSET
         else:
             location_name = self.location_name
 
-        created_by: Union[None, Unset, str]
+        created_by: None | str | Unset
         if isinstance(self.created_by, Unset):
             created_by = UNSET
         else:
@@ -80,21 +82,21 @@ class LocationInfo:
 
         coordinates = LocationCoordinates.from_dict(d.pop("coordinates"))
 
-        def _parse_location_name(data: object) -> Union[None, Unset, str]:
+        def _parse_location_name(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         location_name = _parse_location_name(d.pop("location_name", UNSET))
 
-        def _parse_created_by(data: object) -> Union[None, Unset, str]:
+        def _parse_created_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
 

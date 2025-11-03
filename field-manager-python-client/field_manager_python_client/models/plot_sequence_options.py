@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,14 +19,14 @@ T = TypeVar("T", bound="PlotSequenceOptions")
 class PlotSequenceOptions:
     """
     Attributes:
-        auto_set_depth (Union[Unset, bool]):  Default: False.
-        pdf_filename (Union[Unset, str]):  Default: 'factual_report.pdf'.
-        pdf (Union[Unset, PdfOptions]):
+        auto_set_depth (bool | Unset):  Default: False.
+        pdf_filename (str | Unset):  Default: 'factual_report.pdf'.
+        pdf (PdfOptions | Unset):
     """
 
-    auto_set_depth: Union[Unset, bool] = False
-    pdf_filename: Union[Unset, str] = "factual_report.pdf"
-    pdf: Union[Unset, "PdfOptions"] = UNSET
+    auto_set_depth: bool | Unset = False
+    pdf_filename: str | Unset = "factual_report.pdf"
+    pdf: PdfOptions | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -32,7 +34,7 @@ class PlotSequenceOptions:
 
         pdf_filename = self.pdf_filename
 
-        pdf: Union[Unset, dict[str, Any]] = UNSET
+        pdf: dict[str, Any] | Unset = UNSET
         if not isinstance(self.pdf, Unset):
             pdf = self.pdf.to_dict()
 
@@ -58,7 +60,7 @@ class PlotSequenceOptions:
         pdf_filename = d.pop("pdf_filename", UNSET)
 
         _pdf = d.pop("pdf", UNSET)
-        pdf: Union[Unset, PdfOptions]
+        pdf: PdfOptions | Unset
         if isinstance(_pdf, Unset):
             pdf = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,46 +20,46 @@ class ProjectUpdate:
         {'external_id': '2020193232', 'height_reference': 'NN2000', 'name': 'Project Name', 'srid': 3857}
 
     Attributes:
-        external_id (Union[None, Unset, str]):
-        external_id_source (Union[None, Unset, str]):
-        name (Union[None, Unset, str]):
-        standard_id (Union[None, StandardType, Unset]):
-        srid (Union[None, Unset, int]):
-        height_reference (Union[HeightReference, None, Unset]):
-        description (Union[None, Unset, str]):
-        tags (Union[None, Unset, list[str]]):
+        external_id (None | str | Unset):
+        external_id_source (None | str | Unset):
+        name (None | str | Unset):
+        standard_id (None | StandardType | Unset):
+        srid (int | None | Unset):
+        height_reference (HeightReference | None | Unset):
+        description (None | str | Unset):
+        tags (list[str] | None | Unset):
     """
 
-    external_id: Union[None, Unset, str] = UNSET
-    external_id_source: Union[None, Unset, str] = UNSET
-    name: Union[None, Unset, str] = UNSET
-    standard_id: Union[None, StandardType, Unset] = UNSET
-    srid: Union[None, Unset, int] = UNSET
-    height_reference: Union[HeightReference, None, Unset] = UNSET
-    description: Union[None, Unset, str] = UNSET
-    tags: Union[None, Unset, list[str]] = UNSET
+    external_id: None | str | Unset = UNSET
+    external_id_source: None | str | Unset = UNSET
+    name: None | str | Unset = UNSET
+    standard_id: None | StandardType | Unset = UNSET
+    srid: int | None | Unset = UNSET
+    height_reference: HeightReference | None | Unset = UNSET
+    description: None | str | Unset = UNSET
+    tags: list[str] | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        external_id: Union[None, Unset, str]
+        external_id: None | str | Unset
         if isinstance(self.external_id, Unset):
             external_id = UNSET
         else:
             external_id = self.external_id
 
-        external_id_source: Union[None, Unset, str]
+        external_id_source: None | str | Unset
         if isinstance(self.external_id_source, Unset):
             external_id_source = UNSET
         else:
             external_id_source = self.external_id_source
 
-        name: Union[None, Unset, str]
+        name: None | str | Unset
         if isinstance(self.name, Unset):
             name = UNSET
         else:
             name = self.name
 
-        standard_id: Union[None, Unset, str]
+        standard_id: None | str | Unset
         if isinstance(self.standard_id, Unset):
             standard_id = UNSET
         elif isinstance(self.standard_id, StandardType):
@@ -65,13 +67,13 @@ class ProjectUpdate:
         else:
             standard_id = self.standard_id
 
-        srid: Union[None, Unset, int]
+        srid: int | None | Unset
         if isinstance(self.srid, Unset):
             srid = UNSET
         else:
             srid = self.srid
 
-        height_reference: Union[None, Unset, str]
+        height_reference: None | str | Unset
         if isinstance(self.height_reference, Unset):
             height_reference = UNSET
         elif isinstance(self.height_reference, HeightReference):
@@ -79,13 +81,13 @@ class ProjectUpdate:
         else:
             height_reference = self.height_reference
 
-        description: Union[None, Unset, str]
+        description: None | str | Unset
         if isinstance(self.description, Unset):
             description = UNSET
         else:
             description = self.description
 
-        tags: Union[None, Unset, list[str]]
+        tags: list[str] | None | Unset
         if isinstance(self.tags, Unset):
             tags = UNSET
         elif isinstance(self.tags, list):
@@ -120,34 +122,34 @@ class ProjectUpdate:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
 
-        def _parse_external_id(data: object) -> Union[None, Unset, str]:
+        def _parse_external_id(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         external_id = _parse_external_id(d.pop("external_id", UNSET))
 
-        def _parse_external_id_source(data: object) -> Union[None, Unset, str]:
+        def _parse_external_id_source(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         external_id_source = _parse_external_id_source(d.pop("external_id_source", UNSET))
 
-        def _parse_name(data: object) -> Union[None, Unset, str]:
+        def _parse_name(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         name = _parse_name(d.pop("name", UNSET))
 
-        def _parse_standard_id(data: object) -> Union[None, StandardType, Unset]:
+        def _parse_standard_id(data: object) -> None | StandardType | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -160,20 +162,20 @@ class ProjectUpdate:
                 return standard_id_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, StandardType, Unset], data)
+            return cast(None | StandardType | Unset, data)
 
         standard_id = _parse_standard_id(d.pop("standard_id", UNSET))
 
-        def _parse_srid(data: object) -> Union[None, Unset, int]:
+        def _parse_srid(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         srid = _parse_srid(d.pop("srid", UNSET))
 
-        def _parse_height_reference(data: object) -> Union[HeightReference, None, Unset]:
+        def _parse_height_reference(data: object) -> HeightReference | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -186,20 +188,20 @@ class ProjectUpdate:
                 return height_reference_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[HeightReference, None, Unset], data)
+            return cast(HeightReference | None | Unset, data)
 
         height_reference = _parse_height_reference(d.pop("height_reference", UNSET))
 
-        def _parse_description(data: object) -> Union[None, Unset, str]:
+        def _parse_description(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         description = _parse_description(d.pop("description", UNSET))
 
-        def _parse_tags(data: object) -> Union[None, Unset, list[str]]:
+        def _parse_tags(data: object) -> list[str] | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -212,7 +214,7 @@ class ProjectUpdate:
                 return tags_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, list[str]], data)
+            return cast(list[str] | None | Unset, data)
 
         tags = _parse_tags(d.pop("tags", UNSET))
 

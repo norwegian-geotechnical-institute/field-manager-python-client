@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -26,21 +28,21 @@ class MapLayout:
             map_layout_id (UUID):
             project_id (UUID):
             name (str):
-            versions (list['MapLayoutVersion']):
+            versions (list[MapLayoutVersion]):
             created_at (datetime.datetime):
             updated_at (datetime.datetime):
-            created_by (Union[None, Unset, str]):
-            updated_by (Union[None, Unset, str]):
+            created_by (None | str | Unset):
+            updated_by (None | str | Unset):
     """
 
     map_layout_id: UUID
     project_id: UUID
     name: str
-    versions: list["MapLayoutVersion"]
+    versions: list[MapLayoutVersion]
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    created_by: Union[None, Unset, str] = UNSET
-    updated_by: Union[None, Unset, str] = UNSET
+    created_by: None | str | Unset = UNSET
+    updated_by: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -59,13 +61,13 @@ class MapLayout:
 
         updated_at = self.updated_at.isoformat()
 
-        created_by: Union[None, Unset, str]
+        created_by: None | str | Unset
         if isinstance(self.created_by, Unset):
             created_by = UNSET
         else:
             created_by = self.created_by
 
-        updated_by: Union[None, Unset, str]
+        updated_by: None | str | Unset
         if isinstance(self.updated_by, Unset):
             updated_by = UNSET
         else:
@@ -112,21 +114,21 @@ class MapLayout:
 
         updated_at = isoparse(d.pop("updated_at"))
 
-        def _parse_created_by(data: object) -> Union[None, Unset, str]:
+        def _parse_created_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         created_by = _parse_created_by(d.pop("created_by", UNSET))
 
-        def _parse_updated_by(data: object) -> Union[None, Unset, str]:
+        def _parse_updated_by(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
 
