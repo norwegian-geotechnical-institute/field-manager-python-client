@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.89" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.93" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -23066,6 +23066,12 @@
             "items": { "$ref": "#/components/schemas/MethodType" },
             "type": "array",
             "title": "Method Types",
+            "default": []
+          },
+          "sampling_techniques": {
+            "items": { "$ref": "#/components/schemas/SamplingTechnique" },
+            "type": "array",
+            "title": "Sampling Techniques",
             "default": []
           }
         },

@@ -180,18 +180,20 @@ class Shape:
                 color_type_0 = ShapeColor(data)
 
                 return color_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | ShapeColor | Unset, data)
 
         color = _parse_color(d.pop("color", UNSET))
 
-        sub_shapes = []
         _sub_shapes = d.pop("sub_shapes", UNSET)
-        for sub_shapes_item_data in _sub_shapes or []:
-            sub_shapes_item = SubShape.from_dict(sub_shapes_item_data)
+        sub_shapes: list[SubShape] | Unset = UNSET
+        if _sub_shapes is not UNSET:
+            sub_shapes = []
+            for sub_shapes_item_data in _sub_shapes:
+                sub_shapes_item = SubShape.from_dict(sub_shapes_item_data)
 
-            sub_shapes.append(sub_shapes_item)
+                sub_shapes.append(sub_shapes_item)
 
         shape = cls(
             shape_id=shape_id,

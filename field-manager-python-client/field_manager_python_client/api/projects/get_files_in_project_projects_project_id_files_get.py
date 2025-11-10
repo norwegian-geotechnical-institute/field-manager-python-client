@@ -57,7 +57,7 @@ def _parse_response(
                     response_200_item_type_0 = FileExtended.from_dict(data)
 
                     return response_200_item_type_0
-                except:  # noqa: E722
+                except (TypeError, ValueError, AttributeError, KeyError):
                     pass
                 if not isinstance(data, dict):
                     raise TypeError()

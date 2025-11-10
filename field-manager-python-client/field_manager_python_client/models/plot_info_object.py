@@ -221,7 +221,7 @@ class PlotInfoObject:
                 messages_type_0 = cast(list[str], data)
 
                 return messages_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(list[str] | None | Unset, data)
 
@@ -245,7 +245,7 @@ class PlotInfoObject:
                 stats_type_0 = PlotInfoObjectStatsType0.from_dict(data)
 
                 return stats_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | PlotInfoObjectStatsType0 | Unset, data)
 

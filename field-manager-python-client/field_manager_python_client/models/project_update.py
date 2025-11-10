@@ -160,7 +160,7 @@ class ProjectUpdate:
                 standard_id_type_0 = StandardType(data)
 
                 return standard_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | StandardType | Unset, data)
 
@@ -186,7 +186,7 @@ class ProjectUpdate:
                 height_reference_type_0 = HeightReference(data)
 
                 return height_reference_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(HeightReference | None | Unset, data)
 
@@ -212,7 +212,7 @@ class ProjectUpdate:
                 tags_type_0 = cast(list[str], data)
 
                 return tags_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(list[str] | None | Unset, data)
 

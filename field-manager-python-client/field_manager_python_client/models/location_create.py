@@ -409,7 +409,7 @@ class LocationCreate:
                 created_at_type_0 = isoparse(data)
 
                 return created_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -435,7 +435,7 @@ class LocationCreate:
                 updated_at_type_0 = isoparse(data)
 
                 return updated_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -535,19 +535,15 @@ class LocationCreate:
                 project_id_type_0 = UUID(data)
 
                 return project_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         project_id = _parse_project_id(d.pop("project_id", UNSET))
 
-        methods = []
         _methods = d.pop("methods", UNSET)
-        for methods_item_data in _methods or []:
-
-            def _parse_methods_item(
-                data: object,
-            ) -> (
+        methods: (
+            list[
                 MethodADCreate
                 | MethodCDCreate
                 | MethodCPTCreate
@@ -576,232 +572,270 @@ class LocationCreate:
                 | MethodTPCreate
                 | MethodTRCreate
                 | MethodWSTCreate
-            ):
-                try:
+            ]
+            | Unset
+        ) = UNSET
+        if _methods is not UNSET:
+            methods = []
+            for methods_item_data in _methods:
+
+                def _parse_methods_item(
+                    data: object,
+                ) -> (
+                    MethodADCreate
+                    | MethodCDCreate
+                    | MethodCPTCreate
+                    | MethodDEFCreate
+                    | MethodDPCreate
+                    | MethodDTCreate
+                    | MethodESACreate
+                    | MethodINCCreate
+                    | MethodIWCreate
+                    | MethodOTHERCreate
+                    | MethodPTCreate
+                    | MethodPZCreate
+                    | MethodRCDCreate
+                    | MethodROCreate
+                    | MethodRPCreate
+                    | MethodRSCreate
+                    | MethodRWSCreate
+                    | MethodSACreate
+                    | MethodSLBCreate
+                    | MethodSPTCreate
+                    | MethodSRSCreate
+                    | MethodSSCreate
+                    | MethodSTICreate
+                    | MethodSVTCreate
+                    | MethodTOTCreate
+                    | MethodTPCreate
+                    | MethodTRCreate
+                    | MethodWSTCreate
+                ):
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_0 = MethodADCreate.from_dict(data)
+
+                        return methods_item_type_0
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_1 = MethodCDCreate.from_dict(data)
+
+                        return methods_item_type_1
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_2 = MethodCPTCreate.from_dict(data)
+
+                        return methods_item_type_2
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_3 = MethodDPCreate.from_dict(data)
+
+                        return methods_item_type_3
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_4 = MethodDTCreate.from_dict(data)
+
+                        return methods_item_type_4
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_5 = MethodESACreate.from_dict(data)
+
+                        return methods_item_type_5
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_6 = MethodINCCreate.from_dict(data)
+
+                        return methods_item_type_6
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_7 = MethodIWCreate.from_dict(data)
+
+                        return methods_item_type_7
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_8 = MethodOTHERCreate.from_dict(data)
+
+                        return methods_item_type_8
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_9 = MethodPTCreate.from_dict(data)
+
+                        return methods_item_type_9
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_10 = MethodPZCreate.from_dict(data)
+
+                        return methods_item_type_10
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_11 = MethodRCDCreate.from_dict(data)
+
+                        return methods_item_type_11
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_12 = MethodROCreate.from_dict(data)
+
+                        return methods_item_type_12
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_13 = MethodRPCreate.from_dict(data)
+
+                        return methods_item_type_13
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_14 = MethodRSCreate.from_dict(data)
+
+                        return methods_item_type_14
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_15 = MethodRWSCreate.from_dict(data)
+
+                        return methods_item_type_15
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_16 = MethodSACreate.from_dict(data)
+
+                        return methods_item_type_16
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_17 = MethodSLBCreate.from_dict(data)
+
+                        return methods_item_type_17
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_18 = MethodSPTCreate.from_dict(data)
+
+                        return methods_item_type_18
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_19 = MethodDEFCreate.from_dict(data)
+
+                        return methods_item_type_19
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_20 = MethodSRSCreate.from_dict(data)
+
+                        return methods_item_type_20
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_21 = MethodSSCreate.from_dict(data)
+
+                        return methods_item_type_21
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_22 = MethodSTICreate.from_dict(data)
+
+                        return methods_item_type_22
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_23 = MethodSVTCreate.from_dict(data)
+
+                        return methods_item_type_23
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_24 = MethodTOTCreate.from_dict(data)
+
+                        return methods_item_type_24
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_25 = MethodTPCreate.from_dict(data)
+
+                        return methods_item_type_25
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        methods_item_type_26 = MethodTRCreate.from_dict(data)
+
+                        return methods_item_type_26
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
                     if not isinstance(data, dict):
                         raise TypeError()
-                    methods_item_type_0 = MethodADCreate.from_dict(data)
+                    methods_item_type_27 = MethodWSTCreate.from_dict(data)
 
-                    return methods_item_type_0
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_1 = MethodCDCreate.from_dict(data)
+                    return methods_item_type_27
 
-                    return methods_item_type_1
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_2 = MethodCPTCreate.from_dict(data)
+                methods_item = _parse_methods_item(methods_item_data)
 
-                    return methods_item_type_2
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_3 = MethodDPCreate.from_dict(data)
-
-                    return methods_item_type_3
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_4 = MethodDTCreate.from_dict(data)
-
-                    return methods_item_type_4
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_5 = MethodESACreate.from_dict(data)
-
-                    return methods_item_type_5
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_6 = MethodINCCreate.from_dict(data)
-
-                    return methods_item_type_6
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_7 = MethodIWCreate.from_dict(data)
-
-                    return methods_item_type_7
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_8 = MethodOTHERCreate.from_dict(data)
-
-                    return methods_item_type_8
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_9 = MethodPTCreate.from_dict(data)
-
-                    return methods_item_type_9
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_10 = MethodPZCreate.from_dict(data)
-
-                    return methods_item_type_10
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_11 = MethodRCDCreate.from_dict(data)
-
-                    return methods_item_type_11
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_12 = MethodROCreate.from_dict(data)
-
-                    return methods_item_type_12
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_13 = MethodRPCreate.from_dict(data)
-
-                    return methods_item_type_13
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_14 = MethodRSCreate.from_dict(data)
-
-                    return methods_item_type_14
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_15 = MethodRWSCreate.from_dict(data)
-
-                    return methods_item_type_15
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_16 = MethodSACreate.from_dict(data)
-
-                    return methods_item_type_16
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_17 = MethodSLBCreate.from_dict(data)
-
-                    return methods_item_type_17
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_18 = MethodSPTCreate.from_dict(data)
-
-                    return methods_item_type_18
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_19 = MethodDEFCreate.from_dict(data)
-
-                    return methods_item_type_19
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_20 = MethodSRSCreate.from_dict(data)
-
-                    return methods_item_type_20
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_21 = MethodSSCreate.from_dict(data)
-
-                    return methods_item_type_21
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_22 = MethodSTICreate.from_dict(data)
-
-                    return methods_item_type_22
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_23 = MethodSVTCreate.from_dict(data)
-
-                    return methods_item_type_23
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_24 = MethodTOTCreate.from_dict(data)
-
-                    return methods_item_type_24
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_25 = MethodTPCreate.from_dict(data)
-
-                    return methods_item_type_25
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    methods_item_type_26 = MethodTRCreate.from_dict(data)
-
-                    return methods_item_type_26
-                except:  # noqa: E722
-                    pass
-                if not isinstance(data, dict):
-                    raise TypeError()
-                methods_item_type_27 = MethodWSTCreate.from_dict(data)
-
-                return methods_item_type_27
-
-            methods_item = _parse_methods_item(methods_item_data)
-
-            methods.append(methods_item)
+                methods.append(methods_item)
 
         location_create = cls(
             name=name,

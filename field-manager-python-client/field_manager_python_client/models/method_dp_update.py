@@ -192,7 +192,7 @@ class MethodDPUpdate:
                 method_id_type_0 = UUID(data)
 
                 return method_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
@@ -227,7 +227,7 @@ class MethodDPUpdate:
                 method_status_id_type_0 = MethodStatusEnum(data)
 
                 return method_status_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(MethodStatusEnum | None | Unset, data)
 
@@ -244,7 +244,7 @@ class MethodDPUpdate:
                 updated_at_type_0 = isoparse(data)
 
                 return updated_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -279,7 +279,7 @@ class MethodDPUpdate:
                 conducted_at_type_0 = isoparse(data)
 
                 return conducted_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -300,7 +300,7 @@ class MethodDPUpdate:
                 dynamic_probing_type_type_0 = DPType(data)
 
                 return dynamic_probing_type_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(DPType | None | Unset, data)
 

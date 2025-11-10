@@ -77,7 +77,7 @@ class Role:
                 role_entity_type_type_0 = RoleEntityEnum(data)
 
                 return role_entity_type_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | RoleEntityEnum | Unset, data)
 
@@ -94,7 +94,7 @@ class Role:
                 role_entity_id_type_0 = UUID(data)
 
                 return role_entity_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 

@@ -289,7 +289,7 @@ class LocationGis:
                 height_reference_type_0 = HeightReference(data)
 
                 return height_reference_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(HeightReference | None | Unset, data)
 
@@ -387,7 +387,7 @@ class LocationGis:
                 updated_at_type_0 = isoparse(data)
 
                 return updated_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 

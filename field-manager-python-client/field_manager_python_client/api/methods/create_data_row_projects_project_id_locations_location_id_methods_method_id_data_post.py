@@ -133,7 +133,7 @@ def _parse_response(
                 response_201_type_0 = MethodCPTData.from_dict(data)
 
                 return response_201_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             try:
                 if not isinstance(data, dict):
@@ -141,7 +141,7 @@ def _parse_response(
                 response_201_type_1 = MethodDPData.from_dict(data)
 
                 return response_201_type_1
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             try:
                 if not isinstance(data, dict):
@@ -149,7 +149,7 @@ def _parse_response(
                 response_201_type_2 = MethodDTData.from_dict(data)
 
                 return response_201_type_2
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             try:
                 if not isinstance(data, dict):
@@ -157,7 +157,7 @@ def _parse_response(
                 response_201_type_3 = MethodPZData.from_dict(data)
 
                 return response_201_type_3
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             try:
                 if not isinstance(data, dict):
@@ -165,7 +165,7 @@ def _parse_response(
                 response_201_type_4 = MethodRCDData.from_dict(data)
 
                 return response_201_type_4
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             try:
                 if not isinstance(data, dict):
@@ -173,7 +173,7 @@ def _parse_response(
                 response_201_type_5 = MethodRPData.from_dict(data)
 
                 return response_201_type_5
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             try:
                 if not isinstance(data, dict):
@@ -181,7 +181,7 @@ def _parse_response(
                 response_201_type_6 = MethodSSData.from_dict(data)
 
                 return response_201_type_6
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             try:
                 if not isinstance(data, dict):
@@ -189,7 +189,7 @@ def _parse_response(
                 response_201_type_7 = MethodSRSData.from_dict(data)
 
                 return response_201_type_7
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             try:
                 if not isinstance(data, dict):
@@ -197,7 +197,7 @@ def _parse_response(
                 response_201_type_8 = MethodSVTData.from_dict(data)
 
                 return response_201_type_8
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             try:
                 if not isinstance(data, dict):
@@ -205,7 +205,7 @@ def _parse_response(
                 response_201_type_9 = MethodTOTData.from_dict(data)
 
                 return response_201_type_9
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             try:
                 if not isinstance(data, dict):
@@ -213,7 +213,7 @@ def _parse_response(
                 response_201_type_10 = MethodTRData.from_dict(data)
 
                 return response_201_type_10
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             if not isinstance(data, dict):
                 raise TypeError()

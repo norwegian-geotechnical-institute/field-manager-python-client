@@ -73,7 +73,7 @@ class BedrockInfo:
                 bedrock_type_type_0 = BedrockType(data)
 
                 return bedrock_type_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(BedrockType | None | Unset, data)
 

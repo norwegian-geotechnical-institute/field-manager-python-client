@@ -277,7 +277,7 @@ class MapLayoutVersionUpdate:
                 map_layout_version_id_type_0 = UUID(data)
 
                 return map_layout_version_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
@@ -303,7 +303,7 @@ class MapLayoutVersionUpdate:
                 file_id_type_0 = UUID(data)
 
                 return file_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
@@ -320,7 +320,7 @@ class MapLayoutVersionUpdate:
                 paper_size_type_0 = PaperSize(data)
 
                 return paper_size_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | PaperSize | Unset, data)
 
@@ -337,7 +337,7 @@ class MapLayoutVersionUpdate:
                 orientation_type_0 = Orientation(data)
 
                 return orientation_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Orientation | Unset, data)
 
@@ -363,7 +363,7 @@ class MapLayoutVersionUpdate:
                 background_map_layer_type_0 = BackgroundMapLayer(data)
 
                 return background_map_layer_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(BackgroundMapLayer | None | Unset, data)
 
@@ -380,7 +380,7 @@ class MapLayoutVersionUpdate:
                 scale_type_0 = MapScale(data)
 
                 return scale_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(MapScale | None | Unset, data)
 
@@ -433,7 +433,7 @@ class MapLayoutVersionUpdate:
                 report_date_type_0 = isoparse(data).date()
 
                 return report_date_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.date | None | Unset, data)
 
@@ -502,7 +502,7 @@ class MapLayoutVersionUpdate:
                 date_format_type_0 = DateFormat(data)
 
                 return date_format_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(DateFormat | None | Unset, data)
 

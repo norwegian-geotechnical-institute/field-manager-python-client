@@ -80,7 +80,7 @@ class PiezometerVendor:
                 organization_id_type_0 = UUID(data)
 
                 return organization_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 

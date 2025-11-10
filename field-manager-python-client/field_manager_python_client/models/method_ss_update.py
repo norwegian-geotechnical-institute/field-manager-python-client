@@ -149,7 +149,7 @@ class MethodSSUpdate:
                 method_id_type_0 = UUID(data)
 
                 return method_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
@@ -184,7 +184,7 @@ class MethodSSUpdate:
                 method_status_id_type_0 = MethodStatusEnum(data)
 
                 return method_status_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(MethodStatusEnum | None | Unset, data)
 
@@ -201,7 +201,7 @@ class MethodSSUpdate:
                 updated_at_type_0 = isoparse(data)
 
                 return updated_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -236,7 +236,7 @@ class MethodSSUpdate:
                 conducted_at_type_0 = isoparse(data)
 
                 return conducted_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 

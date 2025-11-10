@@ -104,7 +104,7 @@ class FMPlotOptions:
                     depth_range_type_0.append(depth_range_type_0_item)
 
                 return depth_range_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(list[float] | None | Unset, data)
 

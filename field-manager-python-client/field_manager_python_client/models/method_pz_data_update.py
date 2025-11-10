@@ -117,7 +117,7 @@ class MethodPZDataUpdate:
                 reading_type_type_0 = ReadingType(data)
 
                 return reading_type_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | ReadingType | Unset, data)
 
@@ -134,7 +134,7 @@ class MethodPZDataUpdate:
                 date_type_0 = isoparse(data)
 
                 return date_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 

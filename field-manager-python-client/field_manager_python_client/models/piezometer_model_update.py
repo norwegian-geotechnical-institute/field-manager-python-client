@@ -107,7 +107,7 @@ class PiezometerModelUpdate:
                 vendor_id_type_0 = UUID(data)
 
                 return vendor_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
@@ -142,7 +142,7 @@ class PiezometerModelUpdate:
                 default_transformation_type_type_0 = TransformationType(data)
 
                 return default_transformation_type_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | TransformationType | Unset, data)
 

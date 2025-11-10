@@ -159,7 +159,7 @@ class ProjectCreate:
                 height_reference_type_0 = HeightReference(data)
 
                 return height_reference_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(HeightReference | None, data)
 
@@ -176,7 +176,7 @@ class ProjectCreate:
                 project_id_type_0 = UUID(data)
 
                 return project_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
@@ -193,7 +193,7 @@ class ProjectCreate:
                 created_at_type_0 = isoparse(data)
 
                 return created_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -210,7 +210,7 @@ class ProjectCreate:
                 updated_at_type_0 = isoparse(data)
 
                 return updated_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -236,7 +236,7 @@ class ProjectCreate:
                 standard_id_type_0 = StandardType(data)
 
                 return standard_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | StandardType | Unset, data)
 

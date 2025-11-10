@@ -317,7 +317,7 @@ class MethodPZUpdate:
                 method_id_type_0 = UUID(data)
 
                 return method_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
@@ -352,7 +352,7 @@ class MethodPZUpdate:
                 method_status_id_type_0 = MethodStatusEnum(data)
 
                 return method_status_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(MethodStatusEnum | None | Unset, data)
 
@@ -369,7 +369,7 @@ class MethodPZUpdate:
                 updated_at_type_0 = isoparse(data)
 
                 return updated_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -404,7 +404,7 @@ class MethodPZUpdate:
                 conducted_at_type_0 = isoparse(data)
 
                 return conducted_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -425,7 +425,7 @@ class MethodPZUpdate:
                 piezometer_type_type_0 = PiezometerType(data)
 
                 return piezometer_type_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | PiezometerType | Unset, data)
 
@@ -469,7 +469,7 @@ class MethodPZUpdate:
                 model_id_type_0 = UUID(data)
 
                 return model_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
@@ -486,7 +486,7 @@ class MethodPZUpdate:
                 transformation_type_type_0 = TransformationType(data)
 
                 return transformation_type_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | TransformationType | Unset, data)
 
