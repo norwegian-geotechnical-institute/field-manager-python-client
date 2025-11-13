@@ -171,7 +171,7 @@ class MethodRPCreate:
                 method_id_type_0 = UUID(data)
 
                 return method_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
@@ -206,7 +206,7 @@ class MethodRPCreate:
                 created_at_type_0 = isoparse(data)
 
                 return created_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -232,7 +232,7 @@ class MethodRPCreate:
                 updated_at_type_0 = isoparse(data)
 
                 return updated_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -267,7 +267,7 @@ class MethodRPCreate:
                 conducted_at_type_0 = isoparse(data)
 
                 return conducted_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 

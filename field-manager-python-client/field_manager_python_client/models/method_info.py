@@ -193,7 +193,7 @@ class MethodInfo:
                 conducted_at_type_0 = isoparse(data)
 
                 return conducted_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -237,7 +237,7 @@ class MethodInfo:
                 srs_type_type_0 = SoundingClass(data)
 
                 return srs_type_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | SoundingClass | Unset, data)
 
@@ -254,7 +254,7 @@ class MethodInfo:
                 bedrock_info_type_0 = BedrockInfo.from_dict(data)
 
                 return bedrock_info_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(BedrockInfo | None | Unset, data)
 

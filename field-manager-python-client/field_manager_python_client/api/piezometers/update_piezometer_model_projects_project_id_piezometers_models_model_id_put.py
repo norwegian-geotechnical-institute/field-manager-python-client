@@ -47,7 +47,7 @@ def _parse_response(
                 response_200_type_0 = PiezometerModel.from_dict(data)
 
                 return response_200_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | PiezometerModel, data)
 

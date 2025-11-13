@@ -221,7 +221,7 @@ class MethodSVTCreate:
                 method_id_type_0 = UUID(data)
 
                 return method_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
@@ -256,7 +256,7 @@ class MethodSVTCreate:
                 created_at_type_0 = isoparse(data)
 
                 return created_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -282,7 +282,7 @@ class MethodSVTCreate:
                 updated_at_type_0 = isoparse(data)
 
                 return updated_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -317,7 +317,7 @@ class MethodSVTCreate:
                 conducted_at_type_0 = isoparse(data)
 
                 return conducted_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -383,7 +383,7 @@ class MethodSVTCreate:
                 calibration_date_type_0 = isoparse(data)
 
                 return calibration_date_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 

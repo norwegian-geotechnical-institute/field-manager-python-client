@@ -202,7 +202,7 @@ class PDFPageInfo:
                 page_number_type_1 = cast(list[str], data)
 
                 return page_number_type_1
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(list[str] | None | str | Unset, data)
 
@@ -219,7 +219,7 @@ class PDFPageInfo:
                 info_table_type_0 = cast(list[Any], data)
 
                 return info_table_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(list[Any] | None | str | Unset, data)
 

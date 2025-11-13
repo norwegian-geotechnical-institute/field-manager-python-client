@@ -218,7 +218,7 @@ class OrganizationUpdate:
                 default_role_type_0 = RoleEnum(data)
 
                 return default_role_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | RoleEnum | Unset, data)
 
@@ -235,7 +235,7 @@ class OrganizationUpdate:
                 created_at_type_0 = isoparse(data)
 
                 return created_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -252,7 +252,7 @@ class OrganizationUpdate:
                 updated_at_type_0 = isoparse(data)
 
                 return updated_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -269,18 +269,20 @@ class OrganizationUpdate:
                 default_standard_id_type_0 = StandardType(data)
 
                 return default_standard_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | StandardType | Unset, data)
 
         default_standard_id = _parse_default_standard_id(d.pop("default_standard_id", UNSET))
 
-        available_standard_ids = []
         _available_standard_ids = d.pop("available_standard_ids", UNSET)
-        for available_standard_ids_item_data in _available_standard_ids or []:
-            available_standard_ids_item = StandardType(available_standard_ids_item_data)
+        available_standard_ids: list[StandardType] | Unset = UNSET
+        if _available_standard_ids is not UNSET:
+            available_standard_ids = []
+            for available_standard_ids_item_data in _available_standard_ids:
+                available_standard_ids_item = StandardType(available_standard_ids_item_data)
 
-            available_standard_ids.append(available_standard_ids_item)
+                available_standard_ids.append(available_standard_ids_item)
 
         organization_update = cls(
             external_id=external_id,

@@ -117,7 +117,7 @@ class WebMapService:
                 organization_id_type_0 = UUID(data)
 
                 return organization_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | UUID, data)
 
@@ -132,7 +132,7 @@ class WebMapService:
                 project_id_type_0 = UUID(data)
 
                 return project_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | UUID, data)
 
@@ -140,12 +140,14 @@ class WebMapService:
 
         level = WebMapServiceLevel(d.pop("level"))
 
-        available_standard_ids = []
         _available_standard_ids = d.pop("available_standard_ids", UNSET)
-        for available_standard_ids_item_data in _available_standard_ids or []:
-            available_standard_ids_item = StandardType(available_standard_ids_item_data)
+        available_standard_ids: list[StandardType] | Unset = UNSET
+        if _available_standard_ids is not UNSET:
+            available_standard_ids = []
+            for available_standard_ids_item_data in _available_standard_ids:
+                available_standard_ids_item = StandardType(available_standard_ids_item_data)
 
-            available_standard_ids.append(available_standard_ids_item)
+                available_standard_ids.append(available_standard_ids_item)
 
         def _parse_description(data: object) -> None | str | Unset:
             if data is None:

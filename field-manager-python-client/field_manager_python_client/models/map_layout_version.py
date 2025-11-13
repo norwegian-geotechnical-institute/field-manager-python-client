@@ -249,7 +249,7 @@ class MapLayoutVersion:
                 report_date_type_0 = isoparse(data).date()
 
                 return report_date_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.date | None, data)
 
@@ -320,7 +320,7 @@ class MapLayoutVersion:
                 file_id_type_0 = UUID(data)
 
                 return file_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 

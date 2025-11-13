@@ -128,19 +128,23 @@ class Export:
         d = dict(src_dict)
         export_type = ExportType(d.pop("export_type"))
 
-        location_ids = []
         _location_ids = d.pop("location_ids", UNSET)
-        for location_ids_item_data in _location_ids or []:
-            location_ids_item = UUID(location_ids_item_data)
+        location_ids: list[UUID] | Unset = UNSET
+        if _location_ids is not UNSET:
+            location_ids = []
+            for location_ids_item_data in _location_ids:
+                location_ids_item = UUID(location_ids_item_data)
 
-            location_ids.append(location_ids_item)
+                location_ids.append(location_ids_item)
 
-        file_ids = []
         _file_ids = d.pop("file_ids", UNSET)
-        for file_ids_item_data in _file_ids or []:
-            file_ids_item = UUID(file_ids_item_data)
+        file_ids: list[UUID] | Unset = UNSET
+        if _file_ids is not UNSET:
+            file_ids = []
+            for file_ids_item_data in _file_ids:
+                file_ids_item = UUID(file_ids_item_data)
 
-            file_ids.append(file_ids_item)
+                file_ids.append(file_ids_item)
 
         method_status_ids = cast(list[int], d.pop("method_status_ids", UNSET))
 
@@ -166,7 +170,7 @@ class Export:
                 method_conducted_from_type_0 = isoparse(data)
 
                 return method_conducted_from_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -183,7 +187,7 @@ class Export:
                 method_conducted_to_type_0 = isoparse(data)
 
                 return method_conducted_to_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 

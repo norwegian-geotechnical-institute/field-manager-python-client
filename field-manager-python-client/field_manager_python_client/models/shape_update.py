@@ -92,7 +92,7 @@ class ShapeUpdate:
                 color_type_0 = ShapeColor(data)
 
                 return color_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | ShapeColor | Unset, data)
 

@@ -243,6 +243,7 @@ from .project_summary import ProjectSummary
 from .project_update import ProjectUpdate
 from .reading_type import ReadingType
 from .role import Role
+from .role_create import RoleCreate
 from .role_entity_enum import RoleEntityEnum
 from .role_enum import RoleEnum
 from .sample_container_type import SampleContainerType
@@ -493,6 +494,7 @@ __all__ = (
     "ProjectUpdate",
     "ReadingType",
     "Role",
+    "RoleCreate",
     "RoleEntityEnum",
     "RoleEnum",
     "SampleContainerType",
