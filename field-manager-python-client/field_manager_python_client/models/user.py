@@ -113,7 +113,7 @@ class User:
                 user_id_type_0 = UUID(data)
 
                 return user_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
@@ -137,12 +137,14 @@ class User:
 
         email = _parse_email(d.pop("email", UNSET))
 
-        roles = []
         _roles = d.pop("roles", UNSET)
-        for roles_item_data in _roles or []:
-            roles_item = Role.from_dict(roles_item_data)
+        roles: list[Role] | Unset = UNSET
+        if _roles is not UNSET:
+            roles = []
+            for roles_item_data in _roles:
+                roles_item = Role.from_dict(roles_item_data)
 
-            roles.append(roles_item)
+                roles.append(roles_item)
 
         def _parse_email_verified(data: object) -> bool | None | Unset:
             if data is None:
@@ -164,7 +166,7 @@ class User:
                 organization_id_type_0 = UUID(data)
 
                 return organization_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 

@@ -238,7 +238,7 @@ class Organization:
                 created_at_type_0 = isoparse(data)
 
                 return created_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -255,7 +255,7 @@ class Organization:
                 updated_at_type_0 = isoparse(data)
 
                 return updated_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -272,7 +272,7 @@ class Organization:
                 effective_role_type_0 = Role.from_dict(data)
 
                 return effective_role_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Role | Unset, data)
 
@@ -289,18 +289,20 @@ class Organization:
                 default_standard_id_type_0 = StandardType(data)
 
                 return default_standard_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | StandardType | Unset, data)
 
         default_standard_id = _parse_default_standard_id(d.pop("default_standard_id", UNSET))
 
-        available_standard_ids = []
         _available_standard_ids = d.pop("available_standard_ids", UNSET)
-        for available_standard_ids_item_data in _available_standard_ids or []:
-            available_standard_ids_item = StandardType(available_standard_ids_item_data)
+        available_standard_ids: list[StandardType] | Unset = UNSET
+        if _available_standard_ids is not UNSET:
+            available_standard_ids = []
+            for available_standard_ids_item_data in _available_standard_ids:
+                available_standard_ids_item = StandardType(available_standard_ids_item_data)
 
-            available_standard_ids.append(available_standard_ids_item)
+                available_standard_ids.append(available_standard_ids_item)
 
         organization = cls(
             organization_id=organization_id,

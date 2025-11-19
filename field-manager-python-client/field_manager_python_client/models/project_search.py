@@ -63,7 +63,7 @@ class ProjectSearch:
                     project_ids_type_0.append(project_ids_type_0_item)
 
                 return project_ids_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(list[UUID] | None | Unset, data)
 

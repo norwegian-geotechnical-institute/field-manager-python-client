@@ -92,7 +92,7 @@ class FileUpdate:
                 file_type_type_0 = FileType(data)
 
                 return file_type_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(FileType | None | Unset, data)
 

@@ -87,18 +87,20 @@ class PizeometerUnits:
         else:
             transformation = TransformationType(_transformation)
 
-        units = []
         _units = d.pop("units", UNSET)
-        for units_item_data in _units or []:
+        units: list[None | str] | Unset = UNSET
+        if _units is not UNSET:
+            units = []
+            for units_item_data in _units:
 
-            def _parse_units_item(data: object) -> None | str:
-                if data is None:
-                    return data
-                return cast(None | str, data)
+                def _parse_units_item(data: object) -> None | str:
+                    if data is None:
+                        return data
+                    return cast(None | str, data)
 
-            units_item = _parse_units_item(units_item_data)
+                units_item = _parse_units_item(units_item_data)
 
-            units.append(units_item)
+                units.append(units_item)
 
         def _parse_default_unit(data: object) -> None | str | Unset:
             if data is None:

@@ -144,7 +144,7 @@ class CrossSectionUpdate:
                     polyline_coordinates_type_0.append(polyline_coordinates_type_0_item)
 
                 return polyline_coordinates_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(list[list[float]] | None | Unset, data)
 
@@ -193,7 +193,7 @@ class CrossSectionUpdate:
                     method_ids_type_0.append(method_ids_type_0_item)
 
                 return method_ids_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(list[UUID] | None | Unset, data)
 

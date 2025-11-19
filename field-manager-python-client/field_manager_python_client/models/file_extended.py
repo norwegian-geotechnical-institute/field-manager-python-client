@@ -263,7 +263,7 @@ class FileExtended:
                 image_taken_type_0 = isoparse(data)
 
                 return image_taken_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -296,19 +296,23 @@ class FileExtended:
 
         image_point_z = _parse_image_point_z(d.pop("image_point_z", UNSET))
 
-        locations = []
         _locations = d.pop("locations", UNSET)
-        for locations_item_data in _locations or []:
-            locations_item = LocationMin.from_dict(locations_item_data)
+        locations: list[LocationMin] | Unset = UNSET
+        if _locations is not UNSET:
+            locations = []
+            for locations_item_data in _locations:
+                locations_item = LocationMin.from_dict(locations_item_data)
 
-            locations.append(locations_item)
+                locations.append(locations_item)
 
-        methods = []
         _methods = d.pop("methods", UNSET)
-        for methods_item_data in _methods or []:
-            methods_item = MethodMin.from_dict(methods_item_data)
+        methods: list[MethodMin] | Unset = UNSET
+        if _methods is not UNSET:
+            methods = []
+            for methods_item_data in _methods:
+                methods_item = MethodMin.from_dict(methods_item_data)
 
-            methods.append(methods_item)
+                methods.append(methods_item)
 
         file_extended = cls(
             file_id=file_id,

@@ -106,12 +106,14 @@ class Options:
 
         auto_set_depth = d.pop("auto_set_depth", UNSET)
 
-        methods = []
         _methods = d.pop("methods", UNSET)
-        for methods_item_data in _methods or []:
-            methods_item = PlotType(methods_item_data)
+        methods: list[PlotType] | Unset = UNSET
+        if _methods is not UNSET:
+            methods = []
+            for methods_item_data in _methods:
+                methods_item = PlotType(methods_item_data)
 
-            methods.append(methods_item)
+                methods.append(methods_item)
 
         options = cls(
             location_ids=location_ids,

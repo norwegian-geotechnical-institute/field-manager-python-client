@@ -8,6 +8,7 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
 from ...models.role import Role
+from ...models.role_create import RoleCreate
 from ...types import Response
 
 
@@ -31,7 +32,14 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> HTTPValidationError | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | RoleCreate | None:
+    if response.status_code == 201:
+        response_201 = RoleCreate.from_dict(response.json())
+
+        return response_201
+
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
@@ -43,7 +51,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[HTTPValidationError]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | RoleCreate]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -57,7 +67,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: Role,
-) -> Response[HTTPValidationError]:
+) -> Response[HTTPValidationError | RoleCreate]:
     """Add User Role
 
     Args:
@@ -69,7 +79,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[HTTPValidationError | RoleCreate]
     """
 
     kwargs = _get_kwargs(
@@ -89,7 +99,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: Role,
-) -> HTTPValidationError | None:
+) -> HTTPValidationError | RoleCreate | None:
     """Add User Role
 
     Args:
@@ -101,7 +111,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        HTTPValidationError | RoleCreate
     """
 
     return sync_detailed(
@@ -116,7 +126,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: Role,
-) -> Response[HTTPValidationError]:
+) -> Response[HTTPValidationError | RoleCreate]:
     """Add User Role
 
     Args:
@@ -128,7 +138,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[HTTPValidationError | RoleCreate]
     """
 
     kwargs = _get_kwargs(
@@ -146,7 +156,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: Role,
-) -> HTTPValidationError | None:
+) -> HTTPValidationError | RoleCreate | None:
     """Add User Role
 
     Args:
@@ -158,7 +168,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        HTTPValidationError | RoleCreate
     """
 
     return (

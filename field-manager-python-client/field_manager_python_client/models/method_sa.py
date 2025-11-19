@@ -310,7 +310,7 @@ class MethodSA:
                 conducted_at_type_0 = isoparse(data)
 
                 return conducted_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -325,12 +325,14 @@ class MethodSA:
 
         conducted_by = _parse_conducted_by(d.pop("conducted_by", UNSET))
 
-        files = []
         _files = d.pop("files", UNSET)
-        for files_item_data in _files or []:
-            files_item = File.from_dict(files_item_data)
+        files: list[File] | Unset = UNSET
+        if _files is not UNSET:
+            files = []
+            for files_item_data in _files:
+                files_item = File.from_dict(files_item_data)
 
-            files.append(files_item)
+                files.append(files_item)
 
         def _parse_self_(data: object) -> None | str | Unset:
             if data is None:

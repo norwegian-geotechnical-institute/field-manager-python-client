@@ -135,7 +135,7 @@ class Comment:
                 location_id_type_0 = UUID(data)
 
                 return location_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | UUID, data)
 
@@ -150,18 +150,20 @@ class Comment:
                 method_id_type_0 = UUID(data)
 
                 return method_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | UUID, data)
 
         method_id = _parse_method_id(d.pop("method_id"))
 
-        likes = []
         _likes = d.pop("likes", UNSET)
-        for likes_item_data in _likes or []:
-            likes_item = Like.from_dict(likes_item_data)
+        likes: list[Like] | Unset = UNSET
+        if _likes is not UNSET:
+            likes = []
+            for likes_item_data in _likes:
+                likes_item = Like.from_dict(likes_item_data)
 
-            likes.append(likes_item)
+                likes.append(likes_item)
 
         comment = cls(
             text=text,

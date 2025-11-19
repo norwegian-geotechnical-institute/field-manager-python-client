@@ -76,12 +76,14 @@ class WebMapServiceCreate:
 
         service_type = WebMapServiceType(d.pop("service_type"))
 
-        available_standard_ids = []
         _available_standard_ids = d.pop("available_standard_ids", UNSET)
-        for available_standard_ids_item_data in _available_standard_ids or []:
-            available_standard_ids_item = StandardType(available_standard_ids_item_data)
+        available_standard_ids: list[StandardType] | Unset = UNSET
+        if _available_standard_ids is not UNSET:
+            available_standard_ids = []
+            for available_standard_ids_item_data in _available_standard_ids:
+                available_standard_ids_item = StandardType(available_standard_ids_item_data)
 
-            available_standard_ids.append(available_standard_ids_item)
+                available_standard_ids.append(available_standard_ids_item)
 
         def _parse_description(data: object) -> None | str | Unset:
             if data is None:

@@ -119,7 +119,7 @@ class WebMapServiceUpdate:
                 service_type_type_0 = WebMapServiceType(data)
 
                 return service_type_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | WebMapServiceType, data)
 
@@ -141,7 +141,7 @@ class WebMapServiceUpdate:
                     available_standard_ids_type_0.append(available_standard_ids_type_0_item)
 
                 return available_standard_ids_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(list[StandardType] | None | Unset, data)
 

@@ -11,6 +11,7 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.method_type import MethodType
+    from ..models.sampling_technique import SamplingTechnique
 
 
 T = TypeVar("T", bound="Standard")
@@ -25,6 +26,7 @@ class Standard:
         description (str):
         sort_order (int):
         method_types (list[MethodType] | Unset):
+        sampling_techniques (list[SamplingTechnique] | Unset):
     """
 
     standard_id: StandardType
@@ -32,6 +34,7 @@ class Standard:
     description: str
     sort_order: int
     method_types: list[MethodType] | Unset = UNSET
+    sampling_techniques: list[SamplingTechnique] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -50,6 +53,13 @@ class Standard:
                 method_types_item = method_types_item_data.to_dict()
                 method_types.append(method_types_item)
 
+        sampling_techniques: list[dict[str, Any]] | Unset = UNSET
+        if not isinstance(self.sampling_techniques, Unset):
+            sampling_techniques = []
+            for sampling_techniques_item_data in self.sampling_techniques:
+                sampling_techniques_item = sampling_techniques_item_data.to_dict()
+                sampling_techniques.append(sampling_techniques_item)
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -62,12 +72,15 @@ class Standard:
         )
         if method_types is not UNSET:
             field_dict["method_types"] = method_types
+        if sampling_techniques is not UNSET:
+            field_dict["sampling_techniques"] = sampling_techniques
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.method_type import MethodType
+        from ..models.sampling_technique import SamplingTechnique
 
         d = dict(src_dict)
         standard_id = StandardType(d.pop("standard_id"))
@@ -78,12 +91,23 @@ class Standard:
 
         sort_order = d.pop("sort_order")
 
-        method_types = []
         _method_types = d.pop("method_types", UNSET)
-        for method_types_item_data in _method_types or []:
-            method_types_item = MethodType.from_dict(method_types_item_data)
+        method_types: list[MethodType] | Unset = UNSET
+        if _method_types is not UNSET:
+            method_types = []
+            for method_types_item_data in _method_types:
+                method_types_item = MethodType.from_dict(method_types_item_data)
 
-            method_types.append(method_types_item)
+                method_types.append(method_types_item)
+
+        _sampling_techniques = d.pop("sampling_techniques", UNSET)
+        sampling_techniques: list[SamplingTechnique] | Unset = UNSET
+        if _sampling_techniques is not UNSET:
+            sampling_techniques = []
+            for sampling_techniques_item_data in _sampling_techniques:
+                sampling_techniques_item = SamplingTechnique.from_dict(sampling_techniques_item_data)
+
+                sampling_techniques.append(sampling_techniques_item)
 
         standard = cls(
             standard_id=standard_id,
@@ -91,6 +115,7 @@ class Standard:
             description=description,
             sort_order=sort_order,
             method_types=method_types,
+            sampling_techniques=sampling_techniques,
         )
 
         standard.additional_properties = d

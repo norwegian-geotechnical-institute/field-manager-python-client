@@ -185,7 +185,7 @@ class LocationSummary:
                 iogp_type_id_type_0 = IOGPTypeEnum(data)
 
                 return iogp_type_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(IOGPTypeEnum | None | Unset, data)
 
@@ -263,12 +263,14 @@ class LocationSummary:
 
         point_y_wgs84_pseudo = _parse_point_y_wgs84_pseudo(d.pop("point_y_wgs84_pseudo", UNSET))
 
-        methods = []
         _methods = d.pop("methods", UNSET)
-        for methods_item_data in _methods or []:
-            methods_item = MethodSummary.from_dict(methods_item_data)
+        methods: list[MethodSummary] | Unset = UNSET
+        if _methods is not UNSET:
+            methods = []
+            for methods_item_data in _methods:
+                methods_item = MethodSummary.from_dict(methods_item_data)
 
-            methods.append(methods_item)
+                methods.append(methods_item)
 
         tags = cast(list[str], d.pop("tags", UNSET))
 

@@ -82,7 +82,7 @@ class MapLayoutUpdate:
                 map_layout_id_type_0 = UUID(data)
 
                 return map_layout_id_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
@@ -97,12 +97,14 @@ class MapLayoutUpdate:
 
         name = _parse_name(d.pop("name", UNSET))
 
-        versions = []
         _versions = d.pop("versions", UNSET)
-        for versions_item_data in _versions or []:
-            versions_item = MapLayoutVersionUpdate.from_dict(versions_item_data)
+        versions: list[MapLayoutVersionUpdate] | Unset = UNSET
+        if _versions is not UNSET:
+            versions = []
+            for versions_item_data in _versions:
+                versions_item = MapLayoutVersionUpdate.from_dict(versions_item_data)
 
-            versions.append(versions_item)
+                versions.append(versions_item)
 
         map_layout_update = cls(
             map_layout_id=map_layout_id,

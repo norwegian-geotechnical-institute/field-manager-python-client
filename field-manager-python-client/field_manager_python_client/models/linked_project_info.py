@@ -230,7 +230,7 @@ class LinkedProjectInfo:
                 created_at_type_0 = isoparse(data)
 
                 return created_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -247,7 +247,7 @@ class LinkedProjectInfo:
                 updated_at_type_0 = isoparse(data)
 
                 return updated_at_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
@@ -273,7 +273,7 @@ class LinkedProjectInfo:
                 height_reference_type_0 = HeightReference(data)
 
                 return height_reference_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(HeightReference | None | Unset, data)
 
@@ -299,7 +299,7 @@ class LinkedProjectInfo:
                 tags_type_0 = cast(list[str], data)
 
                 return tags_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(list[str] | None | Unset, data)
 
@@ -316,7 +316,7 @@ class LinkedProjectInfo:
                 organization_type_0 = OrganizationMin.from_dict(data)
 
                 return organization_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | OrganizationMin | Unset, data)
 
@@ -333,7 +333,7 @@ class LinkedProjectInfo:
                 effective_role_type_0 = Role.from_dict(data)
 
                 return effective_role_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Role | Unset, data)
 
@@ -350,7 +350,7 @@ class LinkedProjectInfo:
                 last_updated_type_0 = isoparse(data)
 
                 return last_updated_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
