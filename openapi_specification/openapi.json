@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.97" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.102" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -23074,6 +23074,12 @@
             "items": { "$ref": "#/components/schemas/SamplingTechnique" },
             "type": "array",
             "title": "Sampling Techniques",
+            "default": []
+          },
+          "default_coordinate_reference_systems": {
+            "items": { "$ref": "#/components/schemas/CRSInfo" },
+            "type": "array",
+            "title": "Default Coordinate Reference Systems",
             "default": []
           }
         },
