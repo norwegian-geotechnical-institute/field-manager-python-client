@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,12 +17,14 @@ class CRSInfo:
         srid (int): EPSG code
         name (str):
         unit (str): Unit of measurement for coordinate axes (e.g., meter, degree, foot)
+        wkt (None | str): Well-Known Text representation of the CRS
     """
 
     auth_name: str
     srid: int
     name: str
     unit: str
+    wkt: None | str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -34,6 +36,9 @@ class CRSInfo:
 
         unit = self.unit
 
+        wkt: None | str
+        wkt = self.wkt
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -42,6 +47,7 @@ class CRSInfo:
                 "srid": srid,
                 "name": name,
                 "unit": unit,
+                "wkt": wkt,
             }
         )
 
@@ -58,11 +64,19 @@ class CRSInfo:
 
         unit = d.pop("unit")
 
+        def _parse_wkt(data: object) -> None | str:
+            if data is None:
+                return data
+            return cast(None | str, data)
+
+        wkt = _parse_wkt(d.pop("wkt"))
+
         crs_info = cls(
             auth_name=auth_name,
             srid=srid,
             name=name,
             unit=unit,
+            wkt=wkt,
         )
 
         crs_info.additional_properties = d
