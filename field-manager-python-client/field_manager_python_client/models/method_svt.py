@@ -43,7 +43,7 @@ class MethodSVT:
         conducted_at (datetime.datetime | None | Unset):
         conducted_by (None | str | Unset):
         files (list[File] | Unset):
-        self_ (None | str | Unset):
+        self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
         vane_height (float | None | Unset): Height of the vane used (mm).
         vane_diameter (float | None | Unset): Diameter of the vane used (mm).
         serial_number (None | str | Unset): Serial number of the vane used.

@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.97" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.119" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -365,7 +365,7 @@
       "get": {
         "tags": ["organizations"],
         "summary": "Get Organizations",
-        "description": "Retrieve the organizations you have access to.",
+        "description": "Retrieve the organizations you have access to.\n\nAdmin users will get all organizations, else:\nIf the user has a project role in a organization, the organization will be included.\nIf the user has an organization role, the organization will be included.",
         "operationId": "get_organizations_organizations_get",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
@@ -3251,6 +3251,7 @@
                       { "$ref": "#/components/schemas/MethodPZData" },
                       { "$ref": "#/components/schemas/MethodRCDData" },
                       { "$ref": "#/components/schemas/MethodRPData" },
+                      { "$ref": "#/components/schemas/MethodSLBData" },
                       { "$ref": "#/components/schemas/MethodSSData" },
                       { "$ref": "#/components/schemas/MethodSRSData" },
                       { "$ref": "#/components/schemas/MethodSVTData" },
@@ -3267,6 +3268,7 @@
                         "5": "#/components/schemas/MethodPZData",
                         "8": "#/components/schemas/MethodRCDData",
                         "3": "#/components/schemas/MethodRPData",
+                        "27": "#/components/schemas/MethodSLBData",
                         "6": "#/components/schemas/MethodSSData",
                         "24": "#/components/schemas/MethodSRSData",
                         "10": "#/components/schemas/MethodSVTData",
@@ -3379,6 +3381,7 @@
                     { "$ref": "#/components/schemas/MethodPZData" },
                     { "$ref": "#/components/schemas/MethodRCDData" },
                     { "$ref": "#/components/schemas/MethodRPData" },
+                    { "$ref": "#/components/schemas/MethodSLBData" },
                     { "$ref": "#/components/schemas/MethodSSData" },
                     { "$ref": "#/components/schemas/MethodSRSData" },
                     { "$ref": "#/components/schemas/MethodSVTData" },
@@ -3395,6 +3398,7 @@
                       "5": "#/components/schemas/MethodPZData",
                       "8": "#/components/schemas/MethodRCDData",
                       "3": "#/components/schemas/MethodRPData",
+                      "27": "#/components/schemas/MethodSLBData",
                       "6": "#/components/schemas/MethodSSData",
                       "24": "#/components/schemas/MethodSRSData",
                       "10": "#/components/schemas/MethodSVTData",
@@ -3516,6 +3520,7 @@
                     { "$ref": "#/components/schemas/MethodPZData" },
                     { "$ref": "#/components/schemas/MethodRCDData" },
                     { "$ref": "#/components/schemas/MethodRPData" },
+                    { "$ref": "#/components/schemas/MethodSLBData" },
                     { "$ref": "#/components/schemas/MethodSSData" },
                     { "$ref": "#/components/schemas/MethodSRSData" },
                     { "$ref": "#/components/schemas/MethodSVTData" },
@@ -3532,6 +3537,7 @@
                       "5": "#/components/schemas/MethodPZData",
                       "8": "#/components/schemas/MethodRCDData",
                       "3": "#/components/schemas/MethodRPData",
+                      "27": "#/components/schemas/MethodSLBData",
                       "6": "#/components/schemas/MethodSSData",
                       "24": "#/components/schemas/MethodSRSData",
                       "10": "#/components/schemas/MethodSVTData",
@@ -6597,6 +6603,16 @@
             "in": "path",
             "required": true,
             "schema": { "$ref": "#/components/schemas/MethodPlotFormat" }
+          },
+          {
+            "name": "cross_section",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Cross Section"
+            }
           }
         ],
         "responses": {
@@ -8425,10 +8441,21 @@
             "type": "string",
             "title": "Unit",
             "description": "Unit of measurement for coordinate axes (e.g., meter, degree, foot)"
+          },
+          "wkt": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Wkt",
+            "description": "Well-Known Text representation of the CRS"
+          },
+          "proj4": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Proj4",
+            "description": "Proj4 representation of the CRS",
+            "deprecated": true
           }
         },
         "type": "object",
-        "required": ["auth_name", "srid", "name", "unit"],
+        "required": ["auth_name", "srid", "name", "unit", "wkt", "proj4"],
         "title": "CRSInfo"
       },
       "ColorMode": {
@@ -10543,7 +10570,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -10737,7 +10766,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "sampler_type_id": {
             "anyOf": [{ "type": "integer" }, { "type": "null" }],
@@ -11181,7 +11212,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "predrilling_depth": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -11869,7 +11902,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -12063,16 +12098,17 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "dynamic_probing_type": {
             "$ref": "#/components/schemas/DPType",
             "default": "DPSHA"
           },
           "predrilling_depth": {
-            "type": "number",
-            "title": "Predrilling Depth",
-            "default": 0.0
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Predrilling Depth"
           },
           "cone_type": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
@@ -12589,7 +12625,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "depth": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -13180,7 +13218,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -13379,7 +13419,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -13573,7 +13615,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -13901,7 +13945,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -14095,7 +14141,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -14289,7 +14337,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "piezometer_type": { "$ref": "#/components/schemas/PiezometerType" },
           "depth_top": {
@@ -15108,7 +15158,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "stopcode": {
             "anyOf": [{ "type": "integer" }, { "type": "null" }],
@@ -15506,7 +15558,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -15700,7 +15754,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "predrilling_depth": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -16166,7 +16222,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -16360,7 +16418,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -16554,7 +16614,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "depth_top": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -16907,7 +16969,25 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
+          },
+          "water_level": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Water Level"
+          },
+          "depth_top": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Depth Top"
+          },
+          "depth_base": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Depth Base"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -16978,10 +17058,111 @@
             "const": 27,
             "title": "Method Type Id",
             "default": 27
+          },
+          "water_level": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Water Level"
+          },
+          "depth_top": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Depth Top"
+          },
+          "depth_base": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Depth Base"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
         "title": "MethodSLBCreate"
+      },
+      "MethodSLBData": {
+        "properties": {
+          "method_data_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Method Data Id"
+          },
+          "method_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Method Id"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 27,
+            "title": "Method Type Id",
+            "default": 27
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "depth": {
+            "type": "number",
+            "title": "Depth",
+            "description": "Depth (m). SGF code D."
+          },
+          "penetration_rate": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Penetration Rate",
+            "description": "Penetration rate (mm/s). SGF code B."
+          },
+          "load": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Load",
+            "description": "Load (kN). SGF code W."
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
+          },
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
+          }
+        },
+        "type": "object",
+        "required": [
+          "method_data_id",
+          "method_id",
+          "created_at",
+          "updated_at",
+          "depth"
+        ],
+        "title": "MethodSLBData"
       },
       "MethodSLBUpdate": {
         "properties": {
@@ -17033,6 +17214,54 @@
             "const": 27,
             "title": "Method Type Id",
             "default": 27
+          },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
+          },
+          "water_level": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Water Level"
+          },
+          "depth_top": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Depth Top"
+          },
+          "depth_base": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Depth Base"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -17101,7 +17330,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -17295,7 +17526,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "sounding_class": {
             "anyOf": [
@@ -17998,7 +18231,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "depth_top": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -18412,7 +18647,26 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
+          },
+          "water_level": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Water Level",
+            "description": "Water surface below ground surface (m)"
+          },
+          "depth_top": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Depth Top"
+          },
+          "depth_base": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Depth Base"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -18483,6 +18737,43 @@
             "const": 28,
             "title": "Method Type Id",
             "default": 28
+          },
+          "water_level": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Water Level"
+          },
+          "depth_top": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Depth Top"
+          },
+          "depth_base": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Depth Base"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -18538,6 +18829,17 @@
             "const": 28,
             "title": "Method Type Id",
             "default": 28
+          },
+          "water_level": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Water Level"
           }
         },
         "type": "object",
@@ -18606,7 +18908,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "vane_height": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -19329,7 +19633,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "predrilling_depth": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -19831,7 +20137,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -20025,7 +20333,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "predrilling_depth": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -20220,6 +20530,16 @@
             "type": "boolean",
             "title": "Increased Rotation Rate",
             "description": "Increased rotation rate"
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
+          },
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
           }
         },
         "type": "object",
@@ -20331,6 +20651,16 @@
             "type": "boolean",
             "title": "Increased Rotation Rate",
             "description": "Increased rotation rate"
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
+          },
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
           }
         },
         "type": "object",
@@ -20345,70 +20675,15 @@
             "title": "Method Type Id",
             "default": 16
           },
-          "depth": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Depth",
-            "description": "Depth (m). SGF code D."
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
           },
-          "penetration_rate": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Penetration Rate",
-            "description": "Penetration rate (mm/s)"
-          },
-          "penetration_force": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Penetration Force",
-            "description": "Penetration force (kN)"
-          },
-          "rotation_rate": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Rotation Rate",
-            "description": "Rotation rate (rpm)"
-          },
-          "rod_friction": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Rod Friction",
-            "description": "Rod friction (kN)"
-          },
-          "increased_rotation_rate": {
-            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
-            "title": "Increased Rotation Rate",
-            "description": "Increased rotation rate"
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
           }
         },
         "type": "object",
@@ -20621,7 +20896,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "operation": { "$ref": "#/components/schemas/Operation" },
           "depth_top": {
@@ -20631,6 +20908,10 @@
           "depth_base": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
             "title": "Depth Base"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -20768,6 +21049,16 @@
             "anyOf": [{ "type": "number" }, { "type": "null" }],
             "title": "Rotation Rate",
             "description": "Rotation rate (rpm)"
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
+          },
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
           }
         },
         "type": "object",
@@ -20878,6 +21169,16 @@
             ],
             "title": "Rotation Rate",
             "description": "Rotation rate (rpm)"
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
+          },
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
           }
         },
         "type": "object",
@@ -20892,69 +21193,15 @@
             "title": "Method Type Id",
             "default": 26
           },
-          "depth": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Depth",
-            "description": "Depth (m). SGF code D."
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
           },
-          "turning": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Turning",
-            "description": "Turning (half revolution/0.2 m)"
-          },
-          "load": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Load",
-            "description": "Load (kN)"
-          },
-          "penetration_rate": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Penetration Rate",
-            "description": "Penetration rate (mm/s)"
-          },
-          "hammering": {
-            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
-            "title": "Hammering"
-          },
-          "rotation_rate": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Rotation Rate",
-            "description": "Rotation rate (rpm)"
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
           }
         },
         "type": "object",
@@ -23074,6 +23321,12 @@
             "items": { "$ref": "#/components/schemas/SamplingTechnique" },
             "type": "array",
             "title": "Sampling Techniques",
+            "default": []
+          },
+          "default_coordinate_reference_systems": {
+            "items": { "$ref": "#/components/schemas/CRSInfo" },
+            "type": "array",
+            "title": "Default Coordinate Reference Systems",
             "default": []
           }
         },

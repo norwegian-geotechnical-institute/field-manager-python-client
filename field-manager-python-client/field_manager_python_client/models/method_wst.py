@@ -50,9 +50,10 @@ class MethodWST:
             conducted_at (datetime.datetime | None | Unset):
             conducted_by (None | str | Unset):
             files (list[File] | Unset):
-            self_ (None | str | Unset):
+            self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
             depth_top (float | None | Unset):
             depth_base (float | None | Unset):
+            stopcode (int | None | Unset):
     """
 
     method_id: UUID
@@ -72,6 +73,7 @@ class MethodWST:
     self_: None | str | Unset = UNSET
     depth_top: float | None | Unset = UNSET
     depth_base: float | None | Unset = UNSET
+    stopcode: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -148,6 +150,12 @@ class MethodWST:
         else:
             depth_base = self.depth_base
 
+        stopcode: int | None | Unset
+        if isinstance(self.stopcode, Unset):
+            stopcode = UNSET
+        else:
+            stopcode = self.stopcode
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -181,6 +189,8 @@ class MethodWST:
             field_dict["depth_top"] = depth_top
         if depth_base is not UNSET:
             field_dict["depth_base"] = depth_base
+        if stopcode is not UNSET:
+            field_dict["stopcode"] = stopcode
 
         return field_dict
 
@@ -296,6 +306,15 @@ class MethodWST:
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
 
+        def _parse_stopcode(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        stopcode = _parse_stopcode(d.pop("stopcode", UNSET))
+
         method_wst = cls(
             method_id=method_id,
             name=name,
@@ -314,6 +333,7 @@ class MethodWST:
             self_=self_,
             depth_top=depth_top,
             depth_base=depth_base,
+            stopcode=stopcode,
         )
 
         method_wst.additional_properties = d

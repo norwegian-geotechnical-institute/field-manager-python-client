@@ -153,6 +153,7 @@ from .method_sa_create import MethodSACreate
 from .method_sa_update import MethodSAUpdate
 from .method_slb import MethodSLB
 from .method_slb_create import MethodSLBCreate
+from .method_slb_data import MethodSLBData
 from .method_slb_update import MethodSLBUpdate
 from .method_spt import MethodSPT
 from .method_spt_create import MethodSPTCreate
@@ -404,6 +405,7 @@ __all__ = (
     "MethodSAUpdate",
     "MethodSLB",
     "MethodSLBCreate",
+    "MethodSLBData",
     "MethodSLBUpdate",
     "MethodSPT",
     "MethodSPTCreate",

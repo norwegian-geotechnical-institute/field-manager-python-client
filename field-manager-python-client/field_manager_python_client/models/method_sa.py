@@ -42,7 +42,7 @@ class MethodSA:
         conducted_at (datetime.datetime | None | Unset):
         conducted_by (None | str | Unset):
         files (list[File] | Unset):
-        self_ (None | str | Unset):
+        self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
         depth_top (float | None | Unset): Depth top (m).
         depth_base (float | None | Unset): Depth base (m).
         length (float | None | Unset):

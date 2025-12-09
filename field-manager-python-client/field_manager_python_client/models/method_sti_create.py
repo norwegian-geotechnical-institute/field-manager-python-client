@@ -36,6 +36,10 @@ class MethodSTICreate:
         conducted_by (None | str | Unset):
         conducted_at (datetime.datetime | None | Unset):
         method_type_id (Literal[28] | Unset):  Default: 28.
+        water_level (float | None | str | Unset):
+        depth_top (float | None | str | Unset):
+        depth_base (float | None | str | Unset):
+        stopcode (int | None | Unset):
     """
 
     method_id: None | Unset | UUID = UNSET
@@ -49,6 +53,10 @@ class MethodSTICreate:
     conducted_by: None | str | Unset = UNSET
     conducted_at: datetime.datetime | None | Unset = UNSET
     method_type_id: Literal[28] | Unset = 28
+    water_level: float | None | str | Unset = UNSET
+    depth_top: float | None | str | Unset = UNSET
+    depth_base: float | None | str | Unset = UNSET
+    stopcode: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -116,6 +124,30 @@ class MethodSTICreate:
 
         method_type_id = self.method_type_id
 
+        water_level: float | None | str | Unset
+        if isinstance(self.water_level, Unset):
+            water_level = UNSET
+        else:
+            water_level = self.water_level
+
+        depth_top: float | None | str | Unset
+        if isinstance(self.depth_top, Unset):
+            depth_top = UNSET
+        else:
+            depth_top = self.depth_top
+
+        depth_base: float | None | str | Unset
+        if isinstance(self.depth_base, Unset):
+            depth_base = UNSET
+        else:
+            depth_base = self.depth_base
+
+        stopcode: int | None | Unset
+        if isinstance(self.stopcode, Unset):
+            stopcode = UNSET
+        else:
+            stopcode = self.stopcode
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -141,6 +173,14 @@ class MethodSTICreate:
             field_dict["conducted_at"] = conducted_at
         if method_type_id is not UNSET:
             field_dict["method_type_id"] = method_type_id
+        if water_level is not UNSET:
+            field_dict["water_level"] = water_level
+        if depth_top is not UNSET:
+            field_dict["depth_top"] = depth_top
+        if depth_base is not UNSET:
+            field_dict["depth_base"] = depth_base
+        if stopcode is not UNSET:
+            field_dict["stopcode"] = stopcode
 
         return field_dict
 
@@ -265,6 +305,42 @@ class MethodSTICreate:
         if method_type_id != 28 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 28, got '{method_type_id}'")
 
+        def _parse_water_level(data: object) -> float | None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | str | Unset, data)
+
+        water_level = _parse_water_level(d.pop("water_level", UNSET))
+
+        def _parse_depth_top(data: object) -> float | None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | str | Unset, data)
+
+        depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
+
+        def _parse_depth_base(data: object) -> float | None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | str | Unset, data)
+
+        depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
+
+        def _parse_stopcode(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        stopcode = _parse_stopcode(d.pop("stopcode", UNSET))
+
         method_sti_create = cls(
             method_id=method_id,
             name=name,
@@ -277,6 +353,10 @@ class MethodSTICreate:
             conducted_by=conducted_by,
             conducted_at=conducted_at,
             method_type_id=method_type_id,
+            water_level=water_level,
+            depth_top=depth_top,
+            depth_base=depth_base,
+            stopcode=stopcode,
         )
 
         method_sti_create.additional_properties = d

@@ -1,5 +1,6 @@
 from http import HTTPStatus
 from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -18,6 +19,7 @@ from ...models.method_rcd_data import MethodRCDData
 from ...models.method_rcd_data_update import MethodRCDDataUpdate
 from ...models.method_rp_data import MethodRPData
 from ...models.method_rp_data_update import MethodRPDataUpdate
+from ...models.method_slb_data import MethodSLBData
 from ...models.method_srs_data import MethodSRSData
 from ...models.method_srs_data_update import MethodSRSDataUpdate
 from ...models.method_ss_data import MethodSSData
@@ -55,10 +57,14 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "put",
-        "url": f"/projects/{project_id}/locations/{location_id}/methods/{method_id}/data/{method_data_id}",
+        "url": "/projects/{project_id}/locations/{location_id}/methods/{method_id}/data/{method_data_id}".format(
+            project_id=quote(str(project_id), safe=""),
+            location_id=quote(str(location_id), safe=""),
+            method_id=quote(str(method_id), safe=""),
+            method_data_id=quote(str(method_data_id), safe=""),
+        ),
     }
 
-    _kwargs["json"]: dict[str, Any]
     if isinstance(body, MethodCPTDataUpdate):
         _kwargs["json"] = body.to_dict()
     elif isinstance(body, MethodDTDataUpdate):
@@ -98,6 +104,7 @@ def _parse_response(
     | MethodPZData
     | MethodRCDData
     | MethodRPData
+    | MethodSLBData
     | MethodSRSData
     | MethodSSData
     | MethodSVTData
@@ -117,6 +124,7 @@ def _parse_response(
             | MethodPZData
             | MethodRCDData
             | MethodRPData
+            | MethodSLBData
             | MethodSRSData
             | MethodSSData
             | MethodSVTData
@@ -175,7 +183,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_200_type_6 = MethodSSData.from_dict(data)
+                response_200_type_6 = MethodSLBData.from_dict(data)
 
                 return response_200_type_6
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -183,7 +191,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_200_type_7 = MethodSRSData.from_dict(data)
+                response_200_type_7 = MethodSSData.from_dict(data)
 
                 return response_200_type_7
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -191,7 +199,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_200_type_8 = MethodSVTData.from_dict(data)
+                response_200_type_8 = MethodSRSData.from_dict(data)
 
                 return response_200_type_8
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -199,7 +207,7 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_200_type_9 = MethodTOTData.from_dict(data)
+                response_200_type_9 = MethodSVTData.from_dict(data)
 
                 return response_200_type_9
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -207,16 +215,24 @@ def _parse_response(
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                response_200_type_10 = MethodTRData.from_dict(data)
+                response_200_type_10 = MethodTOTData.from_dict(data)
 
                 return response_200_type_10
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_200_type_11 = MethodTRData.from_dict(data)
+
+                return response_200_type_11
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
             if not isinstance(data, dict):
                 raise TypeError()
-            response_200_type_11 = MethodWSTData.from_dict(data)
+            response_200_type_12 = MethodWSTData.from_dict(data)
 
-            return response_200_type_11
+            return response_200_type_12
 
         response_200 = _parse_response_200(response.json())
 
@@ -243,6 +259,7 @@ def _build_response(
     | MethodPZData
     | MethodRCDData
     | MethodRPData
+    | MethodSLBData
     | MethodSRSData
     | MethodSSData
     | MethodSVTData
@@ -284,6 +301,7 @@ def sync_detailed(
     | MethodPZData
     | MethodRCDData
     | MethodRPData
+    | MethodSLBData
     | MethodSRSData
     | MethodSSData
     | MethodSVTData
@@ -309,7 +327,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError | MethodCPTData | MethodDPData | MethodDTData | MethodPZData | MethodRCDData | MethodRPData | MethodSRSData | MethodSSData | MethodSVTData | MethodTOTData | MethodTRData | MethodWSTData]
+        Response[HTTPValidationError | MethodCPTData | MethodDPData | MethodDTData | MethodPZData | MethodRCDData | MethodRPData | MethodSLBData | MethodSRSData | MethodSSData | MethodSVTData | MethodTOTData | MethodTRData | MethodWSTData]
     """
 
     kwargs = _get_kwargs(
@@ -353,6 +371,7 @@ def sync(
     | MethodPZData
     | MethodRCDData
     | MethodRPData
+    | MethodSLBData
     | MethodSRSData
     | MethodSSData
     | MethodSVTData
@@ -379,7 +398,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError | MethodCPTData | MethodDPData | MethodDTData | MethodPZData | MethodRCDData | MethodRPData | MethodSRSData | MethodSSData | MethodSVTData | MethodTOTData | MethodTRData | MethodWSTData
+        HTTPValidationError | MethodCPTData | MethodDPData | MethodDTData | MethodPZData | MethodRCDData | MethodRPData | MethodSLBData | MethodSRSData | MethodSSData | MethodSVTData | MethodTOTData | MethodTRData | MethodWSTData
     """
 
     return sync_detailed(
@@ -418,6 +437,7 @@ async def asyncio_detailed(
     | MethodPZData
     | MethodRCDData
     | MethodRPData
+    | MethodSLBData
     | MethodSRSData
     | MethodSSData
     | MethodSVTData
@@ -443,7 +463,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError | MethodCPTData | MethodDPData | MethodDTData | MethodPZData | MethodRCDData | MethodRPData | MethodSRSData | MethodSSData | MethodSVTData | MethodTOTData | MethodTRData | MethodWSTData]
+        Response[HTTPValidationError | MethodCPTData | MethodDPData | MethodDTData | MethodPZData | MethodRCDData | MethodRPData | MethodSLBData | MethodSRSData | MethodSSData | MethodSVTData | MethodTOTData | MethodTRData | MethodWSTData]
     """
 
     kwargs = _get_kwargs(
@@ -485,6 +505,7 @@ async def asyncio(
     | MethodPZData
     | MethodRCDData
     | MethodRPData
+    | MethodSLBData
     | MethodSRSData
     | MethodSSData
     | MethodSVTData
@@ -511,7 +532,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError | MethodCPTData | MethodDPData | MethodDTData | MethodPZData | MethodRCDData | MethodRPData | MethodSRSData | MethodSSData | MethodSVTData | MethodTOTData | MethodTRData | MethodWSTData
+        HTTPValidationError | MethodCPTData | MethodDPData | MethodDTData | MethodPZData | MethodRCDData | MethodRPData | MethodSLBData | MethodSRSData | MethodSSData | MethodSVTData | MethodTOTData | MethodTRData | MethodWSTData
     """
 
     return (
