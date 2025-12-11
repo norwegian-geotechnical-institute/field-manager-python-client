@@ -26,7 +26,7 @@ class FileExtended:
     Attributes:
         file_id (UUID):
         name (str):
-        blob_url (str):
+        blob_url (str): Will be removed in future versions.
         original_filename (str):
         file_type (FileType):
         mime_type (str):

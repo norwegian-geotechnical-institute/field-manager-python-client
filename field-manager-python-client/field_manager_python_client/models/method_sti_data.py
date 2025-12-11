@@ -1,31 +1,54 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
 from typing import Any, Literal, TypeVar, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="MethodTRDataUpdate")
+T = TypeVar("T", bound="MethodSTIData")
 
 
 @_attrs_define
-class MethodTRDataUpdate:
+class MethodSTIData:
     """
     Attributes:
-        method_type_id (Literal[16] | Unset):  Default: 16.
+        method_data_id (UUID):
+        method_id (UUID):
+        created_at (datetime.datetime):
+        updated_at (datetime.datetime):
+        depth (float): Depth (m). SGF code D.
+        method_type_id (Literal[28] | Unset):  Default: 28.
         remarks (None | str | Unset): Remarks. SGF code T
         comment_code (int | None | Unset): Comment code. Two digit value.
     """
 
-    method_type_id: Literal[16] | Unset = 16
+    method_data_id: UUID
+    method_id: UUID
+    created_at: datetime.datetime
+    updated_at: datetime.datetime
+    depth: float
+    method_type_id: Literal[28] | Unset = 28
     remarks: None | str | Unset = UNSET
     comment_code: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        method_data_id = str(self.method_data_id)
+
+        method_id = str(self.method_id)
+
+        created_at = self.created_at.isoformat()
+
+        updated_at = self.updated_at.isoformat()
+
+        depth = self.depth
+
         method_type_id = self.method_type_id
 
         remarks: None | str | Unset
@@ -42,7 +65,15 @@ class MethodTRDataUpdate:
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update(
+            {
+                "method_data_id": method_data_id,
+                "method_id": method_id,
+                "created_at": created_at,
+                "updated_at": updated_at,
+                "depth": depth,
+            }
+        )
         if method_type_id is not UNSET:
             field_dict["method_type_id"] = method_type_id
         if remarks is not UNSET:
@@ -55,9 +86,19 @@ class MethodTRDataUpdate:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        method_type_id = cast(Literal[16] | Unset, d.pop("method_type_id", UNSET))
-        if method_type_id != 16 and not isinstance(method_type_id, Unset):
-            raise ValueError(f"method_type_id must match const 16, got '{method_type_id}'")
+        method_data_id = UUID(d.pop("method_data_id"))
+
+        method_id = UUID(d.pop("method_id"))
+
+        created_at = isoparse(d.pop("created_at"))
+
+        updated_at = isoparse(d.pop("updated_at"))
+
+        depth = d.pop("depth")
+
+        method_type_id = cast(Literal[28] | Unset, d.pop("method_type_id", UNSET))
+        if method_type_id != 28 and not isinstance(method_type_id, Unset):
+            raise ValueError(f"method_type_id must match const 28, got '{method_type_id}'")
 
         def _parse_remarks(data: object) -> None | str | Unset:
             if data is None:
@@ -77,14 +118,19 @@ class MethodTRDataUpdate:
 
         comment_code = _parse_comment_code(d.pop("comment_code", UNSET))
 
-        method_tr_data_update = cls(
+        method_sti_data = cls(
+            method_data_id=method_data_id,
+            method_id=method_id,
+            created_at=created_at,
+            updated_at=updated_at,
+            depth=depth,
             method_type_id=method_type_id,
             remarks=remarks,
             comment_code=comment_code,
         )
 
-        method_tr_data_update.additional_properties = d
-        return method_tr_data_update
+        method_sti_data.additional_properties = d
+        return method_sti_data
 
     @property
     def additional_keys(self) -> list[str]:
