@@ -42,6 +42,7 @@ class MethodWSTCreate:
             MANUAL = "MANUAL",
             MECHANICAL = "MECHANICAL"
             )
+        predrilling_depth (float | None | str | Unset):
     """
 
     method_id: None | Unset | UUID = UNSET
@@ -56,6 +57,7 @@ class MethodWSTCreate:
     conducted_at: datetime.datetime | None | Unset = UNSET
     method_type_id: Literal[26] | Unset = 26
     operation: Operation | Unset = UNSET
+    predrilling_depth: float | None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -127,6 +129,12 @@ class MethodWSTCreate:
         if not isinstance(self.operation, Unset):
             operation = self.operation.value
 
+        predrilling_depth: float | None | str | Unset
+        if isinstance(self.predrilling_depth, Unset):
+            predrilling_depth = UNSET
+        else:
+            predrilling_depth = self.predrilling_depth
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -154,6 +162,8 @@ class MethodWSTCreate:
             field_dict["method_type_id"] = method_type_id
         if operation is not UNSET:
             field_dict["operation"] = operation
+        if predrilling_depth is not UNSET:
+            field_dict["predrilling_depth"] = predrilling_depth
 
         return field_dict
 
@@ -285,6 +295,15 @@ class MethodWSTCreate:
         else:
             operation = Operation(_operation)
 
+        def _parse_predrilling_depth(data: object) -> float | None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | str | Unset, data)
+
+        predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
+
         method_wst_create = cls(
             method_id=method_id,
             name=name,
@@ -298,6 +317,7 @@ class MethodWSTCreate:
             conducted_at=conducted_at,
             method_type_id=method_type_id,
             operation=operation,
+            predrilling_depth=predrilling_depth,
         )
 
         method_wst_create.additional_properties = d
