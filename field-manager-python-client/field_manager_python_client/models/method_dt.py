@@ -43,7 +43,7 @@ class MethodDT:
         conducted_at (datetime.datetime | None | Unset):
         conducted_by (None | str | Unset):
         files (list[File] | Unset):
-        self_ (None | str | Unset):
+        self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
         depth (float | None | Unset): Depth (m). SGF code D.
         u2_initial (float | None | Unset): Initial shoulder pressure (kPa).
         u2_equilibrium (float | None | Unset): Equilibrium shoulder pressure (kPa).

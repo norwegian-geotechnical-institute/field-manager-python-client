@@ -36,6 +36,7 @@ class MethodSSCreate:
         conducted_by (None | str | Unset):
         conducted_at (datetime.datetime | None | Unset):
         method_type_id (Literal[6] | Unset):  Default: 6.
+        predrilling_depth (float | None | str | Unset):
         stopcode (int | None | Unset):
     """
 
@@ -50,6 +51,7 @@ class MethodSSCreate:
     conducted_by: None | str | Unset = UNSET
     conducted_at: datetime.datetime | None | Unset = UNSET
     method_type_id: Literal[6] | Unset = 6
+    predrilling_depth: float | None | str | Unset = UNSET
     stopcode: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -118,6 +120,12 @@ class MethodSSCreate:
 
         method_type_id = self.method_type_id
 
+        predrilling_depth: float | None | str | Unset
+        if isinstance(self.predrilling_depth, Unset):
+            predrilling_depth = UNSET
+        else:
+            predrilling_depth = self.predrilling_depth
+
         stopcode: int | None | Unset
         if isinstance(self.stopcode, Unset):
             stopcode = UNSET
@@ -149,6 +157,8 @@ class MethodSSCreate:
             field_dict["conducted_at"] = conducted_at
         if method_type_id is not UNSET:
             field_dict["method_type_id"] = method_type_id
+        if predrilling_depth is not UNSET:
+            field_dict["predrilling_depth"] = predrilling_depth
         if stopcode is not UNSET:
             field_dict["stopcode"] = stopcode
 
@@ -275,6 +285,15 @@ class MethodSSCreate:
         if method_type_id != 6 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 6, got '{method_type_id}'")
 
+        def _parse_predrilling_depth(data: object) -> float | None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | str | Unset, data)
+
+        predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
+
         def _parse_stopcode(data: object) -> int | None | Unset:
             if data is None:
                 return data
@@ -296,6 +315,7 @@ class MethodSSCreate:
             conducted_by=conducted_by,
             conducted_at=conducted_at,
             method_type_id=method_type_id,
+            predrilling_depth=predrilling_depth,
             stopcode=stopcode,
         )
 

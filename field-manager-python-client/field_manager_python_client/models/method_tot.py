@@ -43,7 +43,7 @@ class MethodTOT:
         conducted_at (datetime.datetime | None | Unset):
         conducted_by (None | str | Unset):
         files (list[File] | Unset):
-        self_ (None | str | Unset):
+        self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
         predrilling_depth (float | None | Unset):
         stopcode (int | None | Unset):
         depth_top (float | None | Unset):
