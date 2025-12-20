@@ -43,7 +43,12 @@ class MethodSLB:
         conducted_at (datetime.datetime | None | Unset):
         conducted_by (None | str | Unset):
         files (list[File] | Unset):
-        self_ (None | str | Unset):
+        self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
+        water_level (float | None | Unset):
+        predrilling_depth (float | None | Unset):
+        depth_top (float | None | Unset):
+        depth_base (float | None | Unset):
+        stopcode (int | None | Unset):
     """
 
     method_id: UUID
@@ -60,6 +65,11 @@ class MethodSLB:
     conducted_by: None | str | Unset = UNSET
     files: list[File] | Unset = UNSET
     self_: None | str | Unset = UNSET
+    water_level: float | None | Unset = UNSET
+    predrilling_depth: float | None | Unset = UNSET
+    depth_top: float | None | Unset = UNSET
+    depth_base: float | None | Unset = UNSET
+    stopcode: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -122,6 +132,36 @@ class MethodSLB:
         else:
             self_ = self.self_
 
+        water_level: float | None | Unset
+        if isinstance(self.water_level, Unset):
+            water_level = UNSET
+        else:
+            water_level = self.water_level
+
+        predrilling_depth: float | None | Unset
+        if isinstance(self.predrilling_depth, Unset):
+            predrilling_depth = UNSET
+        else:
+            predrilling_depth = self.predrilling_depth
+
+        depth_top: float | None | Unset
+        if isinstance(self.depth_top, Unset):
+            depth_top = UNSET
+        else:
+            depth_top = self.depth_top
+
+        depth_base: float | None | Unset
+        if isinstance(self.depth_base, Unset):
+            depth_base = UNSET
+        else:
+            depth_base = self.depth_base
+
+        stopcode: int | None | Unset
+        if isinstance(self.stopcode, Unset):
+            stopcode = UNSET
+        else:
+            stopcode = self.stopcode
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -150,6 +190,16 @@ class MethodSLB:
             field_dict["files"] = files
         if self_ is not UNSET:
             field_dict["self"] = self_
+        if water_level is not UNSET:
+            field_dict["water_level"] = water_level
+        if predrilling_depth is not UNSET:
+            field_dict["predrilling_depth"] = predrilling_depth
+        if depth_top is not UNSET:
+            field_dict["depth_top"] = depth_top
+        if depth_base is not UNSET:
+            field_dict["depth_base"] = depth_base
+        if stopcode is not UNSET:
+            field_dict["stopcode"] = stopcode
 
         return field_dict
 
@@ -245,6 +295,51 @@ class MethodSLB:
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
+        def _parse_water_level(data: object) -> float | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | Unset, data)
+
+        water_level = _parse_water_level(d.pop("water_level", UNSET))
+
+        def _parse_predrilling_depth(data: object) -> float | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | Unset, data)
+
+        predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
+
+        def _parse_depth_top(data: object) -> float | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | Unset, data)
+
+        depth_top = _parse_depth_top(d.pop("depth_top", UNSET))
+
+        def _parse_depth_base(data: object) -> float | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | Unset, data)
+
+        depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
+
+        def _parse_stopcode(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        stopcode = _parse_stopcode(d.pop("stopcode", UNSET))
+
         method_slb = cls(
             method_id=method_id,
             name=name,
@@ -260,6 +355,11 @@ class MethodSLB:
             conducted_by=conducted_by,
             files=files,
             self_=self_,
+            water_level=water_level,
+            predrilling_depth=predrilling_depth,
+            depth_top=depth_top,
+            depth_base=depth_base,
+            stopcode=stopcode,
         )
 
         method_slb.additional_properties = d
