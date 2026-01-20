@@ -29,6 +29,8 @@ class MethodWSTData:
         penetration_rate (float | None | Unset): Penetration rate (mm/s)
         hammering (bool | None | Unset): Hammering 0=off 1=on SGF code AP.
         rotation_rate (float | None | Unset): Rotation rate (rpm)
+        remarks (None | str | Unset): Remarks. SGF code T
+        comment_code (int | None | Unset): Comment code. Two digit value.
     """
 
     method_data_id: UUID
@@ -42,6 +44,8 @@ class MethodWSTData:
     penetration_rate: float | None | Unset = UNSET
     hammering: bool | None | Unset = UNSET
     rotation_rate: float | None | Unset = UNSET
+    remarks: None | str | Unset = UNSET
+    comment_code: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -87,6 +91,18 @@ class MethodWSTData:
         else:
             rotation_rate = self.rotation_rate
 
+        remarks: None | str | Unset
+        if isinstance(self.remarks, Unset):
+            remarks = UNSET
+        else:
+            remarks = self.remarks
+
+        comment_code: int | None | Unset
+        if isinstance(self.comment_code, Unset):
+            comment_code = UNSET
+        else:
+            comment_code = self.comment_code
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -110,6 +126,10 @@ class MethodWSTData:
             field_dict["hammering"] = hammering
         if rotation_rate is not UNSET:
             field_dict["rotation_rate"] = rotation_rate
+        if remarks is not UNSET:
+            field_dict["remarks"] = remarks
+        if comment_code is not UNSET:
+            field_dict["comment_code"] = comment_code
 
         return field_dict
 
@@ -175,6 +195,24 @@ class MethodWSTData:
 
         rotation_rate = _parse_rotation_rate(d.pop("rotation_rate", UNSET))
 
+        def _parse_remarks(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        remarks = _parse_remarks(d.pop("remarks", UNSET))
+
+        def _parse_comment_code(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        comment_code = _parse_comment_code(d.pop("comment_code", UNSET))
+
         method_wst_data = cls(
             method_data_id=method_data_id,
             method_id=method_id,
@@ -187,6 +225,8 @@ class MethodWSTData:
             penetration_rate=penetration_rate,
             hammering=hammering,
             rotation_rate=rotation_rate,
+            remarks=remarks,
+            comment_code=comment_code,
         )
 
         method_wst_data.additional_properties = d

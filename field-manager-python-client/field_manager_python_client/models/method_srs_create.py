@@ -47,6 +47,7 @@ class MethodSRSCreate:
         serial_number (None | str | Unset):
         calibration_date (datetime.datetime | None | Unset):
         conversion_factor (float | None | str | Unset):
+        predrilling_depth (float | None | str | Unset):
     """
 
     method_id: None | Unset | UUID = UNSET
@@ -64,6 +65,7 @@ class MethodSRSCreate:
     serial_number: None | str | Unset = UNSET
     calibration_date: datetime.datetime | None | Unset = UNSET
     conversion_factor: float | None | str | Unset = UNSET
+    predrilling_depth: float | None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -155,6 +157,12 @@ class MethodSRSCreate:
         else:
             conversion_factor = self.conversion_factor
 
+        predrilling_depth: float | None | str | Unset
+        if isinstance(self.predrilling_depth, Unset):
+            predrilling_depth = UNSET
+        else:
+            predrilling_depth = self.predrilling_depth
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -188,6 +196,8 @@ class MethodSRSCreate:
             field_dict["calibration_date"] = calibration_date
         if conversion_factor is not UNSET:
             field_dict["conversion_factor"] = conversion_factor
+        if predrilling_depth is not UNSET:
+            field_dict["predrilling_depth"] = predrilling_depth
 
         return field_dict
 
@@ -354,6 +364,15 @@ class MethodSRSCreate:
 
         conversion_factor = _parse_conversion_factor(d.pop("conversion_factor", UNSET))
 
+        def _parse_predrilling_depth(data: object) -> float | None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | str | Unset, data)
+
+        predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
+
         method_srs_create = cls(
             method_id=method_id,
             name=name,
@@ -370,6 +389,7 @@ class MethodSRSCreate:
             serial_number=serial_number,
             calibration_date=calibration_date,
             conversion_factor=conversion_factor,
+            predrilling_depth=predrilling_depth,
         )
 
         method_srs_create.additional_properties = d
