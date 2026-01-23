@@ -77,6 +77,10 @@ def sync_detailed(
 
      Retrieve the organizations you have access to.
 
+    Admin users will get all organizations, else:
+    If the user has a project role in a organization, the organization will be included.
+    If the user has an organization role, the organization will be included.
+
     Args:
         skip (int | Unset):  Default: 0.
         limit (int | Unset):  Default: 100.
@@ -111,6 +115,10 @@ def sync(
 
      Retrieve the organizations you have access to.
 
+    Admin users will get all organizations, else:
+    If the user has a project role in a organization, the organization will be included.
+    If the user has an organization role, the organization will be included.
+
     Args:
         skip (int | Unset):  Default: 0.
         limit (int | Unset):  Default: 100.
@@ -139,6 +147,10 @@ async def asyncio_detailed(
     """Get Organizations
 
      Retrieve the organizations you have access to.
+
+    Admin users will get all organizations, else:
+    If the user has a project role in a organization, the organization will be included.
+    If the user has an organization role, the organization will be included.
 
     Args:
         skip (int | Unset):  Default: 0.
@@ -171,6 +183,10 @@ async def asyncio(
     """Get Organizations
 
      Retrieve the organizations you have access to.
+
+    Admin users will get all organizations, else:
+    If the user has a project role in a organization, the organization will be included.
+    If the user has an organization role, the organization will be included.
 
     Args:
         skip (int | Unset):  Default: 0.

@@ -153,6 +153,9 @@ from .method_sa_create import MethodSACreate
 from .method_sa_update import MethodSAUpdate
 from .method_slb import MethodSLB
 from .method_slb_create import MethodSLBCreate
+from .method_slb_data import MethodSLBData
+from .method_slb_data_create import MethodSLBDataCreate
+from .method_slb_data_update import MethodSLBDataUpdate
 from .method_slb_update import MethodSLBUpdate
 from .method_spt import MethodSPT
 from .method_spt_create import MethodSPTCreate
@@ -172,6 +175,9 @@ from .method_ss_update import MethodSSUpdate
 from .method_status_enum import MethodStatusEnum
 from .method_sti import MethodSTI
 from .method_sti_create import MethodSTICreate
+from .method_sti_data import MethodSTIData
+from .method_sti_data_create import MethodSTIDataCreate
+from .method_sti_data_update import MethodSTIDataUpdate
 from .method_sti_update import MethodSTIUpdate
 from .method_summary import MethodSummary
 from .method_svt import MethodSVT
@@ -404,6 +410,9 @@ __all__ = (
     "MethodSAUpdate",
     "MethodSLB",
     "MethodSLBCreate",
+    "MethodSLBData",
+    "MethodSLBDataCreate",
+    "MethodSLBDataUpdate",
     "MethodSLBUpdate",
     "MethodSPT",
     "MethodSPTCreate",
@@ -423,6 +432,9 @@ __all__ = (
     "MethodStatusEnum",
     "MethodSTI",
     "MethodSTICreate",
+    "MethodSTIData",
+    "MethodSTIDataCreate",
+    "MethodSTIDataUpdate",
     "MethodSTIUpdate",
     "MethodSummary",
     "MethodSVT",
