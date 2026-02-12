@@ -31,6 +31,8 @@ class OrganizationCreate:
         updated_at (datetime.datetime | None | Unset):
         default_standard_id (None | StandardType | Unset):
         available_standard_ids (list[StandardType] | Unset):
+        can_approve_method (list[RoleEnum] | Unset):
+        can_revoke_method_approval (list[RoleEnum] | Unset):
     """
 
     name: str
@@ -44,6 +46,8 @@ class OrganizationCreate:
     updated_at: datetime.datetime | None | Unset = UNSET
     default_standard_id: None | StandardType | Unset = UNSET
     available_standard_ids: list[StandardType] | Unset = UNSET
+    can_approve_method: list[RoleEnum] | Unset = UNSET
+    can_revoke_method_approval: list[RoleEnum] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -120,6 +124,20 @@ class OrganizationCreate:
                 available_standard_ids_item = available_standard_ids_item_data.value
                 available_standard_ids.append(available_standard_ids_item)
 
+        can_approve_method: list[str] | Unset = UNSET
+        if not isinstance(self.can_approve_method, Unset):
+            can_approve_method = []
+            for can_approve_method_item_data in self.can_approve_method:
+                can_approve_method_item = can_approve_method_item_data.value
+                can_approve_method.append(can_approve_method_item)
+
+        can_revoke_method_approval: list[str] | Unset = UNSET
+        if not isinstance(self.can_revoke_method_approval, Unset):
+            can_revoke_method_approval = []
+            for can_revoke_method_approval_item_data in self.can_revoke_method_approval:
+                can_revoke_method_approval_item = can_revoke_method_approval_item_data.value
+                can_revoke_method_approval.append(can_revoke_method_approval_item)
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -147,6 +165,10 @@ class OrganizationCreate:
             field_dict["default_standard_id"] = default_standard_id
         if available_standard_ids is not UNSET:
             field_dict["available_standard_ids"] = available_standard_ids
+        if can_approve_method is not UNSET:
+            field_dict["can_approve_method"] = can_approve_method
+        if can_revoke_method_approval is not UNSET:
+            field_dict["can_revoke_method_approval"] = can_revoke_method_approval
 
         return field_dict
 
@@ -285,6 +307,24 @@ class OrganizationCreate:
 
                 available_standard_ids.append(available_standard_ids_item)
 
+        _can_approve_method = d.pop("can_approve_method", UNSET)
+        can_approve_method: list[RoleEnum] | Unset = UNSET
+        if _can_approve_method is not UNSET:
+            can_approve_method = []
+            for can_approve_method_item_data in _can_approve_method:
+                can_approve_method_item = RoleEnum(can_approve_method_item_data)
+
+                can_approve_method.append(can_approve_method_item)
+
+        _can_revoke_method_approval = d.pop("can_revoke_method_approval", UNSET)
+        can_revoke_method_approval: list[RoleEnum] | Unset = UNSET
+        if _can_revoke_method_approval is not UNSET:
+            can_revoke_method_approval = []
+            for can_revoke_method_approval_item_data in _can_revoke_method_approval:
+                can_revoke_method_approval_item = RoleEnum(can_revoke_method_approval_item_data)
+
+                can_revoke_method_approval.append(can_revoke_method_approval_item)
+
         organization_create = cls(
             name=name,
             organization_id=organization_id,
@@ -297,6 +337,8 @@ class OrganizationCreate:
             updated_at=updated_at,
             default_standard_id=default_standard_id,
             available_standard_ids=available_standard_ids,
+            can_approve_method=can_approve_method,
+            can_revoke_method_approval=can_revoke_method_approval,
         )
 
         organization_create.additional_properties = d

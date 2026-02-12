@@ -1,5 +1,6 @@
 from http import HTTPStatus
 from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -20,6 +21,7 @@ def _get_kwargs(
     geojson: bool | None | Unset = UNSET,
     as_attachment: bool | None | Unset = True,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     params["token"] = token
@@ -51,7 +53,10 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/download/projects/{project_id}/file/{file_id}",
+        "url": "/download/projects/{project_id}/file/{file_id}".format(
+            project_id=quote(str(project_id), safe=""),
+            file_id=quote(str(file_id), safe=""),
+        ),
         "params": params,
     }
 

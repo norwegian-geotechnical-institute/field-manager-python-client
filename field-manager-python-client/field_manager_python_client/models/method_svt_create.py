@@ -42,6 +42,7 @@ class MethodSVTCreate:
         vane_diameter (float | None | str | Unset): Diameter of the vane used (mm).
         serial_number (None | str | Unset): Serial number of the vane used.
         calibration_date (datetime.datetime | None | Unset): Date of calibration of the vane used.
+        predrilling_depth (float | None | str | Unset):
     """
 
     method_id: None | Unset | UUID = UNSET
@@ -61,6 +62,7 @@ class MethodSVTCreate:
     vane_diameter: float | None | str | Unset = UNSET
     serial_number: None | str | Unset = UNSET
     calibration_date: datetime.datetime | None | Unset = UNSET
+    predrilling_depth: float | None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -166,6 +168,12 @@ class MethodSVTCreate:
         else:
             calibration_date = self.calibration_date
 
+        predrilling_depth: float | None | str | Unset
+        if isinstance(self.predrilling_depth, Unset):
+            predrilling_depth = UNSET
+        else:
+            predrilling_depth = self.predrilling_depth
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -203,6 +211,8 @@ class MethodSVTCreate:
             field_dict["serial_number"] = serial_number
         if calibration_date is not UNSET:
             field_dict["calibration_date"] = calibration_date
+        if predrilling_depth is not UNSET:
+            field_dict["predrilling_depth"] = predrilling_depth
 
         return field_dict
 
@@ -389,6 +399,15 @@ class MethodSVTCreate:
 
         calibration_date = _parse_calibration_date(d.pop("calibration_date", UNSET))
 
+        def _parse_predrilling_depth(data: object) -> float | None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | str | Unset, data)
+
+        predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
+
         method_svt_create = cls(
             method_id=method_id,
             name=name,
@@ -407,6 +426,7 @@ class MethodSVTCreate:
             vane_diameter=vane_diameter,
             serial_number=serial_number,
             calibration_date=calibration_date,
+            predrilling_depth=predrilling_depth,
         )
 
         method_svt_create.additional_properties = d
