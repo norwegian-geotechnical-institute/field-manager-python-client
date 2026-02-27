@@ -18,6 +18,7 @@ def _get_kwargs(
     skip: int | Unset = 0,
     limit: int | Unset = 100,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     json_srid: int | None | Unset

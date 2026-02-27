@@ -1,5 +1,6 @@
 from http import HTTPStatus
 from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -19,6 +20,7 @@ def _get_kwargs(
     *,
     cross_section_ids: list[UUID] | Unset = UNSET,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     json_cross_section_ids: list[str] | Unset = UNSET
@@ -34,7 +36,10 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/projects/{project_id}/cross_sections/lines/{format_}",
+        "url": "/projects/{project_id}/cross_sections/lines/{format_}".format(
+            project_id=quote(str(project_id), safe=""),
+            format_=quote(str(format_), safe=""),
+        ),
         "params": params,
     }
 

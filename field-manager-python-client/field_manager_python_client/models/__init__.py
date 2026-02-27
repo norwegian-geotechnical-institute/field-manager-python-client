@@ -52,12 +52,19 @@ from .fm_plot_options import FMPlotOptions
 from .get_cross_section_plot_projects_project_id_cross_sections_cross_section_id_format_get_format import (
     GetCrossSectionPlotProjectsProjectIdCrossSectionsCrossSectionIdFormatGetFormat,
 )
+from .get_location_layers_response import GetLocationLayersResponse
+from .hatch_style_enum import HatchStyleEnum
 from .height_reference import HeightReference
 from .http_validation_error import HTTPValidationError
 from .image_size import ImageSize
 from .iogp_type import IOGPType
 from .iogp_type_enum import IOGPTypeEnum
 from .language import Language
+from .layer_group import LayerGroup
+from .layer_group_create import LayerGroupCreate
+from .layer_group_with_soil_units import LayerGroupWithSoilUnits
+from .layer_interval_create import LayerIntervalCreate
+from .layer_interval_with_soil_unit import LayerIntervalWithSoilUnit
 from .like import Like
 from .linked_project_info import LinkedProjectInfo
 from .location import Location
@@ -153,6 +160,9 @@ from .method_sa_create import MethodSACreate
 from .method_sa_update import MethodSAUpdate
 from .method_slb import MethodSLB
 from .method_slb_create import MethodSLBCreate
+from .method_slb_data import MethodSLBData
+from .method_slb_data_create import MethodSLBDataCreate
+from .method_slb_data_update import MethodSLBDataUpdate
 from .method_slb_update import MethodSLBUpdate
 from .method_spt import MethodSPT
 from .method_spt_create import MethodSPTCreate
@@ -172,6 +182,9 @@ from .method_ss_update import MethodSSUpdate
 from .method_status_enum import MethodStatusEnum
 from .method_sti import MethodSTI
 from .method_sti_create import MethodSTICreate
+from .method_sti_data import MethodSTIData
+from .method_sti_data_create import MethodSTIDataCreate
+from .method_sti_data_update import MethodSTIDataUpdate
 from .method_sti_update import MethodSTIUpdate
 from .method_summary import MethodSummary
 from .method_svt import MethodSVT
@@ -250,11 +263,15 @@ from .sample_container_type import SampleContainerType
 from .sample_material import SampleMaterial
 from .sampler_type import SamplerType
 from .sampling_technique import SamplingTechnique
+from .save_layer_interpretation_request import SaveLayerInterpretationRequest
+from .save_layer_interpretation_response import SaveLayerInterpretationResponse
 from .scales import Scales
 from .scaling_mode import ScalingMode
 from .shape import Shape
 from .shape_color import ShapeColor
 from .shape_update import ShapeUpdate
+from .soil_type_enum import SoilTypeEnum
+from .soil_unit import SoilUnit
 from .sounding_class import SoundingClass
 from .standard import Standard
 from .standard_type import StandardType
@@ -262,6 +279,7 @@ from .sub_shape import SubShape
 from .transformation_type import TransformationType
 from .user import User
 from .validation_error import ValidationError
+from .validation_error_context import ValidationErrorContext
 from .web_map_service import WebMapService
 from .web_map_service_create import WebMapServiceCreate
 from .web_map_service_level import WebMapServiceLevel
@@ -303,12 +321,19 @@ __all__ = (
     "FileUpdate",
     "FMPlotOptions",
     "GetCrossSectionPlotProjectsProjectIdCrossSectionsCrossSectionIdFormatGetFormat",
+    "GetLocationLayersResponse",
+    "HatchStyleEnum",
     "HeightReference",
     "HTTPValidationError",
     "ImageSize",
     "IOGPType",
     "IOGPTypeEnum",
     "Language",
+    "LayerGroup",
+    "LayerGroupCreate",
+    "LayerGroupWithSoilUnits",
+    "LayerIntervalCreate",
+    "LayerIntervalWithSoilUnit",
     "Like",
     "LinkedProjectInfo",
     "Location",
@@ -404,6 +429,9 @@ __all__ = (
     "MethodSAUpdate",
     "MethodSLB",
     "MethodSLBCreate",
+    "MethodSLBData",
+    "MethodSLBDataCreate",
+    "MethodSLBDataUpdate",
     "MethodSLBUpdate",
     "MethodSPT",
     "MethodSPTCreate",
@@ -423,6 +451,9 @@ __all__ = (
     "MethodStatusEnum",
     "MethodSTI",
     "MethodSTICreate",
+    "MethodSTIData",
+    "MethodSTIDataCreate",
+    "MethodSTIDataUpdate",
     "MethodSTIUpdate",
     "MethodSummary",
     "MethodSVT",
@@ -501,11 +532,15 @@ __all__ = (
     "SampleMaterial",
     "SamplerType",
     "SamplingTechnique",
+    "SaveLayerInterpretationRequest",
+    "SaveLayerInterpretationResponse",
     "Scales",
     "ScalingMode",
     "Shape",
     "ShapeColor",
     "ShapeUpdate",
+    "SoilTypeEnum",
+    "SoilUnit",
     "SoundingClass",
     "Standard",
     "StandardType",
@@ -513,6 +548,7 @@ __all__ = (
     "TransformationType",
     "User",
     "ValidationError",
+    "ValidationErrorContext",
     "WebMapService",
     "WebMapServiceCreate",
     "WebMapServiceLevel",

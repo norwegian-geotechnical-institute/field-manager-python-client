@@ -1,5 +1,6 @@
 from http import HTTPStatus
 from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -8,7 +9,7 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
 from ...models.method_plot_format import MethodPlotFormat
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -16,10 +17,28 @@ def _get_kwargs(
     location_id: UUID,
     method_id: UUID,
     format_: MethodPlotFormat,
+    *,
+    cross_section: bool | Unset = False,
+    show_depth: bool | Unset = False,
 ) -> dict[str, Any]:
+
+    params: dict[str, Any] = {}
+
+    params["cross_section"] = cross_section
+
+    params["show_depth"] = show_depth
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/projects/{project_id}/locations/{location_id}/methods/{method_id}/plots/{format_}",
+        "url": "/projects/{project_id}/locations/{location_id}/methods/{method_id}/plots/{format_}".format(
+            project_id=quote(str(project_id), safe=""),
+            location_id=quote(str(location_id), safe=""),
+            method_id=quote(str(method_id), safe=""),
+            format_=quote(str(format_), safe=""),
+        ),
+        "params": params,
     }
 
     return _kwargs
@@ -61,6 +80,8 @@ def sync_detailed(
     format_: MethodPlotFormat,
     *,
     client: AuthenticatedClient,
+    cross_section: bool | Unset = False,
+    show_depth: bool | Unset = False,
 ) -> Response[Any | HTTPValidationError]:
     """Get Plot
 
@@ -71,6 +92,8 @@ def sync_detailed(
         location_id (UUID):
         method_id (UUID):
         format_ (MethodPlotFormat):
+        cross_section (bool | Unset):  Default: False.
+        show_depth (bool | Unset):  Default: False.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -85,6 +108,8 @@ def sync_detailed(
         location_id=location_id,
         method_id=method_id,
         format_=format_,
+        cross_section=cross_section,
+        show_depth=show_depth,
     )
 
     response = client.get_httpx_client().request(
@@ -101,6 +126,8 @@ def sync(
     format_: MethodPlotFormat,
     *,
     client: AuthenticatedClient,
+    cross_section: bool | Unset = False,
+    show_depth: bool | Unset = False,
 ) -> Any | HTTPValidationError | None:
     """Get Plot
 
@@ -111,6 +138,8 @@ def sync(
         location_id (UUID):
         method_id (UUID):
         format_ (MethodPlotFormat):
+        cross_section (bool | Unset):  Default: False.
+        show_depth (bool | Unset):  Default: False.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -126,6 +155,8 @@ def sync(
         method_id=method_id,
         format_=format_,
         client=client,
+        cross_section=cross_section,
+        show_depth=show_depth,
     ).parsed
 
 
@@ -136,6 +167,8 @@ async def asyncio_detailed(
     format_: MethodPlotFormat,
     *,
     client: AuthenticatedClient,
+    cross_section: bool | Unset = False,
+    show_depth: bool | Unset = False,
 ) -> Response[Any | HTTPValidationError]:
     """Get Plot
 
@@ -146,6 +179,8 @@ async def asyncio_detailed(
         location_id (UUID):
         method_id (UUID):
         format_ (MethodPlotFormat):
+        cross_section (bool | Unset):  Default: False.
+        show_depth (bool | Unset):  Default: False.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -160,6 +195,8 @@ async def asyncio_detailed(
         location_id=location_id,
         method_id=method_id,
         format_=format_,
+        cross_section=cross_section,
+        show_depth=show_depth,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -174,6 +211,8 @@ async def asyncio(
     format_: MethodPlotFormat,
     *,
     client: AuthenticatedClient,
+    cross_section: bool | Unset = False,
+    show_depth: bool | Unset = False,
 ) -> Any | HTTPValidationError | None:
     """Get Plot
 
@@ -184,6 +223,8 @@ async def asyncio(
         location_id (UUID):
         method_id (UUID):
         format_ (MethodPlotFormat):
+        cross_section (bool | Unset):  Default: False.
+        show_depth (bool | Unset):  Default: False.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -200,5 +241,7 @@ async def asyncio(
             method_id=method_id,
             format_=format_,
             client=client,
+            cross_section=cross_section,
+            show_depth=show_depth,
         )
     ).parsed

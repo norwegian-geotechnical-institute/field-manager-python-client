@@ -29,6 +29,7 @@ class MethodWSTUpdate:
         conducted_by (None | str | Unset):
         conducted_at (datetime.datetime | None | Unset):
         method_type_id (Literal[26] | Unset):  Default: 26.
+        predrilling_depth (float | None | str | Unset):
         operation (None | Operation | Unset):
     """
 
@@ -41,6 +42,7 @@ class MethodWSTUpdate:
     conducted_by: None | str | Unset = UNSET
     conducted_at: datetime.datetime | None | Unset = UNSET
     method_type_id: Literal[26] | Unset = 26
+    predrilling_depth: float | None | str | Unset = UNSET
     operation: None | Operation | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -103,6 +105,12 @@ class MethodWSTUpdate:
 
         method_type_id = self.method_type_id
 
+        predrilling_depth: float | None | str | Unset
+        if isinstance(self.predrilling_depth, Unset):
+            predrilling_depth = UNSET
+        else:
+            predrilling_depth = self.predrilling_depth
+
         operation: None | str | Unset
         if isinstance(self.operation, Unset):
             operation = UNSET
@@ -132,6 +140,8 @@ class MethodWSTUpdate:
             field_dict["conducted_at"] = conducted_at
         if method_type_id is not UNSET:
             field_dict["method_type_id"] = method_type_id
+        if predrilling_depth is not UNSET:
+            field_dict["predrilling_depth"] = predrilling_depth
         if operation is not UNSET:
             field_dict["operation"] = operation
 
@@ -249,6 +259,15 @@ class MethodWSTUpdate:
         if method_type_id != 26 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 26, got '{method_type_id}'")
 
+        def _parse_predrilling_depth(data: object) -> float | None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | str | Unset, data)
+
+        predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
+
         def _parse_operation(data: object) -> None | Operation | Unset:
             if data is None:
                 return data
@@ -276,6 +295,7 @@ class MethodWSTUpdate:
             conducted_by=conducted_by,
             conducted_at=conducted_at,
             method_type_id=method_type_id,
+            predrilling_depth=predrilling_depth,
             operation=operation,
         )
 

@@ -36,7 +36,6 @@ class LinkedProjectInfo:
         standard_id (StandardType):
         srid (int):
         number_of_locations (int):
-        number_of_active_locations (int):
         created_at (datetime.datetime | None | Unset):
         updated_at (datetime.datetime | None | Unset):
         external_id_source (None | str | Unset):
@@ -47,6 +46,7 @@ class LinkedProjectInfo:
         effective_role (None | Role | Unset):
         last_updated (datetime.datetime | None | Unset):
         favorite (bool | Unset):  Default: False.
+        linked_project_prefix (None | str | Unset):
     """
 
     project_id: UUID
@@ -56,7 +56,6 @@ class LinkedProjectInfo:
     standard_id: StandardType
     srid: int
     number_of_locations: int
-    number_of_active_locations: int
     created_at: datetime.datetime | None | Unset = UNSET
     updated_at: datetime.datetime | None | Unset = UNSET
     external_id_source: None | str | Unset = UNSET
@@ -67,6 +66,7 @@ class LinkedProjectInfo:
     effective_role: None | Role | Unset = UNSET
     last_updated: datetime.datetime | None | Unset = UNSET
     favorite: bool | Unset = False
+    linked_project_prefix: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -86,8 +86,6 @@ class LinkedProjectInfo:
         srid = self.srid
 
         number_of_locations = self.number_of_locations
-
-        number_of_active_locations = self.number_of_active_locations
 
         created_at: None | str | Unset
         if isinstance(self.created_at, Unset):
@@ -160,6 +158,12 @@ class LinkedProjectInfo:
 
         favorite = self.favorite
 
+        linked_project_prefix: None | str | Unset
+        if isinstance(self.linked_project_prefix, Unset):
+            linked_project_prefix = UNSET
+        else:
+            linked_project_prefix = self.linked_project_prefix
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -171,7 +175,6 @@ class LinkedProjectInfo:
                 "standard_id": standard_id,
                 "srid": srid,
                 "number_of_locations": number_of_locations,
-                "number_of_active_locations": number_of_active_locations,
             }
         )
         if created_at is not UNSET:
@@ -194,6 +197,8 @@ class LinkedProjectInfo:
             field_dict["last_updated"] = last_updated
         if favorite is not UNSET:
             field_dict["favorite"] = favorite
+        if linked_project_prefix is not UNSET:
+            field_dict["linked_project_prefix"] = linked_project_prefix
 
         return field_dict
 
@@ -216,8 +221,6 @@ class LinkedProjectInfo:
         srid = d.pop("srid")
 
         number_of_locations = d.pop("number_of_locations")
-
-        number_of_active_locations = d.pop("number_of_active_locations")
 
         def _parse_created_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -358,6 +361,15 @@ class LinkedProjectInfo:
 
         favorite = d.pop("favorite", UNSET)
 
+        def _parse_linked_project_prefix(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        linked_project_prefix = _parse_linked_project_prefix(d.pop("linked_project_prefix", UNSET))
+
         linked_project_info = cls(
             project_id=project_id,
             external_id=external_id,
@@ -366,7 +378,6 @@ class LinkedProjectInfo:
             standard_id=standard_id,
             srid=srid,
             number_of_locations=number_of_locations,
-            number_of_active_locations=number_of_active_locations,
             created_at=created_at,
             updated_at=updated_at,
             external_id_source=external_id_source,
@@ -377,6 +388,7 @@ class LinkedProjectInfo:
             effective_role=effective_role,
             last_updated=last_updated,
             favorite=favorite,
+            linked_project_prefix=linked_project_prefix,
         )
 
         linked_project_info.additional_properties = d
