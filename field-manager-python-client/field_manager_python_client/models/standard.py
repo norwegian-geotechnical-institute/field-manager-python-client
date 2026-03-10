@@ -10,6 +10,7 @@ from ..models.standard_type import StandardType
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
+    from ..models.crs_info import CRSInfo
     from ..models.method_type import MethodType
     from ..models.sampling_technique import SamplingTechnique
 
@@ -27,6 +28,7 @@ class Standard:
         sort_order (int):
         method_types (list[MethodType] | Unset):
         sampling_techniques (list[SamplingTechnique] | Unset):
+        default_coordinate_reference_systems (list[CRSInfo] | Unset):
     """
 
     standard_id: StandardType
@@ -35,6 +37,7 @@ class Standard:
     sort_order: int
     method_types: list[MethodType] | Unset = UNSET
     sampling_techniques: list[SamplingTechnique] | Unset = UNSET
+    default_coordinate_reference_systems: list[CRSInfo] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -60,6 +63,13 @@ class Standard:
                 sampling_techniques_item = sampling_techniques_item_data.to_dict()
                 sampling_techniques.append(sampling_techniques_item)
 
+        default_coordinate_reference_systems: list[dict[str, Any]] | Unset = UNSET
+        if not isinstance(self.default_coordinate_reference_systems, Unset):
+            default_coordinate_reference_systems = []
+            for default_coordinate_reference_systems_item_data in self.default_coordinate_reference_systems:
+                default_coordinate_reference_systems_item = default_coordinate_reference_systems_item_data.to_dict()
+                default_coordinate_reference_systems.append(default_coordinate_reference_systems_item)
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -74,11 +84,14 @@ class Standard:
             field_dict["method_types"] = method_types
         if sampling_techniques is not UNSET:
             field_dict["sampling_techniques"] = sampling_techniques
+        if default_coordinate_reference_systems is not UNSET:
+            field_dict["default_coordinate_reference_systems"] = default_coordinate_reference_systems
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.crs_info import CRSInfo
         from ..models.method_type import MethodType
         from ..models.sampling_technique import SamplingTechnique
 
@@ -109,6 +122,17 @@ class Standard:
 
                 sampling_techniques.append(sampling_techniques_item)
 
+        _default_coordinate_reference_systems = d.pop("default_coordinate_reference_systems", UNSET)
+        default_coordinate_reference_systems: list[CRSInfo] | Unset = UNSET
+        if _default_coordinate_reference_systems is not UNSET:
+            default_coordinate_reference_systems = []
+            for default_coordinate_reference_systems_item_data in _default_coordinate_reference_systems:
+                default_coordinate_reference_systems_item = CRSInfo.from_dict(
+                    default_coordinate_reference_systems_item_data
+                )
+
+                default_coordinate_reference_systems.append(default_coordinate_reference_systems_item)
+
         standard = cls(
             standard_id=standard_id,
             name=name,
@@ -116,6 +140,7 @@ class Standard:
             sort_order=sort_order,
             method_types=method_types,
             sampling_techniques=sampling_techniques,
+            default_coordinate_reference_systems=default_coordinate_reference_systems,
         )
 
         standard.additional_properties = d

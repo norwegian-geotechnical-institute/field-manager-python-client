@@ -1,5 +1,6 @@
 from http import HTTPStatus
 from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -7,19 +8,20 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
-from ...models.method_plot_format import MethodPlotFormat
 from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     location_id: UUID,
-    method_id: UUID,
-    format_: MethodPlotFormat,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/projects/{project_id}/locations/{location_id}/methods/{method_id}/plots/{format_}",
+        "url": "/project/{project_id}/locations/{location_id}/plots/svg".format(
+            project_id=quote(str(project_id), safe=""),
+            location_id=quote(str(location_id), safe=""),
+        ),
     }
 
     return _kwargs
@@ -57,20 +59,14 @@ def _build_response(
 def sync_detailed(
     project_id: str,
     location_id: UUID,
-    method_id: UUID,
-    format_: MethodPlotFormat,
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | HTTPValidationError]:
-    """Get Plot
-
-     Get the plot for a given method within a given location within a given project.
+    """Get Plot Preview For Location
 
     Args:
         project_id (str):
         location_id (UUID):
-        method_id (UUID):
-        format_ (MethodPlotFormat):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -83,8 +79,6 @@ def sync_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         location_id=location_id,
-        method_id=method_id,
-        format_=format_,
     )
 
     response = client.get_httpx_client().request(
@@ -97,20 +91,14 @@ def sync_detailed(
 def sync(
     project_id: str,
     location_id: UUID,
-    method_id: UUID,
-    format_: MethodPlotFormat,
     *,
     client: AuthenticatedClient,
 ) -> Any | HTTPValidationError | None:
-    """Get Plot
-
-     Get the plot for a given method within a given location within a given project.
+    """Get Plot Preview For Location
 
     Args:
         project_id (str):
         location_id (UUID):
-        method_id (UUID):
-        format_ (MethodPlotFormat):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -123,8 +111,6 @@ def sync(
     return sync_detailed(
         project_id=project_id,
         location_id=location_id,
-        method_id=method_id,
-        format_=format_,
         client=client,
     ).parsed
 
@@ -132,20 +118,14 @@ def sync(
 async def asyncio_detailed(
     project_id: str,
     location_id: UUID,
-    method_id: UUID,
-    format_: MethodPlotFormat,
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | HTTPValidationError]:
-    """Get Plot
-
-     Get the plot for a given method within a given location within a given project.
+    """Get Plot Preview For Location
 
     Args:
         project_id (str):
         location_id (UUID):
-        method_id (UUID):
-        format_ (MethodPlotFormat):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -158,8 +138,6 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         location_id=location_id,
-        method_id=method_id,
-        format_=format_,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -170,20 +148,14 @@ async def asyncio_detailed(
 async def asyncio(
     project_id: str,
     location_id: UUID,
-    method_id: UUID,
-    format_: MethodPlotFormat,
     *,
     client: AuthenticatedClient,
 ) -> Any | HTTPValidationError | None:
-    """Get Plot
-
-     Get the plot for a given method within a given location within a given project.
+    """Get Plot Preview For Location
 
     Args:
         project_id (str):
         location_id (UUID):
-        method_id (UUID):
-        format_ (MethodPlotFormat):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -197,8 +169,6 @@ async def asyncio(
         await asyncio_detailed(
             project_id=project_id,
             location_id=location_id,
-            method_id=method_id,
-            format_=format_,
             client=client,
         )
     ).parsed

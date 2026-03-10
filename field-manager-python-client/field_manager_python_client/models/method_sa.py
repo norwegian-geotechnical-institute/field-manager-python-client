@@ -42,7 +42,8 @@ class MethodSA:
         conducted_at (datetime.datetime | None | Unset):
         conducted_by (None | str | Unset):
         files (list[File] | Unset):
-        self_ (None | str | Unset):
+        self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
+        predrilling_depth (float | None | Unset):
         depth_top (float | None | Unset): Depth top (m).
         depth_base (float | None | Unset): Depth base (m).
         length (float | None | Unset):
@@ -70,6 +71,7 @@ class MethodSA:
     conducted_by: None | str | Unset = UNSET
     files: list[File] | Unset = UNSET
     self_: None | str | Unset = UNSET
+    predrilling_depth: float | None | Unset = UNSET
     depth_top: float | None | Unset = UNSET
     depth_base: float | None | Unset = UNSET
     length: float | None | Unset = UNSET
@@ -141,6 +143,12 @@ class MethodSA:
             self_ = UNSET
         else:
             self_ = self.self_
+
+        predrilling_depth: float | None | Unset
+        if isinstance(self.predrilling_depth, Unset):
+            predrilling_depth = UNSET
+        else:
+            predrilling_depth = self.predrilling_depth
 
         depth_top: float | None | Unset
         if isinstance(self.depth_top, Unset):
@@ -228,6 +236,8 @@ class MethodSA:
             field_dict["files"] = files
         if self_ is not UNSET:
             field_dict["self"] = self_
+        if predrilling_depth is not UNSET:
+            field_dict["predrilling_depth"] = predrilling_depth
         if depth_top is not UNSET:
             field_dict["depth_top"] = depth_top
         if depth_base is not UNSET:
@@ -343,6 +353,15 @@ class MethodSA:
 
         self_ = _parse_self_(d.pop("self", UNSET))
 
+        def _parse_predrilling_depth(data: object) -> float | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | Unset, data)
+
+        predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
+
         def _parse_depth_top(data: object) -> float | None | Unset:
             if data is None:
                 return data
@@ -441,6 +460,7 @@ class MethodSA:
             conducted_by=conducted_by,
             files=files,
             self_=self_,
+            predrilling_depth=predrilling_depth,
             depth_top=depth_top,
             depth_base=depth_base,
             length=length,

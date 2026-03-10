@@ -17,6 +17,7 @@ def _get_kwargs(
     tags: list[str] | Unset = UNSET,
     external_id: None | str | Unset = UNSET,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     params["skip"] = skip
