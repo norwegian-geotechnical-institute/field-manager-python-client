@@ -1,5 +1,6 @@
 from http import HTTPStatus
 from typing import Any
+from urllib.parse import quote
 
 import httpx
 
@@ -20,7 +21,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "put",
-        "url": f"/organizations/{organization_id}",
+        "url": "/organizations/{organization_id}".format(
+            organization_id=quote(str(organization_id), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
@@ -71,6 +74,9 @@ def sync_detailed(
 
      Update an organization with passed organization_in.
 
+    This PUT endpoint wrongly behaves as PATCH
+    (only modifying the attributes you send in except for `updated_at` and `updated_by`)
+
     Args:
         organization_id (str):
         body (OrganizationUpdate):
@@ -105,6 +111,9 @@ def sync(
 
      Update an organization with passed organization_in.
 
+    This PUT endpoint wrongly behaves as PATCH
+    (only modifying the attributes you send in except for `updated_at` and `updated_by`)
+
     Args:
         organization_id (str):
         body (OrganizationUpdate):
@@ -133,6 +142,9 @@ async def asyncio_detailed(
     """Update Organization
 
      Update an organization with passed organization_in.
+
+    This PUT endpoint wrongly behaves as PATCH
+    (only modifying the attributes you send in except for `updated_at` and `updated_by`)
 
     Args:
         organization_id (str):
@@ -165,6 +177,9 @@ async def asyncio(
     """Update Organization
 
      Update an organization with passed organization_in.
+
+    This PUT endpoint wrongly behaves as PATCH
+    (only modifying the attributes you send in except for `updated_at` and `updated_by`)
 
     Args:
         organization_id (str):

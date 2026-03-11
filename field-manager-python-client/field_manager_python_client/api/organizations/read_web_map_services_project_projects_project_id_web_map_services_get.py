@@ -1,5 +1,6 @@
 from http import HTTPStatus
 from typing import Any
+from urllib.parse import quote
 
 import httpx
 
@@ -16,6 +17,7 @@ def _get_kwargs(
     *,
     levels: list[WebMapServiceLevel] | Unset = UNSET,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     json_levels: list[str] | Unset = UNSET
@@ -31,7 +33,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/projects/{project_id}/web_map_services",
+        "url": "/projects/{project_id}/web_map_services".format(
+            project_id=quote(str(project_id), safe=""),
+        ),
         "params": params,
     }
 

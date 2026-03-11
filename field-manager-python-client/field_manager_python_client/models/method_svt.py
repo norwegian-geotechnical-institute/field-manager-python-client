@@ -43,11 +43,12 @@ class MethodSVT:
         conducted_at (datetime.datetime | None | Unset):
         conducted_by (None | str | Unset):
         files (list[File] | Unset):
-        self_ (None | str | Unset):
+        self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
         vane_height (float | None | Unset): Height of the vane used (mm).
         vane_diameter (float | None | Unset): Diameter of the vane used (mm).
         serial_number (None | str | Unset): Serial number of the vane used.
         calibration_date (datetime.datetime | None | Unset): Date of calibration of the vane used.
+        predrilling_depth (float | None | Unset):
         depth_top (float | None | Unset): Minimum depth of the data rows (m).
         depth_base (float | None | Unset): Maximum depth of the data rows (m).
     """
@@ -70,6 +71,7 @@ class MethodSVT:
     vane_diameter: float | None | Unset = UNSET
     serial_number: None | str | Unset = UNSET
     calibration_date: datetime.datetime | None | Unset = UNSET
+    predrilling_depth: float | None | Unset = UNSET
     depth_top: float | None | Unset = UNSET
     depth_base: float | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -160,6 +162,12 @@ class MethodSVT:
         else:
             calibration_date = self.calibration_date
 
+        predrilling_depth: float | None | Unset
+        if isinstance(self.predrilling_depth, Unset):
+            predrilling_depth = UNSET
+        else:
+            predrilling_depth = self.predrilling_depth
+
         depth_top: float | None | Unset
         if isinstance(self.depth_top, Unset):
             depth_top = UNSET
@@ -208,6 +216,8 @@ class MethodSVT:
             field_dict["serial_number"] = serial_number
         if calibration_date is not UNSET:
             field_dict["calibration_date"] = calibration_date
+        if predrilling_depth is not UNSET:
+            field_dict["predrilling_depth"] = predrilling_depth
         if depth_top is not UNSET:
             field_dict["depth_top"] = depth_top
         if depth_base is not UNSET:
@@ -351,6 +361,15 @@ class MethodSVT:
 
         calibration_date = _parse_calibration_date(d.pop("calibration_date", UNSET))
 
+        def _parse_predrilling_depth(data: object) -> float | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | Unset, data)
+
+        predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
+
         def _parse_depth_top(data: object) -> float | None | Unset:
             if data is None:
                 return data
@@ -388,6 +407,7 @@ class MethodSVT:
             vane_diameter=vane_diameter,
             serial_number=serial_number,
             calibration_date=calibration_date,
+            predrilling_depth=predrilling_depth,
             depth_top=depth_top,
             depth_base=depth_base,
         )

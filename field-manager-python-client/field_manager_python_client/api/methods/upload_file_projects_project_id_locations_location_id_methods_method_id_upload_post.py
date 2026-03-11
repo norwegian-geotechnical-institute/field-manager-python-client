@@ -1,5 +1,6 @@
 from http import HTTPStatus
 from typing import Any, cast
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -52,7 +53,11 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/projects/{project_id}/locations/{location_id}/methods/{method_id}/upload",
+        "url": "/projects/{project_id}/locations/{location_id}/methods/{method_id}/upload".format(
+            project_id=quote(str(project_id), safe=""),
+            location_id=quote(str(location_id), safe=""),
+            method_id=quote(str(method_id), safe=""),
+        ),
     }
 
     _kwargs["files"] = body.to_multipart()

@@ -30,6 +30,11 @@ class Export:
         method_conducted_from (datetime.datetime | None | Unset): Filter methods by conducted date from this time
         method_conducted_to (datetime.datetime | None | Unset): Filter methods by conducted date from (this time + 1
             day)
+        updated_after (datetime.datetime | None | Unset): Filter locations by last modified from this time
+        min_x (float | None | Unset): Filter locations by position in project's coordinate system
+        min_y (float | None | Unset): Filter locations by position in project's coordinate system
+        max_x (float | None | Unset): Filter locations by position in project's coordinate system
+        max_y (float | None | Unset): Filter locations by position in project's coordinate system
         swap_x_y (bool | None | Unset):  Default: False.
     """
 
@@ -41,6 +46,11 @@ class Export:
     srid: int | None | Unset = UNSET
     method_conducted_from: datetime.datetime | None | Unset = UNSET
     method_conducted_to: datetime.datetime | None | Unset = UNSET
+    updated_after: datetime.datetime | None | Unset = UNSET
+    min_x: float | None | Unset = UNSET
+    min_y: float | None | Unset = UNSET
+    max_x: float | None | Unset = UNSET
+    max_y: float | None | Unset = UNSET
     swap_x_y: bool | None | Unset = False
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -91,6 +101,38 @@ class Export:
         else:
             method_conducted_to = self.method_conducted_to
 
+        updated_after: None | str | Unset
+        if isinstance(self.updated_after, Unset):
+            updated_after = UNSET
+        elif isinstance(self.updated_after, datetime.datetime):
+            updated_after = self.updated_after.isoformat()
+        else:
+            updated_after = self.updated_after
+
+        min_x: float | None | Unset
+        if isinstance(self.min_x, Unset):
+            min_x = UNSET
+        else:
+            min_x = self.min_x
+
+        min_y: float | None | Unset
+        if isinstance(self.min_y, Unset):
+            min_y = UNSET
+        else:
+            min_y = self.min_y
+
+        max_x: float | None | Unset
+        if isinstance(self.max_x, Unset):
+            max_x = UNSET
+        else:
+            max_x = self.max_x
+
+        max_y: float | None | Unset
+        if isinstance(self.max_y, Unset):
+            max_y = UNSET
+        else:
+            max_y = self.max_y
+
         swap_x_y: bool | None | Unset
         if isinstance(self.swap_x_y, Unset):
             swap_x_y = UNSET
@@ -118,6 +160,16 @@ class Export:
             field_dict["method_conducted_from"] = method_conducted_from
         if method_conducted_to is not UNSET:
             field_dict["method_conducted_to"] = method_conducted_to
+        if updated_after is not UNSET:
+            field_dict["updated_after"] = updated_after
+        if min_x is not UNSET:
+            field_dict["min_x"] = min_x
+        if min_y is not UNSET:
+            field_dict["min_y"] = min_y
+        if max_x is not UNSET:
+            field_dict["max_x"] = max_x
+        if max_y is not UNSET:
+            field_dict["max_y"] = max_y
         if swap_x_y is not UNSET:
             field_dict["swap_x_y"] = swap_x_y
 
@@ -193,6 +245,59 @@ class Export:
 
         method_conducted_to = _parse_method_conducted_to(d.pop("method_conducted_to", UNSET))
 
+        def _parse_updated_after(data: object) -> datetime.datetime | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                updated_after_type_0 = isoparse(data)
+
+                return updated_after_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(datetime.datetime | None | Unset, data)
+
+        updated_after = _parse_updated_after(d.pop("updated_after", UNSET))
+
+        def _parse_min_x(data: object) -> float | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | Unset, data)
+
+        min_x = _parse_min_x(d.pop("min_x", UNSET))
+
+        def _parse_min_y(data: object) -> float | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | Unset, data)
+
+        min_y = _parse_min_y(d.pop("min_y", UNSET))
+
+        def _parse_max_x(data: object) -> float | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | Unset, data)
+
+        max_x = _parse_max_x(d.pop("max_x", UNSET))
+
+        def _parse_max_y(data: object) -> float | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | Unset, data)
+
+        max_y = _parse_max_y(d.pop("max_y", UNSET))
+
         def _parse_swap_x_y(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -211,6 +316,11 @@ class Export:
             srid=srid,
             method_conducted_from=method_conducted_from,
             method_conducted_to=method_conducted_to,
+            updated_after=updated_after,
+            min_x=min_x,
+            min_y=min_y,
+            max_x=max_x,
+            max_y=max_y,
             swap_x_y=swap_x_y,
         )
 

@@ -8,6 +8,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
+from ..models.project_role_enum import ProjectRoleEnum
 from ..models.role_enum import RoleEnum
 from ..models.standard_type import StandardType
 from ..types import UNSET, Unset
@@ -30,6 +31,8 @@ class OrganizationUpdate:
         updated_at (datetime.datetime | None | Unset):
         default_standard_id (None | StandardType | Unset):
         available_standard_ids (list[StandardType] | Unset):
+        can_approve_method (list[ProjectRoleEnum] | None | Unset):
+        can_revoke_method_approval (list[ProjectRoleEnum] | None | Unset):
     """
 
     external_id: None | str | Unset = UNSET
@@ -43,6 +46,8 @@ class OrganizationUpdate:
     updated_at: datetime.datetime | None | Unset = UNSET
     default_standard_id: None | StandardType | Unset = UNSET
     available_standard_ids: list[StandardType] | Unset = UNSET
+    can_approve_method: list[ProjectRoleEnum] | None | Unset = UNSET
+    can_revoke_method_approval: list[ProjectRoleEnum] | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -121,6 +126,30 @@ class OrganizationUpdate:
                 available_standard_ids_item = available_standard_ids_item_data.value
                 available_standard_ids.append(available_standard_ids_item)
 
+        can_approve_method: list[str] | None | Unset
+        if isinstance(self.can_approve_method, Unset):
+            can_approve_method = UNSET
+        elif isinstance(self.can_approve_method, list):
+            can_approve_method = []
+            for can_approve_method_type_0_item_data in self.can_approve_method:
+                can_approve_method_type_0_item = can_approve_method_type_0_item_data.value
+                can_approve_method.append(can_approve_method_type_0_item)
+
+        else:
+            can_approve_method = self.can_approve_method
+
+        can_revoke_method_approval: list[str] | None | Unset
+        if isinstance(self.can_revoke_method_approval, Unset):
+            can_revoke_method_approval = UNSET
+        elif isinstance(self.can_revoke_method_approval, list):
+            can_revoke_method_approval = []
+            for can_revoke_method_approval_type_0_item_data in self.can_revoke_method_approval:
+                can_revoke_method_approval_type_0_item = can_revoke_method_approval_type_0_item_data.value
+                can_revoke_method_approval.append(can_revoke_method_approval_type_0_item)
+
+        else:
+            can_revoke_method_approval = self.can_revoke_method_approval
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -146,6 +175,10 @@ class OrganizationUpdate:
             field_dict["default_standard_id"] = default_standard_id
         if available_standard_ids is not UNSET:
             field_dict["available_standard_ids"] = available_standard_ids
+        if can_approve_method is not UNSET:
+            field_dict["can_approve_method"] = can_approve_method
+        if can_revoke_method_approval is not UNSET:
+            field_dict["can_revoke_method_approval"] = can_revoke_method_approval
 
         return field_dict
 
@@ -284,6 +317,52 @@ class OrganizationUpdate:
 
                 available_standard_ids.append(available_standard_ids_item)
 
+        def _parse_can_approve_method(data: object) -> list[ProjectRoleEnum] | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, list):
+                    raise TypeError()
+                can_approve_method_type_0 = []
+                _can_approve_method_type_0 = data
+                for can_approve_method_type_0_item_data in _can_approve_method_type_0:
+                    can_approve_method_type_0_item = ProjectRoleEnum(can_approve_method_type_0_item_data)
+
+                    can_approve_method_type_0.append(can_approve_method_type_0_item)
+
+                return can_approve_method_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(list[ProjectRoleEnum] | None | Unset, data)
+
+        can_approve_method = _parse_can_approve_method(d.pop("can_approve_method", UNSET))
+
+        def _parse_can_revoke_method_approval(data: object) -> list[ProjectRoleEnum] | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, list):
+                    raise TypeError()
+                can_revoke_method_approval_type_0 = []
+                _can_revoke_method_approval_type_0 = data
+                for can_revoke_method_approval_type_0_item_data in _can_revoke_method_approval_type_0:
+                    can_revoke_method_approval_type_0_item = ProjectRoleEnum(
+                        can_revoke_method_approval_type_0_item_data
+                    )
+
+                    can_revoke_method_approval_type_0.append(can_revoke_method_approval_type_0_item)
+
+                return can_revoke_method_approval_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(list[ProjectRoleEnum] | None | Unset, data)
+
+        can_revoke_method_approval = _parse_can_revoke_method_approval(d.pop("can_revoke_method_approval", UNSET))
+
         organization_update = cls(
             external_id=external_id,
             name=name,
@@ -296,6 +375,8 @@ class OrganizationUpdate:
             updated_at=updated_at,
             default_standard_id=default_standard_id,
             available_standard_ids=available_standard_ids,
+            can_approve_method=can_approve_method,
+            can_revoke_method_approval=can_revoke_method_approval,
         )
 
         organization_update.additional_properties = d
