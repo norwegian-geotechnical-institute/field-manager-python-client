@@ -1,5 +1,6 @@
 from http import HTTPStatus
 from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -22,7 +23,10 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "put",
-        "url": f"/organizations/{organization_id}/web_map_services/{web_map_service_id}",
+        "url": "/organizations/{organization_id}/web_map_services/{web_map_service_id}".format(
+            organization_id=quote(str(organization_id), safe=""),
+            web_map_service_id=quote(str(web_map_service_id), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()

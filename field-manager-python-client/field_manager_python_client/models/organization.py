@@ -9,6 +9,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
+from ..models.project_role_enum import ProjectRoleEnum
 from ..models.role_enum import RoleEnum
 from ..models.standard_type import StandardType
 from ..types import UNSET, Unset
@@ -28,6 +29,8 @@ class Organization:
         name (str):
         number_of_projects (int):
         default_role (RoleEnum):
+        can_approve_method (list[ProjectRoleEnum]):
+        can_revoke_method_approval (list[ProjectRoleEnum]):
         external_id (None | str | Unset):
         short_name (None | str | Unset):
         email_domains (None | str | Unset):
@@ -44,6 +47,8 @@ class Organization:
     name: str
     number_of_projects: int
     default_role: RoleEnum
+    can_approve_method: list[ProjectRoleEnum]
+    can_revoke_method_approval: list[ProjectRoleEnum]
     external_id: None | str | Unset = UNSET
     short_name: None | str | Unset = UNSET
     email_domains: None | str | Unset = UNSET
@@ -66,6 +71,16 @@ class Organization:
         number_of_projects = self.number_of_projects
 
         default_role = self.default_role.value
+
+        can_approve_method = []
+        for can_approve_method_item_data in self.can_approve_method:
+            can_approve_method_item = can_approve_method_item_data.value
+            can_approve_method.append(can_approve_method_item)
+
+        can_revoke_method_approval = []
+        for can_revoke_method_approval_item_data in self.can_revoke_method_approval:
+            can_revoke_method_approval_item = can_revoke_method_approval_item_data.value
+            can_revoke_method_approval.append(can_revoke_method_approval_item)
 
         external_id: None | str | Unset
         if isinstance(self.external_id, Unset):
@@ -144,6 +159,8 @@ class Organization:
                 "name": name,
                 "number_of_projects": number_of_projects,
                 "default_role": default_role,
+                "can_approve_method": can_approve_method,
+                "can_revoke_method_approval": can_revoke_method_approval,
             }
         )
         if external_id is not UNSET:
@@ -181,6 +198,20 @@ class Organization:
         number_of_projects = d.pop("number_of_projects")
 
         default_role = RoleEnum(d.pop("default_role"))
+
+        can_approve_method = []
+        _can_approve_method = d.pop("can_approve_method")
+        for can_approve_method_item_data in _can_approve_method:
+            can_approve_method_item = ProjectRoleEnum(can_approve_method_item_data)
+
+            can_approve_method.append(can_approve_method_item)
+
+        can_revoke_method_approval = []
+        _can_revoke_method_approval = d.pop("can_revoke_method_approval")
+        for can_revoke_method_approval_item_data in _can_revoke_method_approval:
+            can_revoke_method_approval_item = ProjectRoleEnum(can_revoke_method_approval_item_data)
+
+            can_revoke_method_approval.append(can_revoke_method_approval_item)
 
         def _parse_external_id(data: object) -> None | str | Unset:
             if data is None:
@@ -309,6 +340,8 @@ class Organization:
             name=name,
             number_of_projects=number_of_projects,
             default_role=default_role,
+            can_approve_method=can_approve_method,
+            can_revoke_method_approval=can_revoke_method_approval,
             external_id=external_id,
             short_name=short_name,
             email_domains=email_domains,

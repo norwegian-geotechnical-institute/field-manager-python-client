@@ -1,0 +1,35 @@
+from enum import Enum
+
+
+class SoilTypeEnum(str, Enum):
+    BEDROCK = "BEDROCK"
+    BLOCK = "BLOCK"
+    BOULDER = "BOULDER"
+    CLAY = "CLAY"
+    CLAY_MORAINE = "CLAY_MORAINE"
+    COBBLE = "COBBLE"
+    COBBLES_BOULDERS = "COBBLES_BOULDERS"
+    CUSTOM = "CUSTOM"
+    DEEP_SOIL_MIXING = "DEEP_SOIL_MIXING"
+    DRY_CRUST_CLAY = "DRY_CRUST_CLAY"
+    FILL = "FILL"
+    FRICTION_SOIL = "FRICTION_SOIL"
+    GRAVEL = "GRAVEL"
+    JET_GROUTING = "JET_GROUTING"
+    MORAINE = "MORAINE"
+    MUD = "MUD"
+    ORGANIC = "ORGANIC"
+    ORGANIC_DEBRIS = "ORGANIC_DEBRIS"
+    PEAT = "PEAT"
+    POSSIBLE_QUICK_CLAY = "POSSIBLE_QUICK_CLAY"
+    QUICK_CLAY = "QUICK_CLAY"
+    ROCK = "ROCK"
+    SAND = "SAND"
+    SHELL = "SHELL"
+    SILT = "SILT"
+    TOPSOIL = "TOPSOIL"
+    UNKNOWN = "UNKNOWN"
+    WATER = "WATER"
+
+    def __str__(self) -> str:
+        return str(self.value)

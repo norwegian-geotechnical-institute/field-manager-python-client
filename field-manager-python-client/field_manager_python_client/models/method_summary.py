@@ -65,6 +65,7 @@ class MethodSummary:
         depth_in_rock (float | None | Unset):
         depth_top (float | None | Unset):
         depth_base (float | None | Unset):
+        length (float | None | Unset):
         bedrock_elevation (float | None | Unset):
         sample_container_id (None | str | Unset):
         inclination (float | None | Unset):
@@ -73,6 +74,7 @@ class MethodSummary:
         length_in_rock (float | None | Unset):
         sample_container_type_id (int | None | Unset):
         sampling_technique_id (int | None | Unset):
+        sample_material_ids (list[int] | Unset):
         diameter (float | None | Unset):
     """
 
@@ -85,6 +87,7 @@ class MethodSummary:
     depth_in_rock: float | None | Unset = UNSET
     depth_top: float | None | Unset = UNSET
     depth_base: float | None | Unset = UNSET
+    length: float | None | Unset = UNSET
     bedrock_elevation: float | None | Unset = UNSET
     sample_container_id: None | str | Unset = UNSET
     inclination: float | None | Unset = UNSET
@@ -93,6 +96,7 @@ class MethodSummary:
     length_in_rock: float | None | Unset = UNSET
     sample_container_type_id: int | None | Unset = UNSET
     sampling_technique_id: int | None | Unset = UNSET
+    sample_material_ids: list[int] | Unset = UNSET
     diameter: float | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -140,6 +144,12 @@ class MethodSummary:
             depth_base = UNSET
         else:
             depth_base = self.depth_base
+
+        length: float | None | Unset
+        if isinstance(self.length, Unset):
+            length = UNSET
+        else:
+            length = self.length
 
         bedrock_elevation: float | None | Unset
         if isinstance(self.bedrock_elevation, Unset):
@@ -189,6 +199,10 @@ class MethodSummary:
         else:
             sampling_technique_id = self.sampling_technique_id
 
+        sample_material_ids: list[int] | Unset = UNSET
+        if not isinstance(self.sample_material_ids, Unset):
+            sample_material_ids = self.sample_material_ids
+
         diameter: float | None | Unset
         if isinstance(self.diameter, Unset):
             diameter = UNSET
@@ -216,6 +230,8 @@ class MethodSummary:
             field_dict["depth_top"] = depth_top
         if depth_base is not UNSET:
             field_dict["depth_base"] = depth_base
+        if length is not UNSET:
+            field_dict["length"] = length
         if bedrock_elevation is not UNSET:
             field_dict["bedrock_elevation"] = bedrock_elevation
         if sample_container_id is not UNSET:
@@ -232,6 +248,8 @@ class MethodSummary:
             field_dict["sample_container_type_id"] = sample_container_type_id
         if sampling_technique_id is not UNSET:
             field_dict["sampling_technique_id"] = sampling_technique_id
+        if sample_material_ids is not UNSET:
+            field_dict["sample_material_ids"] = sample_material_ids
         if diameter is not UNSET:
             field_dict["diameter"] = diameter
 
@@ -308,6 +326,15 @@ class MethodSummary:
 
         depth_base = _parse_depth_base(d.pop("depth_base", UNSET))
 
+        def _parse_length(data: object) -> float | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | Unset, data)
+
+        length = _parse_length(d.pop("length", UNSET))
+
         def _parse_bedrock_elevation(data: object) -> float | None | Unset:
             if data is None:
                 return data
@@ -380,6 +407,8 @@ class MethodSummary:
 
         sampling_technique_id = _parse_sampling_technique_id(d.pop("sampling_technique_id", UNSET))
 
+        sample_material_ids = cast(list[int], d.pop("sample_material_ids", UNSET))
+
         def _parse_diameter(data: object) -> float | None | Unset:
             if data is None:
                 return data
@@ -399,6 +428,7 @@ class MethodSummary:
             depth_in_rock=depth_in_rock,
             depth_top=depth_top,
             depth_base=depth_base,
+            length=length,
             bedrock_elevation=bedrock_elevation,
             sample_container_id=sample_container_id,
             inclination=inclination,
@@ -407,6 +437,7 @@ class MethodSummary:
             length_in_rock=length_in_rock,
             sample_container_type_id=sample_container_type_id,
             sampling_technique_id=sampling_technique_id,
+            sample_material_ids=sample_material_ids,
             diameter=diameter,
         )
 
