@@ -28,6 +28,8 @@ class MethodSTIUpdate:
         conducted_by (None | str | Unset):
         conducted_at (datetime.datetime | None | Unset):
         method_type_id (Literal[28] | Unset):  Default: 28.
+        water_level (float | None | str | Unset):
+        predrilling_depth (float | None | str | Unset):
     """
 
     method_id: None | Unset | UUID = UNSET
@@ -39,6 +41,8 @@ class MethodSTIUpdate:
     conducted_by: None | str | Unset = UNSET
     conducted_at: datetime.datetime | None | Unset = UNSET
     method_type_id: Literal[28] | Unset = 28
+    water_level: float | None | str | Unset = UNSET
+    predrilling_depth: float | None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -100,6 +104,18 @@ class MethodSTIUpdate:
 
         method_type_id = self.method_type_id
 
+        water_level: float | None | str | Unset
+        if isinstance(self.water_level, Unset):
+            water_level = UNSET
+        else:
+            water_level = self.water_level
+
+        predrilling_depth: float | None | str | Unset
+        if isinstance(self.predrilling_depth, Unset):
+            predrilling_depth = UNSET
+        else:
+            predrilling_depth = self.predrilling_depth
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -121,6 +137,10 @@ class MethodSTIUpdate:
             field_dict["conducted_at"] = conducted_at
         if method_type_id is not UNSET:
             field_dict["method_type_id"] = method_type_id
+        if water_level is not UNSET:
+            field_dict["water_level"] = water_level
+        if predrilling_depth is not UNSET:
+            field_dict["predrilling_depth"] = predrilling_depth
 
         return field_dict
 
@@ -236,6 +256,24 @@ class MethodSTIUpdate:
         if method_type_id != 28 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 28, got '{method_type_id}'")
 
+        def _parse_water_level(data: object) -> float | None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | str | Unset, data)
+
+        water_level = _parse_water_level(d.pop("water_level", UNSET))
+
+        def _parse_predrilling_depth(data: object) -> float | None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | str | Unset, data)
+
+        predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
+
         method_sti_update = cls(
             method_id=method_id,
             name=name,
@@ -246,6 +284,8 @@ class MethodSTIUpdate:
             conducted_by=conducted_by,
             conducted_at=conducted_at,
             method_type_id=method_type_id,
+            water_level=water_level,
+            predrilling_depth=predrilling_depth,
         )
 
         method_sti_update.additional_properties = d

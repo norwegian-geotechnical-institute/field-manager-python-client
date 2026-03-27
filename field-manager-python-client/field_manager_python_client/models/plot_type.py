@@ -8,6 +8,7 @@ class PlotType(str, Enum):
     PZ = "pz"
     RCD = "rcd"
     RP = "rp"
+    SA = "sa"
     SRS = "srs"
     SS = "ss"
     SVT = "svt"

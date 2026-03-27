@@ -73,6 +73,7 @@ class Location:
         point_y_wgs84_pseudo (float | None | Unset):
         point_x_wgs84_web (float | None | Unset):
         point_y_wgs84_web (float | None | Unset):
+        point_z_height_data (float | None | Unset):
         tags (list[str] | None | Unset):
         methods (list[MethodAD | MethodCD | MethodCPT | MethodDEF | MethodDP | MethodDT | MethodESA | MethodINC |
             MethodIW | MethodOTHER | MethodPT | MethodPZ | MethodRCD | MethodRO | MethodRP | MethodRS | MethodRWS | MethodSA
@@ -99,6 +100,7 @@ class Location:
     point_y_wgs84_pseudo: float | None | Unset = UNSET
     point_x_wgs84_web: float | None | Unset = UNSET
     point_y_wgs84_web: float | None | Unset = UNSET
+    point_z_height_data: float | None | Unset = UNSET
     tags: list[str] | None | Unset = UNSET
     methods: (
         list[
@@ -243,6 +245,12 @@ class Location:
         else:
             point_y_wgs84_web = self.point_y_wgs84_web
 
+        point_z_height_data: float | None | Unset
+        if isinstance(self.point_z_height_data, Unset):
+            point_z_height_data = UNSET
+        else:
+            point_z_height_data = self.point_z_height_data
+
         tags: list[str] | None | Unset
         if isinstance(self.tags, Unset):
             tags = UNSET
@@ -358,6 +366,8 @@ class Location:
             field_dict["point_x_wgs84_web"] = point_x_wgs84_web
         if point_y_wgs84_web is not UNSET:
             field_dict["point_y_wgs84_web"] = point_y_wgs84_web
+        if point_z_height_data is not UNSET:
+            field_dict["point_z_height_data"] = point_z_height_data
         if tags is not UNSET:
             field_dict["tags"] = tags
         if methods is not UNSET:
@@ -510,6 +520,15 @@ class Location:
             return cast(float | None | Unset, data)
 
         point_y_wgs84_web = _parse_point_y_wgs84_web(d.pop("point_y_wgs84_web", UNSET))
+
+        def _parse_point_z_height_data(data: object) -> float | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | Unset, data)
+
+        point_z_height_data = _parse_point_z_height_data(d.pop("point_z_height_data", UNSET))
 
         def _parse_tags(data: object) -> list[str] | None | Unset:
             if data is None:
@@ -852,6 +871,7 @@ class Location:
             point_y_wgs84_pseudo=point_y_wgs84_pseudo,
             point_x_wgs84_web=point_x_wgs84_web,
             point_y_wgs84_web=point_y_wgs84_web,
+            point_z_height_data=point_z_height_data,
             tags=tags,
             methods=methods,
             files=files,

@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from io import BytesIO
 from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from .. import types
-from ..types import UNSET, File, Unset
+from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="BodyUploadFileProjectsProjectIdLocationsLocationIdMethodsMethodIdUploadPost")
 
@@ -17,16 +16,16 @@ T = TypeVar("T", bound="BodyUploadFileProjectsProjectIdLocationsLocationIdMethod
 class BodyUploadFileProjectsProjectIdLocationsLocationIdMethodsMethodIdUploadPost:
     """
     Attributes:
-        file (File):
+        file (str):
         comment (None | str | Unset):  Default: ''.
     """
 
-    file: File
+    file: str
     comment: None | str | Unset = ""
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        file = self.file.to_tuple()
+        file = self.file
 
         comment: None | str | Unset
         if isinstance(self.comment, Unset):
@@ -49,7 +48,7 @@ class BodyUploadFileProjectsProjectIdLocationsLocationIdMethodsMethodIdUploadPos
     def to_multipart(self) -> types.RequestFiles:
         files: types.RequestFiles = []
 
-        files.append(("file", self.file.to_tuple()))
+        files.append(("file", (None, str(self.file).encode(), "text/plain")))
 
         if not isinstance(self.comment, Unset):
             if isinstance(self.comment, str):
@@ -65,7 +64,7 @@ class BodyUploadFileProjectsProjectIdLocationsLocationIdMethodsMethodIdUploadPos
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        file = File(payload=BytesIO(d.pop("file")))
+        file = d.pop("file")
 
         def _parse_comment(data: object) -> None | str | Unset:
             if data is None:

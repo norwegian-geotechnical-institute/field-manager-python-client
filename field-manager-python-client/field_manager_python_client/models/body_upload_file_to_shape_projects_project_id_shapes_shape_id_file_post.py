@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from io import BytesIO
 from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from .. import types
-from ..types import UNSET, File, Unset
+from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="BodyUploadFileToShapeProjectsProjectIdShapesShapeIdFilePost")
 
@@ -17,16 +16,16 @@ T = TypeVar("T", bound="BodyUploadFileToShapeProjectsProjectIdShapesShapeIdFileP
 class BodyUploadFileToShapeProjectsProjectIdShapesShapeIdFilePost:
     """
     Attributes:
-        file (File):
+        file (str):
         feature_index (int | None | str | Unset):
     """
 
-    file: File
+    file: str
     feature_index: int | None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        file = self.file.to_tuple()
+        file = self.file
 
         feature_index: int | None | str | Unset
         if isinstance(self.feature_index, Unset):
@@ -49,7 +48,7 @@ class BodyUploadFileToShapeProjectsProjectIdShapesShapeIdFilePost:
     def to_multipart(self) -> types.RequestFiles:
         files: types.RequestFiles = []
 
-        files.append(("file", self.file.to_tuple()))
+        files.append(("file", (None, str(self.file).encode(), "text/plain")))
 
         if not isinstance(self.feature_index, Unset):
             if isinstance(self.feature_index, int):
@@ -67,7 +66,7 @@ class BodyUploadFileToShapeProjectsProjectIdShapesShapeIdFilePost:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        file = File(payload=BytesIO(d.pop("file")))
+        file = d.pop("file")
 
         def _parse_feature_index(data: object) -> int | None | str | Unset:
             if data is None:
