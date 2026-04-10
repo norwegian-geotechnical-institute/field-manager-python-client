@@ -47,9 +47,9 @@ class MethodDP:
             conducted_at (datetime.datetime | None | Unset):
             conducted_by (None | str | Unset):
             files (list[File] | Unset):
-            self_ (None | str | Unset):
+            self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
             dynamic_probing_type (DPType | Unset): (Dynamic Probing) DP Type
-            predrilling_depth (float | Unset):  Default: 0.0.
+            predrilling_depth (float | None | Unset):
             cone_type (None | str | Unset):
             cushion_type (None | str | Unset):
             use_damper (bool | None | Unset):
@@ -75,7 +75,7 @@ class MethodDP:
     files: list[File] | Unset = UNSET
     self_: None | str | Unset = UNSET
     dynamic_probing_type: DPType | Unset = UNSET
-    predrilling_depth: float | Unset = 0.0
+    predrilling_depth: float | None | Unset = UNSET
     cone_type: None | str | Unset = UNSET
     cushion_type: None | str | Unset = UNSET
     use_damper: bool | None | Unset = UNSET
@@ -151,7 +151,11 @@ class MethodDP:
         if not isinstance(self.dynamic_probing_type, Unset):
             dynamic_probing_type = self.dynamic_probing_type.value
 
-        predrilling_depth = self.predrilling_depth
+        predrilling_depth: float | None | Unset
+        if isinstance(self.predrilling_depth, Unset):
+            predrilling_depth = UNSET
+        else:
+            predrilling_depth = self.predrilling_depth
 
         cone_type: None | str | Unset
         if isinstance(self.cone_type, Unset):
@@ -346,7 +350,14 @@ class MethodDP:
         else:
             dynamic_probing_type = DPType(_dynamic_probing_type)
 
-        predrilling_depth = d.pop("predrilling_depth", UNSET)
+        def _parse_predrilling_depth(data: object) -> float | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | Unset, data)
+
+        predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
 
         def _parse_cone_type(data: object) -> None | str | Unset:
             if data is None:

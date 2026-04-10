@@ -7,6 +7,7 @@ class ExportType(str, Enum):
     LOCATIONKOF = "LocationKOF"
     LOCATIONLAS = "LocationLAS"
     LOCATIONXLS = "LocationXLS"
+    METHODDXF = "MethodDXF"
     METHODFILES = "MethodFiles"
     METHODSND = "MethodSND"
     METHODXLS = "MethodXLS"

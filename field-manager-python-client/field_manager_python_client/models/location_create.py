@@ -68,6 +68,7 @@ class LocationCreate:
         point_y_wgs84_pseudo (float | None | Unset):
         point_x_wgs84_web (float | None | Unset):
         point_y_wgs84_web (float | None | Unset):
+        point_z_height_data (float | None | Unset):
         tags (list[str] | Unset):
         project_id (None | Unset | UUID):
         methods (list[MethodADCreate | MethodCDCreate | MethodCPTCreate | MethodDEFCreate | MethodDPCreate |
@@ -91,6 +92,7 @@ class LocationCreate:
     point_y_wgs84_pseudo: float | None | Unset = UNSET
     point_x_wgs84_web: float | None | Unset = UNSET
     point_y_wgs84_web: float | None | Unset = UNSET
+    point_z_height_data: float | None | Unset = UNSET
     tags: list[str] | Unset = UNSET
     project_id: None | Unset | UUID = UNSET
     methods: (
@@ -239,6 +241,12 @@ class LocationCreate:
         else:
             point_y_wgs84_web = self.point_y_wgs84_web
 
+        point_z_height_data: float | None | Unset
+        if isinstance(self.point_z_height_data, Unset):
+            point_z_height_data = UNSET
+        else:
+            point_z_height_data = self.point_z_height_data
+
         tags: list[str] | Unset = UNSET
         if not isinstance(self.tags, Unset):
             tags = self.tags
@@ -348,6 +356,8 @@ class LocationCreate:
             field_dict["point_x_wgs84_web"] = point_x_wgs84_web
         if point_y_wgs84_web is not UNSET:
             field_dict["point_y_wgs84_web"] = point_y_wgs84_web
+        if point_z_height_data is not UNSET:
+            field_dict["point_z_height_data"] = point_z_height_data
         if tags is not UNSET:
             field_dict["tags"] = tags
         if project_id is not UNSET:
@@ -521,6 +531,15 @@ class LocationCreate:
             return cast(float | None | Unset, data)
 
         point_y_wgs84_web = _parse_point_y_wgs84_web(d.pop("point_y_wgs84_web", UNSET))
+
+        def _parse_point_z_height_data(data: object) -> float | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | Unset, data)
+
+        point_z_height_data = _parse_point_z_height_data(d.pop("point_z_height_data", UNSET))
 
         tags = cast(list[str], d.pop("tags", UNSET))
 
@@ -852,6 +871,7 @@ class LocationCreate:
             point_y_wgs84_pseudo=point_y_wgs84_pseudo,
             point_x_wgs84_web=point_x_wgs84_web,
             point_y_wgs84_web=point_y_wgs84_web,
+            point_z_height_data=point_z_height_data,
             tags=tags,
             project_id=project_id,
             methods=methods,

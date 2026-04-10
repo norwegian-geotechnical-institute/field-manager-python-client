@@ -25,6 +25,7 @@ class PageNumberStartPerMethod:
         dp (None | str | Unset):  Default: ''.
         srs (None | str | Unset):  Default: ''.
         wst (None | str | Unset):  Default: ''.
+        sa (None | str | Unset):  Default: ''.
     """
 
     cpt: None | str | Unset = ""
@@ -37,6 +38,7 @@ class PageNumberStartPerMethod:
     dp: None | str | Unset = ""
     srs: None | str | Unset = ""
     wst: None | str | Unset = ""
+    sa: None | str | Unset = ""
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -100,6 +102,12 @@ class PageNumberStartPerMethod:
         else:
             wst = self.wst
 
+        sa: None | str | Unset
+        if isinstance(self.sa, Unset):
+            sa = UNSET
+        else:
+            sa = self.sa
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -123,6 +131,8 @@ class PageNumberStartPerMethod:
             field_dict["SRS"] = srs
         if wst is not UNSET:
             field_dict["WST"] = wst
+        if sa is not UNSET:
+            field_dict["SA"] = sa
 
         return field_dict
 
@@ -220,6 +230,15 @@ class PageNumberStartPerMethod:
 
         wst = _parse_wst(d.pop("WST", UNSET))
 
+        def _parse_sa(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        sa = _parse_sa(d.pop("SA", UNSET))
+
         page_number_start_per_method = cls(
             cpt=cpt,
             pz=pz,
@@ -231,6 +250,7 @@ class PageNumberStartPerMethod:
             dp=dp,
             srs=srs,
             wst=wst,
+            sa=sa,
         )
 
         page_number_start_per_method.additional_properties = d

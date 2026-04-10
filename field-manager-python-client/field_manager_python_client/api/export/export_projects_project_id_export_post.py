@@ -1,5 +1,6 @@
 from http import HTTPStatus
 from typing import Any
+from urllib.parse import quote
 
 import httpx
 
@@ -19,7 +20,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/projects/{project_id}/export",
+        "url": "/projects/{project_id}/export".format(
+            project_id=quote(str(project_id), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
@@ -76,6 +79,7 @@ def sync_detailed(
     - **LocationKOF**: Download KOF files.
     - **LocationLAS**: Download LAS files.
     - **LocationXLS**: Download Excel file with key location information (onshore format).
+    - **MethodDXF**: Download DXF files for all methods in a Zip file.
     - **MethodFiles**: Download all original uploaded source data files.
     - **MethodSND**: Download SND files for all methods in a Zip file.
     - **MethodXLS**: Download Excel file with method data (offshore format).
@@ -91,6 +95,15 @@ def sync_detailed(
 
     **method_conducted_to**: Optional filter. Only return methods conducted before (this time + one
     day).
+
+    **updated_after**: Optional filter.
+                       Only return locations that has any data modified after this time
+                       (include changes to any of its methods). Only implemented MethodDXF export for
+    now.
+
+    **min_x, min_y, max_x, max_y**: Optional filters. Only implemented MethodDXF export for now. Must be
+    values in
+                                   the project's coordinate system.
 
     Args:
         project_id (str):
@@ -133,6 +146,7 @@ def sync(
     - **LocationKOF**: Download KOF files.
     - **LocationLAS**: Download LAS files.
     - **LocationXLS**: Download Excel file with key location information (onshore format).
+    - **MethodDXF**: Download DXF files for all methods in a Zip file.
     - **MethodFiles**: Download all original uploaded source data files.
     - **MethodSND**: Download SND files for all methods in a Zip file.
     - **MethodXLS**: Download Excel file with method data (offshore format).
@@ -148,6 +162,15 @@ def sync(
 
     **method_conducted_to**: Optional filter. Only return methods conducted before (this time + one
     day).
+
+    **updated_after**: Optional filter.
+                       Only return locations that has any data modified after this time
+                       (include changes to any of its methods). Only implemented MethodDXF export for
+    now.
+
+    **min_x, min_y, max_x, max_y**: Optional filters. Only implemented MethodDXF export for now. Must be
+    values in
+                                   the project's coordinate system.
 
     Args:
         project_id (str):
@@ -185,6 +208,7 @@ async def asyncio_detailed(
     - **LocationKOF**: Download KOF files.
     - **LocationLAS**: Download LAS files.
     - **LocationXLS**: Download Excel file with key location information (onshore format).
+    - **MethodDXF**: Download DXF files for all methods in a Zip file.
     - **MethodFiles**: Download all original uploaded source data files.
     - **MethodSND**: Download SND files for all methods in a Zip file.
     - **MethodXLS**: Download Excel file with method data (offshore format).
@@ -200,6 +224,15 @@ async def asyncio_detailed(
 
     **method_conducted_to**: Optional filter. Only return methods conducted before (this time + one
     day).
+
+    **updated_after**: Optional filter.
+                       Only return locations that has any data modified after this time
+                       (include changes to any of its methods). Only implemented MethodDXF export for
+    now.
+
+    **min_x, min_y, max_x, max_y**: Optional filters. Only implemented MethodDXF export for now. Must be
+    values in
+                                   the project's coordinate system.
 
     Args:
         project_id (str):
@@ -240,6 +273,7 @@ async def asyncio(
     - **LocationKOF**: Download KOF files.
     - **LocationLAS**: Download LAS files.
     - **LocationXLS**: Download Excel file with key location information (onshore format).
+    - **MethodDXF**: Download DXF files for all methods in a Zip file.
     - **MethodFiles**: Download all original uploaded source data files.
     - **MethodSND**: Download SND files for all methods in a Zip file.
     - **MethodXLS**: Download Excel file with method data (offshore format).
@@ -255,6 +289,15 @@ async def asyncio(
 
     **method_conducted_to**: Optional filter. Only return methods conducted before (this time + one
     day).
+
+    **updated_after**: Optional filter.
+                       Only return locations that has any data modified after this time
+                       (include changes to any of its methods). Only implemented MethodDXF export for
+    now.
+
+    **min_x, min_y, max_x, max_y**: Optional filters. Only implemented MethodDXF export for now. Must be
+    values in
+                                   the project's coordinate system.
 
     Args:
         project_id (str):

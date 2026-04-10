@@ -1,5 +1,6 @@
 from http import HTTPStatus
 from typing import Any
+from urllib.parse import quote
 
 import httpx
 
@@ -8,23 +9,25 @@ from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
 from ...models.options import Options
 from ...models.plot_format import PlotFormat
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     project_id: str,
     format_: PlotFormat,
     *,
-    body: None | Options,
+    body: None | Options | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/plots/project/{project_id}/plot_sequence/{format_}",
+        "url": "/plots/project/{project_id}/plot_sequence/{format_}".format(
+            project_id=quote(str(project_id), safe=""),
+            format_=quote(str(format_), safe=""),
+        ),
     }
 
-    _kwargs["json"]: dict[str, Any] | None
     if isinstance(body, Options):
         _kwargs["json"] = body.to_dict()
     else:
@@ -62,7 +65,7 @@ def sync_detailed(
     format_: PlotFormat,
     *,
     client: AuthenticatedClient,
-    body: None | Options,
+    body: None | Options | Unset = UNSET,
 ) -> Response[HTTPValidationError]:
     """Get Plot Sequence
 
@@ -71,7 +74,7 @@ def sync_detailed(
     Args:
         project_id (str):
         format_ (PlotFormat):
-        body (None | Options):
+        body (None | Options | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -99,7 +102,7 @@ def sync(
     format_: PlotFormat,
     *,
     client: AuthenticatedClient,
-    body: None | Options,
+    body: None | Options | Unset = UNSET,
 ) -> HTTPValidationError | None:
     """Get Plot Sequence
 
@@ -108,7 +111,7 @@ def sync(
     Args:
         project_id (str):
         format_ (PlotFormat):
-        body (None | Options):
+        body (None | Options | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -131,7 +134,7 @@ async def asyncio_detailed(
     format_: PlotFormat,
     *,
     client: AuthenticatedClient,
-    body: None | Options,
+    body: None | Options | Unset = UNSET,
 ) -> Response[HTTPValidationError]:
     """Get Plot Sequence
 
@@ -140,7 +143,7 @@ async def asyncio_detailed(
     Args:
         project_id (str):
         format_ (PlotFormat):
-        body (None | Options):
+        body (None | Options | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -166,7 +169,7 @@ async def asyncio(
     format_: PlotFormat,
     *,
     client: AuthenticatedClient,
-    body: None | Options,
+    body: None | Options | Unset = UNSET,
 ) -> HTTPValidationError | None:
     """Get Plot Sequence
 
@@ -175,7 +178,7 @@ async def asyncio(
     Args:
         project_id (str):
         format_ (PlotFormat):
-        body (None | Options):
+        body (None | Options | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

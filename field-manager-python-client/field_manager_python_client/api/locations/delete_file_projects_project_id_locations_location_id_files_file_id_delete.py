@@ -1,5 +1,6 @@
 from http import HTTPStatus
 from typing import Any, cast
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -15,9 +16,14 @@ def _get_kwargs(
     location_id: UUID,
     file_id: UUID,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "delete",
-        "url": f"/projects/{project_id}/locations/{location_id}/files/{file_id}",
+        "url": "/projects/{project_id}/locations/{location_id}/files/{file_id}".format(
+            project_id=quote(str(project_id), safe=""),
+            location_id=quote(str(location_id), safe=""),
+            file_id=quote(str(file_id), safe=""),
+        ),
     }
 
     return _kwargs
