@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -7,30 +8,42 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
-from ...models.method_plot_format import MethodPlotFormat
 from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
-    location_id: UUID,
-    method_id: UUID,
-    format_: MethodPlotFormat,
+    layer_group_id: UUID,
+    *,
+    body: list[UUID],
 ) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
+
     _kwargs: dict[str, Any] = {
-        "method": "post",
-        "url": f"/projects/{project_id}/locations/{location_id}/methods/{method_id}/plots/{format_}",
+        "method": "delete",
+        "url": "/projects/{project_id}/layer-groups/{layer_group_id}/soil-units".format(
+            project_id=quote(str(project_id), safe=""),
+            layer_group_id=quote(str(layer_group_id), safe=""),
+        ),
     }
 
+    _kwargs["json"] = []
+    for body_item_data in body:
+        body_item = str(body_item_data)
+        _kwargs["json"].append(body_item)
+
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
     return _kwargs
 
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Any | HTTPValidationError | None:
-    if response.status_code == 200:
-        response_200 = response.json()
-        return response_200
+    if response.status_code == 204:
+        response_204 = cast(Any, None)
+        return response_204
 
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
@@ -56,21 +69,19 @@ def _build_response(
 
 def sync_detailed(
     project_id: str,
-    location_id: UUID,
-    method_id: UUID,
-    format_: MethodPlotFormat,
+    layer_group_id: UUID,
     *,
     client: AuthenticatedClient,
+    body: list[UUID],
 ) -> Response[Any | HTTPValidationError]:
-    """Get Plot
+    """Delete Soil Units
 
-     Get the plot for a given method within a given location within a given project.
+     Delete soil units and any active layer intervals that reference them.
 
     Args:
         project_id (str):
-        location_id (UUID):
-        method_id (UUID):
-        format_ (MethodPlotFormat):
+        layer_group_id (UUID):
+        body (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -82,9 +93,8 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        location_id=location_id,
-        method_id=method_id,
-        format_=format_,
+        layer_group_id=layer_group_id,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -96,21 +106,19 @@ def sync_detailed(
 
 def sync(
     project_id: str,
-    location_id: UUID,
-    method_id: UUID,
-    format_: MethodPlotFormat,
+    layer_group_id: UUID,
     *,
     client: AuthenticatedClient,
+    body: list[UUID],
 ) -> Any | HTTPValidationError | None:
-    """Get Plot
+    """Delete Soil Units
 
-     Get the plot for a given method within a given location within a given project.
+     Delete soil units and any active layer intervals that reference them.
 
     Args:
         project_id (str):
-        location_id (UUID):
-        method_id (UUID):
-        format_ (MethodPlotFormat):
+        layer_group_id (UUID):
+        body (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -122,30 +130,27 @@ def sync(
 
     return sync_detailed(
         project_id=project_id,
-        location_id=location_id,
-        method_id=method_id,
-        format_=format_,
+        layer_group_id=layer_group_id,
         client=client,
+        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
     project_id: str,
-    location_id: UUID,
-    method_id: UUID,
-    format_: MethodPlotFormat,
+    layer_group_id: UUID,
     *,
     client: AuthenticatedClient,
+    body: list[UUID],
 ) -> Response[Any | HTTPValidationError]:
-    """Get Plot
+    """Delete Soil Units
 
-     Get the plot for a given method within a given location within a given project.
+     Delete soil units and any active layer intervals that reference them.
 
     Args:
         project_id (str):
-        location_id (UUID):
-        method_id (UUID):
-        format_ (MethodPlotFormat):
+        layer_group_id (UUID):
+        body (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -157,9 +162,8 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        location_id=location_id,
-        method_id=method_id,
-        format_=format_,
+        layer_group_id=layer_group_id,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -169,21 +173,19 @@ async def asyncio_detailed(
 
 async def asyncio(
     project_id: str,
-    location_id: UUID,
-    method_id: UUID,
-    format_: MethodPlotFormat,
+    layer_group_id: UUID,
     *,
     client: AuthenticatedClient,
+    body: list[UUID],
 ) -> Any | HTTPValidationError | None:
-    """Get Plot
+    """Delete Soil Units
 
-     Get the plot for a given method within a given location within a given project.
+     Delete soil units and any active layer intervals that reference them.
 
     Args:
         project_id (str):
-        location_id (UUID):
-        method_id (UUID):
-        format_ (MethodPlotFormat):
+        layer_group_id (UUID):
+        body (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -196,9 +198,8 @@ async def asyncio(
     return (
         await asyncio_detailed(
             project_id=project_id,
-            location_id=location_id,
-            method_id=method_id,
-            format_=format_,
+            layer_group_id=layer_group_id,
             client=client,
+            body=body,
         )
     ).parsed

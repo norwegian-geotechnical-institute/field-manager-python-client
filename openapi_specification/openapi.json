@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.97" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.192" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -45,7 +45,7 @@
       "put": {
         "tags": ["organizations"],
         "summary": "Update Organization",
-        "description": "Update an organization with passed organization_in.",
+        "description": "Update an organization with passed organization_in.\n\nThis PUT endpoint wrongly behaves as PATCH\n(only modifying the attributes you send in except for `updated_at` and `updated_by`)",
         "operationId": "update_organization_organizations__organization_id__put",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
@@ -365,7 +365,7 @@
       "get": {
         "tags": ["organizations"],
         "summary": "Get Organizations",
-        "description": "Retrieve the organizations you have access to.",
+        "description": "Retrieve the organizations you have access to.\n\nAdmin users will get all organizations, else:\nIf the user has a project role in a organization, the organization will be included.\nIf the user has an organization role, the organization will be included.",
         "operationId": "get_organizations_organizations_get",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
@@ -873,7 +873,7 @@
       "post": {
         "tags": ["projects", "linked_projects"],
         "summary": "Link Linked Project",
-        "description": "Link another project to a project by project_id.",
+        "description": "Link a project with `project_id` to another project with `linked_project_id`.\n\nOptionally add a linked project prefix usually including a separator character at the end of the string.",
         "operationId": "link_linked_project_projects__project_id__linked_projects__linked_project_id__post",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
@@ -891,6 +891,15 @@
               "type": "string",
               "format": "uuid",
               "title": "Linked Project Id"
+            }
+          },
+          {
+            "name": "linked_project_prefix",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "title": "Linked Project Prefix"
             }
           }
         ],
@@ -2575,6 +2584,195 @@
         }
       }
     },
+    "/projects/{project_id}/locations/{location_id}/methods/batch": {
+      "post": {
+        "tags": ["methods"],
+        "summary": "Add Methods To Location Batch",
+        "description": "Add multiple methods to one location in a single request.",
+        "operationId": "add_methods_to_location_batch_projects__project_id__locations__location_id__methods_batch_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "location_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Location Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    { "$ref": "#/components/schemas/MethodADCreate" },
+                    { "$ref": "#/components/schemas/MethodCDCreate" },
+                    { "$ref": "#/components/schemas/MethodCPTCreate" },
+                    { "$ref": "#/components/schemas/MethodDPCreate" },
+                    { "$ref": "#/components/schemas/MethodDTCreate" },
+                    { "$ref": "#/components/schemas/MethodESACreate" },
+                    { "$ref": "#/components/schemas/MethodINCCreate" },
+                    { "$ref": "#/components/schemas/MethodIWCreate" },
+                    { "$ref": "#/components/schemas/MethodOTHERCreate" },
+                    { "$ref": "#/components/schemas/MethodPTCreate" },
+                    { "$ref": "#/components/schemas/MethodPZCreate" },
+                    { "$ref": "#/components/schemas/MethodRCDCreate" },
+                    { "$ref": "#/components/schemas/MethodROCreate" },
+                    { "$ref": "#/components/schemas/MethodRPCreate" },
+                    { "$ref": "#/components/schemas/MethodRSCreate" },
+                    { "$ref": "#/components/schemas/MethodRWSCreate" },
+                    { "$ref": "#/components/schemas/MethodSACreate" },
+                    { "$ref": "#/components/schemas/MethodSLBCreate" },
+                    { "$ref": "#/components/schemas/MethodSPTCreate" },
+                    { "$ref": "#/components/schemas/MethodDEFCreate" },
+                    { "$ref": "#/components/schemas/MethodSRSCreate" },
+                    { "$ref": "#/components/schemas/MethodSSCreate" },
+                    { "$ref": "#/components/schemas/MethodSTICreate" },
+                    { "$ref": "#/components/schemas/MethodSVTCreate" },
+                    { "$ref": "#/components/schemas/MethodTOTCreate" },
+                    { "$ref": "#/components/schemas/MethodTPCreate" },
+                    { "$ref": "#/components/schemas/MethodTRCreate" },
+                    { "$ref": "#/components/schemas/MethodWSTCreate" }
+                  ],
+                  "discriminator": {
+                    "propertyName": "method_type_id",
+                    "mapping": {
+                      "17": "#/components/schemas/MethodADCreate",
+                      "12": "#/components/schemas/MethodCDCreate",
+                      "1": "#/components/schemas/MethodCPTCreate",
+                      "25": "#/components/schemas/MethodDPCreate",
+                      "22": "#/components/schemas/MethodDTCreate",
+                      "15": "#/components/schemas/MethodESACreate",
+                      "19": "#/components/schemas/MethodINCCreate",
+                      "21": "#/components/schemas/MethodIWCreate",
+                      "23": "#/components/schemas/MethodOTHERCreate",
+                      "14": "#/components/schemas/MethodPTCreate",
+                      "5": "#/components/schemas/MethodPZCreate",
+                      "8": "#/components/schemas/MethodRCDCreate",
+                      "18": "#/components/schemas/MethodROCreate",
+                      "3": "#/components/schemas/MethodRPCreate",
+                      "9": "#/components/schemas/MethodRSCreate",
+                      "7": "#/components/schemas/MethodRWSCreate",
+                      "4": "#/components/schemas/MethodSACreate",
+                      "27": "#/components/schemas/MethodSLBCreate",
+                      "11": "#/components/schemas/MethodSPTCreate",
+                      "20": "#/components/schemas/MethodDEFCreate",
+                      "24": "#/components/schemas/MethodSRSCreate",
+                      "6": "#/components/schemas/MethodSSCreate",
+                      "28": "#/components/schemas/MethodSTICreate",
+                      "10": "#/components/schemas/MethodSVTCreate",
+                      "2": "#/components/schemas/MethodTOTCreate",
+                      "13": "#/components/schemas/MethodTPCreate",
+                      "16": "#/components/schemas/MethodTRCreate",
+                      "26": "#/components/schemas/MethodWSTCreate"
+                    }
+                  }
+                },
+                "title": "Methods In"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      { "$ref": "#/components/schemas/MethodCPT" },
+                      { "$ref": "#/components/schemas/MethodTOT" },
+                      { "$ref": "#/components/schemas/MethodRP" },
+                      { "$ref": "#/components/schemas/MethodSA" },
+                      { "$ref": "#/components/schemas/MethodPZ" },
+                      { "$ref": "#/components/schemas/MethodSS" },
+                      { "$ref": "#/components/schemas/MethodRWS" },
+                      { "$ref": "#/components/schemas/MethodRCD" },
+                      { "$ref": "#/components/schemas/MethodRS" },
+                      { "$ref": "#/components/schemas/MethodSVT" },
+                      { "$ref": "#/components/schemas/MethodSPT" },
+                      { "$ref": "#/components/schemas/MethodCD" },
+                      { "$ref": "#/components/schemas/MethodTP" },
+                      { "$ref": "#/components/schemas/MethodPT" },
+                      { "$ref": "#/components/schemas/MethodESA" },
+                      { "$ref": "#/components/schemas/MethodTR" },
+                      { "$ref": "#/components/schemas/MethodAD" },
+                      { "$ref": "#/components/schemas/MethodRO" },
+                      { "$ref": "#/components/schemas/MethodINC" },
+                      { "$ref": "#/components/schemas/MethodDEF" },
+                      { "$ref": "#/components/schemas/MethodIW" },
+                      { "$ref": "#/components/schemas/MethodDT" },
+                      { "$ref": "#/components/schemas/MethodOTHER" },
+                      { "$ref": "#/components/schemas/MethodSRS" },
+                      { "$ref": "#/components/schemas/MethodDP" },
+                      { "$ref": "#/components/schemas/MethodWST" },
+                      { "$ref": "#/components/schemas/MethodSLB" },
+                      { "$ref": "#/components/schemas/MethodSTI" }
+                    ],
+                    "discriminator": {
+                      "propertyName": "method_type_id",
+                      "mapping": {
+                        "1": "#/components/schemas/MethodCPT",
+                        "2": "#/components/schemas/MethodTOT",
+                        "3": "#/components/schemas/MethodRP",
+                        "4": "#/components/schemas/MethodSA",
+                        "5": "#/components/schemas/MethodPZ",
+                        "6": "#/components/schemas/MethodSS",
+                        "7": "#/components/schemas/MethodRWS",
+                        "8": "#/components/schemas/MethodRCD",
+                        "9": "#/components/schemas/MethodRS",
+                        "10": "#/components/schemas/MethodSVT",
+                        "11": "#/components/schemas/MethodSPT",
+                        "12": "#/components/schemas/MethodCD",
+                        "13": "#/components/schemas/MethodTP",
+                        "14": "#/components/schemas/MethodPT",
+                        "15": "#/components/schemas/MethodESA",
+                        "16": "#/components/schemas/MethodTR",
+                        "17": "#/components/schemas/MethodAD",
+                        "18": "#/components/schemas/MethodRO",
+                        "19": "#/components/schemas/MethodINC",
+                        "20": "#/components/schemas/MethodDEF",
+                        "21": "#/components/schemas/MethodIW",
+                        "22": "#/components/schemas/MethodDT",
+                        "23": "#/components/schemas/MethodOTHER",
+                        "24": "#/components/schemas/MethodSRS",
+                        "25": "#/components/schemas/MethodDP",
+                        "26": "#/components/schemas/MethodWST",
+                        "27": "#/components/schemas/MethodSLB",
+                        "28": "#/components/schemas/MethodSTI"
+                      }
+                    }
+                  },
+                  "title": "Response Add Methods To Location Batch Projects  Project Id  Locations  Location Id  Methods Batch Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/projects/{project_id}/locations/{location_id}/methods/{method_id}": {
       "get": {
         "tags": ["methods"],
@@ -3251,7 +3449,9 @@
                       { "$ref": "#/components/schemas/MethodPZData" },
                       { "$ref": "#/components/schemas/MethodRCDData" },
                       { "$ref": "#/components/schemas/MethodRPData" },
+                      { "$ref": "#/components/schemas/MethodSLBData" },
                       { "$ref": "#/components/schemas/MethodSSData" },
+                      { "$ref": "#/components/schemas/MethodSTIData" },
                       { "$ref": "#/components/schemas/MethodSRSData" },
                       { "$ref": "#/components/schemas/MethodSVTData" },
                       { "$ref": "#/components/schemas/MethodTOTData" },
@@ -3267,7 +3467,9 @@
                         "5": "#/components/schemas/MethodPZData",
                         "8": "#/components/schemas/MethodRCDData",
                         "3": "#/components/schemas/MethodRPData",
+                        "27": "#/components/schemas/MethodSLBData",
                         "6": "#/components/schemas/MethodSSData",
+                        "28": "#/components/schemas/MethodSTIData",
                         "24": "#/components/schemas/MethodSRSData",
                         "10": "#/components/schemas/MethodSVTData",
                         "2": "#/components/schemas/MethodTOTData",
@@ -3337,8 +3539,10 @@
                   { "$ref": "#/components/schemas/MethodPZDataCreate" },
                   { "$ref": "#/components/schemas/MethodRCDDataCreate" },
                   { "$ref": "#/components/schemas/MethodRPDataCreate" },
+                  { "$ref": "#/components/schemas/MethodSLBDataCreate" },
                   { "$ref": "#/components/schemas/MethodSRSDataCreate" },
                   { "$ref": "#/components/schemas/MethodSSDataCreate" },
+                  { "$ref": "#/components/schemas/MethodSTIDataCreate" },
                   { "$ref": "#/components/schemas/MethodSVTDataCreate" },
                   { "$ref": "#/components/schemas/MethodTOTDataCreate" },
                   { "$ref": "#/components/schemas/MethodTRDataCreate" },
@@ -3353,8 +3557,10 @@
                     "5": "#/components/schemas/MethodPZDataCreate",
                     "8": "#/components/schemas/MethodRCDDataCreate",
                     "3": "#/components/schemas/MethodRPDataCreate",
+                    "27": "#/components/schemas/MethodSLBDataCreate",
                     "24": "#/components/schemas/MethodSRSDataCreate",
                     "6": "#/components/schemas/MethodSSDataCreate",
+                    "28": "#/components/schemas/MethodSTIDataCreate",
                     "10": "#/components/schemas/MethodSVTDataCreate",
                     "2": "#/components/schemas/MethodTOTDataCreate",
                     "16": "#/components/schemas/MethodTRDataCreate",
@@ -3379,7 +3585,9 @@
                     { "$ref": "#/components/schemas/MethodPZData" },
                     { "$ref": "#/components/schemas/MethodRCDData" },
                     { "$ref": "#/components/schemas/MethodRPData" },
+                    { "$ref": "#/components/schemas/MethodSLBData" },
                     { "$ref": "#/components/schemas/MethodSSData" },
+                    { "$ref": "#/components/schemas/MethodSTIData" },
                     { "$ref": "#/components/schemas/MethodSRSData" },
                     { "$ref": "#/components/schemas/MethodSVTData" },
                     { "$ref": "#/components/schemas/MethodTOTData" },
@@ -3395,7 +3603,9 @@
                       "5": "#/components/schemas/MethodPZData",
                       "8": "#/components/schemas/MethodRCDData",
                       "3": "#/components/schemas/MethodRPData",
+                      "27": "#/components/schemas/MethodSLBData",
                       "6": "#/components/schemas/MethodSSData",
+                      "28": "#/components/schemas/MethodSTIData",
                       "24": "#/components/schemas/MethodSRSData",
                       "10": "#/components/schemas/MethodSVTData",
                       "2": "#/components/schemas/MethodTOTData",
@@ -3475,8 +3685,10 @@
                   { "$ref": "#/components/schemas/MethodPZDataUpdate" },
                   { "$ref": "#/components/schemas/MethodRCDDataUpdate" },
                   { "$ref": "#/components/schemas/MethodRPDataUpdate" },
+                  { "$ref": "#/components/schemas/MethodSLBDataUpdate" },
                   { "$ref": "#/components/schemas/MethodSRSDataUpdate" },
                   { "$ref": "#/components/schemas/MethodSSDataUpdate" },
+                  { "$ref": "#/components/schemas/MethodSTIDataUpdate" },
                   { "$ref": "#/components/schemas/MethodSVTDataUpdate" },
                   { "$ref": "#/components/schemas/MethodTOTDataUpdate" },
                   { "$ref": "#/components/schemas/MethodTRDataUpdate" },
@@ -3490,8 +3702,10 @@
                     "5": "#/components/schemas/MethodPZDataUpdate",
                     "8": "#/components/schemas/MethodRCDDataUpdate",
                     "3": "#/components/schemas/MethodRPDataUpdate",
+                    "27": "#/components/schemas/MethodSLBDataUpdate",
                     "24": "#/components/schemas/MethodSRSDataUpdate",
                     "6": "#/components/schemas/MethodSSDataUpdate",
+                    "28": "#/components/schemas/MethodSTIDataUpdate",
                     "10": "#/components/schemas/MethodSVTDataUpdate",
                     "2": "#/components/schemas/MethodTOTDataUpdate",
                     "16": "#/components/schemas/MethodTRDataUpdate",
@@ -3516,7 +3730,9 @@
                     { "$ref": "#/components/schemas/MethodPZData" },
                     { "$ref": "#/components/schemas/MethodRCDData" },
                     { "$ref": "#/components/schemas/MethodRPData" },
+                    { "$ref": "#/components/schemas/MethodSLBData" },
                     { "$ref": "#/components/schemas/MethodSSData" },
+                    { "$ref": "#/components/schemas/MethodSTIData" },
                     { "$ref": "#/components/schemas/MethodSRSData" },
                     { "$ref": "#/components/schemas/MethodSVTData" },
                     { "$ref": "#/components/schemas/MethodTOTData" },
@@ -3532,7 +3748,9 @@
                       "5": "#/components/schemas/MethodPZData",
                       "8": "#/components/schemas/MethodRCDData",
                       "3": "#/components/schemas/MethodRPData",
+                      "27": "#/components/schemas/MethodSLBData",
                       "6": "#/components/schemas/MethodSSData",
+                      "28": "#/components/schemas/MethodSTIData",
                       "24": "#/components/schemas/MethodSRSData",
                       "10": "#/components/schemas/MethodSVTData",
                       "2": "#/components/schemas/MethodTOTData",
@@ -4778,7 +4996,7 @@
       "post": {
         "tags": ["export", "projects"],
         "summary": "Export",
-        "description": "Endpoint for exporting project data.\n\nSupported **export_type**:\n\n- **LocationCSV**: Download CSV file with key location information (onshore format).\n- **LocationGeoJSON**: Download GeoJSON files.\n- **LocationKOF**: Download KOF files.\n- **LocationLAS**: Download LAS files.\n- **LocationXLS**: Download Excel file with key location information (onshore format).\n- **MethodFiles**: Download all original uploaded source data files.\n- **MethodSND**: Download SND files for all methods in a Zip file.\n- **MethodXLS**: Download Excel file with method data (offshore format).\n- **ProjectFiles**: Download files, with ID listed in the file_ids, in a Zip file.\n\n**method_status_ids**: Filter methods by status. Only return specified statuses. Empty list means all statuses.\n\n**method_type_ids**: Filter methods by type. Only return specified method types. Empty list means all types.\n\n**method_conducted_from**: Optional filter. Only return methods conducted after this time.\n\n**method_conducted_to**: Optional filter. Only return methods conducted before (this time + one day).",
+        "description": "Endpoint for exporting project data.\n\nSupported **export_type**:\n\n- **LocationCSV**: Download CSV file with key location information (onshore format).\n- **LocationGeoJSON**: Download GeoJSON files.\n- **LocationKOF**: Download KOF files.\n- **LocationLAS**: Download LAS files.\n- **LocationXLS**: Download Excel file with key location information (onshore format).\n- **MethodDXF**: Download DXF files for all methods in a Zip file.\n- **MethodFiles**: Download all original uploaded source data files.\n- **MethodSND**: Download SND files for all methods in a Zip file.\n- **MethodXLS**: Download Excel file with method data (offshore format).\n- **ProjectFiles**: Download files, with ID listed in the file_ids, in a Zip file.\n\n**method_status_ids**: Filter methods by status. Only return specified statuses. Empty list means all statuses.\n\n**method_type_ids**: Filter methods by type. Only return specified method types. Empty list means all types.\n\n**method_conducted_from**: Optional filter. Only return methods conducted after this time.\n\n**method_conducted_to**: Optional filter. Only return methods conducted before (this time + one day).\n\n**updated_after**: Optional filter.\n                   Only return locations that has any data modified after this time\n                   (include changes to any of its methods). Only implemented MethodDXF export for now.\n\n**min_x, min_y, max_x, max_y**: Optional filters. Only implemented MethodDXF export for now. Must be values in\n                               the project's coordinate system.",
         "operationId": "export_projects__project_id__export_post",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
@@ -6558,12 +6776,52 @@
         }
       }
     },
-    "/projects/{project_id}/locations/{location_id}/methods/{method_id}/plots/{format}": {
+    "/project/{project_id}/locations/{location_id}/plots/svg": {
+      "post": {
+        "tags": ["plots"],
+        "summary": "Get Plot Preview For Location",
+        "operationId": "get_plot_preview_for_location_project__project_id__locations__location_id__plots_svg_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "location_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Location Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/locations/{location_id}/methods/plots/{format}": {
       "post": {
         "tags": ["plots"],
         "summary": "Get Plot",
-        "description": "Get the plot for a given method within a given location within a given project.",
-        "operationId": "get_plot_projects__project_id__locations__location_id__methods__method_id__plots__format__post",
+        "description": "Get the plot for a given method (methods for Samples and offshore CPTUs) within a given location within a given project.",
+        "operationId": "get_plot_projects__project_id__locations__location_id__methods_plots__format__post",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -6583,22 +6841,44 @@
             }
           },
           {
-            "name": "method_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Method Id"
-            }
-          },
-          {
             "name": "format",
             "in": "path",
             "required": true,
             "schema": { "$ref": "#/components/schemas/MethodPlotFormat" }
+          },
+          {
+            "name": "cross_section",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Cross Section"
+            }
+          },
+          {
+            "name": "show_depth",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Show Depth"
+            }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": { "type": "string", "format": "uuid" },
+                "title": "Method Ids"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -7273,6 +7553,559 @@
         ],
         "responses": {
           "204": { "description": "Successful Response" },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/layer-groups": {
+      "get": {
+        "tags": ["layer-interpretations"],
+        "summary": "Get Layer Groups",
+        "description": "Get all layer groups for a project.",
+        "operationId": "get_layer_groups_projects__project_id__layer_groups_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "include_soil_units",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Soil Units"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      { "$ref": "#/components/schemas/LayerGroup" },
+                      { "$ref": "#/components/schemas/LayerGroupWithSoilUnits" }
+                    ]
+                  },
+                  "title": "Response Get Layer Groups Projects  Project Id  Layer Groups Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["layer-interpretations"],
+        "summary": "Create Layer Group",
+        "description": "Create a layer group for a project.",
+        "operationId": "create_layer_group_projects__project_id__layer_groups_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/LayerGroupCreate" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LayerGroupWithSoilUnits"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/layer-groups/{layer_group_id}/soil-units": {
+      "post": {
+        "tags": ["layer-interpretations"],
+        "summary": "Create Soil Unit",
+        "description": "Create a soil unit in a layer group.",
+        "operationId": "create_soil_unit_projects__project_id__layer_groups__layer_group_id__soil_units_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "layer_group_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Layer Group Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SoilUnitCreate" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SoilUnit" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["layer-interpretations"],
+        "summary": "Delete Soil Units",
+        "description": "Delete soil units and any active layer intervals that reference them.",
+        "operationId": "delete_soil_units_projects__project_id__layer_groups__layer_group_id__soil_units_delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "layer_group_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Layer Group Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": { "type": "string", "format": "uuid" },
+                "title": "Soil Unit Ids"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": { "description": "Successful Response" },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/layer-groups/{layer_group_id}/soil-units/{soil_unit_id}": {
+      "patch": {
+        "tags": ["layer-interpretations"],
+        "summary": "Patch Soil Unit",
+        "description": "Patch a soil unit in a layer group.",
+        "operationId": "patch_soil_unit_projects__project_id__layer_groups__layer_group_id__soil_units__soil_unit_id__patch",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "layer_group_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Layer Group Id"
+            }
+          },
+          {
+            "name": "soil_unit_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Soil Unit Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SoilUnitPatch" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SoilUnit" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["layer-interpretations"],
+        "summary": "Delete Soil Unit",
+        "description": "Delete a soil unit and any active layer intervals that reference it.",
+        "operationId": "delete_soil_unit_projects__project_id__layer_groups__layer_group_id__soil_units__soil_unit_id__delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "layer_group_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Layer Group Id"
+            }
+          },
+          {
+            "name": "soil_unit_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Soil Unit Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Successful Response" },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/layer-groups/{layer_group_id}": {
+      "delete": {
+        "tags": ["layer-interpretations"],
+        "summary": "Delete Layer Group",
+        "description": "Delete a layer group and all active interpretation data that belongs to it.",
+        "operationId": "delete_layer_group_projects__project_id__layer_groups__layer_group_id__delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "layer_group_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Layer Group Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Successful Response" },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/locations/{location_id}/layer-interpretation": {
+      "put": {
+        "tags": ["layer-interpretations"],
+        "summary": "Save Layer Interpretation",
+        "description": "Save layer interpretation for a location.\nReplaces all existing intervals.",
+        "operationId": "save_layer_interpretation_projects__project_id__locations__location_id__layer_interpretation_put",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "location_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Location Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveLayerInterpretationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SaveLayerInterpretationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["layer-interpretations"],
+        "summary": "Get Location Layers",
+        "description": "Get layer interpretation for a location. Returns intervals sorted by start_depth.",
+        "operationId": "get_location_layers_projects__project_id__locations__location_id__layer_interpretation_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "location_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Location Id"
+            }
+          },
+          {
+            "name": "layer_group_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                { "type": "string", "format": "uuid" },
+                { "type": "null" }
+              ],
+              "title": "Layer Group Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetLocationLayersResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/location-layer-filters": {
+      "post": {
+        "tags": ["layer-interpretations"],
+        "summary": "Get Location Layer Filters",
+        "description": "Get locations matching soil unit or quick clay filters for a layer group.\n\nReturns locations with map coordinates and resolved rule/color for rendering.",
+        "operationId": "get_location_layer_filters_projects__project_id__location_layer_filters_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocationLayerFilterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationLayerFilterResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/layer-groups/{layer_group_id}/location-layer-intervals": {
+      "get": {
+        "tags": ["layer-interpretations"],
+        "summary": "Get Location Layer Intervals",
+        "description": "Get all layer intervals for locations in a project and layer group.\n\nReturns map-ready location coordinates with ordered intervals and soil unit metadata.",
+        "operationId": "get_location_layer_intervals_projects__project_id__layer_groups__layer_group_id__location_layer_intervals_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "layer_group_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Layer Group Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationLayerIntervalsResponse"
+                }
+              }
+            }
+          },
           "422": {
             "description": "Validation Error",
             "content": {
@@ -8297,7 +9130,11 @@
             "title": "Srid",
             "description": "The EPSG:SRID of the source shape file. If not provided, 'null' or '' empty string, then the file content will be searched for a projection."
           },
-          "file": { "type": "string", "format": "binary", "title": "File" }
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
         },
         "type": "object",
         "required": ["name", "file"],
@@ -8305,7 +9142,11 @@
       },
       "Body_queue_locations_to_project_projects__project_id__locations_queue_post": {
         "properties": {
-          "file": { "type": "string", "format": "binary", "title": "File" },
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          },
           "comment": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Comment",
@@ -8323,7 +9164,11 @@
             "title": "Comment",
             "default": ""
           },
-          "file": { "type": "string", "format": "binary", "title": "File" }
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
         },
         "type": "object",
         "required": ["file"],
@@ -8331,7 +9176,11 @@
       },
       "Body_upload_file_to_location_projects__project_id__locations__location_id__upload_post": {
         "properties": {
-          "file": { "type": "string", "format": "binary", "title": "File" },
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          },
           "comment": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Comment",
@@ -8344,7 +9193,11 @@
       },
       "Body_upload_file_to_organization_organizations__organization_id__upload_post": {
         "properties": {
-          "file": { "type": "string", "format": "binary", "title": "File" },
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          },
           "comment": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Comment",
@@ -8357,7 +9210,11 @@
       },
       "Body_upload_file_to_project_projects__project_id__upload_post": {
         "properties": {
-          "file": { "type": "string", "format": "binary", "title": "File" },
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          },
           "comment": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Comment",
@@ -8378,7 +9235,11 @@
             ],
             "title": "Feature Index"
           },
-          "file": { "type": "string", "format": "binary", "title": "File" }
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
         },
         "type": "object",
         "required": ["file"],
@@ -8386,7 +9247,11 @@
       },
       "Body_upload_locations_to_project_projects__project_id__locations_upload_post": {
         "properties": {
-          "file": { "type": "string", "format": "binary", "title": "File" },
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          },
           "comment": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Comment",
@@ -8425,10 +9290,21 @@
             "type": "string",
             "title": "Unit",
             "description": "Unit of measurement for coordinate axes (e.g., meter, degree, foot)"
+          },
+          "wkt": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Wkt",
+            "description": "Well-Known Text representation of the CRS"
+          },
+          "proj4": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Proj4",
+            "description": "Proj4 representation of the CRS",
+            "deprecated": true
           }
         },
         "type": "object",
-        "required": ["auth_name", "srid", "name", "unit"],
+        "required": ["auth_name", "srid", "name", "unit", "wkt", "proj4"],
         "title": "CRSInfo"
       },
       "ColorMode": {
@@ -8747,6 +9623,34 @@
             "title": "Method Conducted To",
             "description": "Filter methods by conducted date from (this time + 1 day)"
           },
+          "updated_after": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Updated After",
+            "description": "Filter locations by last modified from this time"
+          },
+          "min_x": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Min X",
+            "description": "Filter locations by position in project's coordinate system"
+          },
+          "min_y": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Min Y",
+            "description": "Filter locations by position in project's coordinate system"
+          },
+          "max_x": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Max X",
+            "description": "Filter locations by position in project's coordinate system"
+          },
+          "max_y": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Max Y",
+            "description": "Filter locations by position in project's coordinate system"
+          },
           "swap_x_y": {
             "anyOf": [{ "type": "boolean" }, { "type": "null" }],
             "title": "Swap X Y",
@@ -8768,6 +9672,7 @@
           "MethodFiles",
           "MethodSND",
           "MethodXLS",
+          "MethodDXF",
           "ProjectFiles"
         ],
         "title": "ExportType"
@@ -8848,7 +9753,12 @@
             "anyOf": [{ "type": "integer" }, { "type": "null" }],
             "title": "Size"
           },
-          "blob_url": { "type": "string", "title": "Blob Url" },
+          "blob_url": {
+            "type": "string",
+            "title": "Blob Url",
+            "description": "Will be removed in future versions.",
+            "deprecated": true
+          },
           "original_filename": {
             "type": "string",
             "title": "Original Filename"
@@ -8916,7 +9826,12 @@
             "anyOf": [{ "type": "integer" }, { "type": "null" }],
             "title": "Size"
           },
-          "blob_url": { "type": "string", "title": "Blob Url" },
+          "blob_url": {
+            "type": "string",
+            "title": "Blob Url",
+            "description": "Will be removed in future versions.",
+            "deprecated": true
+          },
           "original_filename": {
             "type": "string",
             "title": "Original Filename"
@@ -9042,6 +9957,44 @@
         "type": "object",
         "title": "FileUpdate"
       },
+      "GetLocationLayersResponse": {
+        "properties": {
+          "layer_group_location_association_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Layer Group Location Association Id"
+          },
+          "layer_group_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Layer Group Id"
+          },
+          "layer_group_name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Layer Group Name"
+          },
+          "intervals": {
+            "items": {
+              "$ref": "#/components/schemas/LayerIntervalWithSoilUnit"
+            },
+            "type": "array",
+            "title": "Intervals"
+          }
+        },
+        "type": "object",
+        "required": [
+          "layer_group_location_association_id",
+          "layer_group_id",
+          "layer_group_name",
+          "intervals"
+        ],
+        "title": "GetLocationLayersResponse",
+        "description": "Response schema for getting location layers."
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -9052,6 +10005,44 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "HatchStyleEnum": {
+        "type": "string",
+        "enum": [
+          "DIAGONAL_RIGHT",
+          "DIAGONAL_LEFT",
+          "VERTICAL_LINES",
+          "VERTICAL_LINE",
+          "VERTICAL_THICK_LINE",
+          "HORIZONTAL",
+          "CROSS",
+          "SMALL_CROSS",
+          "LARGE_CROSS",
+          "DIAGONAL_CROSS",
+          "HORIZONTAL_WAVY",
+          "HORIZONTAL_CONTINUOUS_AND_DASHED",
+          "SMALL_CIRCLES",
+          "LARGE_CIRCLES",
+          "DOTS",
+          "VERTICAL_DOTS",
+          "VERTICAL_CIRCLES",
+          "VERTICAL_TRIANGLES",
+          "DIAGONAL_RIGHT_DENSE",
+          "HORIZONTAL_DENSE",
+          "DOTS_DENSE",
+          "DIAGONAL_WITH_DOTS",
+          "VERTICAL_TRIANGLES_WITH_DOTS",
+          "VERTICAL_TRIANGLES_WITH_VERTICAL_LINE",
+          "VERTICAL_CIRCLES_WITH_DOTS",
+          "VERTICAL_LINE_WITH_HORIZONTAL_DASHED",
+          "HORIZONTAL_WITH_ARROWS_INTERVAL",
+          "VERTICAL_LINE_WITH_BIG_CROSS_INTERVAL",
+          "HORIZONTAL_WITH_BIG_CROSS_INTERVAL",
+          "HORIZONTAL_WITH_SPARSE_SMALL_CROSSES_INTERVAL",
+          "SOLID"
+        ],
+        "title": "HatchStyleEnum",
+        "description": "Hatch pattern styles for soil visualization in plots.\nFrontend maps these to actual drawing implementations (e.g., Konva)."
       },
       "HeightReference": {
         "type": "string",
@@ -9121,6 +10112,243 @@
         "enum": ["eng", "fin", "nor", "swe"],
         "title": "Language",
         "description": "ISO 639-2 language three-letter codes (set 2)"
+      },
+      "LayerGroup": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "is_default": {
+            "type": "boolean",
+            "title": "Is Default",
+            "default": false
+          },
+          "layer_group_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Layer Group Id"
+          },
+          "project_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Project Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "created_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Created By"
+          },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          },
+          "is_deleted": { "type": "boolean", "title": "Is Deleted" }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "layer_group_id",
+          "project_id",
+          "created_at",
+          "updated_at",
+          "created_by",
+          "updated_by",
+          "is_deleted"
+        ],
+        "title": "LayerGroup",
+        "description": "Full LayerGroup schema returned from API."
+      },
+      "LayerGroupCreate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              { "type": "string", "maxLength": 255, "minLength": 1 },
+              { "type": "null" }
+            ],
+            "title": "Name"
+          },
+          "is_default": {
+            "type": "boolean",
+            "title": "Is Default",
+            "default": false
+          },
+          "standard_id": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/StandardType" },
+              { "type": "null" }
+            ]
+          },
+          "soil_units": {
+            "items": { "$ref": "#/components/schemas/SoilUnitCreate" },
+            "type": "array",
+            "title": "Soil Units"
+          }
+        },
+        "type": "object",
+        "title": "LayerGroupCreate"
+      },
+      "LayerGroupWithSoilUnits": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "is_default": {
+            "type": "boolean",
+            "title": "Is Default",
+            "default": false
+          },
+          "layer_group_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Layer Group Id"
+          },
+          "project_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Project Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "created_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Created By"
+          },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          },
+          "is_deleted": { "type": "boolean", "title": "Is Deleted" },
+          "soil_units": {
+            "items": { "$ref": "#/components/schemas/SoilUnit" },
+            "type": "array",
+            "title": "Soil Units",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "layer_group_id",
+          "project_id",
+          "created_at",
+          "updated_at",
+          "created_by",
+          "updated_by",
+          "is_deleted"
+        ],
+        "title": "LayerGroupWithSoilUnits",
+        "description": "LayerGroup with nested soil units."
+      },
+      "LayerIntervalCreate": {
+        "properties": {
+          "soil_unit_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Soil Unit Id"
+          },
+          "start_depth": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Start Depth"
+          },
+          "end_depth": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "End Depth"
+          }
+        },
+        "type": "object",
+        "required": ["soil_unit_id", "start_depth", "end_depth"],
+        "title": "LayerIntervalCreate",
+        "description": "Schema for creating a new layer interval."
+      },
+      "LayerIntervalWithSoilUnit": {
+        "properties": {
+          "soil_unit_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Soil Unit Id"
+          },
+          "start_depth": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Start Depth"
+          },
+          "end_depth": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "End Depth"
+          },
+          "layer_interval_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Layer Interval Id"
+          },
+          "layer_group_location_association_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Layer Group Location Association Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "created_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Created By"
+          },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          },
+          "is_deleted": { "type": "boolean", "title": "Is Deleted" },
+          "soil_unit": { "$ref": "#/components/schemas/SoilUnit" }
+        },
+        "type": "object",
+        "required": [
+          "soil_unit_id",
+          "start_depth",
+          "end_depth",
+          "layer_interval_id",
+          "layer_group_location_association_id",
+          "created_at",
+          "updated_at",
+          "created_by",
+          "updated_by",
+          "is_deleted",
+          "soil_unit"
+        ],
+        "title": "LayerIntervalWithSoilUnit",
+        "description": "LayerInterval with nested soil unit details."
       },
       "Like": {
         "properties": {
@@ -9240,9 +10468,9 @@
             "title": "Favorite",
             "default": false
           },
-          "number_of_active_locations": {
-            "type": "integer",
-            "title": "Number Of Active Locations"
+          "linked_project_prefix": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Linked Project Prefix"
           }
         },
         "type": "object",
@@ -9253,8 +10481,7 @@
           "name",
           "standard_id",
           "srid",
-          "number_of_locations",
-          "number_of_active_locations"
+          "number_of_locations"
         ],
         "title": "LinkedProjectInfo",
         "example": {
@@ -9325,6 +10552,10 @@
           "point_y_wgs84_web": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
             "title": "Point Y Wgs84 Web"
+          },
+          "point_z_height_data": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Point Z Height Data"
           },
           "tags": {
             "anyOf": [
@@ -9534,6 +10765,10 @@
             "anyOf": [{ "type": "number" }, { "type": "null" }],
             "title": "Point Y Wgs84 Web"
           },
+          "point_z_height_data": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Point Z Height Data"
+          },
           "tags": {
             "items": { "type": "string" },
             "type": "array",
@@ -9742,6 +10977,170 @@
         "type": "object",
         "required": ["location_id", "created_at", "coordinates"],
         "title": "LocationInfo"
+      },
+      "LocationLayerFilterRequest": {
+        "properties": {
+          "layer_group_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Layer Group Id"
+          },
+          "soil_unit_ids": {
+            "items": { "type": "string", "format": "uuid" },
+            "type": "array",
+            "title": "Soil Unit Ids"
+          },
+          "exclude_soil_types": {
+            "items": { "$ref": "#/components/schemas/SoilTypeEnum" },
+            "type": "array",
+            "title": "Exclude Soil Types"
+          }
+        },
+        "type": "object",
+        "title": "LocationLayerFilterRequest"
+      },
+      "LocationLayerFilterResponse": {
+        "properties": {
+          "layer_group_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Layer Group Id"
+          },
+          "locations": {
+            "items": {
+              "$ref": "#/components/schemas/LocationLayerFilterResult"
+            },
+            "type": "array",
+            "title": "Locations"
+          }
+        },
+        "type": "object",
+        "required": ["layer_group_id", "locations"],
+        "title": "LocationLayerFilterResponse"
+      },
+      "LocationLayerFilterResult": {
+        "properties": {
+          "location_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Location Id"
+          },
+          "point_x_wgs84_web": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Point X Wgs84 Web"
+          },
+          "point_y_wgs84_web": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Point Y Wgs84 Web"
+          },
+          "point_x_wgs84_pseudo": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Point X Wgs84 Pseudo"
+          },
+          "point_y_wgs84_pseudo": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Point Y Wgs84 Pseudo"
+          },
+          "color": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Color"
+          },
+          "soil_type": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/SoilTypeEnum" },
+              { "type": "null" }
+            ]
+          },
+          "rule_label": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Rule Label"
+          }
+        },
+        "type": "object",
+        "required": ["location_id"],
+        "title": "LocationLayerFilterResult"
+      },
+      "LocationLayerIntervalSegment": {
+        "properties": {
+          "soil_unit_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Soil Unit Id"
+          },
+          "soil_unit_name": { "type": "string", "title": "Soil Unit Name" },
+          "soil_type": { "$ref": "#/components/schemas/SoilTypeEnum" },
+          "color": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Color"
+          },
+          "start_depth": { "type": "number", "title": "Start Depth" },
+          "end_depth": { "type": "number", "title": "End Depth" }
+        },
+        "type": "object",
+        "required": [
+          "soil_unit_id",
+          "soil_unit_name",
+          "soil_type",
+          "start_depth",
+          "end_depth"
+        ],
+        "title": "LocationLayerIntervalSegment"
+      },
+      "LocationLayerIntervalsResponse": {
+        "properties": {
+          "layer_group_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Layer Group Id"
+          },
+          "locations": {
+            "items": {
+              "$ref": "#/components/schemas/LocationLayerIntervalsResult"
+            },
+            "type": "array",
+            "title": "Locations"
+          }
+        },
+        "type": "object",
+        "required": ["layer_group_id", "locations"],
+        "title": "LocationLayerIntervalsResponse"
+      },
+      "LocationLayerIntervalsResult": {
+        "properties": {
+          "location_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Location Id"
+          },
+          "point_x_wgs84_web": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Point X Wgs84 Web"
+          },
+          "point_y_wgs84_web": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Point Y Wgs84 Web"
+          },
+          "point_x_wgs84_pseudo": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Point X Wgs84 Pseudo"
+          },
+          "point_y_wgs84_pseudo": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Point Y Wgs84 Pseudo"
+          },
+          "intervals": {
+            "items": {
+              "$ref": "#/components/schemas/LocationLayerIntervalSegment"
+            },
+            "type": "array",
+            "title": "Intervals"
+          }
+        },
+        "type": "object",
+        "required": ["location_id", "intervals"],
+        "title": "LocationLayerIntervalsResult"
       },
       "LocationMin": {
         "properties": {
@@ -10543,7 +11942,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -10737,7 +12138,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "sampler_type_id": {
             "anyOf": [{ "type": "integer" }, { "type": "null" }],
@@ -11181,7 +12584,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "predrilling_depth": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -11869,7 +13274,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -12063,16 +13470,17 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "dynamic_probing_type": {
             "$ref": "#/components/schemas/DPType",
             "default": "DPSHA"
           },
           "predrilling_depth": {
-            "type": "number",
-            "title": "Predrilling Depth",
-            "default": 0.0
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Predrilling Depth"
           },
           "cone_type": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
@@ -12589,7 +13997,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "depth": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -13180,7 +14590,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -13379,7 +14791,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -13573,7 +14987,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -13901,7 +15317,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -14095,7 +15513,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -14289,7 +15709,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "piezometer_type": { "$ref": "#/components/schemas/PiezometerType" },
           "depth_top": {
@@ -15042,7 +16464,7 @@
       },
       "MethodPlotFormat": {
         "type": "string",
-        "enum": ["dxf"],
+        "enum": ["dxf", "svg"],
         "title": "MethodPlotFormat"
       },
       "MethodRCD": {
@@ -15108,7 +16530,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "stopcode": {
             "anyOf": [{ "type": "integer" }, { "type": "null" }],
@@ -15506,7 +16930,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -15700,7 +17126,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "predrilling_depth": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -16166,7 +17594,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -16360,7 +17790,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -16554,7 +17986,13 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
+          },
+          "predrilling_depth": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Predrilling Depth"
           },
           "depth_top": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -16673,6 +18111,17 @@
             "title": "Method Type Id",
             "default": 4
           },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
+          },
           "depth_top": {
             "anyOf": [
               { "type": "number" },
@@ -16783,6 +18232,17 @@
             "const": 4,
             "title": "Method Type Id",
             "default": 4
+          },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
           },
           "depth_top": {
             "anyOf": [
@@ -16907,7 +18367,29 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
+          },
+          "water_level": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Water Level"
+          },
+          "predrilling_depth": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Predrilling Depth"
+          },
+          "depth_top": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Depth Top"
+          },
+          "depth_base": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Depth Base"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -16978,10 +18460,220 @@
             "const": 27,
             "title": "Method Type Id",
             "default": 27
+          },
+          "water_level": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Water Level"
+          },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
+          },
+          "depth_top": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Depth Top"
+          },
+          "depth_base": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Depth Base"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
         "title": "MethodSLBCreate"
+      },
+      "MethodSLBData": {
+        "properties": {
+          "method_data_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Method Data Id"
+          },
+          "method_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Method Id"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 27,
+            "title": "Method Type Id",
+            "default": 27
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "depth": {
+            "type": "number",
+            "title": "Depth",
+            "description": "Depth (m). SGF code D."
+          },
+          "penetration_rate": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Penetration Rate",
+            "description": "Penetration rate (mm/s). SGF code B."
+          },
+          "load": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Load",
+            "description": "Load (kN). SGF code W."
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
+          },
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
+          }
+        },
+        "type": "object",
+        "required": [
+          "method_data_id",
+          "method_id",
+          "created_at",
+          "updated_at",
+          "depth"
+        ],
+        "title": "MethodSLBData"
+      },
+      "MethodSLBDataCreate": {
+        "properties": {
+          "method_data_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Method Data Id"
+          },
+          "method_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Method Id"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 27,
+            "title": "Method Type Id",
+            "default": 27
+          },
+          "created_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Updated At"
+          },
+          "depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              }
+            ],
+            "title": "Depth",
+            "description": "Depth (m). SGF code D."
+          },
+          "penetration_rate": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Penetration Rate",
+            "description": "Penetration rate (mm/s). SGF code B."
+          },
+          "load": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Load",
+            "description": "Load (kN). SGF code W."
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
+          }
+        },
+        "type": "object",
+        "required": ["depth"],
+        "title": "MethodSLBDataCreate"
+      },
+      "MethodSLBDataUpdate": {
+        "properties": {
+          "method_type_id": {
+            "type": "integer",
+            "const": 27,
+            "title": "Method Type Id",
+            "default": 27
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks"
+          }
+        },
+        "type": "object",
+        "title": "MethodSLBDataUpdate",
+        "description": "Method SLB data update structure"
       },
       "MethodSLBUpdate": {
         "properties": {
@@ -17033,6 +18725,54 @@
             "const": 27,
             "title": "Method Type Id",
             "default": 27
+          },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
+          },
+          "water_level": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Water Level"
+          },
+          "depth_top": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Depth Top"
+          },
+          "depth_base": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Depth Base"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -17101,7 +18841,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -17295,7 +19037,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "sounding_class": {
             "anyOf": [
@@ -17317,6 +19061,10 @@
           "conversion_factor": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
             "title": "Conversion Factor"
+          },
+          "predrilling_depth": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Predrilling Depth"
           },
           "depth_top": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -17437,6 +19185,17 @@
               { "type": "null" }
             ],
             "title": "Conversion Factor"
+          },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
           }
         },
         "type": "object",
@@ -17930,6 +19689,17 @@
               { "type": "null" }
             ],
             "title": "Conversion Factor"
+          },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
           }
         },
         "type": "object",
@@ -17998,7 +19768,13 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
+          },
+          "predrilling_depth": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Predrilling Depth"
           },
           "depth_top": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -18081,6 +19857,17 @@
             "const": 6,
             "title": "Method Type Id",
             "default": 6
+          },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
           },
           "stopcode": {
             "anyOf": [{ "type": "integer" }, { "type": "null" }],
@@ -18341,6 +20128,17 @@
             "title": "Method Type Id",
             "default": 6
           },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
+          },
           "stopcode": {
             "anyOf": [{ "type": "integer" }, { "type": "null" }],
             "title": "Stopcode"
@@ -18412,7 +20210,30 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
+          },
+          "water_level": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Water Level",
+            "description": "Water surface below ground surface (m)"
+          },
+          "predrilling_depth": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Predrilling Depth"
+          },
+          "depth_top": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Depth Top"
+          },
+          "depth_base": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Depth Base"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -18483,10 +20304,196 @@
             "const": 28,
             "title": "Method Type Id",
             "default": 28
+          },
+          "water_level": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Water Level"
+          },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
+          },
+          "depth_top": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Depth Top"
+          },
+          "depth_base": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Depth Base"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
         "title": "MethodSTICreate"
+      },
+      "MethodSTIData": {
+        "properties": {
+          "method_data_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Method Data Id"
+          },
+          "method_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Method Id"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 28,
+            "title": "Method Type Id",
+            "default": 28
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "depth": {
+            "type": "number",
+            "title": "Depth",
+            "description": "Depth (m). SGF code D."
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
+          },
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
+          }
+        },
+        "type": "object",
+        "required": [
+          "method_data_id",
+          "method_id",
+          "created_at",
+          "updated_at",
+          "depth"
+        ],
+        "title": "MethodSTIData"
+      },
+      "MethodSTIDataCreate": {
+        "properties": {
+          "method_data_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Method Data Id"
+          },
+          "method_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Method Id"
+          },
+          "method_type_id": {
+            "type": "integer",
+            "const": 28,
+            "title": "Method Type Id",
+            "default": 28
+          },
+          "created_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Updated At"
+          },
+          "depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              }
+            ],
+            "title": "Depth",
+            "description": "Depth (m). SGF code D."
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
+          },
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
+          }
+        },
+        "type": "object",
+        "required": ["depth"],
+        "title": "MethodSTIDataCreate"
+      },
+      "MethodSTIDataUpdate": {
+        "properties": {
+          "method_type_id": {
+            "type": "integer",
+            "const": 28,
+            "title": "Method Type Id",
+            "default": 28
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
+          },
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
+          }
+        },
+        "type": "object",
+        "title": "MethodSTIDataUpdate"
       },
       "MethodSTIUpdate": {
         "properties": {
@@ -18538,6 +20545,28 @@
             "const": 28,
             "title": "Method Type Id",
             "default": 28
+          },
+          "water_level": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Water Level"
+          },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
           }
         },
         "type": "object",
@@ -18606,7 +20635,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "vane_height": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -18630,6 +20661,10 @@
             ],
             "title": "Calibration Date",
             "description": "Date of calibration of the vane used."
+          },
+          "predrilling_depth": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Predrilling Depth"
           },
           "depth_top": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -18769,6 +20804,17 @@
             ],
             "title": "Calibration Date",
             "description": "Date of calibration of the vane used."
+          },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
           }
         },
         "type": "object",
@@ -19154,6 +21200,17 @@
             "title": "Calibration Date",
             "description": "Date of calibration of the vane used."
           },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
+          },
           "depth_top": {
             "anyOf": [
               { "type": "number" },
@@ -19224,6 +21281,10 @@
             "anyOf": [{ "type": "number" }, { "type": "null" }],
             "title": "Depth Base"
           },
+          "length": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Length"
+          },
           "bedrock_elevation": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
             "title": "Bedrock Elevation"
@@ -19255,6 +21316,11 @@
           "sampling_technique_id": {
             "anyOf": [{ "type": "integer" }, { "type": "null" }],
             "title": "Sampling Technique Id"
+          },
+          "sample_material_ids": {
+            "items": { "type": "integer" },
+            "type": "array",
+            "title": "Sample Material Ids"
           },
           "diameter": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -19329,7 +21395,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "predrilling_depth": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -19831,7 +21899,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           }
         },
         "type": "object",
@@ -20025,7 +22095,9 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "predrilling_depth": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
@@ -20220,6 +22292,16 @@
             "type": "boolean",
             "title": "Increased Rotation Rate",
             "description": "Increased rotation rate"
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
+          },
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
           }
         },
         "type": "object",
@@ -20331,6 +22413,16 @@
             "type": "boolean",
             "title": "Increased Rotation Rate",
             "description": "Increased rotation rate"
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
+          },
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
           }
         },
         "type": "object",
@@ -20345,70 +22437,15 @@
             "title": "Method Type Id",
             "default": 16
           },
-          "depth": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Depth",
-            "description": "Depth (m). SGF code D."
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
           },
-          "penetration_rate": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Penetration Rate",
-            "description": "Penetration rate (mm/s)"
-          },
-          "penetration_force": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Penetration Force",
-            "description": "Penetration force (kN)"
-          },
-          "rotation_rate": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Rotation Rate",
-            "description": "Rotation rate (rpm)"
-          },
-          "rod_friction": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Rod Friction",
-            "description": "Rod friction (kN)"
-          },
-          "increased_rotation_rate": {
-            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
-            "title": "Increased Rotation Rate",
-            "description": "Increased rotation rate"
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
           }
         },
         "type": "object",
@@ -20621,9 +22658,15 @@
           },
           "self": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Self"
+            "title": "Self",
+            "description": "Deprecated output only field. Will be removed soon after 2026-01-01.",
+            "deprecated": true
           },
           "operation": { "$ref": "#/components/schemas/Operation" },
+          "predrilling_depth": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Predrilling Depth"
+          },
           "depth_top": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
             "title": "Depth Top"
@@ -20631,6 +22674,10 @@
           "depth_base": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
             "title": "Depth Base"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -20706,6 +22753,17 @@
           "operation": {
             "$ref": "#/components/schemas/Operation",
             "default": "MECHANICAL"
+          },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
           }
         },
         "type": "object",
@@ -20768,6 +22826,16 @@
             "anyOf": [{ "type": "number" }, { "type": "null" }],
             "title": "Rotation Rate",
             "description": "Rotation rate (rpm)"
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
+          },
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
           }
         },
         "type": "object",
@@ -20878,6 +22946,16 @@
             ],
             "title": "Rotation Rate",
             "description": "Rotation rate (rpm)"
+          },
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
+          },
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
           }
         },
         "type": "object",
@@ -20892,69 +22970,15 @@
             "title": "Method Type Id",
             "default": 26
           },
-          "depth": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Depth",
-            "description": "Depth (m). SGF code D."
+          "remarks": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Remarks",
+            "description": "Remarks. SGF code T"
           },
-          "turning": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Turning",
-            "description": "Turning (half revolution/0.2 m)"
-          },
-          "load": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Load",
-            "description": "Load (kN)"
-          },
-          "penetration_rate": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Penetration Rate",
-            "description": "Penetration rate (mm/s)"
-          },
-          "hammering": {
-            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
-            "title": "Hammering"
-          },
-          "rotation_rate": {
-            "anyOf": [
-              { "type": "number" },
-              {
-                "type": "string",
-                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
-              },
-              { "type": "null" }
-            ],
-            "title": "Rotation Rate",
-            "description": "Rotation rate (rpm)"
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
           }
         },
         "type": "object",
@@ -21011,6 +23035,17 @@
             "title": "Method Type Id",
             "default": 26
           },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
+          },
           "operation": {
             "anyOf": [
               { "$ref": "#/components/schemas/Operation" },
@@ -21057,6 +23092,7 @@
                 "PZ": "",
                 "RCD": "",
                 "RP": "",
+                "SA": "",
                 "SRS": "",
                 "SS": "",
                 "SVT": "",
@@ -21069,6 +23105,7 @@
                 "PZ": "",
                 "RCD": "",
                 "RP": "",
+                "SA": "",
                 "SRS": "",
                 "SS": "",
                 "SVT": "",
@@ -21175,6 +23212,16 @@
             "type": "array",
             "title": "Available Standard Ids",
             "default": []
+          },
+          "can_approve_method": {
+            "items": { "$ref": "#/components/schemas/ProjectRoleEnum" },
+            "type": "array",
+            "title": "Can Approve Method"
+          },
+          "can_revoke_method_approval": {
+            "items": { "$ref": "#/components/schemas/ProjectRoleEnum" },
+            "type": "array",
+            "title": "Can Revoke Method Approval"
           }
         },
         "type": "object",
@@ -21182,7 +23229,9 @@
           "organization_id",
           "name",
           "number_of_projects",
-          "default_role"
+          "default_role",
+          "can_approve_method",
+          "can_revoke_method_approval"
         ],
         "title": "Organization"
       },
@@ -21243,6 +23292,16 @@
             "type": "array",
             "title": "Available Standard Ids",
             "default": []
+          },
+          "can_approve_method": {
+            "items": { "$ref": "#/components/schemas/ProjectRoleEnum" },
+            "type": "array",
+            "title": "Can Approve Method"
+          },
+          "can_revoke_method_approval": {
+            "items": { "$ref": "#/components/schemas/ProjectRoleEnum" },
+            "type": "array",
+            "title": "Can Revoke Method Approval"
           }
         },
         "type": "object",
@@ -21353,6 +23412,26 @@
             "type": "array",
             "title": "Available Standard Ids",
             "default": []
+          },
+          "can_approve_method": {
+            "anyOf": [
+              {
+                "items": { "$ref": "#/components/schemas/ProjectRoleEnum" },
+                "type": "array"
+              },
+              { "type": "null" }
+            ],
+            "title": "Can Approve Method"
+          },
+          "can_revoke_method_approval": {
+            "anyOf": [
+              {
+                "items": { "$ref": "#/components/schemas/ProjectRoleEnum" },
+                "type": "array"
+              },
+              { "type": "null" }
+            ],
+            "title": "Can Revoke Method Approval"
           }
         },
         "type": "object",
@@ -21483,6 +23562,11 @@
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Wst",
             "default": ""
+          },
+          "SA": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Sa",
+            "default": ""
           }
         },
         "type": "object",
@@ -21538,6 +23622,11 @@
           "WST": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Wst",
+            "default": ""
+          },
+          "SA": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Sa",
             "default": ""
           }
         },
@@ -22108,6 +24197,7 @@
                   "PZ": "",
                   "RCD": "",
                   "RP": "",
+                  "SA": "",
                   "SRS": "",
                   "SS": "",
                   "SVT": "",
@@ -22121,6 +24211,7 @@
                   "PZ": "",
                   "RCD": "",
                   "RP": "",
+                  "SA": "",
                   "SRS": "",
                   "SS": "",
                   "SVT": "",
@@ -22176,6 +24267,7 @@
                   "PZ": "",
                   "RCD": "",
                   "RP": "",
+                  "SA": "",
                   "SRS": "",
                   "SS": "",
                   "SVT": "",
@@ -22189,6 +24281,7 @@
                   "PZ": "",
                   "RCD": "",
                   "RP": "",
+                  "SA": "",
                   "SRS": "",
                   "SS": "",
                   "SVT": "",
@@ -22249,6 +24342,7 @@
                 "PZ": "",
                 "RCD": "",
                 "RP": "",
+                "SA": "",
                 "SRS": "",
                 "SS": "",
                 "SVT": "",
@@ -22261,6 +24355,7 @@
                 "PZ": "",
                 "RCD": "",
                 "RP": "",
+                "SA": "",
                 "SRS": "",
                 "SS": "",
                 "SVT": "",
@@ -22317,6 +24412,7 @@
                 "PZ": "",
                 "RCD": "",
                 "RP": "",
+                "SA": "",
                 "SRS": "",
                 "SS": "",
                 "SVT": "",
@@ -22329,6 +24425,7 @@
                 "PZ": "",
                 "RCD": "",
                 "RP": "",
+                "SA": "",
                 "SRS": "",
                 "SS": "",
                 "SVT": "",
@@ -22363,7 +24460,8 @@
           "rcd",
           "dp",
           "srs",
-          "wst"
+          "wst",
+          "sa"
         ],
         "title": "PlotType"
       },
@@ -22624,6 +24722,11 @@
           "project_id": "e66a377d-3816-4cf8-ad79-d954a3ba632d",
           "srid": 3857
         }
+      },
+      "ProjectRoleEnum": {
+        "type": "string",
+        "enum": ["editor", "admin"],
+        "title": "ProjectRoleEnum"
       },
       "ProjectSearch": {
         "properties": {
@@ -22920,6 +25023,56 @@
         ],
         "title": "SamplingTechnique"
       },
+      "SaveLayerInterpretationRequest": {
+        "properties": {
+          "layer_group_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Layer Group Id"
+          },
+          "intervals": {
+            "items": { "$ref": "#/components/schemas/LayerIntervalCreate" },
+            "type": "array",
+            "minItems": 0,
+            "title": "Intervals"
+          }
+        },
+        "type": "object",
+        "required": ["layer_group_id", "intervals"],
+        "title": "SaveLayerInterpretationRequest",
+        "description": "Request schema for saving layer interpretation."
+      },
+      "SaveLayerInterpretationResponse": {
+        "properties": {
+          "layer_group_location_association_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Layer Group Location Association Id"
+          },
+          "layer_group_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Layer Group Id"
+          },
+          "layer_group_name": { "type": "string", "title": "Layer Group Name" },
+          "intervals": {
+            "items": {
+              "$ref": "#/components/schemas/LayerIntervalWithSoilUnit"
+            },
+            "type": "array",
+            "title": "Intervals"
+          }
+        },
+        "type": "object",
+        "required": [
+          "layer_group_location_association_id",
+          "layer_group_id",
+          "layer_group_name",
+          "intervals"
+        ],
+        "title": "SaveLayerInterpretationResponse",
+        "description": "Response schema for saving layer interpretation."
+      },
       "Scales": {
         "type": "string",
         "enum": [
@@ -23052,6 +25205,168 @@
         "type": "object",
         "title": "ShapeUpdate"
       },
+      "SoilTypeEnum": {
+        "type": "string",
+        "enum": [
+          "CLAY",
+          "QUICK_CLAY",
+          "POSSIBLE_QUICK_CLAY",
+          "DRY_CRUST_CLAY",
+          "SILT",
+          "SAND",
+          "GRAVEL",
+          "FRICTION_SOIL",
+          "COBBLES_BOULDERS",
+          "BLOCK",
+          "COBBLE",
+          "BOULDER",
+          "ROCK",
+          "PEAT",
+          "ORGANIC",
+          "ORGANIC_DEBRIS",
+          "FILL",
+          "TOPSOIL",
+          "MUD",
+          "SHELL",
+          "MORAINE",
+          "CLAY_MORAINE",
+          "DEEP_SOIL_MIXING",
+          "JET_GROUTING",
+          "BEDROCK",
+          "WATER",
+          "CUSTOM",
+          "UNKNOWN"
+        ],
+        "title": "SoilTypeEnum",
+        "description": "Standardized soil type classifications"
+      },
+      "SoilUnit": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "soil_type": { "$ref": "#/components/schemas/SoilTypeEnum" },
+          "color": {
+            "anyOf": [
+              { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+              { "type": "null" }
+            ],
+            "title": "Color"
+          },
+          "hatch_style": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/HatchStyleEnum" },
+              { "type": "null" }
+            ]
+          },
+          "soil_unit_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Soil Unit Id"
+          },
+          "layer_group_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Layer Group Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "created_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Created By"
+          },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          },
+          "is_deleted": { "type": "boolean", "title": "Is Deleted" }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "soil_type",
+          "soil_unit_id",
+          "layer_group_id",
+          "created_at",
+          "updated_at",
+          "created_by",
+          "updated_by",
+          "is_deleted"
+        ],
+        "title": "SoilUnit",
+        "description": "Full SoilUnit schema returned from API."
+      },
+      "SoilUnitCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "soil_type": { "$ref": "#/components/schemas/SoilTypeEnum" },
+          "color": {
+            "anyOf": [
+              { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+              { "type": "null" }
+            ],
+            "title": "Color"
+          },
+          "hatch_style": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/HatchStyleEnum" },
+              { "type": "null" }
+            ]
+          }
+        },
+        "type": "object",
+        "required": ["name", "soil_type"],
+        "title": "SoilUnitCreate",
+        "description": "Schema for creating a new soil unit."
+      },
+      "SoilUnitPatch": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              { "type": "string", "maxLength": 255, "minLength": 1 },
+              { "type": "null" }
+            ],
+            "title": "Name"
+          },
+          "soil_type": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/SoilTypeEnum" },
+              { "type": "null" }
+            ]
+          },
+          "color": {
+            "anyOf": [
+              { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+              { "type": "null" }
+            ],
+            "title": "Color"
+          },
+          "hatch_style": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/HatchStyleEnum" },
+              { "type": "null" }
+            ]
+          }
+        },
+        "type": "object",
+        "title": "SoilUnitPatch"
+      },
       "SoundingClass": {
         "type": "string",
         "enum": ["JB1", "JB2", "JB3", "JBTOT"],
@@ -23074,6 +25389,12 @@
             "items": { "$ref": "#/components/schemas/SamplingTechnique" },
             "type": "array",
             "title": "Sampling Techniques",
+            "default": []
+          },
+          "default_coordinate_reference_systems": {
+            "items": { "$ref": "#/components/schemas/CRSInfo" },
+            "type": "array",
+            "title": "Default Coordinate Reference Systems",
             "default": []
           }
         },
@@ -23211,7 +25532,9 @@
             "title": "Location"
           },
           "msg": { "type": "string", "title": "Message" },
-          "type": { "type": "string", "title": "Error Type" }
+          "type": { "type": "string", "title": "Error Type" },
+          "input": { "title": "Input" },
+          "ctx": { "type": "object", "title": "Context" }
         },
         "type": "object",
         "required": ["loc", "msg", "type"],

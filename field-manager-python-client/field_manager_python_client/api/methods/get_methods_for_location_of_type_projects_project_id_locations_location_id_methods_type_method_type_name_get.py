@@ -1,5 +1,6 @@
 from http import HTTPStatus
 from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -47,6 +48,7 @@ def _get_kwargs(
     skip: int | Unset = 0,
     limit: int | Unset = 100,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     params["skip"] = skip
@@ -57,7 +59,11 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/projects/{project_id}/locations/{location_id}/methods/type/{method_type_name}",
+        "url": "/projects/{project_id}/locations/{location_id}/methods/type/{method_type_name}".format(
+            project_id=quote(str(project_id), safe=""),
+            location_id=quote(str(location_id), safe=""),
+            method_type_name=quote(str(method_type_name), safe=""),
+        ),
         "params": params,
     }
 

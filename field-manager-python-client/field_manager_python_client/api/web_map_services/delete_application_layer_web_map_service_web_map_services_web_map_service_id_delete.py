@@ -1,5 +1,6 @@
 from http import HTTPStatus
 from typing import Any, cast
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -13,9 +14,12 @@ from ...types import Response
 def _get_kwargs(
     web_map_service_id: UUID,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "delete",
-        "url": f"/web_map_services/{web_map_service_id}",
+        "url": "/web_map_services/{web_map_service_id}".format(
+            web_map_service_id=quote(str(web_map_service_id), safe=""),
+        ),
     }
 
     return _kwargs

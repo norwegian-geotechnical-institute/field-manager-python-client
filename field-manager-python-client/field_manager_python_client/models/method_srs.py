@@ -45,11 +45,12 @@ class MethodSRS:
             conducted_at (datetime.datetime | None | Unset):
             conducted_by (None | str | Unset):
             files (list[File] | Unset):
-            self_ (None | str | Unset):
+            self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
             sounding_class (None | SoundingClass | Unset):
             serial_number (None | str | Unset):
             calibration_date (datetime.datetime | None | Unset):
             conversion_factor (float | None | Unset):
+            predrilling_depth (float | None | Unset):
             depth_top (float | None | Unset):
             depth_base (float | None | Unset):
             stopcode (int | None | Unset):
@@ -76,6 +77,7 @@ class MethodSRS:
     serial_number: None | str | Unset = UNSET
     calibration_date: datetime.datetime | None | Unset = UNSET
     conversion_factor: float | None | Unset = UNSET
+    predrilling_depth: float | None | Unset = UNSET
     depth_top: float | None | Unset = UNSET
     depth_base: float | None | Unset = UNSET
     stopcode: int | None | Unset = UNSET
@@ -172,6 +174,12 @@ class MethodSRS:
         else:
             conversion_factor = self.conversion_factor
 
+        predrilling_depth: float | None | Unset
+        if isinstance(self.predrilling_depth, Unset):
+            predrilling_depth = UNSET
+        else:
+            predrilling_depth = self.predrilling_depth
+
         depth_top: float | None | Unset
         if isinstance(self.depth_top, Unset):
             depth_top = UNSET
@@ -244,6 +252,8 @@ class MethodSRS:
             field_dict["calibration_date"] = calibration_date
         if conversion_factor is not UNSET:
             field_dict["conversion_factor"] = conversion_factor
+        if predrilling_depth is not UNSET:
+            field_dict["predrilling_depth"] = predrilling_depth
         if depth_top is not UNSET:
             field_dict["depth_top"] = depth_top
         if depth_base is not UNSET:
@@ -403,6 +413,15 @@ class MethodSRS:
 
         conversion_factor = _parse_conversion_factor(d.pop("conversion_factor", UNSET))
 
+        def _parse_predrilling_depth(data: object) -> float | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | Unset, data)
+
+        predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
+
         def _parse_depth_top(data: object) -> float | None | Unset:
             if data is None:
                 return data
@@ -476,6 +495,7 @@ class MethodSRS:
             serial_number=serial_number,
             calibration_date=calibration_date,
             conversion_factor=conversion_factor,
+            predrilling_depth=predrilling_depth,
             depth_top=depth_top,
             depth_base=depth_base,
             stopcode=stopcode,
