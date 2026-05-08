@@ -104,7 +104,7 @@ def _get_kwargs(
     headers: dict[str, Any] = {}
 
     _kwargs: dict[str, Any] = {
-        "method": "put",
+        "method": "patch",
         "url": "/projects/{project_id}/locations/{location_id}/methods/{method_id}".format(
             project_id=quote(str(project_id), safe=""),
             location_id=quote(str(location_id), safe=""),
@@ -588,7 +588,7 @@ def sync_detailed(
 ]:
     """Update Method For Location
 
-     Deprecated endpoint. Use the PATCH method instead. This is scheduled for deletion in June 2026.
+     Update method
 
     Args:
         project_id (str):
@@ -691,7 +691,7 @@ def sync(
 ):
     """Update Method For Location
 
-     Deprecated endpoint. Use the PATCH method instead. This is scheduled for deletion in June 2026.
+     Update method
 
     Args:
         project_id (str):
@@ -788,7 +788,7 @@ async def asyncio_detailed(
 ]:
     """Update Method For Location
 
-     Deprecated endpoint. Use the PATCH method instead. This is scheduled for deletion in June 2026.
+     Update method
 
     Args:
         project_id (str):
@@ -889,7 +889,7 @@ async def asyncio(
 ):
     """Update Method For Location
 
-     Deprecated endpoint. Use the PATCH method instead. This is scheduled for deletion in June 2026.
+     Update method
 
     Args:
         project_id (str):

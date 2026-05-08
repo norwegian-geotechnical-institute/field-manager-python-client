@@ -9,6 +9,7 @@ from ...client import AuthenticatedClient, Client
 from ...models.body_upload_file_to_project_projects_project_id_upload_post import (
     BodyUploadFileToProjectProjectsProjectIdUploadPost,
 )
+from ...models.file_type import FileType
 from ...models.http_validation_error import HTTPValidationError
 from ...models.project import Project
 from ...types import UNSET, Response, Unset
@@ -18,12 +19,22 @@ def _get_kwargs(
     project_id: str,
     *,
     body: BodyUploadFileToProjectProjectsProjectIdUploadPost,
+    file_type: FileType | None | Unset = UNSET,
     layer_file: bool | Unset = False,
     srid: None | str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
     params: dict[str, Any] = {}
+
+    json_file_type: None | str | Unset
+    if isinstance(file_type, Unset):
+        json_file_type = UNSET
+    elif isinstance(file_type, FileType):
+        json_file_type = file_type.value
+    else:
+        json_file_type = file_type
+    params["file_type"] = json_file_type
 
     params["layer_file"] = layer_file
 
@@ -85,15 +96,18 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: BodyUploadFileToProjectProjectsProjectIdUploadPost,
+    file_type: FileType | None | Unset = UNSET,
     layer_file: bool | Unset = False,
     srid: None | str | Unset = UNSET,
 ) -> Response[HTTPValidationError | Project]:
     """Upload File To Project
 
-     Upload a data file to project. If layer_file is passed as True, then the file is converted to
-    GeoJSON and used for
-    showing extra layers in a project. Otherwise, the file is not parsed, but only attached to the
-    project.
+     Upload a file to project. If file_type is LAYER, then the file is converted to GeoJSON and used for
+    showing extra
+    layers in a project. If file_type is omitted, images are detected automatically and other files are
+    attached as
+    general project files. The deprecated layer_file query parameter is still supported for backwards
+    compatibility.
 
     For layer files, only two types are supported: .dxf files with POINT, LINE and / or POLYLINE and
     .zip files
@@ -101,6 +115,7 @@ def sync_detailed(
 
     Args:
         project_id (str):
+        file_type (FileType | None | Unset):
         layer_file (bool | Unset):  Default: False.
         srid (None | str | Unset):
         body (BodyUploadFileToProjectProjectsProjectIdUploadPost):
@@ -116,6 +131,7 @@ def sync_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         body=body,
+        file_type=file_type,
         layer_file=layer_file,
         srid=srid,
     )
@@ -132,15 +148,18 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: BodyUploadFileToProjectProjectsProjectIdUploadPost,
+    file_type: FileType | None | Unset = UNSET,
     layer_file: bool | Unset = False,
     srid: None | str | Unset = UNSET,
 ) -> HTTPValidationError | Project | None:
     """Upload File To Project
 
-     Upload a data file to project. If layer_file is passed as True, then the file is converted to
-    GeoJSON and used for
-    showing extra layers in a project. Otherwise, the file is not parsed, but only attached to the
-    project.
+     Upload a file to project. If file_type is LAYER, then the file is converted to GeoJSON and used for
+    showing extra
+    layers in a project. If file_type is omitted, images are detected automatically and other files are
+    attached as
+    general project files. The deprecated layer_file query parameter is still supported for backwards
+    compatibility.
 
     For layer files, only two types are supported: .dxf files with POINT, LINE and / or POLYLINE and
     .zip files
@@ -148,6 +167,7 @@ def sync(
 
     Args:
         project_id (str):
+        file_type (FileType | None | Unset):
         layer_file (bool | Unset):  Default: False.
         srid (None | str | Unset):
         body (BodyUploadFileToProjectProjectsProjectIdUploadPost):
@@ -164,6 +184,7 @@ def sync(
         project_id=project_id,
         client=client,
         body=body,
+        file_type=file_type,
         layer_file=layer_file,
         srid=srid,
     ).parsed
@@ -174,15 +195,18 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: BodyUploadFileToProjectProjectsProjectIdUploadPost,
+    file_type: FileType | None | Unset = UNSET,
     layer_file: bool | Unset = False,
     srid: None | str | Unset = UNSET,
 ) -> Response[HTTPValidationError | Project]:
     """Upload File To Project
 
-     Upload a data file to project. If layer_file is passed as True, then the file is converted to
-    GeoJSON and used for
-    showing extra layers in a project. Otherwise, the file is not parsed, but only attached to the
-    project.
+     Upload a file to project. If file_type is LAYER, then the file is converted to GeoJSON and used for
+    showing extra
+    layers in a project. If file_type is omitted, images are detected automatically and other files are
+    attached as
+    general project files. The deprecated layer_file query parameter is still supported for backwards
+    compatibility.
 
     For layer files, only two types are supported: .dxf files with POINT, LINE and / or POLYLINE and
     .zip files
@@ -190,6 +214,7 @@ async def asyncio_detailed(
 
     Args:
         project_id (str):
+        file_type (FileType | None | Unset):
         layer_file (bool | Unset):  Default: False.
         srid (None | str | Unset):
         body (BodyUploadFileToProjectProjectsProjectIdUploadPost):
@@ -205,6 +230,7 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         body=body,
+        file_type=file_type,
         layer_file=layer_file,
         srid=srid,
     )
@@ -219,15 +245,18 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: BodyUploadFileToProjectProjectsProjectIdUploadPost,
+    file_type: FileType | None | Unset = UNSET,
     layer_file: bool | Unset = False,
     srid: None | str | Unset = UNSET,
 ) -> HTTPValidationError | Project | None:
     """Upload File To Project
 
-     Upload a data file to project. If layer_file is passed as True, then the file is converted to
-    GeoJSON and used for
-    showing extra layers in a project. Otherwise, the file is not parsed, but only attached to the
-    project.
+     Upload a file to project. If file_type is LAYER, then the file is converted to GeoJSON and used for
+    showing extra
+    layers in a project. If file_type is omitted, images are detected automatically and other files are
+    attached as
+    general project files. The deprecated layer_file query parameter is still supported for backwards
+    compatibility.
 
     For layer files, only two types are supported: .dxf files with POINT, LINE and / or POLYLINE and
     .zip files
@@ -235,6 +264,7 @@ async def asyncio(
 
     Args:
         project_id (str):
+        file_type (FileType | None | Unset):
         layer_file (bool | Unset):  Default: False.
         srid (None | str | Unset):
         body (BodyUploadFileToProjectProjectsProjectIdUploadPost):
@@ -252,6 +282,7 @@ async def asyncio(
             project_id=project_id,
             client=client,
             body=body,
+            file_type=file_type,
             layer_file=layer_file,
             srid=srid,
         )

@@ -34,6 +34,7 @@ class MethodDPUpdate:
         cone_type (None | str | Unset):
         cushion_type (None | str | Unset):
         use_damper (bool | None | Unset):
+        stopcode (int | None | Unset):
     """
 
     method_id: None | Unset | UUID = UNSET
@@ -50,6 +51,7 @@ class MethodDPUpdate:
     cone_type: None | str | Unset = UNSET
     cushion_type: None | str | Unset = UNSET
     use_damper: bool | None | Unset = UNSET
+    stopcode: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -143,6 +145,12 @@ class MethodDPUpdate:
         else:
             use_damper = self.use_damper
 
+        stopcode: int | None | Unset
+        if isinstance(self.stopcode, Unset):
+            stopcode = UNSET
+        else:
+            stopcode = self.stopcode
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -174,6 +182,8 @@ class MethodDPUpdate:
             field_dict["cushion_type"] = cushion_type
         if use_damper is not UNSET:
             field_dict["use_damper"] = use_damper
+        if stopcode is not UNSET:
+            field_dict["stopcode"] = stopcode
 
         return field_dict
 
@@ -342,6 +352,15 @@ class MethodDPUpdate:
 
         use_damper = _parse_use_damper(d.pop("use_damper", UNSET))
 
+        def _parse_stopcode(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        stopcode = _parse_stopcode(d.pop("stopcode", UNSET))
+
         method_dp_update = cls(
             method_id=method_id,
             name=name,
@@ -357,6 +376,7 @@ class MethodDPUpdate:
             cone_type=cone_type,
             cushion_type=cushion_type,
             use_damper=use_damper,
+            stopcode=stopcode,
         )
 
         method_dp_update.additional_properties = d
