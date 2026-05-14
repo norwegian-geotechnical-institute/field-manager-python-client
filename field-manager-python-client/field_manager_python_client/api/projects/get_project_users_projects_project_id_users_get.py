@@ -7,6 +7,7 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
+from ...models.user import User
 from ...types import Response
 
 
@@ -24,7 +25,19 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> HTTPValidationError | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | list[User] | None:
+    if response.status_code == 200:
+        response_200 = []
+        _response_200 = response.json()
+        for response_200_item_data in _response_200:
+            response_200_item = User.from_dict(response_200_item_data)
+
+            response_200.append(response_200_item)
+
+        return response_200
+
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
@@ -36,7 +49,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[HTTPValidationError]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | list[User]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -49,7 +64,7 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[HTTPValidationError]:
+) -> Response[HTTPValidationError | list[User]]:
     """Get Project Users
 
     Args:
@@ -60,7 +75,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[HTTPValidationError | list[User]]
     """
 
     kwargs = _get_kwargs(
@@ -78,7 +93,7 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-) -> HTTPValidationError | None:
+) -> HTTPValidationError | list[User] | None:
     """Get Project Users
 
     Args:
@@ -89,7 +104,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        HTTPValidationError | list[User]
     """
 
     return sync_detailed(
@@ -102,7 +117,7 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[HTTPValidationError]:
+) -> Response[HTTPValidationError | list[User]]:
     """Get Project Users
 
     Args:
@@ -113,7 +128,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[HTTPValidationError | list[User]]
     """
 
     kwargs = _get_kwargs(
@@ -129,7 +144,7 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-) -> HTTPValidationError | None:
+) -> HTTPValidationError | list[User] | None:
     """Get Project Users
 
     Args:
@@ -140,7 +155,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        HTTPValidationError | list[User]
     """
 
     return (

@@ -39,7 +39,6 @@ class MethodDP:
                 )
             created_at (datetime.datetime):
             updated_at (datetime.datetime):
-            type_ (DPType): (Dynamic Probing) DP Type
             remarks (None | str | Unset):
             method_type_id (Literal[25] | Unset):  Default: 25.
             created_by (None | str | Unset):
@@ -65,7 +64,6 @@ class MethodDP:
     method_status_id: MethodStatusEnum
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    type_: DPType
     remarks: None | str | Unset = UNSET
     method_type_id: Literal[25] | Unset = 25
     created_by: None | str | Unset = UNSET
@@ -97,8 +95,6 @@ class MethodDP:
         created_at = self.created_at.isoformat()
 
         updated_at = self.updated_at.isoformat()
-
-        type_ = self.type_.value
 
         remarks: None | str | Unset
         if isinstance(self.remarks, Unset):
@@ -209,7 +205,6 @@ class MethodDP:
                 "method_status_id": method_status_id,
                 "created_at": created_at,
                 "updated_at": updated_at,
-                "type": type_,
             }
         )
         if remarks is not UNSET:
@@ -265,8 +260,6 @@ class MethodDP:
         created_at = isoparse(d.pop("created_at"))
 
         updated_at = isoparse(d.pop("updated_at"))
-
-        type_ = DPType(d.pop("type"))
 
         def _parse_remarks(data: object) -> None | str | Unset:
             if data is None:
@@ -429,7 +422,6 @@ class MethodDP:
             method_status_id=method_status_id,
             created_at=created_at,
             updated_at=updated_at,
-            type_=type_,
             remarks=remarks,
             method_type_id=method_type_id,
             created_by=created_by,

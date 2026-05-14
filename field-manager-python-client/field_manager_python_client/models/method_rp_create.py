@@ -39,6 +39,7 @@ class MethodRPCreate:
             conducted_at (datetime.datetime | None | Unset):
             method_type_id (Literal[3] | Unset):  Default: 3.
             predrilling_depth (float | None | str | Unset):
+            stopcode (int | None | Unset):
     """
 
     method_id: None | Unset | UUID = UNSET
@@ -53,6 +54,7 @@ class MethodRPCreate:
     conducted_at: datetime.datetime | None | Unset = UNSET
     method_type_id: Literal[3] | Unset = 3
     predrilling_depth: float | None | str | Unset = UNSET
+    stopcode: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -126,6 +128,12 @@ class MethodRPCreate:
         else:
             predrilling_depth = self.predrilling_depth
 
+        stopcode: int | None | Unset
+        if isinstance(self.stopcode, Unset):
+            stopcode = UNSET
+        else:
+            stopcode = self.stopcode
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -153,6 +161,8 @@ class MethodRPCreate:
             field_dict["method_type_id"] = method_type_id
         if predrilling_depth is not UNSET:
             field_dict["predrilling_depth"] = predrilling_depth
+        if stopcode is not UNSET:
+            field_dict["stopcode"] = stopcode
 
         return field_dict
 
@@ -286,6 +296,15 @@ class MethodRPCreate:
 
         predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
 
+        def _parse_stopcode(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        stopcode = _parse_stopcode(d.pop("stopcode", UNSET))
+
         method_rp_create = cls(
             method_id=method_id,
             name=name,
@@ -299,6 +318,7 @@ class MethodRPCreate:
             conducted_at=conducted_at,
             method_type_id=method_type_id,
             predrilling_depth=predrilling_depth,
+            stopcode=stopcode,
         )
 
         method_rp_create.additional_properties = d

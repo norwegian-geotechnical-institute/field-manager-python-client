@@ -67,6 +67,7 @@ class MethodCPTUpdate:
             OUT_OF_BOUNDS=10,
             UNKNOWN=100,
             )
+        stopcode (int | None | Unset):
     """
 
     method_id: None | Unset | UUID = UNSET
@@ -87,6 +88,7 @@ class MethodCPTUpdate:
     application_class_resistance: ApplicationClassEnum | Unset = UNSET
     application_class_friction: ApplicationClassEnum | Unset = UNSET
     application_class_pressure: ApplicationClassEnum | Unset = UNSET
+    stopcode: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -194,6 +196,12 @@ class MethodCPTUpdate:
         if not isinstance(self.application_class_pressure, Unset):
             application_class_pressure = self.application_class_pressure.value
 
+        stopcode: int | None | Unset
+        if isinstance(self.stopcode, Unset):
+            stopcode = UNSET
+        else:
+            stopcode = self.stopcode
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -233,6 +241,8 @@ class MethodCPTUpdate:
             field_dict["application_class_friction"] = application_class_friction
         if application_class_pressure is not UNSET:
             field_dict["application_class_pressure"] = application_class_pressure
+        if stopcode is not UNSET:
+            field_dict["stopcode"] = stopcode
 
         return field_dict
 
@@ -421,6 +431,15 @@ class MethodCPTUpdate:
         else:
             application_class_pressure = ApplicationClassEnum(_application_class_pressure)
 
+        def _parse_stopcode(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        stopcode = _parse_stopcode(d.pop("stopcode", UNSET))
+
         method_cpt_update = cls(
             method_id=method_id,
             name=name,
@@ -440,6 +459,7 @@ class MethodCPTUpdate:
             application_class_resistance=application_class_resistance,
             application_class_friction=application_class_friction,
             application_class_pressure=application_class_pressure,
+            stopcode=stopcode,
         )
 
         method_cpt_update.additional_properties = d

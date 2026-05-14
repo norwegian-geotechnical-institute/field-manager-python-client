@@ -26,7 +26,6 @@ class FileExtended:
     Attributes:
         file_id (UUID):
         name (str):
-        blob_url (str): Will be removed in future versions.
         original_filename (str):
         file_type (FileType):
         mime_type (str):
@@ -46,7 +45,6 @@ class FileExtended:
 
     file_id: UUID
     name: str
-    blob_url: str
     original_filename: str
     file_type: FileType
     mime_type: str
@@ -68,8 +66,6 @@ class FileExtended:
         file_id = str(self.file_id)
 
         name = self.name
-
-        blob_url = self.blob_url
 
         original_filename = self.original_filename
 
@@ -155,7 +151,6 @@ class FileExtended:
             {
                 "file_id": file_id,
                 "name": name,
-                "blob_url": blob_url,
                 "original_filename": original_filename,
                 "file_type": file_type,
                 "mime_type": mime_type,
@@ -196,8 +191,6 @@ class FileExtended:
         file_id = UUID(d.pop("file_id"))
 
         name = d.pop("name")
-
-        blob_url = d.pop("blob_url")
 
         original_filename = d.pop("original_filename")
 
@@ -317,7 +310,6 @@ class FileExtended:
         file_extended = cls(
             file_id=file_id,
             name=name,
-            blob_url=blob_url,
             original_filename=original_filename,
             file_type=file_type,
             mime_type=mime_type,

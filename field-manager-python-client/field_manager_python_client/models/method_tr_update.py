@@ -30,6 +30,7 @@ class MethodTRUpdate:
         method_type_id (Literal[16] | Unset):  Default: 16.
         predrilling_depth (float | None | str | Unset):
         serial_number (float | None | str | Unset):
+        stopcode (int | None | Unset):
     """
 
     method_id: None | Unset | UUID = UNSET
@@ -43,6 +44,7 @@ class MethodTRUpdate:
     method_type_id: Literal[16] | Unset = 16
     predrilling_depth: float | None | str | Unset = UNSET
     serial_number: float | None | str | Unset = UNSET
+    stopcode: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -116,6 +118,12 @@ class MethodTRUpdate:
         else:
             serial_number = self.serial_number
 
+        stopcode: int | None | Unset
+        if isinstance(self.stopcode, Unset):
+            stopcode = UNSET
+        else:
+            stopcode = self.stopcode
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -141,6 +149,8 @@ class MethodTRUpdate:
             field_dict["predrilling_depth"] = predrilling_depth
         if serial_number is not UNSET:
             field_dict["serial_number"] = serial_number
+        if stopcode is not UNSET:
+            field_dict["stopcode"] = stopcode
 
         return field_dict
 
@@ -274,6 +284,15 @@ class MethodTRUpdate:
 
         serial_number = _parse_serial_number(d.pop("serial_number", UNSET))
 
+        def _parse_stopcode(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        stopcode = _parse_stopcode(d.pop("stopcode", UNSET))
+
         method_tr_update = cls(
             method_id=method_id,
             name=name,
@@ -286,6 +305,7 @@ class MethodTRUpdate:
             method_type_id=method_type_id,
             predrilling_depth=predrilling_depth,
             serial_number=serial_number,
+            stopcode=stopcode,
         )
 
         method_tr_update.additional_properties = d
