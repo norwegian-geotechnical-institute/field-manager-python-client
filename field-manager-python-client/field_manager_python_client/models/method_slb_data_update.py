@@ -17,15 +17,23 @@ class MethodSLBDataUpdate:
 
     Attributes:
         method_type_id (Literal[27] | Unset):  Default: 27.
+        comment_code (int | None | Unset): Comment code. Two digit value.
         remarks (None | str | Unset):
     """
 
     method_type_id: Literal[27] | Unset = 27
+    comment_code: int | None | Unset = UNSET
     remarks: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         method_type_id = self.method_type_id
+
+        comment_code: int | None | Unset
+        if isinstance(self.comment_code, Unset):
+            comment_code = UNSET
+        else:
+            comment_code = self.comment_code
 
         remarks: None | str | Unset
         if isinstance(self.remarks, Unset):
@@ -38,6 +46,8 @@ class MethodSLBDataUpdate:
         field_dict.update({})
         if method_type_id is not UNSET:
             field_dict["method_type_id"] = method_type_id
+        if comment_code is not UNSET:
+            field_dict["comment_code"] = comment_code
         if remarks is not UNSET:
             field_dict["remarks"] = remarks
 
@@ -50,6 +60,15 @@ class MethodSLBDataUpdate:
         if method_type_id != 27 and not isinstance(method_type_id, Unset):
             raise ValueError(f"method_type_id must match const 27, got '{method_type_id}'")
 
+        def _parse_comment_code(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        comment_code = _parse_comment_code(d.pop("comment_code", UNSET))
+
         def _parse_remarks(data: object) -> None | str | Unset:
             if data is None:
                 return data
@@ -61,6 +80,7 @@ class MethodSLBDataUpdate:
 
         method_slb_data_update = cls(
             method_type_id=method_type_id,
+            comment_code=comment_code,
             remarks=remarks,
         )
 

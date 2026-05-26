@@ -20,8 +20,8 @@ class MethodTRCreate:
     """Pressure sounding / Svensk trycksondering
 
     Attributes:
-        name (str):
         method_id (None | Unset | UUID):
+        name (str | Unset):  Default: 'TR'.
         remarks (None | str | Unset):
         method_status_id (MethodStatusEnum | Unset): (
             PLANNED=1,
@@ -44,8 +44,8 @@ class MethodTRCreate:
         stopcode (int | None | Unset):
     """
 
-    name: str
     method_id: None | Unset | UUID = UNSET
+    name: str | Unset = "TR"
     remarks: None | str | Unset = UNSET
     method_status_id: MethodStatusEnum | Unset = UNSET
     created_at: datetime.datetime | None | Unset = UNSET
@@ -63,8 +63,6 @@ class MethodTRCreate:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        name = self.name
-
         method_id: None | str | Unset
         if isinstance(self.method_id, Unset):
             method_id = UNSET
@@ -72,6 +70,8 @@ class MethodTRCreate:
             method_id = str(self.method_id)
         else:
             method_id = self.method_id
+
+        name = self.name
 
         remarks: None | str | Unset
         if isinstance(self.remarks, Unset):
@@ -159,13 +159,11 @@ class MethodTRCreate:
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "name": name,
-            }
-        )
+        field_dict.update({})
         if method_id is not UNSET:
             field_dict["method_id"] = method_id
+        if name is not UNSET:
+            field_dict["name"] = name
         if remarks is not UNSET:
             field_dict["remarks"] = remarks
         if method_status_id is not UNSET:
@@ -200,7 +198,6 @@ class MethodTRCreate:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        name = d.pop("name")
 
         def _parse_method_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -218,6 +215,8 @@ class MethodTRCreate:
             return cast(None | Unset | UUID, data)
 
         method_id = _parse_method_id(d.pop("method_id", UNSET))
+
+        name = d.pop("name", UNSET)
 
         def _parse_remarks(data: object) -> None | str | Unset:
             if data is None:
@@ -363,8 +362,8 @@ class MethodTRCreate:
         stopcode = _parse_stopcode(d.pop("stopcode", UNSET))
 
         method_tr_create = cls(
-            name=name,
             method_id=method_id,
+            name=name,
             remarks=remarks,
             method_status_id=method_status_id,
             created_at=created_at,

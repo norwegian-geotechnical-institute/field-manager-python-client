@@ -27,6 +27,7 @@ class MethodSLBDataCreate:
         penetration_rate (float | None | str | Unset): Penetration rate (mm/s). SGF code B.
         load (float | None | str | Unset): Load (kN). SGF code W.
         remarks (None | str | Unset): Remarks. SGF code T
+        comment_code (int | None | Unset): Comment code. Two digit value.
     """
 
     depth: float | str
@@ -38,6 +39,7 @@ class MethodSLBDataCreate:
     penetration_rate: float | None | str | Unset = UNSET
     load: float | None | str | Unset = UNSET
     remarks: None | str | Unset = UNSET
+    comment_code: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -96,6 +98,12 @@ class MethodSLBDataCreate:
         else:
             remarks = self.remarks
 
+        comment_code: int | None | Unset
+        if isinstance(self.comment_code, Unset):
+            comment_code = UNSET
+        else:
+            comment_code = self.comment_code
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -119,6 +127,8 @@ class MethodSLBDataCreate:
             field_dict["load"] = load
         if remarks is not UNSET:
             field_dict["remarks"] = remarks
+        if comment_code is not UNSET:
+            field_dict["comment_code"] = comment_code
 
         return field_dict
 
@@ -230,6 +240,15 @@ class MethodSLBDataCreate:
 
         remarks = _parse_remarks(d.pop("remarks", UNSET))
 
+        def _parse_comment_code(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        comment_code = _parse_comment_code(d.pop("comment_code", UNSET))
+
         method_slb_data_create = cls(
             depth=depth,
             method_data_id=method_data_id,
@@ -240,6 +259,7 @@ class MethodSLBDataCreate:
             penetration_rate=penetration_rate,
             load=load,
             remarks=remarks,
+            comment_code=comment_code,
         )
 
         method_slb_data_create.additional_properties = d

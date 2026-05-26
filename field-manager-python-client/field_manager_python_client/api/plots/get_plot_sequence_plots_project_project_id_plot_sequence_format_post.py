@@ -9,6 +9,7 @@ from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
 from ...models.options import Options
 from ...models.plot_format import PlotFormat
+from ...models.plot_sequence import PlotSequence
 from ...types import UNSET, Response, Unset
 
 
@@ -39,7 +40,14 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> HTTPValidationError | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | PlotSequence | None:
+    if response.status_code == 200:
+        response_200 = PlotSequence.from_dict(response.json())
+
+        return response_200
+
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
@@ -51,7 +59,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[HTTPValidationError]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | PlotSequence]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -66,7 +76,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: None | Options | Unset = UNSET,
-) -> Response[HTTPValidationError]:
+) -> Response[HTTPValidationError | PlotSequence]:
     """Get Plot Sequence
 
      Get the plots sequence from any location within a given project.
@@ -81,7 +91,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[HTTPValidationError | PlotSequence]
     """
 
     kwargs = _get_kwargs(
@@ -103,7 +113,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: None | Options | Unset = UNSET,
-) -> HTTPValidationError | None:
+) -> HTTPValidationError | PlotSequence | None:
     """Get Plot Sequence
 
      Get the plots sequence from any location within a given project.
@@ -118,7 +128,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        HTTPValidationError | PlotSequence
     """
 
     return sync_detailed(
@@ -135,7 +145,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: None | Options | Unset = UNSET,
-) -> Response[HTTPValidationError]:
+) -> Response[HTTPValidationError | PlotSequence]:
     """Get Plot Sequence
 
      Get the plots sequence from any location within a given project.
@@ -150,7 +160,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError]
+        Response[HTTPValidationError | PlotSequence]
     """
 
     kwargs = _get_kwargs(
@@ -170,7 +180,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: None | Options | Unset = UNSET,
-) -> HTTPValidationError | None:
+) -> HTTPValidationError | PlotSequence | None:
     """Get Plot Sequence
 
      Get the plots sequence from any location within a given project.
@@ -185,7 +195,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError
+        HTTPValidationError | PlotSequence
     """
 
     return (
