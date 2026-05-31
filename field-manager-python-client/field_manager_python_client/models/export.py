@@ -36,6 +36,7 @@ class Export:
         max_x (float | None | Unset): Filter locations by position in project's coordinate system
         max_y (float | None | Unset): Filter locations by position in project's coordinate system
         swap_x_y (bool | None | Unset):  Default: False.
+        include_layer_intervals_csv (bool | Unset):  Default: False.
     """
 
     export_type: ExportType
@@ -52,6 +53,7 @@ class Export:
     max_x: float | None | Unset = UNSET
     max_y: float | None | Unset = UNSET
     swap_x_y: bool | None | Unset = False
+    include_layer_intervals_csv: bool | Unset = False
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -139,6 +141,8 @@ class Export:
         else:
             swap_x_y = self.swap_x_y
 
+        include_layer_intervals_csv = self.include_layer_intervals_csv
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -172,6 +176,8 @@ class Export:
             field_dict["max_y"] = max_y
         if swap_x_y is not UNSET:
             field_dict["swap_x_y"] = swap_x_y
+        if include_layer_intervals_csv is not UNSET:
+            field_dict["include_layer_intervals_csv"] = include_layer_intervals_csv
 
         return field_dict
 
@@ -307,6 +313,8 @@ class Export:
 
         swap_x_y = _parse_swap_x_y(d.pop("swap_x_y", UNSET))
 
+        include_layer_intervals_csv = d.pop("include_layer_intervals_csv", UNSET)
+
         export = cls(
             export_type=export_type,
             location_ids=location_ids,
@@ -322,6 +330,7 @@ class Export:
             max_x=max_x,
             max_y=max_y,
             swap_x_y=swap_x_y,
+            include_layer_intervals_csv=include_layer_intervals_csv,
         )
 
         export.additional_properties = d

@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.192" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.228" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -970,7 +970,7 @@
       "post": {
         "tags": ["projects", "files"],
         "summary": "Upload File To Project",
-        "description": "Upload a data file to project. If layer_file is passed as True, then the file is converted to GeoJSON and used for\nshowing extra layers in a project. Otherwise, the file is not parsed, but only attached to the project.\n\nFor layer files, only two types are supported: .dxf files with POINT, LINE and / or POLYLINE and .zip files\ncontaining shape (.shp) files.",
+        "description": "Upload a file to project. If file_type is LAYER, then the file is converted to GeoJSON and used for showing extra\nlayers in a project. If file_type is omitted, images are detected automatically and other files are attached as\ngeneral project files. The deprecated layer_file query parameter is still supported for backwards compatibility.\n\nFor layer files, only two types are supported: .dxf files with POINT, LINE and / or POLYLINE and .zip files\ncontaining shape (.shp) files.",
         "operationId": "upload_file_to_project_projects__project_id__upload_post",
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
@@ -981,14 +981,28 @@
             "schema": { "type": "string", "title": "Project Id" }
           },
           {
+            "name": "file_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                { "$ref": "#/components/schemas/FileType" },
+                { "type": "null" }
+              ],
+              "title": "File Type"
+            }
+          },
+          {
             "name": "layer_file",
             "in": "query",
             "required": false,
             "schema": {
               "type": "boolean",
+              "deprecated": true,
               "default": false,
               "title": "Layer File"
-            }
+            },
+            "deprecated": true
           },
           {
             "name": "srid",
@@ -2892,11 +2906,203 @@
           }
         }
       },
-      "put": {
+      "patch": {
         "tags": ["methods"],
         "summary": "Update Method For Location",
         "description": "Update method",
+        "operationId": "update_method_for_location_projects__project_id__locations__location_id__methods__method_id__patch",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "location_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Location Id"
+            }
+          },
+          {
+            "name": "method_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Method Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  { "$ref": "#/components/schemas/MethodCPTUpdate" },
+                  { "$ref": "#/components/schemas/MethodTOTUpdate" },
+                  { "$ref": "#/components/schemas/MethodRPUpdate" },
+                  { "$ref": "#/components/schemas/MethodSAUpdate" },
+                  { "$ref": "#/components/schemas/MethodPZUpdate" },
+                  { "$ref": "#/components/schemas/MethodSSUpdate" },
+                  { "$ref": "#/components/schemas/MethodRWSUpdate" },
+                  { "$ref": "#/components/schemas/MethodRCDUpdate" },
+                  { "$ref": "#/components/schemas/MethodRSUpdate" },
+                  { "$ref": "#/components/schemas/MethodSVTUpdate" },
+                  { "$ref": "#/components/schemas/MethodSPTUpdate" },
+                  { "$ref": "#/components/schemas/MethodCDUpdate" },
+                  { "$ref": "#/components/schemas/MethodTPUpdate" },
+                  { "$ref": "#/components/schemas/MethodPTUpdate" },
+                  { "$ref": "#/components/schemas/MethodESAUpdate" },
+                  { "$ref": "#/components/schemas/MethodTRUpdate" },
+                  { "$ref": "#/components/schemas/MethodADUpdate" },
+                  { "$ref": "#/components/schemas/MethodROUpdate" },
+                  { "$ref": "#/components/schemas/MethodINCUpdate" },
+                  { "$ref": "#/components/schemas/MethodDEFUpdate" },
+                  { "$ref": "#/components/schemas/MethodIWUpdate" },
+                  { "$ref": "#/components/schemas/MethodDTUpdate" },
+                  { "$ref": "#/components/schemas/MethodOTHERUpdate" },
+                  { "$ref": "#/components/schemas/MethodSRSUpdate" },
+                  { "$ref": "#/components/schemas/MethodDPUpdate" },
+                  { "$ref": "#/components/schemas/MethodWSTUpdate" },
+                  { "$ref": "#/components/schemas/MethodSLBUpdate" },
+                  { "$ref": "#/components/schemas/MethodSTIUpdate" }
+                ],
+                "discriminator": {
+                  "propertyName": "method_type_id",
+                  "mapping": {
+                    "1": "#/components/schemas/MethodCPTUpdate",
+                    "2": "#/components/schemas/MethodTOTUpdate",
+                    "3": "#/components/schemas/MethodRPUpdate",
+                    "4": "#/components/schemas/MethodSAUpdate",
+                    "5": "#/components/schemas/MethodPZUpdate",
+                    "6": "#/components/schemas/MethodSSUpdate",
+                    "7": "#/components/schemas/MethodRWSUpdate",
+                    "8": "#/components/schemas/MethodRCDUpdate",
+                    "9": "#/components/schemas/MethodRSUpdate",
+                    "10": "#/components/schemas/MethodSVTUpdate",
+                    "11": "#/components/schemas/MethodSPTUpdate",
+                    "12": "#/components/schemas/MethodCDUpdate",
+                    "13": "#/components/schemas/MethodTPUpdate",
+                    "14": "#/components/schemas/MethodPTUpdate",
+                    "15": "#/components/schemas/MethodESAUpdate",
+                    "16": "#/components/schemas/MethodTRUpdate",
+                    "17": "#/components/schemas/MethodADUpdate",
+                    "18": "#/components/schemas/MethodROUpdate",
+                    "19": "#/components/schemas/MethodINCUpdate",
+                    "20": "#/components/schemas/MethodDEFUpdate",
+                    "21": "#/components/schemas/MethodIWUpdate",
+                    "22": "#/components/schemas/MethodDTUpdate",
+                    "23": "#/components/schemas/MethodOTHERUpdate",
+                    "24": "#/components/schemas/MethodSRSUpdate",
+                    "25": "#/components/schemas/MethodDPUpdate",
+                    "26": "#/components/schemas/MethodWSTUpdate",
+                    "27": "#/components/schemas/MethodSLBUpdate",
+                    "28": "#/components/schemas/MethodSTIUpdate"
+                  }
+                },
+                "title": "Method In"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    { "$ref": "#/components/schemas/MethodCPT" },
+                    { "$ref": "#/components/schemas/MethodTOT" },
+                    { "$ref": "#/components/schemas/MethodRP" },
+                    { "$ref": "#/components/schemas/MethodSA" },
+                    { "$ref": "#/components/schemas/MethodPZ" },
+                    { "$ref": "#/components/schemas/MethodSS" },
+                    { "$ref": "#/components/schemas/MethodRWS" },
+                    { "$ref": "#/components/schemas/MethodRCD" },
+                    { "$ref": "#/components/schemas/MethodRS" },
+                    { "$ref": "#/components/schemas/MethodSVT" },
+                    { "$ref": "#/components/schemas/MethodSPT" },
+                    { "$ref": "#/components/schemas/MethodCD" },
+                    { "$ref": "#/components/schemas/MethodTP" },
+                    { "$ref": "#/components/schemas/MethodPT" },
+                    { "$ref": "#/components/schemas/MethodESA" },
+                    { "$ref": "#/components/schemas/MethodTR" },
+                    { "$ref": "#/components/schemas/MethodAD" },
+                    { "$ref": "#/components/schemas/MethodRO" },
+                    { "$ref": "#/components/schemas/MethodINC" },
+                    { "$ref": "#/components/schemas/MethodDEF" },
+                    { "$ref": "#/components/schemas/MethodIW" },
+                    { "$ref": "#/components/schemas/MethodDT" },
+                    { "$ref": "#/components/schemas/MethodOTHER" },
+                    { "$ref": "#/components/schemas/MethodSRS" },
+                    { "$ref": "#/components/schemas/MethodDP" },
+                    { "$ref": "#/components/schemas/MethodWST" },
+                    { "$ref": "#/components/schemas/MethodSLB" },
+                    { "$ref": "#/components/schemas/MethodSTI" }
+                  ],
+                  "discriminator": {
+                    "propertyName": "method_type_id",
+                    "mapping": {
+                      "1": "#/components/schemas/MethodCPT",
+                      "2": "#/components/schemas/MethodTOT",
+                      "3": "#/components/schemas/MethodRP",
+                      "4": "#/components/schemas/MethodSA",
+                      "5": "#/components/schemas/MethodPZ",
+                      "6": "#/components/schemas/MethodSS",
+                      "7": "#/components/schemas/MethodRWS",
+                      "8": "#/components/schemas/MethodRCD",
+                      "9": "#/components/schemas/MethodRS",
+                      "10": "#/components/schemas/MethodSVT",
+                      "11": "#/components/schemas/MethodSPT",
+                      "12": "#/components/schemas/MethodCD",
+                      "13": "#/components/schemas/MethodTP",
+                      "14": "#/components/schemas/MethodPT",
+                      "15": "#/components/schemas/MethodESA",
+                      "16": "#/components/schemas/MethodTR",
+                      "17": "#/components/schemas/MethodAD",
+                      "18": "#/components/schemas/MethodRO",
+                      "19": "#/components/schemas/MethodINC",
+                      "20": "#/components/schemas/MethodDEF",
+                      "21": "#/components/schemas/MethodIW",
+                      "22": "#/components/schemas/MethodDT",
+                      "23": "#/components/schemas/MethodOTHER",
+                      "24": "#/components/schemas/MethodSRS",
+                      "25": "#/components/schemas/MethodDP",
+                      "26": "#/components/schemas/MethodWST",
+                      "27": "#/components/schemas/MethodSLB",
+                      "28": "#/components/schemas/MethodSTI"
+                    }
+                  },
+                  "title": "Response Update Method For Location Projects  Project Id  Locations  Location Id  Methods  Method Id  Patch"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["methods"],
+        "summary": "Update Method For Location",
+        "description": "Deprecated endpoint. Use the PATCH method instead. This is scheduled for deletion in June 2026.",
         "operationId": "update_method_for_location_projects__project_id__locations__location_id__methods__method_id__put",
+        "deprecated": true,
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -3630,11 +3836,155 @@
       }
     },
     "/projects/{project_id}/locations/{location_id}/methods/{method_id}/data/{method_data_id}": {
-      "put": {
+      "patch": {
         "tags": ["methods"],
         "summary": "Update Data Row",
         "description": "Update a method's single data line",
+        "operationId": "update_data_row_projects__project_id__locations__location_id__methods__method_id__data__method_data_id__patch",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "location_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Location Id"
+            }
+          },
+          {
+            "name": "method_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Method Id"
+            }
+          },
+          {
+            "name": "method_data_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Method Data Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  { "$ref": "#/components/schemas/MethodCPTDataUpdate" },
+                  { "$ref": "#/components/schemas/MethodDTDataUpdate" },
+                  { "$ref": "#/components/schemas/MethodPZDataUpdate" },
+                  { "$ref": "#/components/schemas/MethodRCDDataUpdate" },
+                  { "$ref": "#/components/schemas/MethodRPDataUpdate" },
+                  { "$ref": "#/components/schemas/MethodSLBDataUpdate" },
+                  { "$ref": "#/components/schemas/MethodSRSDataUpdate" },
+                  { "$ref": "#/components/schemas/MethodSSDataUpdate" },
+                  { "$ref": "#/components/schemas/MethodSTIDataUpdate" },
+                  { "$ref": "#/components/schemas/MethodSVTDataUpdate" },
+                  { "$ref": "#/components/schemas/MethodTOTDataUpdate" },
+                  { "$ref": "#/components/schemas/MethodTRDataUpdate" },
+                  { "$ref": "#/components/schemas/MethodWSTDataUpdate" }
+                ],
+                "discriminator": {
+                  "propertyName": "method_type_id",
+                  "mapping": {
+                    "1": "#/components/schemas/MethodCPTDataUpdate",
+                    "22": "#/components/schemas/MethodDTDataUpdate",
+                    "5": "#/components/schemas/MethodPZDataUpdate",
+                    "8": "#/components/schemas/MethodRCDDataUpdate",
+                    "3": "#/components/schemas/MethodRPDataUpdate",
+                    "27": "#/components/schemas/MethodSLBDataUpdate",
+                    "24": "#/components/schemas/MethodSRSDataUpdate",
+                    "6": "#/components/schemas/MethodSSDataUpdate",
+                    "28": "#/components/schemas/MethodSTIDataUpdate",
+                    "10": "#/components/schemas/MethodSVTDataUpdate",
+                    "2": "#/components/schemas/MethodTOTDataUpdate",
+                    "16": "#/components/schemas/MethodTRDataUpdate",
+                    "26": "#/components/schemas/MethodWSTDataUpdate"
+                  }
+                },
+                "title": "Method Data In"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    { "$ref": "#/components/schemas/MethodCPTData" },
+                    { "$ref": "#/components/schemas/MethodDPData" },
+                    { "$ref": "#/components/schemas/MethodDTData" },
+                    { "$ref": "#/components/schemas/MethodPZData" },
+                    { "$ref": "#/components/schemas/MethodRCDData" },
+                    { "$ref": "#/components/schemas/MethodRPData" },
+                    { "$ref": "#/components/schemas/MethodSLBData" },
+                    { "$ref": "#/components/schemas/MethodSSData" },
+                    { "$ref": "#/components/schemas/MethodSTIData" },
+                    { "$ref": "#/components/schemas/MethodSRSData" },
+                    { "$ref": "#/components/schemas/MethodSVTData" },
+                    { "$ref": "#/components/schemas/MethodTOTData" },
+                    { "$ref": "#/components/schemas/MethodTRData" },
+                    { "$ref": "#/components/schemas/MethodWSTData" }
+                  ],
+                  "discriminator": {
+                    "propertyName": "method_type_id",
+                    "mapping": {
+                      "1": "#/components/schemas/MethodCPTData",
+                      "25": "#/components/schemas/MethodDPData",
+                      "22": "#/components/schemas/MethodDTData",
+                      "5": "#/components/schemas/MethodPZData",
+                      "8": "#/components/schemas/MethodRCDData",
+                      "3": "#/components/schemas/MethodRPData",
+                      "27": "#/components/schemas/MethodSLBData",
+                      "6": "#/components/schemas/MethodSSData",
+                      "28": "#/components/schemas/MethodSTIData",
+                      "24": "#/components/schemas/MethodSRSData",
+                      "10": "#/components/schemas/MethodSVTData",
+                      "2": "#/components/schemas/MethodTOTData",
+                      "16": "#/components/schemas/MethodTRData",
+                      "26": "#/components/schemas/MethodWSTData"
+                    }
+                  },
+                  "title": "Response Update Data Row Projects  Project Id  Locations  Location Id  Methods  Method Id  Data  Method Data Id  Patch"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["methods"],
+        "summary": "Update Data Row",
+        "description": "This endpoint is deprecated due to PATCH behavior. This endpoint will be deleted june 2026.",
         "operationId": "update_data_row_projects__project_id__locations__location_id__methods__method_id__data__method_data_id__put",
+        "deprecated": true,
         "security": [{ "HTTPBearer": [] }],
         "parameters": [
           {
@@ -5312,6 +5662,28 @@
               "type": "string",
               "title": "Format"
             }
+          },
+          {
+            "name": "include_layer_interpretation",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Layer Interpretation"
+            }
+          },
+          {
+            "name": "layer_group_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                { "type": "string", "format": "uuid" },
+                { "type": "null" }
+              ],
+              "title": "Layer Group Id"
+            }
           }
         ],
         "responses": {
@@ -6716,7 +7088,7 @@
             "description": "Get the plot sequence for the selected locations",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PlotSequence-Output" }
+                "schema": { "$ref": "#/components/schemas/PlotSequence" }
               }
             }
           },
@@ -6756,7 +7128,7 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/PlotSequence-Input" }
+              "schema": { "$ref": "#/components/schemas/PlotSequence" }
             }
           }
         },
@@ -7909,6 +8281,53 @@
         }
       }
     },
+    "/projects/{project_id}/layer-groups/{layer_group_id}/set-default": {
+      "post": {
+        "tags": ["layer-interpretations"],
+        "summary": "Set Default Layer Group",
+        "description": "Set the project default layer group.",
+        "operationId": "set_default_layer_group_projects__project_id__layer_groups__layer_group_id__set_default_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "layer_group_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Layer Group Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LayerGroupWithSoilUnits"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/projects/{project_id}/locations/{location_id}/layer-interpretation": {
       "put": {
         "tags": ["layer-interpretations"],
@@ -8117,6 +8536,67 @@
         }
       }
     },
+    "/projects/{project_id}/layer-interpretations/export": {
+      "post": {
+        "tags": ["layer-interpretations"],
+        "summary": "Export Layer Interpretations",
+        "description": "Export interpreted layer data as JSON or files.\n\nWithout filters the export contains full interval data. When soil unit or\nexclude filters are provided, the export switches to one flat row per\nmatched location using the existing filter priority logic.",
+        "operationId": "export_layer_interpretations_projects__project_id__layer_interpretations_export_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocationLayerExportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/LocationLayerExportResult"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/LocationLayerFilterExportResult"
+                      }
+                    }
+                  ],
+                  "title": "Response Export Layer Interpretations Projects  Project Id  Layer Interpretations Export Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/standards": {
       "get": {
         "tags": ["standards"],
@@ -8210,7 +8690,7 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/User-Output" },
+                  "items": { "$ref": "#/components/schemas/User" },
                   "title": "Response Get Organization Users Organizations  Organization Id  Users Get"
                 }
               }
@@ -8239,7 +8719,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "items": { "$ref": "#/components/schemas/User-Output" },
+                  "items": { "$ref": "#/components/schemas/User" },
                   "type": "array",
                   "title": "Response Get Users Users Get"
                 }
@@ -8257,7 +8737,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/User-Input" }
+              "schema": { "$ref": "#/components/schemas/User" }
             }
           },
           "required": true
@@ -8267,7 +8747,7 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/User-Output" }
+                "schema": { "$ref": "#/components/schemas/User" }
               }
             }
           },
@@ -8378,7 +8858,7 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/User-Output" },
+                  "items": { "$ref": "#/components/schemas/User" },
                   "title": "Response Get Project Users Projects  Project Id  Users Get"
                 }
               }
@@ -9655,6 +10135,11 @@
             "anyOf": [{ "type": "boolean" }, { "type": "null" }],
             "title": "Swap X Y",
             "default": false
+          },
+          "include_layer_intervals_csv": {
+            "type": "boolean",
+            "title": "Include Layer Intervals Csv",
+            "default": false
           }
         },
         "type": "object",
@@ -9677,39 +10162,7 @@
         ],
         "title": "ExportType"
       },
-      "FM_PlotOptions-Input": {
-        "properties": {
-          "fill_curve": {
-            "type": "boolean",
-            "title": "Fill Curve",
-            "default": true
-          },
-          "depth_scale": {
-            "$ref": "#/components/schemas/Scales",
-            "default": "Auto scaling"
-          },
-          "depth_range": {
-            "anyOf": [
-              {
-                "prefixItems": [{ "type": "number" }, { "type": "number" }],
-                "type": "array",
-                "maxItems": 2,
-                "minItems": 2
-              },
-              { "type": "null" }
-            ],
-            "title": "Depth Range",
-            "default": [0, 0]
-          },
-          "cpt": {
-            "$ref": "#/components/schemas/CPTOptions",
-            "default": { "scaling_mode": "percentile", "percentile": 0.975 }
-          }
-        },
-        "type": "object",
-        "title": "FM_PlotOptions"
-      },
-      "FM_PlotOptions-Output": {
+      "FM_PlotOptions": {
         "properties": {
           "fill_curve": {
             "type": "boolean",
@@ -9752,12 +10205,6 @@
           "size": {
             "anyOf": [{ "type": "integer" }, { "type": "null" }],
             "title": "Size"
-          },
-          "blob_url": {
-            "type": "string",
-            "title": "Blob Url",
-            "description": "Will be removed in future versions.",
-            "deprecated": true
           },
           "original_filename": {
             "type": "string",
@@ -9806,7 +10253,6 @@
         "required": [
           "file_id",
           "name",
-          "blob_url",
           "original_filename",
           "file_type",
           "mime_type",
@@ -9825,12 +10271,6 @@
           "size": {
             "anyOf": [{ "type": "integer" }, { "type": "null" }],
             "title": "Size"
-          },
-          "blob_url": {
-            "type": "string",
-            "title": "Blob Url",
-            "description": "Will be removed in future versions.",
-            "deprecated": true
           },
           "original_filename": {
             "type": "string",
@@ -9891,7 +10331,6 @@
         "required": [
           "file_id",
           "name",
-          "blob_url",
           "original_filename",
           "file_type",
           "mime_type",
@@ -10261,6 +10700,11 @@
         ],
         "title": "LayerGroupWithSoilUnits",
         "description": "LayerGroup with nested soil units."
+      },
+      "LayerInterpretationExportFormat": {
+        "type": "string",
+        "enum": ["json", "csv_single", "csv_split", "xlsx"],
+        "title": "LayerInterpretationExportFormat"
       },
       "LayerIntervalCreate": {
         "properties": {
@@ -10977,6 +11421,143 @@
         "type": "object",
         "required": ["location_id", "created_at", "coordinates"],
         "title": "LocationInfo"
+      },
+      "LocationLayerExportInterval": {
+        "properties": {
+          "soil_unit_name": { "type": "string", "title": "Soil Unit Name" },
+          "soil_type": { "$ref": "#/components/schemas/SoilTypeEnum" },
+          "start_depth": { "type": "number", "title": "Start Depth" },
+          "end_depth": { "type": "number", "title": "End Depth" }
+        },
+        "type": "object",
+        "required": ["soil_unit_name", "soil_type", "start_depth", "end_depth"],
+        "title": "LocationLayerExportInterval"
+      },
+      "LocationLayerExportRequest": {
+        "properties": {
+          "layer_group_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Layer Group Id"
+          },
+          "soil_unit_ids": {
+            "items": { "type": "string", "format": "uuid" },
+            "type": "array",
+            "title": "Soil Unit Ids"
+          },
+          "exclude_soil_types": {
+            "items": { "$ref": "#/components/schemas/SoilTypeEnum" },
+            "type": "array",
+            "title": "Exclude Soil Types"
+          },
+          "export_format": {
+            "$ref": "#/components/schemas/LayerInterpretationExportFormat",
+            "default": "json"
+          },
+          "srid": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Srid"
+          },
+          "swap_x_y": {
+            "type": "boolean",
+            "title": "Swap X Y",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "LocationLayerExportRequest"
+      },
+      "LocationLayerExportResult": {
+        "properties": {
+          "project_external_id": {
+            "type": "string",
+            "title": "Project External Id"
+          },
+          "location_name": { "type": "string", "title": "Location Name" },
+          "layer_group_name": { "type": "string", "title": "Layer Group Name" },
+          "coordinate_x": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Coordinate X"
+          },
+          "coordinate_y": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Coordinate Y"
+          },
+          "coordinate_z": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Coordinate Z"
+          },
+          "intervals": {
+            "items": {
+              "$ref": "#/components/schemas/LocationLayerExportInterval"
+            },
+            "type": "array",
+            "title": "Intervals"
+          }
+        },
+        "type": "object",
+        "required": [
+          "project_external_id",
+          "location_name",
+          "layer_group_name",
+          "intervals"
+        ],
+        "title": "LocationLayerExportResult"
+      },
+      "LocationLayerFilterExportResult": {
+        "properties": {
+          "location_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Location Id"
+          },
+          "project_external_id": {
+            "type": "string",
+            "title": "Project External Id"
+          },
+          "location_name": { "type": "string", "title": "Location Name" },
+          "layer_group_name": { "type": "string", "title": "Layer Group Name" },
+          "coordinate_x": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Coordinate X"
+          },
+          "coordinate_y": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Coordinate Y"
+          },
+          "coordinate_z": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Coordinate Z"
+          },
+          "layer_name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Layer Name"
+          },
+          "soil_type": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/SoilTypeEnum" },
+              { "type": "null" }
+            ]
+          },
+          "color": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Color"
+          },
+          "depth_in_soil": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Depth In Soil"
+          }
+        },
+        "type": "object",
+        "required": [
+          "location_id",
+          "project_external_id",
+          "location_name",
+          "layer_group_name"
+        ],
+        "title": "LocationLayerFilterExportResult"
       },
       "LocationLayerFilterRequest": {
         "properties": {
@@ -12774,6 +13355,10 @@
           "application_class_pressure": {
             "$ref": "#/components/schemas/ApplicationClassEnum",
             "default": 100
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -13205,6 +13790,10 @@
           "application_class_pressure": {
             "$ref": "#/components/schemas/ApplicationClassEnum",
             "default": 100
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -13509,8 +14098,7 @@
           "depth_in_soil": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
             "title": "Depth In Soil"
-          },
-          "type": { "$ref": "#/components/schemas/DPType", "readOnly": true }
+          }
         },
         "type": "object",
         "required": [
@@ -13519,8 +14107,7 @@
           "location_id",
           "method_status_id",
           "created_at",
-          "updated_at",
-          "type"
+          "updated_at"
         ],
         "title": "MethodDP",
         "description": "DP method\nDynamic Probing\nSwedish Ram sounding (Swedish hejarsondering)"
@@ -13929,6 +14516,10 @@
           "use_damper": {
             "anyOf": [{ "type": "boolean" }, { "type": "null" }],
             "title": "Use Damper"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -15119,64 +15710,7 @@
         "type": "object",
         "title": "MethodIWUpdate"
       },
-      "MethodInfo-Input": {
-        "properties": {
-          "method_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Method Id"
-          },
-          "method_name": { "type": "string", "title": "Method Name" },
-          "method_status": { "$ref": "#/components/schemas/MethodStatusEnum" },
-          "method_type": { "$ref": "#/components/schemas/MethodTypeEnum" },
-          "conducted_at": {
-            "anyOf": [
-              { "type": "string", "format": "date-time" },
-              { "type": "null" }
-            ],
-            "title": "Conducted At"
-          },
-          "conducted_by": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Conducted By"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "created_by": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Created By"
-          },
-          "cone_reference": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Cone Reference"
-          },
-          "srs_type": {
-            "anyOf": [
-              { "$ref": "#/components/schemas/SoundingClass" },
-              { "type": "null" }
-            ]
-          },
-          "bedrock_info": {
-            "anyOf": [
-              { "$ref": "#/components/schemas/BedrockInfo" },
-              { "type": "null" }
-            ]
-          }
-        },
-        "type": "object",
-        "required": [
-          "method_id",
-          "method_name",
-          "method_status",
-          "method_type",
-          "created_at"
-        ],
-        "title": "MethodInfo"
-      },
-      "MethodInfo-Output": {
+      "MethodInfo": {
         "properties": {
           "method_id": {
             "type": "string",
@@ -15714,6 +16248,10 @@
             "deprecated": true
           },
           "piezometer_type": { "$ref": "#/components/schemas/PiezometerType" },
+          "predrilling_depth": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Predrilling Depth"
+          },
           "depth_top": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
             "title": "Depth Top"
@@ -15900,6 +16438,17 @@
               { "type": "null" }
             ],
             "default": "ELECTRIC"
+          },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
           },
           "depth_top": {
             "anyOf": [
@@ -16318,6 +16867,17 @@
               { "$ref": "#/components/schemas/PiezometerType" },
               { "type": "null" }
             ]
+          },
+          "predrilling_depth": {
+            "anyOf": [
+              { "type": "number" },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              { "type": "null" }
+            ],
+            "title": "Predrilling Depth"
           },
           "depth_top": {
             "anyOf": [
@@ -17226,6 +17786,10 @@
               { "type": "null" }
             ],
             "title": "Predrilling Depth"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -17525,6 +18089,10 @@
               { "type": "null" }
             ],
             "title": "Predrilling Depth"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -18652,6 +19220,11 @@
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Remarks",
             "description": "Remarks. SGF code T"
+          },
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
           }
         },
         "type": "object",
@@ -18665,6 +19238,11 @@
             "const": 27,
             "title": "Method Type Id",
             "default": 27
+          },
+          "comment_code": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Comment Code",
+            "description": "Comment code. Two digit value."
           },
           "remarks": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
@@ -19196,6 +19774,10 @@
               { "type": "null" }
             ],
             "title": "Predrilling Depth"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -19700,6 +20282,10 @@
               { "type": "null" }
             ],
             "title": "Predrilling Depth"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -20567,6 +21153,10 @@
               { "type": "null" }
             ],
             "title": "Predrilling Depth"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -21507,6 +22097,10 @@
               { "type": "null" }
             ],
             "title": "Predrilling Depth"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -21830,6 +22424,10 @@
               { "type": "null" }
             ],
             "title": "Predrilling Depth"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -22140,7 +22738,7 @@
             ],
             "title": "Method Id"
           },
-          "name": { "type": "string", "title": "Name" },
+          "name": { "type": "string", "title": "Name", "default": "TR" },
           "remarks": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Remarks"
@@ -22231,7 +22829,6 @@
           }
         },
         "type": "object",
-        "required": ["name"],
         "title": "MethodTRCreate",
         "description": "Pressure sounding / Svensk trycksondering"
       },
@@ -22523,6 +23120,10 @@
               { "type": "null" }
             ],
             "title": "Serial Number"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -22764,6 +23365,10 @@
               { "type": "null" }
             ],
             "title": "Predrilling Depth"
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -23051,6 +23656,10 @@
               { "$ref": "#/components/schemas/Operation" },
               { "type": "null" }
             ]
+          },
+          "stopcode": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stopcode"
           }
         },
         "type": "object",
@@ -23124,7 +23733,7 @@
             }
           },
           "plot": {
-            "$ref": "#/components/schemas/FM_PlotOptions-Input",
+            "$ref": "#/components/schemas/FM_PlotOptions",
             "default": {
               "fill_curve": true,
               "depth_scale": "Auto scaling",
@@ -23969,7 +24578,7 @@
         "enum": ["pdf", "static"],
         "title": "PlotFormat"
       },
-      "PlotInfoObject-Input": {
+      "PlotInfoObject": {
         "properties": {
           "project_id": {
             "type": "string",
@@ -23998,7 +24607,7 @@
             "title": "Location Info"
           },
           "method_info": {
-            "items": { "$ref": "#/components/schemas/MethodInfo-Input" },
+            "items": { "$ref": "#/components/schemas/MethodInfo" },
             "type": "array",
             "title": "Method Info"
           },
@@ -24013,9 +24622,7 @@
             "title": "Is Combined Plot"
           },
           "plot_type": { "$ref": "#/components/schemas/PlotType" },
-          "plot_options": {
-            "$ref": "#/components/schemas/FM_PlotOptions-Input"
-          },
+          "plot_options": { "$ref": "#/components/schemas/FM_PlotOptions" },
           "messages": {
             "anyOf": [
               { "items": { "type": "string" }, "type": "array" },
@@ -24068,114 +24675,15 @@
         ],
         "title": "PlotInfoObject"
       },
-      "PlotInfoObject-Output": {
-        "properties": {
-          "project_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Project Id"
-          },
-          "location_type": { "$ref": "#/components/schemas/LocationType" },
-          "location_ids": {
-            "items": { "type": "string", "format": "uuid" },
-            "type": "array",
-            "title": "Location Ids"
-          },
-          "location_names": {
-            "items": { "type": "string" },
-            "type": "array",
-            "title": "Location Names"
-          },
-          "location_coordinates": {
-            "items": { "$ref": "#/components/schemas/LocationCoordinates" },
-            "type": "array",
-            "title": "Location Coordinates"
-          },
-          "location_info": {
-            "items": { "$ref": "#/components/schemas/LocationInfo" },
-            "type": "array",
-            "title": "Location Info"
-          },
-          "method_info": {
-            "items": { "$ref": "#/components/schemas/MethodInfo-Output" },
-            "type": "array",
-            "title": "Method Info"
-          },
-          "method_ids": {
-            "items": { "type": "string", "format": "uuid" },
-            "type": "array",
-            "title": "Method Ids"
-          },
-          "method_type": { "type": "string", "title": "Method Type" },
-          "is_combined_plot": {
-            "type": "boolean",
-            "title": "Is Combined Plot"
-          },
-          "plot_type": { "$ref": "#/components/schemas/PlotType" },
-          "plot_options": {
-            "$ref": "#/components/schemas/FM_PlotOptions-Output"
-          },
-          "messages": {
-            "anyOf": [
-              { "items": { "type": "string" }, "type": "array" },
-              { "type": "null" }
-            ],
-            "title": "Messages"
-          },
-          "pdf_info": {
-            "$ref": "#/components/schemas/PDFPageInfo",
-            "default": {
-              "project_name": "",
-              "client": "",
-              "report_number": "",
-              "revision": "",
-              "date": "",
-              "page_number": "",
-              "info_table": "",
-              "drawn_by": "",
-              "controlled_by": "",
-              "approved_by": ""
-            }
-          },
-          "stats": {
-            "anyOf": [
-              {
-                "additionalProperties": {
-                  "$ref": "#/components/schemas/PlotDataStats"
-                },
-                "type": "object"
-              },
-              { "type": "null" }
-            ],
-            "title": "Stats"
-          }
-        },
-        "type": "object",
-        "required": [
-          "project_id",
-          "location_type",
-          "location_ids",
-          "location_names",
-          "location_coordinates",
-          "location_info",
-          "method_info",
-          "method_ids",
-          "method_type",
-          "is_combined_plot",
-          "plot_type",
-          "plot_options"
-        ],
-        "title": "PlotInfoObject"
-      },
-      "PlotSequence-Input": {
+      "PlotSequence": {
         "properties": {
           "sequence": {
-            "items": { "$ref": "#/components/schemas/PlotInfoObject-Input" },
+            "items": { "$ref": "#/components/schemas/PlotInfoObject" },
             "type": "array",
             "title": "Sequence"
           },
           "options": {
-            "$ref": "#/components/schemas/PlotSequenceOptions-Input",
+            "$ref": "#/components/schemas/PlotSequenceOptions",
             "default": {
               "auto_set_depth": false,
               "pdf_filename": "factual_report.pdf",
@@ -24237,147 +24745,7 @@
         "required": ["sequence"],
         "title": "PlotSequence"
       },
-      "PlotSequence-Output": {
-        "properties": {
-          "sequence": {
-            "items": { "$ref": "#/components/schemas/PlotInfoObject-Output" },
-            "type": "array",
-            "title": "Sequence"
-          },
-          "options": {
-            "$ref": "#/components/schemas/PlotSequenceOptions-Output",
-            "default": {
-              "auto_set_depth": false,
-              "pdf_filename": "factual_report.pdf",
-              "pdf": {
-                "approved_by": "",
-                "client_name": "",
-                "color_mode": "grayscale",
-                "controlled_by": "",
-                "date": "",
-                "date_format": "YYYY-MM-DD",
-                "drawn_by": "",
-                "fill_curve": true,
-                "lang": "eng",
-                "max_pages": -1,
-                "page_number_prefix": "",
-                "page_number_prefix_per_method": {
-                  "CPT": "",
-                  "DP": "",
-                  "PZ": "",
-                  "RCD": "",
-                  "RP": "",
-                  "SA": "",
-                  "SRS": "",
-                  "SS": "",
-                  "SVT": "",
-                  "TOT": "",
-                  "WST": ""
-                },
-                "page_number_start": "1",
-                "page_number_start_per_method": {
-                  "CPT": "",
-                  "DP": "",
-                  "PZ": "",
-                  "RCD": "",
-                  "RP": "",
-                  "SA": "",
-                  "SRS": "",
-                  "SS": "",
-                  "SVT": "",
-                  "TOT": "",
-                  "WST": ""
-                },
-                "paper_size": "A4",
-                "plot_scale": "1/100",
-                "projection_system": "",
-                "report_number": "",
-                "report_number_suffix": "",
-                "revision": "",
-                "show_comment_in_plot": false,
-                "sort_figures_by": "location",
-                "use_approved_by": true,
-                "use_controlled_by": false,
-                "use_revision": true
-              }
-            }
-          }
-        },
-        "type": "object",
-        "required": ["sequence"],
-        "title": "PlotSequence"
-      },
-      "PlotSequenceOptions-Input": {
-        "properties": {
-          "auto_set_depth": {
-            "type": "boolean",
-            "title": "Auto Set Depth",
-            "default": false
-          },
-          "pdf_filename": {
-            "type": "string",
-            "title": "Pdf Filename",
-            "default": "factual_report.pdf"
-          },
-          "pdf": {
-            "$ref": "#/components/schemas/PdfOptions",
-            "default": {
-              "lang": "eng",
-              "date_format": "YYYY-MM-DD",
-              "date": "",
-              "use_controlled_by": false,
-              "use_revision": true,
-              "report_number_suffix": "",
-              "revision": "",
-              "paper_size": "A4",
-              "plot_scale": "1/100",
-              "report_number": "",
-              "client_name": "",
-              "sort_figures_by": "location",
-              "page_number_prefix": "",
-              "page_number_start": "1",
-              "page_number_prefix_per_method": {
-                "CPT": "",
-                "DP": "",
-                "PZ": "",
-                "RCD": "",
-                "RP": "",
-                "SA": "",
-                "SRS": "",
-                "SS": "",
-                "SVT": "",
-                "TOT": "",
-                "WST": ""
-              },
-              "page_number_start_per_method": {
-                "CPT": "",
-                "DP": "",
-                "PZ": "",
-                "RCD": "",
-                "RP": "",
-                "SA": "",
-                "SRS": "",
-                "SS": "",
-                "SVT": "",
-                "TOT": "",
-                "WST": ""
-              },
-              "drawn_by": "",
-              "controlled_by": "",
-              "use_approved_by": true,
-              "approved_by": "",
-              "show_comment_in_plot": false,
-              "projection_system": "",
-              "max_pages": -1,
-              "color_mode": "grayscale",
-              "fill_curve": true
-            }
-          }
-        },
-        "type": "object",
-        "title": "PlotSequenceOptions"
-      },
-      "PlotSequenceOptions-Output": {
+      "PlotSequenceOptions": {
         "properties": {
           "auto_set_depth": {
             "type": "boolean",
@@ -25448,45 +25816,7 @@
         "title": "TransformationType",
         "description": "Piezometer Transformation Types"
       },
-      "User-Input": {
-        "properties": {
-          "user_id": {
-            "anyOf": [
-              { "type": "string", "format": "uuid" },
-              { "type": "null" }
-            ],
-            "title": "User Id"
-          },
-          "name": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Name"
-          },
-          "email": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Email"
-          },
-          "roles": {
-            "items": { "$ref": "#/components/schemas/Role" },
-            "type": "array",
-            "title": "Roles",
-            "default": []
-          },
-          "email_verified": {
-            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
-            "title": "Email Verified"
-          },
-          "organization_id": {
-            "anyOf": [
-              { "type": "string", "format": "uuid" },
-              { "type": "null" }
-            ],
-            "title": "Organization Id"
-          }
-        },
-        "type": "object",
-        "title": "User"
-      },
-      "User-Output": {
+      "User": {
         "properties": {
           "user_id": {
             "anyOf": [

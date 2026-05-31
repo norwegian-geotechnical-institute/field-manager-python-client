@@ -43,6 +43,7 @@ class MethodWSTCreate:
             MECHANICAL = "MECHANICAL"
             )
         predrilling_depth (float | None | str | Unset):
+        stopcode (int | None | Unset):
     """
 
     method_id: None | Unset | UUID = UNSET
@@ -58,6 +59,7 @@ class MethodWSTCreate:
     method_type_id: Literal[26] | Unset = 26
     operation: Operation | Unset = UNSET
     predrilling_depth: float | None | str | Unset = UNSET
+    stopcode: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -135,6 +137,12 @@ class MethodWSTCreate:
         else:
             predrilling_depth = self.predrilling_depth
 
+        stopcode: int | None | Unset
+        if isinstance(self.stopcode, Unset):
+            stopcode = UNSET
+        else:
+            stopcode = self.stopcode
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -164,6 +172,8 @@ class MethodWSTCreate:
             field_dict["operation"] = operation
         if predrilling_depth is not UNSET:
             field_dict["predrilling_depth"] = predrilling_depth
+        if stopcode is not UNSET:
+            field_dict["stopcode"] = stopcode
 
         return field_dict
 
@@ -304,6 +314,15 @@ class MethodWSTCreate:
 
         predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
 
+        def _parse_stopcode(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        stopcode = _parse_stopcode(d.pop("stopcode", UNSET))
+
         method_wst_create = cls(
             method_id=method_id,
             name=name,
@@ -318,6 +337,7 @@ class MethodWSTCreate:
             method_type_id=method_type_id,
             operation=operation,
             predrilling_depth=predrilling_depth,
+            stopcode=stopcode,
         )
 
         method_wst_create.additional_properties = d

@@ -31,6 +31,7 @@ class MethodPZUpdate:
         conducted_at (datetime.datetime | None | Unset):
         method_type_id (Literal[5] | Unset):  Default: 5.
         piezometer_type (None | PiezometerType | Unset):
+        predrilling_depth (float | None | str | Unset):
         depth_top (float | None | str | Unset):
         depth_base (float | None | str | Unset):
         distance_over_terrain (float | None | str | Unset):
@@ -59,6 +60,7 @@ class MethodPZUpdate:
     conducted_at: datetime.datetime | None | Unset = UNSET
     method_type_id: Literal[5] | Unset = 5
     piezometer_type: None | PiezometerType | Unset = UNSET
+    predrilling_depth: float | None | str | Unset = UNSET
     depth_top: float | None | str | Unset = UNSET
     depth_base: float | None | str | Unset = UNSET
     distance_over_terrain: float | None | str | Unset = UNSET
@@ -143,6 +145,12 @@ class MethodPZUpdate:
             piezometer_type = self.piezometer_type.value
         else:
             piezometer_type = self.piezometer_type
+
+        predrilling_depth: float | None | str | Unset
+        if isinstance(self.predrilling_depth, Unset):
+            predrilling_depth = UNSET
+        else:
+            predrilling_depth = self.predrilling_depth
 
         depth_top: float | None | str | Unset
         if isinstance(self.depth_top, Unset):
@@ -267,6 +275,8 @@ class MethodPZUpdate:
             field_dict["method_type_id"] = method_type_id
         if piezometer_type is not UNSET:
             field_dict["piezometer_type"] = piezometer_type
+        if predrilling_depth is not UNSET:
+            field_dict["predrilling_depth"] = predrilling_depth
         if depth_top is not UNSET:
             field_dict["depth_top"] = depth_top
         if depth_base is not UNSET:
@@ -430,6 +440,15 @@ class MethodPZUpdate:
             return cast(None | PiezometerType | Unset, data)
 
         piezometer_type = _parse_piezometer_type(d.pop("piezometer_type", UNSET))
+
+        def _parse_predrilling_depth(data: object) -> float | None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | str | Unset, data)
+
+        predrilling_depth = _parse_predrilling_depth(d.pop("predrilling_depth", UNSET))
 
         def _parse_depth_top(data: object) -> float | None | str | Unset:
             if data is None:
@@ -606,6 +625,7 @@ class MethodPZUpdate:
             conducted_at=conducted_at,
             method_type_id=method_type_id,
             piezometer_type=piezometer_type,
+            predrilling_depth=predrilling_depth,
             depth_top=depth_top,
             depth_base=depth_base,
             distance_over_terrain=distance_over_terrain,
