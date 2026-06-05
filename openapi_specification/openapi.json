@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.228" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.237" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -7267,6 +7267,143 @@
         }
       }
     },
+    "/projects/{project_id}/project_areas": {
+      "get": {
+        "tags": ["project_areas"],
+        "summary": "Get Project Areas For Project",
+        "description": "Get project areas for a project.",
+        "operationId": "get_project_areas_for_project_projects__project_id__project_areas_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ProjectArea" },
+                  "title": "Response Get Project Areas For Project Projects  Project Id  Project Areas Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["project_areas"],
+        "summary": "Create Project Areas",
+        "description": "Create project areas for a project.",
+        "operationId": "create_project_areas_projects__project_id__project_areas_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/ProjectAreaCreate" },
+                "title": "Project Areas In"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ProjectArea" },
+                  "title": "Response Create Project Areas Projects  Project Id  Project Areas Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["project_areas"],
+        "summary": "Update Project Areas",
+        "description": "Update project areas for a project.",
+        "operationId": "update_project_areas_projects__project_id__project_areas_patch",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/ProjectAreaUpdate" },
+                "title": "Project Areas In"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ProjectArea" },
+                  "title": "Response Update Project Areas Projects  Project Id  Project Areas Patch"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/sampling_techniques": {
       "get": {
         "tags": ["sampling techniques"],
@@ -8737,7 +8874,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/User" }
+              "schema": { "$ref": "#/components/schemas/UserCreateRequest" }
             }
           },
           "required": true
@@ -24915,6 +25052,100 @@
           "srid": 3857
         }
       },
+      "ProjectArea": {
+        "properties": {
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          },
+          "boundary": {
+            "type": "string",
+            "title": "Boundary",
+            "description": "Boundary as a Well-Known Text (WKT) 2D POLYGON. Example 'POLYGON((0 0,0 1,1 1,1 0,0 0))'"
+          },
+          "project_area_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Project Area Id"
+          },
+          "project_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Project Id"
+          },
+          "boundary_wgs84_pseudo": {
+            "type": "string",
+            "title": "Boundary Wgs84 Pseudo"
+          },
+          "created_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Updated At"
+          },
+          "created_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Created By"
+          },
+          "updated_by": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Updated By"
+          }
+        },
+        "type": "object",
+        "required": [
+          "boundary",
+          "project_area_id",
+          "project_id",
+          "boundary_wgs84_pseudo"
+        ],
+        "title": "ProjectArea"
+      },
+      "ProjectAreaCreate": {
+        "properties": {
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          },
+          "boundary": {
+            "type": "string",
+            "title": "Boundary",
+            "description": "Boundary as a Well-Known Text (WKT) 2D POLYGON. Example 'POLYGON((0 0,0 1,1 1,1 0,0 0))'"
+          }
+        },
+        "type": "object",
+        "required": ["boundary"],
+        "title": "ProjectAreaCreate"
+      },
+      "ProjectAreaUpdate": {
+        "properties": {
+          "project_area_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Project Area Id"
+          },
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          },
+          "boundary": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Boundary",
+            "description": "Boundary as a Well-Known Text (WKT) 2D POLYGON. Example 'POLYGON((0 0,0 1,1 1,1 0,0 0))'"
+          }
+        },
+        "type": "object",
+        "required": ["project_area_id"],
+        "title": "ProjectAreaUpdate"
+      },
       "ProjectCreate": {
         "properties": {
           "project_id": {
@@ -24972,6 +25203,12 @@
             "type": "array",
             "uniqueItems": true,
             "title": "Tags",
+            "default": []
+          },
+          "project_areas": {
+            "items": { "$ref": "#/components/schemas/ProjectAreaCreate" },
+            "type": "array",
+            "title": "Project Areas",
             "default": []
           }
         },
@@ -25853,6 +26090,42 @@
         },
         "type": "object",
         "title": "User"
+      },
+      "UserCreateRequest": {
+        "properties": {
+          "user_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "User Id"
+          },
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          },
+          "email": { "type": "string", "title": "Email" },
+          "roles": {
+            "items": { "$ref": "#/components/schemas/Role" },
+            "type": "array",
+            "title": "Roles",
+            "default": []
+          },
+          "email_verified": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Email Verified"
+          },
+          "organization_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Organization Id"
+          }
+        },
+        "type": "object",
+        "required": ["email"],
+        "title": "UserCreateRequest"
       },
       "ValidationError": {
         "properties": {

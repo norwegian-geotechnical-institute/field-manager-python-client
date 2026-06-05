@@ -7,7 +7,6 @@ from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..models.iogp_type_enum import IOGPTypeEnum
 from ..types import UNSET, Unset
@@ -172,7 +171,7 @@ class LocationSummary:
 
         name = d.pop("name")
 
-        last_updated = isoparse(d.pop("last_updated"))
+        last_updated = datetime.datetime.fromisoformat(d.pop("last_updated"))
 
         def _parse_iogp_type_id(data: object) -> IOGPTypeEnum | None | Unset:
             if data is None:

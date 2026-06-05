@@ -7,7 +7,6 @@ from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..models.method_status_enum import MethodStatusEnum
 from ..models.sounding_class import SoundingClass
@@ -258,7 +257,7 @@ class MethodSRSCreate:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                created_at_type_0 = isoparse(data)
+                created_at_type_0 = datetime.datetime.fromisoformat(data)
 
                 return created_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -284,7 +283,7 @@ class MethodSRSCreate:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                updated_at_type_0 = isoparse(data)
+                updated_at_type_0 = datetime.datetime.fromisoformat(data)
 
                 return updated_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -319,7 +318,7 @@ class MethodSRSCreate:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                conducted_at_type_0 = isoparse(data)
+                conducted_at_type_0 = datetime.datetime.fromisoformat(data)
 
                 return conducted_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -356,7 +355,7 @@ class MethodSRSCreate:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                calibration_date_type_0 = isoparse(data)
+                calibration_date_type_0 = datetime.datetime.fromisoformat(data)
 
                 return calibration_date_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
