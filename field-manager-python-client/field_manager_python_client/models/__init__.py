@@ -260,6 +260,9 @@ from .plot_sequence import PlotSequence
 from .plot_sequence_options import PlotSequenceOptions
 from .plot_type import PlotType
 from .project import Project
+from .project_area import ProjectArea
+from .project_area_create import ProjectAreaCreate
+from .project_area_update import ProjectAreaUpdate
 from .project_create import ProjectCreate
 from .project_info import ProjectInfo
 from .project_role_enum import ProjectRoleEnum
@@ -292,6 +295,7 @@ from .standard_type import StandardType
 from .sub_shape import SubShape
 from .transformation_type import TransformationType
 from .user import User
+from .user_create_request import UserCreateRequest
 from .validation_error import ValidationError
 from .validation_error_context import ValidationErrorContext
 from .web_map_service import WebMapService
@@ -543,6 +547,9 @@ __all__ = (
     "PlotSequenceOptions",
     "PlotType",
     "Project",
+    "ProjectArea",
+    "ProjectAreaCreate",
+    "ProjectAreaUpdate",
     "ProjectCreate",
     "ProjectInfo",
     "ProjectRoleEnum",
@@ -575,6 +582,7 @@ __all__ = (
     "SubShape",
     "TransformationType",
     "User",
+    "UserCreateRequest",
     "ValidationError",
     "ValidationErrorContext",
     "WebMapService",

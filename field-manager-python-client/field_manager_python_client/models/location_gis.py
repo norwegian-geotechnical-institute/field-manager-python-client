@@ -7,7 +7,6 @@ from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..models.height_reference import HeightReference
 from ..types import UNSET, Unset
@@ -384,7 +383,7 @@ class LocationGis:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                updated_at_type_0 = isoparse(data)
+                updated_at_type_0 = datetime.datetime.fromisoformat(data)
 
                 return updated_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):

@@ -7,7 +7,6 @@ from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..models.export_type import ExportType
 from ..types import UNSET, Unset
@@ -225,7 +224,7 @@ class Export:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                method_conducted_from_type_0 = isoparse(data)
+                method_conducted_from_type_0 = datetime.datetime.fromisoformat(data)
 
                 return method_conducted_from_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -242,7 +241,7 @@ class Export:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                method_conducted_to_type_0 = isoparse(data)
+                method_conducted_to_type_0 = datetime.datetime.fromisoformat(data)
 
                 return method_conducted_to_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -259,7 +258,7 @@ class Export:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                updated_after_type_0 = isoparse(data)
+                updated_after_type_0 = datetime.datetime.fromisoformat(data)
 
                 return updated_after_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
