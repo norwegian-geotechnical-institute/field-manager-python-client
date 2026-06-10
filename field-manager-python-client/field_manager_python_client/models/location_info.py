@@ -7,7 +7,6 @@ from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
@@ -78,7 +77,7 @@ class LocationInfo:
         d = dict(src_dict)
         location_id = UUID(d.pop("location_id"))
 
-        created_at = isoparse(d.pop("created_at"))
+        created_at = datetime.datetime.fromisoformat(d.pop("created_at"))
 
         coordinates = LocationCoordinates.from_dict(d.pop("coordinates"))
 

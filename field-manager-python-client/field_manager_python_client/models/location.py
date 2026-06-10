@@ -7,7 +7,6 @@ from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..models.iogp_type_enum import IOGPTypeEnum
 from ..types import UNSET, Unset
@@ -412,9 +411,9 @@ class Location:
         d = dict(src_dict)
         name = d.pop("name")
 
-        created_at = isoparse(d.pop("created_at"))
+        created_at = datetime.datetime.fromisoformat(d.pop("created_at"))
 
-        updated_at = isoparse(d.pop("updated_at"))
+        updated_at = datetime.datetime.fromisoformat(d.pop("updated_at"))
 
         location_id = UUID(d.pop("location_id"))
 
@@ -422,7 +421,7 @@ class Location:
 
         is_deleted = d.pop("is_deleted")
 
-        last_updated = isoparse(d.pop("last_updated"))
+        last_updated = datetime.datetime.fromisoformat(d.pop("last_updated"))
 
         _iogp_type_id = d.pop("iogp_type_id", UNSET)
         iogp_type_id: IOGPTypeEnum | Unset

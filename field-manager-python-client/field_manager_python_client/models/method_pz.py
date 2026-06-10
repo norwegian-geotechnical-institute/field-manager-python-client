@@ -7,7 +7,6 @@ from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..models.method_status_enum import MethodStatusEnum
 from ..models.piezometer_type import PiezometerType
@@ -404,9 +403,9 @@ class MethodPZ:
 
         method_status_id = MethodStatusEnum(d.pop("method_status_id"))
 
-        created_at = isoparse(d.pop("created_at"))
+        created_at = datetime.datetime.fromisoformat(d.pop("created_at"))
 
-        updated_at = isoparse(d.pop("updated_at"))
+        updated_at = datetime.datetime.fromisoformat(d.pop("updated_at"))
 
         piezometer_type = PiezometerType(d.pop("piezometer_type"))
 
@@ -455,7 +454,7 @@ class MethodPZ:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                conducted_at_type_0 = isoparse(data)
+                conducted_at_type_0 = datetime.datetime.fromisoformat(data)
 
                 return conducted_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
