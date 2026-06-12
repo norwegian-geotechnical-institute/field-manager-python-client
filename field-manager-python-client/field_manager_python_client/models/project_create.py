@@ -2,16 +2,19 @@ from __future__ import annotations
 
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..models.height_reference import HeightReference
 from ..models.standard_type import StandardType
 from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.project_area_create import ProjectAreaCreate
+
 
 T = TypeVar("T", bound="ProjectCreate")
 
@@ -32,6 +35,7 @@ class ProjectCreate:
         standard_id (None | StandardType | Unset):  Default: StandardType.NGF.
         description (None | str | Unset):
         tags (list[str] | Unset):
+        project_areas (list[ProjectAreaCreate] | Unset):
     """
 
     external_id: str
@@ -46,6 +50,7 @@ class ProjectCreate:
     standard_id: None | StandardType | Unset = StandardType.NGF
     description: None | str | Unset = UNSET
     tags: list[str] | Unset = UNSET
+    project_areas: list[ProjectAreaCreate] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -111,6 +116,13 @@ class ProjectCreate:
         if not isinstance(self.tags, Unset):
             tags = self.tags
 
+        project_areas: list[dict[str, Any]] | Unset = UNSET
+        if not isinstance(self.project_areas, Unset):
+            project_areas = []
+            for project_areas_item_data in self.project_areas:
+                project_areas_item = project_areas_item_data.to_dict()
+                project_areas.append(project_areas_item)
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -136,11 +148,15 @@ class ProjectCreate:
             field_dict["description"] = description
         if tags is not UNSET:
             field_dict["tags"] = tags
+        if project_areas is not UNSET:
+            field_dict["project_areas"] = project_areas
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.project_area_create import ProjectAreaCreate
+
         d = dict(src_dict)
         external_id = d.pop("external_id")
 
@@ -190,7 +206,7 @@ class ProjectCreate:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                created_at_type_0 = isoparse(data)
+                created_at_type_0 = datetime.datetime.fromisoformat(data)
 
                 return created_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -207,7 +223,7 @@ class ProjectCreate:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                updated_at_type_0 = isoparse(data)
+                updated_at_type_0 = datetime.datetime.fromisoformat(data)
 
                 return updated_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -253,6 +269,15 @@ class ProjectCreate:
 
         tags = cast(list[str], d.pop("tags", UNSET))
 
+        _project_areas = d.pop("project_areas", UNSET)
+        project_areas: list[ProjectAreaCreate] | Unset = UNSET
+        if _project_areas is not UNSET:
+            project_areas = []
+            for project_areas_item_data in _project_areas:
+                project_areas_item = ProjectAreaCreate.from_dict(project_areas_item_data)
+
+                project_areas.append(project_areas_item)
+
         project_create = cls(
             external_id=external_id,
             organization_id=organization_id,
@@ -266,6 +291,7 @@ class ProjectCreate:
             standard_id=standard_id,
             description=description,
             tags=tags,
+            project_areas=project_areas,
         )
 
         project_create.additional_properties = d
