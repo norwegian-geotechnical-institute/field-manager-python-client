@@ -337,3 +337,57 @@ def get_prod_client(email: str | None = None, **kwargs) -> AuthenticatedClient:
         AuthenticatedClient for production environment
     """
     return authenticate(environment="prod", email=email, **kwargs)
+
+
+def get_service_account_client(
+    environment: Literal["test", "prod"] = "test",
+    client_id: str | None = None,
+    client_secret: str | None = None,
+) -> AuthenticatedClient:
+    """
+    Authenticate using a dedicated Keycloak service-account client.
+
+    This flow is intended for server-to-server automation. The client must be a
+    dedicated confidential client created for the requesting integration, not
+    the shared interactive `fieldmanager-client`.
+
+    Args:
+        environment: Either "test" or "prod" environment
+        client_id: Dedicated Keycloak client ID. Falls back to the
+            KEYCLOAK_CLIENT_ID environment variable.
+        client_secret: Dedicated Keycloak client secret. Falls back to the
+            KEYCLOAK_CLIENT_SECRET environment variable.
+
+    Returns:
+        AuthenticatedClient for the requested environment
+
+    Raises:
+        ValueError: If environment is invalid or required parameters are missing
+    """
+    if environment not in ENVIRONMENTS:
+        raise ValueError(f"Environment must be one of: {list(ENVIRONMENTS.keys())}")
+
+    env_config = ENVIRONMENTS[environment]
+    resolved_client_id = client_id or os.getenv("KEYCLOAK_CLIENT_ID")
+    resolved_client_secret = client_secret or os.getenv("KEYCLOAK_CLIENT_SECRET")
+
+    if not resolved_client_id:
+        raise ValueError("A dedicated service-account client ID is required. Pass client_id or set KEYCLOAK_CLIENT_ID.")
+    if resolved_client_id == env_config["KEYCLOAK_CLIENT_ID"]:
+        raise ValueError(
+            "Service-account authentication requires a dedicated client ID, "
+            f"not the shared interactive client {env_config['KEYCLOAK_CLIENT_ID']!r}."
+        )
+    if not resolved_client_secret:
+        raise ValueError(
+            "A dedicated service-account client secret is required. Pass client_secret or set KEYCLOAK_CLIENT_SECRET."
+        )
+
+    keycloak_openid = KeycloakOpenID(
+        server_url=env_config["KEYCLOAK_SERVER_URL"],
+        client_id=resolved_client_id,
+        realm_name=env_config["KEYCLOAK_REALM"],
+        client_secret_key=resolved_client_secret,
+    )
+    token = keycloak_openid.token(grant_type="client_credentials")
+    return AuthenticatedClient(base_url=env_config["BASE_URL"], token=token["access_token"])

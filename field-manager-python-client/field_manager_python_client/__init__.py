@@ -1,6 +1,6 @@
 """A client library for accessing Field Manager Data API"""
 
-from .auth import TokenManager, authenticate, get_prod_client, get_test_client
+from .auth import TokenManager, authenticate, get_prod_client, get_service_account_client, get_test_client
 from .client import AuthenticatedClient, Client
 
 __all__ = (
@@ -9,5 +9,6 @@ __all__ = (
     "authenticate",
     "get_test_client",
     "get_prod_client",
+    "get_service_account_client",
     "TokenManager",
 )

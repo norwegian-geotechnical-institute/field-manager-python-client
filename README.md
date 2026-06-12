@@ -70,6 +70,7 @@ The client supports multiple authentication methods:
    ```
 
 3. **Service Account Authentication** (for automated workflows):
+   - Use a dedicated Keycloak client created for your integration
    - See the [Authentication Guide](./doc/AUTHENTICATION_GUIDE.md) for details
    - Also covered in the [Advanced User Guide](./doc/ADVANCED_USER_GUIDE.md)
 
