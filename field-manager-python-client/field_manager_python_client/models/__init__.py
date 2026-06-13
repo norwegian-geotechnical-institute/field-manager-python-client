@@ -262,6 +262,7 @@ from .plot_type import PlotType
 from .project import Project
 from .project_area import ProjectArea
 from .project_area_create import ProjectAreaCreate
+from .project_area_linkable_project import ProjectAreaLinkableProject
 from .project_area_update import ProjectAreaUpdate
 from .project_create import ProjectCreate
 from .project_info import ProjectInfo
@@ -549,6 +550,7 @@ __all__ = (
     "Project",
     "ProjectArea",
     "ProjectAreaCreate",
+    "ProjectAreaLinkableProject",
     "ProjectAreaUpdate",
     "ProjectCreate",
     "ProjectInfo",

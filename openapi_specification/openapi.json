@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.239" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.249" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -7402,6 +7402,96 @@
             }
           }
         }
+      },
+      "delete": {
+        "tags": ["project_areas"],
+        "summary": "Delete Project Areas",
+        "description": "Delete project areas for a project.",
+        "operationId": "delete_project_areas_projects__project_id__project_areas_delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": { "type": "string", "format": "uuid" },
+                "title": "Project Area Ids"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": { "description": "Successful Response" },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/project_areas/{project_area_id}/linkable_projects": {
+      "get": {
+        "tags": ["project_areas"],
+        "summary": "Get Linkable Projects For Project Area",
+        "description": "Get projects with locations inside a project area that can be linked to the current project.",
+        "operationId": "get_linkable_projects_for_project_area_projects__project_id__project_areas__project_area_id__linkable_projects_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "project_area_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Area Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProjectAreaLinkableProject"
+                  },
+                  "title": "Response Get Linkable Projects For Project Area Projects  Project Id  Project Areas  Project Area Id  Linkable Projects Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
       }
     },
     "/sampling_techniques": {
@@ -9889,6 +9979,10 @@
             "type": "number",
             "title": "Percentile",
             "default": 0.975
+          },
+          "standard": {
+            "$ref": "#/components/schemas/StandardType",
+            "default": "NGF"
           }
         },
         "type": "object",
@@ -10325,7 +10419,11 @@
           },
           "cpt": {
             "$ref": "#/components/schemas/CPTOptions",
-            "default": { "scaling_mode": "percentile", "percentile": 0.975 }
+            "default": {
+              "scaling_mode": "percentile",
+              "percentile": 0.975,
+              "standard": "NGF"
+            }
           }
         },
         "type": "object",
@@ -23875,7 +23973,11 @@
               "fill_curve": true,
               "depth_scale": "Auto scaling",
               "depth_range": [0.0, 0.0],
-              "cpt": { "percentile": 0.975, "scaling_mode": "percentile" }
+              "cpt": {
+                "percentile": 0.975,
+                "scaling_mode": "percentile",
+                "standard": "NGF"
+              }
             }
           },
           "auto_set_depth": {
@@ -25124,6 +25226,31 @@
         "type": "object",
         "required": ["boundary"],
         "title": "ProjectAreaCreate"
+      },
+      "ProjectAreaLinkableProject": {
+        "properties": {
+          "project": { "$ref": "#/components/schemas/ProjectInfo" },
+          "locations_in_project_area_count": {
+            "type": "integer",
+            "title": "Locations In Project Area Count"
+          },
+          "total_location_count": {
+            "type": "integer",
+            "title": "Total Location Count"
+          },
+          "is_already_linked": {
+            "type": "boolean",
+            "title": "Is Already Linked"
+          }
+        },
+        "type": "object",
+        "required": [
+          "project",
+          "locations_in_project_area_count",
+          "total_location_count",
+          "is_already_linked"
+        ],
+        "title": "ProjectAreaLinkableProject"
       },
       "ProjectAreaUpdate": {
         "properties": {

@@ -7,6 +7,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..models.scaling_mode import ScalingMode
+from ..models.standard_type import StandardType
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="CPTOptions")
@@ -18,10 +19,12 @@ class CPTOptions:
     Attributes:
         scaling_mode (ScalingMode | Unset):
         percentile (float | Unset):  Default: 0.975.
+        standard (StandardType | Unset):
     """
 
     scaling_mode: ScalingMode | Unset = UNSET
     percentile: float | Unset = 0.975
+    standard: StandardType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -31,6 +34,10 @@ class CPTOptions:
 
         percentile = self.percentile
 
+        standard: str | Unset = UNSET
+        if not isinstance(self.standard, Unset):
+            standard = self.standard.value
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -38,6 +45,8 @@ class CPTOptions:
             field_dict["scaling_mode"] = scaling_mode
         if percentile is not UNSET:
             field_dict["percentile"] = percentile
+        if standard is not UNSET:
+            field_dict["standard"] = standard
 
         return field_dict
 
@@ -53,9 +62,17 @@ class CPTOptions:
 
         percentile = d.pop("percentile", UNSET)
 
+        _standard = d.pop("standard", UNSET)
+        standard: StandardType | Unset
+        if isinstance(_standard, Unset):
+            standard = UNSET
+        else:
+            standard = StandardType(_standard)
+
         cpt_options = cls(
             scaling_mode=scaling_mode,
             percentile=percentile,
+            standard=standard,
         )
 
         cpt_options.additional_properties = d
