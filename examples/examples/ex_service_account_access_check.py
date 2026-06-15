@@ -75,26 +75,38 @@ def main() -> int:
         )
 
         with client as authenticated_client:
-            organizations = get_organizations_organizations_get.sync(client=authenticated_client)
+            organizations = get_organizations_organizations_get.sync(
+                client=authenticated_client
+            )
 
             if organizations is None:
-                print("Authentication succeeded, but the organizations request returned no data.")
+                print(
+                    "Authentication succeeded, but the organizations request returned no data."
+                )
                 return 2
 
             if isinstance(organizations, HTTPValidationError):
-                print(f"Authentication succeeded, but organizations lookup failed: {organizations}")
+                print(
+                    f"Authentication succeeded, but organizations lookup failed: {organizations}"
+                )
                 return 2
 
             print("Service-account authentication succeeded.")
             print(f"Organizations available: {len(organizations)}")
 
             if not organizations:
-                print("The service account authenticated, but no organizations are available.")
+                print(
+                    "The service account authenticated, but no organizations are available."
+                )
                 return 0
 
             for index, organization in enumerate(organizations, start=1):
-                organization_name = getattr(organization, "name", None) or "<unnamed organization>"
-                organization_id = getattr(organization, "organization_id", None) or "<unknown id>"
+                organization_name = (
+                    getattr(organization, "name", None) or "<unnamed organization>"
+                )
+                organization_id = (
+                    getattr(organization, "organization_id", None) or "<unknown id>"
+                )
 
                 projects = get_organization_projects_organizations_organization_id_projects_get.sync(
                     client=authenticated_client,
@@ -111,7 +123,9 @@ def main() -> int:
                 if isinstance(projects, HTTPValidationError):
                     print()
                     print(f"{index}. {organization_name} ({organization_id})")
-                    print(f"   Projects: request failed with validation error: {projects}")
+                    print(
+                        f"   Projects: request failed with validation error: {projects}"
+                    )
                     continue
 
                 project_count = len(projects)
@@ -125,12 +139,16 @@ def main() -> int:
                     print("   No projects available in this organization.")
                     continue
 
-                print(f"   First {min(project_count, PROJECT_PREVIEW_LIMIT)} project(s):")
+                print(
+                    f"   First {min(project_count, PROJECT_PREVIEW_LIMIT)} project(s):"
+                )
                 for line in _format_project_names(preview):
                     print(f"   {line}")
 
                 if project_count > PROJECT_PREVIEW_LIMIT:
-                    print(f"   ... and {project_count - PROJECT_PREVIEW_LIMIT} more project(s)")
+                    print(
+                        f"   ... and {project_count - PROJECT_PREVIEW_LIMIT} more project(s)"
+                    )
 
         return 0
     except Exception as exc:

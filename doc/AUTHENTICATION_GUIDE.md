@@ -351,9 +351,10 @@ pip install python-keycloak
 
 #### 4. Service account permission denied
 
-- Verify service accounts are enabled on the dedicated client created for your integration
-- Check that appropriate roles are assigned
-- Ensure client secret is correct
+- User: Ensure client secret is correct
+- Field Manager Team: Verify service accounts are enabled on the dedicated client created for your integration
+- Field Manager Team: Check that appropriate roles are assigned
+
 
 #### 5. "Unable to fetch org info" message
 
