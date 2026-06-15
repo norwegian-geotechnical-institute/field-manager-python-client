@@ -28,7 +28,6 @@ from field_manager_python_client.api.organizations import (
     get_organizations_organizations_get,
 )
 from field_manager_python_client.models.http_validation_error import HTTPValidationError
-from field_manager_python_client.models.organization import Organization
 from field_manager_python_client.models.project import Project
 
 PROJECT_PREVIEW_LIMIT = 10
