@@ -173,70 +173,46 @@ The system automatically configures endpoints based on environment:
 
 ### Prerequisites
 
-#### 1. Create Service Account in Keycloak
+#### 1. Request a Dedicated Service Account Client
 
-1. **Access Keycloak Admin Console:**
+1a. **For external users: Ask the Field Manager team to create a dedicated confidential client for your integration**
+
+1b. **For Field Manager team**
+   1.  **Access Keycloak Admin Console:**
 
    - Test: https://keycloak.test.ngiapi.no/auth/admin/
    - Production: https://keycloak.ngiapi.no/auth/admin/
 
-2. **Configure Client:**
+   2. **Verify the dedicated client configuration:**
 
-   - Go to Clients → `fieldmanager-client`
+   - Go to Clients → `your-dedicated-client-id`
    - Enable "Service Accounts Enabled"
    - Save the configuration
 
-3. **Get Client Secret:**
+   3. **Get Client Secret:**
 
    - Go to Credentials tab
    - Copy the Client Secret
 
-4. **Set Permissions:**
+   4. **Set Permissions:**
    - Go to Service Account Roles tab
-   - Assign appropriate roles for your use case
+   - Assign appropriate roles 
 
 ### Implementation
 
 ```python
-import os
-from keycloak import KeycloakOpenID
-from field_manager_python_client import AuthenticatedClient
+from field_manager_python_client import get_service_account_client
 
-def get_service_account_client(environment: str = "prod"):
-    """Get authenticated client using service account credentials."""
-
-    # Get client secret from environment variable
-    client_secret = os.getenv("KEYCLOAK_CLIENT_SECRET")
-    if not client_secret:
-        raise ValueError("KEYCLOAK_CLIENT_SECRET environment variable is required")
-
-    # Environment-specific configuration
-    if environment == "prod":
-        server_url = "https://keycloak.ngiapi.no/auth/"
-        base_url = "https://app.fieldmanager.io/api/location"
-    else:  # test environment
-        server_url = "https://keycloak.test.ngiapi.no/auth/"
-        base_url = "https://app.test.fieldmanager.io/api/location"
-
-    # Initialize Keycloak client
-    keycloak_openid = KeycloakOpenID(
-        server_url=server_url,
-        client_id="fieldmanager-client",
-        realm_name="tenant-geohub-public",
-        client_secret_key=client_secret
-    )
-
-    # Get access token
-    token = keycloak_openid.token(grant_type="client_credentials")
-
-    # Create authenticated client
-    return AuthenticatedClient(
-        base_url=base_url,
-        token=token['access_token']
+def build_service_account_client(environment: str = "prod"):
+    """Get an authenticated client using a dedicated service account."""
+    return get_service_account_client(
+        environment=environment,
+        client_id="your-dedicated-client-id",
+        client_secret="your-dedicated-client-secret",
     )
 
 # Usage
-client = get_service_account_client("prod")
+client = build_service_account_client("prod")
 ```
 
 ### Environment Setup
@@ -245,6 +221,7 @@ client = get_service_account_client("prod")
 
 ```bash
 # .env file
+KEYCLOAK_CLIENT_ID=your-dedicated-client-id
 KEYCLOAK_CLIENT_SECRET=your-service-account-client-secret
 
 # Load in Python
@@ -257,68 +234,47 @@ load_dotenv()
 ```yaml
 # GitHub Actions example
 env:
+  KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
   KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
 
 # GitLab CI example
 variables:
+  KEYCLOAK_CLIENT_ID: $KEYCLOAK_CLIENT_ID
   KEYCLOAK_CLIENT_SECRET: $KEYCLOAK_CLIENT_SECRET
 ```
 
 ### Advanced Service Account Usage
 
-For production use with automatic token refresh:
+Note: Client-credentials tokens cannot be refreshed; call `get_service_account_client` again to obtain a new token when needed.
 
 ```python
 import os
-from datetime import datetime, timedelta
-from keycloak import KeycloakOpenID
-from field_manager_python_client import AuthenticatedClient
+from field_manager_python_client import get_service_account_client
 
 class ServiceAccountManager:
     def __init__(self, environment: str = "prod"):
         self.environment = environment
+        self.client_id = os.getenv("KEYCLOAK_CLIENT_ID")
         self.client_secret = os.getenv("KEYCLOAK_CLIENT_SECRET")
-        self.token_data = None
-        self.token_expires_at = None
+        self.client = None
 
+        if not self.client_id:
+            raise ValueError("KEYCLOAK_CLIENT_ID environment variable is required")
         if not self.client_secret:
             raise ValueError("KEYCLOAK_CLIENT_SECRET environment variable is required")
 
-        # Environment configuration
-        if environment == "prod":
-            self.server_url = "https://keycloak.ngiapi.no/auth/"
-            self.base_url = "https://app.fieldmanager.io/api/location"
-        else:  # test environment
-            self.server_url = "https://keycloak.test.ngiapi.no/auth/"
-            self.base_url = "https://app.test.fieldmanager.io/api/location"
-
-        self.keycloak_openid = KeycloakOpenID(
-            server_url=self.server_url,
-            client_id="fieldmanager-client",
-            realm_name="tenant-geohub-public",
-            client_secret_key=self.client_secret
-        )
-
-    def _refresh_token(self):
-        """Refresh the access token."""
-        self.token_data = self.keycloak_openid.token(grant_type="client_credentials")
-        expires_in = self.token_data.get('expires_in', 3600)
-        # Add 60-second buffer before expiration
-        self.token_expires_at = datetime.now() + timedelta(seconds=expires_in - 60)
-
     def get_client(self):
-        """Get authenticated client with valid token."""
-        if not self.token_data or datetime.now() >= self.token_expires_at:
-            self._refresh_token()
-
-        return AuthenticatedClient(
-            base_url=self.base_url,
-            token=self.token_data['access_token']
+        """Get an authenticated client."""
+        self.client = get_service_account_client(
+            environment=self.environment,
+            client_id=self.client_id,
+            client_secret=self.client_secret,
         )
+        return self.client
 
 # Usage
 manager = ServiceAccountManager("prod")
-client = manager.get_client()  # Always returns client with valid token
+client = manager.get_client()
 ```
 
 ### Complete Example
@@ -327,38 +283,34 @@ client = manager.get_client()  # Always returns client with valid token
 #!/usr/bin/env python3
 """
 Service Account Example
-Run with: KEYCLOAK_CLIENT_SECRET=your-secret python service_account_example.py
+Run with:
+  KEYCLOAK_CLIENT_ID=your-dedicated-client-id \
+  KEYCLOAK_CLIENT_SECRET=your-secret \
+  python service_account_example.py
 """
 
 import os
-from keycloak import KeycloakOpenID
-from field_manager_python_client import AuthenticatedClient
+from field_manager_python_client import get_service_account_client
 from field_manager_python_client.api.organizations import get_organizations_organizations_get
 
 def main():
-    # Check environment variable
+    # Check environment variables
+    client_id = os.getenv("KEYCLOAK_CLIENT_ID")
     client_secret = os.getenv("KEYCLOAK_CLIENT_SECRET")
+    if not client_id:
+        print("❌ Error: KEYCLOAK_CLIENT_ID environment variable is required")
+        print("Set it with: export KEYCLOAK_CLIENT_ID=your-dedicated-client-id")
+        return
     if not client_secret:
         print("❌ Error: KEYCLOAK_CLIENT_SECRET environment variable is required")
         print("Set it with: export KEYCLOAK_CLIENT_SECRET=your-secret")
         return
 
     try:
-                # Initialize Keycloak client
-        keycloak_openid = KeycloakOpenID(
-            server_url="https://keycloak.ngiapi.no/auth/",
-            client_id="fieldmanager-client",
-            realm_name="tenant-geohub-public",
-            client_secret_key=client_secret
-        )
-
-        # Get access token
-        token = keycloak_openid.token(grant_type="client_credentials")
-
-        # Create authenticated client
-        client = AuthenticatedClient(
-            base_url="https://app.fieldmanager.io/api/location",
-            token=token['access_token']
+        client = get_service_account_client(
+            environment="prod",
+            client_id=client_id,
+            client_secret=client_secret,
         )
 
         # Test the connection
@@ -399,9 +351,10 @@ pip install python-keycloak
 
 #### 4. Service account permission denied
 
-- Verify service account is enabled in Keycloak
-- Check that appropriate roles are assigned
-- Ensure client secret is correct
+- User: Ensure client secret is correct
+- Field Manager Team: Verify service accounts are enabled on the dedicated client created for your integration
+- Field Manager Team: Check that appropriate roles are assigned
+
 
 #### 5. "Unable to fetch org info" message
 
@@ -458,7 +411,12 @@ if __name__ == "__main__":
     client = get_prod_client(email="your.email@example.com")
 
     # Method 3: Service account
-    # client = get_service_account_client("prod")
+    # from field_manager_python_client import get_service_account_client
+    # client = get_service_account_client(
+    #     "prod",
+    #     client_id="your-dedicated-client-id",
+    #     client_secret="your-dedicated-client-secret",
+    # )
 
     test_connection(client)
 ```

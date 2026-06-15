@@ -43,6 +43,7 @@ That's it! 🎉
 
 ### 🔐 Authentication Examples
 - **`example_using_integrated_auth.py`** - Different authentication methods
+- **`ex_service_account_access_check.py`** - Test a dedicated service account and list accessible organizations and projects
 
 ## 🌍 Environments
 

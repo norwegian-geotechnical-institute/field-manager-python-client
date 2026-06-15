@@ -2,7 +2,7 @@
 
 {{ safe_docstring(package_description) }}
 from .client import AuthenticatedClient, Client
-from .auth import authenticate, get_test_client, get_prod_client, TokenManager
+from .auth import authenticate, get_test_client, get_prod_client, get_service_account_client, TokenManager
 
 __all__ = (
     "AuthenticatedClient",
@@ -10,5 +10,6 @@ __all__ = (
     "authenticate", 
     "get_test_client",
     "get_prod_client",
+    "get_service_account_client",
     "TokenManager",
 ) 
