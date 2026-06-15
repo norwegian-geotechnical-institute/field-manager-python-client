@@ -245,7 +245,7 @@ variables:
 
 ### Advanced Service Account Usage
 
-For production use with automatic token refresh:
+Note: Client-credentials tokens cannot be refreshed; call `get_service_account_client` again to obtain a new token when needed.
 
 ```python
 import os
