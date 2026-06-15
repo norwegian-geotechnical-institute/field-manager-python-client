@@ -43,9 +43,9 @@ def _load_configuration() -> tuple[str, str, str]:
     environment = os.getenv("FIELD_MANAGER_ENVIRONMENT", "prod")
 
     if not client_id:
-        raise ValueError("Missing KEYCLOAK_CLIENT_ID in examples/.env.service-account")
+        raise ValueError(f"Missing KEYCLOAK_CLIENT_ID in {env_file}")
     if not client_secret:
-        raise ValueError("Missing KEYCLOAK_CLIENT_SECRET in examples/.env.service-account")
+        raise ValueError(f"Missing KEYCLOAK_CLIENT_SECRET in {env_file}")
 
     return client_id, client_secret, environment
 
