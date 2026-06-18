@@ -55,6 +55,13 @@ Before running any examples:
   - Identifies discrepancies between data sources
   - Exports discrepancy reports to separate Excel files
 
+### Piezometer Data
+- **`ex_get_piezometer_data.py`** - Get piezometer methods and data rows
+  - Finds locations with piezometer (PZ) methods
+  - Fetches PZ methods for each matching location
+  - Retrieves and previews piezometer readings and calculated values
+  - Supports optional `FIELD_MANAGER_PROJECT_ID` and limit environment variables
+
 ## 🎯 File Naming Convention
 
 All examples follow the pattern: `ex_[verb]_[object]_[context].py`
