@@ -40,6 +40,7 @@ That's it! 🎉
 - **`ex_historical_projects.py`** - Analyze historical project data
 - **`ex_find_duplicate_locations_within_organization.py`** - Find duplicate locations
 - **`ex_cross_check_location_list.py`** - Cross-validate location data
+- **`ex_get_piezometer_data.py`** - Find PZ methods and preview piezometer data rows
 
 ### 🔐 Authentication Examples
 - **`example_using_integrated_auth.py`** - Different authentication methods
