@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
 from uuid import UUID
 
@@ -8,55 +8,40 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
-from ...models.location import Location
-from ...types import UNSET, Response, Unset
+from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
-    file_id: UUID,
     *,
-    srid: int | None | Unset = UNSET,
-    swap_x_y: bool | Unset = False,
+    body: list[UUID],
 ) -> dict[str, Any]:
-
-    params: dict[str, Any] = {}
-
-    json_srid: int | None | Unset
-    if isinstance(srid, Unset):
-        json_srid = UNSET
-    else:
-        json_srid = srid
-    params["srid"] = json_srid
-
-    params["swap_x_y"] = swap_x_y
-
-    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+    headers: dict[str, Any] = {}
 
     _kwargs: dict[str, Any] = {
-        "method": "post",
-        "url": "/projects/{project_id}/files/{file_id}/parse".format(
+        "method": "delete",
+        "url": "/projects/{project_id}/project_areas".format(
             project_id=quote(str(project_id), safe=""),
-            file_id=quote(str(file_id), safe=""),
         ),
-        "params": params,
     }
 
+    _kwargs["json"] = []
+    for body_item_data in body:
+        body_item = str(body_item_data)
+        _kwargs["json"].append(body_item)
+
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
     return _kwargs
 
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> HTTPValidationError | list[Location] | None:
-    if response.status_code == 201:
-        response_201 = []
-        _response_201 = response.json()
-        for response_201_item_data in _response_201:
-            response_201_item = Location.from_dict(response_201_item_data)
-
-            response_201.append(response_201_item)
-
-        return response_201
+) -> Any | HTTPValidationError | None:
+    if response.status_code == 204:
+        response_204 = cast(Any, None)
+        return response_204
 
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
@@ -71,7 +56,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[HTTPValidationError | list[Location]]:
+) -> Response[Any | HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,35 +67,29 @@ def _build_response(
 
 def sync_detailed(
     project_id: str,
-    file_id: UUID,
     *,
     client: AuthenticatedClient,
-    srid: int | None | Unset = UNSET,
-    swap_x_y: bool | Unset = False,
-) -> Response[HTTPValidationError | list[Location]]:
-    """Parse Project File
+    body: list[UUID],
+) -> Response[Any | HTTPValidationError]:
+    """Delete Project Areas
 
-     Parse an already queued location file.
+     Delete project areas for a project.
 
     Args:
         project_id (str):
-        file_id (UUID):
-        srid (int | None | Unset):
-        swap_x_y (bool | Unset):  Default: False.
+        body (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError | list[Location]]
+        Response[Any | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        file_id=file_id,
-        srid=srid,
-        swap_x_y=swap_x_y,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -122,70 +101,58 @@ def sync_detailed(
 
 def sync(
     project_id: str,
-    file_id: UUID,
     *,
     client: AuthenticatedClient,
-    srid: int | None | Unset = UNSET,
-    swap_x_y: bool | Unset = False,
-) -> HTTPValidationError | list[Location] | None:
-    """Parse Project File
+    body: list[UUID],
+) -> Any | HTTPValidationError | None:
+    """Delete Project Areas
 
-     Parse an already queued location file.
+     Delete project areas for a project.
 
     Args:
         project_id (str):
-        file_id (UUID):
-        srid (int | None | Unset):
-        swap_x_y (bool | Unset):  Default: False.
+        body (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError | list[Location]
+        Any | HTTPValidationError
     """
 
     return sync_detailed(
         project_id=project_id,
-        file_id=file_id,
         client=client,
-        srid=srid,
-        swap_x_y=swap_x_y,
+        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
     project_id: str,
-    file_id: UUID,
     *,
     client: AuthenticatedClient,
-    srid: int | None | Unset = UNSET,
-    swap_x_y: bool | Unset = False,
-) -> Response[HTTPValidationError | list[Location]]:
-    """Parse Project File
+    body: list[UUID],
+) -> Response[Any | HTTPValidationError]:
+    """Delete Project Areas
 
-     Parse an already queued location file.
+     Delete project areas for a project.
 
     Args:
         project_id (str):
-        file_id (UUID):
-        srid (int | None | Unset):
-        swap_x_y (bool | Unset):  Default: False.
+        body (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError | list[Location]]
+        Response[Any | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        file_id=file_id,
-        srid=srid,
-        swap_x_y=swap_x_y,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -195,36 +162,30 @@ async def asyncio_detailed(
 
 async def asyncio(
     project_id: str,
-    file_id: UUID,
     *,
     client: AuthenticatedClient,
-    srid: int | None | Unset = UNSET,
-    swap_x_y: bool | Unset = False,
-) -> HTTPValidationError | list[Location] | None:
-    """Parse Project File
+    body: list[UUID],
+) -> Any | HTTPValidationError | None:
+    """Delete Project Areas
 
-     Parse an already queued location file.
+     Delete project areas for a project.
 
     Args:
         project_id (str):
-        file_id (UUID):
-        srid (int | None | Unset):
-        swap_x_y (bool | Unset):  Default: False.
+        body (list[UUID]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError | list[Location]
+        Any | HTTPValidationError
     """
 
     return (
         await asyncio_detailed(
             project_id=project_id,
-            file_id=file_id,
             client=client,
-            srid=srid,
-            swap_x_y=swap_x_y,
+            body=body,
         )
     ).parsed

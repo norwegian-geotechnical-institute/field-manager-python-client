@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.239" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.257" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -1976,135 +1976,6 @@
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/Location" },
                   "title": "Response Upload Locations To Project Projects  Project Id  Locations Upload Post"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/locations/queue": {
-      "post": {
-        "tags": ["locations", "files"],
-        "summary": "Queue Locations To Project",
-        "description": "Upload location file and add to queue for parsing.\n\nSupported file extensions: .ags, .csv, .gvr, .kof, .snd, .xlsx, .xls and image files.\n\n\nParsing of the file is done asynchronously, so the response can be returned before parsing is done.\n\nYou may check the status of the parsing by using the endpoints specified here:\nhttps://app.fieldmanager.io/developer/file-director",
-        "operationId": "queue_locations_to_project_projects__project_id__locations_queue_post",
-        "deprecated": true,
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "srid",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [{ "type": "integer" }, { "type": "null" }],
-              "title": "Srid"
-            }
-          },
-          {
-            "name": "swap_x_y",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [{ "type": "boolean" }, { "type": "null" }],
-              "default": false,
-              "title": "Swap X Y"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/components/schemas/Body_queue_locations_to_project_projects__project_id__locations_queue_post"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/File" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/files/{file_id}/parse": {
-      "post": {
-        "tags": ["files"],
-        "summary": "Parse Project File",
-        "description": "Parse an already queued location file.",
-        "operationId": "parse_project_file_projects__project_id__files__file_id__parse_post",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "file_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid", "title": "File Id" }
-          },
-          {
-            "name": "srid",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [{ "type": "integer" }, { "type": "null" }],
-              "title": "Srid"
-            }
-          },
-          {
-            "name": "swap_x_y",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "default": false,
-              "title": "Swap X Y"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/Location" },
-                  "title": "Response Parse Project File Projects  Project Id  Files  File Id  Parse Post"
                 }
               }
             }
@@ -7402,6 +7273,96 @@
             }
           }
         }
+      },
+      "delete": {
+        "tags": ["project_areas"],
+        "summary": "Delete Project Areas",
+        "description": "Delete project areas for a project.",
+        "operationId": "delete_project_areas_projects__project_id__project_areas_delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": { "type": "string", "format": "uuid" },
+                "title": "Project Area Ids"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": { "description": "Successful Response" },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/project_areas/{project_area_id}/linkable_projects": {
+      "get": {
+        "tags": ["project_areas"],
+        "summary": "Get Linkable Projects For Project Area",
+        "description": "Get projects with locations inside a project area that can be linked to the current project.",
+        "operationId": "get_linkable_projects_for_project_area_projects__project_id__project_areas__project_area_id__linkable_projects_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "project_area_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Area Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProjectAreaLinkableProject"
+                  },
+                  "title": "Response Get Linkable Projects For Project Area Projects  Project Id  Project Areas  Project Area Id  Linkable Projects Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
       }
     },
     "/sampling_techniques": {
@@ -9757,23 +9718,6 @@
         "required": ["name", "file"],
         "title": "Body_create_shape_projects__project_id__shapes_post"
       },
-      "Body_queue_locations_to_project_projects__project_id__locations_queue_post": {
-        "properties": {
-          "file": {
-            "type": "string",
-            "contentMediaType": "application/octet-stream",
-            "title": "File"
-          },
-          "comment": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Comment",
-            "default": ""
-          }
-        },
-        "type": "object",
-        "required": ["file"],
-        "title": "Body_queue_locations_to_project_projects__project_id__locations_queue_post"
-      },
       "Body_upload_file_projects__project_id__locations__location_id__methods__method_id__upload_post": {
         "properties": {
           "comment": {
@@ -9889,6 +9833,10 @@
             "type": "number",
             "title": "Percentile",
             "default": 0.975
+          },
+          "standard": {
+            "$ref": "#/components/schemas/StandardType",
+            "default": "NGF"
           }
         },
         "type": "object",
@@ -10325,7 +10273,11 @@
           },
           "cpt": {
             "$ref": "#/components/schemas/CPTOptions",
-            "default": { "scaling_mode": "percentile", "percentile": 0.975 }
+            "default": {
+              "scaling_mode": "percentile",
+              "percentile": 0.975,
+              "standard": "NGF"
+            }
           }
         },
         "type": "object",
@@ -23875,7 +23827,11 @@
               "fill_curve": true,
               "depth_scale": "Auto scaling",
               "depth_range": [0.0, 0.0],
-              "cpt": { "percentile": 0.975, "scaling_mode": "percentile" }
+              "cpt": {
+                "percentile": 0.975,
+                "scaling_mode": "percentile",
+                "standard": "NGF"
+              }
             }
           },
           "auto_set_depth": {
@@ -25124,6 +25080,31 @@
         "type": "object",
         "required": ["boundary"],
         "title": "ProjectAreaCreate"
+      },
+      "ProjectAreaLinkableProject": {
+        "properties": {
+          "project": { "$ref": "#/components/schemas/ProjectInfo" },
+          "locations_in_project_area_count": {
+            "type": "integer",
+            "title": "Locations In Project Area Count"
+          },
+          "total_location_count": {
+            "type": "integer",
+            "title": "Total Location Count"
+          },
+          "is_already_linked": {
+            "type": "boolean",
+            "title": "Is Already Linked"
+          }
+        },
+        "type": "object",
+        "required": [
+          "project",
+          "locations_in_project_area_count",
+          "total_location_count",
+          "is_already_linked"
+        ],
+        "title": "ProjectAreaLinkableProject"
       },
       "ProjectAreaUpdate": {
         "properties": {

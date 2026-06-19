@@ -5,9 +5,6 @@ from .background_map_layer import BackgroundMapLayer
 from .bedrock_info import BedrockInfo
 from .bedrock_type import BedrockType
 from .body_create_shape_projects_project_id_shapes_post import BodyCreateShapeProjectsProjectIdShapesPost
-from .body_queue_locations_to_project_projects_project_id_locations_queue_post import (
-    BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost,
-)
 from .body_upload_file_projects_project_id_locations_location_id_methods_method_id_upload_post import (
     BodyUploadFileProjectsProjectIdLocationsLocationIdMethodsMethodIdUploadPost,
 )
@@ -262,6 +259,7 @@ from .plot_type import PlotType
 from .project import Project
 from .project_area import ProjectArea
 from .project_area_create import ProjectAreaCreate
+from .project_area_linkable_project import ProjectAreaLinkableProject
 from .project_area_update import ProjectAreaUpdate
 from .project_create import ProjectCreate
 from .project_info import ProjectInfo
@@ -310,7 +308,6 @@ __all__ = (
     "BedrockInfo",
     "BedrockType",
     "BodyCreateShapeProjectsProjectIdShapesPost",
-    "BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost",
     "BodyUploadFileProjectsProjectIdLocationsLocationIdMethodsMethodIdUploadPost",
     "BodyUploadFileToLocationProjectsProjectIdLocationsLocationIdUploadPost",
     "BodyUploadFileToOrganizationOrganizationsOrganizationIdUploadPost",
@@ -549,6 +546,7 @@ __all__ = (
     "Project",
     "ProjectArea",
     "ProjectAreaCreate",
+    "ProjectAreaLinkableProject",
     "ProjectAreaUpdate",
     "ProjectCreate",
     "ProjectInfo",
