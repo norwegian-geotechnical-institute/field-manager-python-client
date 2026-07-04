@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class HeightReference(str, Enum):
+    CD_NORWAY_DEPTH = "CD_NORWAY_DEPTH"
     LAT_DEPTH = "LAT_DEPTH"
     MSL_HEIGHT = "MSL_HEIGHT"
     NN1954 = "NN1954"

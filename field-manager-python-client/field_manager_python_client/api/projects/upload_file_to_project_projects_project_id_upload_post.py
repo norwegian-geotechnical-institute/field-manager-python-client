@@ -9,9 +9,9 @@ from ...client import AuthenticatedClient, Client
 from ...models.body_upload_file_to_project_projects_project_id_upload_post import (
     BodyUploadFileToProjectProjectsProjectIdUploadPost,
 )
+from ...models.file import File
 from ...models.file_type import FileType
 from ...models.http_validation_error import HTTPValidationError
-from ...models.project import Project
 from ...types import UNSET, Response, Unset
 
 
@@ -65,9 +65,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> HTTPValidationError | Project | None:
+) -> File | HTTPValidationError | None:
     if response.status_code == 201:
-        response_201 = Project.from_dict(response.json())
+        response_201 = File.from_dict(response.json())
 
         return response_201
 
@@ -84,7 +84,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[HTTPValidationError | Project]:
+) -> Response[File | HTTPValidationError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -101,7 +101,7 @@ def sync_detailed(
     file_type: FileType | None | Unset = UNSET,
     layer_file: bool | Unset = False,
     srid: None | str | Unset = UNSET,
-) -> Response[HTTPValidationError | Project]:
+) -> Response[File | HTTPValidationError]:
     """Upload File To Project
 
      Upload a file to project. If file_type is LAYER, then the file is converted to GeoJSON and used for
@@ -127,7 +127,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError | Project]
+        Response[File | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -153,7 +153,7 @@ def sync(
     file_type: FileType | None | Unset = UNSET,
     layer_file: bool | Unset = False,
     srid: None | str | Unset = UNSET,
-) -> HTTPValidationError | Project | None:
+) -> File | HTTPValidationError | None:
     """Upload File To Project
 
      Upload a file to project. If file_type is LAYER, then the file is converted to GeoJSON and used for
@@ -179,7 +179,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError | Project
+        File | HTTPValidationError
     """
 
     return sync_detailed(
@@ -200,7 +200,7 @@ async def asyncio_detailed(
     file_type: FileType | None | Unset = UNSET,
     layer_file: bool | Unset = False,
     srid: None | str | Unset = UNSET,
-) -> Response[HTTPValidationError | Project]:
+) -> Response[File | HTTPValidationError]:
     """Upload File To Project
 
      Upload a file to project. If file_type is LAYER, then the file is converted to GeoJSON and used for
@@ -226,7 +226,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError | Project]
+        Response[File | HTTPValidationError]
     """
 
     kwargs = _get_kwargs(
@@ -250,7 +250,7 @@ async def asyncio(
     file_type: FileType | None | Unset = UNSET,
     layer_file: bool | Unset = False,
     srid: None | str | Unset = UNSET,
-) -> HTTPValidationError | Project | None:
+) -> File | HTTPValidationError | None:
     """Upload File To Project
 
      Upload a file to project. If file_type is LAYER, then the file is converted to GeoJSON and used for
@@ -276,7 +276,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError | Project
+        File | HTTPValidationError
     """
 
     return (

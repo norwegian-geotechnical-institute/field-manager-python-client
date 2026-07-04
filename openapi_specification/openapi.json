@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.6.239" },
+  "info": { "title": "Field Manager Data API", "version": "4.6.268" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -1029,7 +1029,7 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Project" }
+                "schema": { "$ref": "#/components/schemas/File" }
               }
             }
           },
@@ -1976,135 +1976,6 @@
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/Location" },
                   "title": "Response Upload Locations To Project Projects  Project Id  Locations Upload Post"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/locations/queue": {
-      "post": {
-        "tags": ["locations", "files"],
-        "summary": "Queue Locations To Project",
-        "description": "Upload location file and add to queue for parsing.\n\nSupported file extensions: .ags, .csv, .gvr, .kof, .snd, .xlsx, .xls and image files.\n\n\nParsing of the file is done asynchronously, so the response can be returned before parsing is done.\n\nYou may check the status of the parsing by using the endpoints specified here:\nhttps://app.fieldmanager.io/developer/file-director",
-        "operationId": "queue_locations_to_project_projects__project_id__locations_queue_post",
-        "deprecated": true,
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "srid",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [{ "type": "integer" }, { "type": "null" }],
-              "title": "Srid"
-            }
-          },
-          {
-            "name": "swap_x_y",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [{ "type": "boolean" }, { "type": "null" }],
-              "default": false,
-              "title": "Swap X Y"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/components/schemas/Body_queue_locations_to_project_projects__project_id__locations_queue_post"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/File" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{project_id}/files/{file_id}/parse": {
-      "post": {
-        "tags": ["files"],
-        "summary": "Parse Project File",
-        "description": "Parse an already queued location file.",
-        "operationId": "parse_project_file_projects__project_id__files__file_id__parse_post",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Project Id" }
-          },
-          {
-            "name": "file_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid", "title": "File Id" }
-          },
-          {
-            "name": "srid",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [{ "type": "integer" }, { "type": "null" }],
-              "title": "Srid"
-            }
-          },
-          {
-            "name": "swap_x_y",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "default": false,
-              "title": "Swap X Y"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/Location" },
-                  "title": "Response Parse Project File Projects  Project Id  Files  File Id  Parse Post"
                 }
               }
             }
@@ -6765,6 +6636,76 @@
         }
       }
     },
+    "/projects/{project_id}/nadag_sync/status": {
+      "get": {
+        "tags": ["NADAG"],
+        "summary": "Get Nadag Sync Status",
+        "description": "Get an overview of the project's NADAG sync status.",
+        "operationId": "get_nadag_sync_status_projects__project_id__nadag_sync_status_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NadagSyncStatus" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/nadag_sync": {
+      "post": {
+        "tags": ["NADAG", "projects"],
+        "summary": "Start Nadag Sync",
+        "description": "Start a NADAG sync for a project.\n\nThe calling user must have the NADAG user ID in the Authorization header token\n(see the endpoint `PUT /users/me/nadag-user-id`)",
+        "operationId": "start_nadag_sync_projects__project_id__nadag_sync_post",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NadagSyncMessage" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/projects/{project_id}/piezometers/models": {
       "get": {
         "tags": ["piezometers"],
@@ -7389,6 +7330,96 @@
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/ProjectArea" },
                   "title": "Response Update Project Areas Projects  Project Id  Project Areas Patch"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["project_areas"],
+        "summary": "Delete Project Areas",
+        "description": "Delete project areas for a project.",
+        "operationId": "delete_project_areas_projects__project_id__project_areas_delete",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": { "type": "string", "format": "uuid" },
+                "title": "Project Area Ids"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": { "description": "Successful Response" },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/project_areas/{project_area_id}/linkable_projects": {
+      "get": {
+        "tags": ["project_areas"],
+        "summary": "Get Linkable Projects For Project Area",
+        "description": "Get projects with locations inside a project area that can be linked to the current project.",
+        "operationId": "get_linkable_projects_for_project_area_projects__project_id__project_areas__project_area_id__linkable_projects_get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Project Id" }
+          },
+          {
+            "name": "project_area_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Area Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProjectAreaLinkableProject"
+                  },
+                  "title": "Response Get Linkable Projects For Project Area Projects  Project Id  Project Areas  Project Area Id  Linkable Projects Get"
                 }
               }
             }
@@ -8900,6 +8931,40 @@
         "security": [{ "HTTPBearer": [] }]
       }
     },
+    "/users/me/nadag-user-id": {
+      "put": {
+        "tags": ["users", "NADAG"],
+        "summary": "Set Current User Nadag User Id",
+        "operationId": "set_current_user_nadag_user_id_users_me_nadag_user_id_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/NadagUserIdUpdate" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NadagUserIdResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "HTTPBearer": [] }]
+      }
+    },
     "/users/{user_id}/roles": {
       "post": {
         "tags": ["users"],
@@ -9757,23 +9822,6 @@
         "required": ["name", "file"],
         "title": "Body_create_shape_projects__project_id__shapes_post"
       },
-      "Body_queue_locations_to_project_projects__project_id__locations_queue_post": {
-        "properties": {
-          "file": {
-            "type": "string",
-            "contentMediaType": "application/octet-stream",
-            "title": "File"
-          },
-          "comment": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
-            "title": "Comment",
-            "default": ""
-          }
-        },
-        "type": "object",
-        "required": ["file"],
-        "title": "Body_queue_locations_to_project_projects__project_id__locations_queue_post"
-      },
       "Body_upload_file_projects__project_id__locations__location_id__methods__method_id__upload_post": {
         "properties": {
           "comment": {
@@ -9889,6 +9937,10 @@
             "type": "number",
             "title": "Percentile",
             "default": 0.975
+          },
+          "standard": {
+            "$ref": "#/components/schemas/StandardType",
+            "default": "NGF"
           }
         },
         "type": "object",
@@ -10325,7 +10377,11 @@
           },
           "cpt": {
             "$ref": "#/components/schemas/CPTOptions",
-            "default": { "scaling_mode": "percentile", "percentile": 0.975 }
+            "default": {
+              "scaling_mode": "percentile",
+              "percentile": 0.975,
+              "standard": "NGF"
+            }
           }
         },
         "type": "object",
@@ -10628,10 +10684,11 @@
           "NN1954",
           "MSL_HEIGHT",
           "RH2000",
-          "TWVD2001"
+          "TWVD2001",
+          "CD_NORWAY_DEPTH"
         ],
         "title": "HeightReference",
-        "description": "Original int values (now converting to strings):\n\n- NN2000      # Onshore Norway EPSG:5941\n- LAT_DEPTH   # Lowest Astronomical Tide EPSG:5861\n- NN1954      # Old on onshore Norway\n- MSL_HEIGHT  # Mean Sea Level height EPSG:5714\n- RH2000      # Swedish national height system EPSG:5613\n- TWVD2001    # TWVD 2001 height EPSG:8904"
+        "description": "Original int values (now converting to strings):\n\n- NN2000          # Onshore Norway EPSG:5941\n- LAT_DEPTH       # Lowest Astronomical Tide EPSG:5861\n- NN1954          # Old on onshore Norway\n- MSL_HEIGHT      # Mean Sea Level height EPSG:5714\n- RH2000          # Swedish national height system EPSG:5613\n- TWVD2001        # TWVD 2001 height EPSG:8904\n- CD_NORWAY_DEPTH # Sea chart datum (Sjøkartnull) for Norway \"CD Norway Depths\" EPSG:9672"
       },
       "IOGPType": {
         "properties": {
@@ -11020,6 +11077,16 @@
             ],
             "title": "Tags",
             "default": []
+          },
+          "client": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Client",
+            "description": "NADAG client/oppdragsgiver"
+          },
+          "contractor": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Contractor",
+            "description": "NADAG contractor/oppdragstaker"
           },
           "number_of_locations": {
             "type": "integer",
@@ -20640,7 +20707,8 @@
           },
           "time": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Time"
+            "title": "Time",
+            "description": "Time (s)."
           },
           "remarks": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
@@ -22289,7 +22357,8 @@
           },
           "engine_pressure": {
             "anyOf": [{ "type": "number" }, { "type": "null" }],
-            "title": "Engine Pressure"
+            "title": "Engine Pressure",
+            "description": "Engine pressure (MPa). SGF code P."
           },
           "comment_code": {
             "anyOf": [{ "type": "integer" }, { "type": "null" }],
@@ -23802,6 +23871,136 @@
         "type": "object",
         "title": "MethodWSTUpdate"
       },
+      "NadagSyncMessage": {
+        "properties": {
+          "message_type": {
+            "type": "string",
+            "title": "Message Type",
+            "default": "NadagSync"
+          },
+          "user_id": { "type": "string", "format": "uuid", "title": "User Id" },
+          "nadag_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Nadag User Id"
+          },
+          "project_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Project Id"
+          }
+        },
+        "type": "object",
+        "required": ["user_id", "nadag_user_id", "project_id"],
+        "title": "NadagSyncMessage"
+      },
+      "NadagSyncOverviewStatus": {
+        "type": "string",
+        "enum": [
+          "NOT_REQUIRED",
+          "ALL_SYNCED_OK",
+          "SYNCED_WITH_ERRORS",
+          "SYNC_CANDIDATES_EXIST"
+        ],
+        "title": "NadagSyncOverviewStatus"
+      },
+      "NadagSyncStatus": {
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Project Id"
+          },
+          "status": { "$ref": "#/components/schemas/NadagSyncOverviewStatus" },
+          "required_to_sync": {
+            "type": "boolean",
+            "title": "Required To Sync"
+          },
+          "active_sync": { "type": "boolean", "title": "Active Sync" },
+          "has_blockers": { "type": "boolean", "title": "Has Blockers" },
+          "last_successful_sync_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Last Successful Sync At"
+          },
+          "latest_sync_status": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/SyncStatus" },
+              { "type": "null" }
+            ]
+          },
+          "counts": { "$ref": "#/components/schemas/NadagSyncStatusCounts" }
+        },
+        "type": "object",
+        "required": [
+          "project_id",
+          "status",
+          "required_to_sync",
+          "active_sync",
+          "has_blockers",
+          "counts"
+        ],
+        "title": "NadagSyncStatus"
+      },
+      "NadagSyncStatusCounts": {
+        "properties": {
+          "reports": { "type": "integer", "title": "Reports" },
+          "report_candidates": {
+            "type": "integer",
+            "title": "Report Candidates"
+          },
+          "locations": { "type": "integer", "title": "Locations" },
+          "location_candidates": {
+            "type": "integer",
+            "title": "Location Candidates"
+          },
+          "methods": { "type": "integer", "title": "Methods" },
+          "method_candidates": {
+            "type": "integer",
+            "title": "Method Candidates"
+          },
+          "blockers": { "type": "integer", "title": "Blockers" },
+          "failed_syncs": { "type": "integer", "title": "Failed Syncs" }
+        },
+        "type": "object",
+        "required": [
+          "reports",
+          "report_candidates",
+          "locations",
+          "location_candidates",
+          "methods",
+          "method_candidates",
+          "blockers",
+          "failed_syncs"
+        ],
+        "title": "NadagSyncStatusCounts"
+      },
+      "NadagUserIdResponse": {
+        "properties": {
+          "nadag_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Nadag User Id"
+          }
+        },
+        "type": "object",
+        "required": ["nadag_user_id"],
+        "title": "NadagUserIdResponse"
+      },
+      "NadagUserIdUpdate": {
+        "properties": {
+          "nadag_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Nadag User Id"
+          }
+        },
+        "type": "object",
+        "required": ["nadag_user_id"],
+        "title": "NadagUserIdUpdate"
+      },
       "Operation": {
         "type": "string",
         "enum": ["MANUAL", "MECHANICAL"],
@@ -23875,7 +24074,11 @@
               "fill_curve": true,
               "depth_scale": "Auto scaling",
               "depth_range": [0.0, 0.0],
-              "cpt": { "percentile": 0.975, "scaling_mode": "percentile" }
+              "cpt": {
+                "percentile": 0.975,
+                "scaling_mode": "percentile",
+                "standard": "NGF"
+              }
             }
           },
           "auto_set_depth": {
@@ -25026,6 +25229,16 @@
             "title": "Tags",
             "default": []
           },
+          "client": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Client",
+            "description": "NADAG client/oppdragsgiver"
+          },
+          "contractor": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Contractor",
+            "description": "NADAG contractor/oppdragstaker"
+          },
           "number_of_locations": {
             "type": "integer",
             "title": "Number Of Locations"
@@ -25125,6 +25338,31 @@
         "required": ["boundary"],
         "title": "ProjectAreaCreate"
       },
+      "ProjectAreaLinkableProject": {
+        "properties": {
+          "project": { "$ref": "#/components/schemas/ProjectInfo" },
+          "locations_in_project_area_count": {
+            "type": "integer",
+            "title": "Locations In Project Area Count"
+          },
+          "total_location_count": {
+            "type": "integer",
+            "title": "Total Location Count"
+          },
+          "is_already_linked": {
+            "type": "boolean",
+            "title": "Is Already Linked"
+          }
+        },
+        "type": "object",
+        "required": [
+          "project",
+          "locations_in_project_area_count",
+          "total_location_count",
+          "is_already_linked"
+        ],
+        "title": "ProjectAreaLinkableProject"
+      },
       "ProjectAreaUpdate": {
         "properties": {
           "project_area_id": {
@@ -25205,6 +25443,14 @@
             "title": "Tags",
             "default": []
           },
+          "client": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Client"
+          },
+          "contractor": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Contractor"
+          },
           "project_areas": {
             "items": { "$ref": "#/components/schemas/ProjectAreaCreate" },
             "type": "array",
@@ -25277,6 +25523,16 @@
             ],
             "title": "Tags",
             "default": []
+          },
+          "client": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Client",
+            "description": "NADAG client/oppdragsgiver"
+          },
+          "contractor": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Contractor",
+            "description": "NADAG contractor/oppdragstaker"
           },
           "number_of_locations": {
             "type": "integer",
@@ -25406,6 +25662,16 @@
             "title": "Tags",
             "default": []
           },
+          "client": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Client",
+            "description": "NADAG client/oppdragsgiver"
+          },
+          "contractor": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Contractor",
+            "description": "NADAG contractor/oppdragstaker"
+          },
           "number_of_locations": {
             "type": "integer",
             "title": "Number Of Locations"
@@ -25507,6 +25773,14 @@
             ],
             "title": "Tags",
             "default": []
+          },
+          "client": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Client"
+          },
+          "contractor": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Contractor"
           }
         },
         "type": "object",
@@ -26047,6 +26321,12 @@
         ],
         "title": "SubShape"
       },
+      "SyncStatus": {
+        "type": "string",
+        "enum": ["PENDING", "IN_PROGRESS", "SUCCESS", "FAILED"],
+        "title": "SyncStatus",
+        "description": "Sync status\n\n(\n    PENDING=Sync has not started yet,\n    IN_PROGRESS=Sync is in progress,\n    SUCCESS=Sync has completed successfully without errors,\n    FAILED=Sync has completed with errors,\n)"
+      },
       "TransformationType": {
         "type": "string",
         "enum": ["POLYNOMIAL", "ABSOLUTE", "NONE"],
@@ -26086,6 +26366,13 @@
               { "type": "null" }
             ],
             "title": "Organization Id"
+          },
+          "nadag_user_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Nadag User Id"
           }
         },
         "type": "object",
@@ -26121,6 +26408,13 @@
               { "type": "null" }
             ],
             "title": "Organization Id"
+          },
+          "nadag_user_id": {
+            "anyOf": [
+              { "type": "string", "format": "uuid" },
+              { "type": "null" }
+            ],
+            "title": "Nadag User Id"
           }
         },
         "type": "object",
