@@ -53,6 +53,7 @@ client = AuthenticatedClient(
 ```
 
 ### 3. Service Account (for automation)
+Use a dedicated Keycloak client created for your integration
 See the [main repository](https://github.com/norwegian-geotechnical-institute/field-manager-python-client) for service account setup.
 
 ## 📖 API Usage Patterns

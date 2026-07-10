@@ -24,7 +24,7 @@ class MethodSSData:
         depth_base (float): Depth (m). SGF code D.
         method_type_id (Literal[6] | Unset):  Default: 6.
         depth_top (float | None | Unset): Depth top (m).
-        time (float | None | Unset):
+        time (float | None | Unset): Time (s).
         remarks (None | str | Unset):
         comment_code (int | None | Unset):
     """

@@ -42,6 +42,8 @@ class ProjectSummary:
         external_id_source (None | str | Unset):
         description (None | str | Unset):
         tags (list[str] | None | Unset):
+        client (None | str | Unset): NADAG client/oppdragsgiver
+        contractor (None | str | Unset): NADAG contractor/oppdragstaker
         organization (None | OrganizationMin | Unset):
         effective_role (None | Role | Unset):
         last_updated (datetime.datetime | None | Unset):
@@ -62,6 +64,8 @@ class ProjectSummary:
     external_id_source: None | str | Unset = UNSET
     description: None | str | Unset = UNSET
     tags: list[str] | None | Unset = UNSET
+    client: None | str | Unset = UNSET
+    contractor: None | str | Unset = UNSET
     organization: None | OrganizationMin | Unset = UNSET
     effective_role: None | Role | Unset = UNSET
     last_updated: datetime.datetime | None | Unset = UNSET
@@ -130,6 +134,18 @@ class ProjectSummary:
         else:
             tags = self.tags
 
+        client: None | str | Unset
+        if isinstance(self.client, Unset):
+            client = UNSET
+        else:
+            client = self.client
+
+        contractor: None | str | Unset
+        if isinstance(self.contractor, Unset):
+            contractor = UNSET
+        else:
+            contractor = self.contractor
+
         organization: dict[str, Any] | None | Unset
         if isinstance(self.organization, Unset):
             organization = UNSET
@@ -187,6 +203,10 @@ class ProjectSummary:
             field_dict["description"] = description
         if tags is not UNSET:
             field_dict["tags"] = tags
+        if client is not UNSET:
+            field_dict["client"] = client
+        if contractor is not UNSET:
+            field_dict["contractor"] = contractor
         if organization is not UNSET:
             field_dict["organization"] = organization
         if effective_role is not UNSET:
@@ -305,6 +325,24 @@ class ProjectSummary:
 
         tags = _parse_tags(d.pop("tags", UNSET))
 
+        def _parse_client(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        client = _parse_client(d.pop("client", UNSET))
+
+        def _parse_contractor(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        contractor = _parse_contractor(d.pop("contractor", UNSET))
+
         def _parse_organization(data: object) -> None | OrganizationMin | Unset:
             if data is None:
                 return data
@@ -381,6 +419,8 @@ class ProjectSummary:
             external_id_source=external_id_source,
             description=description,
             tags=tags,
+            client=client,
+            contractor=contractor,
             organization=organization,
             effective_role=effective_role,
             last_updated=last_updated,

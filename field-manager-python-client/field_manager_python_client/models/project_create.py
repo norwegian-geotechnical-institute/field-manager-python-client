@@ -35,6 +35,8 @@ class ProjectCreate:
         standard_id (None | StandardType | Unset):  Default: StandardType.NGF.
         description (None | str | Unset):
         tags (list[str] | Unset):
+        client (None | str | Unset):
+        contractor (None | str | Unset):
         project_areas (list[ProjectAreaCreate] | Unset):
     """
 
@@ -50,6 +52,8 @@ class ProjectCreate:
     standard_id: None | StandardType | Unset = StandardType.NGF
     description: None | str | Unset = UNSET
     tags: list[str] | Unset = UNSET
+    client: None | str | Unset = UNSET
+    contractor: None | str | Unset = UNSET
     project_areas: list[ProjectAreaCreate] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -116,6 +120,18 @@ class ProjectCreate:
         if not isinstance(self.tags, Unset):
             tags = self.tags
 
+        client: None | str | Unset
+        if isinstance(self.client, Unset):
+            client = UNSET
+        else:
+            client = self.client
+
+        contractor: None | str | Unset
+        if isinstance(self.contractor, Unset):
+            contractor = UNSET
+        else:
+            contractor = self.contractor
+
         project_areas: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.project_areas, Unset):
             project_areas = []
@@ -148,6 +164,10 @@ class ProjectCreate:
             field_dict["description"] = description
         if tags is not UNSET:
             field_dict["tags"] = tags
+        if client is not UNSET:
+            field_dict["client"] = client
+        if contractor is not UNSET:
+            field_dict["contractor"] = contractor
         if project_areas is not UNSET:
             field_dict["project_areas"] = project_areas
 
@@ -269,6 +289,24 @@ class ProjectCreate:
 
         tags = cast(list[str], d.pop("tags", UNSET))
 
+        def _parse_client(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        client = _parse_client(d.pop("client", UNSET))
+
+        def _parse_contractor(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        contractor = _parse_contractor(d.pop("contractor", UNSET))
+
         _project_areas = d.pop("project_areas", UNSET)
         project_areas: list[ProjectAreaCreate] | Unset = UNSET
         if _project_areas is not UNSET:
@@ -291,6 +329,8 @@ class ProjectCreate:
             standard_id=standard_id,
             description=description,
             tags=tags,
+            client=client,
+            contractor=contractor,
             project_areas=project_areas,
         )
 
