@@ -42,7 +42,6 @@ class MethodDT:
         conducted_at (datetime.datetime | None | Unset):
         conducted_by (None | str | Unset):
         files (list[File] | Unset):
-        self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
         depth (float | None | Unset): Depth (m). SGF code D.
         u2_initial (float | None | Unset): Initial shoulder pressure (kPa).
         u2_equilibrium (float | None | Unset): Equilibrium shoulder pressure (kPa).
@@ -66,7 +65,6 @@ class MethodDT:
     conducted_at: datetime.datetime | None | Unset = UNSET
     conducted_by: None | str | Unset = UNSET
     files: list[File] | Unset = UNSET
-    self_: None | str | Unset = UNSET
     depth: float | None | Unset = UNSET
     u2_initial: float | None | Unset = UNSET
     u2_equilibrium: float | None | Unset = UNSET
@@ -129,12 +127,6 @@ class MethodDT:
             for files_item_data in self.files:
                 files_item = files_item_data.to_dict()
                 files.append(files_item)
-
-        self_: None | str | Unset
-        if isinstance(self.self_, Unset):
-            self_ = UNSET
-        else:
-            self_ = self.self_
 
         depth: float | None | Unset
         if isinstance(self.depth, Unset):
@@ -204,8 +196,6 @@ class MethodDT:
             field_dict["conducted_by"] = conducted_by
         if files is not UNSET:
             field_dict["files"] = files
-        if self_ is not UNSET:
-            field_dict["self"] = self_
         if depth is not UNSET:
             field_dict["depth"] = depth
         if u2_initial is not UNSET:
@@ -306,15 +296,6 @@ class MethodDT:
 
                 files.append(files_item)
 
-        def _parse_self_(data: object) -> None | str | Unset:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(None | str | Unset, data)
-
-        self_ = _parse_self_(d.pop("self", UNSET))
-
         def _parse_depth(data: object) -> float | None | Unset:
             if data is None:
                 return data
@@ -396,7 +377,6 @@ class MethodDT:
             conducted_at=conducted_at,
             conducted_by=conducted_by,
             files=files,
-            self_=self_,
             depth=depth,
             u2_initial=u2_initial,
             u2_equilibrium=u2_equilibrium,

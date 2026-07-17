@@ -26,6 +26,7 @@ class UserCreateRequest:
         roles (list[Role] | Unset):
         email_verified (bool | None | Unset):
         organization_id (None | Unset | UUID):
+        nadag_user_id (None | Unset | UUID):
     """
 
     email: str
@@ -34,6 +35,7 @@ class UserCreateRequest:
     roles: list[Role] | Unset = UNSET
     email_verified: bool | None | Unset = UNSET
     organization_id: None | Unset | UUID = UNSET
+    nadag_user_id: None | Unset | UUID = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -74,6 +76,14 @@ class UserCreateRequest:
         else:
             organization_id = self.organization_id
 
+        nadag_user_id: None | str | Unset
+        if isinstance(self.nadag_user_id, Unset):
+            nadag_user_id = UNSET
+        elif isinstance(self.nadag_user_id, UUID):
+            nadag_user_id = str(self.nadag_user_id)
+        else:
+            nadag_user_id = self.nadag_user_id
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -91,6 +101,8 @@ class UserCreateRequest:
             field_dict["email_verified"] = email_verified
         if organization_id is not UNSET:
             field_dict["organization_id"] = organization_id
+        if nadag_user_id is not UNSET:
+            field_dict["nadag_user_id"] = nadag_user_id
 
         return field_dict
 
@@ -162,6 +174,23 @@ class UserCreateRequest:
 
         organization_id = _parse_organization_id(d.pop("organization_id", UNSET))
 
+        def _parse_nadag_user_id(data: object) -> None | Unset | UUID:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                nadag_user_id_type_0 = UUID(data)
+
+                return nadag_user_id_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(None | Unset | UUID, data)
+
+        nadag_user_id = _parse_nadag_user_id(d.pop("nadag_user_id", UNSET))
+
         user_create_request = cls(
             email=email,
             user_id=user_id,
@@ -169,6 +198,7 @@ class UserCreateRequest:
             roles=roles,
             email_verified=email_verified,
             organization_id=organization_id,
+            nadag_user_id=nadag_user_id,
         )
 
         user_create_request.additional_properties = d

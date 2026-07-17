@@ -1,0 +1,181 @@
+from http import HTTPStatus
+from typing import Any
+from urllib.parse import quote
+
+import httpx
+
+from ... import errors
+from ...client import AuthenticatedClient, Client
+from ...models.http_validation_error import HTTPValidationError
+from ...models.nadag_sync_message import NadagSyncMessage
+from ...types import Response
+
+
+def _get_kwargs(
+    project_id: str,
+) -> dict[str, Any]:
+
+    _kwargs: dict[str, Any] = {
+        "method": "post",
+        "url": "/projects/{project_id}/nadag_sync".format(
+            project_id=quote(str(project_id), safe=""),
+        ),
+    }
+
+    return _kwargs
+
+
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> HTTPValidationError | NadagSyncMessage | None:
+    if response.status_code == 202:
+        response_202 = NadagSyncMessage.from_dict(response.json())
+
+        return response_202
+
+    if response.status_code == 422:
+        response_422 = HTTPValidationError.from_dict(response.json())
+
+        return response_422
+
+    if client.raise_on_unexpected_status:
+        raise errors.UnexpectedStatus(response.status_code, response.content)
+    else:
+        return None
+
+
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[HTTPValidationError | NadagSyncMessage]:
+    return Response(
+        status_code=HTTPStatus(response.status_code),
+        content=response.content,
+        headers=response.headers,
+        parsed=_parse_response(client=client, response=response),
+    )
+
+
+def sync_detailed(
+    project_id: str,
+    *,
+    client: AuthenticatedClient,
+) -> Response[HTTPValidationError | NadagSyncMessage]:
+    """Start Nadag Sync
+
+     Start a NADAG sync for a project.
+
+    The calling user must have the NADAG user ID in the Authorization header token
+    (see the endpoint `PUT /users/me/nadag-user-id`)
+
+    Args:
+        project_id (str):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Response[HTTPValidationError | NadagSyncMessage]
+    """
+
+    kwargs = _get_kwargs(
+        project_id=project_id,
+    )
+
+    response = client.get_httpx_client().request(
+        **kwargs,
+    )
+
+    return _build_response(client=client, response=response)
+
+
+def sync(
+    project_id: str,
+    *,
+    client: AuthenticatedClient,
+) -> HTTPValidationError | NadagSyncMessage | None:
+    """Start Nadag Sync
+
+     Start a NADAG sync for a project.
+
+    The calling user must have the NADAG user ID in the Authorization header token
+    (see the endpoint `PUT /users/me/nadag-user-id`)
+
+    Args:
+        project_id (str):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        HTTPValidationError | NadagSyncMessage
+    """
+
+    return sync_detailed(
+        project_id=project_id,
+        client=client,
+    ).parsed
+
+
+async def asyncio_detailed(
+    project_id: str,
+    *,
+    client: AuthenticatedClient,
+) -> Response[HTTPValidationError | NadagSyncMessage]:
+    """Start Nadag Sync
+
+     Start a NADAG sync for a project.
+
+    The calling user must have the NADAG user ID in the Authorization header token
+    (see the endpoint `PUT /users/me/nadag-user-id`)
+
+    Args:
+        project_id (str):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Response[HTTPValidationError | NadagSyncMessage]
+    """
+
+    kwargs = _get_kwargs(
+        project_id=project_id,
+    )
+
+    response = await client.get_async_httpx_client().request(**kwargs)
+
+    return _build_response(client=client, response=response)
+
+
+async def asyncio(
+    project_id: str,
+    *,
+    client: AuthenticatedClient,
+) -> HTTPValidationError | NadagSyncMessage | None:
+    """Start Nadag Sync
+
+     Start a NADAG sync for a project.
+
+    The calling user must have the NADAG user ID in the Authorization header token
+    (see the endpoint `PUT /users/me/nadag-user-id`)
+
+    Args:
+        project_id (str):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        HTTPValidationError | NadagSyncMessage
+    """
+
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            client=client,
+        )
+    ).parsed

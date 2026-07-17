@@ -25,7 +25,7 @@ class MethodTOTData:
         method_type_id (Literal[2] | Unset):  Default: 2.
         penetration_rate (float | None | Unset): Penetration rate (mm/s). SGF code B.
         penetration_force (float | None | Unset): Penetration force (kN). SGF code A.
-        engine_pressure (float | None | Unset):
+        engine_pressure (float | None | Unset): Engine pressure (MPa). SGF code P.
         comment_code (int | None | Unset): Comment code. Two digit value.
         hammering (bool | None | Unset):
         flushing (bool | None | Unset):

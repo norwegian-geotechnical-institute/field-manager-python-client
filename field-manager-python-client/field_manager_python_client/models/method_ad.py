@@ -42,7 +42,6 @@ class MethodAD:
         conducted_at (datetime.datetime | None | Unset):
         conducted_by (None | str | Unset):
         files (list[File] | Unset):
-        self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
     """
 
     method_id: UUID
@@ -58,7 +57,6 @@ class MethodAD:
     conducted_at: datetime.datetime | None | Unset = UNSET
     conducted_by: None | str | Unset = UNSET
     files: list[File] | Unset = UNSET
-    self_: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -115,12 +113,6 @@ class MethodAD:
                 files_item = files_item_data.to_dict()
                 files.append(files_item)
 
-        self_: None | str | Unset
-        if isinstance(self.self_, Unset):
-            self_ = UNSET
-        else:
-            self_ = self.self_
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -147,8 +139,6 @@ class MethodAD:
             field_dict["conducted_by"] = conducted_by
         if files is not UNSET:
             field_dict["files"] = files
-        if self_ is not UNSET:
-            field_dict["self"] = self_
 
         return field_dict
 
@@ -235,15 +225,6 @@ class MethodAD:
 
                 files.append(files_item)
 
-        def _parse_self_(data: object) -> None | str | Unset:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(None | str | Unset, data)
-
-        self_ = _parse_self_(d.pop("self", UNSET))
-
         method_ad = cls(
             method_id=method_id,
             name=name,
@@ -258,7 +239,6 @@ class MethodAD:
             conducted_at=conducted_at,
             conducted_by=conducted_by,
             files=files,
-            self_=self_,
         )
 
         method_ad.additional_properties = d
