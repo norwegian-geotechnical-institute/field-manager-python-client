@@ -43,7 +43,6 @@ class MethodCPT:
         conducted_at (datetime.datetime | None | Unset):
         conducted_by (None | str | Unset):
         files (list[File] | Unset):
-        self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
         predrilling_depth (float | None | Unset):
         cone_reference (None | str | Unset):
         water_depth (float | None | Unset):
@@ -107,7 +106,6 @@ class MethodCPT:
     conducted_at: datetime.datetime | None | Unset = UNSET
     conducted_by: None | str | Unset = UNSET
     files: list[File] | Unset = UNSET
-    self_: None | str | Unset = UNSET
     predrilling_depth: float | None | Unset = UNSET
     cone_reference: None | str | Unset = UNSET
     water_depth: float | None | Unset = UNSET
@@ -176,12 +174,6 @@ class MethodCPT:
             for files_item_data in self.files:
                 files_item = files_item_data.to_dict()
                 files.append(files_item)
-
-        self_: None | str | Unset
-        if isinstance(self.self_, Unset):
-            self_ = UNSET
-        else:
-            self_ = self.self_
 
         predrilling_depth: float | None | Unset
         if isinstance(self.predrilling_depth, Unset):
@@ -277,8 +269,6 @@ class MethodCPT:
             field_dict["conducted_by"] = conducted_by
         if files is not UNSET:
             field_dict["files"] = files
-        if self_ is not UNSET:
-            field_dict["self"] = self_
         if predrilling_depth is not UNSET:
             field_dict["predrilling_depth"] = predrilling_depth
         if cone_reference is not UNSET:
@@ -390,15 +380,6 @@ class MethodCPT:
                 files_item = File.from_dict(files_item_data)
 
                 files.append(files_item)
-
-        def _parse_self_(data: object) -> None | str | Unset:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(None | str | Unset, data)
-
-        self_ = _parse_self_(d.pop("self", UNSET))
 
         def _parse_predrilling_depth(data: object) -> float | None | Unset:
             if data is None:
@@ -521,7 +502,6 @@ class MethodCPT:
             conducted_at=conducted_at,
             conducted_by=conducted_by,
             files=files,
-            self_=self_,
             predrilling_depth=predrilling_depth,
             cone_reference=cone_reference,
             water_depth=water_depth,

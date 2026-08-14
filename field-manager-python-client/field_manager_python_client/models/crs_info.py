@@ -19,6 +19,7 @@ class CRSInfo:
         unit (str): Unit of measurement for coordinate axes (e.g., meter, degree, foot)
         wkt (None | str): Well-Known Text representation of the CRS
         proj4 (None | str): Proj4 representation of the CRS
+        proj_json (None | str): JSON representation of the CRS
     """
 
     auth_name: str
@@ -27,6 +28,7 @@ class CRSInfo:
     unit: str
     wkt: None | str
     proj4: None | str
+    proj_json: None | str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -44,6 +46,9 @@ class CRSInfo:
         proj4: None | str
         proj4 = self.proj4
 
+        proj_json: None | str
+        proj_json = self.proj_json
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -54,6 +59,7 @@ class CRSInfo:
                 "unit": unit,
                 "wkt": wkt,
                 "proj4": proj4,
+                "proj_json": proj_json,
             }
         )
 
@@ -84,6 +90,13 @@ class CRSInfo:
 
         proj4 = _parse_proj4(d.pop("proj4"))
 
+        def _parse_proj_json(data: object) -> None | str:
+            if data is None:
+                return data
+            return cast(None | str, data)
+
+        proj_json = _parse_proj_json(d.pop("proj_json"))
+
         crs_info = cls(
             auth_name=auth_name,
             srid=srid,
@@ -91,6 +104,7 @@ class CRSInfo:
             unit=unit,
             wkt=wkt,
             proj4=proj4,
+            proj_json=proj_json,
         )
 
         crs_info.additional_properties = d

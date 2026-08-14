@@ -45,7 +45,6 @@ class MethodDP:
             conducted_at (datetime.datetime | None | Unset):
             conducted_by (None | str | Unset):
             files (list[File] | Unset):
-            self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
             dynamic_probing_type (DPType | Unset): (Dynamic Probing) DP Type
             predrilling_depth (float | None | Unset):
             cone_type (None | str | Unset):
@@ -70,7 +69,6 @@ class MethodDP:
     conducted_at: datetime.datetime | None | Unset = UNSET
     conducted_by: None | str | Unset = UNSET
     files: list[File] | Unset = UNSET
-    self_: None | str | Unset = UNSET
     dynamic_probing_type: DPType | Unset = UNSET
     predrilling_depth: float | None | Unset = UNSET
     cone_type: None | str | Unset = UNSET
@@ -135,12 +133,6 @@ class MethodDP:
             for files_item_data in self.files:
                 files_item = files_item_data.to_dict()
                 files.append(files_item)
-
-        self_: None | str | Unset
-        if isinstance(self.self_, Unset):
-            self_ = UNSET
-        else:
-            self_ = self.self_
 
         dynamic_probing_type: str | Unset = UNSET
         if not isinstance(self.dynamic_probing_type, Unset):
@@ -220,8 +212,6 @@ class MethodDP:
             field_dict["conducted_by"] = conducted_by
         if files is not UNSET:
             field_dict["files"] = files
-        if self_ is not UNSET:
-            field_dict["self"] = self_
         if dynamic_probing_type is not UNSET:
             field_dict["dynamic_probing_type"] = dynamic_probing_type
         if predrilling_depth is not UNSET:
@@ -326,15 +316,6 @@ class MethodDP:
 
                 files.append(files_item)
 
-        def _parse_self_(data: object) -> None | str | Unset:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(None | str | Unset, data)
-
-        self_ = _parse_self_(d.pop("self", UNSET))
-
         _dynamic_probing_type = d.pop("dynamic_probing_type", UNSET)
         dynamic_probing_type: DPType | Unset
         if isinstance(_dynamic_probing_type, Unset):
@@ -428,7 +409,6 @@ class MethodDP:
             conducted_at=conducted_at,
             conducted_by=conducted_by,
             files=files,
-            self_=self_,
             dynamic_probing_type=dynamic_probing_type,
             predrilling_depth=predrilling_depth,
             cone_type=cone_type,

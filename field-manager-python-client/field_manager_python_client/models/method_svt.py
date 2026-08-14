@@ -42,7 +42,6 @@ class MethodSVT:
         conducted_at (datetime.datetime | None | Unset):
         conducted_by (None | str | Unset):
         files (list[File] | Unset):
-        self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
         vane_height (float | None | Unset): Height of the vane used (mm).
         vane_diameter (float | None | Unset): Diameter of the vane used (mm).
         serial_number (None | str | Unset): Serial number of the vane used.
@@ -65,7 +64,6 @@ class MethodSVT:
     conducted_at: datetime.datetime | None | Unset = UNSET
     conducted_by: None | str | Unset = UNSET
     files: list[File] | Unset = UNSET
-    self_: None | str | Unset = UNSET
     vane_height: float | None | Unset = UNSET
     vane_diameter: float | None | Unset = UNSET
     serial_number: None | str | Unset = UNSET
@@ -128,12 +126,6 @@ class MethodSVT:
             for files_item_data in self.files:
                 files_item = files_item_data.to_dict()
                 files.append(files_item)
-
-        self_: None | str | Unset
-        if isinstance(self.self_, Unset):
-            self_ = UNSET
-        else:
-            self_ = self.self_
 
         vane_height: float | None | Unset
         if isinstance(self.vane_height, Unset):
@@ -205,8 +197,6 @@ class MethodSVT:
             field_dict["conducted_by"] = conducted_by
         if files is not UNSET:
             field_dict["files"] = files
-        if self_ is not UNSET:
-            field_dict["self"] = self_
         if vane_height is not UNSET:
             field_dict["vane_height"] = vane_height
         if vane_diameter is not UNSET:
@@ -307,15 +297,6 @@ class MethodSVT:
 
                 files.append(files_item)
 
-        def _parse_self_(data: object) -> None | str | Unset:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(None | str | Unset, data)
-
-        self_ = _parse_self_(d.pop("self", UNSET))
-
         def _parse_vane_height(data: object) -> float | None | Unset:
             if data is None:
                 return data
@@ -401,7 +382,6 @@ class MethodSVT:
             conducted_at=conducted_at,
             conducted_by=conducted_by,
             files=files,
-            self_=self_,
             vane_height=vane_height,
             vane_diameter=vane_diameter,
             serial_number=serial_number,
