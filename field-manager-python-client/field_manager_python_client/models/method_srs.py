@@ -44,7 +44,6 @@ class MethodSRS:
             conducted_at (datetime.datetime | None | Unset):
             conducted_by (None | str | Unset):
             files (list[File] | Unset):
-            self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
             sounding_class (None | SoundingClass | Unset):
             serial_number (None | str | Unset):
             calibration_date (datetime.datetime | None | Unset):
@@ -71,7 +70,6 @@ class MethodSRS:
     conducted_at: datetime.datetime | None | Unset = UNSET
     conducted_by: None | str | Unset = UNSET
     files: list[File] | Unset = UNSET
-    self_: None | str | Unset = UNSET
     sounding_class: None | SoundingClass | Unset = UNSET
     serial_number: None | str | Unset = UNSET
     calibration_date: datetime.datetime | None | Unset = UNSET
@@ -138,12 +136,6 @@ class MethodSRS:
             for files_item_data in self.files:
                 files_item = files_item_data.to_dict()
                 files.append(files_item)
-
-        self_: None | str | Unset
-        if isinstance(self.self_, Unset):
-            self_ = UNSET
-        else:
-            self_ = self.self_
 
         sounding_class: None | str | Unset
         if isinstance(self.sounding_class, Unset):
@@ -241,8 +233,6 @@ class MethodSRS:
             field_dict["conducted_by"] = conducted_by
         if files is not UNSET:
             field_dict["files"] = files
-        if self_ is not UNSET:
-            field_dict["self"] = self_
         if sounding_class is not UNSET:
             field_dict["sounding_class"] = sounding_class
         if serial_number is not UNSET:
@@ -350,15 +340,6 @@ class MethodSRS:
                 files_item = File.from_dict(files_item_data)
 
                 files.append(files_item)
-
-        def _parse_self_(data: object) -> None | str | Unset:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(None | str | Unset, data)
-
-        self_ = _parse_self_(d.pop("self", UNSET))
 
         def _parse_sounding_class(data: object) -> None | SoundingClass | Unset:
             if data is None:
@@ -489,7 +470,6 @@ class MethodSRS:
             conducted_at=conducted_at,
             conducted_by=conducted_by,
             files=files,
-            self_=self_,
             sounding_class=sounding_class,
             serial_number=serial_number,
             calibration_date=calibration_date,

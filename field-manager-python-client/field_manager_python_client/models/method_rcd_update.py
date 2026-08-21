@@ -28,6 +28,8 @@ class MethodRCDUpdate:
         conducted_at (datetime.datetime | None | Unset):
         method_type_id (Literal[8] | Unset):  Default: 8.
         stopcode (int | None | Unset):
+        depth_in_soil (float | None | str | Unset):
+        depth_in_rock (float | None | str | Unset):
     """
 
     method_id: None | Unset | UUID = UNSET
@@ -40,6 +42,8 @@ class MethodRCDUpdate:
     conducted_at: datetime.datetime | None | Unset = UNSET
     method_type_id: Literal[8] | Unset = 8
     stopcode: int | None | Unset = UNSET
+    depth_in_soil: float | None | str | Unset = UNSET
+    depth_in_rock: float | None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -107,6 +111,18 @@ class MethodRCDUpdate:
         else:
             stopcode = self.stopcode
 
+        depth_in_soil: float | None | str | Unset
+        if isinstance(self.depth_in_soil, Unset):
+            depth_in_soil = UNSET
+        else:
+            depth_in_soil = self.depth_in_soil
+
+        depth_in_rock: float | None | str | Unset
+        if isinstance(self.depth_in_rock, Unset):
+            depth_in_rock = UNSET
+        else:
+            depth_in_rock = self.depth_in_rock
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -130,6 +146,10 @@ class MethodRCDUpdate:
             field_dict["method_type_id"] = method_type_id
         if stopcode is not UNSET:
             field_dict["stopcode"] = stopcode
+        if depth_in_soil is not UNSET:
+            field_dict["depth_in_soil"] = depth_in_soil
+        if depth_in_rock is not UNSET:
+            field_dict["depth_in_rock"] = depth_in_rock
 
         return field_dict
 
@@ -254,6 +274,24 @@ class MethodRCDUpdate:
 
         stopcode = _parse_stopcode(d.pop("stopcode", UNSET))
 
+        def _parse_depth_in_soil(data: object) -> float | None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | str | Unset, data)
+
+        depth_in_soil = _parse_depth_in_soil(d.pop("depth_in_soil", UNSET))
+
+        def _parse_depth_in_rock(data: object) -> float | None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | str | Unset, data)
+
+        depth_in_rock = _parse_depth_in_rock(d.pop("depth_in_rock", UNSET))
+
         method_rcd_update = cls(
             method_id=method_id,
             name=name,
@@ -265,6 +303,8 @@ class MethodRCDUpdate:
             conducted_at=conducted_at,
             method_type_id=method_type_id,
             stopcode=stopcode,
+            depth_in_soil=depth_in_soil,
+            depth_in_rock=depth_in_rock,
         )
 
         method_rcd_update.additional_properties = d

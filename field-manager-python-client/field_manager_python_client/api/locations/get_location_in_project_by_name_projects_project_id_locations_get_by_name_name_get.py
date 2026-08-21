@@ -7,7 +7,7 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
-from ...models.location import Location
+from ...models.location_summary import LocationSummary
 from ...types import Response
 
 
@@ -29,9 +29,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> HTTPValidationError | Location | None:
+) -> HTTPValidationError | LocationSummary | None:
     if response.status_code == 200:
-        response_200 = Location.from_dict(response.json())
+        response_200 = LocationSummary.from_dict(response.json())
 
         return response_200
 
@@ -48,7 +48,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[HTTPValidationError | Location]:
+) -> Response[HTTPValidationError | LocationSummary]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -62,7 +62,7 @@ def sync_detailed(
     name: str,
     *,
     client: AuthenticatedClient,
-) -> Response[HTTPValidationError | Location]:
+) -> Response[HTTPValidationError | LocationSummary]:
     """Get Location In Project By Name
 
      Return a specific location
@@ -76,7 +76,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError | Location]
+        Response[HTTPValidationError | LocationSummary]
     """
 
     kwargs = _get_kwargs(
@@ -96,7 +96,7 @@ def sync(
     name: str,
     *,
     client: AuthenticatedClient,
-) -> HTTPValidationError | Location | None:
+) -> HTTPValidationError | LocationSummary | None:
     """Get Location In Project By Name
 
      Return a specific location
@@ -110,7 +110,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError | Location
+        HTTPValidationError | LocationSummary
     """
 
     return sync_detailed(
@@ -125,7 +125,7 @@ async def asyncio_detailed(
     name: str,
     *,
     client: AuthenticatedClient,
-) -> Response[HTTPValidationError | Location]:
+) -> Response[HTTPValidationError | LocationSummary]:
     """Get Location In Project By Name
 
      Return a specific location
@@ -139,7 +139,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[HTTPValidationError | Location]
+        Response[HTTPValidationError | LocationSummary]
     """
 
     kwargs = _get_kwargs(
@@ -157,7 +157,7 @@ async def asyncio(
     name: str,
     *,
     client: AuthenticatedClient,
-) -> HTTPValidationError | Location | None:
+) -> HTTPValidationError | LocationSummary | None:
     """Get Location In Project By Name
 
      Return a specific location
@@ -171,7 +171,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        HTTPValidationError | Location
+        HTTPValidationError | LocationSummary
     """
 
     return (

@@ -42,7 +42,6 @@ class MethodCD:
         conducted_at (datetime.datetime | None | Unset):
         conducted_by (None | str | Unset):
         files (list[File] | Unset):
-        self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
         sampler_type_id (int | None | Unset):
         inclination (float | None | Unset): Inclination angle (deg).
         azimuth (float | None | Unset): Azimuth angle relative to N (deg).
@@ -75,7 +74,6 @@ class MethodCD:
     conducted_at: datetime.datetime | None | Unset = UNSET
     conducted_by: None | str | Unset = UNSET
     files: list[File] | Unset = UNSET
-    self_: None | str | Unset = UNSET
     sampler_type_id: int | None | Unset = UNSET
     inclination: float | None | Unset = UNSET
     azimuth: float | None | Unset = UNSET
@@ -148,12 +146,6 @@ class MethodCD:
             for files_item_data in self.files:
                 files_item = files_item_data.to_dict()
                 files.append(files_item)
-
-        self_: None | str | Unset
-        if isinstance(self.self_, Unset):
-            self_ = UNSET
-        else:
-            self_ = self.self_
 
         sampler_type_id: int | None | Unset
         if isinstance(self.sampler_type_id, Unset):
@@ -283,8 +275,6 @@ class MethodCD:
             field_dict["conducted_by"] = conducted_by
         if files is not UNSET:
             field_dict["files"] = files
-        if self_ is not UNSET:
-            field_dict["self"] = self_
         if sampler_type_id is not UNSET:
             field_dict["sampler_type_id"] = sampler_type_id
         if inclination is not UNSET:
@@ -404,15 +394,6 @@ class MethodCD:
                 files_item = File.from_dict(files_item_data)
 
                 files.append(files_item)
-
-        def _parse_self_(data: object) -> None | str | Unset:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(None | str | Unset, data)
-
-        self_ = _parse_self_(d.pop("self", UNSET))
 
         def _parse_sampler_type_id(data: object) -> int | None | Unset:
             if data is None:
@@ -581,7 +562,6 @@ class MethodCD:
             conducted_at=conducted_at,
             conducted_by=conducted_by,
             files=files,
-            self_=self_,
             sampler_type_id=sampler_type_id,
             inclination=inclination,
             azimuth=azimuth,

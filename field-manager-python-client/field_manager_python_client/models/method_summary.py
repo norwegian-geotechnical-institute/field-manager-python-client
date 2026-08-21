@@ -58,6 +58,7 @@ class MethodSummary:
             VOIDED=4,
             APPROVED=5,
             )
+        location_id (UUID): Will be removed in the future
         name (None | str | Unset):
         conducted_at (datetime.datetime | None | Unset):
         depth_in_soil (float | None | Unset):
@@ -74,12 +75,15 @@ class MethodSummary:
         sample_container_type_id (int | None | Unset):
         sampling_technique_id (int | None | Unset):
         sample_material_ids (list[int] | Unset):
+        ags_sample_type (None | str | Unset): Original AGS SAMP_TYPE value used to populate sampling_technique_id during
+            AGS file import.
         diameter (float | None | Unset):
     """
 
     method_id: UUID
     method_type_id: MethodTypeEnum
     method_status_id: MethodStatusEnum
+    location_id: UUID
     name: None | str | Unset = UNSET
     conducted_at: datetime.datetime | None | Unset = UNSET
     depth_in_soil: float | None | Unset = UNSET
@@ -96,6 +100,7 @@ class MethodSummary:
     sample_container_type_id: int | None | Unset = UNSET
     sampling_technique_id: int | None | Unset = UNSET
     sample_material_ids: list[int] | Unset = UNSET
+    ags_sample_type: None | str | Unset = UNSET
     diameter: float | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -105,6 +110,8 @@ class MethodSummary:
         method_type_id = self.method_type_id.value
 
         method_status_id = self.method_status_id.value
+
+        location_id = str(self.location_id)
 
         name: None | str | Unset
         if isinstance(self.name, Unset):
@@ -202,6 +209,12 @@ class MethodSummary:
         if not isinstance(self.sample_material_ids, Unset):
             sample_material_ids = self.sample_material_ids
 
+        ags_sample_type: None | str | Unset
+        if isinstance(self.ags_sample_type, Unset):
+            ags_sample_type = UNSET
+        else:
+            ags_sample_type = self.ags_sample_type
+
         diameter: float | None | Unset
         if isinstance(self.diameter, Unset):
             diameter = UNSET
@@ -215,6 +228,7 @@ class MethodSummary:
                 "method_id": method_id,
                 "method_type_id": method_type_id,
                 "method_status_id": method_status_id,
+                "location_id": location_id,
             }
         )
         if name is not UNSET:
@@ -249,6 +263,8 @@ class MethodSummary:
             field_dict["sampling_technique_id"] = sampling_technique_id
         if sample_material_ids is not UNSET:
             field_dict["sample_material_ids"] = sample_material_ids
+        if ags_sample_type is not UNSET:
+            field_dict["ags_sample_type"] = ags_sample_type
         if diameter is not UNSET:
             field_dict["diameter"] = diameter
 
@@ -262,6 +278,8 @@ class MethodSummary:
         method_type_id = MethodTypeEnum(d.pop("method_type_id"))
 
         method_status_id = MethodStatusEnum(d.pop("method_status_id"))
+
+        location_id = UUID(d.pop("location_id"))
 
         def _parse_name(data: object) -> None | str | Unset:
             if data is None:
@@ -408,6 +426,15 @@ class MethodSummary:
 
         sample_material_ids = cast(list[int], d.pop("sample_material_ids", UNSET))
 
+        def _parse_ags_sample_type(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        ags_sample_type = _parse_ags_sample_type(d.pop("ags_sample_type", UNSET))
+
         def _parse_diameter(data: object) -> float | None | Unset:
             if data is None:
                 return data
@@ -421,6 +448,7 @@ class MethodSummary:
             method_id=method_id,
             method_type_id=method_type_id,
             method_status_id=method_status_id,
+            location_id=location_id,
             name=name,
             conducted_at=conducted_at,
             depth_in_soil=depth_in_soil,
@@ -437,6 +465,7 @@ class MethodSummary:
             sample_container_type_id=sample_container_type_id,
             sampling_technique_id=sampling_technique_id,
             sample_material_ids=sample_material_ids,
+            ags_sample_type=ags_sample_type,
             diameter=diameter,
         )
 

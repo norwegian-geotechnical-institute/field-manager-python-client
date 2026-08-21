@@ -66,7 +66,7 @@ def sync_detailed(
 ) -> Response[CrossSection | HTTPValidationError]:
     """Get Cross Section
 
-     Get a cross section.
+     Get a cross-section.
 
     Args:
         project_id (str):
@@ -100,7 +100,7 @@ def sync(
 ) -> CrossSection | HTTPValidationError | None:
     """Get Cross Section
 
-     Get a cross section.
+     Get a cross-section.
 
     Args:
         project_id (str):
@@ -129,7 +129,7 @@ async def asyncio_detailed(
 ) -> Response[CrossSection | HTTPValidationError]:
     """Get Cross Section
 
-     Get a cross section.
+     Get a cross-section.
 
     Args:
         project_id (str):
@@ -161,7 +161,7 @@ async def asyncio(
 ) -> CrossSection | HTTPValidationError | None:
     """Get Cross Section
 
-     Get a cross section.
+     Get a cross-section.
 
     Args:
         project_id (str):

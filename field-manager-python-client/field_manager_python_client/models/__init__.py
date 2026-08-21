@@ -5,9 +5,6 @@ from .background_map_layer import BackgroundMapLayer
 from .bedrock_info import BedrockInfo
 from .bedrock_type import BedrockType
 from .body_create_shape_projects_project_id_shapes_post import BodyCreateShapeProjectsProjectIdShapesPost
-from .body_queue_locations_to_project_projects_project_id_locations_queue_post import (
-    BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost,
-)
 from .body_upload_file_projects_project_id_locations_location_id_methods_method_id_upload_post import (
     BodyUploadFileProjectsProjectIdLocationsLocationIdMethodsMethodIdUploadPost,
 )
@@ -228,11 +225,28 @@ from .method_wst_data import MethodWSTData
 from .method_wst_data_create import MethodWSTDataCreate
 from .method_wst_data_update import MethodWSTDataUpdate
 from .method_wst_update import MethodWSTUpdate
+from .nadag_sync_blocker import NadagSyncBlocker
+from .nadag_sync_blocker_code import NadagSyncBlockerCode
+from .nadag_sync_failed_entity_type import NadagSyncFailedEntityType
+from .nadag_sync_failed_sync import NadagSyncFailedSync
+from .nadag_sync_message import NadagSyncMessage
+from .nadag_sync_overview_status import NadagSyncOverviewStatus
+from .nadag_sync_ready_items import NadagSyncReadyItems
+from .nadag_sync_ready_location import NadagSyncReadyLocation
+from .nadag_sync_ready_method import NadagSyncReadyMethod
+from .nadag_sync_ready_project import NadagSyncReadyProject
+from .nadag_sync_ready_report import NadagSyncReadyReport
+from .nadag_sync_status import NadagSyncStatus
+from .nadag_sync_status_counts import NadagSyncStatusCounts
+from .nadag_sync_status_details import NadagSyncStatusDetails
+from .nadag_user_id_response import NadagUserIdResponse
+from .nadag_user_id_update import NadagUserIdUpdate
 from .operation import Operation
 from .options import Options
 from .organization import Organization
 from .organization_create import OrganizationCreate
 from .organization_information import OrganizationInformation
+from .organization_layer_group_create import OrganizationLayerGroupCreate
 from .organization_min import OrganizationMin
 from .organization_update import OrganizationUpdate
 from .orientation import Orientation
@@ -262,6 +276,7 @@ from .plot_type import PlotType
 from .project import Project
 from .project_area import ProjectArea
 from .project_area_create import ProjectAreaCreate
+from .project_area_linkable_project import ProjectAreaLinkableProject
 from .project_area_update import ProjectAreaUpdate
 from .project_create import ProjectCreate
 from .project_info import ProjectInfo
@@ -293,6 +308,7 @@ from .sounding_class import SoundingClass
 from .standard import Standard
 from .standard_type import StandardType
 from .sub_shape import SubShape
+from .sync_status import SyncStatus
 from .transformation_type import TransformationType
 from .user import User
 from .user_create_request import UserCreateRequest
@@ -310,7 +326,6 @@ __all__ = (
     "BedrockInfo",
     "BedrockType",
     "BodyCreateShapeProjectsProjectIdShapesPost",
-    "BodyQueueLocationsToProjectProjectsProjectIdLocationsQueuePost",
     "BodyUploadFileProjectsProjectIdLocationsLocationIdMethodsMethodIdUploadPost",
     "BodyUploadFileToLocationProjectsProjectIdLocationsLocationIdUploadPost",
     "BodyUploadFileToOrganizationOrganizationsOrganizationIdUploadPost",
@@ -515,11 +530,28 @@ __all__ = (
     "MethodWSTDataCreate",
     "MethodWSTDataUpdate",
     "MethodWSTUpdate",
+    "NadagSyncBlocker",
+    "NadagSyncBlockerCode",
+    "NadagSyncFailedEntityType",
+    "NadagSyncFailedSync",
+    "NadagSyncMessage",
+    "NadagSyncOverviewStatus",
+    "NadagSyncReadyItems",
+    "NadagSyncReadyLocation",
+    "NadagSyncReadyMethod",
+    "NadagSyncReadyProject",
+    "NadagSyncReadyReport",
+    "NadagSyncStatus",
+    "NadagSyncStatusCounts",
+    "NadagSyncStatusDetails",
+    "NadagUserIdResponse",
+    "NadagUserIdUpdate",
     "Operation",
     "Options",
     "Organization",
     "OrganizationCreate",
     "OrganizationInformation",
+    "OrganizationLayerGroupCreate",
     "OrganizationMin",
     "OrganizationUpdate",
     "Orientation",
@@ -549,6 +581,7 @@ __all__ = (
     "Project",
     "ProjectArea",
     "ProjectAreaCreate",
+    "ProjectAreaLinkableProject",
     "ProjectAreaUpdate",
     "ProjectCreate",
     "ProjectInfo",
@@ -580,6 +613,7 @@ __all__ = (
     "Standard",
     "StandardType",
     "SubShape",
+    "SyncStatus",
     "TransformationType",
     "User",
     "UserCreateRequest",

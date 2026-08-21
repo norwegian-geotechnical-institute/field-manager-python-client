@@ -34,6 +34,10 @@ class LocationSummary:
         point_y_wgs84_web (float | None | Unset):
         point_x_wgs84_pseudo (float | None | Unset):
         point_y_wgs84_pseudo (float | None | Unset):
+        created_at (datetime.datetime | None | Unset): Will be removed in a future release
+        created_by (None | str | Unset): Will be removed in a future release
+        updated_at (datetime.datetime | None | Unset): Will be removed in a future release
+        updated_by (None | str | Unset): Will be removed in a future release
         methods (list[MethodSummary] | Unset):
         tags (list[str] | Unset):
     """
@@ -50,6 +54,10 @@ class LocationSummary:
     point_y_wgs84_web: float | None | Unset = UNSET
     point_x_wgs84_pseudo: float | None | Unset = UNSET
     point_y_wgs84_pseudo: float | None | Unset = UNSET
+    created_at: datetime.datetime | None | Unset = UNSET
+    created_by: None | str | Unset = UNSET
+    updated_at: datetime.datetime | None | Unset = UNSET
+    updated_by: None | str | Unset = UNSET
     methods: list[MethodSummary] | Unset = UNSET
     tags: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -117,6 +125,34 @@ class LocationSummary:
         else:
             point_y_wgs84_pseudo = self.point_y_wgs84_pseudo
 
+        created_at: None | str | Unset
+        if isinstance(self.created_at, Unset):
+            created_at = UNSET
+        elif isinstance(self.created_at, datetime.datetime):
+            created_at = self.created_at.isoformat()
+        else:
+            created_at = self.created_at
+
+        created_by: None | str | Unset
+        if isinstance(self.created_by, Unset):
+            created_by = UNSET
+        else:
+            created_by = self.created_by
+
+        updated_at: None | str | Unset
+        if isinstance(self.updated_at, Unset):
+            updated_at = UNSET
+        elif isinstance(self.updated_at, datetime.datetime):
+            updated_at = self.updated_at.isoformat()
+        else:
+            updated_at = self.updated_at
+
+        updated_by: None | str | Unset
+        if isinstance(self.updated_by, Unset):
+            updated_by = UNSET
+        else:
+            updated_by = self.updated_by
+
         methods: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.methods, Unset):
             methods = []
@@ -155,6 +191,14 @@ class LocationSummary:
             field_dict["point_x_wgs84_pseudo"] = point_x_wgs84_pseudo
         if point_y_wgs84_pseudo is not UNSET:
             field_dict["point_y_wgs84_pseudo"] = point_y_wgs84_pseudo
+        if created_at is not UNSET:
+            field_dict["created_at"] = created_at
+        if created_by is not UNSET:
+            field_dict["created_by"] = created_by
+        if updated_at is not UNSET:
+            field_dict["updated_at"] = updated_at
+        if updated_by is not UNSET:
+            field_dict["updated_by"] = updated_by
         if methods is not UNSET:
             field_dict["methods"] = methods
         if tags is not UNSET:
@@ -262,6 +306,58 @@ class LocationSummary:
 
         point_y_wgs84_pseudo = _parse_point_y_wgs84_pseudo(d.pop("point_y_wgs84_pseudo", UNSET))
 
+        def _parse_created_at(data: object) -> datetime.datetime | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                created_at_type_0 = datetime.datetime.fromisoformat(data)
+
+                return created_at_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(datetime.datetime | None | Unset, data)
+
+        created_at = _parse_created_at(d.pop("created_at", UNSET))
+
+        def _parse_created_by(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        created_by = _parse_created_by(d.pop("created_by", UNSET))
+
+        def _parse_updated_at(data: object) -> datetime.datetime | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                updated_at_type_0 = datetime.datetime.fromisoformat(data)
+
+                return updated_at_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(datetime.datetime | None | Unset, data)
+
+        updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
+
+        def _parse_updated_by(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        updated_by = _parse_updated_by(d.pop("updated_by", UNSET))
+
         _methods = d.pop("methods", UNSET)
         methods: list[MethodSummary] | Unset = UNSET
         if _methods is not UNSET:
@@ -286,6 +382,10 @@ class LocationSummary:
             point_y_wgs84_web=point_y_wgs84_web,
             point_x_wgs84_pseudo=point_x_wgs84_pseudo,
             point_y_wgs84_pseudo=point_y_wgs84_pseudo,
+            created_at=created_at,
+            created_by=created_by,
+            updated_at=updated_at,
+            updated_by=updated_by,
             methods=methods,
             tags=tags,
         )
