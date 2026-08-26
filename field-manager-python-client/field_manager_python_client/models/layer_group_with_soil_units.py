@@ -24,25 +24,27 @@ class LayerGroupWithSoilUnits:
     Attributes:
         name (str):
         layer_group_id (UUID):
-        project_id (UUID):
+        project_id (None | UUID):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
         created_by (None | str):
         updated_by (None | str):
         is_deleted (bool):
         is_default (bool | Unset):  Default: False.
+        organization_id (None | Unset | UUID):
         soil_units (list[SoilUnit] | Unset):
     """
 
     name: str
     layer_group_id: UUID
-    project_id: UUID
+    project_id: None | UUID
     created_at: datetime.datetime
     updated_at: datetime.datetime
     created_by: None | str
     updated_by: None | str
     is_deleted: bool
     is_default: bool | Unset = False
+    organization_id: None | Unset | UUID = UNSET
     soil_units: list[SoilUnit] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -51,7 +53,11 @@ class LayerGroupWithSoilUnits:
 
         layer_group_id = str(self.layer_group_id)
 
-        project_id = str(self.project_id)
+        project_id: None | str
+        if isinstance(self.project_id, UUID):
+            project_id = str(self.project_id)
+        else:
+            project_id = self.project_id
 
         created_at = self.created_at.isoformat()
 
@@ -66,6 +72,14 @@ class LayerGroupWithSoilUnits:
         is_deleted = self.is_deleted
 
         is_default = self.is_default
+
+        organization_id: None | str | Unset
+        if isinstance(self.organization_id, Unset):
+            organization_id = UNSET
+        elif isinstance(self.organization_id, UUID):
+            organization_id = str(self.organization_id)
+        else:
+            organization_id = self.organization_id
 
         soil_units: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.soil_units, Unset):
@@ -90,6 +104,8 @@ class LayerGroupWithSoilUnits:
         )
         if is_default is not UNSET:
             field_dict["is_default"] = is_default
+        if organization_id is not UNSET:
+            field_dict["organization_id"] = organization_id
         if soil_units is not UNSET:
             field_dict["soil_units"] = soil_units
 
@@ -104,7 +120,20 @@ class LayerGroupWithSoilUnits:
 
         layer_group_id = UUID(d.pop("layer_group_id"))
 
-        project_id = UUID(d.pop("project_id"))
+        def _parse_project_id(data: object) -> None | UUID:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                project_id_type_0 = UUID(data)
+
+                return project_id_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(None | UUID, data)
+
+        project_id = _parse_project_id(d.pop("project_id"))
 
         created_at = datetime.datetime.fromisoformat(d.pop("created_at"))
 
@@ -128,6 +157,23 @@ class LayerGroupWithSoilUnits:
 
         is_default = d.pop("is_default", UNSET)
 
+        def _parse_organization_id(data: object) -> None | Unset | UUID:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                organization_id_type_0 = UUID(data)
+
+                return organization_id_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(None | Unset | UUID, data)
+
+        organization_id = _parse_organization_id(d.pop("organization_id", UNSET))
+
         _soil_units = d.pop("soil_units", UNSET)
         soil_units: list[SoilUnit] | Unset = UNSET
         if _soil_units is not UNSET:
@@ -147,6 +193,7 @@ class LayerGroupWithSoilUnits:
             updated_by=updated_by,
             is_deleted=is_deleted,
             is_default=is_default,
+            organization_id=organization_id,
             soil_units=soil_units,
         )
 

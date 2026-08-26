@@ -64,7 +64,7 @@ def sync_detailed(
 ) -> Response[Any | HTTPValidationError]:
     """Delete Cross Section
 
-     Delete a cross section.
+     Delete a cross-section
 
     Args:
         project_id (str):
@@ -98,7 +98,7 @@ def sync(
 ) -> Any | HTTPValidationError | None:
     """Delete Cross Section
 
-     Delete a cross section.
+     Delete a cross-section
 
     Args:
         project_id (str):
@@ -127,7 +127,7 @@ async def asyncio_detailed(
 ) -> Response[Any | HTTPValidationError]:
     """Delete Cross Section
 
-     Delete a cross section.
+     Delete a cross-section
 
     Args:
         project_id (str):
@@ -159,7 +159,7 @@ async def asyncio(
 ) -> Any | HTTPValidationError | None:
     """Delete Cross Section
 
-     Delete a cross section.
+     Delete a cross-section
 
     Args:
         project_id (str):

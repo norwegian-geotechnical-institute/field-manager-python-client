@@ -72,7 +72,7 @@ def sync_detailed(
 ) -> Response[CrossSection | HTTPValidationError]:
     """Create Cross Section
 
-     Create a new cross section for a project.
+     Create a new cross-section for a project.
 
     Args:
         project_id (str):
@@ -106,7 +106,7 @@ def sync(
 ) -> CrossSection | HTTPValidationError | None:
     """Create Cross Section
 
-     Create a new cross section for a project.
+     Create a new cross-section for a project.
 
     Args:
         project_id (str):
@@ -135,7 +135,7 @@ async def asyncio_detailed(
 ) -> Response[CrossSection | HTTPValidationError]:
     """Create Cross Section
 
-     Create a new cross section for a project.
+     Create a new cross-section for a project.
 
     Args:
         project_id (str):
@@ -167,7 +167,7 @@ async def asyncio(
 ) -> CrossSection | HTTPValidationError | None:
     """Create Cross Section
 
-     Create a new cross section for a project.
+     Create a new cross-section for a project.
 
     Args:
         project_id (str):

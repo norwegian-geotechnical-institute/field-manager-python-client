@@ -84,7 +84,7 @@ def sync_detailed(
 ) -> Response[Any | HTTPValidationError]:
     """Create Cross Section Lines
 
-     Get a dxf file or shapefile bundle containing the cross section lines
+     Get a dxf file or shapefile bundle containing the cross-section lines
 
     Args:
         project_id (str):
@@ -121,7 +121,7 @@ def sync(
 ) -> Any | HTTPValidationError | None:
     """Create Cross Section Lines
 
-     Get a dxf file or shapefile bundle containing the cross section lines
+     Get a dxf file or shapefile bundle containing the cross-section lines
 
     Args:
         project_id (str):
@@ -153,7 +153,7 @@ async def asyncio_detailed(
 ) -> Response[Any | HTTPValidationError]:
     """Create Cross Section Lines
 
-     Get a dxf file or shapefile bundle containing the cross section lines
+     Get a dxf file or shapefile bundle containing the cross-section lines
 
     Args:
         project_id (str):
@@ -188,7 +188,7 @@ async def asyncio(
 ) -> Any | HTTPValidationError | None:
     """Create Cross Section Lines
 
-     Get a dxf file or shapefile bundle containing the cross section lines
+     Get a dxf file or shapefile bundle containing the cross-section lines
 
     Args:
         project_id (str):

@@ -67,7 +67,7 @@ def sync_detailed(
 ) -> Response[HTTPValidationError | list[CrossSection]]:
     """Get Cross Sections For Project
 
-     Get non-deleted cross sections for a project.
+     Get non-deleted cross-sections for a project.
 
     Args:
         project_id (str):
@@ -98,7 +98,7 @@ def sync(
 ) -> HTTPValidationError | list[CrossSection] | None:
     """Get Cross Sections For Project
 
-     Get non-deleted cross sections for a project.
+     Get non-deleted cross-sections for a project.
 
     Args:
         project_id (str):
@@ -124,7 +124,7 @@ async def asyncio_detailed(
 ) -> Response[HTTPValidationError | list[CrossSection]]:
     """Get Cross Sections For Project
 
-     Get non-deleted cross sections for a project.
+     Get non-deleted cross-sections for a project.
 
     Args:
         project_id (str):
@@ -153,7 +153,7 @@ async def asyncio(
 ) -> HTTPValidationError | list[CrossSection] | None:
     """Get Cross Sections For Project
 
-     Get non-deleted cross sections for a project.
+     Get non-deleted cross-sections for a project.
 
     Args:
         project_id (str):

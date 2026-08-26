@@ -42,7 +42,6 @@ class MethodTOT:
         conducted_at (datetime.datetime | None | Unset):
         conducted_by (None | str | Unset):
         files (list[File] | Unset):
-        self_ (None | str | Unset): Deprecated output only field. Will be removed soon after 2026-01-01.
         predrilling_depth (float | None | Unset):
         stopcode (int | None | Unset):
         depth_top (float | None | Unset):
@@ -65,7 +64,6 @@ class MethodTOT:
     conducted_at: datetime.datetime | None | Unset = UNSET
     conducted_by: None | str | Unset = UNSET
     files: list[File] | Unset = UNSET
-    self_: None | str | Unset = UNSET
     predrilling_depth: float | None | Unset = UNSET
     stopcode: int | None | Unset = UNSET
     depth_top: float | None | Unset = UNSET
@@ -128,12 +126,6 @@ class MethodTOT:
             for files_item_data in self.files:
                 files_item = files_item_data.to_dict()
                 files.append(files_item)
-
-        self_: None | str | Unset
-        if isinstance(self.self_, Unset):
-            self_ = UNSET
-        else:
-            self_ = self.self_
 
         predrilling_depth: float | None | Unset
         if isinstance(self.predrilling_depth, Unset):
@@ -203,8 +195,6 @@ class MethodTOT:
             field_dict["conducted_by"] = conducted_by
         if files is not UNSET:
             field_dict["files"] = files
-        if self_ is not UNSET:
-            field_dict["self"] = self_
         if predrilling_depth is not UNSET:
             field_dict["predrilling_depth"] = predrilling_depth
         if stopcode is not UNSET:
@@ -305,15 +295,6 @@ class MethodTOT:
 
                 files.append(files_item)
 
-        def _parse_self_(data: object) -> None | str | Unset:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(None | str | Unset, data)
-
-        self_ = _parse_self_(d.pop("self", UNSET))
-
         def _parse_predrilling_depth(data: object) -> float | None | Unset:
             if data is None:
                 return data
@@ -391,7 +372,6 @@ class MethodTOT:
             conducted_at=conducted_at,
             conducted_by=conducted_by,
             files=files,
-            self_=self_,
             predrilling_depth=predrilling_depth,
             stopcode=stopcode,
             depth_top=depth_top,

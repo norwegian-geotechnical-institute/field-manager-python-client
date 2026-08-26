@@ -36,6 +36,8 @@ class Project:
         external_id_source (None | str | Unset):
         description (None | str | Unset):
         tags (list[str] | None | Unset):
+        client (None | str | Unset): NADAG client/oppdragsgiver
+        contractor (None | str | Unset): NADAG contractor/oppdragstaker
     """
 
     project_id: UUID
@@ -51,6 +53,8 @@ class Project:
     external_id_source: None | str | Unset = UNSET
     description: None | str | Unset = UNSET
     tags: list[str] | None | Unset = UNSET
+    client: None | str | Unset = UNSET
+    contractor: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -111,6 +115,18 @@ class Project:
         else:
             tags = self.tags
 
+        client: None | str | Unset
+        if isinstance(self.client, Unset):
+            client = UNSET
+        else:
+            client = self.client
+
+        contractor: None | str | Unset
+        if isinstance(self.contractor, Unset):
+            contractor = UNSET
+        else:
+            contractor = self.contractor
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -135,6 +151,10 @@ class Project:
             field_dict["description"] = description
         if tags is not UNSET:
             field_dict["tags"] = tags
+        if client is not UNSET:
+            field_dict["client"] = client
+        if contractor is not UNSET:
+            field_dict["contractor"] = contractor
 
         return field_dict
 
@@ -239,6 +259,24 @@ class Project:
 
         tags = _parse_tags(d.pop("tags", UNSET))
 
+        def _parse_client(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        client = _parse_client(d.pop("client", UNSET))
+
+        def _parse_contractor(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        contractor = _parse_contractor(d.pop("contractor", UNSET))
+
         project = cls(
             project_id=project_id,
             external_id=external_id,
@@ -253,6 +291,8 @@ class Project:
             external_id_source=external_id_source,
             description=description,
             tags=tags,
+            client=client,
+            contractor=contractor,
         )
 
         project.additional_properties = d
