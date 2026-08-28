@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": { "title": "Field Manager Data API", "version": "4.7.15" },
+  "info": { "title": "Field Manager Data API", "version": "4.7.25" },
   "servers": [
     {
       "url": "https://api.fieldmanager.io/fieldmanager",
@@ -9,39 +9,6 @@
   ],
   "paths": {
     "/organizations/{organization_id}": {
-      "get": {
-        "tags": ["organizations"],
-        "summary": "Get Organization",
-        "description": "Retrieve one organization",
-        "operationId": "get_organization_organizations__organization_id__get",
-        "security": [{ "HTTPBearer": [] }],
-        "parameters": [
-          {
-            "name": "organization_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "title": "Organization Id" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Organization" }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
-        }
-      },
       "put": {
         "tags": ["organizations"],
         "summary": "Update Organization",
@@ -64,6 +31,43 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Organization" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["organizations"],
+        "summary": "Get Organization",
+        "description": "Retrieve one organization",
+        "operationId": "get_organization_organizations__organization_id__get",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Organization Id"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -534,7 +538,7 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Project" }
+                "schema": { "$ref": "#/components/schemas/ProjectInfo" }
               }
             }
           },
@@ -11605,6 +11609,11 @@
             "title": "Contractor",
             "description": "NADAG contractor/oppdragstaker"
           },
+          "sync_with_nadag": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Sync With Nadag",
+            "description": "This project should sync with NADAG"
+          },
           "number_of_locations": {
             "type": "integer",
             "title": "Number Of Locations"
@@ -22459,9 +22468,9 @@
       },
       "MethodStatusEnum": {
         "type": "integer",
-        "enum": [1, 2, 3, 4, 5],
+        "enum": [1, 2, 3, 4, 5, 6],
         "title": "MethodStatusEnum",
-        "description": "(\nPLANNED=1,\nREADY=2,\nCONDUCTED=3,\nVOIDED=4,\nAPPROVED=5,\n)"
+        "description": "(\nPLANNED=1,\nREADY=2,\nCONDUCTED=3,\nVOIDED=4,\nAPPROVED=5,\nREVIEW=6,\n)"
       },
       "MethodSummary": {
         "properties": {
@@ -25995,6 +26004,11 @@
             "title": "Contractor",
             "description": "NADAG contractor/oppdragstaker"
           },
+          "sync_with_nadag": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Sync With Nadag",
+            "description": "This project should sync with NADAG"
+          },
           "number_of_locations": {
             "type": "integer",
             "title": "Number Of Locations"
@@ -26207,6 +26221,10 @@
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Contractor"
           },
+          "sync_with_nadag": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Sync With Nadag"
+          },
           "project_areas": {
             "items": { "$ref": "#/components/schemas/ProjectAreaCreate" },
             "type": "array",
@@ -26289,6 +26307,11 @@
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Contractor",
             "description": "NADAG contractor/oppdragstaker"
+          },
+          "sync_with_nadag": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Sync With Nadag",
+            "description": "This project should sync with NADAG"
           },
           "number_of_locations": {
             "type": "integer",
@@ -26428,6 +26451,11 @@
             "title": "Contractor",
             "description": "NADAG contractor/oppdragstaker"
           },
+          "sync_with_nadag": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Sync With Nadag",
+            "description": "This project should sync with NADAG"
+          },
           "number_of_locations": {
             "type": "integer",
             "title": "Number Of Locations"
@@ -26537,6 +26565,10 @@
           "contractor": {
             "anyOf": [{ "type": "string" }, { "type": "null" }],
             "title": "Contractor"
+          },
+          "sync_with_nadag": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Sync With Nadag"
           }
         },
         "type": "object",

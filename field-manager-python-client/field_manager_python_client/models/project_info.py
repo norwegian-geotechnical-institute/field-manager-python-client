@@ -43,6 +43,7 @@ class ProjectInfo:
         tags (list[str] | None | Unset):
         client (None | str | Unset): NADAG client/oppdragsgiver
         contractor (None | str | Unset): NADAG contractor/oppdragstaker
+        sync_with_nadag (bool | None | Unset): This project should sync with NADAG
         organization (None | OrganizationMin | Unset):
         effective_role (None | Role | Unset):
         last_updated (datetime.datetime | None | Unset):
@@ -64,6 +65,7 @@ class ProjectInfo:
     tags: list[str] | None | Unset = UNSET
     client: None | str | Unset = UNSET
     contractor: None | str | Unset = UNSET
+    sync_with_nadag: bool | None | Unset = UNSET
     organization: None | OrganizationMin | Unset = UNSET
     effective_role: None | Role | Unset = UNSET
     last_updated: datetime.datetime | None | Unset = UNSET
@@ -143,6 +145,12 @@ class ProjectInfo:
         else:
             contractor = self.contractor
 
+        sync_with_nadag: bool | None | Unset
+        if isinstance(self.sync_with_nadag, Unset):
+            sync_with_nadag = UNSET
+        else:
+            sync_with_nadag = self.sync_with_nadag
+
         organization: dict[str, Any] | None | Unset
         if isinstance(self.organization, Unset):
             organization = UNSET
@@ -197,6 +205,8 @@ class ProjectInfo:
             field_dict["client"] = client
         if contractor is not UNSET:
             field_dict["contractor"] = contractor
+        if sync_with_nadag is not UNSET:
+            field_dict["sync_with_nadag"] = sync_with_nadag
         if organization is not UNSET:
             field_dict["organization"] = organization
         if effective_role is not UNSET:
@@ -330,6 +340,15 @@ class ProjectInfo:
 
         contractor = _parse_contractor(d.pop("contractor", UNSET))
 
+        def _parse_sync_with_nadag(data: object) -> bool | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(bool | None | Unset, data)
+
+        sync_with_nadag = _parse_sync_with_nadag(d.pop("sync_with_nadag", UNSET))
+
         def _parse_organization(data: object) -> None | OrganizationMin | Unset:
             if data is None:
                 return data
@@ -399,6 +418,7 @@ class ProjectInfo:
             tags=tags,
             client=client,
             contractor=contractor,
+            sync_with_nadag=sync_with_nadag,
             organization=organization,
             effective_role=effective_role,
             last_updated=last_updated,

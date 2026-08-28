@@ -27,6 +27,7 @@ class MethodSSCreate:
             CONDUCTED=3,
             VOIDED=4,
             APPROVED=5,
+            REVIEW=6,
             )
         created_at (datetime.datetime | None | Unset):
         created_by (None | str | Unset):
