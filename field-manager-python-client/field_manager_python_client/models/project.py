@@ -38,6 +38,7 @@ class Project:
         tags (list[str] | None | Unset):
         client (None | str | Unset): NADAG client/oppdragsgiver
         contractor (None | str | Unset): NADAG contractor/oppdragstaker
+        sync_with_nadag (bool | None | Unset): This project should sync with NADAG
     """
 
     project_id: UUID
@@ -55,6 +56,7 @@ class Project:
     tags: list[str] | None | Unset = UNSET
     client: None | str | Unset = UNSET
     contractor: None | str | Unset = UNSET
+    sync_with_nadag: bool | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -127,6 +129,12 @@ class Project:
         else:
             contractor = self.contractor
 
+        sync_with_nadag: bool | None | Unset
+        if isinstance(self.sync_with_nadag, Unset):
+            sync_with_nadag = UNSET
+        else:
+            sync_with_nadag = self.sync_with_nadag
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -155,6 +163,8 @@ class Project:
             field_dict["client"] = client
         if contractor is not UNSET:
             field_dict["contractor"] = contractor
+        if sync_with_nadag is not UNSET:
+            field_dict["sync_with_nadag"] = sync_with_nadag
 
         return field_dict
 
@@ -277,6 +287,15 @@ class Project:
 
         contractor = _parse_contractor(d.pop("contractor", UNSET))
 
+        def _parse_sync_with_nadag(data: object) -> bool | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(bool | None | Unset, data)
+
+        sync_with_nadag = _parse_sync_with_nadag(d.pop("sync_with_nadag", UNSET))
+
         project = cls(
             project_id=project_id,
             external_id=external_id,
@@ -293,6 +312,7 @@ class Project:
             tags=tags,
             client=client,
             contractor=contractor,
+            sync_with_nadag=sync_with_nadag,
         )
 
         project.additional_properties = d

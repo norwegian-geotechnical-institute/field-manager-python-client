@@ -32,6 +32,7 @@ class MethodInfo:
             CONDUCTED=3,
             VOIDED=4,
             APPROVED=5,
+            REVIEW=6,
             )
         method_type (MethodTypeEnum): (
             CPT=1,

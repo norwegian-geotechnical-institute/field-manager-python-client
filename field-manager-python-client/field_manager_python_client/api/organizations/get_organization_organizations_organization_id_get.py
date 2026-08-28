@@ -1,6 +1,7 @@
 from http import HTTPStatus
 from typing import Any
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
@@ -12,7 +13,7 @@ from ...types import Response
 
 
 def _get_kwargs(
-    organization_id: str,
+    organization_id: UUID,
 ) -> dict[str, Any]:
 
     _kwargs: dict[str, Any] = {
@@ -56,7 +57,7 @@ def _build_response(
 
 
 def sync_detailed(
-    organization_id: str,
+    organization_id: UUID,
     *,
     client: AuthenticatedClient,
 ) -> Response[HTTPValidationError | Organization]:
@@ -65,7 +66,7 @@ def sync_detailed(
      Retrieve one organization
 
     Args:
-        organization_id (str):
+        organization_id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -87,7 +88,7 @@ def sync_detailed(
 
 
 def sync(
-    organization_id: str,
+    organization_id: UUID,
     *,
     client: AuthenticatedClient,
 ) -> HTTPValidationError | Organization | None:
@@ -96,7 +97,7 @@ def sync(
      Retrieve one organization
 
     Args:
-        organization_id (str):
+        organization_id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -113,7 +114,7 @@ def sync(
 
 
 async def asyncio_detailed(
-    organization_id: str,
+    organization_id: UUID,
     *,
     client: AuthenticatedClient,
 ) -> Response[HTTPValidationError | Organization]:
@@ -122,7 +123,7 @@ async def asyncio_detailed(
      Retrieve one organization
 
     Args:
-        organization_id (str):
+        organization_id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -142,7 +143,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    organization_id: str,
+    organization_id: UUID,
     *,
     client: AuthenticatedClient,
 ) -> HTTPValidationError | Organization | None:
@@ -151,7 +152,7 @@ async def asyncio(
      Retrieve one organization
 
     Args:
-        organization_id (str):
+        organization_id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

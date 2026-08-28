@@ -57,6 +57,7 @@ class MethodSummary:
             CONDUCTED=3,
             VOIDED=4,
             APPROVED=5,
+            REVIEW=6,
             )
         location_id (UUID): Will be removed in the future
         name (None | str | Unset):

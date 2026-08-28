@@ -37,6 +37,7 @@ class ProjectCreate:
         tags (list[str] | Unset):
         client (None | str | Unset):
         contractor (None | str | Unset):
+        sync_with_nadag (bool | None | Unset):
         project_areas (list[ProjectAreaCreate] | Unset):
     """
 
@@ -54,6 +55,7 @@ class ProjectCreate:
     tags: list[str] | Unset = UNSET
     client: None | str | Unset = UNSET
     contractor: None | str | Unset = UNSET
+    sync_with_nadag: bool | None | Unset = UNSET
     project_areas: list[ProjectAreaCreate] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -132,6 +134,12 @@ class ProjectCreate:
         else:
             contractor = self.contractor
 
+        sync_with_nadag: bool | None | Unset
+        if isinstance(self.sync_with_nadag, Unset):
+            sync_with_nadag = UNSET
+        else:
+            sync_with_nadag = self.sync_with_nadag
+
         project_areas: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.project_areas, Unset):
             project_areas = []
@@ -168,6 +176,8 @@ class ProjectCreate:
             field_dict["client"] = client
         if contractor is not UNSET:
             field_dict["contractor"] = contractor
+        if sync_with_nadag is not UNSET:
+            field_dict["sync_with_nadag"] = sync_with_nadag
         if project_areas is not UNSET:
             field_dict["project_areas"] = project_areas
 
@@ -307,6 +317,15 @@ class ProjectCreate:
 
         contractor = _parse_contractor(d.pop("contractor", UNSET))
 
+        def _parse_sync_with_nadag(data: object) -> bool | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(bool | None | Unset, data)
+
+        sync_with_nadag = _parse_sync_with_nadag(d.pop("sync_with_nadag", UNSET))
+
         _project_areas = d.pop("project_areas", UNSET)
         project_areas: list[ProjectAreaCreate] | Unset = UNSET
         if _project_areas is not UNSET:
@@ -331,6 +350,7 @@ class ProjectCreate:
             tags=tags,
             client=client,
             contractor=contractor,
+            sync_with_nadag=sync_with_nadag,
             project_areas=project_areas,
         )
 
