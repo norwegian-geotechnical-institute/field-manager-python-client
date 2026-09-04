@@ -5,7 +5,7 @@
 ## ✨ Why Use This Client?
 
 - **Easy Integration:** Each endpoint is ready to use—no manual HTTP calls needed.
-- **Seamless Authentication:** Built-in OAuth2/OIDC authentication with automatic token management.
+- **Seamless Authentication:** Built-in device-code authentication with token caching.
 - **Auto-Generated & Up-to-Date:** Always in sync with the latest Field Manager API updates.
 - **Full Coverage:** Access every endpoint and model the Field Manager platform provides.
 
@@ -17,13 +17,12 @@
    pip install field-manager-python-client python-keycloak
    ```
 
-2. **Authenticate**: Use the built-in authentication functions for seamless access:
+2. **Authenticate**: Use the built-in device-code helper for scripting access:
 
    ```python
-   from field_manager_python_client import get_prod_client
+   from field_manager_python_client import get_prod_device_code_client
 
-   # Authenticate with your Field Manager account
-   client = get_prod_client(email="your.email@example.com")
+   client = get_prod_device_code_client()
    ```
 
 ## 🚀 Quick Example
@@ -31,11 +30,11 @@
 Here's how to fetch project information using the authenticated client:
 
 ```python
-from field_manager_python_client import get_prod_client
+from field_manager_python_client import get_prod_device_code_client
 from field_manager_python_client.api.projects import get_project_projects_project_id_get
 
 # Authenticate and get client
-client = get_prod_client(email="your.email@example.com")
+client = get_prod_device_code_client()
 
 # Use the client to fetch project data
 project_id = "your-project-id"
@@ -48,14 +47,17 @@ print(f"Project Name: {project_info.name}")
 
 The client supports multiple authentication methods:
 
-1. **Integrated Authentication** (Recommended):
+1. **Device Code Authentication** (Recommended):
 
    ```python
-   from field_manager_python_client import authenticate, get_prod_client
+   from field_manager_python_client import (
+       authenticate_with_device_code,
+       get_prod_device_code_client,
+   )
 
-   client = authenticate(environment="prod", email="user@example.com")
+   client = authenticate_with_device_code(environment="prod")
    # or
-   client = get_prod_client(email="user@example.com")
+   client = get_prod_device_code_client()
    ```
 
 2. **Manual Token Setup**:

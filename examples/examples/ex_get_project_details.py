@@ -10,29 +10,17 @@ Run this example:
     python examples/ex_get_project_info_by_id.py
 """
 
-from field_manager_python_client import get_prod_client
+from field_manager_python_client import get_prod_device_code_client
 from field_manager_python_client.api.projects import get_project_projects_project_id_get
 from field_manager_python_client.api.organizations import (
     get_organizations_organizations_get,
 )
-import os
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
-DEFAULT_EMAIL = os.getenv("DEFAULT_EMAIL", "your.email@example.com")
-
-
 def main():
     print("📁 Getting project information...")
     print()
 
-    # Use default email directly (non-interactive mode)
-    email = DEFAULT_EMAIL
-    print(f"Using email: {email}")
-
     # Connect to production environment
-    client = get_prod_client(email=email)
+    client = get_prod_device_code_client()
 
     with client as client:
         # Show available projects first

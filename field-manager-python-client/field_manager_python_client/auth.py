@@ -1,41 +1,32 @@
-"""
-Authentication module for Field Manager Python Client.
-
-This module provides easy authentication with Keycloak for both test and production environments.
-"""
+"""Authentication helpers for the Field Manager Python Client."""
 
 import json
 import os
 import time
 import webbrowser
-from getpass import getpass
-from http.server import BaseHTTPRequestHandler, HTTPServer
 from typing import Any, Literal
-from urllib.parse import parse_qs, urlparse
+
+import httpx
 
 try:
     from keycloak import KeycloakOpenID
 except ImportError:
     raise ImportError("python-keycloak is required for authentication. Install it with: pip install python-keycloak")
 
-from .api.public import (
-    get_organization_by_email_address_public_organizations_email_address_get,
-    get_organization_information_public_organizations_organization_id_information_get,
-)
-from .client import AuthenticatedClient, Client
+from .client import AuthenticatedClient
 
 # Environment configurations
 ENVIRONMENTS = {
     "test": {
         "KEYCLOAK_SERVER_URL": "https://keycloak.test.ngiapi.no/auth/",
         "KEYCLOAK_REALM": "tenant-geohub-public",
-        "KEYCLOAK_CLIENT_ID": "fieldmanager-client",
+        "KEYCLOAK_DEVICE_CLIENT_ID": "fieldmanager-devicecode-client",
         "BASE_URL": "https://app.test.fieldmanager.io/api/location",
     },
     "prod": {
         "KEYCLOAK_SERVER_URL": "https://keycloak.ngiapi.no/auth/",
         "KEYCLOAK_REALM": "tenant-geohub-public",
-        "KEYCLOAK_CLIENT_ID": "fieldmanager-client",
+        "KEYCLOAK_DEVICE_CLIENT_ID": "fieldmanager-devicecode-client",
         "BASE_URL": "https://app.fieldmanager.io/api/location",
     },
 }
@@ -65,7 +56,7 @@ class TokenManager:
 
         if initial_token:
             self.access_token = initial_token["access_token"]
-            self.refresh_token = initial_token["refresh_token"]
+            self.refresh_token = initial_token.get("refresh_token")
             self.expires_at = time.time() + initial_token["expires_in"]
         else:
             self.access_token = None
@@ -128,215 +119,141 @@ class TokenManager:
             return None
 
 
-class AuthCodeHandler(BaseHTTPRequestHandler):
-    """HTTP request handler for OAuth2 authorization code flow."""
-
-    def do_GET(self):
-        query = parse_qs(urlparse(self.path).query)
-        self.server.auth_code = query.get("code", [None])[0]
-        self.send_response(200)
-        self.end_headers()
-        self.wfile.write(b"Authorization code received. You may close this window.")
-
-    def log_message(self, format, *args):
-        # Suppress log messages
-        pass
+def _get_device_auth_url(env_config: dict[str, str]) -> str:
+    realm = env_config["KEYCLOAK_REALM"]
+    server_url = env_config["KEYCLOAK_SERVER_URL"].rstrip("/")
+    return f"{server_url}/realms/{realm}/protocol/openid-connect/auth/device"
 
 
-def _start_local_server() -> str | None:
-    """Start a local server to capture the authorization code."""
-    server = HTTPServer(("localhost", 8000), AuthCodeHandler)
-    print("Waiting for authorization code...")
-    server.handle_request()
-    return getattr(server, "auth_code", None)
+def _get_token_url(env_config: dict[str, str]) -> str:
+    realm = env_config["KEYCLOAK_REALM"]
+    server_url = env_config["KEYCLOAK_SERVER_URL"].rstrip("/")
+    return f"{server_url}/realms/{realm}/protocol/openid-connect/token"
 
 
-def _get_auth_method(email: str, base_url: str) -> dict[str, Any]:
-    """
-    Determine if organization uses SSO or password-based auth.
-
-    Args:
-        email: User's email address
-        base_url: Base URL for the API
-
-    Returns:
-        Dictionary with auth_method and authentication_alias
-    """
-    try:
-        public_client = Client(base_url=base_url)
-
-        organization = get_organization_by_email_address_public_organizations_email_address_get.sync(
-            client=public_client, email_address=email
-        )
-        org_id = organization.organization_id
-
-        org_info = get_organization_information_public_organizations_organization_id_information_get.sync(
-            client=public_client, organization_id=org_id
-        )
-        authentication_alias = org_info.authentication_alias
-        auth_method = "sso" if authentication_alias else "password"
-        return {
-            "auth_method": auth_method,
-            "authentication_alias": authentication_alias,
-        }
-    except Exception as e:
-        print(f"Unable to fetch org info. Defaulting to password. Error: {e}")
-        return {"auth_method": "password", "authentication_alias": None}
+def _request_device_code(env_config: dict[str, str], scope: str = DEFAULT_SCOPE) -> dict[str, Any]:
+    payload = {
+        "client_id": env_config["KEYCLOAK_DEVICE_CLIENT_ID"],
+        "scope": scope,
+    }
+    response = httpx.post(_get_device_auth_url(env_config), data=payload, timeout=30.0)
+    response.raise_for_status()
+    return response.json()
 
 
-def _authenticate_with_sso(
-    keycloak_openid: KeycloakOpenID, authentication_alias: str | None, scope: str = DEFAULT_SCOPE
-) -> TokenManager:
-    """Authenticate using SSO (Authorization Code Flow)."""
-    redirect_uri = "http://localhost:8000"
-    auth_url = keycloak_openid.auth_url(
-        redirect_uri=redirect_uri,
-        scope=scope,
-    )
+def _poll_for_device_token(
+    env_config: dict[str, str], device_code: str, interval: int, expires_in: int
+) -> dict[str, Any]:
+    payload = {
+        "grant_type": "urn:ietf:params:oauth:grant-type:device_code",
+        "client_id": env_config["KEYCLOAK_DEVICE_CLIENT_ID"],
+        "device_code": device_code,
+    }
+    deadline = time.time() + expires_in
+    current_interval = interval
 
-    # If there's an external IdP alias
-    if authentication_alias:
-        auth_url += f"&kc_idp_hint={authentication_alias}"
+    while time.time() < deadline:
+        response = httpx.post(_get_token_url(env_config), data=payload, timeout=30.0)
+        data = response.json()
 
-    print("Please log in through your browser.")
-    print(f"Opening browser at: {auth_url}")
-    webbrowser.open_new(auth_url)
+        if response.is_success and "access_token" in data:
+            return data
+        if data.get("error") == "authorization_pending":
+            print("Waiting for user authorization...")
+            time.sleep(current_interval)
+            continue
+        if data.get("error") == "slow_down":
+            current_interval += 5
+            time.sleep(current_interval)
+            continue
+        if data.get("error") == "expired_token":
+            break
 
-    code = _start_local_server()
-    if not code:
-        raise RuntimeError("Failed to obtain authorization code.")
+        raise RuntimeError(f"Device code token request failed: {data}")
 
-    # Exchange the auth code for tokens
-    token = keycloak_openid.token(
-        grant_type="authorization_code",
-        code=code,
-        redirect_uri=redirect_uri,
-        scope=scope,
-    )
-    return TokenManager(keycloak_openid, token)
-
-
-def _authenticate_with_password(
-    keycloak_openid: KeycloakOpenID, email: str, scope: str = DEFAULT_SCOPE
-) -> TokenManager:
-    """Authenticate using password (Resource Owner Password Grant)."""
-    password = getpass("Enter Password: ")
-
-    token = keycloak_openid.token(
-        username=email,
-        password=password,
-        scope=scope,
-    )
-    return TokenManager(keycloak_openid, token)
+    raise RuntimeError("Device code expired before authorization completed.")
 
 
-def authenticate(
+def authenticate_with_device_code(
     environment: Literal["test", "prod"] = "test",
-    email: str | None = None,
-    scope: str = DEFAULT_SCOPE,
+    scope: str = "openid profile email offline_access",
     token_file: str | None = None,
-    interactive: bool = True,
+    open_browser: bool = True,
 ) -> AuthenticatedClient:
     """
-    Authenticate with Field Manager and return an AuthenticatedClient.
+    Authenticate with Field Manager using OAuth2 Device Authorization Grant.
+
+    This flow is intended for interactive scripting, especially for external
+    users who need an API token without using the Field Manager Developer Portal.
 
     Args:
         environment: Either "test" or "prod" environment
-        email: User's email address (will prompt if not provided and interactive=True)
-        scope: OAuth2 scope (default: "openid")
+        scope: OAuth2 scope requested for the device-code flow
         token_file: Path to token storage file (default: "token_store.json")
-        interactive: Whether to allow interactive prompts (default: True)
+        open_browser: Whether to automatically open the verification URL
 
     Returns:
         AuthenticatedClient instance ready to use
-
-    Raises:
-        ValueError: If environment is invalid or required parameters are missing
-        RuntimeError: If authentication fails
-
-    Example:
-        >>> client = authenticate(environment="test", email="user@example.com")
-        >>> # Use client for API calls
     """
     if environment not in ENVIRONMENTS:
         raise ValueError(f"Environment must be one of: {list(ENVIRONMENTS.keys())}")
 
     env_config = ENVIRONMENTS[environment]
-
-    # Initialize Keycloak client
     keycloak_openid = KeycloakOpenID(
         server_url=env_config["KEYCLOAK_SERVER_URL"],
-        client_id=env_config["KEYCLOAK_CLIENT_ID"],
+        client_id=env_config["KEYCLOAK_DEVICE_CLIENT_ID"],
         realm_name=env_config["KEYCLOAK_REALM"],
     )
 
-    # Initialize TokenManager
     token_manager = TokenManager(keycloak_openid, token_file=token_file)
     token_manager.load_tokens()
 
-    # Check if cached tokens are still valid
     valid_token = token_manager.get_valid_token()
     if valid_token:
         print("Using cached tokens.")
         return AuthenticatedClient(base_url=env_config["BASE_URL"], token=valid_token)
 
-    # No valid cached token, proceed with authentication
-    if not email:
-        if not interactive:
-            raise ValueError("Email is required when interactive=False")
-        email = input("Enter your email address: ").strip()
+    print("Requesting device authorization...")
+    device_data = _request_device_code(env_config, scope=scope)
+    verification_uri_complete = device_data.get("verification_uri_complete")
+    verification_uri = device_data.get("verification_uri")
+    user_code = device_data.get("user_code")
 
-    if not email:
-        raise ValueError("Email address is required")
+    print("\n=== ACTION REQUIRED ===")
+    if verification_uri_complete:
+        print("Open this URL in your browser:")
+        print(verification_uri_complete)
+    if verification_uri:
+        print("\nManual fallback URL:")
+        print(verification_uri)
+    if user_code:
+        print(f"\nUser code: {user_code}")
+    print("========================\n")
 
-    print(f"Using email: {email}")
+    if open_browser and verification_uri_complete:
+        webbrowser.open_new(verification_uri_complete)
 
-    # Determine organization auth method
-    auth_info = _get_auth_method(email, env_config["BASE_URL"])
-    auth_method = auth_info["auth_method"]
-    authentication_alias = auth_info.get("authentication_alias")
+    token = _poll_for_device_token(
+        env_config=env_config,
+        device_code=device_data["device_code"],
+        interval=int(device_data.get("interval", 5)),
+        expires_in=int(device_data.get("expires_in", 600)),
+    )
 
-    # Run the appropriate authentication flow
-    if auth_method == "sso":
-        token_manager = _authenticate_with_sso(keycloak_openid, authentication_alias, scope)
-    elif auth_method == "password":
-        token_manager = _authenticate_with_password(keycloak_openid, email, scope)
-    else:
-        raise ValueError("Cannot determine auth method for this organization.")
-
-    # Save tokens & return an AuthenticatedClient
+    token_manager = TokenManager(keycloak_openid, token, token_file=token_file)
     token_manager.save_tokens()
-    client = AuthenticatedClient(base_url=env_config["BASE_URL"], token=token_manager.get_valid_token())
     print("Authentication successful. Client is ready to use.")
-    return client
+    return AuthenticatedClient(base_url=env_config["BASE_URL"], token=token_manager.get_valid_token())
 
 
-def get_test_client(email: str | None = None, **kwargs) -> AuthenticatedClient:
-    """
-    Convenient method to get an authenticated client for the test environment.
-
-    Args:
-        email: User's email address
-        **kwargs: Additional arguments passed to authenticate()
-
-    Returns:
-        AuthenticatedClient for test environment
-    """
-    return authenticate(environment="test", email=email, **kwargs)
+def get_test_device_code_client(**kwargs) -> AuthenticatedClient:
+    """Convenience method to get a device-code authenticated client for the test environment."""
+    return authenticate_with_device_code(environment="test", **kwargs)
 
 
-def get_prod_client(email: str | None = None, **kwargs) -> AuthenticatedClient:
-    """
-    Convenient method to get an authenticated client for the production environment.
-
-    Args:
-        email: User's email address
-        **kwargs: Additional arguments passed to authenticate()
-
-    Returns:
-        AuthenticatedClient for production environment
-    """
-    return authenticate(environment="prod", email=email, **kwargs)
+def get_prod_device_code_client(**kwargs) -> AuthenticatedClient:
+    """Convenience method to get a device-code authenticated client for the production environment."""
+    return authenticate_with_device_code(environment="prod", **kwargs)
 
 
 def get_service_account_client(

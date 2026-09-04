@@ -29,10 +29,10 @@ The Field Manager Python Client provides four different ways to call each API en
 Returns your data immediately or `None` if something goes wrong:
 
 ```python
-from field_manager_python_client import get_prod_client
+from field_manager_python_client import get_prod_device_code_client
 from field_manager_python_client.api.organizations import get_organizations_organizations_get
 
-client = get_prod_client(email="your.email@example.com")
+client = get_prod_device_code_client()
 
 # Simple request - returns your data or None
 organizations = get_organizations_organizations_get.sync(client=client)

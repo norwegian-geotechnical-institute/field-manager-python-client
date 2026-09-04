@@ -2,14 +2,20 @@
 
 {{ safe_docstring(package_description) }}
 from .client import AuthenticatedClient, Client
-from .auth import authenticate, get_test_client, get_prod_client, get_service_account_client, TokenManager
+from .auth import (
+    TokenManager,
+    authenticate_with_device_code,
+    get_prod_device_code_client,
+    get_service_account_client,
+    get_test_device_code_client,
+)
 
 __all__ = (
     "AuthenticatedClient",
     "Client",
-    "authenticate", 
-    "get_test_client",
-    "get_prod_client",
+    "authenticate_with_device_code",
+    "get_test_device_code_client",
+    "get_prod_device_code_client",
     "get_service_account_client",
     "TokenManager",
-) 
+)
