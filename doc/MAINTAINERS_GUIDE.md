@@ -117,6 +117,14 @@ python setup.py --local
 python examples/ex_authentication_demo.py
 ```
 
+Poetry-based local testing from the package checkout:
+
+```bash
+cd field-manager-python-client
+poetry install --with examples
+poetry run python ../examples/examples/ex_authentication_demo.py
+```
+
 ### Adding New Examples
 
 1. Create script in `examples/examples/`
@@ -154,6 +162,14 @@ python examples/ex_authentication_demo.py
 
 # 3. Verify auth imports
 python -c "from field_manager_python_client import authenticate_with_device_code; print('✅ Auth module working')"
+```
+
+Poetry-based example verification:
+
+```bash
+cd field-manager-python-client
+poetry install --with examples
+poetry run python ../examples/examples/ex_authentication_demo.py
 ```
 
 ## 🐛 Common Issues

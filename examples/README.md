@@ -68,7 +68,7 @@ If you're working on the field-manager-python-client itself:
 
 ```bash
 cd field-manager-python-client
-poetry install
+poetry install --with examples
 poetry run python ../examples/examples/ex_device_code_auth.py
 ```
 
@@ -84,6 +84,13 @@ source venv/bin/activate  # Linux/Mac
 
 # Install dependencies
 pip install -r requirements.txt
+```
+
+If you use Poetry for local development instead, install the optional examples
+dependency group:
+
+```bash
+poetry install --with examples
 ```
 
 ## 🔐 Authentication

@@ -9,6 +9,9 @@ Before running any examples:
 1. Install dependencies: `python simple_setup.py`
 2. Set your email in environment variables (optional)
 
+For local development from this repository with Poetry, use:
+`poetry install --with examples`
+
 ## 📋 Available Examples
 
 ### 🔐 Authentication

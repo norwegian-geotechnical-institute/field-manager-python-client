@@ -6,6 +6,13 @@
 pip install field-manager-python-client
 ```
 
+For local development from this repository with Poetry:
+
+```bash
+cd field-manager-python-client
+poetry install --with examples
+```
+
 ## 2. Run Example
 
 ```bash
