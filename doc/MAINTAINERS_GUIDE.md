@@ -120,7 +120,7 @@ python examples/ex_authentication_demo.py
 ### Adding New Examples
 
 1. Create script in `examples/examples/`
-2. Use new authentication: `from field_manager_python_client import get_test_client`
+2. Use device-code authentication: `from field_manager_python_client import get_test_device_code_client`
 3. Save outputs to `output/` directory (git-ignored)
 4. Include clear documentation and error handling
 
@@ -128,14 +128,13 @@ python examples/ex_authentication_demo.py
 
 ### Core Components
 - **Module**: `field_manager_python_client/auth.py`
-- **Main Functions**: `authenticate()`, `get_test_client()`, `get_prod_client()`
+- **Main Functions**: `authenticate_with_device_code()`, `get_test_device_code_client()`, `get_prod_device_code_client()`
 - **Token Management**: `TokenManager` class with auto-refresh
 - **Environments**: Built-in configs for test/production
 
 ### Key Features
 - Automatic token caching and refresh
-- Support for SSO and password authentication
-- Organization-specific auth method detection
+- Device-code authentication for interactive scripting
 - Environment-specific configurations
 
 ## ✅ Pre-Release Checklist
@@ -154,7 +153,7 @@ source venv/bin/activate
 python examples/ex_authentication_demo.py
 
 # 3. Verify auth imports
-python -c "from field_manager_python_client import authenticate; print('✅ Auth module working')"
+python -c "from field_manager_python_client import authenticate_with_device_code; print('✅ Auth module working')"
 ```
 
 ## 🐛 Common Issues

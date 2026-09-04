@@ -10,21 +10,10 @@ Ready-to-use examples for working with the Field Manager API. Get started in 3 s
 pip install field-manager-python-client
 ```
 
-### 2. Set Your Email (Optional)
-
-Create a `.env` file with your email to skip entering it each time:
+### 2. Run Your First Example
 
 ```bash
-# Copy the template and edit it
-cp examples/.env.template examples/.env
-# Edit examples/.env and set your email
-```
-
-### 3. Run Your First Example
-
-```bash
-cd examples
-python examples/ex_organizations.py
+python examples/examples/ex_device_code_auth.py
 ```
 
 That's it! 🎉
@@ -43,7 +32,7 @@ That's it! 🎉
 - **`ex_get_piezometer_data.py`** - Find PZ methods and preview piezometer data rows
 
 ### 🔐 Authentication Examples
-- **`example_using_integrated_auth.py`** - Different authentication methods
+- **`ex_device_code_auth.py`** - Preferred device-code authentication example
 - **`ex_service_account_access_check.py`** - Test a dedicated service account and list accessible organizations and projects
 
 ## 🌍 Environments
@@ -52,12 +41,12 @@ Choose your environment when running examples:
 
 ```python
 # Production environment (default for end users)
-from field_manager_python_client import get_prod_client
-client = get_prod_client(email="your.email@company.com")
+from field_manager_python_client import get_prod_device_code_client
+client = get_prod_device_code_client()
 
 # Test environment (for development)
-from field_manager_python_client import get_test_client  
-client = get_test_client(email="your.email@company.com")
+from field_manager_python_client import get_test_device_code_client
+client = get_test_device_code_client()
 ```
 
 ## 📄 Where Are My Files?
@@ -78,14 +67,9 @@ examples/output/
 If you're working on the field-manager-python-client itself:
 
 ```bash
-# 1. Edit requirements.txt - comment out the published version line:
-# field-manager-python-client>=4.6.25
-
-# 2. Uncomment the local version line:
--e ../field-manager-python-client
-
-# 3. Reinstall
-pip install -r requirements.txt --force-reinstall
+cd field-manager-python-client
+poetry install
+poetry run python ../examples/examples/ex_device_code_auth.py
 ```
 
 ### Virtual Environment (Recommended)
@@ -104,12 +88,7 @@ pip install -r requirements.txt
 
 ## 🔐 Authentication
 
-The system automatically detects how your organization authenticates:
-
-- **Single Sign-On (SSO)**: Opens browser → redirects to your company login
-- **Username/Password**: Prompts for email and password
-
-Your authentication tokens are saved locally and automatically refreshed.
+The recommended path is device-code authentication. The script prints a verification URL, you sign in in the browser, and the token is cached locally for reuse.
 
 ## ❓ Troubleshooting
 
@@ -145,10 +124,10 @@ pip install python-keycloak
 All examples follow this simple pattern:
 
 ```python
-from field_manager_python_client import get_prod_client
+from field_manager_python_client import get_prod_device_code_client
 
 # 1. Authenticate  
-client = get_prod_client(email="your.email@company.com")
+client = get_prod_device_code_client()
 
 # 2. Use the API
 with client as client:
@@ -160,7 +139,7 @@ print(f"Found {len(data)} items")
 
 ## 🎯 Next Steps
 
-1. **Start simple**: Run `ex_organizations.py`
+1. **Start simple**: Run `ex_device_code_auth.py`
 2. **Explore data**: Try `ex_save_organizations_to_file.py`  
 3. **Build your own**: Copy an example and modify it for your needs
 4. **Read the docs**: Check the authentication guide for advanced features

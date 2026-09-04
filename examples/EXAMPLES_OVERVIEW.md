@@ -13,9 +13,8 @@ Before running any examples:
 
 ### 🔐 Authentication
 - **`ex_authentication_demo.py`** - Demonstrates authentication methods
-  - Shows manual authenticate() function usage
-  - Demonstrates convenience helper functions (get_prod_client, get_test_client)
-  - Explains automatic token caching and refresh
+  - Shows device-code authentication usage
+  - Shows token-based authentication
 
 ### 🏢 Organization Management
 - **`ex_list_organizations_and_projects.py`** - List organizations and their projects
