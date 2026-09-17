@@ -154,7 +154,12 @@ def _poll_for_device_token(
 
     while time.time() < deadline:
         response = httpx.post(_get_token_url(env_config), data=payload, timeout=30.0)
-        data = response.json()
+        try:
+            data = response.json()
+        except ValueError as exc:
+            raise RuntimeError(
+                f"Device code token request returned non-JSON response (status={response.status_code}): {response.text}"
+            ) from exc
 
         if response.is_success and "access_token" in data:
             return data
