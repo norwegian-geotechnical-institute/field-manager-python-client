@@ -168,7 +168,7 @@ client = build_service_account_client("prod")
 
 ```bash
 # .env file
-KEYCLOAK_CLIENT_ID=your-dedicated-client-id
+KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID=your-dedicated-client-id
 KEYCLOAK_CLIENT_SECRET=your-service-account-client-secret
 
 # Load in Python
@@ -181,12 +181,12 @@ load_dotenv()
 ```yaml
 # GitHub Actions example
 env:
-  KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
+  KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID: ${{ secrets.KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID }}
   KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
 
 # GitLab CI example
 variables:
-  KEYCLOAK_CLIENT_ID: $KEYCLOAK_CLIENT_ID
+  KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID: $KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID
   KEYCLOAK_CLIENT_SECRET: $KEYCLOAK_CLIENT_SECRET
 ```
 
@@ -201,12 +201,12 @@ from field_manager_python_client import get_service_account_client
 class ServiceAccountManager:
     def __init__(self, environment: str = "prod"):
         self.environment = environment
-        self.client_id = os.getenv("KEYCLOAK_CLIENT_ID")
+        self.client_id = os.getenv("KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID")
         self.client_secret = os.getenv("KEYCLOAK_CLIENT_SECRET")
         self.client = None
 
         if not self.client_id:
-            raise ValueError("KEYCLOAK_CLIENT_ID environment variable is required")
+            raise ValueError("KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID environment variable is required")
         if not self.client_secret:
             raise ValueError("KEYCLOAK_CLIENT_SECRET environment variable is required")
 
@@ -231,7 +231,7 @@ client = manager.get_client()
 """
 Service Account Example
 Run with:
-  KEYCLOAK_CLIENT_ID=your-dedicated-client-id \
+  KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID=your-dedicated-client-id \
   KEYCLOAK_CLIENT_SECRET=your-secret \
   python service_account_example.py
 """
@@ -242,11 +242,11 @@ from field_manager_python_client.api.organizations import get_organizations_orga
 
 def main():
     # Check environment variables
-    client_id = os.getenv("KEYCLOAK_CLIENT_ID")
+    client_id = os.getenv("KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID")
     client_secret = os.getenv("KEYCLOAK_CLIENT_SECRET")
     if not client_id:
-        print("❌ Error: KEYCLOAK_CLIENT_ID environment variable is required")
-        print("Set it with: export KEYCLOAK_CLIENT_ID=your-dedicated-client-id")
+        print("❌ Error: KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID environment variable is required")
+        print("Set it with: export KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID=your-dedicated-client-id")
         return
     if not client_secret:
         print("❌ Error: KEYCLOAK_CLIENT_SECRET environment variable is required")

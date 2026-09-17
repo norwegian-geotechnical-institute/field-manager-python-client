@@ -271,7 +271,7 @@ def get_service_account_client(
     Args:
         environment: Either "test" or "prod" environment
         client_id: Dedicated Keycloak client ID. Falls back to the
-            KEYCLOAK_CLIENT_ID environment variable.
+            KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID environment variable.
         client_secret: Dedicated Keycloak client secret. Falls back to the
             KEYCLOAK_CLIENT_SECRET environment variable.
 
@@ -285,15 +285,18 @@ def get_service_account_client(
         raise ValueError(f"Environment must be one of: {list(ENVIRONMENTS.keys())}")
 
     env_config = ENVIRONMENTS[environment]
-    resolved_client_id = client_id or os.getenv("KEYCLOAK_CLIENT_ID")
+    resolved_client_id = client_id or os.getenv("KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID")
     resolved_client_secret = client_secret or os.getenv("KEYCLOAK_CLIENT_SECRET")
 
     if not resolved_client_id:
-        raise ValueError("A dedicated service-account client ID is required. Pass client_id or set KEYCLOAK_CLIENT_ID.")
-    if resolved_client_id == env_config["KEYCLOAK_CLIENT_ID"]:
+        raise ValueError(
+            "A dedicated service-account client ID is required. Pass client_id or set "
+            "KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID."
+        )
+    if resolved_client_id == env_config["KEYCLOAK_DEVICE_CLIENT_ID"]:
         raise ValueError(
             "Service-account authentication requires a dedicated client ID, "
-            f"not the shared interactive client {env_config['KEYCLOAK_CLIENT_ID']!r}."
+            f"not the shared device-code client {env_config['KEYCLOAK_DEVICE_CLIENT_ID']!r}."
         )
     if not resolved_client_secret:
         raise ValueError(
