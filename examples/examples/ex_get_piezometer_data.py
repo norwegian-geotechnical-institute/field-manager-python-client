@@ -9,7 +9,6 @@ This example shows how to:
 4. Fetch and print piezometer data rows for each method
 
 Optional .env values:
-    DEFAULT_EMAIL=your.email@example.com
     FIELD_MANAGER_ENVIRONMENT=prod
     FIELD_MANAGER_PROJECT_ID=<project id>
     FIELD_MANAGER_LOCATION_LIMIT=100
@@ -28,7 +27,10 @@ from typing import Any
 
 from dotenv import load_dotenv
 
-from field_manager_python_client import get_prod_client, get_test_client
+from field_manager_python_client import (
+    get_prod_device_code_client,
+    get_test_device_code_client,
+)
 from field_manager_python_client.api.locations import (
     get_locations_in_project_projects_project_id_locations_get,
 )
@@ -58,7 +60,6 @@ ENV_FILE = Path(__file__).resolve().parent.parent / ".env"
 load_dotenv(ENV_FILE)
 load_dotenv()
 
-DEFAULT_EMAIL = os.getenv("DEFAULT_EMAIL", "your.email@example.com")
 FIELD_MANAGER_ENVIRONMENT = os.getenv("FIELD_MANAGER_ENVIRONMENT", "test")
 FIELD_MANAGER_PROJECT_ID = os.getenv("FIELD_MANAGER_PROJECT_ID")
 LOCATION_LIMIT = int(os.getenv("FIELD_MANAGER_LOCATION_LIMIT", "10"))
@@ -66,12 +67,12 @@ METHOD_LIMIT = int(os.getenv("FIELD_MANAGER_METHOD_LIMIT", "10"))
 DATA_PREVIEW_LIMIT = int(os.getenv("FIELD_MANAGER_DATA_PREVIEW_LIMIT", "5"))
 
 
-def _get_client(email: str, environment: str):
+def _get_client(environment: str):
     environment = environment.lower()
     if environment == "prod":
-        return get_prod_client(email=email)
+        return get_prod_device_code_client()
     if environment == "test":
-        return get_test_client(email=email)
+        return get_test_device_code_client()
     raise ValueError("FIELD_MANAGER_ENVIRONMENT must be either 'prod' or 'test'")
 
 
@@ -192,10 +193,9 @@ def _get_piezometer_data(
 def main() -> None:
     print("Getting piezometer data")
     print()
-    print(f"Using email: {DEFAULT_EMAIL}")
     print(f"Using environment: {FIELD_MANAGER_ENVIRONMENT}")
 
-    client = _get_client(DEFAULT_EMAIL, FIELD_MANAGER_ENVIRONMENT)
+    client = _get_client(FIELD_MANAGER_ENVIRONMENT)
 
     with client as authenticated_client:
         project_id = FIELD_MANAGER_PROJECT_ID

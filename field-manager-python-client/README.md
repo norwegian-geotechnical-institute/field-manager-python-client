@@ -11,13 +11,12 @@ pip install field_manager_python_client python-keycloak
 
 ### Authentication
 
-The easiest way to get started is using the built-in authentication functions:
+The easiest way to get started for scripting is using the built-in device-code helper:
 
 ```python
-from field_manager_python_client import get_prod_client
+from field_manager_python_client import get_prod_device_code_client
 
-# Authenticate with your Field Manager account
-client = get_prod_client(email="your.email@example.com")
+client = get_prod_device_code_client()
 ```
 
 ### Basic Usage
@@ -32,11 +31,11 @@ print(f"Project: {project_info.name}")
 
 ## 🔐 Authentication Options
 
-### 1. Integrated Authentication (Recommended)
+### 1. Device Code Authentication (Recommended)
 ```python
-from field_manager_python_client import authenticate
+from field_manager_python_client import authenticate_with_device_code
 
-client = authenticate(environment="prod", email="user@example.com")
+client = authenticate_with_device_code(environment="prod")
 ```
 
 ### 2. Manual Token Setup

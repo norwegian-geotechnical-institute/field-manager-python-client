@@ -19,7 +19,7 @@ from folium.plugins import MarkerCluster
 import os
 from dotenv import load_dotenv
 
-from field_manager_python_client import get_prod_client
+from field_manager_python_client import get_prod_device_code_client
 from field_manager_python_client.api.organizations import (
     get_organizations_organizations_get,
     get_organization_projects_organizations_organization_id_projects_get,
@@ -31,8 +31,6 @@ from field_manager_python_client.models import Organization, Project, LocationSu
 
 # Load environment variables
 load_dotenv()
-DEFAULT_EMAIL = os.getenv("DEFAULT_EMAIL", "your.email@example.com")
-
 # Output directory - save to examples/output/
 OUTPUT_DIR = Path(__file__).parent.parent / "output"
 OUTPUT_DIR.mkdir(exist_ok=True)
@@ -209,11 +207,7 @@ def main() -> None:
     print("🔍 Finding Duplicate Locations Within Organization")
     print()
 
-    # Use default email directly (non-interactive mode)
-    email = DEFAULT_EMAIL
-    print(f"Using email: {email}")
-
-    client = get_prod_client(email=email)
+    client = get_prod_device_code_client()
 
     with client as client:
         try:

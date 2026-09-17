@@ -9,13 +9,15 @@ Before running any examples:
 1. Install dependencies: `python simple_setup.py`
 2. Set your email in environment variables (optional)
 
+For local development from this repository with Poetry, use:
+`poetry install --with examples`
+
 ## 📋 Available Examples
 
 ### 🔐 Authentication
 - **`ex_authentication_demo.py`** - Demonstrates authentication methods
-  - Shows manual authenticate() function usage
-  - Demonstrates convenience helper functions (get_prod_client, get_test_client)
-  - Explains automatic token caching and refresh
+  - Shows device-code authentication usage
+  - Shows token-based authentication
 
 ### 🏢 Organization Management
 - **`ex_list_organizations_and_projects.py`** - List organizations and their projects

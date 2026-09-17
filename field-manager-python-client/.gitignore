@@ -21,3 +21,6 @@ dmypy.json
 
 /coverage.xml
 /.coverage
+
+# token
+*device_code_tokens*

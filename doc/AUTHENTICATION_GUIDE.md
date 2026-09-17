@@ -4,8 +4,8 @@
 
 This guide explains how to authenticate with the Field Manager API using the Python client. We support three authentication methods to suit different use cases:
 
-1. **🔑 Manual Token Setup** - Copy/paste your access token directly
-2. **🚀 Integrated Authentication** - Automatic OAuth2/OIDC handling (recommended)
+1. **📱 Device Code Authentication** - Preferred for external users and scripting
+2. **🔑 Manual Token Setup** - Legacy copy/paste token usage
 3. **🤖 Service Account** - For automated workflows and CI/CD pipelines
 
 ## Quick Start
@@ -20,15 +20,35 @@ pip install field-manager-python-client python-keycloak
 
 Pick the method that best fits your needs:
 
-- **New users or simple scripts**: Use [Integrated Authentication](#integrated-authentication)
-- **Testing or one-time use**: Use [Manual Token Setup](#manual-token-setup)
-- **Production automation**: Use [Service Account Authentication](#service-account-authentication)
+- **External users or simple scripts**: Use the Device Code Authentication section below
+- **Testing or legacy setups**: Use the Manual Token Setup section below
+- **Production automation**: Use the Service Account Authentication section below
 
 ---
 
-## 1. Manual Token Setup 🔑
+## 1. Device Code Authentication 📱
 
-**Best for:** Quick testing, one-time scripts, or when you prefer manual control.
+**Best for:** Scripts and testing.
+
+Uses browser-based sign-in with token caching
+
+### Basic Usage
+
+```python
+from field_manager_python_client import get_prod_device_code_client
+
+client = get_prod_device_code_client()
+```
+
+### Example Script
+
+See [`ex_device_code_auth.py`](../examples/examples/ex_device_code_auth.py) for a shareable example that support can link to directly.
+
+---
+
+## 2. Manual Token Setup (Legacy) 🔑
+
+**Best for:** Existing setups that already have a token provisioning process.
 
 ### Step 1: Get Your Access Token
 
@@ -84,79 +104,6 @@ else:
 ```
 
 **Reference:** See [`manual_token_setup.py`](../examples/examples/manual_token_setup.py) for the basic setup template.
-
----
-
-## 2. Integrated Authentication 🚀
-
-**Best for:** Most users, development work, interactive scripts.
-
-**Features:**
-
-- Automatic OAuth2/OIDC flow
-- Token caching and refresh
-- Works with both SSO and password authentication
-- No manual token management
-
-### Basic Usage
-
-```python
-from field_manager_python_client import get_prod_client
-
-# Authenticate with your Field Manager account
-client = get_prod_client(email="your.email@example.com")
-```
-
-### Advanced Usage
-
-```python
-from field_manager_python_client import authenticate
-
-client = authenticate(
-    environment="prod",                    # "prod" for production, "test" for development
-    email="your.email@example.com",       # Your email address
-    scope="openid offline_access",        # Optional: enables refresh tokens
-    token_file="my_tokens.json",          # Optional: custom token storage
-    interactive=True                      # Optional: allow prompts
-)
-```
-
-### Authentication Flow
-
-1. **First Time:**
-
-   - Detects your organization's authentication method
-   - If SSO: Opens browser for login
-   - If password: Prompts for email/password
-   - Saves tokens locally
-
-2. **Subsequent Runs:**
-   - Uses cached tokens
-   - Automatically refreshes when needed
-   - Re-authenticates only if refresh fails
-
-### Example Script
-
-```python
-from field_manager_python_client import get_prod_client
-from field_manager_python_client.api.projects import get_projects_projects_get
-
-# Authenticate once - tokens are cached for future use
-client = get_prod_client(email="your.email@example.com")
-
-# Use the client
-projects = get_projects_projects_get.sync(client=client)
-print(f"Found {len(projects)} projects")
-```
-
-### Environment Configurations
-
-The system automatically configures endpoints based on environment:
-
-| Environment    | Keycloak Server                       | API Base URL                                  |
-| -------------- | ------------------------------------- | --------------------------------------------- |
-| **Test**       | https://keycloak.test.ngiapi.no/auth/ | https://app.test.fieldmanager.io/api/location |
-| **Production** | https://keycloak.ngiapi.no/auth/      | https://app.fieldmanager.io/api/location      |
 
 ---
 
@@ -221,7 +168,7 @@ client = build_service_account_client("prod")
 
 ```bash
 # .env file
-KEYCLOAK_CLIENT_ID=your-dedicated-client-id
+KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID=your-dedicated-client-id
 KEYCLOAK_CLIENT_SECRET=your-service-account-client-secret
 
 # Load in Python
@@ -234,12 +181,12 @@ load_dotenv()
 ```yaml
 # GitHub Actions example
 env:
-  KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
+  KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID: ${{ secrets.KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID }}
   KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
 
 # GitLab CI example
 variables:
-  KEYCLOAK_CLIENT_ID: $KEYCLOAK_CLIENT_ID
+  KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID: $KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID
   KEYCLOAK_CLIENT_SECRET: $KEYCLOAK_CLIENT_SECRET
 ```
 
@@ -254,12 +201,12 @@ from field_manager_python_client import get_service_account_client
 class ServiceAccountManager:
     def __init__(self, environment: str = "prod"):
         self.environment = environment
-        self.client_id = os.getenv("KEYCLOAK_CLIENT_ID")
+        self.client_id = os.getenv("KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID")
         self.client_secret = os.getenv("KEYCLOAK_CLIENT_SECRET")
         self.client = None
 
         if not self.client_id:
-            raise ValueError("KEYCLOAK_CLIENT_ID environment variable is required")
+            raise ValueError("KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID environment variable is required")
         if not self.client_secret:
             raise ValueError("KEYCLOAK_CLIENT_SECRET environment variable is required")
 
@@ -284,7 +231,7 @@ client = manager.get_client()
 """
 Service Account Example
 Run with:
-  KEYCLOAK_CLIENT_ID=your-dedicated-client-id \
+  KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID=your-dedicated-client-id \
   KEYCLOAK_CLIENT_SECRET=your-secret \
   python service_account_example.py
 """
@@ -295,11 +242,11 @@ from field_manager_python_client.api.organizations import get_organizations_orga
 
 def main():
     # Check environment variables
-    client_id = os.getenv("KEYCLOAK_CLIENT_ID")
+    client_id = os.getenv("KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID")
     client_secret = os.getenv("KEYCLOAK_CLIENT_SECRET")
     if not client_id:
-        print("❌ Error: KEYCLOAK_CLIENT_ID environment variable is required")
-        print("Set it with: export KEYCLOAK_CLIENT_ID=your-dedicated-client-id")
+        print("❌ Error: KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID environment variable is required")
+        print("Set it with: export KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID=your-dedicated-client-id")
         return
     if not client_secret:
         print("❌ Error: KEYCLOAK_CLIENT_SECRET environment variable is required")
@@ -337,10 +284,10 @@ if __name__ == "__main__":
 pip install python-keycloak
 ```
 
-#### 2. Browser doesn't open for SSO
+#### 2. Browser doesn't open for device-code sign-in
 
 - Check if you're in a headless environment
-- Copy the authentication URL from console output
+- Copy the verification URL from console output
 - Paste it into a browser manually
 
 #### 3. Token refresh fails
@@ -356,11 +303,11 @@ pip install python-keycloak
 - Field Manager Team: Check that appropriate roles are assigned
 
 
-#### 5. "Unable to fetch org info" message
+#### 5. Token refresh fails or no refresh token is returned
 
-- Check internet connection
-- Verify API endpoints are accessible
-- The system will fallback to password authentication
+- Delete your token file and authenticate again
+- Some device-code responses may not include a refresh token
+- In that case, rerun authentication when the cached access token expires
 
 ### Debug Mode
 
@@ -406,9 +353,9 @@ if __name__ == "__main__":
     #     token="your-token-here"
     # )
 
-        # Method 2: Integrated authentication
-    from field_manager_python_client import get_prod_client
-    client = get_prod_client(email="your.email@example.com")
+    # Method 2: Device-code authentication
+    from field_manager_python_client import get_prod_device_code_client
+    client = get_prod_device_code_client()
 
     # Method 3: Service account
     # from field_manager_python_client import get_service_account_client

@@ -6,6 +6,13 @@
 pip install field-manager-python-client
 ```
 
+For local development from this repository with Poetry:
+
+```bash
+cd field-manager-python-client
+poetry install --with examples
+```
+
 ## 2. Run Example
 
 ```bash
@@ -15,10 +22,10 @@ python examples/ex_list_organizations_and_projects.py
 ## 3. Your First Script
 
 ```python
-from field_manager_python_client import get_prod_client
+from field_manager_python_client import get_prod_device_code_client
 
 # Connect to production environment
-client = get_prod_client(email="your.email@company.com")
+client = get_prod_device_code_client()
 
 # Get organizations
 from field_manager_python_client.api.organizations import get_organizations_organizations_get

@@ -37,12 +37,12 @@ def _load_configuration() -> tuple[str, str, str]:
     env_file = os.path.join(os.path.dirname(__file__), ".env.service-account")
     load_dotenv(env_file)
 
-    client_id = os.getenv("KEYCLOAK_CLIENT_ID")
+    client_id = os.getenv("KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID")
     client_secret = os.getenv("KEYCLOAK_CLIENT_SECRET")
     environment = os.getenv("FIELD_MANAGER_ENVIRONMENT", "prod")
 
     if not client_id:
-        raise ValueError(f"Missing KEYCLOAK_CLIENT_ID in {env_file}")
+        raise ValueError(f"Missing KEYCLOAK_SERVICE_ACCOUNT_CLIENT_ID in {env_file}")
     if not client_secret:
         raise ValueError(f"Missing KEYCLOAK_CLIENT_SECRET in {env_file}")
 

@@ -12,31 +12,19 @@ Run this example:
     python ex_list_organizations_and_projects.py
 """
 
-from field_manager_python_client import get_prod_client
+from field_manager_python_client import get_prod_device_code_client
 from field_manager_python_client.models import Organization, Project
 from field_manager_python_client.api.organizations import (
     get_organizations_organizations_get,
     get_organization_organizations_organization_id_get,
     get_organization_projects_organizations_organization_id_projects_get,
 )
-import os
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
-DEFAULT_EMAIL = os.getenv("DEFAULT_EMAIL", "your.email@example.com")
-
-
 def main():
     print("🏢 Getting organizations and projects...")
     print()
 
-    # Use default email directly (non-interactive mode)
-    email = DEFAULT_EMAIL
-    print(f"Using email: {email}")
-
     # Connect to production environment
-    client = get_prod_client(email=email)
+    client = get_prod_device_code_client()
 
     with client as client:
         # Get all organizations

@@ -15,10 +15,9 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import os
 from dotenv import load_dotenv
 
-from field_manager_python_client import get_prod_client
+from field_manager_python_client import get_prod_device_code_client
 from field_manager_python_client.api.organizations import (
     get_organization_projects_organizations_organization_id_projects_get,
     get_organizations_organizations_get,
@@ -27,8 +26,6 @@ from field_manager_python_client.models import Organization, Project
 
 # Load environment variables
 load_dotenv()
-DEFAULT_EMAIL = os.getenv("DEFAULT_EMAIL", "your.email@example.com")
-
 # Output directory - save to examples/output/
 OUTPUT_DIR = Path(__file__).parent.parent / "output"
 OUTPUT_DIR.mkdir(exist_ok=True)
@@ -59,7 +56,7 @@ def project_statistics_calculate_and_save(
             "project_name": project.name,
             "number_of_locations": project.number_of_locations,
             "created_at": str(project.created_at) if project.created_at else "Unknown",
-            "status": project.status if hasattr(project, 'status') else "Unknown",
+            "status": project.status if hasattr(project, "status") else "Unknown",
         }
         for project in projects
     ]
@@ -83,7 +80,7 @@ def project_statistics_calculate_and_save(
     # Save histogram
     histogram_path = (
         OUTPUT_DIR
-        / f'project_locations_histogram_{org_name.lower().replace(" ", "_")}.png'
+        / f"project_locations_histogram_{org_name.lower().replace(' ', '_')}.png"
     )
     plt.savefig(histogram_path, dpi=300, bbox_inches="tight")
     plt.close()
@@ -110,7 +107,7 @@ def project_statistics_calculate_and_save(
     # Top 5 projects by location count
     print("   • Top 5 projects by location count:")
     for i, project in enumerate(projects[:5]):
-        print(f"     {i+1}. {project.name}: {project.number_of_locations} locations")
+        print(f"     {i + 1}. {project.name}: {project.number_of_locations} locations")
 
     # Save statistics to Excel
     stats = {
@@ -133,7 +130,7 @@ def project_statistics_calculate_and_save(
     }
     df_stats = pd.DataFrame(stats)
     stats_path = (
-        OUTPUT_DIR / f'project_statistics_{org_name.lower().replace(" ", "_")}.xlsx'
+        OUTPUT_DIR / f"project_statistics_{org_name.lower().replace(' ', '_')}.xlsx"
     )
 
     # Save to Excel with multiple sheets
@@ -153,11 +150,7 @@ def main() -> None:
     print("📈 Historical Project Analysis")
     print()
 
-    # Use default email directly (non-interactive mode)
-    email = DEFAULT_EMAIL
-    print(f"Using email: {email}")
-
-    client = get_prod_client(email=email)
+    client = get_prod_device_code_client()
 
     with client as client:
         try:
@@ -180,9 +173,11 @@ def main() -> None:
                 if org.number_of_projects > 0:
                     selected_org = org
                     break
-            
+
             if selected_org:
-                print(f"\n🔍 Analyzing {selected_org.name} (first org with projects)...")
+                print(
+                    f"\n🔍 Analyzing {selected_org.name} (first org with projects)..."
+                )
                 projects: list[Project] = (
                     get_organization_projects_organizations_organization_id_projects_get.sync(
                         client=client,

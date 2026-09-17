@@ -20,7 +20,7 @@ from typing import Optional
 import pandas as pd
 from dotenv import load_dotenv
 
-from field_manager_python_client import get_prod_client
+from field_manager_python_client import get_prod_device_code_client
 from field_manager_python_client.api.projects import (
     get_project_summary_projects_project_id_summary_get,
     get_project_projects_project_id_get,
@@ -36,8 +36,6 @@ from field_manager_python_client.models import (
 
 # Load environment variables
 load_dotenv()
-DEFAULT_EMAIL = os.getenv("DEFAULT_EMAIL", "your.email@example.com")
-
 # Output directory - save to examples/output/
 OUTPUT_DIR = Path(__file__).parent.parent / "output"
 OUTPUT_DIR.mkdir(exist_ok=True)
@@ -148,12 +146,8 @@ def main() -> None:
     print("🔍 Cross-Check Location Lists")
     print()
 
-    # Use default email directly (non-interactive mode)
-    email = DEFAULT_EMAIL
-    print(f"Using email: {email}")
-
     # Connect to production environment
-    client = get_prod_client(email=email)
+    client = get_prod_device_code_client()
 
     # Load parent locations from Excel file
     excel_path = OUTPUT_DIR / "Parent_file_locations.xlsx"
