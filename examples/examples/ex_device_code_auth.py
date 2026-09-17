@@ -18,7 +18,7 @@ from field_manager_python_client import get_prod_device_code_client
 
 def main() -> None:
     """Authenticate with device code and call a simple API endpoint."""
-    client = get_prod_device_code_client(token_file="device_code_tokens.json")
+    client = get_prod_device_code_client()
 
     with client as authenticated_client:
         organizations = get_organizations_organizations_get.sync(
